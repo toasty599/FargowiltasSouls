@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Items.Summons
 
         public override void Update(ref float gravity, ref float maxFallSpeed)
         {
-            if (Item.lavaWet && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Item.lavaWet && FargoSoulsUtil.HostCheck)
             {
                 if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC a))
                 {

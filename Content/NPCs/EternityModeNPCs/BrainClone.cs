@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 }
                 else
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         NPC.localAI[1]++;
                         if (NPC.justHit)

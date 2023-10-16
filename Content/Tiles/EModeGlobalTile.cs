@@ -96,7 +96,7 @@ namespace FargowiltasSouls.Content.Tiles
                 int p = Player.FindClosest(new Vector2(i * 16, j * 16), 0, 0);
                 if (p != -1 && Main.player[p].statLifeMax2 >= 200)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Main.invasionDelay = 0;
                         Main.StartInvasion(1);

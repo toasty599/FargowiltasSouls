@@ -196,7 +196,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public override bool CheckDead(NPC npc)
         {
             int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-            if (t != -1 && Main.player[t].active && !Main.player[t].dead && Main.netMode != NetmodeID.MultiplayerClient)
+            if (t != -1 && Main.player[t].active && !Main.player[t].dead && FargoSoulsUtil.HostCheck)
             {
                 Vector2 velocity = Main.player[t].Center - npc.Center;
                 velocity.Normalize();

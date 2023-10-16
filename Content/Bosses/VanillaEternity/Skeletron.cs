@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 if (npc.ai[2] == 800 - 90) //telegraph spin
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient && !WorldSavingSystem.MasochistModeReal)
+                    if (FargoSoulsUtil.HostCheck && !WorldSavingSystem.MasochistModeReal)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                 }
                 if (npc.ai[2] < 800 - 5)
@@ -165,7 +165,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (++npc.localAI[2] >= cooldown) //spray bones
                 {
                     npc.localAI[2] = 0f;
-                    if (cooldown > 0 && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient && (!NPC.AnyNPCs(NPCID.SkeletronHand)|| npc.ai[1] == 2f))
+                    if (cooldown > 0 && npc.HasPlayerTarget && FargoSoulsUtil.HostCheck && (!NPC.AnyNPCs(NPCID.SkeletronHand)|| npc.ai[1] == 2f))
                     {
                         Vector2 speed = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * 6f;
                         for (int i = 0; i < 8; i++)
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         SprayHomingBabies(npc);
 
@@ -261,7 +261,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(gap) * j);
                             for (int k = 0; k < actualNumberToSpawn; k++) //a fan of skulls
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     float velModifier = 1f + 9f * k / max;
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, velModifier * baseVel.RotatedBy(MathHelper.ToRadians(10) * j * k),
@@ -270,7 +270,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             }
                         }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //one more shot straight behind skeletron
+                        if (FargoSoulsUtil.HostCheck) //one more shot straight behind skeletron
                         {
                             float velModifier = 10f;
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, velModifier * npc.DirectionFrom(Main.player[npc.target].Center),
@@ -317,7 +317,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
-            if ((npc.life >= npc.lifeMax * .75 || WorldSavingSystem.MasochistModeReal) && Main.netMode != NetmodeID.MultiplayerClient)
+            if ((npc.life >= npc.lifeMax * .75 || WorldSavingSystem.MasochistModeReal) && FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -559,7 +559,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         {
                             AttackTimer++; //pause here, dont begin guardians attack until in range
                         }
-                        else if (AttackTimer % 7 == 0 && Main.netMode != NetmodeID.MultiplayerClient) 
+                        else if (AttackTimer % 7 == 0 && FargoSoulsUtil.HostCheck) 
                         {
                             Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center);
                             if (AttackTimer < GuardianTime * 3 / 4) //first quarter of projectiles are shot towards player, other three quarters are shot straight out
@@ -577,7 +577,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     AttackTimer = GuardianTime + GuardianDelay;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && head.life >= head.lifeMax / 2) //throw undead miner
+                    if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget && head.life >= head.lifeMax / 2) //throw undead miner
                     {
                         float gravity = 0.4f; //shoot down
                         const float time = 60f;
@@ -683,7 +683,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 
                                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, npc.Center);
                                 collisionCooldown = 20;
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     for (int i = 0; i < 2; i++)
                                     {

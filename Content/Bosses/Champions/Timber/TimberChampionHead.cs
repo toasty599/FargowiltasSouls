@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                     {
                         SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (player.Center - NPC.Center) / 120,
                                 ModContent.ProjectileType<TimberSquirrel>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.ai[3], NPC.whoAmI);
                     }
@@ -170,7 +170,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             if (NPC.ai[1] == 90) //telegraphs
                             {
                                 NPC.velocity = Vector2.Zero;
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -Vector2.UnitY, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 19);
                             }
 
@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                                 for (int i = -1; i <= 1; i += 2)
                                 {
                                     Vector2 spawnPos = new(NPC.Center.X + offset * i, player.Center.Y + 1500);
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, -Vector2.UnitY, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 19);
                                 }
                             }
@@ -207,7 +207,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                                 spawnPos.Y -= Main.rand.NextFloat(600, 800);
                                 Vector2 speed = Main.rand.NextFloat(7.5f, 12.5f) * Vector2.UnitY;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, speed, ModContent.ProjectileType<TimberLaser>(),
                                         FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
@@ -257,7 +257,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                                 int max = (int)NPC.ai[3]++ - snowballThreshold; //more snowballs the more times its used
                                 for (int i = -max; i <= max; i++)
                                 {
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel.RotatedBy(MathHelper.ToRadians(75) / max * i), ModContent.ProjectileType<TimberSnowball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1f);
                                 }
 
@@ -409,7 +409,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
                                 Vector2 speed = 32f * NPC.DirectionTo(player.Center).RotatedByRandom(Math.PI / 2);
                                 float ai1 = noMoreChainsTime + endlag - NPC.ai[1];
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed,
                                         ModContent.ProjectileType<TimberHook2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, ai1);
@@ -494,7 +494,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             {
                                 NPC.ai[2] = 0;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     int damage = NPC.ai[1] > 120 ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 4) : 0;
                                     for (int i = -2; i <= 2; i++)
@@ -627,7 +627,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
             SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 float ai1 = time + Main.rand.Next(-10, 11) - 1;
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance,

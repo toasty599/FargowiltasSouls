@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         //attackRandom = Main.rand.NextBool() ? 1 : 0;
                         //attackRandom = Main.rand.Next(-12, 0);
                         SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = -1; i < 2; i += 2)
                             {
@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (Timer % projTime == 0 && Timer % (projTime * 3) == projTime * everyThird)
                     {
                         SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = -1; i < 2; i += 2)
                             {
@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Number = 3;
             }
-            if (Timer == 8 + (Variant == 1 ? 5 : 0) && Number > 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Timer == 8 + (Variant == 1 ? 5 : 0) && Number > 0 && FargoSoulsUtil.HostCheck)
             {
                 ChildID = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Vector2.UnitY * Projectile.height, Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Number - 1, Variant);
             }

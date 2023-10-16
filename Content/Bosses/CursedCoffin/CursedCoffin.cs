@@ -300,7 +300,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 }
                 availablestates.Remove((int)State);
             }
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 index = Main.rand.Next(availablestates.Count);
                 State = availablestates[index];

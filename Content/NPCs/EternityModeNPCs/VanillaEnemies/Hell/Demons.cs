@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hell
                 Counter = 0;
 
                 int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                if (t != -1 && npc.Distance(Main.player[t].Center) < 800 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (t != -1 && npc.Distance(Main.player[t].Center) < 800 && FargoSoulsUtil.HostCheck)
                 {
                     int amount = npc.type == NPCID.RedDevil ? 9 : 6;
                     int damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage, npc.type == NPCID.RedDevil ? 4f / 3 : 1);
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hell
                         npc.Transform(NPCID.Demon);
 
                         int guide = NPC.FindFirstNPC(NPCID.Guide);
-                        if (guide != -1 && Main.npc[guide].active && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (guide != -1 && Main.npc[guide].active && FargoSoulsUtil.HostCheck)
                         {
                             Main.npc[guide].SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
 

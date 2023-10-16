@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
                 if (npc.velocity.Y == 0f) //start attack
                 {
                     DoStompAttack = false;
-                    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                     {
                         const float gravity = 0.15f;
                         const float time = 120f;
@@ -110,7 +110,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
                 npc.active = false;
                 if (npc.DeathSound != null)
                     SoundEngine.PlaySound(npc.DeathSound.Value, npc.Center);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     for (int i = 0; i < 4; i++)
                     {
@@ -138,7 +138,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
             }
             else
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int[] slimes = { NPCID.Crimslime, NPCID.Pinky, NPCID.Gastropod, NPCID.CorruptSlime };
 

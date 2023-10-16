@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                     return;
                 }*/
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<NatureChampionHead>(), NPC.whoAmI, 0f, NPC.whoAmI, 0f, -3f, NPC.target);
                     if (n != Main.maxNPCs)
@@ -202,7 +202,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
                     for (int i = 0; i < heads.Length; i++) //failsafe, die if couldnt spawn heads
                     {
-                        if (heads[i] == -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (heads[i] == -1 && FargoSoulsUtil.HostCheck)
                         {
                             NPC.active = false;
                             return;
@@ -409,7 +409,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                                             3 => -12,
                                             _ => 0,
                                         };
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
                                     }
                                 }
@@ -474,7 +474,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                                 3 => -12,
                                 _ => 0,
                             };
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, targetHead, glowType);
                         };
 
@@ -559,7 +559,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                                 3 => -12,
                                 _ => 0,
                             };
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, heads[i], glowType);
                         }
                     }

@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Mushroom
         {
             base.OnKill(npc);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && Main.hardMode && Main.rand.NextBool())
+            if (FargoSoulsUtil.HostCheck && Main.hardMode && Main.rand.NextBool())
             {
                 if (NPC.CountNPCS(NPCID.FungiSpore) < 24)
                 {

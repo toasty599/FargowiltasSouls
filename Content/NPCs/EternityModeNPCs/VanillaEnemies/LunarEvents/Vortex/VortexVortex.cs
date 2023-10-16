@@ -148,7 +148,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
                         SoundEngine.PlaySound(SoundID.Item82, Projectile.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             const int Distance = 1600;
                             const int max = 1;

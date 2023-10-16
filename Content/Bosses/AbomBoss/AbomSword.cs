@@ -123,7 +123,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 if (abom.velocity != Vector2.Zero && --counter < 0)
                 {
                     counter = 5;
-                    if (Main.netMode != NetmodeID.MultiplayerClient) //spawn bonus projs
+                    if (FargoSoulsUtil.HostCheck) //spawn bonus projs
                     {
                         Vector2 spawnPos = Projectile.Center;
                         Vector2 vel = Projectile.velocity.RotatedBy(Math.PI / 2 * Math.Sign(Projectile.ai[0]));
@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             if (!spawnedHandle)
             {
                 spawnedHandle = true;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AbomSwordHandle>(), Projectile.damage, Projectile.knockBack, Projectile.owner, (float)Math.PI / 2, Projectile.identity);
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<AbomSwordHandle>(), Projectile.damage, Projectile.knockBack, Projectile.owner, -(float)Math.PI / 2, Projectile.identity);

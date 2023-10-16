@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.WallofFleshEye);
 
                 npc.netUpdate = true;
@@ -177,7 +177,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (npc.DeathSound != null)
                             SoundEngine.PlaySound(npc.DeathSound.Value, npc.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.QueenSlimeSmash, WorldSavingSystem.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(npc.damage) : 0, 0f, Main.myPlayer);
 
@@ -234,7 +234,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             velocity: Main.rand.NextFloat(8f) * npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(MathHelper.PiOver2));
                     }
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                     }
@@ -265,7 +265,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 focus = Main.player[npc.target].Center;
                         for (int i = 0; i < 50; i++)
@@ -335,7 +335,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                             SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -16);
                         }
                     }
@@ -368,7 +368,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             {
                                 Vector2 spawnPos = focusPoint + Main.rand.NextVector2Circular(32, 32);
                                 spawnPos.X += 330 * i;
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 8f * Vector2.UnitY,
                                       ProjectileID.QueenSlimeMinionBlueSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);

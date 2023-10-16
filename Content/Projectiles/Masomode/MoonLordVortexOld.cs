@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     p.velocity *= 1.015f;
 
                     //kill ones that actually fall in and retaliate
-                    if (Main.netMode != NetmodeID.MultiplayerClient && Projectile.Colliding(Projectile.Hitbox, p.Hitbox))
+                    if (FargoSoulsUtil.HostCheck && Projectile.Colliding(Projectile.Hitbox, p.Hitbox))
                     {
                         Player player = Main.player[p.owner];
                         if (player.active && !player.dead && !player.ghost && suck <= 0)

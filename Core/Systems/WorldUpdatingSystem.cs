@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Core.Systems
             // {
             // this.itemTime = item.useTime;
             // SoundEngine.PlaySound(SoundID.Roar, this.Center);
-            // if (Main.netMode != NetmodeID.MultiplayerClient)
+            // if (FargoSoulsUtil.HostCheck)
             // {
             // if (Main.invasionType == 0)
             // {
@@ -164,7 +164,7 @@ namespace FargowiltasSouls.Core.Systems
             // {
             // this.itemTime = item.useTime;
             // SoundEngine.PlaySound(SoundID.Roar, this.Center);
-            // if (Main.netMode != NetmodeID.MultiplayerClient)
+            // if (FargoSoulsUtil.HostCheck)
             // {
             // if (Main.invasionType == 0)
             // {
@@ -181,7 +181,7 @@ namespace FargowiltasSouls.Core.Systems
             // {
             // this.itemTime = item.useTime;
             // SoundEngine.PlaySound(SoundID.Roar, this.Center);
-            // if (Main.netMode != NetmodeID.MultiplayerClient)
+            // if (FargoSoulsUtil.HostCheck)
             // {
             // if (Main.invasionType == 0)
             // {
@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Core.Systems
             // {
             // this.itemTime = item.useTime;
             // SoundEngine.PlaySound(SoundID.Roar, this.Center);
-            // if (Main.netMode != NetmodeID.MultiplayerClient)
+            // if (FargoSoulsUtil.HostCheck)
             // {
             // Main.NewText(Lang.misc[31], 50, 255, 130, false);
             // Main.startPumpkinMoon();
@@ -226,7 +226,7 @@ namespace FargowiltasSouls.Core.Systems
             // {
             // this.itemTime = item.useTime;
             // SoundEngine.PlaySound(SoundID.Roar, this.Center);
-            // if (Main.netMode != NetmodeID.MultiplayerClient)
+            // if (FargoSoulsUtil.HostCheck)
             // {
             // Main.NewText(Lang.misc[34], 50, 255, 130, false);
             // Main.startSnowMoon();

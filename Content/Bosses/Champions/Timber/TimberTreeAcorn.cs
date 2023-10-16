@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center - Projectile.velocity - Vector2.UnitY * 160, Vector2.Zero,
                     ModContent.ProjectileType<TimberTree>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);

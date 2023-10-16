@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             if (Main.LocalPlayer.active)
                 Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 if (WorldSavingSystem.EternityMode)
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WillRitual>(), Projectile.damage, 0f, Main.myPlayer, 0f, Projectile.ai[1]);

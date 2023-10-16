@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (Timer == StartTime + ReactTime)
                 {
                     SoundEngine.PlaySound(SoundID.Zombie104 with { Volume = 0.5f }, Projectile.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         float rotation = Projectile.rotation + MathHelper.Pi;
                         Vector2 pos = Projectile.Center + (rotation.ToRotationVector2() * Projectile.height / 2);

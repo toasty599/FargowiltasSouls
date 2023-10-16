@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinM
             if (++Counter > 360)
             {
                 Counter = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < 800)
+                if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < 800)
                 {
                     Vector2 vel = (Main.player[npc.target].Center - npc.Center) / 60f;
                     if (vel.Length() < 12f)

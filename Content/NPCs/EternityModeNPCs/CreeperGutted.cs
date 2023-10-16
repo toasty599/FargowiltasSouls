@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 {
                     int n = NPC.whoAmI;
                     NPC.SimpleStrikeNPC(NPC.lifeMax * 2, 0);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n, 9999f);
                     return;
                 }

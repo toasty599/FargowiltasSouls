@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (npc.life > npc.lifeMax / 2 && !WorldSavingSystem.MasochistModeReal)
                         return;
 
-                    if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient) //laser spreads from each illusion
+                    if (npc.HasValidTarget && FargoSoulsUtil.HostCheck) //laser spreads from each illusion
                     {
                         int max = WorldSavingSystem.MasochistModeReal ? 7 : 3;
                         int degree = WorldSavingSystem.MasochistModeReal ? 2 : 3;
@@ -172,7 +172,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         IllusionTimer = 120 + 90;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int type = ModContent.ProjectileType<BrainIllusionProj>(); //make illusions attack
                             int alpha = (int)(255f * npc.life / npc.lifeMax);
@@ -232,7 +232,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (WorldSavingSystem.MasochistModeReal)
                         IllusionTimer -= 2;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 spawn = Main.player[npc.target].Center + Main.rand.NextVector2CircularEdge(1200f, 1200f);
                         Vector2 speed = Main.player[npc.target].Center + Main.player[npc.target].velocity * 45f + Main.rand.NextVector2Circular(-600f, 600f) - spawn;
@@ -261,7 +261,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 EnteredPhase2 = true;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient) //spawn illusions
+                if (FargoSoulsUtil.HostCheck) //spawn illusions
                 {
                     bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                     int type = recolor ? ModContent.NPCType<BrainIllusion2>() : ModContent.NPCType<BrainIllusion>();
@@ -370,7 +370,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (IchorAttackTimer >= 60)
                     IchorAttackTimer += Main.rand.Next(-30, 31);
 
-                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 10f * npc.DirectionFrom(Main.player[npc.target].Center).RotatedByRandom(Math.PI),
                         ModContent.ProjectileType<GoldenShowerHoming>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, -60f);

@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Core.Globals
                 else if (npc.position.Y / 16 > Main.maxTilesY - 200) //enemy in hell
                 {
                     //because of funny bug where town npcs fall forever in mp, including into hell
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         npc.AddBuff(BuffID.OnFire, 2);
                 }
 
@@ -1317,7 +1317,7 @@ namespace FargowiltasSouls.Core.Globals
                     continue;
                 }
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int j = NPC.NewNPC(npc.GetSource_FromAI(), (int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
                     if (j != Main.maxNPCs)

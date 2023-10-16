@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
             }
             else if (AttackTimer == 360 + 10)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 180);
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 8, 200);
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
             {
                 AttackTimer = 0;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget)
+                if (FargoSoulsUtil.HostCheck && npc.HasValidTarget)
                 {
                     for (int i = 0; i < 10; i++)
                     {

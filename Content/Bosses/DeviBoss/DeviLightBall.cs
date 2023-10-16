@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                 Main.dust[index3].velocity *= 2f;
             }
 
-            if (Projectile.ai[0] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Projectile.ai[0] == 0f && FargoSoulsUtil.HostCheck)
             {
                 //wind velocity back slightly
                 Vector2 vel = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.ToRadians(30f) * -Math.Sign(Projectile.ai[1]));

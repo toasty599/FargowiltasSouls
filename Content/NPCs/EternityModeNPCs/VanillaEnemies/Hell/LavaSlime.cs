@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hell
             else if (npc.velocity.Y > 0f) //coming down
             {
                 //when below target, in hell, with line of sight
-                if (CanDoLavaJump && Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget && npc.Bottom.Y > Main.player[npc.target].Bottom.Y
+                if (CanDoLavaJump && FargoSoulsUtil.HostCheck && npc.HasValidTarget && npc.Bottom.Y > Main.player[npc.target].Bottom.Y
                     && npc.Center.ToTileCoordinates().Y > Main.maxTilesY - 200 && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
                 {
                     CanDoLavaJump = false;

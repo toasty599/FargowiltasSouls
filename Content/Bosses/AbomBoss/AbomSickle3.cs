@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 if (target != null)
                 {
                     Vector2 spawnPoint = new(Projectile.localAI[0], Projectile.localAI[1]);
-                    if (Projectile.Distance(spawnPoint) > target.Distance(spawnPoint) - 160)// && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Projectile.Distance(spawnPoint) > target.Distance(spawnPoint) - 160)// && FargoSoulsUtil.HostCheck)
                     {
                         Projectile.ai[1] = 1;
                         Projectile.velocity.Normalize();

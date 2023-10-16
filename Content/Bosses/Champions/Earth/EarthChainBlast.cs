@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             }
             //if (++Projectile.ai[0] > Main.projFrames[Projectile.type] * 3) Projectile.Kill();
 
-            if (++Projectile.localAI[1] == 8 && Projectile.ai[1] > 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (++Projectile.localAI[1] == 8 && Projectile.ai[1] > 0 && FargoSoulsUtil.HostCheck)
             {
                 Projectile.ai[1]--;
 

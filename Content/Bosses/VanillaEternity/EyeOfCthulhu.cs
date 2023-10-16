@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             void SpawnServants()
             {
-                if (npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 9 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.life <= npc.lifeMax * 0.65 && NPC.CountNPCS(NPCID.ServantofCthulhu) < 9 && FargoSoulsUtil.HostCheck)
                 {
                     Vector2 vel = new(3, 3);
                     for (int i = 0; i < 4; i++)
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (ScytheSpawnTimer > 0)
             {
-                if (ScytheSpawnTimer % (IsInFinalPhase ? 2 : 6) == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (ScytheSpawnTimer % (IsInFinalPhase ? 2 : 6) == 0 && FargoSoulsUtil.HostCheck)
                 {
                     if (IsInFinalPhase && !WorldSavingSystem.MasochistModeReal)
                     {
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (!ScytheRingIsOnCD)
                 {
                     ScytheRingIsOnCD = true;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         FargoSoulsUtil.XWay(8, npc.GetSource_FromThis(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1.5f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
                 }
             }
@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     if (++AITimer == 1) //teleport to random position
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             npc.Center = Main.player[npc.target].Center;
                             npc.position.X += Main.rand.NextBool() ? -600 : 600;
@@ -274,7 +274,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             ScytheSpawnTimer = 30;
                             //if (WorldSavingSystem.MasochistModeReal)
                             //    SpawnServants();
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 FargoSoulsUtil.XWay(8, npc.GetSource_FromThis(), npc.Center, ModContent.ProjectileType<BloodScythe>(), 1f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0);
 
                             npc.netUpdate = true;
@@ -429,7 +429,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         SoundEngine.PlaySound(SoundID.Roar, npc.HasValidTarget ? Main.player[npc.target].Center : npc.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                     }
                     return false;
@@ -450,7 +450,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (npc.alpha > 255)
                         {
                             npc.alpha = 255;
-                            if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
+                            if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget)
                             {
                                 npc.ai[2] = 60;
                                 npc.ai[1] = 5f;
@@ -501,7 +501,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         Player player = Main.player[npc.target];
                         SoundEngine.PlaySound(SoundID.Item9104, player.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 spawnPos = player.Center;
                             int direction;

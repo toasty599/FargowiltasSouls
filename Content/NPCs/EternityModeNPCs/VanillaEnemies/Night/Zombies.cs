@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Night
                 }
             }
 
-            if (npc.ai[2] >= 45f && npc.ai[3] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
+            if (npc.ai[2] >= 45f && npc.ai[3] == 0f && FargoSoulsUtil.HostCheck)
             {
                 int tileX = (int)(npc.position.X + npc.width / 2 + 15 * npc.direction) / 16;
                 int tileY = (int)(npc.position.Y + npc.height - 15) / 16 - 1;
@@ -157,7 +157,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Night
                 case NPCID.SlimedZombie:
                 case NPCID.BigSlimedZombie:
                 case NPCID.ArmedZombieSlimed:
-                    if (Main.rand.NextBool() && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Main.rand.NextBool() && FargoSoulsUtil.HostCheck)
                         FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.BlueSlime);
                     break;
 

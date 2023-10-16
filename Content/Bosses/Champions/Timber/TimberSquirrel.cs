@@ -84,7 +84,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
                 if (Counter == baseTimeleft)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TimberLightningOrb>(), Projectile.damage, 0f, Main.myPlayer);
                 }
 
@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             float rotationBaseOffset = MathHelper.TwoPi / max;
                             Vector2 vel = speed * (Projectile.rotation + rotationBaseOffset * i).ToRotationVector2();
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(Terraria.Entity.InheritSource(npc is NPC ? npc : Projectile), Projectile.Center, vel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
 
                             if (npc is NPC)
@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
                                 edgeVel *= speed * 3f;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(Terraria.Entity.InheritSource(npc), spawnPos, edgeVel, ModContent.ProjectileType<TimberLaser>(), Projectile.damage, 0f, Main.myPlayer, ai0);
                             }
                         }

@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<NatureCloudRaining>(), Projectile.damage, 0f, Main.myPlayer);
             }

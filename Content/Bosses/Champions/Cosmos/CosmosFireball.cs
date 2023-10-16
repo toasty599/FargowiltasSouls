@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             if (ai0 > -1 && ai0 < Main.maxNPCs && Main.npc[ai0].active && Main.npc[ai0].type == ModContent.NPCType<CosmosChampion>()
                 && !(WorldSavingSystem.EternityMode && Main.npc[ai0].localAI[2] != 0)) //owned by eridanus, who ISNT in emode p2
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, 12f * Vector2.UnitX.RotatedBy(Projectile.rotation),
                         ProjectileID.CultistBossFireBall, Projectile.damage, 0f, Main.myPlayer);

@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 if (++Counter > 360)
                 {
                     Counter = 0;
-                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 450 && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 450 && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) && FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 14f * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.WebSpit, 9, 0f, Main.myPlayer);
                     }

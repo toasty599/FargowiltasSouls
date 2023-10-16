@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 vel.Normalize();
                 vel *= 8f;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), spawn, vel, ProjectileID.PhantasmalBolt, Projectile.damage, 0f, Projectile.owner);
             }
         }

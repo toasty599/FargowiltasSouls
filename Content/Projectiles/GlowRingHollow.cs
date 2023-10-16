@@ -199,7 +199,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                     Main.dust[d].noGravity = true;
                                 }
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     for (int i = -2; i <= 2; i++)
                                     {

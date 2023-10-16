@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<DeviBoss>());
             if (npc != null)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     if (WorldSavingSystem.MasochistModeReal)
                     {

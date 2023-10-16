@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.Center = Projectile.position;
             }
 
-            if (++Projectile.localAI[1] == 6 && Projectile.ai[1] > 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (++Projectile.localAI[1] == 6 && Projectile.ai[1] > 0 && FargoSoulsUtil.HostCheck)
             {
                 Projectile.ai[1]--;
 

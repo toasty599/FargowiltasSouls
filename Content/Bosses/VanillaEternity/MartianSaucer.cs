@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 if (++AttackTimer % interval == 0)
                 {
-                    if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (npc.HasValidTarget && FargoSoulsUtil.HostCheck)
                     {
                         Vector2 baseVel = 10f * npc.DirectionFrom(Main.player[npc.target].Center);
                         const int splitInterval = time / maxSplit;
@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (AttackTimer > 0 && --AttackTimer % 2 == 0)
                 {
                     Vector2 speed = 14f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143 / 5.0);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ProjectileID.SaucerLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
                 }
             }

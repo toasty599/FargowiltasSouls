@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             }*/
             float num801 = 0.2f;
             Projectile.localAI[0] += 1f;
-            if (Projectile.localAI[0] == 30 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Projectile.localAI[0] == 30 && FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity * Projectile.ai[0],
                     ModContent.ProjectileType<Masomode.WOFChain>(), Projectile.damage, 0f, Main.myPlayer);

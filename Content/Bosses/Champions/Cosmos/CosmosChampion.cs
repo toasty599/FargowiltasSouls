@@ -162,7 +162,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 if (NPC.ai[1] == 0)
                 {
                     NPC.Center = Main.player[NPC.target].Center - 250 * Vector2.UnitY;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                 }
 
@@ -265,7 +265,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                                 if (NPC.localAI[0] == 5)
                                 {
                                     NPC.netUpdate = true;
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                     {
                                         Vector2 offset = Vector2.UnitX;
                                         if (NPC.direction < 0)
@@ -327,7 +327,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                         SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             if (WorldSavingSystem.EternityMode)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CosmosRitual>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
@@ -449,7 +449,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         if (NPC.ai[3] == 0) //solar
                         {
                             NPC.ai[3]++;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 float modifier = NPC.life / (NPC.lifeMax * 0.2f);
                                 if (modifier < 0)
@@ -470,7 +470,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         {
                             NPC.ai[3]++;
                             //type = 229;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 if (!Main.dedServ)
                                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Thunder") { Volume = 0.8f, Pitch = 0.5f }, NPC.Center);
@@ -487,7 +487,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         {
                             NPC.ai[3]++;
                             //type = 242;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 /*const int max = 11;
                                 for (int i = 0; i < max; i++)
@@ -517,7 +517,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         {
                             NPC.ai[3] = 0;
                             //type = 135;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 const int max = 18;
                                 for (int i = 0; i < max; i++)
@@ -659,7 +659,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     if (--NPC.ai[2] < 0)
                     {
                         NPC.ai[2] = Main.rand.Next(5);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
                             int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
@@ -700,7 +700,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                         NPC.localAI[2] = 1;
 
-                        //if (Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
+                        //if (FargoSoulsUtil.HostCheck) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
                         epicMe = 1f;
                     }
                     else if (NPC.ai[1] > 180) //LAUGH
@@ -734,7 +734,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                     if (NPC.ai[1] == 0 && !(NPC.localAI[2] == 0 || !Main.expertMode))
                     {
-                        if (NPC.ai[0] != 5 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (NPC.ai[0] != 5 && FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, -23);
                     }
 
@@ -788,7 +788,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                             NPC.netUpdate = true;
                             if (NPC.ai[1] > 50)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Vector2 offset = Vector2.UnitX;
                                     if (NPC.direction < 0)
@@ -881,7 +881,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     {
                         if (NPC.ai[1] == 1)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient) //spawn balls
+                            if (FargoSoulsUtil.HostCheck) //spawn balls
                             {
                                 const int max = 8;
                                 const float distance = 120f;
@@ -928,7 +928,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                                     if (!Main.dedServ && Main.LocalPlayer.active)
                                         Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
-                                    if (Main.netMode != NetmodeID.MultiplayerClient) //chain explosions
+                                    if (FargoSoulsUtil.HostCheck) //chain explosions
                                     {
                                         Vector2 baseDirection = NPC.DirectionTo(player.Center);
                                         const int max = 6; //spread
@@ -981,7 +981,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                             NPC.velocity = 42f * NPC.DirectionTo(player.Center);
                             NPC.netUpdate = true;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 int modifier = Math.Sign(NPC.Center.Y - player.Center.Y);
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + 3000 * NPC.DirectionFrom(player.Center) * modifier, NPC.DirectionTo(player.Center) * modifier,
@@ -1005,7 +1005,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         if (++NPC.ai[3] > 4)
                         {
                             NPC.ai[3] = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 0.5f * Vector2.UnitX, ModContent.ProjectileType<CosmosBolt>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -0.5f * Vector2.UnitX, ModContent.ProjectileType<CosmosBolt>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -1017,7 +1017,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     {
                         NPC.velocity.Y = 0f;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             const int max = 3;
                             for (int i = -max; i <= max; i++)
@@ -1056,7 +1056,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     {
                         SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             float ai1 = WorldSavingSystem.EternityMode && NPC.localAI[2] != 0 ? -1.2f : NPC.localAI[2] == 0 ? 1f : -1.6f;
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, ai1);
@@ -1097,7 +1097,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                     if (NPC.ai[2] == 0)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, -20);
                     }
 
@@ -1112,7 +1112,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         {
                             NPC.localAI[0] = 90;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 const int max = 11;
                                 const int travelTime = 20;
@@ -1143,7 +1143,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                             NPC.velocity = 42f * NPC.DirectionTo(player.Center);
                             NPC.netUpdate = true;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 int modifier = Math.Sign(NPC.Center.Y - player.Center.Y);
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + 3000 * NPC.DirectionFrom(player.Center) * modifier, NPC.DirectionTo(player.Center) * modifier,
@@ -1224,7 +1224,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     if (NPC.direction < 0)
                         NPC.rotation += (float)Math.PI;
 
-                    if (NPC.ai[1] == 30 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (NPC.ai[1] == 30 && FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<CosmosReticle>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                     }
@@ -1235,7 +1235,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         {
                             SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Vector2 offset = new(80, 6);
                                 if (player.Center.X < NPC.Center.X)
@@ -1305,7 +1305,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                                 NPC.netUpdate = true;
                                 if (NPC.ai[1] > 50)
                                 {
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                     {
                                         Vector2 offset = Vector2.UnitX;
                                         if (NPC.direction < 0)
@@ -1365,7 +1365,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                                 NPC.localAI[0] += NPC.Center.X < player.Center.X ? -50 : 50; //horiz offset the centerpoint to one side closer to eri
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     int modifier = Math.Sign(NPC.Center.Y - player.Center.Y);
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + 3000 * NPC.DirectionFrom(player.Center) * modifier, NPC.DirectionTo(player.Center) * modifier,
@@ -1386,7 +1386,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                                 Vector2 midPos = NPC.Center - NPC.velocity / 2;
                                 Vector2 target = new(NPC.localAI[0], NPC.localAI[1]);
                                 Vector2 vel = Vector2.Normalize(midPos - target);
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     int modifier = Math.Sign(player.Center.X - target.X) == NPC.direction ? 1 : -1;
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, modifier * 0.5f * vel, ModContent.ProjectileType<CosmosBolt>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -1397,7 +1397,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                             {
                                 NPC.ai[2] = 0;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Vector2 target = new(NPC.localAI[0], NPC.localAI[1]);
                                     int modifier = Math.Sign(player.Center.X - target.X) == NPC.direction ? 1 : -1;
@@ -1461,7 +1461,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         if (!Main.dedServ)
                             SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), player.Center);
 
-                        //if (Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -18);
+                        //if (FargoSoulsUtil.HostCheck) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -18);
 
                         /*const int num226 = 80;
                         for (int num227 = 0; num227 < num226; num227++)
@@ -1475,7 +1475,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         }*/
 
                         //cardinal walls
-                        /*if (WorldSavingSystem.MasochistMode && NPC.localAI[2] != 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        /*if (WorldSavingSystem.MasochistMode && NPC.localAI[2] != 0 && FargoSoulsUtil.HostCheck)
                         {
                             const int iMax = 4;
                             for (int i = 0; i < iMax; i++)
@@ -1548,7 +1548,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                                         Vector2 spawnPos = player.Center + spawnOffset * Vector2.UnitX.RotatedBy(angle + NPC.localAI[0]);
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);
                                         float ai0 = player.Distance(spawnPos) / speed + 30;
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                             Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<CosmosInvaderTime>(), damage, 0f, Main.myPlayer, ai0, vel.ToRotation());
                                     }
                                 }
@@ -1563,7 +1563,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                                         Vector2 spawnPos = player.Center + distance * Vector2.UnitX.RotatedBy(2 * Math.PI / max * i + rotationOffset);
                                         Vector2 vel = speed * player.DirectionFrom(spawnPos);// distance * player.DirectionFrom(spawnPos) / ai0;
                                         ai0 = distance / speed + 30;
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                             Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<CosmosInvaderTime>(), damage, 0f, Main.myPlayer, ai0, vel.ToRotation());
                                     }
                                 }
@@ -1787,7 +1787,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
         {
             NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.CosmosChampion], -1);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < 10; i++)
                 {

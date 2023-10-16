@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             if (body == null)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     NPC.life = 0;
                     if (Main.netMode == NetmodeID.Server)
@@ -385,14 +385,14 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                 NPC.TargetClosest(false);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     head = FargoSoulsUtil.NPCExists(FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, ModContent.NPCType<TrojanSquirrelHead>(), NPC.whoAmI, target: NPC.target));
                     arms = FargoSoulsUtil.NPCExists(FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, ModContent.NPCType<TrojanSquirrelArms>(), NPC.whoAmI, target: NPC.target));
                 }
 
                 //drop summon
-                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel] && Main.netMode != NetmodeID.MultiplayerClient)
+                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel] && FargoSoulsUtil.HostCheck)
                     Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<SquirrelCoatofArms>());
 
                 //start by jumping
@@ -436,7 +436,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                             if (NPC.localAI[0] == 0f)
                                 NPC.TargetClosest(false);
 
-                            if (WorldSavingSystem.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                            if (WorldSavingSystem.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && FargoSoulsUtil.HostCheck)
                             {
                                 int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Top.X, NPC.Top.Y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5),
                                     Main.rand.Next(326, 329), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -739,7 +739,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
         private void ExplodeAttack()
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 float offsetX = NPC.width;
                 const float offsetY = 65;

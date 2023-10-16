@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             {
                 if (--Projectile.ai[0] > 0)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center - 16 * Vector2.UnitY, Vector2.Zero, Projectile.type, Projectile.damage, 0f, Main.myPlayer, Projectile.ai[0]);
                 }
             }

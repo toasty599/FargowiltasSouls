@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             {
                 Projectile.localAI[1] = 0f;
                 SoundEngine.PlaySound(SoundID.Item120, Projectile.position);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 vel = Projectile.DirectionTo(player.Center) * 7f;
                     for (int i = -1; i <= 1; i++)

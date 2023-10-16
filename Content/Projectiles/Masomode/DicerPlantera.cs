@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     if (Projectile.ai[1] > 0) //propagate
                     {
                         SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity,
                                 Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0], Projectile.ai[1] - 1);
@@ -135,7 +135,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                     SoundEngine.PlaySound(SoundID.Item14, Projectile.Center); //spray
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         bool planteraAlive = NPC.plantBoss > -1 && NPC.plantBoss < Main.maxNPCs && Main.npc[NPC.plantBoss].active && Main.npc[NPC.plantBoss].type == NPCID.Plantera;
                         //die after this many explosions, plantera is dead, or if i have no decent line of sight to plantera

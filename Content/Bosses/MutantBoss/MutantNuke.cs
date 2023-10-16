@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Main.dust[index2].velocity = vector2_2;
             }
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), 0, 0f, Projectile.owner);
             }

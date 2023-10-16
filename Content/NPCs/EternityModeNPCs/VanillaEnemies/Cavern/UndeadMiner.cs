@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 Counter = 0;
                 NetSync(npc);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 800)
+                if (FargoSoulsUtil.HostCheck && npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 800)
                 {
                     Vector2 speed = Main.player[npc.target].Center - npc.Center;
                     speed.Y -= Math.Abs(speed.X) * 0.25f; //account for gravity

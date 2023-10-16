@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 
         public override void OnKill(int timeLeft)
         {
-            if (Projectile.ai[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Projectile.ai[0] == 0 && FargoSoulsUtil.HostCheck)
             {
                 for (int i = -1; i <= 1; i++) //split
                 {

@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                 if (NPC.ai[1] == 0)
                 {
                     NPC.Center = Main.player[NPC.target].Center + new Vector2(500 * Math.Sign(NPC.Center.X - Main.player[NPC.target].Center.X), -250);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, -Vector2.UnitY.ToRotation(), 10);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - Vector2.UnitY * 1000, Vector2.Zero, ModContent.ProjectileType<EarthChainBlast2>(), 0, 0f, Main.myPlayer, Vector2.UnitY.ToRotation(), 10);
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                     if (!Main.dedServ && Main.LocalPlayer.active)
                         Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         const int max = 8;
                         const float baseRotation = MathHelper.TwoPi / max;
@@ -184,14 +184,14 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                     {
                         SoundEngine.PlaySound(SoundID.NPCDeath10, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             //Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -3);
 
                             if (!Main.dedServ && Main.LocalPlayer.active)
                                 Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 const int max = 8;
                                 float baseRotation = MathHelper.TwoPi / max * Main.rand.NextFloat();
@@ -312,7 +312,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                         {
                             NPC.ai[2] = 75;
                             SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
-                            if (NPC.ai[1] > 10 && Main.netMode != NetmodeID.MultiplayerClient) //shoot spread of fireballs, but not the first time
+                            if (NPC.ai[1] > 10 && FargoSoulsUtil.HostCheck) //shoot spread of fireballs, but not the first time
                             {
                                 for (int i = -1; i <= 1; i++)
                                 {

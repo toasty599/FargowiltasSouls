@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (npc.velocity.Y == 0f)
                 {
                     LandingAttackReady = false;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         if (WorldSavingSystem.MasochistModeReal)
                         {
@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (npc.HasValidTarget)
                         {
                             SoundEngine.PlaySound(SoundID.Item21, Main.player[npc.target].Center);
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 for (int i = 0; i < 6; i++)
                                 {
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         shootSpikes = true;
                     }
 
-                    if (shootSpikes && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (shootSpikes && FargoSoulsUtil.HostCheck)
                     {
                         const float gravity = 0.15f;
                         float time = 90f;
@@ -125,7 +125,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     SpikeRainCounter = 240;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = -12; i <= 12; i++)
                         {
@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (player.active && !player.dead && player.Center.Y < npc.position.Y && npc.Distance(player.Center) < 1000f)
                     {
                         Counter[1]++; //timer runs if player is above me and nearby
-                        if (Counter[1] >= 600 && Main.netMode != NetmodeID.MultiplayerClient) //go berserk
+                        if (Counter[1] >= 600 && FargoSoulsUtil.HostCheck) //go berserk
                         {
                             masoBool[0] = true;
                             npc.netUpdate = true;
@@ -194,7 +194,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     }
                 }
 
-                if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient && Main.player[npc.target].position.Y > npc.position.Y) //player went back down
+                if (npc.HasValidTarget && FargoSoulsUtil.HostCheck && Main.player[npc.target].position.Y > npc.position.Y) //player went back down
                 {
                     masoBool[0] = false;
                     masoBool[2] = false;
@@ -261,7 +261,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.OnKill(npc);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient
+            if (FargoSoulsUtil.HostCheck
                 && !FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss.MutantBoss>())
                 && ModContent.TryFind("Fargowiltas", "Mutant", out ModNPC mutant) && !NPC.AnyNPCs(mutant.Type))
             {

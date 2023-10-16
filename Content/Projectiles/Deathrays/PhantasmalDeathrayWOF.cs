@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             //DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
             //Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * Projectile.localAI[1], (float)Projectile.width * Projectile.scale, new Utils.PerLinePoint(DelegateMethods.CastLight));
 
-            /*if (Main.netMode != NetmodeID.MultiplayerClient)
+            /*if (FargoSoulsUtil.HostCheck)
             {
                 Vector2 offset = new Vector2(Main.rand.NextFloat(array3[0]), Main.rand.NextFloat(-22 * Projectile.scale, 22 * Projectile.scale));
                 Projectile.NewProjectile(Projectile.Center + offset, Vector2.Zero, 

@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 if (npc.ai[2] == 600 - 90) //telegraph spin
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<TargetingReticle>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                 }
                 if (npc.ai[2] < 600 - 5)
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     HaveShotGuardians = true;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = 0; i < 4; i++)
                         {
@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         int damage = FargoSoulsUtil.ScaledProjectileDamage(npc.damage);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 3f * speed, ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 3f * speed.RotatedBy(MathHelper.ToRadians(5f)), ProjectileID.RocketSkeleton, damage, 0f, Main.myPlayer);
@@ -186,7 +186,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         ProjectileAttackTimer = -30;
                         int damage = npc.defDamage / 3;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             SoundEngine.PlaySound(SoundID.Item105 with { Volume = 2f }, npc.Center);
 
@@ -295,7 +295,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int rangedArm = Main.rand.NextBool() ? NPCID.PrimeCannon : NPCID.PrimeLaser;
                             int meleeArm = Main.rand.NextBool() ? NPCID.PrimeSaw : NPCID.PrimeVice;
@@ -474,7 +474,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronPrime);
             if (head == null)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     npc.life = 0; //die if prime gone
                     npc.HitEffect();
@@ -533,7 +533,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (npc.localAI[0] > 30f)
                     {
                         npc.localAI[0] = 0f;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 speed = new Vector2(16f, 0f).RotatedBy(npc.rotation + Math.PI / 2);
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<DarkStar>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
@@ -553,7 +553,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center);
                     for (int j = -2; j <= 2; j++)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 7f * baseVel.RotatedBy(MathHelper.ToRadians(1f) * j),
                                 ProjectileID.DeathLaser, head.defDamage / 4, 0f, Main.myPlayer);
@@ -580,7 +580,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (npc.life == 1 && head.GetGlobalNPC<SkeletronPrime>().FullySpawnedLimbs)
                     {
                         npc.dontTakeDamage = false; //for client side so you can hit the limb and update this
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             npc.life = 0;
                             npc.HitEffect();
@@ -618,7 +618,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         {
                             SoundEngine.PlaySound(SoundID.Item15 with { Volume = 1.5f }, npc.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 0);
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
@@ -681,7 +681,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         npc.velocity = (target - npc.Center) / 20;
 
-                        if (IdleOffsetX == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (IdleOffsetX == 0 && FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 1f);
 
                         if (++IdleOffsetX > 60)
@@ -743,7 +743,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                             if (NoContactDamageTimer == 60) //indicate we're the active limbs
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitX, ModContent.ProjectileType<GlowLine>(), 0, 0f, Main.myPlayer, 8, npc.whoAmI);
 
@@ -763,7 +763,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                             if (NoContactDamageTimer == 60) //indicate we're the active limbs
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     for (int i = -1; i <= 1; i += 2)
                                     {
@@ -788,7 +788,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.ToRadians(20) * i);
                                     for (int j = -3; j <= 3; j++)
                                     {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                         {
                                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 7.5f * baseVel.RotatedBy(MathHelper.ToRadians(1f) * j),
                                                   ProjectileID.DeathLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
@@ -803,7 +803,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 Vector2 baseVel = npc.DirectionTo(Main.player[npc.target].Center);
                                 for (int j = -3; j <= 3; j++)
                                 {
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                     {
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 7.5f * baseVel.RotatedBy(MathHelper.ToRadians(1f) * j),
                                             ProjectileID.DeathLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
@@ -827,7 +827,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         {
                             if (NoContactDamageTimer == 60) //indicate we're the active limbs
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 2);
@@ -889,7 +889,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         {
                             if (NoContactDamageTimer == 60) //indicate we're the active limbs
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
@@ -989,7 +989,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     Main.dust[dust].velocity *= 2f;
                 }
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     npc.netUpdate = true;
 
                 return false;

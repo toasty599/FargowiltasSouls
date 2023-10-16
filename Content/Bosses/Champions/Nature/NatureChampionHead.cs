@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                         if (++NPC.localAI[1] > 2) //rain piss
                         {
                             NPC.localAI[1] = 0;
-                            if (NPC.localAI[0] > 60 && Main.netMode != NetmodeID.MultiplayerClient)
+                            if (NPC.localAI[0] > 60 && FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2),
                                     Vector2.UnitY * Main.rand.NextFloat(-4f, 0), ProjectileID.GoldenShowerHostile, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
                         SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             const int max = 12;
                             for (int i = 0; i < max; i++)
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
                         SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<NatureExplosion>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
 
@@ -220,7 +220,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
                         SoundEngine.PlaySound(SoundID.Item66, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             /*Vector2 dir = Main.player[NPC.target].Center - NPC.Center;
                             float ai1New = Main.rand.Next(100);
@@ -269,7 +269,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                         {
                             NPC.ai[2] = 0;
                             //NPC.localAI[1] = NPC.localAI[1] == 1 ? -1 : 1;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 const int max = 25;
                                 for (int i = 0; i < max; i++)
@@ -299,7 +299,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                     if (NPC.ai[2] == 0)
                     {
                         NPC.ai[2] = 1;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             const int max = 5;
                             const float distance = 125f;
@@ -343,7 +343,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                                 int delay = (int)(NPC.Distance(player.Center) - 100) / 14;
                                 if (delay < 0)
                                     delay = 0;
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Vector2.UnitY * 10, speed,
                                         ModContent.ProjectileType<NatureBullet>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, delay);
@@ -378,7 +378,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                             NPC.netUpdate = true;
                             NPC.localAI[1] = NPC.DirectionTo(body.Center - Vector2.UnitY * 300).ToRotation();
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(NPC.localAI[1]),
                                     ModContent.ProjectileType<NatureDeathraySmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer, 0f, NPC.whoAmI);
@@ -387,7 +387,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                         else if (NPC.ai[2] == 150)
                         {
                             float ai0 = 2f * (float)Math.PI / 120 * Math.Sign(NPC.ai[3]);
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(NPC.localAI[1]),
                                     ModContent.ProjectileType<NatureDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer, ai0, NPC.whoAmI);

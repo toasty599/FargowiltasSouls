@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 case 1: //solar pillar flamepillar
                     {
                         SoundEngine.PlaySound(SoundID.Item34, Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SolarFlamePillar>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
                         }
@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 case 2: //vortex pillar thunder
                     {
                         SoundEngine.PlaySound(new("FargowiltasSouls/Assets/Sounds/NukeBeep"), Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = 0; i < 14; i++)
                             {

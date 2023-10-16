@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             if (Projectile.ai[1] == 1 || Projectile.ai[1] == 3) //sans crosshairs
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<LifeCageExplosion>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
             }
         }

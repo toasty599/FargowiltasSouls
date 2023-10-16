@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
         {
             base.OnKill(npc);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
+            if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget)
             {
                 Vector2 vel = Vector2.Normalize(Main.player[npc.target].Center - npc.Center) * 4f;
                 for (int i = 0; i < 12; i++)

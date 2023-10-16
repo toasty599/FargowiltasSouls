@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Desert
             //    {
             //        WormTimer = 0;
             //    }
-            //    else if (WormTimer >= 360 && Main.netMode != NetmodeID.MultiplayerClient)
+            //    else if (WormTimer >= 360 && FargoSoulsUtil.HostCheck)
             //    {
             //        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.DuneSplicerHead);
             //    }
@@ -75,7 +75,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Desert
                 NetSync(npc);
             }
 
-            if (AttackTimer > 300 && AttackTimer % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (AttackTimer > 300 && AttackTimer % 3 == 0 && FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(npc.GetSource_FromThis(),
                     AttackTarget + Main.rand.NextVector2Circular(80, 80),
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Desert
             //{
             //    AttackTimer = 0;
 
-            //    if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            //    if (npc.HasValidTarget && FargoSoulsUtil.HostCheck)
             //    {
             //        Vector2 target = Main.player[npc.target].Center;
             //        target.Y -= 150;

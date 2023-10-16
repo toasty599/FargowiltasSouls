@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     }
                     else
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Main.npc[ai0].life += Projectile.damage;
                             Main.npc[ai0].HealEffect(Projectile.damage);

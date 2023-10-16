@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
                 Counter = 0;
 
                 int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                if (t != -1 && npc.Distance(Main.player[t].Center) < 600 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (t != -1 && npc.Distance(Main.player[t].Center) < 600 && FargoSoulsUtil.HostCheck)
                 {
                     npc.velocity *= 5;
                     npc.netUpdate = true;

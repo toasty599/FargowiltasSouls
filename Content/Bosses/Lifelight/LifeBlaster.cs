@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                     //fire beam
                     Vector2 rot = Projectile.ai[0].ToRotationVector2();
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         //visual    center - height/2 + 32 + beamheight/2
                         //Vector2 visualpos = Projectile.Center + (rot * (1005));
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 //damage projectiles
                 /*if ((Projectile.localAI[0] >= 60 && Projectile.localAI[0] % 11 == 10 && Projectile.ai[1] <= 1) || (Projectile.localAI[0] >= 120 && Projectile.localAI[0] % 11 == 10 && Projectile.ai[1] == 2))
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 rot = Projectile.ai[0].ToRotationVector2();
                         for (int i = 0; i < 2; i++)

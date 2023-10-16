@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                 Main.dust[index2].scale *= 0.9f;
             }
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 for (int index = 0; index < 24; ++index)
                 {

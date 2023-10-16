@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Main.dust[index2].noGravity = true;
             }
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<BetsyElectrosphere>(),
                     Projectile.damage, 0f, Main.myPlayer, spawn.X, spawn.Y);
