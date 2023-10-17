@@ -30,7 +30,7 @@ namespace FargowiltasSouls //lets everything access it without using
 
         public static bool WorldIsMaster() => Main.masterMode || (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.DifficultySliderPower>().StrengthMultiplierToGiveNPCs >= 3);
 
-        public static bool HostCheck => FargoSoulsUtil.HostCheck;
+        public static bool HostCheck => Main.netMode != NetmodeID.MultiplayerClient;
 
         public static void AddDebuffFixedDuration(Player player, int buffID, int intendedTime, bool quiet = true)
         {

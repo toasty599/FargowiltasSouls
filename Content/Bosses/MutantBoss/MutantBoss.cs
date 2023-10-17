@@ -502,6 +502,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             //NPC.TargetClosest();
             NPC.netUpdate = true;
 
+            EdgyBossText(RandomObnoxiousQuote());
+
             /*string text = "-------------------------------------------------";
             Main.NewText(text);
 
@@ -617,6 +619,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (AttackChoice >= 10) //dont accidentally go into p2
                 AttackChoice = 0;
+
+            EdgyBossText(RandomObnoxiousQuote());
 
             NPC.ai[1] = 0;
             NPC.ai[2] = 0;
@@ -852,6 +856,29 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 */
             }
         }
+        private static List<string> ObnoxiousQuotes = new List<string> { 
+            "Hehehehehe...",
+            "Do you enjoy this pain?",
+            "This feeling...",
+            "I will bring an end to this.",
+            "Foolish Terrarian...",
+            "Have it writ upon thy meagre grave: Felled by the Mutant.",
+            "None may claim the title of Eternal.",
+            "Eternal pain upon thee.",
+            "You are unfit of the Eternal Soul.",
+            "Cower before my power.",
+            "The Penetrator shivers...",
+            "Fall beneath true power!",
+            "Power is in the eye of the beholder. Absolute power is a fact.",
+            "Witness a true cataclysm.",
+            "I could recite all the digits of Pi before you beat me.",
+            "It has only begun.",
+            "Don't even try to dodge.",
+            "For centuries I have trained for a fight like this.",
+            "Purge the weak.",
+            "Luck won't help you here.",
+        };
+        private string RandomObnoxiousQuote() => ObnoxiousQuotes[Main.rand.Next(ObnoxiousQuotes.Count)];
 
         #endregion
 
@@ -950,6 +977,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     }
                 }
 
+                
+
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, NPC.DirectionTo(player.Center + player.velocity * 30f), ModContent.ProjectileType<MutantDeathrayAim>(), 0, 0f, Main.myPlayer, 85f, NPC.whoAmI);
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearAim>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, 3);
 
@@ -979,12 +1008,15 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
                 else
                 {
+                    EdgyBossText(RandomObnoxiousQuote());
+
                     int max = WorldSavingSystem.MasochistModeReal ? 9 : 6;
                     float speed = WorldSavingSystem.MasochistModeReal ? 10 : 9;
                     int sign = WorldSavingSystem.MasochistModeReal ? NPC.ai[2] % 2 == 0 ? 1 : -1 : 1;
                     SpawnSphereRing(max, speed, (int)(0.8 * FargoSoulsUtil.ScaledProjectileDamage(NPC.damage)), 1f * sign);
                     SpawnSphereRing(max, speed, (int)(0.8 * FargoSoulsUtil.ScaledProjectileDamage(NPC.damage)), -0.5f * sign);
                 }
+
             }
         }
 
@@ -1008,6 +1040,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+
+                EdgyBossText(RandomObnoxiousQuote());
             }
         }
 
@@ -1083,6 +1117,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[3] = 1;
                 if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, 240); // 250);
+
+                EdgyBossText("Feel the Penetrator's fury!");
             }
 
             if (++NPC.ai[1] > 240)
@@ -1133,6 +1169,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -Vector2.Normalize(NPC.velocity), ModContent.ProjectileType<MutantDeathray2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
                     }
+
+                    EdgyBossText("Grah!");
                 }
             }
         }
@@ -1188,6 +1226,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     NPC.netUpdate = true;
                     NPC.ai[2] -= NPC.ai[3] / (WorldSavingSystem.MasochistModeReal ? 3 : 2);
+
+                    EdgyBossText("Ray!");
                 }
                 else if (NPC.localAI[0] >= (WorldSavingSystem.MasochistModeReal ? 60 : 40))
                 {
@@ -1215,6 +1255,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         {
                             break;
                         }
+
+                        EdgyBossText("Feel my power.");
                     }
 
                     if (Phase2Check())
@@ -1267,6 +1309,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                                     ModContent.ProjectileType<MutantEye>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                             }
                         }
+
                     }
 
                     if (++NPC.ai[3] > (WorldSavingSystem.MasochistModeReal ? 360 : 240))
@@ -1339,6 +1382,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                             MakeSword(offset.RotatedBy(MathHelper.ToRadians(40 * i)), 60 * 4f);
                         }
                     }
+
+                    EdgyBossText("My blade...");
                 }
             }
             else
@@ -1577,6 +1622,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (NPC.localAI[0] == 21 && endTimeVariance > 0.75f //sometimes skip to end
                     || NPC.localAI[0] == 41 && endTimeVariance < 0.25f)
                         NPC.localAI[0] = 60;
+
+                    EdgyBossText("Ray!");
                 }
                 else if (NPC.localAI[0] >= 60)
                 {
@@ -1595,6 +1642,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 //NPC.velocity = NPC.DirectionFrom(player.Center) * NPC.velocity.Length();
                 if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, 180); // + 60);
+
+                EdgyBossText("Feel the Penetrator's wrath!");
             }
 
             if (++NPC.ai[1] > 180)
@@ -1691,6 +1740,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -Vector2.Normalize(NPC.velocity), ModContent.ProjectileType<MutantDeathray2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearDash>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, spearAi);
                     }
+
+                    EdgyBossText("Grrrah!");
                 }
                 NPC.localAI[0] = 0;
             }
@@ -1722,6 +1773,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 //if (WorldSavingSystem.MasochistMode) NPC.ai[2] = NPC.DirectionTo(player.Center).ToRotation(); //starting rotation offset to avoid hitting at close range
                 if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
+
+                EdgyBossText("Feel my power.");
             }
             if (NPC.ai[3] > 60 && ++NPC.ai[1] > 2)
             {
@@ -1771,6 +1824,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (WorldSavingSystem.MasochistModeReal)
                         Clone(1, 1, pillarAttackDelay * 6);
                 }
+
+                EdgyBossText("Solar, Vortex, Nebula, Stardust... all united against you.");
 
                 NPC.netUpdate = true;
                 NPC.ai[2] = NPC.Center.X;
@@ -1864,12 +1919,19 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (WorldSavingSystem.MasochistModeReal && p != Main.maxProjectiles)
                         Main.projectile[p].timeLeft -= 30;
                 }
+
+
             }
 
             if (NPC.ai[1] < 120) //stop tracking when eoc begins attacking, this locks arena in place
             {
                 NPC.ai[2] = player.Center.X;
                 NPC.ai[3] = player.Center.Y;
+            }
+
+            if (NPC.ai[1] == 120)
+            {
+                EdgyBossText(RandomObnoxiousQuote());
             }
 
             /*if (NPC.Distance(player.Center) < 200)
@@ -1931,6 +1993,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 //NPC.velocity = NPC.DirectionFrom(player.Center) * NPC.velocity.Length();
                 if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearSpin>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, 180);// + (WorldSavingSystem.MasochistMode ? 10 : 20));
+
+                EdgyBossText("The Penetrator's true power!");
             }
 
             if (++NPC.ai[1] > 180)
@@ -1985,6 +2049,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSpearDash>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                     }
                 }
+
+                EdgyBossText("Orah!");
             }
         }
 
@@ -2022,6 +2088,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.localAI[1] = Main.rand.Next(WorldSavingSystem.MasochistModeReal ? 3 : 5, 9);
                 else
                     NPC.localAI[1] = 5;
+
+                EdgyBossText("The world is trembling..");
             }
 
             if (++NPC.ai[1] > 60)
@@ -2125,6 +2193,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center); //eoc roar
                 if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, NPCID.Retinazer);
+
+                EdgyBossText("Mechanical fury...");
             }
 
             Vector2 targetPos;
@@ -2282,6 +2352,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 AttackChoice++;
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
+
+                EdgyBossText("Fishron Flurry!");
             }
         }
 
@@ -2380,6 +2452,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.velocity *= 3f;
 
                 NPC.netUpdate = true;
+
+                EdgyBossText("If you don't dodge this, you deserve it.");
                 //NPC.TargetClosest();
             }
         }
@@ -2463,6 +2537,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[3] = 0;
                 NPC.netUpdate = true;
                 //NPC.TargetClosest();
+
+                EdgyBossText("Why am I using this?");
             }
         }
 
@@ -2617,6 +2693,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[1] = 0;
                 NPC.netUpdate = true;
                 //NPC.TargetClosest();
+
+                EdgyBossText("Fishron Flurry!");
             }
         }
 
@@ -2653,6 +2731,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 float speed = WorldSavingSystem.MasochistModeReal ? 11f : 10f;
                 SpawnSphereRing(max, speed, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), -1f, rotation);
                 SpawnSphereRing(max, speed, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, rotation);
+
+                EdgyBossText(RandomObnoxiousQuote());
             }
 
             if (NPC.ai[2] == 0)
@@ -2715,6 +2795,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -Vector2.Normalize(vel), ModContent.ProjectileType<MutantDeathray2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.8f), 0f, Main.myPlayer);
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantSpearThrown>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target);
                 }
+
+                EdgyBossText(RandomObnoxiousQuote());
             };
 
             if (++NPC.ai[1] > 180)
@@ -2766,6 +2848,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
                 //NPC.TargetClosest();
+
+                EdgyBossText("Nature unites against you.");
             }
         }
 
@@ -2864,6 +2948,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                 NPC.ai[3] = Main.rand.NextFloat(MathHelper.TwoPi);
+
+                EdgyBossText("The Empress' Excel Assault!");
             }
 
             void Sword(Vector2 pos, float ai0, float ai1, Vector2 vel)
@@ -2961,6 +3047,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Vector2 spawnPos = target + offset;
                     Vector2 vel = (target - spawnPos) / 60f;
                     Sword(spawnPos, vel.ToRotation(), (float)i / max, -vel * 0.75f);
+
+                    EdgyBossText("You thought I was done?"); //you really didn't
                 }
             }
 
@@ -3014,6 +3102,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.netUpdate = true;
+
+                EdgyBossText(RandomObnoxiousQuote());
             }
         }
 
@@ -3270,6 +3360,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[3] += Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
                 if (useMasoSpeed)
                     NPC.ai[3] = NPC.ai[3].AngleLerp(newRotation, 0.015f);
+
+                EdgyBossText("AAAAAAAAAAAAAAAAAAAAAAAAAA");
             }
 
             /*
