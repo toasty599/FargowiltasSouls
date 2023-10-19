@@ -856,7 +856,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 */
             }
         }
-        private static List<string> ObnoxiousQuotes = new List<string> { 
+        private static List<string> ObnoxiousQuotes = new List<string> {
             "Hehehehehe...",
             "Do you enjoy this pain?",
             "This feeling...",
@@ -877,6 +877,57 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             "For centuries I have trained for a fight like this.",
             "Purge the weak.",
             "Luck won't help you here.",
+            "I will fill a chalice with your blood.",
+            "You're all so very small, in the end. Not me, though.",
+            "I'll sunder you into uncountable fragments!",
+            "Curse you with the power of the moon!",
+            "This is only a fraction of my power!",
+            "Your “power” is worthless compared to me.",
+            "Every hit you take grows my power more than you can imagine.",
+            "You think you can defeat me?",
+            "I am unmatched. I am unbeatable.",
+            "It all turns to dust in the end.",
+            "Are you prepared to take on the mantle?",
+            "THERE IS NO ESCAPE!",
+            "God wants you to suffer, and I am God.",
+            "I judge you unworthy to exist!",
+            "Your life is fleeting. Your only remaining purpose is to die.",
+            "The forces of terra are on my side.",
+            "I'll break you!",
+            "Shatter like glass.",
+            "If you stop attacking, maybe I'll spare you.",
+            "YOU WILL BECOME NAUGHT BUT MEMORIES!",
+            "I WILL MAKE SURE THERE IS NOTHING LEFT TO BURY!",
+            "THE VERY FIRES OF HELL CANNOT COMPARE!",
+            "I think your cells are a bit too far apart. How \'bout I fix that for you?",
+            "I will tear apart your very atoms.",
+            "You are like a child, braying before an eternal god.",
+            "I'll stain those souls with your blood.",
+            "Behold the might of Terraria!",
+            "Behold the strength of the Universe!",
+            "From refulgent flame, my victory rises!",
+            "Forget your dreams of divinity!",
+            "Your every paltry bone will break.",
+            "The great calamity, faithfully recreated!",
+            "Will you live to see the end?",
+            "That hurt!",
+            "You can't hurt me.",
+            "Shatter like glass.",
+            "Fade like ash.",
+            "Blinded by your own depression?",
+            "The screams of your future deaths can be heard.",
+            "They call me a Cruel Eternity God.",
+            "Also try Satanist Mode.",
+            "Not even Fargo holds a candle to my power.",
+            "You've been paying me with counterfeit money. This is your punishment.",
+            "Whats a Touhou?",
+            "All the money you gave me just made me stronger.",
+            "Circle this!!",
+            "IT ALL ENDS TODAY!",
+            "Your imminent death is fast approaching, maggot!",
+            "I will crush your worthless existence.",
+            "You won't live long enough to tell the tale!",
+            "DO YOU THINK YOU STAND A CHANCE, AGAINST I WHO AM ETERNAL? I WHO TURN THE TIDE AND WORLD? I AM THE ETERNAL, I AM THE IMMORTAL. YOU ARE LIKE AN ANT IN A DYING SANDHILL, AND I THE SEARING SUN. YOU WILL BE SPLIT AND TORN UNTIL NOTHING REMAINS BUT MOTES OF ASH AND LIGHT! YOUR EVERY DEED PALES IN COMPARISON TO MY ETERNITY! I BEAR THE GOLEM'S FIST, THE PHANTASMAL EYE, THE WINDING VINE, THE RELENTLESS BEE, THE GENIUS BRAIN, THE HUNTER'S WINGS! YOU WILL BE REMOVED FROM HISTORY,, INSIGNIFICANT WORM!",
         };
         private string RandomObnoxiousQuote() => ObnoxiousQuotes[Main.rand.Next(ObnoxiousQuotes.Count)];
 
@@ -1227,7 +1278,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.netUpdate = true;
                     NPC.ai[2] -= NPC.ai[3] / (WorldSavingSystem.MasochistModeReal ? 3 : 2);
 
-                    EdgyBossText("Ray!");
+                    EdgyBossText("Rays of Death!");
                 }
                 else if (NPC.localAI[0] >= (WorldSavingSystem.MasochistModeReal ? 60 : 40))
                 {
@@ -1383,7 +1434,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         }
                     }
 
-                    EdgyBossText("My blade...");
+                    EdgyBossText("My blade will strike you down!");
                 }
             }
             else
@@ -1623,7 +1674,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     || NPC.localAI[0] == 41 && endTimeVariance < 0.25f)
                         NPC.localAI[0] = 60;
 
-                    EdgyBossText("Ray!");
+                    EdgyBossText("Rays of Death!");
                 }
                 else if (NPC.localAI[0] >= 60)
                 {
@@ -1931,7 +1982,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (NPC.ai[1] == 120)
             {
-                EdgyBossText(RandomObnoxiousQuote());
+                EdgyBossText("I was the evil presence watching.");
             }
 
             /*if (NPC.Distance(player.Center) < 200)
@@ -2646,7 +2697,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (WorldSavingSystem.MasochistModeReal)
             {
                 if (NPC.ai[2] == masoMovingRainAttackTime)
+                {
                     SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+
+                    EdgyBossText("Can you keep up?");
+                }
+                    
 
                 if (NPC.ai[2] > masoMovingRainAttackTime + 30)
                 {
@@ -2732,7 +2788,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 SpawnSphereRing(max, speed, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), -1f, rotation);
                 SpawnSphereRing(max, speed, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, rotation);
 
-                EdgyBossText(RandomObnoxiousQuote());
+                
             }
 
             if (NPC.ai[2] == 0)
@@ -2742,6 +2798,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                 if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
+
+                EdgyBossText("No matter how many times you fight this battle, you will never win! I am a cruel god of eternity. I wield the branches of Yggdrasil and Ragnorak, the swirling brimstone of Calamity, the ceaseless shadows of Sacred Tools, the blue-tinted Magicks, the hallowed Spirits of arcane lands, the soaring power of ascended Avalon, the all-powerful blessing of the Ultraseer's Nova, the awakened essence of lost Ancients, the all-searing light and shade of the radiant universal Split, the world warping machines and city shaping tools of Lui, and the cosmic convergence that harkens the Old God's Hunt!");
             }
 
             if (++NPC.ai[3] > endTime)
@@ -3047,9 +3105,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Vector2 spawnPos = target + offset;
                     Vector2 vel = (target - spawnPos) / 60f;
                     Sword(spawnPos, vel.ToRotation(), (float)i / max, -vel * 0.75f);
-
-                    EdgyBossText("You thought I was done?"); //you really didn't
                 }
+                EdgyBossText("You thought I was done?"); //you really didn't
             }
 
             //massive sword barrage
@@ -3159,7 +3216,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                     if (player.Center.X < NPC.Center.X)
                         NPC.ai[3] *= -1;
-                    EdgyBossText("But we're not done yet!");
+                    EdgyBossText("YOU ARE NOTHING COMPARED TO THE ERODED SPIRITS! I BRING FORTH THE END UPON THE FOOLISH, THE UNWORTHY! YOU WANT TO DEFEAT ME? MAYBE IN TWO ETERNITIES!!");
                 }
             }
             else
@@ -3228,6 +3285,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.ai[2] = 0;
                     NPC.ai[3] = 0;
                     NPC.localAI[0] = 0;
+                    EdgyBossText("DIE, FOOLISH TERRARIAN! THEY SAID THERE WAS 3 END BRINGERS, BUT I AM THE FOURTH, A BREAKER OF REALITY! HELL DOESN'T ACCEPT SCUM LIKE YOU, SO SUFFER FOREVER IN MY ENDLESS ONSLAUGHT OF INFINITE POWER, THE POTENTIAL OF ETERNITIES STRETCHED TO THE ABSOLUTE MAXIMUM APOTHEOSES! YOUR UNHOLY SOUL SHALL BE CONSUMED BY DEPTHS LOWER THAN THE DEEPEST REACHES OF HELL!");
                 }
             }
             for (int i = 0; i < 5; i++)
@@ -3270,7 +3328,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 EModeSpecialEffects();
                 TryMasoP3Theme();
             }
-
+            if (++NPC.ai[3] == (int)(endTime / 2))
+            {
+                EdgyBossText("I CONTROL THE POWER THAT HAS REACHED FROM THE FAR ENDS OF THE UNIVERSE, UNITING DIMENSIONS, MANIPULATING TERRARIA, SLAYING MASOCHISTS, AND JUDGING HEAVENS! FOR CENTURIES I HAVE TRAINED FOR ONE GOAL ONLY: PURGE THE WORLD OF THE UNWORTHY, SLAY THE WEAK, AND BRING FORTH TRUE POWER. IN THE HIGHEST REACHES OF HEAVEN, MY BROTHER RULES OVER THE SKY! SOON, ALL OF TERRARIA WILL BE PURGED OF THE UNWORTH AND A NEW AGE WILL START! A NEW AGE OF AWESOME! A GOLDEN AGE WHERE ONLY ABSOLUTE BEINGS EXIST!DEATH, INFERNO, TIDE; I AM THE OMEGA AND THE ALPHA, THE BEGINNING AND THE END! ALMIGHTY POWER; REVELATIONS.ABSOLUTE BEING, ABSOLUTE PURITY.");
+            }
             if (++NPC.ai[3] > endTime)
             {
                 NPC.netUpdate = true;
@@ -3278,6 +3339,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[1] = 0;
                 NPC.ai[2] = 0;
                 NPC.ai[3] = 0;
+                EdgyBossText("WITHIN THE FOOLISH BANTERINGS OF THE MORTAL WORLD I HAVE ACHIEVED POWER THAT WAS ONCE BANISHED TO THE EDGE OF THE GALAXY! I BRING FORTH CALAMITIES, CATASTROPHES, AND CATACLYSM; ELDRITCH POWERS DERIVED FROM THE ABSOLUTE WORD OF FATE. FEEL MY UBIQUITOUS WRATH DRIVE YOU INTO THE GROUND AS A WORLD SHAPER DRIVES HIS WORLD INTO REALITY!");
                 //NPC.TargetClosest();
             }
             for (int i = 0; i < 5; i++)
@@ -3327,6 +3389,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int endTime = 360;
             if (WorldSavingSystem.MasochistModeReal)
                 endTime += 360;
+            if (NPC.ai[3] == (int)endTime / 2)
+            {
+                EdgyBossText("THE SHARPSHOOTER'S EYE PALES IN COMPARISON OF MY PERCEPTION OF REALITY! BERSERKERS RAGE NAUGHT BUT A BUNNIES! OLYMPIANS A MINOR GOD, ARCH WIZARDS A POSER! A MASTERY OF FLIGHT, THE IRON WILL OF A COLOSSUS; BOTH ELEMENTARY CONCEPTS! A CONJUROR BUT A PEDDLING MAGICIAN, A TRAWLER, A SLIVER COMPARED TO MY LIFE MASTERY? SUPERSONIC SPEED, LIGHTSPEED TIME! GLORIOUS LIGHT SHALL ELIMINATE YOU, YOU FOOLISH BUFFOON!!");
+            }
             if (++NPC.ai[3] > endTime)
             {
                 //NPC.TargetClosest();
