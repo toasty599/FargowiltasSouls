@@ -38,8 +38,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         const int DefaultHeight = 200;
         const int DefaultWidth = 200;
 
-        public double Phase;
-
         //private bool first = true;
 
         private bool flyfast;
@@ -252,6 +250,9 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             NPC.defense = NPC.defDefense;
             NPC.chaseable = true;
             phaseProtectionDR = false;
+            NPC.dontTakeDamage = false;
+            Attacking = 1;
+
             if (WorldSavingSystem.MasochistModeReal)
             {
                 DoAura = true;
@@ -397,129 +398,88 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 return;
             }
 
-            if (Phase < 4.0)
+            if (Flying) //Flying AI
             {
-                NPC.dontTakeDamage = true;
-            }
-            else if (Phase >= 4.0)
-            {
-                NPC.dontTakeDamage = false;
-                Attacking = 1;
+                FlyingState();
             }
 
-
-            if (Phase == 0.0)
+            if (Charging) //Charging AI (orientation)
             {
-                NPC.TargetClosest(true);
-                Phase = 0.5;
-            }
-            if (Phase < 4) //Initial Attack
-            {
-                Phase = 4.0; //REWORK: REMOVED P2 OPENING ATTACK
-                NPC.netUpdate = true;
-                //AttackP2Start();
-            }
-
-            //Normal looping attack AI
-            if (Phase >= 4.0)
-            {
-                if (Flying) //Flying AI
+                NPC.rotation = NPC.velocity.ToRotation() + MathHelper.Pi / 2;
+                if (NPC.velocity == Vector2.Zero)
                 {
-                    FlyingState();
+                    NPC.rotation = 0f;
+                }
+            }
+            if (!Charging && !Flying) //standard upright orientation
+            {
+                NPC.rotation = MathHelper.Lerp(NPC.rotation, 0, 0.09f);
+            }
+            if (Attacking == 1) //Phases and random attack choosing
+            {
+                if (state == oldstate) //ensure you never get the same attack twice (might happen when the possible state list is refilled)
+                {
+                    RandomizeState();
+
+                    bool resetFly = true;
+
+                    if (!PhaseOne && NPC.life < SansThreshold)
+                    {
+                        state = 101;
+                        oldstate = 0;
+                        resetFly = false;
+                    }
+
+                    if (resetFly)
+                        flyTimer = 0;
                 }
 
-                if (Charging) //Charging AI (orientation)
+                if (FlightCheck())
                 {
-                    NPC.rotation = NPC.velocity.ToRotation() + MathHelper.Pi / 2;
-                    if (NPC.velocity == Vector2.Zero)
-                    {
-                        NPC.rotation = 0f;
-                    }
+                    AI_Timer -= 1; //negate increment below
                 }
-                if (!Charging && !Flying) //standard upright orientation
+                else if (state != oldstate)
                 {
-                    NPC.rotation = MathHelper.Lerp(NPC.rotation, 0, 0.09f);
-                }
-                if (Attacking == 1) //Phases and random attack choosing
-                {
-                    if (Phase == 4.0)
+                    switch (state) //Attack Choices
                     {
-                        AI_Timer = 0f;
-                        Phase = 5.0;
-                        StateReset();
-                    }
-                    if (state == oldstate) //ensure you never get the same attack twice (might happen when the possible state list is refilled)
-                    {
-                        RandomizeState();
-
-                        bool resetFly = true;
-                        /*
-                        if (!PhaseThree && NPC.life < P3Threshold)
-                        {
-                            state = 100;
-                            resetFly = false;
-                        }
-                        */
-                        if (!PhaseOne && NPC.life < SansThreshold)
-                        {
-                            state = 101;
-                            oldstate = 0;
-                            resetFly = false;
-                        }
-
-
-
-                        if (resetFly)
-                            flyTimer = 0;
-                    }
-
-                    if (FlightCheck())
-                    {
-                        AI_Timer -= 1; //negate increment below
-                    }
-                    else if (state != oldstate)
-                    {
-                        switch (state) //Attack Choices
-                        {
-                            case 0: //slurp n burp attack
-                                AttackSlurpBurp();
+                        case 0: //slurp n burp attack
+                            AttackSlurpBurp();
+                            break;
+                        case 1: //rune expand attack
+                            AttackRuneExpand();
+                            break;
+                        case 2: //charge attack
+                            AttackCharge();
+                            break;
+                        case 3: //above tp and down charge -> antigrav cum attack
+                            AttackPlunge();
+                            break;
+                        case 4: //homing pixie attack
+                            AttackPixies();
+                            break;
+                        case 5: // attack where he cuts you off (fires shots at angles from you) then fires a random assortment of projectiles in your direction (including nukes)
+                            AttackRoulette();
+                            break;
+                        case 6: //charged reaction crosshair shotgun
+                            AttackReactionShotgun();
+                            break;
+                        case 7: //running minigun
+                            AttackRunningMinigun();
+                            break;
+                        case 8: //p3 shotgun run
+                            AttackShotgun();
+                            break;
+                        case 9: //p3 teleport on you -> shit nukes
+                            AttackTeleportNukes();
+                            break;
+                        case 101: // Life is a cage, and death is the key.
+                            {
+                                AttackFinal();
                                 break;
-                            case 1: //rune expand attack
-                                AttackRuneExpand();
-                                break;
-                            case 2: //charge attack
-                                AttackCharge();
-                                break;
-                            case 3: //above tp and down charge -> antigrav cum attack
-                                AttackPlunge();
-                                break;
-                            case 4: //homing pixie attack
-                                AttackPixies();
-                                break;
-                            case 5: // attack where he cuts you off (fires shots at angles from you) then fires a random assortment of projectiles in your direction (including nukes)
-                                AttackRoulette();
-                                break;
-                            case 6: //charged reaction crosshair shotgun
-                                AttackReactionShotgun();
-                                break;
-                            case 7: //running minigun
-                                AttackRunningMinigun();
-                                break;
-                            case 8: //p3 shotgun run
-                                AttackShotgun();
-                                break;
-                            case 9: //p3 teleport on you -> shit nukes
-                                AttackTeleportNukes();
-                                break;
-                            case 101: // Life is a cage, and death is the key.
-                                {
-                                    AttackFinal();
-                                    break;
-                                }
-                            default:
-                                StateReset();
-                                break;
-                        }
+                            }
+                        default:
+                            StateReset();
+                            break;
                     }
                 }
             }
@@ -677,6 +637,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             if (AI_Timer < 180f)
             {
                 ChunkDistance = 1000 - ((1000 - DefaultChunkDistance) * ((float)AI_Timer / 180f));
+                NPC.dontTakeDamage = true;
             }
             
             if (AI_Timer >= 240 && chunklist.Count >= ChunkCount)
@@ -966,12 +927,15 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     //mine explosion
                     const int MineAmount = 90;
-                    for (int i = 0; i < MineAmount; i++)
+                    if (FargoSoulsUtil.HostCheck)
                     {
-                        float rotation = (i / 64f) * MathHelper.TwoPi;
-                        float distance = Main.rand.NextFloat(NPC.width / 3f, 1200);
-                        Vector2 pos = NPC.Center + (rotation.ToRotationVector2() * distance);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeTransitionBomb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, pos.X, pos.Y);
+                        for (int i = 0; i < MineAmount; i++)
+                        {
+                            float rotation = (i / 64f) * MathHelper.TwoPi;
+                            float distance = Main.rand.NextFloat(NPC.width / 3f, 1200);
+                            Vector2 pos = NPC.Center + (rotation.ToRotationVector2() * distance);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeTransitionBomb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, pos.X, pos.Y);
+                        }
                     }
                     SoundEngine.PlaySound(SoundID.Item92 with { Pitch = -0.5f }, NPC.Center);
 
@@ -995,8 +959,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 if (AI_Timer == 240f)
                 {
-                    
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -1, LockVector1.ToRotation());
+                    if (FargoSoulsUtil.HostCheck)
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -1, LockVector1.ToRotation());
                 }
             }
             
@@ -1048,8 +1012,12 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     rotspeed = 0;
                     rot = 0;
                 }
-
-                if (FargoSoulsUtil.HostCheck && LaserTimer >= fadeintime)
+                if (RotationDirection == 0)
+                {
+                    RotationDirection = 1;
+                    NPC.netUpdate = true;
+                }
+                if (LaserTimer >= fadeintime)
                 {
                     if (rotspeed < 0.82f)
                     {
@@ -1207,7 +1175,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             if (AttackF1)
             {
                 AttackF1 = false;
-                NPC.dontTakeDamage = true;
                 NPC.netUpdate = true;
                 Flying = true;
             }
@@ -1612,6 +1579,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     {
                         TeleportAngle = 90f;
                     }
+                    NPC.netUpdate = true;
                 }
                 double rad3 = TeleportAngle * (MathHelper.Pi / 180.0);
                 double tpdist = 350.0;
@@ -1622,9 +1590,9 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 TeleportX = TpPos.X; //exposing these so proj can access them
                 TeleportY = TpPos.Y;
 
-                if (AI_Timer == 1f && FargoSoulsUtil.HostCheck) //telegraph
+                if (AI_Timer == 5f && FargoSoulsUtil.HostCheck) //telegraph
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos.X + NPC.width / 2, TpPos.Y + NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -70, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos.X + NPC.width / 2, TpPos.Y + NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -70 + 4, NPC.whoAmI);
                 }
                 if (AI_Timer == StartTime - 5f) //tp
                 {
@@ -1636,19 +1604,24 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     NPC.netUpdate = true;
                 }
             }
-            if (AI_Timer == StartTime && FargoSoulsUtil.HostCheck && AttackCount < 6f)
+            if (AI_Timer == StartTime && AttackCount < 6f)
             {
                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
                 SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact, NPC.Center);
                 //circle of cum before charge
-                float ProjectileSpeed = 10f;
-                Vector2 shootatPlayer = NPC.DirectionTo(Player.Center) * ProjectileSpeed;
-                int amount = 14;
-                for (int i = 0; i < amount; i++)
+                
+                if (FargoSoulsUtil.HostCheck)
                 {
-                    Vector2 shootoffset = shootatPlayer.RotatedBy(i * (MathHelper.Pi / (amount / 2)));
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset, ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                    float ProjectileSpeed = 10f;
+                    Vector2 shootatPlayer = NPC.DirectionTo(Player.Center) * ProjectileSpeed;
+                    int amount = 14;
+                    for (int i = 0; i < amount; i++)
+                    {
+                        Vector2 shootoffset = shootatPlayer.RotatedBy(i * (MathHelper.Pi / (amount / 2)));
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, shootoffset, ModContent.ProjectileType<LifeProjLarge>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer);
+                    }
                 }
+                
                 //charge
                 float chargeSpeed = 22f;
                 Vector2 chargeatPlayer = NPC.DirectionTo(Player.Center) * chargeSpeed;
