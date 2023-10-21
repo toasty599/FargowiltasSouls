@@ -720,6 +720,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MeteorMomentum"))
             {
                 MeteorMomentum = true;
+                Player.hasMagiluminescence = true;
 
                 const int SparkDelay = 2;
                 int Timer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
@@ -1633,9 +1634,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.DisplayToggle("DefenseBee");
             Player.DisplayToggle("DefensePanic");
             Player.DisplayToggle("MasoAeolusFlower");
-
-
-            Player.hasMagiluminescence = true;
 
             //amph boot
             if (Player.GetToggleValue("MasoAeolusFrog"))

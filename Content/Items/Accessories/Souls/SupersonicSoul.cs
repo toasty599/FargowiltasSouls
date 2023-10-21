@@ -64,7 +64,6 @@ Effects of Sweetheart Necklace and Amber Horseshoe Balloon
             .AddIngredient(ModContent.ItemType<AeolusBoots>()) //add terraspark boots
             .AddIngredient(ItemID.FlyingCarpet)
             .AddIngredient(ItemID.SweetheartNecklace)
-            .AddIngredient(ItemID.Magiluminescence)
             .AddIngredient(ItemID.BalloonHorseshoeHoney)
             .AddIngredient(ItemID.HorseshoeBundle)
             .AddIngredient(ItemID.EoCShield)

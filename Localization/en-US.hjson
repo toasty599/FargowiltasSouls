@@ -2214,8 +2214,9 @@ Mods: {
 				DisplayName: Meteor Enchantment
 				Tooltip:
 					'''
-					Drastically increases your run acceleration, and decreases your momentum
 					Moving creates a fire trail
+					Increases your movement speed and acceleration, and decreases your momentum
+					Provides light when worn
 					'Drop a draco on 'em'
 					'''
 			}
