@@ -86,10 +86,10 @@ namespace FargowiltasSouls.Content.Projectiles
         public bool noInteractionWithNPCImmunityFrames;
         private int tempIframe;
 
-        public static List<int> FancySwordSwings = new()
+        public static List<int> ShroomiteBlacklist = new()
         {
-                190
-            };
+            ModContent.ProjectileType<MeteorFlame>()
+        };
 
         public override void SetStaticDefaults()
         {
@@ -454,7 +454,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         projectile.Kill();
                     }
 
-                    if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 /*&& !townNPCProj*/ && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 75)
+                    if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 && !ShroomiteBlacklist.Contains(projectile.type) && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 75)
                     {
                         const float maxCD = 100f;
                         if (shroomiteMushroomCD >= maxCD)
