@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -49,7 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Empty";
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        /*public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float collisionPoint = 0f;
             if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.position, Projectile.oldPos[1], Projectile.width, ref collisionPoint))
@@ -57,11 +58,13 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 return true;
             }
             return false;
-        }
-
+        }*/
+        
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.damage *= 8/10;
+            Projectile.damage = (int)(Math.Round(Projectile.damage * 0.8));
+            //CHANGE THIS SOUND EFFECT!!!!!!!!!!!!!!!!!!!!!! TOO MUCH RAINBOW GUN
+            SoundEngine.PlaySound(SoundID.Item68, target.Center);
 
         }
 

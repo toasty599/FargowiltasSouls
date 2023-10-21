@@ -58,7 +58,7 @@ There is a 60 second cooldown for this effect
             .AddIngredient(ItemID.FrostLeggings)
             .AddIngredient(ModContent.ItemType<SnowEnchant>())
             .AddIngredient(ItemID.Frostbrand)
-            .AddIngredient(ItemID.IceBow)
+            .AddIngredient(ItemID.FrostStaff)
             //frost staff
             //coolwhip
             //.AddIngredient(ItemID.BlizzardStaff);

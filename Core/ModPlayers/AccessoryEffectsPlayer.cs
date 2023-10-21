@@ -942,7 +942,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
         }
 
-        public void ShinobiEffect(bool hideVisual)
+        public void ShinobiEffect(bool hideVisual, Item item)
         {
             Player.DisplayToggle("Shinobi");
             Player.DisplayToggle("ShinobiDash");
@@ -974,6 +974,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }*/
 
             ShinobiEnchantActive = true;
+            ShinobiEnchantItem = item;
             MonkEnchantActive = true;
         }
 

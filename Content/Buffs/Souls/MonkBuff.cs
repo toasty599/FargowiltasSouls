@@ -46,10 +46,13 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
                 player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], invul);
 
-                bool monkForce = modPlayer.ForceEffect(modPlayer.MonkEnchantItem.type);
+                bool monkForce = modPlayer.ForceEffect(modPlayer.MonkEnchantItem.type) || modPlayer.ShinobiEnchantActive;
+                bool shinobiForce = modPlayer.ForceEffect(modPlayer.ShinobiEnchantItem.type);
 
                 Vector2 pos = player.Center;
-                int damage = monkForce ? 1000 : 500;
+
+                int damage = monkForce ? (shinobiForce ? 1500 : 1000) : 500;
+
                 Projectile.NewProjectile(player.GetSource_FromThis(), pos, Vector2.Zero, ModContent.ProjectileType<MonkDashDamage>(), damage, 0);
             }
             else
