@@ -1916,7 +1916,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 availablestates.Remove((int)State); //avoid possible repeat after refilling list
             }
-            if (FargoSoulsUtil.HostCheck)
+            if (FargoSoulsUtil.HostCheck) //only run for host in mp, will sync to others
             {
                 index = Main.rand.Next(availablestates.Count);
                 State = availablestates[index];
