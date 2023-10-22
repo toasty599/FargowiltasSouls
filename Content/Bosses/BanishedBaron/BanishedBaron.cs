@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 30500;
+            NPC.lifeMax = 32000;
             NPC.defense = 15;
             NPC.damage = 69;
             NPC.knockBackResist = 0f;
@@ -764,7 +764,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     }
                 }
             }
-            const int Distance = 400;
+            int Distance = (int)Math.Min(NPC.Distance(player.Center) + 50, 450);
             if (Timer == 1)
             {
                 
@@ -792,13 +792,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
 
             //bool NewCollision = (Collision.SolidCollision(NPC.position, NPC.width, NPC.height) && AI3 != -2); //if didn't originate in collision, 
-            if (Vector2.Distance(NPC.Center, LockVector1) < 25 || Timer > 150 || (AI3 != -2 && AI3 != 0)/* || NewCollision*/) //if ai3 not 0 (default) or -2 (set when original collision)
+            if (Vector2.Distance(NPC.Center, LockVector1) < 25 || Timer > 100 || (AI3 != -2 && AI3 != 0)/* || NewCollision*/) //if ai3 not 0 (default) or -2 (set when original collision)
             {
 
                 AI3 = (AI3 + 1) * 3; //stays negative if set to -2 by checking original collision, otherwise goes positive
-                NPC.velocity *= 0.935f;
+                NPC.velocity *= 0.85f;
                 RotateTowards(player.Center, 3);
-                if (NPC.velocity.Length() < 0.1f && Timer > 45)
+                if (NPC.velocity.Length() < 0.1f && Timer > 50)
                 {
                     if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
                     {
@@ -810,12 +810,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             else
             {
-                if (Collision.SolidCollision(NPC.Center + NPC.velocity, NPC.width, NPC.height) && Timer < 135 && AI3 != -2)
+                if (Collision.SolidCollision(NPC.Center + NPC.velocity, NPC.width, NPC.height) && Timer < 40 && AI3 != -2)
                 {
-                    Timer = 135; //so it doesn't get stuck on tiles too long
+                    Timer = 40; //so it doesn't get stuck on tiles too long
                 }
                 Vector2 vectorToIdlePosition = LockVector1 - NPC.Center;
-                float speed = AI3 >= 0 ? 20f : 10f; //less speed if originated in collision
+                float speed = AI3 >= 0 ? 28 : 14; //less speed if originated in collision
                 if (WorldSavingSystem.EternityMode && !WorldSavingSystem.MasochistModeReal) //maso speed is already very fast because ignore water
                 {
                     speed *= 1.2f;
