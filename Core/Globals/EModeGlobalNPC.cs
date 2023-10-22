@@ -1302,7 +1302,6 @@ namespace FargowiltasSouls.Core.Globals
             {
                 return;
             }
-            Main.NewText("horde");
             int repeatTries = 50;
 
             for (int i = 0; i < size; i++)
