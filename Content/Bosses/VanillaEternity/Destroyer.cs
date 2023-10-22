@@ -966,7 +966,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 modifiers.FinalDamage *= 0.1f;
             }
 
-            if (Main.npc.Count(n => n.active && n.type == npc.type && n.Distance(npc.Center) < npc.width / 2) > 8)
+            if (Main.npc.Count(n => n.active && n.type == npc.type && n.Distance(npc.Center) < npc.width * 0.75) > 4)
             {
                 modifiers.Null();
             }
