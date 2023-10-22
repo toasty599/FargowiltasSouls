@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Core.Globals
             return WorldSavingSystem.EternityMode ? base.NewInstance(target) : target.GetGlobalNPC<SillyLittleQuestionMark>();
         }
 
-        public bool FirstTick = true;
+        public bool FirstTick = true; //trying to set this false on spawn before it triggers results in a null instance error and other issues, assumedly because of the NewInstance method, so don't do that
         public virtual void OnFirstTick(NPC npc) { }
 
         public virtual bool SafePreAI(NPC npc) => base.PreAI(npc);

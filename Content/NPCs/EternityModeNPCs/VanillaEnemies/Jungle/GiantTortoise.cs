@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
         {
             base.OnFirstTick(npc);
 
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(3) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(2, 6));
         }
 

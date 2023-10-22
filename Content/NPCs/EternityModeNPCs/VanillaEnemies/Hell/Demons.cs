@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hell
         {
             base.OnFirstTick(npc);
 
-            if (Main.hardMode && Main.rand.NextBool(4))
+            if (Main.hardMode && Main.rand.NextBool(4) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(5) + 1);
         }
 

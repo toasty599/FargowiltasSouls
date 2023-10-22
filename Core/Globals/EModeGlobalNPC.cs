@@ -1297,10 +1297,12 @@ namespace FargowiltasSouls.Core.Globals
 
         public static void Horde(NPC npc, int size)
         {
+
             if (npc == null || !npc.active)
             {
                 return;
             }
+            Main.NewText("horde");
             int repeatTries = 50;
 
             for (int i = 0; i < size; i++)
@@ -1326,10 +1328,13 @@ namespace FargowiltasSouls.Core.Globals
                         if (newNPC != null && newNPC.active && newNPC.type == npc.type) //super mega safeguard check
                         {
                             newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
+                            newNPC.FargoSouls().CanHordeSplit = false;
+                            /*
                             if (newNPC.TryGetGlobalNPC(out EModeNPCBehaviour globalNPC))
                             {
                                 globalNPC.FirstTick = false;
                             }
+                            */
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, j);
                         }

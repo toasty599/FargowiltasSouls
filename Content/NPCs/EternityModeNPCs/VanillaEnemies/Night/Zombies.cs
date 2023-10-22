@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Night
                 npc.Transform(NPCID.ZombieEskimo);
             }
 
-            if (Main.rand.NextBool(8))
+            if (Main.rand.NextBool(8) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, 6);
             if (armedId != -1 && Main.rand.NextBool(5))
                 npc.Transform(armedId);

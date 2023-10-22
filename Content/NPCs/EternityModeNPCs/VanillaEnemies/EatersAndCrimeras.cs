@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
         {
             base.OnFirstTick(npc);
 
-            if (NPC.downedBoss2 && Main.rand.NextBool(5))
+            if (NPC.downedBoss2 && Main.rand.NextBool(5) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, 5);
         }
 

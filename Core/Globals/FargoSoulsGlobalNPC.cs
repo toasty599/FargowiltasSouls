@@ -36,6 +36,8 @@ namespace FargowiltasSouls.Core.Globals
         public int originalDefense;
         public bool BrokenArmor;
 
+        public bool CanHordeSplit = true;
+
         public bool FirstTick;
         //        //debuffs
         public bool OriPoison;

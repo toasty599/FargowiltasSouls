@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hell
             if (Main.rand.NextBool(5))
             {
                 npc.TargetClosest(false);
-                if (npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight)
+                if (npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight && npc.FargoSouls().CanHordeSplit)
                     EModeGlobalNPC.Horde(npc, Main.rand.Next(8) + 1);
             }
         }

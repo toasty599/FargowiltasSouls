@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
         {
             base.OnFirstTick(npc);
 
-            if (Main.rand.NextBool(4))
+            if (Main.rand.NextBool(4) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(6) + 1);
         }
     }

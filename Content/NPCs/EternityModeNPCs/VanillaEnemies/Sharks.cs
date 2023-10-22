@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
         {
             base.OnFirstTick(npc);
 
-            if (npc.type == NPCID.Shark && Main.rand.NextBool(3))
+            if (npc.type == NPCID.Shark && Main.rand.NextBool(3) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(1, 5));
         }
 

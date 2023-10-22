@@ -1054,7 +1054,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             npc.buffImmune[BuffID.Suffocation] = true;
 
-            if (Main.rand.NextBool(4) && !FargoSoulsUtil.AnyBossAlive())
+            if (Main.rand.NextBool(4) && !FargoSoulsUtil.AnyBossAlive() && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, 8);
         }
 
