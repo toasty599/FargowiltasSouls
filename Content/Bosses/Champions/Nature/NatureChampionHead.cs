@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -469,13 +470,45 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
                 NPC body = FargoSoulsUtil.NPCExists(NPC.ai[1], ModContent.NPCType<NatureChampion>());
                 body?.HitEffect(hit);
             }
+            if (Main.remixWorld && Main.rand.NextBool(10))
+            {
+                int solutionType = ItemID.GreenSolution;
+                int headType = (int)NPC.ai[3];
+                if (headType > 0)
+                    headType--;
+                headType += 3;
+                switch (headType)
+                {
+                    case 0:
+                        solutionType = ItemID.RedSolution;
+                        break;
+                    case 1:
+                        solutionType = ItemID.PurpleSolution;
+                        break;
+                    case 2:
+                        solutionType = ItemID.SandSolution;
+                        break;
+                    case 3:
+                        solutionType = ItemID.SnowSolution;
+                        break;
+                    case 4:
+                        solutionType = ItemID.GreenSolution;
+                        break;
+                    case 5:
+                        solutionType = ItemID.DarkBlueSolution;
+                        break;
+                }
+                if (FargoSoulsUtil.HostCheck) //onkill supposed to only run on server but just in case
+                {
+                    Item.NewItem(NPC.GetSource_Loot(), NPC.position, NPC.Size, solutionType, 1);
+                }
+            }
         }
 
         public override bool CheckActive()
         {
             return false;
         }
-
         public override void FindFrame(int frameHeight)
         {
             /*int frameModifier = (int)NPC.ai[3];

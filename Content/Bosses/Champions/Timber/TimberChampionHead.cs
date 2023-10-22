@@ -663,6 +663,14 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                 if (!Main.dedServ)
                     Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, "TimberGore2").Type, NPC.scale);
             }
+            if (Main.remixWorld && Main.rand.NextBool(10))
+            {
+                int solutionType = ItemID.DirtSolution;
+                if (FargoSoulsUtil.HostCheck) //onkill supposed to only run on server but just in case
+                {
+                    Item.NewItem(NPC.GetSource_Loot(), NPC.position, NPC.Size, solutionType, 1);
+                }
+            }
         }
 
         public override void BossLoot(ref string name, ref int potionType)
