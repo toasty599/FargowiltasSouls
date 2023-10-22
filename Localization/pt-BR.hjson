@@ -4399,14 +4399,15 @@ Mods: {
 			}
 
 			TheSmallSting: {
-				DisplayName: A Ferroadinha
-				Tooltip:
+				// DisplayName: The Small Sting
+				/* Tooltip:
 					'''
-					Utiliza dardos como munição
-					50% de chance de não consumir munição
-					Ferrões grudarão nos inimigos, atingir o mesmo lugar novamente causará mais danos
-					'Reaproveitado do abdômen de um inimigo derrotado..'
-					'''
+					Uses darts for ammo
+					50% chance to not consume ammo
+					Stingers will stick to enemies, hitting the same spot again will deal extra damage
+					Scales with your bee damage and knockback increases
+					'Repurposed from the abdomen of a defeated foe..'
+					''' */
 			}
 
 			TwinRangs: {
@@ -4643,13 +4644,14 @@ Mods: {
 			}
 
 			TheBigSting: {
-				DisplayName: A Ferroadona
-				Tooltip:
+				// DisplayName: The Big Sting
+				/* Tooltip:
 					'''
-					Utiliza dardos como munição
-					66% de chance de não consumir munição
-					'A recompensa por matar muitos...'
-					'''
+					Uses darts for ammo
+					Scales with your bee damage and knockback increases
+					66% chance to not consume ammo
+					'The reward for slaughtering many..'
+					''' */
 			}
 
 			ForgorGift: {

@@ -743,7 +743,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             target.AddBuff(BuffID.Electrified, 60);
             target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
         }
-
+        
 
         public override void LoadSprites(NPC npc, bool recolor)
         {
@@ -965,7 +965,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 modifiers.FinalDamage *= 0.1f;
             }
+
         }
+        
 
         public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
@@ -979,6 +981,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 modifiers.FinalDamage *= 0.75f;
             if (projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNuke>() || projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNukeSplinter>())
                 modifiers.FinalDamage *= 0.7f;
+        }
+        public override void SafeOnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            if (!FargoSoulsUtil.IsSummonDamage(projectile))
+                projectile.damage = (int)Math.Min(projectile.damage - 1, projectile.damage * 0.75);
+
+            base.SafeOnHitByProjectile(npc, projectile, hit, damageDone);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
