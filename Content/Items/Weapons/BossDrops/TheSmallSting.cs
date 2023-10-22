@@ -45,6 +45,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             type = Item.shoot;
+            damage = player.beeDamage(damage);
+            knockback = player.beeKB(knockback);
         }
 
         // Remove the Crit Chance line because of a custom crit method
