@@ -666,13 +666,12 @@ namespace FargowiltasSouls.Core.ModPlayers
                 };
             }
 
-            if (DeerSinewNerf && DeerSinewFreezeCD <= 0 && (modifiers.DamageSource.SourceNPCIndex != -1 || (modifiers.DamageSource.SourceProjectileType != -1 && Main.projectile[modifiers.DamageSource.SourceProjectileType].aiStyle != ProjAIStyleID.FallingTile)))
+            if (DeerSinewNerf && DeerSinewFreezeCD <= 0 && (modifiers.DamageSource.SourceNPCIndex.WithinBounds(Main.maxNPCs) || (modifiers.DamageSource.SourceProjectileType.WithinBounds(Main.maxProjectiles) && Main.projectile[modifiers.DamageSource.SourceProjectileType].aiStyle != ProjAIStyleID.FallingTile)))
             {
                 DeerSinewFreezeCD = 120;
                 FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 20);
             }
         }
-
         public void OnHurtEffects(double damage)
         {
             if (HurtTimer <= 0)
