@@ -238,7 +238,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<OrichalcumEnchant>(),
                     ModContent.ItemType<AdamantiteEnchant>(),
                     ModContent.ItemType<PalladiumEnchant>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
 
                 meleeSpecific = new int[] { ItemID.WarriorEmblem, ModContent.ItemType<TungstenEnchant>() };
                 rangerSpecific = new int[] { ItemID.RangerEmblem };

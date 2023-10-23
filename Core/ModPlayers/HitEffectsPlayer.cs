@@ -615,13 +615,13 @@ namespace FargowiltasSouls.Core.ModPlayers
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
         {
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()) && EModeGlobalNPC.deviBoss.WithinBounds(Main.maxNPCs))
                 ((DeviBoss)Main.npc[EModeGlobalNPC.deviBoss].ModNPC).playerInvulTriggered = true;
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>()) && EModeGlobalNPC.abomBoss.WithinBounds(Main.maxNPCs))
                 ((AbomBoss)Main.npc[EModeGlobalNPC.abomBoss].ModNPC).playerInvulTriggered = true;
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()) && EModeGlobalNPC.mutantBoss.WithinBounds(Main.maxNPCs))
                 ((MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
             if (DeathMarked)
@@ -640,7 +640,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 CrimsonEnchant.CrimsonHurt(Player, this, ref modifiers);
             }
 
-            if (StyxSet && !BetsyDashing && !GoldShell && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
+            if (StyxSet && !BetsyDashing && !GoldShell && ModContent.ProjectileType<StyxArmorScythe>().WithinBounds(Player.ownedProjectileCounts.Length) && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
             {
                 modifiers.ModifyHurtInfo += (ref Player.HurtInfo hurtInfo) =>
                 {
