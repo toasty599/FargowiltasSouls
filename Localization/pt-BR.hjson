@@ -1918,16 +1918,6 @@ Mods: {
 					'''
 			}
 
-			AncientHallowEnchant: {
-				DisplayName: Encantamento Consagrado Antigo
-				Tooltip:
-					'''
-					Você ganha um escudo que pode refletir projéteis
-					Invoca uma Terraprisma familiar que fica mais forte com dano por invocação
-					'Você tem poder suficiente para me empunhar?'
-					'''
-			}
-
 			AncientShadowEnchant: {
 				DisplayName: Encantamento das Sombras Antigo
 				Tooltip:
@@ -1950,17 +1940,6 @@ Mods: {
 					'''
 			}
 
-			ApprenticeEnchant: {
-				DisplayName: Encantamento do Aprendiz
-				Tooltip:
-					'''
-					Depois de atacar por 2 segundos você será envolvido em chamas
-					Trocar de armas aumentará o dano do próximo ataque em 50% e invocará um inferno
-					Campo de visão e alcance das Chamas Explosivas consideravelmente maior
-					'Um longo caminho à perfeição'
-					'''
-			}
-
 			AshWoodEnchant: {
 				// DisplayName: Ash Wood Enchantment
 				/* Tooltip:
@@ -1972,16 +1951,6 @@ Mods: {
 					Reduces damage from touching lava
 					'You're telling me this isn't wood?'
 					''' */
-			}
-
-			BeeEnchant: {
-				DisplayName: Encantamento da Abelha
-				Tooltip:
-					'''
-					Aumenta a força das abelhas amigáveis
-					Acertos físicos e a maioria dos ataques perfurantes invocam abelhas
-					'De acordo com todas as conhecidas leis da aviação, não existe forma pela qual uma abelha fosse capaz de voar'
-					'''
 			}
 
 			BeetleEnchant: {
@@ -2071,19 +2040,6 @@ Mods: {
 					'''
 			}
 
-			DarkArtistEnchant: {
-				DisplayName: Encantamento do Artista Sombrio
-				Tooltip:
-					'''
-					Invoca um lacaio de Chamas Explosivas que viajará para o seu mouse depois de carregar
-					Ele então agirá como uma sentinela
-					Depois de atacar por 2 segundos você será envolvido em chamas
-					Trocar de armas aumentará o dano do próximo ataque em 50% e invocará um inferno
-					Aumenta bastante a eficiência das Chamas Explosivas
-					'As sombras retém mais do que parecem'
-					'''
-			}
-
 			EbonwoodEnchant: {
 				DisplayName: Encantamento de Madeira do Ébano
 				Tooltip:
@@ -2152,33 +2108,14 @@ Mods: {
 					'''
 			}
 
-			HallowEnchant: {
-				DisplayName: Encantamento Consagrado
-				Tooltip:
-					'''
-					Fique imune depois de atacar um inimigo
-					'Acerte-me com seu melhor tiro'
-					'''
-			}
-
 			HuntressEnchant: {
 				DisplayName: Encantamento da Caçadora
 				Tooltip:
 					'''
-					Ataques ignoram 10 pontos da defesa inimiga e causam 5 de dano extra plano
-					Cada ataque sucessivo ignora 10 pontos de defesa adicionais e causam mais 5 de dano
+					Ataques ignoram 6 pontos da defesa inimiga e causam 3 de dano extra plano
+					Cada ataque sucessivo ignora 6 pontos de defesa adicionais e causam mais 3 de dano
 					Errar qualquer ataque redefinirá esse bônus
 					'Precisão traz poder'
-					'''
-			}
-
-			IronEnchant: {
-				DisplayName: Encantamento de Ferro
-				Tooltip:
-					'''
-					Você atrai itens de um alcance maior
-					33% de chance de não consumir ingredientes de criação em uma Bigorna de Ferro
-					'Eita, ferrou!'
 					'''
 			}
 
@@ -2201,17 +2138,6 @@ Mods: {
 					Ataques infligem inimigos com Envenenamento por Chumbo
 					Envenenamento por Chumbo causa danos ao longo do tempo e se espalha para inimigos próximos
 					'Não recomendado como comida'
-					'''
-			}
-
-			MeteorEnchant: {
-				DisplayName: Encantamento de Meteoro
-				Tooltip:
-					'''
-					Reduz o impulso em 50%
-					Você deixa para trás uma rastro de chamas
-					Uma chuva de meteoros é iniciada a cada poucos segundos enquanto você ataca
-					'Derrube um draco neles'
 					'''
 			}
 
@@ -2282,17 +2208,6 @@ Mods: {
 					'''
 			}
 
-			NinjaEnchant: {
-				DisplayName: Encantamento do Ninja
-				Tooltip:
-					'''
-					Aumenta drasticamente a velocidade dos projéteis
-					Reduz o dano para compensar pela velocidade aumentada
-					Aumenta a perfuração de blindagem em 10
-					'Ataque mais rápido do que o olho pode ver'
-					'''
-			}
-
 			ObsidianEnchant: {
 				DisplayName: Encantamento de Obsidiana
 				Tooltip:
@@ -2359,17 +2274,6 @@ Mods: {
 					Quando totalmente crescidas, elas curarão 25 de PV e invocarão brasas que causam danos
 					Inimigos que tocam nelas destruirão elas e sofrem danos
 					'Seu desejo repentino por abóboras nunca será satisfeito'
-					'''
-			}
-
-			RainEnchant: {
-				DisplayName: Encantamento da Chuva
-				Tooltip:
-					'''
-					Oferece imunidade a Molhado
-					Invoca uma tempestade em miniatura que segue o seu cursor
-					Ela só ataca se houver uma linha de visão clara entre você
-					'Volte aqui uma outra hora'
 					'''
 			}
 
@@ -2501,16 +2405,6 @@ Mods: {
 					'''
 			}
 
-			SquireEnchant: {
-				DisplayName: Encantamento do Escudeiro
-				Tooltip:
-					'''
-					Aumenta a eficiência de fontes de cura em 25%
-					A Balista perfura mais alvos e entra em pânico quando você sofre danos
-					'Escudeiro, se apressa!'
-					'''
-			}
-
 			StardustEnchant: {
 				DisplayName: Encantamento de Pó das Estrelas
 				Tooltip:
@@ -2580,16 +2474,6 @@ Mods: {
 					'''
 			}
 
-			ValhallaKnightEnchant: {
-				DisplayName: Encantamento do Cavaleiro de Valhalla
-				Tooltip:
-					'''
-					Aumenta a eficiência de fontes de cura em 33%
-					Aumenta bastante a eficiência da Balista
-					'Valhalla te chama'
-					'''
-			}
-
 			VortexEnchant: {
 				DisplayName: Encantamento do Vórtice
 				Tooltip:
@@ -2598,15 +2482,6 @@ Mods: {
 					Ao entrar no modo sorrateiro, você gera um vórtice que atrai inimigos e projéteis
 					No modo sorrateiro, seus próprios projéteis não serão atraídos
 					'Rasgue a realidade'
-					'''
-			}
-
-			WizardEnchant: {
-				DisplayName: Encantamento do Bruxo
-				Tooltip:
-					'''
-					Aumenta o poder de todos os outros encantamentos para seus efeitos de Força
-					'Eu sou o quê?
 					'''
 			}
 

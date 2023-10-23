@@ -1918,16 +1918,6 @@ Mods: {
 					'''
 			}
 
-			AncientHallowEnchant: {
-				DisplayName: 远古神圣魔石
-				Tooltip:
-					'''
-					使你获得一面可以反弹弹幕的盾牌
-					召唤一柄泰拉棱镜，其伤害接受召唤伤害加成
-					“你有足够的力量驾驭我吗？”
-					'''
-			}
-
 			AncientShadowEnchant: {
 				DisplayName: 远古暗影魔石
 				Tooltip:
@@ -1942,17 +1932,6 @@ Mods: {
 			AnglerEnchantment: {
 				// DisplayName: Mods.FargowiltasSouls.Items.AnglerEnchantment.DisplayName
 				// Tooltip: Mods.FargowiltasSouls.ItemTooltip.AnglerEnchantment
-			}
-
-			ApprenticeEnchant: {
-				DisplayName: 学徒魔石
-				Tooltip:
-					'''
-					持续攻击两秒后你将被火焰包裹
-					切换武器后，下次攻击的伤害增加50%，并造成地狱爆炸
-					大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
-					“追求完美的漫漫长路”
-					'''
 			}
 
 			AshWoodEnchant: {
@@ -2061,19 +2040,6 @@ Mods: {
 					'''
 			}
 
-			DarkArtistEnchant: {
-				DisplayName: 暗黑艺术家魔石
-				Tooltip:
-					'''
-					召唤一个爆炸烈焰仆从，在充能完毕后会移动至光标位置
-					然后它会如同一个哨兵，固定在该位置并发射爆炸火球
-					持续攻击会使你被火焰包裹并为仆从充能，持续攻击两秒后完成充能
-					切换武器后，下次攻击的伤害增加50%，并造成地狱爆炸
-					大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
-					“阴影蕴含之物远超其表象”
-					'''
-			}
-
 			EbonwoodEnchant: {
 				DisplayName: 乌木魔石
 				Tooltip:
@@ -2142,34 +2108,15 @@ Mods: {
 					'''
 			}
 
-			HallowEnchant: {
-				DisplayName: 神圣魔石
-				Tooltip:
-					'''
-					攻击敌人后会使你无敌一小段时间
-					《Hit me with your best shot》
-					'''
-			}
-
 			HuntressEnchant: {
 				DisplayName: 女猎人魔石
 				Tooltip:
 					'''
-					攻击忽略10点敌怪防御并造成5点额外伤害
-					每次连续攻击会额外忽略10点防御并多造成5点伤害
+					攻击忽略6点敌怪防御并造成3点额外伤害
+					每次连续攻击会额外忽略6点防御并多造成3点伤害
 					追踪武器和召唤物不会增加这些加成
 					任何一次攻击没有击中都会重置这些加成
 					“精确带来力量”
-					'''
-			}
-
-			IronEnchant: {
-				DisplayName: 铁魔石
-				Tooltip:
-					'''
-					扩大你的拾取范围
-					在任何铁砧处合成物品时33%的几率不消耗制作材料
-					“趁热打铁”
 					'''
 			}
 
@@ -2191,18 +2138,6 @@ Mods: {
 					受到的持续伤害降低40%
 					铅中毒减益持续造成伤害并会扩散至周围的敌人
 					“不建议食用”
-					'''
-			}
-
-			MeteorEnchant: {
-				DisplayName: 流星魔石
-				Tooltip:
-					'''
-					减少50%动量
-					你会留下火焰轨迹
-					攻击时每过几秒便会召唤一次流星雨
-					《Drop a draco on 'em》
-					（实际上，效果一点没改）
 					'''
 			}
 
@@ -2273,17 +2208,6 @@ Mods: {
 					'''
 			}
 
-			NinjaEnchant: {
-				DisplayName: 忍者魔石
-				Tooltip:
-					'''
-					大幅提升弹幕和召唤物速度
-					为了平衡加速度，伤害会降低
-					增加10点护甲穿透
-					“比肉眼所及更快”
-					'''
-			}
-
 			ObsidianEnchant: {
 				DisplayName: 黑曜石魔石
 				Tooltip:
@@ -2351,18 +2275,6 @@ Mods: {
 					南瓜成熟时会为你回复25点生命值并产生伤害余烬
 					敌人与南瓜接触时会摧毁南瓜但会受到伤害
 					“你对南瓜的突发渴望永远不会得到满足”
-					'''
-			}
-
-			RainEnchant: {
-				DisplayName: 雨云魔石
-				Tooltip:
-					'''
-					免疫潮湿减益
-					召唤一个微型雨云跟着你的光标
-					不会穿墙攻击
-					拥有浮游圈的效果
-					“改日再来”
 					'''
 			}
 
@@ -2492,16 +2404,6 @@ Mods: {
 					'''
 			}
 
-			SquireEnchant: {
-				DisplayName: 侍卫魔石
-				Tooltip:
-					'''
-					回复生命值时，治疗量增加25%
-					弩车可以穿透更多目标，你受到伤害时会得到弩车恐慌增益
-					“侍卫，你能快点吗？”
-					'''
-			}
-
 			StardustEnchant: {
 				DisplayName: 星尘魔石
 				Tooltip:
@@ -2571,16 +2473,6 @@ Mods: {
 					'''
 			}
 
-			ValhallaKnightEnchant: {
-				DisplayName: 英灵殿骑士魔石
-				Tooltip:
-					'''
-					回复生命值时，治疗量增加33%
-					大幅强化弩车的效果
-					“瓦尔哈拉的呼唤”
-					'''
-			}
-
 			VortexEnchant: {
 				DisplayName: 星旋魔石
 				Tooltip:
@@ -2589,15 +2481,6 @@ Mods: {
 					进入隐形状态时生成一个会吸引敌人和弹幕的旋涡
 					处于隐形状态时你的弹幕不会被旋涡吸引
 					“撕裂现实”
-					'''
-			}
-
-			WizardEnchant: {
-				DisplayName: 巫师魔石
-				Tooltip:
-					'''
-					强化其它魔石，使它们获得在合成“力”等级饰品后才能获得的效果
-					“我是啥？”
 					'''
 			}
 
