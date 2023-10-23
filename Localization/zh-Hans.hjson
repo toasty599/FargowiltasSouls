@@ -22,7 +22,7 @@ Mods: {
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			Cobalt: 增加爆炸伤害
 			Copper: 增加闪电伤害，冷却时间减少
-			// Crimson: No upgrade
+			// Crimson: Heal increases from 50% of dealt damage to 80%
 			CrystalAssassin: ""
 			DarkArtist: ""
 			Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
@@ -69,7 +69,7 @@ Mods: {
 			// Tiki: Increases whip range by 20%
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
-			Tungsten: 将武器大小提升到300%，伤害加成提升到20%，冷却时间减少
+			// Tungsten: Weapon size tripled instead of doubled, damage bonus increased from 7% to 14%, and cooldown reduced
 			// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
 			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
 			// Vortex: No upgrade
@@ -1918,6 +1918,19 @@ Mods: {
 					'''
 			}
 
+			AncientHallowEnchant: {
+				// DisplayName: Ancient Hallowed Enchantment
+				/* Tooltip:
+					'''
+					Summons a Terraprisma familiar that scales with minion damage
+					The sword follows the direction of your mouse
+					Press Right Click to slash with the sword
+					Slashing enemy projectiles reflects them back at the enemy
+					Reflects has a 15 second cooldown and can only affect projectiles that deal less than 150 damage
+					'Have you power enough to wield me?'
+					''' */
+			}
+
 			AncientShadowEnchant: {
 				DisplayName: 远古暗影魔石
 				Tooltip:
@@ -1932,6 +1945,19 @@ Mods: {
 			AnglerEnchantment: {
 				// DisplayName: Mods.FargowiltasSouls.Items.AnglerEnchantment.DisplayName
 				// Tooltip: Mods.FargowiltasSouls.ItemTooltip.AnglerEnchantment
+			}
+
+			ApprenticeEnchant: {
+				// DisplayName: Apprentice Enchantment
+				/* Tooltip:
+					'''
+					While attacking, fire your next closest weapon's projectile as support
+					The support weapon will fire 1/4 as often as they would normally and deal 1/2 damage
+					Only works on hotbar weapons
+					Consumables are consumed, mana is spent, and ammo is selected
+					Flameburst field of view and range are dramatically increased
+					'A long way to perfection'
+					''' */
 			}
 
 			AshWoodEnchant: {
@@ -2019,13 +2045,14 @@ Mods: {
 			}
 
 			CrimsonEnchant: {
-				DisplayName: 猩红魔石
-				Tooltip:
+				// DisplayName: Crimson Enchantment
+				/* Tooltip:
 					'''
-					在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量的一半
-					如果你在完成恢复前再次受伤，生命恢复效果不会叠加
-					“你从敌人的鲜血中重生”
-					'''
+					After taking a hit, if you avoid getting hit for 5 seconds, you get 50% of the health back
+					If you take another hit before you heal, the heal gets cancelled
+					This does not affect hits dealing less than 10 damage
+					'The blood of your enemy is your rebirth'
+					''' */
 			}
 
 			CrystalAssassinEnchant: {
@@ -2038,6 +2065,17 @@ Mods: {
 					先发制人增益会使你下次攻击必定暴击且造成3倍伤害，并降低目标10点防御力
 					“你现在能看到我了。诶，你又看不到我了”
 					'''
+			}
+
+			DarkArtistEnchant: {
+				// DisplayName: Dark Artist Enchantment
+				/* Tooltip:
+					'''
+					While attacking, fire your next 2 closest weapons' projectiles as support
+					Summons a Flameburst minion that will also fire while you attack
+					Greatly enhances Flameburst effectiveness
+					'The shadows hold more than they seem'
+					''' */
 			}
 
 			EbonwoodEnchant: {
@@ -2108,6 +2146,16 @@ Mods: {
 					'''
 			}
 
+			HallowEnchant: {
+				// DisplayName: Hallowed Enchantment
+				/* Tooltip:
+					'''
+					Healing potions restore 40% more, but take effect over time
+					Using a healing potion creates a shockwave that repels nearby enemy projectiles
+					'Hit me with your best shot'
+					''' */
+			}
+
 			HuntressEnchant: {
 				DisplayName: 女猎人魔石
 				Tooltip:
@@ -2118,6 +2166,17 @@ Mods: {
 					任何一次攻击没有击中都会重置这些加成
 					“精确带来力量”
 					'''
+			}
+
+			IronEnchant: {
+				// DisplayName: Iron Enchantment
+				/* Tooltip:
+					'''
+					Works in vanity and inventory slots
+					The first time you craft an item, each material has a 33% chance to not be consumed
+					Does not work on Crucible of the Cosmos items
+					'Strike while the iron is hot'
+					''' */
 			}
 
 			JungleEnchant: {
@@ -2139,6 +2198,16 @@ Mods: {
 					铅中毒减益持续造成伤害并会扩散至周围的敌人
 					“不建议食用”
 					'''
+			}
+
+			MeteorEnchant: {
+				// DisplayName: Meteor Enchantment
+				/* Tooltip:
+					'''
+					Drastically increases your run acceleration, and decreases your momentum
+					Moving creates a fire trail
+					'Drop a draco on 'em'
+					''' */
 			}
 
 			MinerEnchant: {
@@ -2206,6 +2275,16 @@ Mods: {
 					拥有骨头手套的效果
 					“欢迎来到骸骨领域”
 					'''
+			}
+
+			NinjaEnchant: {
+				// DisplayName: Ninja Enchantment
+				/* Tooltip:
+					'''
+					Your projectiles deal more damage the faster they're moving, up to 20%
+					Drastically increases projectile speed while you're moving slowly
+					'Attack faster than the eye can see'
+					''' */
 			}
 
 			ObsidianEnchant: {
@@ -2276,6 +2355,19 @@ Mods: {
 					敌人与南瓜接触时会摧毁南瓜但会受到伤害
 					“你对南瓜的突发渴望永远不会得到满足”
 					'''
+			}
+
+			RainEnchant: {
+				// DisplayName: Rain Enchantment
+				/* Tooltip:
+					'''
+					Spawns an umbrella that reflects projectiles from above
+					It will break after blocking 200 damage
+					While active you have featherfall
+					Grants immunity to Wet and all attacks inflict Wet
+					Effects of Inner Tube
+					'Come again some other day'
+					''' */
 			}
 
 			RedRidingEnchant: {
@@ -2404,6 +2496,18 @@ Mods: {
 					'''
 			}
 
+			SquireEnchant: {
+				// DisplayName: Squire Enchantment
+				/* Tooltip:
+					'''
+					Increases mount acceleration, top speed, and jump height
+					While mounted, grants 10 defense, a fart jump, and fall damage immunity
+					Increases the effectiveness of healing sources by 10%
+					Ballista pierces more targets and panics when you take damage
+					'Squire, will you hurry?'
+					''' */
+			}
+
 			StardustEnchant: {
 				DisplayName: 星尘魔石
 				Tooltip:
@@ -2448,14 +2552,14 @@ Mods: {
 			}
 
 			TungstenEnchant: {
-				DisplayName: 钨魔石
-				Tooltip:
+				// DisplayName: Tungsten Enchantment
+				/* Tooltip:
 					'''
-					武器大小增加150%
-					每过0.5秒便会有一个随机弹幕的尺寸翻倍
-					变大的真近战剑刃和弹幕会额外造成10%伤害并且有更高几率造成暴击
-					“大就是好”
-					'''
+					Doubles melee weapon size
+					Once every 2/3 of a second a projectile will be doubled in size
+					Enlarged projectiles and non-projectile swords deal 7% more damage
+					'Bigger is always better'
+					''' */
 			}
 
 			TurtleEnchant: {
@@ -2473,6 +2577,18 @@ Mods: {
 					'''
 			}
 
+			ValhallaKnightEnchant: {
+				// DisplayName: Valhalla Knight Enchantment
+				/* Tooltip:
+					'''
+					Increases mount acceleration, top speed, and jump height
+					While mounted, grants 15 defense, a fart jump, fall damage immunity, and dash
+					Increases the effectiveness of healing sources by 15%
+					Greatly enhances Ballista effectiveness
+					'Valhalla calls'
+					''' */
+			}
+
 			VortexEnchant: {
 				DisplayName: 星旋魔石
 				Tooltip:
@@ -2482,6 +2598,15 @@ Mods: {
 					处于隐形状态时你的弹幕不会被旋涡吸引
 					“撕裂现实”
 					'''
+			}
+
+			WizardEnchant: {
+				// DisplayName: Wizard Enchantment
+				/* Tooltip:
+					'''
+					Upgrades the enchantment directly below this accessory to its Force effect
+					'I'm a what?'
+					''' */
 			}
 
 			WoodEnchant: {
