@@ -237,7 +237,7 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<MythrilEnchant>(),
                     ModContent.ItemType<OrichalcumEnchant>(),
                     ModContent.ItemType<AdamantiteEnchant>(),
-                    ModContent.ItemType<PalladiumEnchant>(),
+                    ModContent.ItemType<PalladiumEnchant>()
                 ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
 
                 meleeSpecific = new int[] { ItemID.WarriorEmblem, ModContent.ItemType<TungstenEnchant>() };
@@ -260,8 +260,9 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<MythrilEnchant>(),
                     ModContent.ItemType<PalladiumEnchant>(),
                     ModContent.ItemType<PearlwoodEnchant>(),
-                    ModContent.ItemType<FrostEnchant>(),
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                    ModContent.ItemType<FrostEnchant>()
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
 
                 meleeSpecific = new int[] { ItemID.WarriorEmblem, ModContent.ItemType<TungstenEnchant>() };
                 rangerSpecific = new int[] { ItemID.RangerEmblem };
@@ -282,7 +283,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<PalladiumEnchant>(),
                     ModContent.ItemType<PearlwoodEnchant>(),
                     ModContent.ItemType<FrostEnchant>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 meleeSpecific = new int[] { ItemID.WarriorEmblem, ModContent.ItemType<TungstenEnchant>() };
                 rangerSpecific = new int[] { ItemID.RangerEmblem };
                 mageSpecific = new int[] { ItemID.SorcererEmblem };
@@ -303,7 +305,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<PalladiumEnchant>(),
                     ModContent.ItemType<PearlwoodEnchant>(),
                     ModContent.ItemType<FrostEnchant>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 meleeSpecific = new int[] { ModContent.ItemType<BarbariansEssence>(), ModContent.ItemType<TungstenEnchant>() };
                 rangerSpecific = new int[] { ModContent.ItemType<SharpshootersEssence>() };
                 mageSpecific = new int[] { ModContent.ItemType<ApprenticesEssence>() };
@@ -324,7 +327,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<PalladiumEnchant>(),
                     ModContent.ItemType<PearlwoodEnchant>(),
                     ModContent.ItemType<FrostEnchant>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 meleeSpecific = new int[] { ModContent.ItemType<BarbariansEssence>(), ModContent.ItemType<TungstenEnchant>() };
                 rangerSpecific = new int[] { ModContent.ItemType<SharpshootersEssence>() };
                 mageSpecific = new int[] { ModContent.ItemType<ApprenticesEssence>() };
@@ -345,7 +349,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<HallowEnchant>(),
                     ModContent.ItemType<MythrilEnchant>(),
                     ModContent.ItemType<DubiousCircuitry>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 meleeSpecific = new int[] { ModContent.ItemType<BarbariansEssence>(), ModContent.ItemType<TungstenEnchant>() };
                 rangerSpecific = new int[] { ModContent.ItemType<SharpshootersEssence>() };
                 mageSpecific = new int[] { ModContent.ItemType<ApprenticesEssence>() };
@@ -367,7 +372,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<ApprenticeEnchant>(),
                     ModContent.ItemType<HallowEnchant>(),
                     ModContent.ItemType<TitaniumEnchant>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 other += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "CityBuster").Type}]";
                 meleeSpecific = new int[] { ModContent.ItemType<TungstenEnchant>() };
                 summonerSpecific = new int[] { ModContent.ItemType<AncientHallowEnchant>() };
@@ -387,7 +393,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<AncientHallowEnchant>(),
                     ModContent.ItemType<ForbiddenEnchant>(),
                     ModContent.ItemType<LumpOfFlesh>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 other += $"[i:{ModContent.Find<ModItem>("Fargowiltas", "LihzahrdInstactuationBomb").Type}]";
                 meleeSpecific = new int[] { ModContent.ItemType<BarbariansEssence>(), ModContent.ItemType<TungstenEnchant>() };
                 rangerSpecific = new int[] { ModContent.ItemType<SharpshootersEssence>() };
@@ -408,7 +415,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<LumpOfFlesh>(),
                     ModContent.ItemType<CrimsonEnchant>(),
                     ModContent.ItemType<HallowEnchant>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 meleeSpecific = new int[] { ModContent.ItemType<BeetleEnchant>(), ModContent.ItemType<TungstenEnchant>() };
                 summonerSpecific = new int[] { ModContent.ItemType<SpookyEnchant>(), ModContent.ItemType<TikiEnchant>() };
             }
@@ -425,8 +433,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<DarkArtistEnchant>(),
                     ModContent.ItemType<LumpOfFlesh>(),
                     ModContent.ItemType<PumpkingsCape>()
-                )
-                + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 other += GetBuildText(ModContent.ItemType<RabiesVaccine>());
                 meleeSpecific = new int[] { ModContent.ItemType<BeetleEnchant>(), ModContent.ItemType<TungstenEnchant>() };
                 summonerSpecific = new int[] { ModContent.ItemType<SpookyEnchant>(), ModContent.ItemType<TikiEnchant>() };
@@ -445,7 +453,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<DarkArtistEnchant>(),
                     ModContent.ItemType<SpectreEnchant>(),
                     ModContent.ItemType<RainEnchant>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 meleeSpecific = new int[] { ModContent.ItemType<BeetleEnchant>(), ModContent.ItemType<TungstenEnchant>() };
                 summonerSpecific = new int[] { ModContent.ItemType<SpookyEnchant>(), ModContent.ItemType<TikiEnchant>() };
             }
@@ -463,7 +472,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<DarkArtistEnchant>(),
                     ModContent.ItemType<LumpOfFlesh>(),
                     ModContent.ItemType<SpectreEnchant>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 meleeSpecific = new int[] { ModContent.ItemType<BeetleEnchant>(), ModContent.ItemType<TungstenEnchant>() };
                 summonerSpecific = new int[] { ModContent.ItemType<SpookyEnchant>(), ModContent.ItemType<TikiEnchant>() };
             }
@@ -485,7 +495,8 @@ namespace FargowiltasSouls.Content.Items.Misc
                     ModContent.ItemType<DubiousCircuitry>(),
                     ModContent.ItemType<PrecisionSeal>(),
                     ModContent.ItemType<MutantAntibodies>()
-                ) + GetBuildText(ModContent.ItemType<WizardEnchant>());
+                );
+                other += GetBuildText(ModContent.ItemType<WizardEnchant>());
                 meleeSpecific = new int[] { ModContent.ItemType<BeetleEnchant>(), ModContent.ItemType<TungstenEnchant>() };
                 summonerSpecific = new int[] { ModContent.ItemType<SpookyEnchant>(), ModContent.ItemType<TikiEnchant>() };
             }
