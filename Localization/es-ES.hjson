@@ -707,7 +707,7 @@ Mods: {
 					Increases your maximum sentries by 20
 					Increases your maximum HP by 50%
 					Reduces your mana usage by 50%
-					All attacks inflict Flames of the Universe
+					Your crits inflict Flames of the Universe
 					All attacks inflict Sadism
 					All attacks inflict Midas
 					All attacks reduce enemy immunity frames
@@ -3763,7 +3763,7 @@ Mods: {
 					Increases your maximum mana by 300
 					Increases your max number of minions by 2
 					Increases your max number of sentries by 2
-					All attacks inflict Flames of the Universe
+					Your rits inflict Flames of the Universe
 					Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 					Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 					'The heavens themselves bow to you'
@@ -5104,15 +5104,6 @@ Mods: {
 					'Nobody knows how it works'
 					''' */
 			}
-
-			Weapons: {
-				Melee: {
-					Roxcalibur: {
-						// DisplayName: Roxcalibur
-						// Tooltip: ""
-					}
-				}
-			}
 		}
 
 		NPCs: {
@@ -6004,23 +5995,21 @@ Mods: {
 			// BaronWhirlpool.DisplayName: Baron Whirlpool
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
-			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronDeathray.DisplayName: Baron's Laser
 			// BaronEyeFlash.DisplayName: Baron Eye Flash
-			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			// BaronTuskShrapnel.DisplayName: Baron's Tusk Shrapnel
 			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
 			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
-			// MechLureProjectile.DisplayName: Mech Lure Projectile
-			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// MechLureProjectile.DisplayName: Mechanical Lure
+			// RoseTintedVisorDeathray.DisplayName: Rose-Tinted Visor Laser
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
-			// MonkDashDamage.DisplayName: Monk Dash Damage
-			// RoxcaliburProj.DisplayName: Roxcalibur Proj
-			// Melee.RoxcaliburProj.DisplayName: Roxcalibur Proj
+			// MonkDashDamage.DisplayName: Monk Dash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

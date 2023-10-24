@@ -17,6 +17,7 @@ using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs;
+using Terraria.Audio;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -128,15 +129,34 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ModifyHitNPCBoth(NPC target, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
+            
+            
             modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
             {
+                
                 if (hitInfo.Crit)
                 {
                     if (Eternity)
+                    {
                         hitInfo.Damage *= 5;
-                    else if (UniverseCore)
+                        target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
+                    }
+                    else if (UniverseSoul)
+                    {
                         hitInfo.Damage *= 2;
-                
+                        target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
+                    }
+                    else if (UniverseCore)
+                    {
+                        float crit = Player.ActualClassCrit(damageClass) / 2;
+
+                        if (Main.rand.NextFloat(100) < crit) //supercrit
+                        {
+                            hitInfo.Damage *= 2;
+                            target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
+                            SoundEngine.PlaySound(SoundID.Item147 with { Pitch = 1, Volume = 0.7f }, target.Center);
+                        }
+                    }
                     if (SpiderEnchantActive && damageClass.CountsAsClass(DamageClass.Summon) && !TerrariaSoul)
                         hitInfo.Damage = (int)(hitInfo.Damage * 0.75);
                 }
@@ -378,9 +398,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     netMessage.Send();
                 }
             }
-
-            if (UniverseCore)
-                target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
 
             if (MasochistSoul)
             {
