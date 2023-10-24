@@ -2420,7 +2420,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (SpecialDashCD <= 0)
             {
-                SpecialDashCD = 180;
+                SpecialDashCD = 60 * 5;
 
                 if (Player.whoAmI == Main.myPlayer)
                 {
