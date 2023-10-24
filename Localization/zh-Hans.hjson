@@ -4935,7 +4935,7 @@ Mods: {
 
 			MechLure: {
 				// DisplayName: Mechanical Lure
-				// Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
+				// Tooltip: Throw while underwater at the Ocean to lure out a shrouded creature
 			}
 
 			TheBaronsTusk: {
@@ -5037,6 +5037,15 @@ Mods: {
 					Increased movement speed while in any liquid
 					'Nobody knows how it works'
 					''' */
+			}
+
+			Weapons: {
+				Melee: {
+					Roxcalibur: {
+						// DisplayName: Roxcalibur
+						// Tooltip: ""
+					}
+				}
 			}
 		}
 
@@ -5944,6 +5953,8 @@ Mods: {
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
 			// MonkDashDamage.DisplayName: Monk Dash Damage
+			// RoxcaliburProj.DisplayName: Roxcalibur Proj
+			// Melee.RoxcaliburProj.DisplayName: Roxcalibur Proj
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

@@ -128,7 +128,7 @@ namespace FargowiltasSouls //lets everything access it without using
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
             => player.GetTotalDamage(damageClass).Additive * player.GetTotalDamage(damageClass).Multiplicative;
 
-        public static bool WithinBounds(this int index, int cap)
+        public static bool IsWithinBounds(this int index, int cap)
         {
             if (index >= 0)
             {

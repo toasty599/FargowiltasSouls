@@ -180,9 +180,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                                     IDs = Stardust.StardustEnemies.StardustEnemyIDs;
                                     break;
                                 default:
-                                    IDs = null;
-                                    Main.NewText("You shouldn't be seeing this. Tell Javyz or Terry.");
-                                    break;
+                                    //something is very wrong. this ai shouldn't be running in the first place. leave
+                                    Mod.Logger.Warn($"Lunar Pillar eternity behavior: NPC type of {npc.TypeName} does not match any of the Pillars (why is this running?)");
+                                    return;
                             }
                             if (IDs.Contains(n.type))
                             {
