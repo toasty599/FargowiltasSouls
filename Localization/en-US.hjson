@@ -5085,14 +5085,6 @@ Mods: {
 					'''
 			}
 
-			Weapons: {
-				Melee: {
-					Roxcalibur: {
-						DisplayName: Roxcalibur
-						Tooltip: ""
-					}
-				}
-			}
 		}
 
 		NPCs: {
@@ -5984,23 +5976,21 @@ Mods: {
 			BaronWhirlpool.DisplayName: Baron Whirlpool
 			BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
-			BaronDeathray.DisplayName: Baron Deathray
+			BaronDeathray.DisplayName: Baron's Laser
 			BaronEyeFlash.DisplayName: Baron Eye Flash
-			BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			BaronTuskShrapnel.DisplayName: Baron's Tusk Shrapnel
 			DecrepitAirstrike.DisplayName: Decrepit Airstrike
 			DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
-			MechLureProjectile.DisplayName: Mech Lure Projectile
-			RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			MechLureProjectile.DisplayName: Mechanical Lure
+			RoseTintedVisorDeathray.DisplayName: Rose-Tinted Visor Laser
 			GladiatorStandard.DisplayName: Gladiator Standard
 			HiveSentry.DisplayName: Hive
 			ROB.DisplayName: R.O.B
 			MeteorFlame.DisplayName: Meteor Flame
 			RainUmbrella.DisplayName: Rain Umbrella
 			BeeFlower.DisplayName: Bee Flower
-			MonkDashDamage.DisplayName: Monk Dash Damage
-			RoxcaliburProj.DisplayName: Roxcalibur Proj
-			Melee.RoxcaliburProj.DisplayName: Roxcalibur Proj
+			MonkDashDamage.DisplayName: Monk Dash
 		}
 
 		WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
