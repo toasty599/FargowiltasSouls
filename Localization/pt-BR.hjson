@@ -2685,15 +2685,6 @@ Mods: {
 					'''
 			}
 
-			UniverseCore: {
-				DisplayName: Núcleo do Universo
-				Tooltip:
-					'''
-					Críticos causam 4x em vez de 2x
-					Todos os ataques infligem Chamas do Universo
-					'Explodindo com raios cosmicos de energia extremamente alta'
-					'''
-			}
 
 			CosmoForce: {
 				DisplayName: Força do Cosmos
@@ -2981,16 +2972,6 @@ Mods: {
 					'''
 			}
 
-			DarkenedHeart: {
-				DisplayName: Coração Escurecido
-				Tooltip:
-					'''
-					Oferece imunidade a Apodrecendo
-					10% de aumento na velocidade dos movimentos e aumenta a tração da virada
-					Você invoca mini devoradores para procurar inimigos a cada poucos ataques
-					'As moscas se recusam a se aproximar disto'
-					'''
-			}
 
 			Deerclawps: {
 				DisplayName: Garraclope
@@ -3111,18 +3092,6 @@ Mods: {
 					'''
 			}
 
-			GuttedHeart: {
-				DisplayName: Coração Eviscerado
-				Tooltip:
-					'''
-					Oferece imunidade a sanguinário
-					10% de aumento na vida máxima
-					Creepers flutuam ao seu redor bloqueando alguns danos
-					Um novo Creeper aparece a cada 15 segundos e 5 podem existir ao mesmo tempo
-					A velocidade de resurgimento dos Creepers aumenta quando parado
-					'Já esteve batendo na mente de um inimigo derrotado'
-					'''
-			}
 
 			HeartoftheMasochist: {
 				DisplayName: Coração do Mestre

@@ -22,7 +22,7 @@ Mods: {
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			// Cobalt: On-hit explosion damage increased
 			// Copper: Lightning damage increased to 200, cooldown reduced
-			// Crimson: Heal increases from 50% of dealt damage to 80%
+			// Crimson: After you heal, the timer resets and tries to heal again
 			// CrystalAssassin: No upgrade
 			// DarkArtist: The next 3 weapons are used instead of 2
 			// Ebonwood: Aura size increased, defense reduction increased to 30
@@ -2050,7 +2050,7 @@ Mods: {
 				// DisplayName: Crimson Enchantment
 				/* Tooltip:
 					'''
-					After taking a hit, if you avoid getting hit for 5 seconds, you get 50% of the health back
+					After taking a hit, if you avoid getting hit for 7 seconds, you get 50% of the health back
 					If you take another hit before you heal, the heal gets cancelled
 					This does not affect hits dealing less than 10 damage
 					'The blood of your enemy is your rebirth'
@@ -2682,16 +2682,6 @@ Mods: {
 					'''
 					Works in your inventory
 					Stand still to expose nearby treasure and enemies
-					''' */
-			}
-
-			UniverseCore: {
-				// DisplayName: Universe Core
-				/* Tooltip:
-					'''
-					Your critical strikes can critically strike
-					These supercrits deal 4x damage and inflict Flames of the Universe
-					'Bursting with ultra-high-energy cosmic rays'
 					''' */
 			}
 
