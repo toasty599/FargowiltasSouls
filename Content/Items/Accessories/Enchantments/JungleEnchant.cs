@@ -67,7 +67,6 @@ Double tap a direction
             if (player.FargoSouls().IsDashingTimer < 10)
                 player.FargoSouls().IsDashingTimer = 10;
             player.dashDelay = 60;
-            player.GetModPlayer<DashPlayer>().modDashDelay = player.dashDelay;
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
         }

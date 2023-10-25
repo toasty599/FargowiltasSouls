@@ -63,7 +63,6 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
             player.dashDelay = 115;
             player.dashType = 0;
-            player.GetModPlayer<DashPlayer>().modDashDelay = player.dashDelay;
             if (player.FargoSouls().IsDashingTimer < 20)
                 player.FargoSouls().IsDashingTimer = 20;
 

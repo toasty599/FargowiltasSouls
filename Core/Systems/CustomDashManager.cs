@@ -19,8 +19,6 @@ namespace FargowiltasSouls.Core.Systems
 {
     public class DashPlayer : ModPlayer
     {
-        public int modDashDelay = 0;
-        public int modDashTime = 0;
         public override void PostUpdateEquips()
         {
             if (Player.whoAmI != Main.myPlayer)
@@ -30,7 +28,7 @@ namespace FargowiltasSouls.Core.Systems
             FargoSoulsPlayer modPlayer = Player.FargoSouls();
             
 
-            if (modDashDelay == 0 && !Player.mount.Active)
+            if (Player.dashDelay == 0 && !Player.mount.Active)
             {
                 if (modPlayer.MonkDashReady)
                 {
@@ -66,10 +64,6 @@ namespace FargowiltasSouls.Core.Systems
                     }
                 }
             }
-            else
-            {
-                modDashDelay -= Math.Sign(modDashDelay);
-            }
             
         }
 
@@ -98,73 +92,7 @@ namespace FargowiltasSouls.Core.Systems
             DashHandleMethod.Invoke(player, args);
             dir = (int)args[0];
             dashing = (bool)args[1];
-
-            bool dashDisabled = false;
-            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
-            {
-                if ((bool)fargos.Call("DoubleTapDashDisabled"))
-                {
-                    dashDisabled = true;
-                }
-            }
-            if (!dashDisabled)
-            {
-                HackyDoubletapHandle(player, out bool dashing1, out int dir1);
-                if (dashing1)
-                {
-                    dashing = true;
-                }
-                if (dir1 != 0)
-                {
-                    dir = dir1;
-                }
-            }
-            
             //action = (Player.DashStartAction)args[2];
-        }
-        private static void HackyDoubletapHandle(Player player, out bool dashing, out int dir)
-        {
-            dashing = false;
-            dir = 0;
-            DashPlayer dashPlayer = player.GetModPlayer<DashPlayer>();
-            if (dashPlayer.modDashTime > 0)
-            {
-                dashPlayer.modDashTime--;
-            }
-            if (dashPlayer.modDashTime < 0)
-            {
-                dashPlayer.modDashTime++;
-            }
-            if (player.controlRight && player.releaseRight)
-            {
-                if (dashPlayer.modDashTime > 0)
-                {
-                    dir = 1;
-                    dashing = true;
-                    dashPlayer.modDashTime = 0;
-                    player.timeSinceLastDashStarted = 0;
-                    //dashStartAction?.Invoke(dir);
-                }
-                else
-                {
-                    dashPlayer.modDashTime = 15;
-                }
-            }
-            else if (player.controlLeft && player.releaseLeft)
-            {
-                if (dashPlayer.modDashTime < 0)
-                {
-                    dir = -1;
-                    dashing = true;
-                    dashPlayer.modDashTime = 0;
-                    player.timeSinceLastDashStarted = 0;
-                    //dashStartAction?.Invoke(dir);
-                }
-                else
-                {
-                    dashPlayer.modDashTime = -15;
-                }
-            }
         }
     }
 }

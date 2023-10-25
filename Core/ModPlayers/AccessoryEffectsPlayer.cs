@@ -2910,7 +2910,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             float dashSpeed = 12f;
             dashCD = 60;
-            Player.GetModPlayer<DashPlayer>().modDashDelay = Player.dashDelay = dashCD;
+            Player.dashDelay = dashCD;
             if (IsDashingTimer < 15)
                 IsDashingTimer = 15;
             Player.velocity.X = dir * dashSpeed;
