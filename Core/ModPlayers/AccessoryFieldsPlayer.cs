@@ -140,7 +140,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool CrimsonEnchantActive;
         public int CrimsonRegenAmount;
         public int CrimsonRegenTime;
-        public bool CrimsonWizCharge;
 
 
         public Item DarkArtistEnchantItem;

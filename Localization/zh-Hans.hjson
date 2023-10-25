@@ -22,7 +22,7 @@ Mods: {
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			Cobalt: 增加爆炸伤害
 			Copper: 增加闪电伤害，冷却时间减少
-			// Crimson: Heal increases from 50% of dealt damage to 80%
+			// Crimson: After you heal, the timer resets and tries to heal again
 			CrystalAssassin: ""
 			DarkArtist: ""
 			Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
@@ -2048,7 +2048,7 @@ Mods: {
 				// DisplayName: Crimson Enchantment
 				/* Tooltip:
 					'''
-					After taking a hit, if you avoid getting hit for 5 seconds, you get 50% of the health back
+					After taking a hit, if you avoid getting hit for 7 seconds, you get 50% of the health back
 					If you take another hit before you heal, the heal gets cancelled
 					This does not affect hits dealing less than 10 damage
 					'The blood of your enemy is your rebirth'

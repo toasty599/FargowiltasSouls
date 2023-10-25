@@ -45,28 +45,23 @@ This does not affect hits dealing less than 10 damage
             modPlayer.CrimsonEnchantItem = item;
         }
 
-        public static void CrimsonHurt(Player player, FargoSoulsPlayer modPlayer, ref Player.HurtModifiers modifiers)
+        public static void CrimsonHurt(Player player, FargoSoulsPlayer modPlayer, ref Player.HurtInfo info)
         {
             //if was already healing, stop the heal and do nothing
             if (player.HasBuff(ModContent.BuffType<CrimsonRegenBuff>()))
             {
                 player.ClearBuff(ModContent.BuffType<CrimsonRegenBuff>());
             }
+
             else
             {
-                modifiers.ModifyHurtInfo += (ref Player.HurtInfo hurtInfo) =>
-                {
-                    if (hurtInfo.Damage < 10) return; //ignore hits under 10 damage
+                if (info.Damage < 10) return; //ignore hits under 10 damage
+                modPlayer.CrimsonRegenTime = 0; //reset timer
+                float returnHeal = 0.5f; //% of damage given back
+                modPlayer.CrimsonRegenAmount = (int)(info.Damage * returnHeal); //50% return heal
 
-                    modPlayer.CrimsonRegenTime = 7 * 60; //how long crimson heal takes. 7 seconds
-
-                    float returnHeal = 0.5f; //% of damage given back
-                    modPlayer.CrimsonRegenAmount = (int)(hurtInfo.Damage * returnHeal); //50% return heal
-
-                    modPlayer.CrimsonWizCharge = modPlayer.ForceEffect(modPlayer.CrimsonEnchantItem.type); //if crimson wiz active, set this to true
-
-                    player.AddBuff(ModContent.BuffType<CrimsonRegenBuff>(), 2222); //should never reach that time lol. buff gets removed in buff itself after its done
-                };
+                player.AddBuff(ModContent.BuffType<CrimsonRegenBuff>(), 
+                    modPlayer.ForceEffect(modPlayer.CrimsonEnchantItem.type) ? 900 : 430); //should never reach that time lol. buff gets removed in buff itself after its done. sets to actual time so that it shows in buff properly
             }
         }
 
