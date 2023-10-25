@@ -22,7 +22,7 @@ Mods: {
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			// Cobalt: On-hit explosion damage increased
 			// Copper: Lightning damage increased to 200, cooldown reduced
-			// Crimson: No upgrade
+			// Crimson: Heal increases from 50% of dealt damage to 80%
 			// CrystalAssassin: No upgrade
 			// DarkArtist: The next 3 weapons are used instead of 2
 			// Ebonwood: Aura size increased, defense reduction increased to 30
@@ -1919,13 +1919,16 @@ Mods: {
 			}
 
 			AncientHallowEnchant: {
-				DisplayName: Encantamento Consagrado Antigo
-				Tooltip:
+				// DisplayName: Ancient Hallowed Enchantment
+				/* Tooltip:
 					'''
-					Você ganha um escudo que pode refletir projéteis
-					Invoca uma Terraprisma familiar que fica mais forte com dano por invocação
-					'Você tem poder suficiente para me empunhar?'
-					'''
+					Summons a Terraprisma familiar that scales with minion damage
+					The sword follows the direction of your mouse
+					Press Right Click to slash with the sword
+					Slashing enemy projectiles reflects them back at the enemy
+					Reflects has a 15 second cooldown and can only affect projectiles that deal less than 150 damage
+					'Have you power enough to wield me?'
+					''' */
 			}
 
 			AncientShadowEnchant: {
@@ -1951,14 +1954,16 @@ Mods: {
 			}
 
 			ApprenticeEnchant: {
-				DisplayName: Encantamento do Aprendiz
-				Tooltip:
+				// DisplayName: Apprentice Enchantment
+				/* Tooltip:
 					'''
-					Depois de atacar por 2 segundos você será envolvido em chamas
-					Trocar de armas aumentará o dano do próximo ataque em 50% e invocará um inferno
-					Campo de visão e alcance das Chamas Explosivas consideravelmente maior
-					'Um longo caminho à perfeição'
-					'''
+					While attacking, fire your next closest weapon's projectile as support
+					The support weapon will fire 1/4 as often as they would normally and deal 1/2 damage
+					Only works on hotbar weapons
+					Consumables are consumed, mana is spent, and ammo is selected
+					Flameburst field of view and range are dramatically increased
+					'A long way to perfection'
+					''' */
 			}
 
 			AshWoodEnchant: {
@@ -1975,13 +1980,16 @@ Mods: {
 			}
 
 			BeeEnchant: {
-				DisplayName: Encantamento da Abelha
-				Tooltip:
+				// DisplayName: Bee Enchantment
+				/* Tooltip:
 					'''
-					Aumenta a força das abelhas amigáveis
-					Acertos físicos e a maioria dos ataques perfurantes invocam abelhas
-					'De acordo com todas as conhecidas leis da aviação, não existe forma pela qual uma abelha fosse capaz de voar'
-					'''
+					Allows flight and slow fall
+					While flying, leave behind flowers that take 4 seconds to form petals
+					Touching fully formed flowers gives you the Honey buff and creates a swarm of bees
+					Enemies touching the flowers also trigger the bee swarm
+					Effects of Hive Pack
+					'According to all known laws of aviation, there is no way a bee should be able to fly'
+					''' */
 			}
 
 			BeetleEnchant: {
@@ -2047,15 +2055,14 @@ Mods: {
 			}
 
 			CrimsonEnchant: {
-				DisplayName: Encantamento de Carmim
-				Tooltip:
+				// DisplayName: Crimson Enchantment
+				/* Tooltip:
 					'''
-					Após receber um golpe, a regeneração é aumentada consideravelmente até que metade do golpe for curado
-					Se você sofrer outro golpe antes que ele for curado, você perde a cura junto do dano normal
-					Se você sofrer outro golpe antes que ele for curado, a cura acaba mais cedo
-					Isto não afeta golpes que causam menos de 10 de dano
-					'O sangue do seu inimigo é o seu renascimento'
-					'''
+					After taking a hit, if you avoid getting hit for 5 seconds, you get 50% of the health back
+					If you take another hit before you heal, the heal gets cancelled
+					This does not affect hits dealing less than 10 damage
+					'The blood of your enemy is your rebirth'
+					''' */
 			}
 
 			CrystalAssassinEnchant: {
@@ -2072,16 +2079,14 @@ Mods: {
 			}
 
 			DarkArtistEnchant: {
-				DisplayName: Encantamento do Artista Sombrio
-				Tooltip:
+				// DisplayName: Dark Artist Enchantment
+				/* Tooltip:
 					'''
-					Invoca um lacaio de Chamas Explosivas que viajará para o seu mouse depois de carregar
-					Ele então agirá como uma sentinela
-					Depois de atacar por 2 segundos você será envolvido em chamas
-					Trocar de armas aumentará o dano do próximo ataque em 50% e invocará um inferno
-					Aumenta bastante a eficiência das Chamas Explosivas
-					'As sombras retém mais do que parecem'
-					'''
+					While attacking, fire your next 2 closest weapons' projectiles as support
+					Summons a Flameburst minion that will also fire while you attack
+					Greatly enhances Flameburst effectiveness
+					'The shadows hold more than they seem'
+					''' */
 			}
 
 			EbonwoodEnchant: {
@@ -2153,33 +2158,35 @@ Mods: {
 			}
 
 			HallowEnchant: {
-				DisplayName: Encantamento Consagrado
-				Tooltip:
+				// DisplayName: Hallowed Enchantment
+				/* Tooltip:
 					'''
-					Fique imune depois de atacar um inimigo
-					'Acerte-me com seu melhor tiro'
-					'''
+					Healing potions restore 40% more, but take effect over time
+					Using a healing potion creates a shockwave that repels nearby enemy projectiles
+					'Hit me with your best shot'
+					''' */
 			}
 
 			HuntressEnchant: {
 				DisplayName: Encantamento da Caçadora
 				Tooltip:
 					'''
-					Ataques ignoram 10 pontos da defesa inimiga e causam 5 de dano extra plano
-					Cada ataque sucessivo ignora 10 pontos de defesa adicionais e causam mais 5 de dano
+					Ataques ignoram 6 pontos da defesa inimiga e causam 3 de dano extra plano
+					Cada ataque sucessivo ignora 6 pontos de defesa adicionais e causam mais 3 de dano
 					Errar qualquer ataque redefinirá esse bônus
 					'Precisão traz poder'
 					'''
 			}
 
 			IronEnchant: {
-				DisplayName: Encantamento de Ferro
-				Tooltip:
+				// DisplayName: Iron Enchantment
+				/* Tooltip:
 					'''
-					Você atrai itens de um alcance maior
-					33% de chance de não consumir ingredientes de criação em uma Bigorna de Ferro
-					'Eita, ferrou!'
-					'''
+					Works in vanity and inventory slots
+					The first time you craft an item, each material has a 33% chance to not be consumed
+					Does not work on Crucible of the Cosmos items
+					'Strike while the iron is hot'
+					''' */
 			}
 
 			JungleEnchant: {
@@ -2205,14 +2212,13 @@ Mods: {
 			}
 
 			MeteorEnchant: {
-				DisplayName: Encantamento de Meteoro
-				Tooltip:
+				// DisplayName: Meteor Enchantment
+				/* Tooltip:
 					'''
-					Reduz o impulso em 50%
-					Você deixa para trás uma rastro de chamas
-					Uma chuva de meteoros é iniciada a cada poucos segundos enquanto você ataca
-					'Derrube um draco neles'
-					'''
+					Drastically increases your run acceleration, and decreases your momentum
+					Moving creates a fire trail
+					'Drop a draco on 'em'
+					''' */
 			}
 
 			MinerEnchant: {
@@ -2283,14 +2289,13 @@ Mods: {
 			}
 
 			NinjaEnchant: {
-				DisplayName: Encantamento do Ninja
-				Tooltip:
+				// DisplayName: Ninja Enchantment
+				/* Tooltip:
 					'''
-					Aumenta drasticamente a velocidade dos projéteis
-					Reduz o dano para compensar pela velocidade aumentada
-					Aumenta a perfuração de blindagem em 10
-					'Ataque mais rápido do que o olho pode ver'
-					'''
+					Your projectiles deal more damage the faster they're moving, up to 20%
+					Drastically increases projectile speed while you're moving slowly
+					'Attack faster than the eye can see'
+					''' */
 			}
 
 			ObsidianEnchant: {
@@ -2363,14 +2368,16 @@ Mods: {
 			}
 
 			RainEnchant: {
-				DisplayName: Encantamento da Chuva
-				Tooltip:
+				// DisplayName: Rain Enchantment
+				/* Tooltip:
 					'''
-					Oferece imunidade a Molhado
-					Invoca uma tempestade em miniatura que segue o seu cursor
-					Ela só ataca se houver uma linha de visão clara entre você
-					'Volte aqui uma outra hora'
-					'''
+					Spawns an umbrella that reflects projectiles from above
+					It will break after blocking 200 damage
+					While active you have featherfall
+					Grants immunity to Wet and all attacks inflict Wet
+					Effects of Inner Tube
+					'Come again some other day'
+					''' */
 			}
 
 			RedRidingEnchant: {
@@ -2502,13 +2509,15 @@ Mods: {
 			}
 
 			SquireEnchant: {
-				DisplayName: Encantamento do Escudeiro
-				Tooltip:
+				// DisplayName: Squire Enchantment
+				/* Tooltip:
 					'''
-					Aumenta a eficiência de fontes de cura em 25%
-					A Balista perfura mais alvos e entra em pânico quando você sofre danos
-					'Escudeiro, se apressa!'
-					'''
+					Increases mount acceleration, top speed, and jump height
+					While mounted, grants 10 defense, a fart jump, and fall damage immunity
+					Increases the effectiveness of healing sources by 10%
+					Ballista pierces more targets and panics when you take damage
+					'Squire, will you hurry?'
+					''' */
 			}
 
 			StardustEnchant: {
@@ -2556,14 +2565,14 @@ Mods: {
 			}
 
 			TungstenEnchant: {
-				DisplayName: Encantamento de Tungstênio
-				Tooltip:
+				// DisplayName: Tungsten Enchantment
+				/* Tooltip:
 					'''
-					150% de aumento no tamanho das armas mas reduz a velocidade do ataque físico
-					Um projétil terá o seu tamanho dobrado a cada meio segundo
-					Projéteis e espadas sem projéteis ampliados causam 10% a mais de dano e têm uma chance de acerto crítico adicional
-					'Maior é sempre melhor'
-					'''
+					Doubles melee weapon size
+					Once every 2/3 of a second a projectile will be doubled in size
+					Enlarged projectiles and non-projectile swords deal 7% more damage
+					'Bigger is always better'
+					''' */
 			}
 
 			TurtleEnchant: {
@@ -2581,13 +2590,15 @@ Mods: {
 			}
 
 			ValhallaKnightEnchant: {
-				DisplayName: Encantamento do Cavaleiro de Valhalla
-				Tooltip:
+				// DisplayName: Valhalla Knight Enchantment
+				/* Tooltip:
 					'''
-					Aumenta a eficiência de fontes de cura em 33%
-					Aumenta bastante a eficiência da Balista
-					'Valhalla te chama'
-					'''
+					Increases mount acceleration, top speed, and jump height
+					While mounted, grants 15 defense, a fart jump, fall damage immunity, and dash
+					Increases the effectiveness of healing sources by 15%
+					Greatly enhances Ballista effectiveness
+					'Valhalla calls'
+					''' */
 			}
 
 			VortexEnchant: {
@@ -2602,12 +2613,12 @@ Mods: {
 			}
 
 			WizardEnchant: {
-				DisplayName: Encantamento do Bruxo
-				Tooltip:
+				// DisplayName: Wizard Enchantment
+				/* Tooltip:
 					'''
-					Aumenta o poder de todos os outros encantamentos para seus efeitos de Força
-					'Eu sou o quê?
-					'''
+					Upgrades the enchantment directly below this accessory to its Force effect
+					'I'm a what?'
+					''' */
 			}
 
 			WoodEnchant: {
