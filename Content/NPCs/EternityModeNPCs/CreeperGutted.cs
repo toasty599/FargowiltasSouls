@@ -115,6 +115,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 n.velocity.X += IdleAccel * (n.Center.X < NPC.Center.X ? -1 : 1);
                 n.velocity.Y += IdleAccel * (n.Center.Y < NPC.Center.Y ? -1 : 1);
             }
+            
         }
 
         public override void FindFrame(int frameHeight)
@@ -125,11 +126,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 NPC.frame.Y = frameHeight;
             else
                 NPC.frame.Y = frameHeight * 2;
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit)
-        {
-            target.AddBuff(BuffID.Ichor, 60 * 10);
         }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
@@ -162,7 +158,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
             return null;
         }
-
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))
@@ -191,5 +186,15 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         public override bool CheckActive() => false;
 
         public override bool PreKill() => false;
+    }
+    class CreeperGutterIchorHitGlobalNPCWhyDoesOnHitNPCOnlyRunOnFriendlyNPCS : GlobalNPC
+    {
+        public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
+        {
+            if (target.type == ModContent.NPCType<CreeperGutted>())
+            {
+                npc.AddBuff(BuffID.Ichor, 60 * 10);
+            }
+        }
     }
 }
