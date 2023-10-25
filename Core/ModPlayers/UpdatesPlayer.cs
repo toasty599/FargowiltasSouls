@@ -375,7 +375,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 dashCD = 2;
                 IsDashingTimer = 0;
                 HasDash = false;
-                Player.dashDelay = Player.GetModPlayer<DashPlayer>().modDashDelay = 10;
+                Player.dashDelay = 10;
 
                 if (lihzahrdFallCD < 2)
                     lihzahrdFallCD = 2;
