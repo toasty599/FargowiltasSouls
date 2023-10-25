@@ -2076,7 +2076,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (GuttedHeartCD <= 0)
             {
-                GuttedHeartCD = 900;
+                int cd = (int)Math.Round(Utils.Lerp(10 * 60, 15 * 60, (float)Player.statLife / Player.statLifeMax2));
+                GuttedHeartCD = cd;
                 if (Player.GetToggleValue("MasoBrain"))
                 {
                     int count = 0;
