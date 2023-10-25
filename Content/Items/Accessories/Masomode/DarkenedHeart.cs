@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,6 +43,35 @@ You spawn mini eaters to seek out enemies every few attacks
             modPlayer.DarkenedHeartItem = Item;
             if (modPlayer.DarkenedHeartCD > 0)
                 modPlayer.DarkenedHeartCD--;
+        }
+    }
+    public class TinyEaterGlobalProjectile : GlobalProjectile
+    {
+        public override bool InstancePerEntity => true;
+
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
+            => entity.type == ProjectileID.TinyEater;
+
+        bool fromEnch;
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            if (!projectile.owner.IsWithinBounds(Main.maxPlayers))
+                return;
+            Player player = Main.player[projectile.owner];
+            Item heartItem = player.FargoSouls().DarkenedHeartItem;
+            if (player != null && heartItem != null && player.active && source is EntitySource_ItemUse itemSource  && itemSource.Item.type == heartItem.type)
+            {
+                fromEnch = true;
+            }
+        }
+
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (fromEnch)
+            {
+                target.AddBuff(BuffID.CursedInferno, 60 * 2);
+            }
         }
     }
 }

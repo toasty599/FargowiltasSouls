@@ -700,14 +700,13 @@ Mods: {
 					100% increased shoot speed
 					100% increased knockback
 					Increases armor penetration by 50
-					Crits deal 10x damage
+					Crits deal 10x damage and inflict Flames of the Universe
 					Drastically increases life regeneration
 					Increases your maximum mana to 999
 					Increases your maximum minions by 30
 					Increases your maximum sentries by 20
 					Increases your maximum HP by 50%
 					Reduces your mana usage by 50%
-					Your crits inflict Flames of the Universe
 					All attacks inflict Sadism
 					All attacks inflict Midas
 					All attacks reduce enemy immunity frames
@@ -2690,8 +2689,8 @@ Mods: {
 				// DisplayName: Universe Core
 				/* Tooltip:
 					'''
-					Crits deal 4x instead of 2x
-					All attacks inflict Flames of the Universe
+					Your critical strikes can critically strike
+					These supercrits deal 4x damage and inflict Flames of the Universe
 					'Bursting with ultra-high-energy cosmic rays'
 					''' */
 			}
@@ -3758,12 +3757,11 @@ Mods: {
 					25% increased critical chance for your current weapon class
 					50% increased use speed for all weapons
 					50% increased shoot speed
-					Crits deal 4x instead of 2x
+					Crits deal 4x instead of 2x and inflict Flames of the Universe
 					All weapons have double knockback
 					Increases your maximum mana by 300
 					Increases your max number of minions by 2
 					Increases your max number of sentries by 2
-					Your rits inflict Flames of the Universe
 					Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 					Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 					'The heavens themselves bow to you'
