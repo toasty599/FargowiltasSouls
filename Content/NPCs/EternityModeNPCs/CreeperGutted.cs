@@ -187,14 +187,4 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override bool PreKill() => false;
     }
-    class CreeperGutterIchorHitGlobalNPCWhyDoesOnHitNPCOnlyRunOnFriendlyNPCS : GlobalNPC
-    {
-        public override void OnHitNPC(NPC npc, NPC target, NPC.HitInfo hit)
-        {
-            if (target.type == ModContent.NPCType<CreeperGutted>())
-            {
-                npc.AddBuff(BuffID.Ichor, 60 * 10);
-            }
-        }
-    }
 }
