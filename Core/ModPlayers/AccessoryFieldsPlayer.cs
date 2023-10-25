@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool TitaniumDRBuff;
         public bool TitaniumCD;
         //force of nature
-
+        public Item CrimsonEnchantItem;
         //force of life
 
         //force of spirit
@@ -139,6 +139,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool CrimsonEnchantActive;
         public int CrimsonRegenAmount;
+        public int CrimsonRegenTime;
+        public bool CrimsonWizCharge;
+
 
         public Item DarkArtistEnchantItem;
         public bool ForbiddenEnchantActive;

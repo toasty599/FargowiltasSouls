@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
@@ -16,14 +17,28 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            //player.buffTime[buffIndex] = 2;
-            //player.FargoSouls().CrimsonRegen = true;
-            player.lifeRegenTime++;
-            player.lifeRegen += player.FargoSouls().CrimsonRegenAmount;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            for (int i = 0; i < 10; i++)
+            modPlayer.CrimsonRegenTime -= 1; //remove one tick from counter
+
+            if (modPlayer.CrimsonRegenTime == 0)
             {
-                int num6 = Dust.NewDust(player.position, player.width, player.height, DustID.Blood, 0f, 0f, 175, default, 1.75f);
+                player.Heal(modPlayer.CrimsonRegenAmount); //crimsonregenamount is set in CrimsonEnchant.cs
+
+                if (modPlayer.CrimsonWizCharge)
+                {
+                    modPlayer.CrimsonRegenTime = 7 * 60;
+                    modPlayer.CrimsonWizCharge = false;
+                }
+                else {
+                    player.DelBuff(buffIndex); //remove buff if no wizard/wizard used
+                }
+            } 
+
+            for (int i = 0; i < 3; i++)
+            {
+                int dustType = modPlayer.CrimsonWizCharge ? DustID.Crimson : DustID.Crimson; //change dust if its wizarded
+                int num6 = Dust.NewDust(player.position, player.width, player.height, dustType, 0f, 0f, 175, default, 1.75f);
                 Main.dust[num6].noGravity = true;
                 Main.dust[num6].velocity *= 0.75f;
                 int num7 = Main.rand.Next(-40, 41);

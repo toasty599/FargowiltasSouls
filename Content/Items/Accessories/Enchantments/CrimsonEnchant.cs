@@ -34,14 +34,15 @@ This does not affect hits dealing less than 10 damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            CrimsonEffect(player);
+            CrimsonEffect(player, Item);
         }
 
-        public static void CrimsonEffect(Player player)
+        public static void CrimsonEffect(Player player, Item item)
         {
             player.DisplayToggle("Crimson");
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.CrimsonEnchantActive = true;
+            modPlayer.CrimsonEnchantItem = item;
         }
 
         public static void CrimsonHurt(Player player, FargoSoulsPlayer modPlayer, ref Player.HurtModifiers modifiers)
@@ -55,11 +56,16 @@ This does not affect hits dealing less than 10 damage
             {
                 modifiers.ModifyHurtInfo += (ref Player.HurtInfo hurtInfo) =>
                 {
-                    if (hurtInfo.Damage < 10) return;
-                    player.AddBuff(ModContent.BuffType<CrimsonRegenBuff>(), 300);
-                        
-                    int totalToRegen = hurtInfo.Damage / 2;
-                    modPlayer.CrimsonRegenAmount = (int)(totalToRegen / 5f * 2f);
+                    if (hurtInfo.Damage < 10) return; //ignore hits under 10 damage
+
+                    modPlayer.CrimsonRegenTime = 7 * 60; //how long crimson heal takes. 7 seconds
+
+                    float returnHeal = 0.5f; //% of damage given back
+                    modPlayer.CrimsonRegenAmount = (int)(hurtInfo.Damage * returnHeal); //50% return heal
+
+                    modPlayer.CrimsonWizCharge = modPlayer.ForceEffect(modPlayer.CrimsonEnchantItem.type); //if crimson wiz active, set this to true
+
+                    player.AddBuff(ModContent.BuffType<CrimsonRegenBuff>(), 2222); //should never reach that time lol. buff gets removed in buff itself after its done
                 };
             }
         }
@@ -70,12 +76,9 @@ This does not affect hits dealing less than 10 damage
             .AddIngredient(ItemID.CrimsonHelmet)
             .AddIngredient(ItemID.CrimsonScalemail)
             .AddIngredient(ItemID.CrimsonGreaves)
-            //blood axe tging
             .AddIngredient(ItemID.TheUndertaker)
             .AddIngredient(ItemID.TheMeatball)
             .AddIngredient(ItemID.CrimsonHeart)
-
-            //blood rain bow
 
             .AddTile(TileID.DemonAltar)
             .Register();
