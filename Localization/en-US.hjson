@@ -2990,7 +2990,7 @@ Mods: {
 					'''
 					Grants immunity to Rotting
 					10% increased movement speed and increased turnaround traction
-					You spawn mini eaters to seek out enemies every few attacks
+					You spawn mini eaters that inflict Cursed Inferno to seek out enemies every few attacks
 					'Flies refuse to approach it'
 					'''
 			}
@@ -3126,6 +3126,7 @@ Mods: {
 					Creepers hover around you blocking some damage
 					A new Creeper appears every 15 seconds, and 5 can exist at once
 					Creeper respawn speed increases when not moving
+					Creepers inflict Ichor on-hit
 					'Once beating in the mind of a defeated foe'
 					'''
 			}

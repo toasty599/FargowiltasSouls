@@ -127,6 +127,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 NPC.frame.Y = frameHeight * 2;
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit)
+        {
+            target.AddBuff(BuffID.Ichor, 60 * 10);
+        }
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             modifiers.FinalDamage *= 3;
