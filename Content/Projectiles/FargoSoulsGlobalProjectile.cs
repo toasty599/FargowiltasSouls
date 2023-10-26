@@ -1287,7 +1287,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             FargoSoulsPlayer modPlayer = Main.player[projectile.owner].FargoSouls();
             if (AdamModifier != 0)
-                ReduceIFrames(projectile, target, modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2);
+                ReduceIFrames(projectile, target, modPlayer.AdamantiteEnchantItem != null && modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2);
 
             if (projectile.type == ProjectileID.IceBlock && Main.player[projectile.owner].FargoSouls().FrigidGemstoneItem != null)
             {
