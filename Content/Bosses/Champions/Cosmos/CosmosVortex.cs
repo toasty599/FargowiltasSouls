@@ -145,7 +145,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                         SoundEngine.PlaySound(SoundID.Item82, Projectile.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             const int max = 3;
                             for (int i = 0; i < max; i++)
@@ -164,7 +164,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     //emode, ai1 check is a phase 2 check
                     if (WorldSavingSystem.EternityMode && Projectile.ai[1] != 1f && Projectile.localAI[0] % 75 == 0)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             const int max = 7;
                             for (int i = 0; i < max; i++)

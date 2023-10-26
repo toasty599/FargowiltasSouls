@@ -185,7 +185,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         /*public override void Kill(int timeleft)
         {
             SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 SpawnRazorbladeRing(6, 12f, 1f);
                 SpawnRazorbladeRing(6, 12f, -1f);

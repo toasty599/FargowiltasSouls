@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<WillDeathrayBig>(), Projectile.damage, 0f, Main.myPlayer, 0f, Projectile.ai[1]);
             }

@@ -1,4 +1,7 @@
-﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using Fargowiltas.Items.Summons.SwarmSummons.Energizers;
+using Fargowiltas.Items.Tiles;
+using FargowiltasSouls.Content.Items.Weapons.BossDrops;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -43,6 +46,14 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             type = Item.shoot;
+            float multiplier = 1; //markiplier
+            if (player.strongBees)
+            {
+                multiplier += 0.1f;
+            }
+            damage = (int)(damage * multiplier);
+            knockback = (int)(knockback * multiplier);
+
         }
 
         public override Vector2? HoldoutOffset() => new Vector2(-10, 0);
@@ -52,11 +63,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(null, "TheSmallSting")
-            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "EnergizerBee"))
+            .AddIngredient(ModContent.ItemType<TheSmallSting>())
+            .AddIngredient(ModContent.ItemType<EnergizerBee>())
             .AddIngredient(ItemID.LunarBar, 10)
 
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            .AddTile(ModContent.TileType<CrucibleCosmosSheet>())
 
             .Register();
         }

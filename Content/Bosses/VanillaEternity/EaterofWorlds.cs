@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     HaveSpawnDR--;
             }
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && npc.whoAmI == firstEater && ++CursedFlameTimer > 300) //only let one eater increment this
+            if (FargoSoulsUtil.HostCheck && npc.whoAmI == firstEater && ++CursedFlameTimer > 300) //only let one eater increment this
             {
                 bool shoot = true;
                 if (!WorldSavingSystem.MasochistModeReal)
@@ -260,7 +260,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (NoSelfDestructTimer <= 0)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient && UTurnCountdownTimer % 6 == 3) //chose this number at random to avoid edge case
+                if (FargoSoulsUtil.HostCheck && UTurnCountdownTimer % 6 == 3) //chose this number at random to avoid edge case
                 {
                     //die if segment behind me is invalid
                     int ai0 = (int)npc.ai[0];
@@ -289,7 +289,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (++FlamethrowerCDOrUTurnStoredTargetX >= 6)
                 {
                     FlamethrowerCDOrUTurnStoredTargetX = 0;
-                    if (WorldSavingSystem.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient) //cursed flamethrower, roughly same direction as head
+                    if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.HostCheck) //cursed flamethrower, roughly same direction as head
                     {
                         Vector2 velocity = new Vector2(5f, 0f).RotatedBy(npc.rotation - Math.PI / 2.0 + MathHelper.ToRadians(Main.rand.Next(-15, 16)));
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, velocity, ProjectileID.EyeFire, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
@@ -301,7 +301,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (UTurnCountdownTimer == 700 - 90) //roar telegraph
                         SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center);
 
-                    if (UTurnCountdownTimer > 700 && Main.netMode != NetmodeID.MultiplayerClient) //initiate mass u-turn
+                    if (UTurnCountdownTimer > 700 && FargoSoulsUtil.HostCheck) //initiate mass u-turn
                     {
                         UTurnCountdownTimer = 0;
                         if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) < 2400)
@@ -487,7 +487,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     player.FargoSouls().FreeEaterSummon = false;
 
-                    if (!NPC.downedBoss2 && Main.netMode != NetmodeID.MultiplayerClient && ModContent.TryFind("Fargowiltas", "WormyFood", out ModItem modItem))
+                    if (!NPC.downedBoss2 && FargoSoulsUtil.HostCheck && ModContent.TryFind("Fargowiltas", "WormyFood", out ModItem modItem))
                         Item.NewItem(npc.GetSource_Loot(), player.Hitbox, modItem.Type);
 
                     DroppedSummon = true;
@@ -563,7 +563,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.OnKill(npc);
 
-            if (WorldSavingSystem.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+            if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < 8; i++)
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.CorruptSpray, 0, 0f, Main.myPlayer, 8f);

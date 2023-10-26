@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
         {
             base.OnKill(npc);
 
-            if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Main.rand.NextBool(3) && FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < 4; i++)
                 {

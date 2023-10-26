@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoo
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ItemID.Heart);
                 }
                 return false;

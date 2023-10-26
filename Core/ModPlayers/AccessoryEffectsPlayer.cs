@@ -259,6 +259,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateForbiddenStorm);
             On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateVortex);
         }
+        public override void Unload()
+        {
+            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateForbiddenStorm);
+            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateVortex);
+        }
         public void ActivateForbiddenStorm(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
@@ -715,6 +720,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MeteorMomentum"))
             {
                 MeteorMomentum = true;
+                Player.hasMagiluminescence = true;
 
                 const int SparkDelay = 2;
                 int Timer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
@@ -1629,9 +1635,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.DisplayToggle("DefensePanic");
             Player.DisplayToggle("MasoAeolusFlower");
 
-
-            Player.hasMagiluminescence = true;
-
             //amph boot
             if (Player.GetToggleValue("MasoAeolusFrog"))
             {
@@ -2073,7 +2076,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (GuttedHeartCD <= 0)
             {
-                GuttedHeartCD = 900;
+                int cd = (int)Math.Round(Utils.Lerp(10 * 60, 15 * 60, (float)Player.statLife / Player.statLifeMax2));
+                GuttedHeartCD = cd;
                 if (Player.GetToggleValue("MasoBrain"))
                 {
                     int count = 0;
@@ -2350,7 +2354,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         ++num;
                     if (Main.rand.NextBool(9))
                         ++num;
-                    int dam = PureHeart ? 30 : 12;
+                    int dam = PureHeart ? 38 : 18;
                     if (MasochistSoul)
                         dam *= 2;
                     for (int index = 0; index < num; ++index)
@@ -2417,7 +2421,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (SpecialDashCD <= 0)
             {
-                SpecialDashCD = 180;
+                SpecialDashCD = 60 * 5;
 
                 if (Player.whoAmI == Main.myPlayer)
                 {

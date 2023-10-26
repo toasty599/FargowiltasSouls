@@ -39,6 +39,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivatePalmwoodSentry);
         }
+        public override void Unload()
+        {
+            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivatePalmwoodSentry);
+        }
         public void ActivatePalmwoodSentry(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

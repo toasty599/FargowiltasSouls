@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             if (Projectile.ai[0] == 13) //if its the top one
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 dir = Vector2.UnitY;
                     Vector2 vel = Vector2.Normalize(dir) * 6f;

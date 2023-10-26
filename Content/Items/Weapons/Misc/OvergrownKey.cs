@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Misc
         public override void SetDefaults()
         {
             Item.mana = 10;
-            Item.damage = 30;
+            Item.damage = 47;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.shootSpeed = 14f;
             Item.width = 36;

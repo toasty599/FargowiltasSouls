@@ -7,6 +7,7 @@ using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -71,25 +72,40 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             return 1f + (modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type) ? 2f : 1f);
         }
 
+        public static List<int> TungstenAlwaysAffectProjType = new List<int>
+        {
+                ProjectileID.MonkStaffT2,
+                ProjectileID.Arkhalis,
+                ProjectileID.Terragrim,
+                ProjectileID.JoustingLance,
+                ProjectileID.HallowJoustingLance,
+                ProjectileID.ShadowJoustingLance,
+                ModContent.ProjectileType<PrismaRegaliaProj>(),
+                ModContent.ProjectileType<BaronTuskShrapnel>(),
+        };
+        public static List<int> TungstenAlwaysAffectProjStyle = new List<int>
+        {
+            ProjAIStyleID.Spear,
+            ProjAIStyleID.Yoyo,
+            ProjAIStyleID.ShortSword,
+            ProjAIStyleID.Flail
+        };
         public static bool TungstenAlwaysAffectProj(Projectile projectile)
         {
-            return projectile.aiStyle == ProjAIStyleID.Spear
-                || projectile.aiStyle == ProjAIStyleID.Yoyo
-                || projectile.aiStyle == ProjAIStyleID.ShortSword
-                || projectile.aiStyle == ProjAIStyleID.Flail
-                || ProjectileID.Sets.IsAWhip[projectile.type]
-                || projectile.type == ProjectileID.MonkStaffT2
-                || projectile.type == ProjectileID.Arkhalis
-                || projectile.type == ProjectileID.Terragrim
-                || projectile.type == ProjectileID.JoustingLance
-                || projectile.type == ProjectileID.HallowJoustingLance
-                || projectile.type == ProjectileID.ShadowJoustingLance
-                || projectile.type == ModContent.ProjectileType<PrismaRegaliaProj>()
-                || projectile.type == ModContent.ProjectileType<BaronTuskShrapnel>();
+            return ProjectileID.Sets.IsAWhip[projectile.type] ||
+                TungstenAlwaysAffectProjType.Contains(projectile.type) ||
+                TungstenAlwaysAffectProjStyle.Contains(projectile.aiStyle);
         }
+        public static List<int> TungstenNeverAffectProjType = new List<int>
+        {
+        };
+        public static List<int> TungstenNeverAffectProjStyle = new List<int>
+        {
+        };
         public static bool TungstenNeverAffectsProj(Projectile projectile)
         {
-            return projectile.type == ProjectileID.PiercingStarlight;
+            return TungstenNeverAffectProjType.Contains(projectile.type) ||
+                TungstenNeverAffectProjStyle.Contains(projectile.type);
         }
 
         public static void TungstenIncreaseProjSize(Projectile projectile, FargoSoulsPlayer modPlayer, IEntitySource source)

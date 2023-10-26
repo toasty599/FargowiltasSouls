@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                 if (Projectile.velocity.Y == 0 && --Projectile.localAI[1] < 0)
                 {
                     Projectile.localAI[1] = 120f;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         const float gravity = 0.2f;
                         float time = 90f;

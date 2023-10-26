@@ -62,6 +62,10 @@ Increases max number of minions by 2"); */
         {
             On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateSetBonus);
         }
+        public override void Unload()
+        {
+            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateSetBonus);
+        }
         public void ActivateSetBonus(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SkyAndRa
         {
             base.OnFirstTick(npc);
 
-            if (Main.hardMode && Main.rand.NextBool(10))
+            if (Main.hardMode && Main.rand.NextBool(10) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, 2);
         }
 
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SkyAndRa
             if (++AttackTimer > 240)
             {
                 AttackTimer = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient && npc.velocity != Vector2.Zero)
+                if (FargoSoulsUtil.HostCheck && npc.velocity != Vector2.Zero)
                 {
                     const int max = 12;
                     Vector2 vel = Vector2.Normalize(npc.velocity) * 1.5f;

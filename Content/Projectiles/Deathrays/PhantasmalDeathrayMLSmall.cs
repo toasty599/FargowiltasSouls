@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             Projectile.localAI[0] += 1f;
             if (Projectile.localAI[0] >= maxTime)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<PhantasmalDeathrayML>(),
                         Projectile.damage, Projectile.knockBack, Projectile.owner, 0, Projectile.ai[1]);

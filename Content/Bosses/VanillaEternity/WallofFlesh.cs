@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             npc.buffImmune[BuffID.OnFire] = true;
             npc.buffImmune[BuffID.OnFire3] = true;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 13, npc.whoAmI);
         }
 
@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     if (UseCorruptAttack) //cursed inferno attack
                     {
-                        if (WorldEvilAttackCycleTimer == 10 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (WorldEvilAttackCycleTimer == 10 && FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitY, ModContent.ProjectileType<CursedDeathrayWOFS>(), 0, 0f, Main.myPlayer, Math.Sign(npc.velocity.X), npc.whoAmI);
                         }
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                             const int offsetY = 800;
                             const int speed = 14;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos + Vector2.UnitY * offsetY, Vector2.UnitY * -speed, ModContent.ProjectileType<CursedFlamethrower>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos + Vector2.UnitY * offsetY / 2, Vector2.UnitY * speed, ModContent.ProjectileType<CursedFlamethrower>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         if (WorldEvilAttackCycleTimer % 8 == 0)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 for (int i = 0; i < 8; i++)
                                 {
@@ -232,7 +232,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         ChainBarrageTimer = 80;
                         if (npc.HasValidTarget && Main.player[npc.target].ZoneUnderworldHeight)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient) //spawn reticles for chain barrages
+                            if (FargoSoulsUtil.HostCheck) //spawn reticles for chain barrages
                             {
                                 Vector2 spawnPos = Main.player[npc.target].Center;
 
@@ -474,12 +474,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (npc.ai[2] > 0) //FIRE LASER
                 {
                     Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
-                    if (Main.netMode != NetmodeID.MultiplayerClient && PreventAttacks <= 0)
+                    if (FargoSoulsUtil.HostCheck && PreventAttacks <= 0)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0, npc.whoAmI);
                 }
                 else //ring dust to denote i am vulnerable now
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                 }
 
@@ -514,9 +514,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 npc.alpha = 0;
                 npc.dontTakeDamage = false;
 
-                if (npc.ai[1] == maxTime - 3 * 5 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.ai[1] == maxTime - 3 * 5 && FargoSoulsUtil.HostCheck)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient && PreventAttacks <= 0)
+                    if (FargoSoulsUtil.HostCheck && PreventAttacks <= 0)
                     {
                         float ai0 = npc.realLife != -1 && Main.npc[npc.realLife].velocity.X > 0 ? 1f : 0f;
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<WOFBlast>(), 0, 0f, Main.myPlayer, ai0, npc.whoAmI);
@@ -552,7 +552,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 npc.ai[3] += (float)Math.PI;
 
                             Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOFS>(), 0, 0f, Main.myPlayer, 0, npc.whoAmI);
                         }
 
@@ -592,7 +592,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             else if (npc.localAI[1] >= 0f && !HasTelegraphedNormalLasers && npc.HasValidTarget) //telegraph for imminent laser
             {
                 HasTelegraphedNormalLasers = true;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
             }
 

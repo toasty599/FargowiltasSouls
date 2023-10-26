@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             if (!Main.dedServ && Main.LocalPlayer.active)
                 Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 const int max = 8;
                 const float baseRotation = MathHelper.TwoPi / max;

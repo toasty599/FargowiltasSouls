@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 {
                     SoundEngine.PlaySound(SoundID.Item82, Projectile.Center);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 dir = Vector2.UnitY;
                         float ai1New = Main.rand.Next(100);

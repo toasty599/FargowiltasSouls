@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                     }
                     else //die and feed it
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             n.life += Projectile.damage;
                             n.HealEffect(Projectile.damage);

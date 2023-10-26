@@ -18,6 +18,10 @@ namespace FargowiltasSouls.Core.Globals
 
         public sealed override bool AppliesToEntity(NPC entity, bool lateInstantiation)
         {
+            if (entity.type != NPCID.LunarTowerNebula && entity.type != NPCID.LunarTowerSolar && entity.type != NPCID.LunarTowerStardust && entity.type != NPCID.LunarTowerVortex)
+            {
+                return false;
+            }
             return lateInstantiation && Matcher.Satisfies(entity.type);
         }
 

@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
             {
                 Projectile.ai[0] = 0;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.position.X + 14 + Main.rand.Next(Projectile.width - 28),
                         Projectile.position.Y + Projectile.height + 4, 0f, 5f,

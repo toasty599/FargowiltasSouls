@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 {
                     DoStompAttack = false;
                     SoundEngine.PlaySound(SoundID.Item14, npc.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = -1; i <= 1; i++)
                         {
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 AttackCycleTimer++;
                 IndividualAttackTimer++;
 
-                if (AttackCycleTimer == 240 && !CanDoAttack && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
+                if (AttackCycleTimer == 240 && !CanDoAttack && FargoSoulsUtil.HostCheck) //telegraph
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
                     NetSync(npc);
@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                     for (int i = -1; i <= 1; i += 2)
                     {
                         Vector2 spawnPos = Main.player[npc.target].Bottom + new Vector2(i * distance, -100 - 8);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.UnitY, ModContent.ProjectileType<ClingerFlame>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
                 }
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                             Vector2 distance = target - npc.Center;
                             distance.X /= time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, ModContent.ProjectileType<GoldenShowerWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, time);
                                 if (p != Main.maxProjectiles)
@@ -185,7 +185,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
 
                 if (IndividualAttackTimer == 10)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 9f * npc.DirectionTo(Main.player[npc.target].Center), ProjectileID.JestersArrow, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                 }
 
@@ -195,7 +195,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
 
                     Vector2 spawn = new(npc.Center.X + Main.rand.NextFloat(-100, 100), Main.player[npc.target].Center.Y - Main.rand.Next(600, 801));
                     Vector2 speed = 10f * Vector2.Normalize(Main.player[npc.target].Center + Main.rand.NextVector2Square(-100, 100) - spawn);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, speed, ProjectileID.JestersArrow, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
@@ -281,7 +281,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 {
                     SoundEngine.PlaySound(SoundID.Grass, npc.Center);
                     float speed = Main.player[npc.target].ZoneRockLayerHeight ? 9f : 14f;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = speed * npc.DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<JungleTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.whoAmI);

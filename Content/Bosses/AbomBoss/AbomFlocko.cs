@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             {
                 SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
                 Projectile.localAI[1] = 0f;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     if (Math.Abs(npc.Center.X - Projectile.Center.X) > 400)
                     {
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     if (Main.player[npc.target].active && !Main.player[npc.target].dead && Main.player[npc.target].Center.Y < Projectile.Center.Y)
                     {
                         SoundEngine.PlaySound(SoundID.Item120, Projectile.position);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 vel = Projectile.DirectionTo(Main.player[npc.target].Center + new Vector2(Main.rand.Next(-200, 201), Main.rand.Next(-200, 201))) * 12f;
                             Projectile.NewProjectile(npc.GetSource_FromThis(), Projectile.Center, vel, ModContent.ProjectileType<AbomFrostWave>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             else
             {
                 sansEye = false;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.Kill();
                 return;
             }

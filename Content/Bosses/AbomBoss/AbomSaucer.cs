@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             NPC abom = FargoSoulsUtil.NPCExists(NPC.ai[0], ModContent.NPCType<AbomBoss>());
             if (abom == null || abom.dontTakeDamage)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     NPC.life = 0;
                     NPC.HitEffect();
@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     NPC.localAI[2] = NPC.Distance(Main.player[NPC.target].Center);
                     NPC.ai[3] = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
 
-                    if (NPC.whoAmI == NPC.FindFirstNPC(NPC.type) && Main.netMode != NetmodeID.MultiplayerClient) //reticle telegraph
+                    if (NPC.whoAmI == NPC.FindFirstNPC(NPC.type) && FargoSoulsUtil.HostCheck) //reticle telegraph
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), Main.player[NPC.target].Center, Vector2.Zero, ModContent.ProjectileType<AbomReticle>(), 0, 0f, Main.myPlayer);
                     }
@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 if (NPC.ai[1] > 120) //attack and reset
                 {
                     SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = 0; i < 5; i++)
                         {

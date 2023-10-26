@@ -114,7 +114,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         {
                             x = 7 - x; //split i into 1 to 8 and -1 to -8
                         }
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             float random = Main.rand.Next(-distance / 5, distance / 4);
                             Vector2 pos = OriginalLocation + Vector2.UnitX * (distance * x + random);
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (AttackTimer % SpewFrames == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item45, npc.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         float vel = MaxSpeed * Math.Min(1, progress * 1.5f);
                         float rotation = npc.rotation - (float)Math.PI / 2;
@@ -236,7 +236,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
                 if (AttackTimer % SpewFrames == 0)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         float angle = (float)(Math.PI / 8f);
                         Vector2 aim = new Vector2(0, MaxSpeed).RotatedBy(-angle);
@@ -266,7 +266,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             if (AttackTimer == (int)(IdleTime * 0.75f))
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     const float rotate = (float)Math.PI / 4f;
                     Vector2 speed = player.Center - npc.Center;

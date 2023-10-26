@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 6f;
                 }
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
             }
         }

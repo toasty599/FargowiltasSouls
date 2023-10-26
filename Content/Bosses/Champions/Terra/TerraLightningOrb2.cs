@@ -203,7 +203,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             if (!Main.dedServ)
                 Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
-            if (Projectile.alpha == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Projectile.alpha == 0 && FargoSoulsUtil.HostCheck)
             {
                 if (!Main.dedServ)
                     SoundEngine.PlaySound(SoundID.Thunder with { Volume = 0.8f, Pitch = 0.5f }, Projectile.Center);

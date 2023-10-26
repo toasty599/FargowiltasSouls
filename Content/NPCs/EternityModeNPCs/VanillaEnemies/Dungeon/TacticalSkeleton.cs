@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
             //num3 = 120, damage = 40/50, num8 = 0
             if (npc.ai[2] > 0f && npc.ai[1] <= 65f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     for (int index = 0; index < 6; ++index)
                     {

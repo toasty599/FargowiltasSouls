@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Projectile.extraUpdates = 1;
             Projectile.alpha = 255;
             Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 15;
+            Projectile.idStaticNPCHitCooldown = 5;
             Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 

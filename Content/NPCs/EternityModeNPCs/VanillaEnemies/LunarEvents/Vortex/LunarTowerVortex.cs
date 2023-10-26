@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                     
 
-                if (Main.netMode != NetmodeID.MultiplayerClient && AttackTimer % 20 == 1) //anti lag
+                if (FargoSoulsUtil.HostCheck && AttackTimer % 20 == 1) //anti lag
                 {
                     bool vortexAlive = false;
                     for (int i = 0; i < Main.maxProjectiles; i++)
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     {
                         second = true;
                     }
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 pos = npc.Center - Vector2.UnitY * npc.height * 0.8f;
                         Vector2 vel = second ? pos.DirectionTo(player.Center) * 6 : Vector2.Zero;
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         {
                             x = 7 - x; //split i into 1 to 8 and -1 to -8
                         }
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int offset = second ? distance / 2 : 0;
                             Vector2 pos = npc.Center + Vector2.UnitX * (distance * x + offset);

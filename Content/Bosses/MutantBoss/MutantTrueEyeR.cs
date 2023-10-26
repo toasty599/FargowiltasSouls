@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         for (int i = 0; i < max; i++)
                         {
                             Vector2 spawnPos = Projectile.Center - Vector2.UnitY * 6f + new Vector2(distance, 0f).RotatedBy(rotation * i);
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), spawnPos, Vector2.Zero, ModContent.ProjectileType<MutantTrueEyeSphere>(),
                                     Projectile.damage, 0f, Projectile.owner, Projectile.identity, i);
                         }

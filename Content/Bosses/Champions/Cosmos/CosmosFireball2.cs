@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 int p = Player.FindClosest(Projectile.Center, 0, 0);
                 if (p != -1)

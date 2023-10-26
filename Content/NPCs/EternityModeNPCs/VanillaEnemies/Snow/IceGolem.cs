@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Snow
 
             if (++Counter % 120 == 0)
             {
-                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(6f, 0f).RotatedByRandom(2 * Math.PI),
                         ModContent.ProjectileType<FrostfireballHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.target, 30f);
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Snow
             {
                 Counter = 0;
 
-                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                 {
                     const int max = 16;
                     for (int i = 0; i < max; i++)

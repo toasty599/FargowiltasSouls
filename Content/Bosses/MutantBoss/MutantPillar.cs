@@ -192,7 +192,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     dust.scale *= 2f;
                 }
             }
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 int fragmentDuration = 240;
                 if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>())

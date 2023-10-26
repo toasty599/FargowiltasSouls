@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Martians
         {
             base.OnHitByAnything(npc, player, hit, damageDone);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 int Damage = Main.expertMode ? 28 : 35;
 

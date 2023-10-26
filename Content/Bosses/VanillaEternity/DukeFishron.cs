@@ -157,7 +157,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 switch ((int)npc.ai[0])
                 {
                     case -1: //just spawned
-                        if (npc.ai[2] == 2 && Main.netMode != NetmodeID.MultiplayerClient) //create spell circle
+                        if (npc.ai[2] == 2 && FargoSoulsUtil.HostCheck) //create spell circle
                         {
                             int ritual1 = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero,
                                 ModContent.ProjectileType<FishronRitual>(), 0, 0f, Main.myPlayer, npc.lifeMax, npc.whoAmI);
@@ -180,7 +180,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (GeneralTimer > 5)
                         {
                             GeneralTimer = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Vector2 spawnPos = new(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height));
                                 FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), spawnPos, NPCID.DetonatingBubble);
@@ -193,12 +193,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         break;
 
                     case 2: //p1 bubbles
-                        if (npc.ai[2] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (npc.ai[2] == 0f && FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
                         break;
 
                     case 3: //p1 drop nados
-                        if (npc.ai[2] == 60f && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (npc.ai[2] == 60f && FargoSoulsUtil.HostCheck)
                         {
                             const int max = 32;
                             float rotation = 2f * (float)Math.PI / max;
@@ -216,7 +216,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     case 4: //phase 2 transition
                         RemovedInvincibility = false;
                         TakeNoDamageOnHit = true;
-                        if (npc.ai[2] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (npc.ai[2] == 1 && FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronRitual>(), 0, 0f, Main.myPlayer, npc.lifeMax / 4, npc.whoAmI);
                         if (npc.ai[2] >= 114)
                         {
@@ -250,7 +250,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (GeneralTimer > 1)
                         {
                             //Counter0 = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), npc.Center,
                                     ModContent.NPCType<DetonatingBubbleEX>(),
@@ -263,7 +263,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         break;
 
                     case 8: //p2 cthulhunado
-                        if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[2] == 60)
+                        if (FargoSoulsUtil.HostCheck && npc.ai[2] == 60)
                         {
                             Vector2 spawnPos = Vector2.UnitX * npc.direction;
                             spawnPos = spawnPos.RotatedBy(npc.rotation);
@@ -297,7 +297,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (Counter2 >= 900)
                         {
                             Counter2 = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient) //spawn cthulhunado
+                            if (FargoSoulsUtil.HostCheck) //spawn cthulhunado
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
                         }*/
                         break;
@@ -308,7 +308,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (GeneralTimer == 2)
                         {
                             //Counter0 = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), npc.Center,
                                     ModContent.NPCType<DetonatingBubbleEX>(),
@@ -323,7 +323,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     case 12: //p3 *teleports behind you*
                         if (npc.ai[2] == 15f)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 SpawnRazorbladeRing(5, 9f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 1f, true);
                                 SpawnRazorbladeRing(5, 9f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), -0.5f, true);
@@ -331,7 +331,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         }
                         else if (npc.ai[2] == 16f)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Vector2 spawnPos = Vector2.UnitX * npc.direction; //GODLUL
                                 spawnPos = spawnPos.RotatedBy(npc.rotation);
@@ -366,7 +366,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             switch ((int)npc.ai[0])
             {
                 case -1: //just spawned
-                    /*if (npc.ai[2] == 1 && Main.netMode != NetmodeID.MultiplayerClient) //create spell circle
+                    /*if (npc.ai[2] == 1 && FargoSoulsUtil.HostCheck) //create spell circle
                     {
                         int p2 = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero,
                             ModContent.ProjectileType<FishronRitual2>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
@@ -389,7 +389,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         GeneralTimer = 0;
 
-                        if (WorldSavingSystem.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.HostCheck)
                         {
                             Vector2 spawnPos = new(npc.position.X + Main.rand.Next(npc.width), npc.position.Y + Main.rand.Next(npc.height));
                             FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), spawnPos, NPCID.DetonatingBubble);
@@ -398,7 +398,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     break;
 
                 case 2: //p1 bubbles
-                    if (npc.ai[2] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (npc.ai[2] == 0f && FargoSoulsUtil.HostCheck)
                     {
                         bool random = Main.rand.NextBool(); //fan above or to sides
                         for (int j = -1; j <= 1; j++) //to both sides of player
@@ -413,7 +413,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     break;
 
                 case 3: //p1 drop nados
-                    if (npc.ai[2] == 60f && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (npc.ai[2] == 60f && FargoSoulsUtil.HostCheck)
                     {
                         SpawnRazorbladeRing(12, 10f, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f);
                     }
@@ -448,7 +448,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (++GeneralTimer > 1)
                     {
                         GeneralTimer = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2),
                                 ModContent.ProjectileType<RazorbladeTyphoon2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, .03f);
@@ -483,13 +483,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     if (Math.Abs(i) != max) //only spawn the outmost ones
                                         continue;
                                     Vector2 offset = SpectralFishronRandom ? Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 3 / 3 * i) * -500f * j : Vector2.UnitX.RotatedBy(MathHelper.PiOver2 / 3 / 3 * i) * 500f * j;
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, offset.X, offset.Y);
                                 }
                             }
                         }
 
-                        if (npc.ai[2] == delayForTornadoSpawn && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (npc.ai[2] == delayForTornadoSpawn && FargoSoulsUtil.HostCheck)
                         {
                             if (WorldSavingSystem.MasochistModeReal)
                             {
@@ -517,7 +517,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     if (npc.ai[2] == 90) //first purge the bolts
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int type = ModContent.ProjectileType<RazorbladeTyphoon2>();
                             for (int i = 0; i < Main.maxProjectiles; i++)
@@ -537,7 +537,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         npc.life = max;
                         CombatText.NewText(npc.Hitbox, CombatText.HealLife, heal);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //purge nados
+                        if (FargoSoulsUtil.HostCheck) //purge nados
                         {
                             for (int i = 0; i < Main.maxProjectiles; i++)
                             {
@@ -576,7 +576,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         {
                             SpectralFishronRandom = Main.rand.NextBool();
 
-                            //if (WorldSavingSystem.MasochistModeReal && Main.netMode != NetmodeID.MultiplayerClient)
+                            //if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.HostCheck)
                             //    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
                         }
 
@@ -586,10 +586,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             {
                                 int max = WorldSavingSystem.MasochistModeReal ? 5 : 4;
                                 int P3TimerOffset = P3Timer - 30;
-                                if (P3TimerOffset >= delay && P3TimerOffset < spectralFishronDelay * max + delay && P3TimerOffset % spectralFishronDelay == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                                if (P3TimerOffset >= delay && P3TimerOffset < spectralFishronDelay * max + delay && P3TimerOffset % spectralFishronDelay == 0 && FargoSoulsUtil.HostCheck)
                                 {
                                     Vector2 offset = 450 * -Vector2.UnitY.RotatedBy(MathHelper.TwoPi / max * (P3TimerOffset / spectralFishronDelay + Main.rand.NextFloat(0.5f)));
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FishronFishron>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, offset.X, offset.Y);
                                 }
                             }
@@ -615,7 +615,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         if (++Counter1 == 15)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 const float delay = 15;
                                 Vector2 baseVel = 100f / delay * npc.DirectionTo(Main.player[npc.target].Center);
@@ -658,7 +658,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (--GeneralTimer < 0)
                     {
                         GeneralTimer = 2;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             if (npc.ai[3] == 2 || npc.ai[3] == 3) //spawn destructible bubbles on 2-dash
                             {
@@ -725,7 +725,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         for (int j = -max; j <= max; j++)
                         {
                             Vector2 vel = npc.DirectionFrom(Main.player[npc.target].Center).RotatedBy(MathHelper.PiOver2 / max * j);
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<FishronBubble>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                         }
                     }
@@ -782,7 +782,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     tilePosY--;
 
                     Vector2 spawn = new(tilePosX * 16 + 8, tilePosY * 16 + 8);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.UnitX * -i * 6f, ProjectileID.Cthulunado, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 10, 25);
                 }
             }
@@ -842,7 +842,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 npc.life = 1;
                 npc.active = true;
-                if (Main.netMode != NetmodeID.MultiplayerClient) //something about wack ass MP
+                if (FargoSoulsUtil.HostCheck) //something about wack ass MP
                 {
                     npc.netUpdate = true;
                     npc.dontTakeDamage = true;

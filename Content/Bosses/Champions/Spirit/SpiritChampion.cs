@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                     {
                         SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 0f, NPC.whoAmI, -1f, -1f, NPC.target);
                             if (n != Main.maxNPCs)
@@ -315,7 +315,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                             }
                         }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //if hands somehow disappear
+                        if (FargoSoulsUtil.HostCheck) //if hands somehow disappear
                         {
                             if (!foundHand[0])
                             {
@@ -376,7 +376,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                             }
                         }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //spawn super hand
+                        if (FargoSoulsUtil.HostCheck) //spawn super hand
                         {
 
                             int n2 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 3f, NPC.whoAmI, 1f, 1f, NPC.target);
@@ -394,7 +394,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                     {
                         NPC.ai[2] = 0;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             SoundEngine.PlaySound(SoundID.Item2, NPC.Center);
 
@@ -409,7 +409,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                     if (++NPC.ai[3] > 110)
                     {
                         NPC.ai[3] = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //sandnado
+                        if (FargoSoulsUtil.HostCheck) //sandnado
                         {
                             Vector2 target = player.Center;
                             target.Y -= 100;
@@ -508,7 +508,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                     {
                         NPC.ai[2] = 0;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             if (NPC.ai[1] < 180) //cross bones
                             {
@@ -578,7 +578,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                         if (++NPC.ai[3] > 55) //homing spectre bolts
                         {
                             NPC.ai[3] = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 const int max = 5;
                                 for (int i = 0; i < max; i++)
@@ -617,7 +617,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 
                         SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = 0; i < 15; i++) //sword burst
                             {
@@ -726,7 +726,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                         if (NPC.ai[1] == 0)
                         {
                             SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -6);
                         }
 
@@ -736,7 +736,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 
                             SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient) //vanilla code from desert spirits idfk
+                            if (FargoSoulsUtil.HostCheck) //vanilla code from desert spirits idfk
                             {
                                 Point tileCoordinates1 = NPC.Center.ToTileCoordinates();
                                 Point tileCoordinates2 = Main.player[NPC.target].Center.ToTileCoordinates();
@@ -776,7 +776,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                         {
                             NPC.ai[2] = 0;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 for (int i = 0; i < 4; i++)
                                 {
@@ -788,7 +788,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                             }
                         }
 
-                        if (NPC.ai[1] % 30 == 0 && Main.netMode != NetmodeID.MultiplayerClient && NPC.life < NPC.lifeMax * 0.66)
+                        if (NPC.ai[1] % 30 == 0 && FargoSoulsUtil.HostCheck && NPC.life < NPC.lifeMax * 0.66)
                         {
                             SoundEngine.PlaySound(SoundID.Item2, NPC.Center);
                             for (int i = 0; i < 3; i++)
@@ -837,7 +837,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 
                         SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //spawn super hand
+                        if (FargoSoulsUtil.HostCheck) //spawn super hand
                         {
 
                             int n2 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SpiritChampionHand>(), NPC.whoAmI, 4f, NPC.whoAmI, 1f, 1f, NPC.target);
@@ -869,7 +869,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                 NPC.active = true;
                 NPC.life = 1;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     NPC.TargetClosest(false);
                     NPC.ai[0] = -4f;

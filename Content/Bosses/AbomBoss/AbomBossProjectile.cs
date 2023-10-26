@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             }
             else
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.Kill();
                 return;
             }

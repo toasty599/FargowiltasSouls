@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         public override bool CheckDead()
         {
             NPC queenBee = FargoSoulsUtil.NPCExists(EModeGlobalNPC.beeBoss, NPCID.QueenBee);
-            if (queenBee != null && Main.netMode != NetmodeID.MultiplayerClient
+            if (queenBee != null && FargoSoulsUtil.HostCheck
                 && queenBee.GetGlobalNPC<QueenBee>().BeeSwarmTimer < 600) //dont change qb ai during bee swarm attack
             {
                 queenBee.ai[0] = 0f;

@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
 
             if (SpawnTimer > 0 && --SpawnTimer % 10 == 0)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), npc.Center, NPCID.DarkCaster, velocity: Main.rand.NextVector2Circular(8, 8));
             }
 

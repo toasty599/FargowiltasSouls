@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             int damage = Projectile.damage;
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + Projectile.width / 2, Projectile.position.Y + Projectile.height / 2, 0f, 0f, ModContent.ProjectileType<LifeBombExplosion>(), damage, 0f, Main.myPlayer);
         }
 

@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (++Counter[1] > 25)
                 {
                     Counter[1] = 0;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.Flocko);
                         if (Main.netMode == NetmodeID.Server)
@@ -73,14 +73,14 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 Vector2 spawn = npc.Center;
                 spawn.Y -= 20f;
                 spawn += speed * 4f;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(spawn, speed, ProjectileID.FrostShard, 30, 0f, Main.myPlayer);
             }*/
 
             if (--AttackTimer <= 0)
             {
                 AttackTimer = 120;
-                if (npc.whoAmI == NPC.FindFirstNPC(npc.type) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.whoAmI == NPC.FindFirstNPC(npc.type) && FargoSoulsUtil.HostCheck)
                 {
                     if (npc.ai[0] == 2) //stationary, spinning
                     {

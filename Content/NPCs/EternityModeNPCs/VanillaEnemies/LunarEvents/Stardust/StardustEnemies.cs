@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
         public override bool CheckDead(NPC npc)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 int tower = NPC.FindFirstNPC(NPCID.LunarTowerStardust);
                 if (tower != -1 && NPC.CountNPCS(NPCID.StardustCellSmall) < 10 && Main.npc[tower].active && npc.Distance(Main.npc[tower].Center) < 5000) //in tower range
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             base.AI(npc);
 
-            if (npc.ai[0] >= 270f && Main.netMode != NetmodeID.MultiplayerClient)
+            if (npc.ai[0] >= 270f && FargoSoulsUtil.HostCheck)
             {
                 npc.Transform(Main.rand.Next(new int[] {
                     NPCID.StardustJellyfishBig,

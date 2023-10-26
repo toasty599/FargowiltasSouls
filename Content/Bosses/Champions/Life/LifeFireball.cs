@@ -106,7 +106,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
             {
                 for (int i = 0; i < 5; i++) //drop greek fire
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-10, 0),
                               Main.rand.Next(326, 329), Projectile.damage / 4, 0f, Main.myPlayer);

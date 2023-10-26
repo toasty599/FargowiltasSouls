@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath11, Projectile.Center);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 int beeCount = 0;
                 for (int i = 0; i < Main.maxNPCs; i++)

@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.GoblinIn
             {
                 AttackTimer = 0;
                 SoundEngine.PlaySound(SoundID.Item8, npc.Center);
-                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                 {
                     //for (int i = 0; i < 4; i++)
                     //{
@@ -56,9 +56,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.GoblinIn
         {
             base.ModifyHitByAnything(npc, player, ref modifiers);
 
-            if (Main.rand.NextBool(3) && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Main.rand.NextBool(3) && FargoSoulsUtil.HostCheck)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(Main.rand.NextFloat(-2f, 2f), -5), ModContent.ProjectileType<GoblinSpikyBall>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
 
                 //Vector2 vel = new Vector2(9f, 0f).RotatedByRandom(2 * Math.PI);
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.GoblinIn
         {
             base.OnKill(npc);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < 50; i++)
                 {

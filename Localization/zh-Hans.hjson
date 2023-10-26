@@ -2673,16 +2673,6 @@ Mods: {
 					'''
 			}
 
-			UniverseCore: {
-				DisplayName: 宇宙之核
-				Tooltip:
-					'''
-					暴击造成4倍伤害，而不是2倍
-					所有的攻击都会造成宇宙之火减益
-					“爆发出超高能宇宙射线”
-					'''
-			}
-
 			CosmoForce: {
 				DisplayName: 宇宙之力
 				Tooltip:
@@ -2966,16 +2956,6 @@ Mods: {
 					'''
 			}
 
-			DarkenedHeart: {
-				DisplayName: 暗黑之心
-				Tooltip:
-					'''
-					免疫腐烂减益
-					增加10%移动速度
-					每攻击几次，你就会产生几个追踪敌人的迷你噬魂者
-					“苍蝇都不想接近它”
-					'''
-			}
 
 			Deerclawps: {
 				DisplayName: 冰鹿爪
@@ -3097,18 +3077,6 @@ Mods: {
 					'''
 			}
 
-			GuttedHeart: {
-				DisplayName: 破碎之心
-				Tooltip:
-					'''
-					免疫嗜血减益
-					增加10%最大生命值
-					召唤徘徊在你周围、为你阻挡伤害的飞眼怪
-					每15秒生成一个新的飞眼怪，最多同时存在5个
-					你不移动时飞眼怪生成速度加快
-					“曾经还在敌人的大脑中跳动着”
-					'''
-			}
 
 			HeartoftheMasochist: {
 				DisplayName: 永恒者之心
@@ -4394,14 +4362,15 @@ Mods: {
 			}
 
 			TheSmallSting: {
-				DisplayName: 小刺
-				Tooltip:
+				// DisplayName: The Small Sting
+				/* Tooltip:
 					'''
-					使用飞镖作为弹药
-					50%的几率不消耗弹药
-					毒刺会扎在敌怪身上，在同样的位置再击中一次会造成额外伤害
-					“重新改装自被击败的敌人的腹部..”
-					'''
+					Uses darts for ammo
+					50% chance to not consume ammo
+					Stingers will stick to enemies, hitting the same spot again will deal extra damage
+					Scales with your bee damage and knockback increases
+					'Repurposed from the abdomen of a defeated foe..'
+					''' */
 			}
 
 			TwinRangs: {
@@ -4633,13 +4602,14 @@ Mods: {
 			}
 
 			TheBigSting: {
-				DisplayName: 大螯刺
-				Tooltip:
+				// DisplayName: The Big Sting
+				/* Tooltip:
 					'''
-					使用飞镖作为弹药
-					66%的几率不消耗弹药
-					“屠戮众多的奖励..”
-					'''
+					Uses darts for ammo
+					Scales with your bee damage and knockback increases
+					66% chance to not consume ammo
+					'The reward for slaughtering many..'
+					''' */
 			}
 
 			ForgorGift: {
@@ -4941,7 +4911,7 @@ Mods: {
 
 			MechLure: {
 				// DisplayName: Mechanical Lure
-				// Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
+				// Tooltip: Throw while underwater at the Ocean to lure out a shrouded creature
 			}
 
 			TheBaronsTusk: {
@@ -5935,21 +5905,21 @@ Mods: {
 			// BaronWhirlpool.DisplayName: Baron Whirlpool
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
-			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronDeathray.DisplayName: Baron's Laser
 			// BaronEyeFlash.DisplayName: Baron Eye Flash
-			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			// BaronTuskShrapnel.DisplayName: Baron's Tusk Shrapnel
 			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
 			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
-			// MechLureProjectile.DisplayName: Mech Lure Projectile
-			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// MechLureProjectile.DisplayName: Mechanical Lure
+			// RoseTintedVisorDeathray.DisplayName: Rose-Tinted Visor Laser
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
-			// MonkDashDamage.DisplayName: Monk Dash Damage
+			// MonkDashDamage.DisplayName: Monk Dash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

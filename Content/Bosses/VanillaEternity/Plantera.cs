@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (--RingTossTimer < 0)
             {
                 RingTossTimer = delayForRingToss;
-                if (Main.netMode != NetmodeID.MultiplayerClient && !Main.npc.Any(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance))
+                if (FargoSoulsUtil.HostCheck && !Main.npc.Any(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance))
                 {
                     const int max = 5;
                     float rotation = 2f * (float)Math.PI / max;
@@ -132,7 +132,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 npc.netUpdate = true;
                 NetSync(npc);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     float speed = 8f;
                     int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.defDamage / 4, 0f, Main.myPlayer);
@@ -161,7 +161,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (--DicerTimer < 0)
                 {
                     DicerTimer = 150 * 4 + 25;
-                    if (WorldSavingSystem.MasochistModeReal && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (WorldSavingSystem.MasochistModeReal && npc.HasValidTarget && FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), Main.player[npc.target].Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer, 0, 0);
                         for (int i = 0; i < 3; i++)
@@ -196,7 +196,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     EnteredPhase2 = true;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         if (!Main.npc.Any(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance))
                         {
@@ -236,7 +236,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.netUpdate = true;
                     NetSync(npc);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<DicerPlantera>(), npc.defDamage / 4, 0f, Main.myPlayer);
                         for (int i = 0; i < 3; i++)
@@ -308,7 +308,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 + MathHelper.ToRadians(maxDegreeCoverage / (maxTime / interval)) * (i + Main.rand.NextFloat(-0.5f, 0.5f))
                             );
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Main.rand.NextVector2CircularEdge(24, 24),
                                     ModContent.ProjectileType<PlanteraTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, attackAngle);
@@ -342,7 +342,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 //if (WorldSavingSystem.MasochistModeReal && --TentacleTimerMaso < 0)
                 //{
                 //    TentacleTimerMaso = 420;
-                //    if (Main.netMode != NetmodeID.MultiplayerClient)
+                //    if (FargoSoulsUtil.HostCheck)
                 //    {
                 //        float angle = npc.DirectionTo(Main.player[npc.target].Center).ToRotation();
                 //        for (int i = -1; i <= 1; i++)
@@ -412,7 +412,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     Tile tile = Framing.GetTileSafely((int)targetPos.X, (int)targetPos.Y);
                     npc.localAI[0] = 600; //reset vanilla timer for picking new block
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         npc.netUpdate = true;
 
                     npc.ai[0] = targetPos.X;
@@ -492,7 +492,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (++ChangeDirectionTimer > 120)
             {
                 ChangeDirectionTimer = Main.rand.Next(30);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     RotationDirection = Main.rand.NextBool() ? -1 : 1;
                     MaxDistanceFromPlantera = 50 + Main.rand.Next(150);

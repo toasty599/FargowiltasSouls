@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                 const int spacing = 160;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     for (int i = -1; i <= 1; i++)
                     {

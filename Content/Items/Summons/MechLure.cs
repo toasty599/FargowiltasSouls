@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Items.Summons
                 // (explicitely excluded serverside here)
                 SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronSummon"), player.Center);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     // If the player is not in multiplayer, spawn directly
                     NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<BanishedBaron>());

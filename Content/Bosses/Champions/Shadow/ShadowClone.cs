@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 Projectile.position += player.velocity / 4f;
                 Projectile.netUpdate = true;
                 Projectile.localAI[0] = Projectile.DirectionTo(player.Center).ToRotation();
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.DirectionTo(player.Center), ModContent.ProjectileType<ShadowDeathraySmall>(), 0, 0f, Main.myPlayer);
                 }

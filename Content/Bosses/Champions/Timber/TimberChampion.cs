@@ -139,14 +139,14 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                                 if (NPC.localAI[1] == 0 && NPC.life < NPC.lifeMax * .66f) //spawn palm tree supports
                                 {
                                     NPC.localAI[1] = 1;
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TimberPalmTree>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                                 }
 
                                 if (NPC.localAI[2] == 0 && NPC.life < NPC.lifeMax * .33f) //spawn palm tree supports
                                 {
                                     NPC.localAI[2] = 1;
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TimberPalmTree>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                                 }
                             }
@@ -162,7 +162,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             NPC.noGravity = true;
                             NPC.netUpdate = true;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient) //ogre smash jump
+                            if (FargoSoulsUtil.HostCheck) //ogre smash jump
                             {
                                 int dam = WorldSavingSystem.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage) : 0;
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, dam, 0, Main.myPlayer);
@@ -206,7 +206,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             //chain blast jump
                             if (WorldSavingSystem.EternityMode)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom - 65 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<TimberJumpMark>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, NPC.width);
                             }
                         }
@@ -373,7 +373,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             const int max = 3;
                             for (int i = -max; i <= max; i++)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, vel.RotatedBy(MathHelper.ToRadians(60) / max * i), ModContent.ProjectileType<TimberSnowball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1f);
                             }
                         }
@@ -381,7 +381,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                     else if (++NPC.ai[2] > 5) //straight aim
                     {
                         NPC.ai[2] = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[1] > 30 && NPC.ai[1] < 120)
+                        if (FargoSoulsUtil.HostCheck && NPC.ai[1] > 30 && NPC.ai[1] < 120)
                         {
                             Vector2 offset;
                             offset.X = Main.rand.NextFloat(0, NPC.width / 2) * NPC.direction;
@@ -458,7 +458,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             Vector2 spawnPos = GetArmPos(i);
                             Vector2 vel = 15f * player.DirectionFrom(spawnPos);
                             const float ai1 = 30f * 3;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, vel, ModContent.ProjectileType<TimberHook>(), 0, 0f, Main.myPlayer, NPC.whoAmI, ai1);
                         }
                     }

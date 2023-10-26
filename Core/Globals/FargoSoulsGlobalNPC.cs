@@ -36,6 +36,8 @@ namespace FargowiltasSouls.Core.Globals
         public int originalDefense;
         public bool BrokenArmor;
 
+        public bool CanHordeSplit = true;
+
         public bool FirstTick;
         //        //debuffs
         public bool OriPoison;
@@ -1125,7 +1127,7 @@ namespace FargowiltasSouls.Core.Globals
         {
             if (Corrupted || CorruptedForce)
             {
-                modifiers.FinalDamage *= 0.9f;
+                modifiers.FinalDamage *= 0.8f;
             }
 
             if (target.HasBuff(ModContent.BuffType<ShellHideBuff>()))
@@ -1169,7 +1171,7 @@ namespace FargowiltasSouls.Core.Globals
             }
             if (CorruptedForce)
             {
-                modifiers.ArmorPenetration += 30;
+                modifiers.ArmorPenetration += 40;
             }
 
             if (OceanicMaul)

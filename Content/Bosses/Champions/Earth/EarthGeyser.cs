@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
 
             /*NPC golem = Main.npc[ai0];
-            if (golem.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Counter == 2 && Main.netMode != NetmodeID.MultiplayerClient) //when golem does second stomp, erupt
+            if (golem.GetGlobalNPC<NPCs.FargoSoulsGlobalNPC>().Counter == 2 && FargoSoulsUtil.HostCheck) //when golem does second stomp, erupt
             {
                 Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.UnitY * 8, ProjectileID.GeyserTrap, Projectile.damage, 0f, Main.myPlayer);
                 Projectile.Kill();
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.UnitY * -8, ProjectileID.GeyserTrap, Projectile.damage, 0f, Main.myPlayer);
         }
     }

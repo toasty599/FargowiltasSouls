@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             /*if (Main.npc[ai1].velocity != Vector2.Zero && --counter < 0)
             {
                 counter = 5;
-                if (Main.netMode != NetmodeID.MultiplayerClient) //spawn bonus projs
+                if (FargoSoulsUtil.HostCheck) //spawn bonus projs
                 {
                     Vector2 spawnPos = Projectile.Center;
                     Vector2 vel = Projectile.velocity.RotatedBy(Math.PI / 2 * Math.Sign(Projectile.ai[0]));
