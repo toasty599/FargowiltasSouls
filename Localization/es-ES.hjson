@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			// Adamantite: Projectiles now split into 3, damage reduced from 60% to 40%
+			// Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/40%
 			// Apprentice: The next 2 weapons are used instead of 1
 			// AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			// AncientShadow: Number of Shadow Orbs increased
@@ -1901,8 +1901,7 @@ Mods: {
 					'''
 					Every weapon shot will split into 2
 					Weapon spread increases the longer you fire, and decreases while not firing
-					Non-homing weapon shots deal 70% damage
-					Homing weapons deal 60% damage
+					Weapon shots deal 70% damage, decreased to 60% for homing shots
 					All projectiles hit twice as fast and gain armor penetration equal to 50% damage
 					'Chaos'
 					''' */
@@ -2687,6 +2686,16 @@ Mods: {
 					''' */
 			}
 
+			UniverseCore: {
+				// DisplayName: Universe Core
+				/* Tooltip:
+					'''
+					Your critical strikes can critically strike
+					These supercrits deal 4x damage and inflict Flames of the Universe
+					'Bursting with ultra-high-energy cosmic rays'
+					''' */
+			}
+
 			CosmoForce: {
 				// DisplayName: Force of Cosmos
 				/* Tooltip:
@@ -3116,7 +3125,7 @@ Mods: {
 					Grants immunity to Bloodthirsty
 					10% increased max life
 					Creepers hover around you blocking some damage
-					A new Creeper appears every 15 seconds, and 5 can exist at once
+					A new Creeper appears every 15-10 seconds (faster the lower your health is), and 5 can exist at once
 					Creeper respawn speed increases when not moving
 					Creepers inflict Ichor on-hit
 					'Once beating in the mind of a defeated foe'

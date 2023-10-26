@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/40% 
+			Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/40%
 			Apprentice: The next 2 weapons are used instead of 1
 			AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			AncientShadow: Number of Shadow Orbs increased

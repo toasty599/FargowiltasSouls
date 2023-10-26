@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			// Adamantite: Projectiles now split into 3, damage reduced from 60% to 40%
+			// Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/40%
 			// Apprentice: The next 2 weapons are used instead of 1
 			// AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			// AncientShadow: Number of Shadow Orbs increased
@@ -2204,8 +2204,9 @@ Mods: {
 				// DisplayName: Meteor Enchantment
 				/* Tooltip:
 					'''
-					Drastically increases your run acceleration, and decreases your momentum
 					Moving creates a fire trail
+					Increases your movement speed and acceleration, and decreases your momentum
+					Provides light when worn
 					'Drop a draco on 'em'
 					''' */
 			}
@@ -2673,6 +2674,16 @@ Mods: {
 					'''
 			}
 
+			UniverseCore: {
+				// DisplayName: Universe Core
+				/* Tooltip:
+					'''
+					Your critical strikes can critically strike
+					These supercrits deal 4x damage and inflict Flames of the Universe
+					'Bursting with ultra-high-energy cosmic rays'
+					''' */
+			}
+
 			CosmoForce: {
 				DisplayName: 宇宙之力
 				Tooltip:
@@ -2956,6 +2967,16 @@ Mods: {
 					'''
 			}
 
+			DarkenedHeart: {
+				// DisplayName: Darkened Heart
+				/* Tooltip:
+					'''
+					Grants immunity to Rotting
+					10% increased movement speed and increased turnaround traction
+					You spawn mini eaters that inflict Cursed Inferno to seek out enemies every few attacks
+					'Flies refuse to approach it'
+					''' */
+			}
 
 			Deerclawps: {
 				DisplayName: 冰鹿爪
@@ -3077,6 +3098,19 @@ Mods: {
 					'''
 			}
 
+			GuttedHeart: {
+				// DisplayName: Gutted Heart
+				/* Tooltip:
+					'''
+					Grants immunity to Bloodthirsty
+					10% increased max life
+					Creepers hover around you blocking some damage
+					A new Creeper appears every 15-10 seconds (faster the lower your health is), and 5 can exist at once
+					Creeper respawn speed increases when not moving
+					Creepers inflict Ichor on-hit
+					'Once beating in the mind of a defeated foe'
+					''' */
+			}
 
 			HeartoftheMasochist: {
 				DisplayName: 永恒者之心

@@ -365,8 +365,6 @@ namespace FargowiltasSouls.Content.Projectiles
                     
                 }
                 AdamModifier = modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2;
-                //AdamModifier = modPlayer.EarthForce ? 3 : 2;
-                AdamModifier = modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2;
             }
 
             if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
