@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                 if (++NPC.localAI[1] > 10) //heal 6 times per second
                 {
                     NPC.localAI[1] = 0;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 speed = Main.rand.NextFloat(1, 2) * Vector2.UnitX.RotatedByRandom(Math.PI * 2);
                         int heal = (int)(head.lifeMax / 100f * Main.rand.NextFloat(0.95f, 1.05f)); //heal back roughly 1 percent per heal

@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<CosmosDeathray>(), Projectile.damage, 0f, Main.myPlayer, 1f);
             }

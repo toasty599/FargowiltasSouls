@@ -700,14 +700,13 @@ Mods: {
 					100% increased shoot speed
 					100% increased knockback
 					Increases armor penetration by 50
-					Crits deal 10x damage
+					Crits deal 10x damage and inflict Flames of the Universe
 					Drastically increases life regeneration
 					Increases your maximum mana to 999
 					Increases your maximum minions by 30
 					Increases your maximum sentries by 20
 					Increases your maximum HP by 50%
 					Reduces your mana usage by 50%
-					All attacks inflict Flames of the Universe
 					All attacks inflict Sadism
 					All attacks inflict Midas
 					All attacks reduce enemy immunity frames
@@ -819,7 +818,6 @@ Mods: {
 					Effects of Cell Phone
 					Effects of Flower Boots
 					Effects of Master Ninja Gear
-					Effects of Greedy Ring
 					Effects of Celestial Shell
 					Effects of Shiny Stone
 					Effects of Spelunker potion
@@ -2217,8 +2215,9 @@ Mods: {
 				// DisplayName: Meteor Enchantment
 				/* Tooltip:
 					'''
-					Drastically increases your run acceleration, and decreases your momentum
 					Moving creates a fire trail
+					Increases your movement speed and acceleration, and decreases your momentum
+					Provides light when worn
 					'Drop a draco on 'em'
 					''' */
 			}
@@ -2688,16 +2687,6 @@ Mods: {
 					''' */
 			}
 
-			UniverseCore: {
-				// DisplayName: Universe Core
-				/* Tooltip:
-					'''
-					Crits deal 4x instead of 2x
-					All attacks inflict Flames of the Universe
-					'Bursting with ultra-high-energy cosmic rays'
-					''' */
-			}
-
 			CosmoForce: {
 				// DisplayName: Force of Cosmos
 				/* Tooltip:
@@ -2993,7 +2982,7 @@ Mods: {
 					'''
 					Grants immunity to Rotting
 					10% increased movement speed and increased turnaround traction
-					You spawn mini eaters to seek out enemies every few attacks
+					You spawn mini eaters that inflict Cursed Inferno to seek out enemies every few attacks
 					'Flies refuse to approach it'
 					''' */
 			}
@@ -3129,6 +3118,7 @@ Mods: {
 					Creepers hover around you blocking some damage
 					A new Creeper appears every 15 seconds, and 5 can exist at once
 					Creeper respawn speed increases when not moving
+					Creepers inflict Ichor on-hit
 					'Once beating in the mind of a defeated foe'
 					''' */
 			}
@@ -3666,7 +3656,7 @@ Mods: {
 					Increases max life by 100%, damage for your current weapon class by 50%, and damage reduction by 10%
 					Increases life regen drastically, your cursor causes nearby enemies to take increased damage
 					Grants gravity control, fastfall, and immunity to knockback, almost all Eternity Mode debuffs, and more
-					Uou automatically use mana potions when needed
+					You automatically use mana potions when needed
 					Your attacks create additional attacks, hearts, and inflict a cocktail of Eternity Mode debuffs
 					Increased stats when inflicted with Cursed Inferno or Ichor
 					Press the Debuff Install key to debuff and buff yourself
@@ -3733,7 +3723,7 @@ Mods: {
 					All grappling hooks are more effective and fire homing shots, Greatly enhances all DD2 sentries
 					Your attacks inflict Midas, Enemies explode into needles
 					You violently explode to damage nearby enemies when hurt and revive with 200 HP when killed
-					Effects of Flower Boots and Greedy Ring
+					Effects of Flower Boots
 					'A true master of Terraria'
 					''' */
 			}
@@ -3760,12 +3750,11 @@ Mods: {
 					25% increased critical chance for your current weapon class
 					50% increased use speed for all weapons
 					50% increased shoot speed
-					Crits deal 4x instead of 2x
+					Crits deal 4x instead of 2x and inflict Flames of the Universe
 					All weapons have double knockback
 					Increases your maximum mana by 300
 					Increases your max number of minions by 2
 					Increases your max number of sentries by 2
-					All attacks inflict Flames of the Universe
 					Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 					Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 					'The heavens themselves bow to you'
@@ -4458,6 +4447,7 @@ Mods: {
 					Uses darts for ammo
 					50% chance to not consume ammo
 					Stingers will stick to enemies, hitting the same spot again will deal extra damage
+					Scales with your bee damage and knockback increases
 					'Repurposed from the abdomen of a defeated foe..'
 					''' */
 			}
@@ -4695,6 +4685,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Uses darts for ammo
+					Scales with your bee damage and knockback increases
 					66% chance to not consume ammo
 					'The reward for slaughtering many..'
 					''' */
@@ -4796,7 +4787,7 @@ Mods: {
 				// DisplayName: Piranha Plant Voodoo Doll
 				/* Tooltip:
 					'''
-					Toggle that will grant all enemies the ability to inflict random debuffs
+					Toggle that will grant all enemies the ability to...
 					'In loving memory of Masochist mode EX. I always hated you.'
 					''' */
 			}
@@ -5001,7 +4992,7 @@ Mods: {
 
 			MechLure: {
 				// DisplayName: Mechanical Lure
-				// Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
+				// Tooltip: Throw while underwater at the Ocean to lure out a shrouded creature
 			}
 
 			TheBaronsTusk: {
@@ -5995,21 +5986,21 @@ Mods: {
 			// BaronWhirlpool.DisplayName: Baron Whirlpool
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
-			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronDeathray.DisplayName: Baron's Laser
 			// BaronEyeFlash.DisplayName: Baron Eye Flash
-			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			// BaronTuskShrapnel.DisplayName: Baron's Tusk Shrapnel
 			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
 			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
-			// MechLureProjectile.DisplayName: Mech Lure Projectile
-			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// MechLureProjectile.DisplayName: Mechanical Lure
+			// RoseTintedVisorDeathray.DisplayName: Rose-Tinted Visor Laser
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
-			// MonkDashDamage.DisplayName: Monk Dash Damage
+			// MonkDashDamage.DisplayName: Monk Dash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

@@ -165,8 +165,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
             {
-                Player.runAcceleration *= 2f;
-                Player.runSlowdown *= 2f;
+                Player.runAcceleration *= 1.3f;
+                Player.runSlowdown *= 1.3f;
 
             }
             if (NoMomentum && !Player.mount.Active)
@@ -364,17 +364,18 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (PrecisionSealNoDashNoJump)
             {
                 Player.dashType = 0;
-                Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
-                Player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
-                Player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
-                Player.GetJumpState(ExtraJump.FartInAJar).Enable();
-                Player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
-                Player.GetJumpState(ExtraJump.UnicornMount).Enable();
+                Player.GetJumpState(ExtraJump.CloudInABottle).Disable();
+                Player.GetJumpState(ExtraJump.SandstormInABottle).Disable();
+                Player.GetJumpState(ExtraJump.BlizzardInABottle).Disable();
+                Player.GetJumpState(ExtraJump.FartInAJar).Disable();
+                Player.GetJumpState(ExtraJump.TsunamiInABottle).Disable();
+                Player.GetJumpState(ExtraJump.UnicornMount).Disable();
                 JungleJumping = false;
                 CanJungleJump = false;
                 dashCD = 2;
                 IsDashingTimer = 0;
                 HasDash = false;
+                Player.dashDelay = Player.GetModPlayer<DashPlayer>().modDashDelay = 10;
 
                 if (lihzahrdFallCD < 2)
                     lihzahrdFallCD = 2;

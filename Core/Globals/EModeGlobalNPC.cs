@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Core.Globals
                 else if (npc.position.Y / 16 > Main.maxTilesY - 200) //enemy in hell
                 {
                     //because of funny bug where town npcs fall forever in mp, including into hell
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         npc.AddBuff(BuffID.OnFire, 2);
                 }
 
@@ -1297,6 +1297,7 @@ namespace FargowiltasSouls.Core.Globals
 
         public static void Horde(NPC npc, int size)
         {
+
             if (npc == null || !npc.active)
             {
                 return;
@@ -1317,7 +1318,7 @@ namespace FargowiltasSouls.Core.Globals
                     continue;
                 }
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int j = NPC.NewNPC(npc.GetSource_FromAI(), (int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
                     if (j != Main.maxNPCs)
@@ -1326,10 +1327,13 @@ namespace FargowiltasSouls.Core.Globals
                         if (newNPC != null && newNPC.active && newNPC.type == npc.type) //super mega safeguard check
                         {
                             newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
+                            newNPC.FargoSouls().CanHordeSplit = false;
+                            /*
                             if (newNPC.TryGetGlobalNPC(out EModeNPCBehaviour globalNPC))
                             {
                                 globalNPC.FirstTick = false;
                             }
+                            */
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, j);
                         }

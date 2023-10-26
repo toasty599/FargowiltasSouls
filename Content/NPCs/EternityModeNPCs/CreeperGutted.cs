@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 {
                     int n = NPC.whoAmI;
                     NPC.SimpleStrikeNPC(NPC.lifeMax * 2, 0);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n, 9999f);
                     return;
                 }
@@ -115,6 +115,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 n.velocity.X += IdleAccel * (n.Center.X < NPC.Center.X ? -1 : 1);
                 n.velocity.Y += IdleAccel * (n.Center.Y < NPC.Center.Y ? -1 : 1);
             }
+            
         }
 
         public override void FindFrame(int frameHeight)
@@ -126,7 +127,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             else
                 NPC.frame.Y = frameHeight * 2;
         }
-
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             modifiers.FinalDamage *= 3;
@@ -158,7 +158,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
             return null;
         }
-
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
             if (FargoSoulsUtil.CanDeleteProjectile(projectile))

@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                 {
                     Projectile.localAI[0] = 1;
                     Projectile.localAI[1] = Projectile.DirectionFrom(npc.Center).ToRotation();
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -17);
                 }
 
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
                         MakeDust();
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -16 + scaleCounter);
 
                         SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
@@ -101,13 +101,13 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                 SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.Center);
                 SoundEngine.PlaySound(SoundID.Item92, Projectile.Center);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -14);
 
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     float baseRotation = WorldSavingSystem.EternityMode ? Main.rand.NextFloat(MathHelper.TwoPi) : 0;
 

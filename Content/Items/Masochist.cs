@@ -85,7 +85,7 @@ Cannot be used while a boss is alive
                 {
                     WorldSavingSystem.ShouldBeEternityMode = !WorldSavingSystem.ShouldBeEternityMode;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient && WorldSavingSystem.ShouldBeEternityMode && !WorldSavingSystem.SpawnedDevi
+                    if (FargoSoulsUtil.HostCheck && WorldSavingSystem.ShouldBeEternityMode && !WorldSavingSystem.SpawnedDevi
                         && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC deviantt) && !NPC.AnyNPCs(deviantt.Type))
                     {
                         WorldSavingSystem.SpawnedDevi = true;

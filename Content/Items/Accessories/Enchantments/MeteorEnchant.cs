@@ -49,8 +49,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddIngredient(ItemID.MeteorHelmet)
             .AddIngredient(ItemID.MeteorSuit)
             .AddIngredient(ItemID.MeteorLeggings)
-            .AddIngredient(ItemID.SpaceGun)
             .AddIngredient(ItemID.StarCannon)
+            .AddIngredient(ItemID.Magiluminescence)
             .AddIngredient(ItemID.PlaceAbovetheClouds)
 
             .AddTile(TileID.DemonAltar)

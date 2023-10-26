@@ -164,7 +164,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     Projectile.Center = arena.Center + orbitRange * Projectile.rotation.ToRotationVector2();
                 }
             }
-            else if (Main.netMode != NetmodeID.MultiplayerClient)
+            else if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.Kill();
             }

@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < 8; i++)
                 {

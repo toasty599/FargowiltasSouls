@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 if (++timer > 60)
                 {
                     timer = 0;
-                    if (Main.player[p].Distance(spawn) > Projectile.Distance(spawn) && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Main.player[p].Distance(spawn) > Projectile.Distance(spawn) && FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, rotation.ToRotationVector2().RotatedByRandom(MathHelper.ToRadians(30)),
                             ModContent.ProjectileType<BetsyFury2>(), Projectile.damage, 0f, Main.myPlayer, p);

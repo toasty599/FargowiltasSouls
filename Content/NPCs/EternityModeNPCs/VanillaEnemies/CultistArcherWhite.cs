@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
         {
             base.OnFirstTick(npc);
 
-            if (Main.rand.NextBool(3) && NPC.downedGolemBoss)
+            if (Main.rand.NextBool(3) && NPC.downedGolemBoss && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(2, 10));
         }
 
@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
                 if (npc.ai[1] == 41) //skip vanilla shooting
                     npc.ai[1] = 39;
 
-                if (npc.ai[1] > 10 && npc.ai[1] < 40 && npc.ai[1] % 10 == 5 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.ai[1] > 10 && npc.ai[1] < 40 && npc.ai[1] % 10 == 5 && FargoSoulsUtil.HostCheck)
                 {
                     Vector2 speed = Main.player[npc.target].Center - npc.Center;
                     speed.Y -= Math.Abs(speed.X) * 0.1f; //account for gravity

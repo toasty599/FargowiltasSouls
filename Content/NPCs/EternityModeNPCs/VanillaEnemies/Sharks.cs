@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
         {
             base.OnFirstTick(npc);
 
-            if (npc.type == NPCID.Shark && Main.rand.NextBool(3))
+            if (npc.type == NPCID.Shark && Main.rand.NextBool(3) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(1, 5));
         }
 
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
                 {
                     JumpTimer = 360;
                     int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                    if (t != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (t != -1 && FargoSoulsUtil.HostCheck)
                     {
                         const float gravity = 0.3f;
                         const float time = 90;
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
                 if (t != -1 && BleedCounter < 5)
                 {
                     Player player = Main.player[t];
-                    if (player.bleed && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (player.bleed && FargoSoulsUtil.HostCheck)
                     {
                         BleedCounter++;
                         npc.netUpdate = true;
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
             {
                 if (Main.hardMode && Main.rand.NextBool(4) && Collision.CanHitLine(npc.Top, 0, 0, npc.Top - 30 * 16f * Vector2.UnitY, 0, 0))
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.Sharknado, FargoSoulsUtil.ScaledProjectileDamage(npc.defDamage, 0.5f), 0f, Main.myPlayer, 15, 15);
                 }
 

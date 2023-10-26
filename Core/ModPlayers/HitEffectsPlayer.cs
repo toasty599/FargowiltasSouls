@@ -18,6 +18,7 @@ using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs;
 using Terraria.WorldBuilding;
+using Terraria.Audio;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -112,15 +113,34 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void ModifyHitNPCBoth(NPC target, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
+            
+            
             modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
             {
+                
                 if (hitInfo.Crit)
                 {
                     if (Eternity)
+                    {
                         hitInfo.Damage *= 5;
-                    else if (UniverseCore)
+                        target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
+                    }
+                    else if (UniverseSoul)
+                    {
                         hitInfo.Damage *= 2;
-                
+                        target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
+                    }
+                    else if (UniverseCore)
+                    {
+                        float crit = Player.ActualClassCrit(damageClass) / 2;
+
+                        if (Main.rand.NextFloat(100) < crit) //supercrit
+                        {
+                            hitInfo.Damage *= 2;
+                            target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
+                            SoundEngine.PlaySound(SoundID.Item147 with { Pitch = 1, Volume = 0.7f }, target.Center);
+                        }
+                    }
                     if (SpiderEnchantActive && damageClass.CountsAsClass(DamageClass.Summon) && !TerrariaSoul)
                         hitInfo.Damage = (int)(hitInfo.Damage * 0.75);
                 }
@@ -363,9 +383,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (UniverseCore)
-                target.AddBuff(ModContent.BuffType<FlamesoftheUniverseBuff>(), 240);
-
             if (MasochistSoul)
             {
                 target.AddBuff(ModContent.BuffType<SadismBuff>(), 600);
@@ -599,13 +616,13 @@ namespace FargowiltasSouls.Core.ModPlayers
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
         {
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()) && EModeGlobalNPC.deviBoss.IsWithinBounds(Main.maxNPCs))
                 ((DeviBoss)Main.npc[EModeGlobalNPC.deviBoss].ModNPC).playerInvulTriggered = true;
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>()) && EModeGlobalNPC.abomBoss.IsWithinBounds(Main.maxNPCs))
                 ((AbomBoss)Main.npc[EModeGlobalNPC.abomBoss].ModNPC).playerInvulTriggered = true;
 
-            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()) && EModeGlobalNPC.mutantBoss.IsWithinBounds(Main.maxNPCs))
                 ((MutantBoss)Main.npc[EModeGlobalNPC.mutantBoss].ModNPC).playerInvulTriggered = true;
 
             if (DeathMarked)
@@ -645,13 +662,12 @@ namespace FargowiltasSouls.Core.ModPlayers
                 };
             }
 
-            if (DeerSinewNerf && DeerSinewFreezeCD <= 0 && (modifiers.DamageSource.SourceNPCIndex != -1 || (modifiers.DamageSource.SourceProjectileType != -1 && Main.projectile[modifiers.DamageSource.SourceProjectileType].aiStyle != ProjAIStyleID.FallingTile)))
+            if (DeerSinewNerf && DeerSinewFreezeCD <= 0 && (modifiers.DamageSource.SourceNPCIndex.IsWithinBounds(Main.maxNPCs) || (modifiers.DamageSource.SourceProjectileType.IsWithinBounds(Main.maxProjectiles) && Main.projectile[modifiers.DamageSource.SourceProjectileType].aiStyle != ProjAIStyleID.FallingTile)))
             {
                 DeerSinewFreezeCD = 120;
                 FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 20);
             }
         }
-
         public void OnHurtEffects(double damage)
         {
             if (HurtTimer <= 0)

@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 int knockBack = 3;
                 float speed = 1.6f;
                 Vector2 vector = Projectile.velocity.RotatedBy(rad) * speed;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, ModContent.ProjectileType<LightslingerShot>(), damage, knockBack, Main.myPlayer, 0, 1);
                 }

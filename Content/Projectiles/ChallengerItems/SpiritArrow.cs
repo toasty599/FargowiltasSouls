@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.ai[1] >= 2 * (40 / Projectile.velocity.Length())) //adjust this 40 according to max shoot speed
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int SplitDamage = Projectile.damage / 2;
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpiritArrowFlame>(), SplitDamage, Projectile.knockBack, Main.myPlayer);

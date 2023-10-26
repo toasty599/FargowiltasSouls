@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.ai[3] = -1;
                     SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         npc.netUpdate = true;
                         NetSync(npc);
@@ -186,7 +186,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                         spawnPos.X += Math.Sign(i) * 150 * 2 + i * 120 * spacing;
                                         spawnPos.Y -= (700 + Math.Abs(i) * 50) * j;
                                         float speed = 8 + spacing * 0.8f;
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                             Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.UnitY * speed * j, ProjectileID.FrostWave, damage / 3, 0f, Main.myPlayer);
                                     }
                                 }
@@ -194,7 +194,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         }
                         else
                         {
-                            if (npc.ai[1] == (WorldSavingSystem.MasochistModeReal ? 5f : 60f) && Main.netMode != NetmodeID.MultiplayerClient) //single wave
+                            if (npc.ai[1] == (WorldSavingSystem.MasochistModeReal ? 5f : 60f) && FargoSoulsUtil.HostCheck) //single wave
                             {
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
@@ -213,7 +213,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         break;
 
                     case 3: //fireballs
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             if (EnteredPhase2) //fireball ring
                             {
@@ -250,7 +250,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         break;
 
                     case 4: //lightning
-                        if (npc.ai[1] == 19f && npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (npc.ai[1] == 19f && npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                         {
                             int cultistCount = 1;
                             for (int i = 0; i < Main.maxNPCs; i++)
@@ -286,7 +286,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         break;
 
                     case 7:
-                        if (npc.ai[1] == 3f && Main.netMode != NetmodeID.MultiplayerClient) //ancient light, jellyfish support
+                        if (npc.ai[1] == 3f && FargoSoulsUtil.HostCheck) //ancient light, jellyfish support
                         {
                             for (int i = 0; i < Main.maxProjectiles; i++)
                             {
@@ -473,7 +473,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 //yes, this spawns two clones without the check
                 if (cultist != null && NPC.CountNPCS(npc.type) < (WorldSavingSystem.MasochistModeReal ? Math.Min(TotalCultistCount + 1, 12) : TotalCultistCount))
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         FargoSoulsUtil.NewNPCEasy(cultist.GetSource_FromAI(), npc.Center, NPCID.CultistBossClone, 0, npc.ai[0], npc.ai[1], npc.ai[2], npc.ai[3], npc.target);
                     }
@@ -518,7 +518,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (npc.localAI[3] == 0f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 pivot = npc.Center + new Vector2(250f, 0f).RotatedByRandom(2 * Math.PI);
                     npc.ai[2] = pivot.X;
@@ -668,7 +668,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss))
                     npc.Center = Main.npc[EModeGlobalNPC.cultBoss].Center;
 
-                if (NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (NPC.CountNPCS(NPCID.AncientCultistSquidhead) < 4 && FargoSoulsUtil.HostCheck)
                     FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.AncientCultistSquidhead);
             }
         }

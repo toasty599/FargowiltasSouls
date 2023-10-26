@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
                     SoundEngine.PlaySound(SoundID.Item14, spawnPos);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile p = Projectile.NewProjectileDirect(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, Projectile.damage, 0f, Main.myPlayer);
                         p.friendly = false;

@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
                     TeleportTimer = 0;
                     DoTeleport = false;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
+                    if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget)
                     {
                         npc.ai[0] = 1f;
                         int num1 = (int)Main.player[npc.target].position.X / 16;

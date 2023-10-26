@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             {
                 if (Projectile.ai[0] > 0)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = Main.rand.Next(150); i < 3000; i += 300)
                         {

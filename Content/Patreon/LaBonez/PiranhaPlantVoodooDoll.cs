@@ -10,10 +10,6 @@ namespace FargowiltasSouls.Content.Patreon.LaBonez
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            // DisplayName.SetDefault("Piranha Plant Voodoo Doll");
-            /* Tooltip.SetDefault(
-@"Toggle that will grant all enemies the ability to inflict random debuffs
-'In loving memory of Masochist mode EX. I always hated you.'"); */
         }
 
         public override void SetDefaults()

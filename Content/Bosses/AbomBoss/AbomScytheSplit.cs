@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
             if (Projectile.ai[1] >= 0)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int p = Player.FindClosest(Projectile.Center, 0, 0);
                     if (p != -1)

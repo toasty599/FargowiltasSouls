@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 int knockBack = 3;
                 float speed = 0.8f;
                 Vector2 vector = Projectile.velocity.RotatedBy(rad) * speed;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     bool useSplitProj = Projectile.ai[1] != 0;
                     int type = useSplitProj ? ModContent.ProjectileType<LifeSplittingProjSmall>() : ModContent.ProjectileType<LifeProjSmall>();

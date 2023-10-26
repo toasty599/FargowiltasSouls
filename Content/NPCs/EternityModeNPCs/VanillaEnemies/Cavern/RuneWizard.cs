@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             if (++AttackTimer > 300)
             {
                 AttackTimer = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
+                if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget)
                 {
                     Vector2 vel = npc.DirectionFrom(Main.player[npc.target].Center) * 8f;
                     for (int i = 0; i < 5; i++)

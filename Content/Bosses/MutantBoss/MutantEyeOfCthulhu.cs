@@ -107,7 +107,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, Projectile.Center);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, NPCID.EyeofCthulhu);
             }
 
@@ -170,7 +170,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             else if (Projectile.ai[1] == 121) //make the golden sickles
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     SpawnProjectile(Projectile.Center - Projectile.velocity / 2);
 
@@ -189,7 +189,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     }
                 }
 
-                /*if (Main.netMode != NetmodeID.MultiplayerClient)
+                /*if (FargoSoulsUtil.HostCheck)
                 {
                     SpawnProjectile(Projectile.Center);
                     SpawnProjectile(Projectile.Center - Projectile.velocity / 2);
@@ -203,7 +203,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 Projectile.rotation = Projectile.velocity.ToRotation() - MathHelper.PiOver2;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     SpawnProjectile(Projectile.Center);
                     SpawnProjectile(Projectile.Center - Projectile.velocity / 2);
@@ -211,7 +211,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             else
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     SpawnProjectile(Projectile.Center);
                     SpawnProjectile(Projectile.Center - Projectile.velocity / 2);

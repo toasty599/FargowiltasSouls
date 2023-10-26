@@ -2685,15 +2685,6 @@ Mods: {
 					'''
 			}
 
-			UniverseCore: {
-				DisplayName: Núcleo do Universo
-				Tooltip:
-					'''
-					Críticos causam 4x em vez de 2x
-					Todos os ataques infligem Chamas do Universo
-					'Explodindo com raios cosmicos de energia extremamente alta'
-					'''
-			}
 
 			CosmoForce: {
 				DisplayName: Força do Cosmos
@@ -2981,16 +2972,6 @@ Mods: {
 					'''
 			}
 
-			DarkenedHeart: {
-				DisplayName: Coração Escurecido
-				Tooltip:
-					'''
-					Oferece imunidade a Apodrecendo
-					10% de aumento na velocidade dos movimentos e aumenta a tração da virada
-					Você invoca mini devoradores para procurar inimigos a cada poucos ataques
-					'As moscas se recusam a se aproximar disto'
-					'''
-			}
 
 			Deerclawps: {
 				DisplayName: Garraclope
@@ -3111,18 +3092,6 @@ Mods: {
 					'''
 			}
 
-			GuttedHeart: {
-				DisplayName: Coração Eviscerado
-				Tooltip:
-					'''
-					Oferece imunidade a sanguinário
-					10% de aumento na vida máxima
-					Creepers flutuam ao seu redor bloqueando alguns danos
-					Um novo Creeper aparece a cada 15 segundos e 5 podem existir ao mesmo tempo
-					A velocidade de resurgimento dos Creepers aumenta quando parado
-					'Já esteve batendo na mente de um inimigo derrotado'
-					'''
-			}
 
 			HeartoftheMasochist: {
 				DisplayName: Coração do Mestre
@@ -4410,14 +4379,15 @@ Mods: {
 			}
 
 			TheSmallSting: {
-				DisplayName: A Ferroadinha
-				Tooltip:
+				// DisplayName: The Small Sting
+				/* Tooltip:
 					'''
-					Utiliza dardos como munição
-					50% de chance de não consumir munição
-					Ferrões grudarão nos inimigos, atingir o mesmo lugar novamente causará mais danos
-					'Reaproveitado do abdômen de um inimigo derrotado..'
-					'''
+					Uses darts for ammo
+					50% chance to not consume ammo
+					Stingers will stick to enemies, hitting the same spot again will deal extra damage
+					Scales with your bee damage and knockback increases
+					'Repurposed from the abdomen of a defeated foe..'
+					''' */
 			}
 
 			TwinRangs: {
@@ -4654,13 +4624,14 @@ Mods: {
 			}
 
 			TheBigSting: {
-				DisplayName: A Ferroadona
-				Tooltip:
+				// DisplayName: The Big Sting
+				/* Tooltip:
 					'''
-					Utiliza dardos como munição
-					66% de chance de não consumir munição
-					'A recompensa por matar muitos...'
-					'''
+					Uses darts for ammo
+					Scales with your bee damage and knockback increases
+					66% chance to not consume ammo
+					'The reward for slaughtering many..'
+					''' */
 			}
 
 			ForgorGift: {
@@ -4963,7 +4934,7 @@ Mods: {
 
 			MechLure: {
 				// DisplayName: Mechanical Lure
-				// Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
+				// Tooltip: Throw while underwater at the Ocean to lure out a shrouded creature
 			}
 
 			TheBaronsTusk: {
@@ -5957,21 +5928,21 @@ Mods: {
 			// BaronWhirlpool.DisplayName: Baron Whirlpool
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
-			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronDeathray.DisplayName: Baron's Laser
 			// BaronEyeFlash.DisplayName: Baron Eye Flash
-			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			// BaronTuskShrapnel.DisplayName: Baron's Tusk Shrapnel
 			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
 			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
-			// MechLureProjectile.DisplayName: Mech Lure Projectile
-			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// MechLureProjectile.DisplayName: Mechanical Lure
+			// RoseTintedVisorDeathray.DisplayName: Rose-Tinted Visor Laser
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
-			// MonkDashDamage.DisplayName: Monk Dash Damage
+			// MonkDashDamage.DisplayName: Monk Dash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

@@ -314,6 +314,9 @@ namespace FargowiltasSouls
             ModProjDict.Clear();
 
             Instance = null;
+
+            On_Player.CheckSpawn_Internal -= LifeRevitalizer_CheckSpawn_Internal;
+            On_Player.AddBuff -= AddBuff;
         }
 
         public override object Call(params object[] args)

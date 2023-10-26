@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.StupidSn
             if (++Counter > 300)
             {
                 Counter = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget)
+                if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget)
                 {
                     for (int index = 0; index < 6; ++index)
                     {

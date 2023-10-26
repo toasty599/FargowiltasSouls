@@ -95,6 +95,8 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 
 		public override void Unload()
         {
+            On_FilterManager.EndCapture -= ApplyScreenFilters;
+
             Main.QueueMainThreadAction(() =>
             {
 				if (Main.netMode is NetmodeID.Server)

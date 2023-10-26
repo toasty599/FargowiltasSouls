@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (++Projectile.localAI[0] > 8)
                     {
                         Projectile.localAI[0] = 0;
-                        if (Main.netMode != NetmodeID.MultiplayerClient && Projectile.Distance(Main.player[mutant.target].Center) > 360)
+                        if (FargoSoulsUtil.HostCheck && Projectile.Distance(Main.player[mutant.target].Center) > 360)
                         {
                             Vector2 speed = Vector2.UnitY.RotatedByRandom(Math.PI / 2) * Main.rand.NextFloat(6f, 9f);
                             if (mutant.Center.Y < Main.player[mutant.target].Center.Y)

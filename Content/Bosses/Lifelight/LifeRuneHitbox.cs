@@ -37,6 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Projectile.scale = 1;
             Projectile.timeLeft = 6000;
         }
+        public override bool? CanDamage() => Timer > 15;
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) //line collision, needed because of the speed they move at when creating the arena, to form a solid wall
         {
             float collisionPoint = 0f;
@@ -65,6 +66,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 return Color.DeepPink;
             }
         }
+        public int Timer = 0;
         public override void AI()
         {
             NPC lifelight = Main.npc[(int)Projectile.ai[0]];
@@ -82,6 +84,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Vector2 runePos = lifelight.Center + runeRot.ToRotationVector2() * RuneDistance;
             Projectile.rotation = runeRot + MathHelper.PiOver2;
             Projectile.Center = runePos;
+
+            Timer++;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {

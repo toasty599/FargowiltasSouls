@@ -118,7 +118,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Main.dust[index3].noGravity = true;
             }
 
-            if (Main.netMode != NetmodeID.MultiplayerClient) //explosion
+            if (FargoSoulsUtil.HostCheck) //explosion
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantBombSmall>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
 

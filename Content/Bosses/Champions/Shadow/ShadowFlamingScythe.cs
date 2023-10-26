@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 for (int i = -1; i <= 1; i++)
                 {

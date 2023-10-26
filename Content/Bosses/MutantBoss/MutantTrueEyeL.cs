@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                             rotationDirection *= -1;
                         localAI0 -= rotationDirection * 60f;
                         Vector2 speed = -Vector2.UnitX.RotatedBy(localAI0);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center - Vector2.UnitY * 6f, speed, ModContent.ProjectileType<MutantTrueEyeDeathray>(),
                                 Projectile.damage, 0f, Projectile.owner, rotationDirection, Projectile.whoAmI);
                         localai1 = rotationDirection;

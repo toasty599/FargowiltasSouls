@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 Vector2 shootoffset2 = Projectile.velocity.RotatedBy(Math.PI / 3.0);
 
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int p = -1;
                     if (Projectile.ai[1] != 11 && Projectile.ai[1] != 9)

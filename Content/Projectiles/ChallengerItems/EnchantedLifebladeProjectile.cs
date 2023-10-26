@@ -15,7 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Enchanted Lifeblade");
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 
             if (Projectile.frameCounter > 4)
             {
-                Projectile.frame %= 3;
+                Projectile.frame %= Main.projFrames[Type];
                 Projectile.frameCounter = 0;
             }
             Projectile.frameCounter++;

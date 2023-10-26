@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Common.Utilities
     {
         public static void DropSummon(NPC npc, int itemType, bool downed, ref bool droppedSummonFlag, bool prerequisite = true)
         {
-            if (WorldSavingSystem.EternityMode && prerequisite && !downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
+            if (WorldSavingSystem.EternityMode && prerequisite && !downed && FargoSoulsUtil.HostCheck && npc.HasPlayerTarget && !droppedSummonFlag)
             {
                 Player player = Main.player[npc.target];
 
@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Common.Utilities
 
         public static void DropSummon(NPC npc, string itemName, bool downed, ref bool droppedSummonFlag, bool prerequisite = true)
         {
-            if (WorldSavingSystem.EternityMode && prerequisite && !downed && Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && !droppedSummonFlag)
+            if (WorldSavingSystem.EternityMode && prerequisite && !downed && FargoSoulsUtil.HostCheck && npc.HasPlayerTarget && !droppedSummonFlag)
             {
                 Player player = Main.player[npc.target];
 

@@ -169,7 +169,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             for (int i = 0; i < 24; i++)
             {
                 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 pos = new Vector2(0, Main.rand.NextFloat(5, 7)).RotatedBy(i * MathHelper.TwoPi / 24);
                     Vector2 vel = pos.RotatedBy(Main.rand.NextFloat(-MathHelper.TwoPi / 64, MathHelper.TwoPi / 64));

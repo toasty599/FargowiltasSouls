@@ -128,6 +128,15 @@ namespace FargowiltasSouls //lets everything access it without using
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
             => player.GetTotalDamage(damageClass).Additive * player.GetTotalDamage(damageClass).Multiplicative;
 
+        public static bool IsWithinBounds(this int index, int cap)
+        {
+            if (index >= 0)
+            {
+                return index < cap;
+            }
+            return false;
+        }
+
         /// <summary>
         /// Returns total crit chance, including class-specific and generic boosts.
         /// This method returns 0 for summon crit if Spider Enchant isn't active and enabled.

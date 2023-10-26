@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             {
                 SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     for (int i = 0; i < 30; i++)
                     {

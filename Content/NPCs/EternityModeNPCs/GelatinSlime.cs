@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
                 if (NPC.ai[0] < -210)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         float maxSpeed =
                             FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.queenSlimeBoss, NPCID.QueenSlimeBoss)

@@ -146,7 +146,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
 
                     SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center); //arte scream
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, -1, -4);
 
@@ -192,7 +192,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                         NPC.localAI[1] = NPC.localAI[1] == 0 ? 1 : 0;
                         NPC.ai[2] = NPC.localAI[1] == 1 ? 90 : 30;
 
-                        if (NPC.ai[1] < 360 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (NPC.ai[1] < 360 && FargoSoulsUtil.HostCheck)
                         {
                             int type = NPC.localAI[1] == 1 ? ModContent.ProjectileType<LifeDeathraySmall2>() : ModContent.ProjectileType<LifeDeathray2>();
                             int max = 3;
@@ -210,7 +210,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                     if (--NPC.localAI[0] < 0)
                     {
                         NPC.localAI[0] = 47;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int max = 14;
                             float rotation = Main.rand.NextFloat((float)Math.PI * 2);
@@ -243,7 +243,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                             CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
                         }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -4);
                     }
                     else if (NPC.ai[1] > 240)
@@ -273,7 +273,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                             CombatText.NewText(NPC.Hitbox, CombatText.HealLife, heal);
                         }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -4);
                     }
                     else if (NPC.ai[1] > 240)
@@ -346,7 +346,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                         NPC.ai[2] -= (float)Math.PI / 4 / 457 * NPC.ai[3];
                         if (NPC.ai[2] < -(float)Math.PI)
                             NPC.ai[2] += (float)Math.PI * 2;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int max = NPC.localAI[2] == 1 ? 4 : 3;
                             for (int i = 0; i < max; i++)
@@ -387,7 +387,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                         {
                             NPC.ai[2] = NPC.Center.Y; //store arena height
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRingHollow>(), 0, 0f, Main.myPlayer, 7, NPC.whoAmI);
                         }
 
@@ -464,7 +464,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                         else
                             NPC.localAI[0] = 1;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 projTarget = NPC.Center;
                             projTarget.X += 1200 * NPC.ai[3];
@@ -507,7 +507,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                         if (++NPC.ai[3] > (NPC.localAI[2] == 1 ? 4 : 7)) //spray fireballs that home down
                         {
                             NPC.ai[3] = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 //spawn anywhere above self
                                 Vector2 target = new Vector2(Main.rand.NextFloat(1000), 0).RotatedBy(Main.rand.NextDouble() * -Math.PI);
@@ -553,7 +553,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                         if (NPC.ai[1] > 90) //longer telegraph on first attack
                             NPC.localAI[1] = NPC.localAI[1] == 0 ? 1 : 0;
 
-                        if (NPC.ai[1] < 420 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (NPC.ai[1] < 420 && FargoSoulsUtil.HostCheck)
                         {
                             int type = NPC.localAI[1] == 0 ? ModContent.ProjectileType<LifeDeathraySmall>() : ModContent.ProjectileType<LifeDeathray>();
                             int max = NPC.localAI[2] == 1 ? 6 : 4;
@@ -592,7 +592,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
 
                             SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Vector2 target = player.Center - NPC.Center;
                                 target.X += Main.rand.Next(-75, 76);
@@ -723,6 +723,14 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                     Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
                     if (!Main.dedServ)
                         Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"LifeGore{i}").Type, NPC.scale);
+                }
+            }
+            if (Main.remixWorld && Main.rand.NextBool(10))
+            {
+                int solutionType = ItemID.BlueSolution;
+                if (FargoSoulsUtil.HostCheck) //onkill supposed to only run on server but just in case
+                {
+                    Item.NewItem(NPC.GetSource_Loot(), NPC.position, NPC.Size, solutionType, 1);
                 }
             }
         }

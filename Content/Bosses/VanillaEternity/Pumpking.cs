@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (++AttackTimer > 300)
             {
                 AttackTimer = 0;
-                if (npc.whoAmI == NPC.FindFirstNPC(npc.type) && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.whoAmI == NPC.FindFirstNPC(npc.type) && FargoSoulsUtil.HostCheck)
                 {
                     for (int j = -1; j <= 1; j++) //fire these to either side of target
                     {
@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     Player player = Main.player[t];
                     Vector2 distance = player.Center - npc.Center;
-                    if (Math.Abs(distance.X) < npc.width && Main.netMode != NetmodeID.MultiplayerClient) //flame rain if player roughly below me
+                    if (Math.Abs(distance.X) < npc.width && FargoSoulsUtil.HostCheck) //flame rain if player roughly below me
                         Projectile.NewProjectile(npc.Center.X, npc.position.Y, Main.rand.Next(-3, 4), Main.rand.Next(-4, 0), Main.rand.Next(326, 329), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                 }
             }*/

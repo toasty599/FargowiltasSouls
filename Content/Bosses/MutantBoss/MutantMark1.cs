@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (Projectile.localAI[0] == 0)
             {
                 Projectile.localAI[0] = 1;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Projectile.velocity * Projectile.timeLeft, Vector2.Normalize(Projectile.velocity), ModContent.ProjectileType<MutantDeathraySmall>(), Projectile.damage, 0f, Projectile.owner);
             }
             //Projectile.velocity *= 0.96f;
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Normalize(Projectile.velocity), ModContent.ProjectileType<MutantDeathray1>(), Projectile.damage, 0f, Projectile.owner);
         }
 

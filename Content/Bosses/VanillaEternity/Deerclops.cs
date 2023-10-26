@@ -316,7 +316,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 DoLaserAttack = Main.rand.NextBool();
                             NetSync(npc);
 
-                            if (DoLaserAttack && Main.netMode != NetmodeID.MultiplayerClient)
+                            if (DoLaserAttack && FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                         }
 
@@ -344,7 +344,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     time *= 5; //account for the ray having extra updates
                                     float rotation = MathHelper.Pi * (WorldSavingSystem.MasochistModeReal ? 1f : 0.8f) / time * -npc.direction;
 
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), eye, Vector2.UnitY, ModContent.ProjectileType<DeerclopsDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 2f), 0f, Main.myPlayer, rotation, time);
                                 }
 
@@ -391,7 +391,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     if (npc.ai[1] > 120 && (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 1600))
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //force despawn
+                        if (FargoSoulsUtil.HostCheck) //force despawn
                         {
                             npc.ai[0] = 8f;
                             npc.ai[1] = 0.0f;
@@ -423,7 +423,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         static void SpawnFreezeHands(NPC npc)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 const int max = 12;
                 for (int i = 0; i < 12; i++)

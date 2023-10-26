@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                 Projectile.scale = 4f - 3f * Projectile.Opacity; //scale back up
 
-                //if (Projectile.ai[0] == 130 && Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -13);
+                //if (Projectile.ai[0] == 130 && FargoSoulsUtil.HostCheck) Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -13);
 
                 if (Projectile.ai[0] % 6 == 0 && Projectile.localAI[1]++ < 3)
                 {
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     Vector2 vel = Main.rand.NextFloat(0.8f, 1.2f) * (Projectile.Center - spawnPos) / 90;
                     if (vel.Length() < 10f)
                         vel = Vector2.Normalize(vel) * Main.rand.NextFloat(10f, 15f);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), spawnPos, vel, ModContent.ProjectileType<WOFChain>(), Projectile.damage, 0f, Main.myPlayer);
 
                     SoundEngine.PlaySound(SoundID.NPCDeath13 with { Volume = 0.5f }, Projectile.Center);

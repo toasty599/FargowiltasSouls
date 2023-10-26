@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     dust.customData = Projectile.Center;
                 }
 
-                if (Projectile.localAI[0] == 90 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (Projectile.localAI[0] == 90 && FargoSoulsUtil.HostCheck)
                 {
                     Vector2 vector2_3 = 24f * (player != null && Projectile.ai[0] == 0 ? Projectile.DirectionTo(player.Center) : Projectile.ai[1].ToRotationVector2());
                     float ai1New = Main.rand.NextBool() ? 1 : -1; //randomize starting direction

@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                         npc.position = LockVector - new Vector2(npc.width / 2, npc.height / 2);
                         npc.netUpdate = true;
                         NetSync(npc);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MimicTitanGlove>(), 0, 1f, Main.myPlayer, ai1: npc.whoAmI);
                         }
@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 {
                     int Timer = AttackTimer - AttackCD;
                     npc.velocity.X = 0;
-                    if (Timer % 20 == 0 && Timer <= 20 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Timer % 20 == 0 && Timer <= 20 && FargoSoulsUtil.HostCheck)
                     {
                         float DaggerSpeed = 4;
                         float rot = MathHelper.ToRadians(Main.rand.NextFloat(-6, 6));
@@ -141,7 +141,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                     const int StarAmount = 3;
                     npc.velocity.X = 0;
 
-                    if (Timer == 5 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Timer == 5 && FargoSoulsUtil.HostCheck)
                     {
                         for (int i = 0; i < StarAmount; i++)
                         {
@@ -296,7 +296,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
         {
             base.OnKill(npc);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 int max = 5;
                 for (int i = 0; i < max; i++)

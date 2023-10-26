@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 else
                     return;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     const int max = 8;
                     const float distance = 110f;
@@ -165,7 +165,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 NPC.ai[2] = buffer;
                 NPC.ai[3] = 0;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     const int max = 16;
                     const float distance = 700f;
@@ -196,7 +196,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                 NPC.ai[2] = buffer;
                 NPC.ai[3] = 0;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     const int max = 24;
                     const float distance = 350f;
@@ -255,7 +255,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                     {
                         NPC.ai[3] = 0;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = 0; i < Main.maxNPCs; i++)
                             {
@@ -322,7 +322,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                     //warning dust
                     Main.dust[Dust.NewDust(NPC.Center, 0, 0, DustID.Torch, 0f, 0f, 0, default, 2f)].velocity *= 7f;
 
-                    if (NPC.ai[1] == 90 && Main.netMode != NetmodeID.MultiplayerClient) //telegraph
+                    if (NPC.ai[1] == 90 && FargoSoulsUtil.HostCheck) //telegraph
                     {
                         for (int i = -1; i <= 1; i++) //on both sides
                         {
@@ -352,7 +352,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                     {
                         NPC.ai[2] = 0;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = -1; i <= 1; i++) //on both sides
                             {
@@ -418,7 +418,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
                         SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             if (NPC.localAI[3] == 3) //p3, triangle fire
                             {
@@ -488,7 +488,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
                         SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 vel = (player.Center - NPC.Center) / 30;
                             if (NPC.localAI[3] == 3) //p3 fires them to both sides instead
@@ -512,7 +512,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                     break;
 
                 case 6:
-                    if (NPC.ai[1] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (NPC.ai[1] == 1 && FargoSoulsUtil.HostCheck)
                     {
                         SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -5);
@@ -533,7 +533,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                     }
                     else if (NPC.ai[2] == 38)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 vel = new Vector2(12f, 0f).RotatedByRandom(2 * Math.PI);
                             for (int i = 0; i < 20; i++)
@@ -576,7 +576,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
                     if (NPC.ai[2] == 0)
                     {
                         NPC.ai[2] = 1;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = 0; i < 10; i++)
                             {
@@ -687,7 +687,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
         {
             NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.ShadowChampion], -1);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {

@@ -20,10 +20,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
         private float rotspeed = 0;
 
+        public override string Texture => "FargowiltasSouls/Content/Projectiles/ChallengerItems/EnchantedLifebladeProjectile";
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Enchanted Lightblade");
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

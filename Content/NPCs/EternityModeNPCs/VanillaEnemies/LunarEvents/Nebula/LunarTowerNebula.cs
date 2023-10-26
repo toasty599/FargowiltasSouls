@@ -83,7 +83,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     Main.dust[d].noGravity = true;
                     Main.dust[d].scale += 1.5f;
                 }
-                if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient && npc.Distance(Main.player[npc.target].Center) < 3000)
+                if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck && npc.Distance(Main.player[npc.target].Center) < 3000)
                 {
                     int x = (int)Main.player[npc.target].Center.X / 16;
                     int y = (int)Main.player[npc.target].Center.Y / 16;
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             const int EndlagDuration = 60 * 0;
             void Windup()
             {
-                if (AttackTimer == 1 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (AttackTimer == 1 && FargoSoulsUtil.HostCheck)
                 {
                     int randReal = Main.rand.Next(4);
                     for (int i = 0; i < 4; i++)
@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 {
                     npc.netUpdate = true;
                     NetSync(npc);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         int time = WindupDuration - 10;
                         Projectile.NewProjectile(npc.GetSource_FromThis(), tpPos, Vector2.Zero, ModContent.ProjectileType<NebulaTelegraph>(), 0, 0, Main.myPlayer, time);
@@ -205,7 +205,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if ((AttackTimer - WindupDuration) % AttackCD == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item20, npc.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = -1; i < 2; i += 2)
                         {
@@ -249,7 +249,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (AttackTimer == WindupDuration + 1)
                 {
                     SoundEngine.PlaySound(SoundID.Item117, npc.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 offset = -(Vector2.UnitY * npc.height / 2);
                         Vector2 vel = Vector2.Normalize(offset);
@@ -292,7 +292,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (AttackTimer % AttackCD == AttackCD - 1)
                 {
                     SoundEngine.PlaySound(SoundID.Item20, npc.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         int speed = Main.rand.Next(6, 8);
                         Vector2 pos = npc.Center - (0.65f * npc.height * Vector2.UnitY) + Vector2.UnitX * Main.rand.NextFloat(-npc.width / 3, npc.width / 3);

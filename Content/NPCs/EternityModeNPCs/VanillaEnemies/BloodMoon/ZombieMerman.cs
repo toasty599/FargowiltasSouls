@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
                 Jumped = true;
 
                 int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                if (t != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (t != -1 && FargoSoulsUtil.HostCheck)
                 {
                     const float time = 60;
                     Vector2 distance;
@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
                 return false;
             }
 
-            //if (JumpTimer == 150 && Main.netMode != NetmodeID.MultiplayerClient) Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+            //if (JumpTimer == 150 && FargoSoulsUtil.HostCheck) Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
 
             if (npc.ai[1] > 0f) //while jumping
             {
@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
             if (npc.velocity.Y == 0f && Jumped)
             {
                 Jumped = false;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     for (int j = -1; j <= 1; j += 2)
                     {

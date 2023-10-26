@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 6f * Vector2.Normalize(Projectile.velocity),
                     ProjectileID.CultistBossFireBall, Projectile.damage, 0f, Main.myPlayer);

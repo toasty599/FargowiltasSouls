@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 int wallAttackTime = WorldSavingSystem.MasochistModeReal ? 55 : WorldSavingSystem.EternityMode ? 70 : 80;
                 if (State == 1 && Timer % wallAttackTime == 0)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         int side = Math.Sign(player.Center.X - Projectile.Center.X);
                         if (side == 0)

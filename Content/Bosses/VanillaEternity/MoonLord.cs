@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 SpawnedRituals = true;
                 VulnerabilityState = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<LunarRitual>(), 25, 0f, Main.myPlayer, 0f, npc.whoAmI);
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FragmentRitual>(), 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (npc.dontTakeDamage)
             {
-                if (AttackTimer == 370 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (AttackTimer == 370 && FargoSoulsUtil.HostCheck)
                 {
                     for (int i = 0; i < 3; i++)
                     {
@@ -182,7 +182,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     int damage = 30;
                                     for (int j = -2; j <= 2; j++)
                                     {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                         {
                                             Projectile.NewProjectile(npc.GetSource_FromThis(), bodyPart.Center,
                                                 6f * bodyPart.DirectionFrom(Main.player[npc.target].Center).RotatedBy(Math.PI / 2 / 4 * j),
@@ -197,7 +197,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             for (int j = 0; j < 6; j++)
                             {
                                 Vector2 spawn = Main.player[npc.target].Center + 500 * npc.DirectionFrom(Main.player[npc.target].Center).RotatedBy(MathHelper.TwoPi / 6 * (j + 0.5f));
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<LightningVortexHostile>(), 30, 0f, Main.myPlayer, 1, Main.player[npc.target].DirectionFrom(spawn).ToRotation());
                             }
                             break;
@@ -215,7 +215,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     const int max = 6;
                                     for (int j = 0; j < max; j++)
                                     {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                         {
                                             int p = Projectile.NewProjectile(npc.GetSource_FromThis(), bodyPart.Center,
                                               2.5f * bodyPart.DirectionFrom(Main.player[npc.target].Center).RotatedBy(Math.PI * 2 / max * (j + 0.5)),
@@ -250,7 +250,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             break;
 
                         default: //phantasmal eye rings
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 const int max = 4;
                                 const int speed = 8;
@@ -262,7 +262,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 for (int i = 0; i < max; i++)
                                 {
                                     vel = vel.RotatedBy(rotation);
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                     {
                                         int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, type, damage, 0f, Main.myPlayer, rotationModifier, speed);
                                         if (p != Main.maxProjectiles)
@@ -300,7 +300,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 AttackMemory = AttackMemory == 0 ? 1 : 0;
 
                                 float handToAttackWith = npc.localAI[AttackMemory];
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[(int)handToAttackWith].Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSun>(), 60, 0f, Main.myPlayer, npc.whoAmI, handToAttackWith);
                             }
                         }
@@ -313,7 +313,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 AttackMemory = 1;
                                 for (int i = -1; i <= 1; i += 2)
                                 {
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordVortex>(), 40, 0f, Main.myPlayer, i, npc.whoAmI);
                                 }
                             }
@@ -332,7 +332,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     int damage = 35;
                                     for (int j = -2; j <= 2; j++)
                                     {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                         {
                                             Projectile.NewProjectile(npc.GetSource_FromThis(), bodyPart.Center,
                                                 2.5f * bodyPart.DirectionFrom(Main.player[npc.target].Center).RotatedBy(Math.PI / 2 / 2 * (j + Main.rand.NextFloat(-0.25f, 0.25f))),
@@ -355,25 +355,25 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             float baseRotation = MathHelper.ToRadians(50);
                             if (++AttackMemory == 10)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[(int)npc.localAI[0]].Center, Main.npc[(int)npc.localAI[0]].DirectionTo(player.Center), ModContent.ProjectileType<PhantasmalDeathrayMLSmall>(),
                                         60, 0f, Main.myPlayer, baseRotation * Main.rand.NextFloat(0.9f, 1.1f), npc.localAI[0]);
                             }
                             else if (AttackMemory == 20)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[(int)npc.localAI[1]].Center, Main.npc[(int)npc.localAI[2]].DirectionTo(player.Center), ModContent.ProjectileType<PhantasmalDeathrayMLSmall>(),
                                         60, 0f, Main.myPlayer, -baseRotation * Main.rand.NextFloat(0.9f, 1.1f), npc.localAI[1]);
                             }
                             else if (AttackMemory == 30)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[(int)npc.localAI[2]].Center, Main.npc[(int)npc.localAI[1]].DirectionTo(player.Center), ModContent.ProjectileType<PhantasmalDeathrayMLSmall>(),
                                         60, 0f, Main.myPlayer, baseRotation * Main.rand.NextFloat(0.9f, 1.1f), npc.localAI[2]);
                             }
                             else if (AttackMemory == 40)
                             {
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionTo(player.Center), ModContent.ProjectileType<PhantasmalDeathrayMLSmall>(),
                                         60, 0f, Main.myPlayer, -baseRotation * Main.rand.NextFloat(0.9f, 1.1f), npc.whoAmI);
                             }
@@ -390,7 +390,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 {
                                     if (p.type == ModContent.ProjectileType<LunarRitual>() && p.ai[1] == npc.whoAmI) //find my arena
                                     {
-                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        if (FargoSoulsUtil.HostCheck)
                                         {
                                             for (int i = 0; i < 4; i++)
                                             {
@@ -412,7 +412,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             {
                                 AttackTimer -= 540;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     const int max = 8;
                                     const int speed = 8;
@@ -485,7 +485,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 break;
 
                             case 1: //ranged
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.NewProjectile(
                                           npc.GetSource_FromThis(),
@@ -496,7 +496,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 break;
 
                             case 2: //magic
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     //for (int i = -1; i <= 1; i++)
                                     //{
