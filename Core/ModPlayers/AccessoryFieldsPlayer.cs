@@ -78,6 +78,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         //force of earth
         public Item AdamantiteEnchantItem;
         public bool AdamantiteCanSplit;
+        public double AdamantiteSpread;
         public Item CobaltEnchantItem;
         public bool CanCobaltJump;
         public bool JustCobaltJumped;

@@ -34,23 +34,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     modifiers.SetCrit();
             }
 
-            
-            /*
-            if (Hexed || (ReverseManaFlow && proj.CountsAsClass(DamageClass.Magic)))
-            {
-                target.life += (int)modifiers.FinalDamage.Base;
-                target.HealEffect((int)modifiers.FinalDamage.Base);
-
-                if (target.life > target.lifeMax)
-                {
-                    target.life = target.lifeMax;
-                }
-
-                modifiers.Null();
-                return;
-
-            }
-            */
             if (SqueakyToy)
             {
                 modifiers.FinalDamage.Base = 1;

@@ -358,10 +358,11 @@ namespace FargowiltasSouls.Content.Projectiles
                     //apen is inherited from proj to proj
                     projectile.ArmorPenetration += projectile.damage / 2;
 
-                    AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer, 8);
-                }
 
-                //AdamModifier = modPlayer.EarthForce ? 3 : 2;
+
+                    AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer, 1 + (int)modPlayer.AdamantiteSpread);
+                    
+                }
                 AdamModifier = modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2;
             }
 
