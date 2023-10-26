@@ -17,6 +17,7 @@ using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs;
+using Terraria.WorldBuilding;
 using Terraria.Audio;
 
 namespace FargowiltasSouls.Core.ModPlayers
@@ -34,23 +35,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     modifiers.SetCrit();
             }
 
-            
-            /*
-            if (Hexed || (ReverseManaFlow && proj.CountsAsClass(DamageClass.Magic)))
-            {
-                target.life += (int)modifiers.FinalDamage.Base;
-                target.HealEffect((int)modifiers.FinalDamage.Base);
-
-                if (target.life > target.lifeMax)
-                {
-                    target.life = target.lifeMax;
-                }
-
-                modifiers.Null();
-                return;
-
-            }
-            */
             if (SqueakyToy)
             {
                 modifiers.FinalDamage.Base = 1;
@@ -652,12 +636,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             modifiers.ModifyHurtInfo += TryParryAttack;
 
-            if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
-            {
-                CrimsonEnchant.CrimsonHurt(Player, this, ref modifiers);
-            }
-
-            if (StyxSet && !BetsyDashing && !GoldShell && ModContent.ProjectileType<StyxArmorScythe>().IsWithinBounds(Player.ownedProjectileCounts.Length) && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
+            if (StyxSet && !BetsyDashing && !GoldShell && Player.ownedProjectileCounts[ModContent.ProjectileType<StyxArmorScythe>()] > 0)
             {
                 modifiers.ModifyHurtInfo += (ref Player.HurtInfo hurtInfo) =>
                 {
@@ -758,6 +737,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (TinEnchantItem != null)
                 TinEnchant.TinHurt(this);
+
+            if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
+            {
+                CrimsonEnchant.CrimsonHurt(Player, this, ref info);
+            }
 
             if (ShellHide)
             {

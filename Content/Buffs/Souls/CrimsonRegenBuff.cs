@@ -19,25 +19,19 @@ namespace FargowiltasSouls.Content.Buffs.Souls
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            modPlayer.CrimsonRegenTime -= 1; //remove one tick from counter
+            modPlayer.CrimsonRegenTime += 1; //add one tick from counter
 
-            if (modPlayer.CrimsonRegenTime == 0)
+            if (modPlayer.CrimsonRegenTime % 420 == 0)
             {
                 player.Heal(modPlayer.CrimsonRegenAmount); //crimsonregenamount is set in CrimsonEnchant.cs
-
-                if (modPlayer.CrimsonWizCharge)
-                {
-                    modPlayer.CrimsonRegenTime = 7 * 60;
-                    modPlayer.CrimsonWizCharge = false;
-                }
-                else {
-                    player.DelBuff(buffIndex); //remove buff if no wizard/wizard used
-                }
-            } 
+            }
+            if (modPlayer.CrimsonRegenTime > (modPlayer.ForceEffect(modPlayer.CrimsonEnchantItem.type) ? 420*2 : 420)) { //if its force effect, end at 14 seconds instead of 7
+                player.DelBuff(buffIndex);
+            }
 
             for (int i = 0; i < 3; i++)
             {
-                int dustType = modPlayer.CrimsonWizCharge ? DustID.Crimson : DustID.Crimson; //change dust if its wizarded
+                int dustType = modPlayer.CrimsonRegenTime > 420 ? DustID.Crimson : DustID.Blood; //change dust if its wizarded
                 int num6 = Dust.NewDust(player.position, player.width, player.height, dustType, 0f, 0f, 175, default, 1.75f);
                 Main.dust[num6].noGravity = true;
                 Main.dust[num6].velocity *= 0.75f;

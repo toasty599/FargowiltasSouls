@@ -78,6 +78,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         //force of earth
         public Item AdamantiteEnchantItem;
         public bool AdamantiteCanSplit;
+        public double AdamantiteSpread;
         public Item CobaltEnchantItem;
         public bool CanCobaltJump;
         public bool JustCobaltJumped;
@@ -140,7 +141,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool CrimsonEnchantActive;
         public int CrimsonRegenAmount;
         public int CrimsonRegenTime;
-        public bool CrimsonWizCharge;
 
 
         public Item DarkArtistEnchantItem;

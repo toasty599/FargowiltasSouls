@@ -41,31 +41,31 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
         {
             player.DisplayToggle("Mythril");
 
-            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (!player.GetToggleValue("Mythril"))
                 return;
 
-            fargoPlayer.MythrilEnchantItem = item;
+            modPlayer.MythrilEnchantItem = item;
 
             const int cooldown = 60 * 5;
-            int mythrilEndTime = fargoPlayer.MythrilMaxTime - cooldown;
+            int mythrilEndTime = modPlayer.MythrilMaxTime - cooldown;
 
-            if (fargoPlayer.WeaponUseTimer > 0)
-                fargoPlayer.MythrilTimer--;
+            if (modPlayer.WeaponUseTimer > 0)
+                modPlayer.MythrilTimer--;
             else
             {
-                fargoPlayer.MythrilTimer++;
-                if (fargoPlayer.MythrilTimer == fargoPlayer.MythrilMaxTime - 1 && player.whoAmI == Main.myPlayer)
+                modPlayer.MythrilTimer++;
+                if (modPlayer.MythrilTimer == modPlayer.MythrilMaxTime - 1 && player.whoAmI == Main.myPlayer)
                 {
                     SoundEngine.PlaySound(new SoundStyle($"{nameof(FargowiltasSouls)}/Assets/Sounds/ChargeSound"), player.Center);
                 }
             }
 
-            if (fargoPlayer.MythrilTimer > fargoPlayer.MythrilMaxTime)
-                fargoPlayer.MythrilTimer = fargoPlayer.MythrilMaxTime;
-            if (fargoPlayer.MythrilTimer < mythrilEndTime)
-                fargoPlayer.MythrilTimer = mythrilEndTime;
+            if (modPlayer.MythrilTimer > modPlayer.MythrilMaxTime)
+                modPlayer.MythrilTimer = modPlayer.MythrilMaxTime;
+            if (modPlayer.MythrilTimer < mythrilEndTime)
+                modPlayer.MythrilTimer = mythrilEndTime;
         }
 
         public static void CalcMythrilAttackSpeed(FargoSoulsPlayer modPlayer, Item item)
