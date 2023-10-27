@@ -25,6 +25,7 @@ using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using System.Collections.Generic;
+using FargowiltasSouls.Content.Buffs.Souls;
 
 namespace FargowiltasSouls.Content.Bosses.AbomBoss
 {
@@ -590,6 +591,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
                     NPC.direction = NPC.spriteDirection = Math.Sign(NPC.velocity.X);
 
+                    ClearFrozen();
+
                     if (NPC.localAI[3] > 1)
                     {
                         for (int i = 0; i < 2; i++)
@@ -959,6 +962,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     if (NPC.ai[1] < 90 && !AliveCheck(player))
                         break;
 
+                    ClearFrozen();
+
                     /*for (int i = 0; i < 5; i++) //make warning dust
                     {
                         int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, 87, 0f, 0f, 0, default(Color), 1.5f);
@@ -1005,6 +1010,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     MovementY(player.Center.Y - 250, Math.Abs(player.Center.Y - NPC.Center.Y) < 200 ? 2f : 0.7f);
                     NPC.direction = NPC.spriteDirection = Math.Sign(NPC.velocity.X);
 
+                    ClearFrozen();
+
                     if (++NPC.ai[3] > 5)
                     {
                         NPC.ai[3] = 0;
@@ -1045,6 +1052,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     if (NPC.ai[1] < 150 && !AliveCheck(player))
                         break;
 
+                    ClearFrozen();
+
                     NPC.velocity.Y = 0f;
 
                     /*for (int i = 0; i < 5; i++) //make warning dust
@@ -1074,6 +1083,9 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     NPC.velocity.X = NPC.ai[2] * -18f;
                     MovementY(player.Center.Y - 250, Math.Abs(player.Center.Y - NPC.Center.Y) < 200 ? 2f : 0.7f);
                     NPC.direction = NPC.spriteDirection = Math.Sign(NPC.velocity.X);
+
+                    ClearFrozen();
+
                     if (++NPC.ai[3] > 5)
                     {
                         NPC.ai[3] = 0;
@@ -1142,6 +1154,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                         }
                     }
 
+                    ClearFrozen();
+
                     if (NPC.ai[1] < 60)
                         FancyFireballs((int)NPC.ai[1]);
 
@@ -1192,6 +1206,9 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 case 17: //wait for scythes to clear
                     if (!AliveCheck(player))
                         break;
+
+                    ClearFrozen();
+
                     targetPos = player.Center + player.DirectionTo(NPC.Center) * 500;
                     if (NPC.Distance(targetPos) > 50)
                         Movement(targetPos, 0.7f);
@@ -1215,6 +1232,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     {
                         if (NPC.ai[1] < 90 && !AliveCheck(player))
                             break;
+
+                        ClearFrozen();
 
                         /*for (int i = 0; i < 5; i++) //make warning dust
                         {
@@ -1284,6 +1303,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 case 19: //prepare to dash
                     NPC.direction = NPC.spriteDirection = Math.Sign(NPC.ai[2] - NPC.Center.X);
 
+                    ClearFrozen();
+
                     if (NPC.ai[1] == 0)
                     {
                         if (FargoSoulsUtil.HostCheck)
@@ -1310,6 +1331,9 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     break;
 
                 case 20: //while dashing down
+
+                    ClearFrozen();
+
                     NPC.velocity.Y *= 0.97f;
                     NPC.position += NPC.velocity;
                     NPC.direction = NPC.spriteDirection = Math.Sign(NPC.ai[2] - NPC.Center.X);
@@ -1344,6 +1368,15 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     NPC.netUpdate = true;
                     NPC.ai[0] = 0;
                     goto case 0;
+            }
+
+            void ClearFrozen()
+            {
+                if (NPC.HasBuff<FrozenBuff>())
+                {
+                    int frozen = NPC.FindBuffIndex(ModContent.BuffType<FrozenBuff>());
+                    NPC.DelBuff(frozen);
+                }
             }
 
             if (NPC.ai[0] >= 9 && NPC.dontTakeDamage)
