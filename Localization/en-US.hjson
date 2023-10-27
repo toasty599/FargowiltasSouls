@@ -4599,8 +4599,11 @@ Mods: {
 				Tooltip:
 					'''
 					Uses rockets for ammo
-					50% chance to not consume ammo
+					Fires a spread of rockeaters
 					Increased damage to enemies in the given range
+					Press Right Click to increase this range
+					The range then gradually decreases to normal
+					50% chance to not consume ammo
 					'The reward for slaughtering many..'
 					'''
 			}

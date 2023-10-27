@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 {
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 378;
+            Item.damage = 190;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 24;
             Item.height = 24;
@@ -45,7 +46,46 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         {
             return new Vector2(-12, -2);
         }
+        public const int BaseDistance = 600;
+        public const int IncreasedDistance = 1200;
+        //public int Cooldown = 0;
+        public const int CooldownTime = 24 * 60;
+        public override bool AltFunctionUse(Player player) => true;
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                //if (Cooldown > 0)
+                    //return false;
 
+                Item.useAnimation = 24 * 2;
+                Item.useTime = 24 * 2;
+                Item.UseSound = SoundID.Item117;
+            }
+            else
+            {
+                Item.useAnimation = 24;
+                Item.useTime = 24;
+                Item.UseSound = SoundID.Item62;
+            }
+            return base.CanUseItem(player);
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.FargoSouls().RockeaterDistance = IncreasedDistance;
+                //Cooldown = CooldownTime;
+                return false;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                Vector2 shotgunVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+                shotgunVelocity *= Main.rand.NextFloat(0.9f, 1.1f);
+                Projectile.NewProjectile(source, position + Vector2.Normalize(velocity) * Item.width * 0.9f, shotgunVelocity, type, damage, knockback);
+            }
+            return false;
+        }
         public override void HoldItem(Player player)
         {
             if (player.itemTime > 0)
@@ -68,8 +108,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 
                     Vector2 offset2 = new();
                     double angle2 = Main.rand.NextDouble() * 2d * Math.PI;
-                    offset2.X += (float)(Math.Sin(angle2) * 600);
-                    offset2.Y += (float)(Math.Cos(angle2) * 600);
+                    offset2.X += (float)(Math.Sin(angle2) * player.FargoSouls().RockeaterDistance);
+                    offset2.Y += (float)(Math.Cos(angle2) * player.FargoSouls().RockeaterDistance);
                     Dust dust2 = Main.dust[Dust.NewDust(
                         player.Center + offset2 - new Vector2(4, 4), 0, 0,
                         DustID.PurpleCrystalShard, 0, 0, 100, Color.White, 1f
@@ -81,6 +121,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
                     dust2.scale = 1f;
                 }
             }
+            
         }
 
 

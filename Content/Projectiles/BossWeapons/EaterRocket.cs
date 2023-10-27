@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -48,11 +49,16 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             Player owner = Main.player[Projectile.owner];
-            Vector2 middleOfSweetspot = owner.Center + owner.DirectionTo(target.Center) * 450;
+
+            int closeDistance = 300;
+            int farDistance = owner.FargoSouls().RockeaterDistance;
+            int midDistance = (closeDistance + farDistance) / 2;
+
+            Vector2 middleOfSweetspot = owner.Center + owner.DirectionTo(target.Center) * midDistance;
             Vector2 targetPoint = FargoSoulsUtil.ClosestPointInHitbox(target.Hitbox, middleOfSweetspot);
             float dist = Vector2.Distance(targetPoint, owner.Center);
 
-            if (dist > 300 && dist < 600)
+            if (dist > closeDistance && dist < farDistance)
             {
                 modifiers.FinalDamage *= 1.5f;
                 sweetspot = true;

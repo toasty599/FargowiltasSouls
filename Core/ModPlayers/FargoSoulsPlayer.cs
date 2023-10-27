@@ -24,6 +24,7 @@ using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -48,6 +49,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool RustRifleReloading = false;
         public float RustRifleReloadZonePos = 0;
         public float RustRifleTimer = 0;
+
+        public int RockeaterDistance = EaterLauncher.BaseDistance;
 
         public bool fireNoDamage = false;
 

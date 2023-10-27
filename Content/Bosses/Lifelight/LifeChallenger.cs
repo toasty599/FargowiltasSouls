@@ -1032,7 +1032,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
 
                 LaserTimer++;
-                if (LaserTimer > endTime)
+                if (LaserTimer == endTime)
                 {
                     foreach (Projectile p in Main.projectile)
                     {
@@ -1051,9 +1051,14 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
                     PyramidPhase = -1;
                     PyramidTimer = 0;
-
-                    P1state = 0;
+                    NPC.netUpdate = true;
                     DoAura = WorldSavingSystem.MasochistModeReal;
+
+                }
+                if (LaserTimer > endTime && PyramidPhase == 1) //after shell crack animation
+                {
+                    P1state = 0;
+                    
                     PhaseOne = false;
                     HitPlayer = false;
                     NPC.netUpdate = true;

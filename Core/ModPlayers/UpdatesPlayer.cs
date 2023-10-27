@@ -4,6 +4,7 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
+using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -730,6 +731,15 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.statDefense /= 2;
                 Player.endurance /= 2;
                 Player.shinyStone = false;
+            }
+
+            if (RockeaterDistance > EaterLauncher.BaseDistance)
+            {
+                RockeaterDistance -= (int)((EaterLauncher.IncreasedDistance - EaterLauncher.BaseDistance) / (EaterLauncher.CooldownTime / 3f));
+            }
+            else
+            {
+                RockeaterDistance = EaterLauncher.BaseDistance;
             }
 
             StatLifePrevious = Player.statLife;
