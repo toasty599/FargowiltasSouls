@@ -88,7 +88,12 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public static List<int> ShroomiteBlacklist = new()
         {
-            ModContent.ProjectileType<MeteorFlame>()
+            ModContent.ProjectileType<MeteorFlame>(),
+        };
+        public static List<int> ShroomiteNerfList = new()
+        {
+            ModContent.ProjectileType<MechEyeProjectile>(),
+            ModContent.ProjectileType<MechFlail>()
         };
 
         public override void SetStaticDefaults()
@@ -459,7 +464,11 @@ namespace FargowiltasSouls.Content.Projectiles
 
                     if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 && !ShroomiteBlacklist.Contains(projectile.type) && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 75)
                     {
-                        const float maxCD = 100f;
+                        float maxCD = 100f;
+                        if (ShroomiteNerfList.Contains(projectile.type))
+                        {
+                            maxCD = 800f;
+                        }
                         if (shroomiteMushroomCD >= maxCD)
                         {
                             shroomiteMushroomCD = 0;
