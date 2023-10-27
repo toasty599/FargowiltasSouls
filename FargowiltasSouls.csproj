@@ -59,6 +59,7 @@
     <None Remove="Content\Items\Weapons\Challengers\NavalRustrifle.png" />
     <None Remove="Content\Items\Weapons\Challengers\RoseTintedVisor.png" />
     <None Remove="Content\Items\Weapons\Challengers\TheBaronsTusk.png" />
+    <None Remove="Content\Items\Weapons\SwarmDrops\TheBigSting.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinion.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinionOld.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\LightningTelegraph.png" />

@@ -4659,12 +4659,12 @@ Mods: {
 
 			OpticStaffEX: {
 				DisplayName: Omniscience Staff
-				Tooltip: 
-				'''
-				Summons the real twins to fight for you
-				Needs 3 minion slots
-				'The reward for slaughtering many...
-				'''
+				Tooltip:
+					'''
+					Summons the real twins to fight for you
+					Needs 3 minion slots
+					'The reward for slaughtering many...
+					'''
 			}
 
 			RefractorBlaster2: {
