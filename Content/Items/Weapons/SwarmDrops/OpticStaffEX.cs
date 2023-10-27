@@ -11,7 +11,6 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 {
     public class OpticStaffEX : SoulsItem
     {
-        public override bool IsLoadingEnabled(Mod mod) => false;
 
         public override void SetStaticDefaults()
         {
@@ -52,6 +51,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
             return false;
         }
 
+        /*
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -63,5 +63,6 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 
             .Register();
         }
+        */
     }
 }
