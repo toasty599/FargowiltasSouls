@@ -48,7 +48,7 @@ Mods: {
 			// Orichalcum: Increases multiplier to 4x
 			// Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
 			// PalmWood: Attack speed, damage, and size increased
-			// Pearlwood: Damage increased and cooldown reduced
+			// Pearlwood: Star can hit enemies for massive damage
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
 			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
@@ -396,7 +396,7 @@ Mods: {
 			// ShadeConfig: Blood Geyser On Hit
 			// ShadeOnHitConfig: Proximity Triggers On Hit Effects
 			// PalmConfig: Palmwood Sentry
-			// PearlConfig: Pearlwood Rain
+			// PearlConfig: Pearlwood Star
 			// EarthHeader: "{$Mods.FargowiltasSouls.Items.EarthForce.DisplayName}"
 			// AdamantiteConfig: Adamantite Projectile Splitting
 			// CobaltConfig: Cobalt Hit Explosion
@@ -1967,7 +1967,7 @@ Mods: {
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava
-					'You're telling me this isn't wood?'
+					'"You're telling me this isn't wood?"'
 					''' */
 			}
 
@@ -2043,7 +2043,7 @@ Mods: {
 					'''
 					Crits have a chance to shock enemies with chain lightning
 					Wet enemies have a chance to be shocked without a crit
-					'Behold'
+					'And their music was electric'
 					''' */
 			}
 
@@ -2295,7 +2295,7 @@ Mods: {
 					'''
 					Your projectiles deal more damage the faster they're moving, up to 20%
 					Drastically increases projectile speed while you're moving slowly
-					'Attack faster than the eye can see'
+					'Wait for when the moment is right'
 					''' */
 			}
 
@@ -2344,8 +2344,9 @@ Mods: {
 				// DisplayName: Pearlwood Enchantment
 				/* Tooltip:
 					'''
-					Attacks may spawn a homing star when they hit something
-					'Too little, too late…'
+					Your attacks have an extra chance to crit
+					A damaging star follows your every move
+					'You can't outrun your own reflection'
 					''' */
 			}
 
@@ -2630,6 +2631,7 @@ Mods: {
 					Bestiary and banner entries complete twice as fast
 					You gain a shop discount based on bestiary completion
 					Discount effect works in vanity slots and inventory
+					'Shopkeepers hate this trick'
 					''' */
 			}
 
@@ -2640,7 +2642,7 @@ Mods: {
 					18% increased magic damage
 					5% increased magic crit
 					Increases your maximum mana by 50
-					'This is only the beginning..'
+					'This is only the beginning...'
 					''' */
 			}
 
@@ -2651,7 +2653,7 @@ Mods: {
 					18% increased melee damage
 					10% increased melee speed
 					5% increased melee crit chance
-					'This is only the beginning..'
+					'This is only the beginning...'
 					''' */
 			}
 
@@ -2662,7 +2664,7 @@ Mods: {
 					18% increased summon damage
 					Increases your max number of minions by 1
 					Increases your max number of sentries by 1
-					'This is only the beginning..'
+					'This is only the beginning...'
 					''' */
 			}
 
@@ -2673,7 +2675,7 @@ Mods: {
 					18% increased ranged damage
 					10% chance to not consume ammo
 					5% increased ranged critical chance
-					'This is only the beginning..'
+					'This is only the beginning...'
 					''' */
 			}
 
@@ -2819,7 +2821,7 @@ Mods: {
 					[i:FargowiltasSouls/RichMahoganyEnchant] All grappling hooks shoot, pull, and retract 2.5x as fast
 					[i:FargowiltasSouls/EbonwoodEnchant][i:FargowiltasSouls/ShadewoodEnchant] You have an aura of Corruption and Bleeding
 					[i:FargowiltasSouls/PalmWoodEnchant] Double tap down to spawn up to 2 palm tree sentries
-					[i:FargowiltasSouls/PearlwoodEnchant] Projectiles may spawn a star when they hit something
+					[i:FargowiltasSouls/PearlwoodEnchant] Gives crit reroll, and your reflection follows you
 					'Extremely rigid'
 					''' */
 			}
@@ -6013,6 +6015,7 @@ Mods: {
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
 			// MonkDashDamage.DisplayName: Monk Dash
+			// PearlwoodStareline.DisplayName: Pearlwood Stareline
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
