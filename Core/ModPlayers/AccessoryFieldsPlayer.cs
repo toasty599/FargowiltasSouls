@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -49,7 +50,12 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool MahoganyCanUseDR;
         public Item PalmEnchantItem;
         public Item PearlwoodEnchantItem;
-        public int PearlwoodCD;
+        public Vector2[] PearlwoodTrail = new Vector2[30]; //store a second of trail 
+        public int PearlwoodIndex = 0;
+        public int PearlwoodGrace = 0;
+        public Vector2 PStarelinePos;
+        public bool PStarelineActive;
+
         public Item EbonwoodEnchantItem;
         public Item ShadewoodEnchantItem;
         public int ShadewoodCD;

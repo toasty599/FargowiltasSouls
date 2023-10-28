@@ -48,7 +48,7 @@ Mods: {
 			// Orichalcum: Increases multiplier to 4x
 			// Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
 			// PalmWood: Attack speed, damage, and size increased
-			// Pearlwood: Damage increased and cooldown reduced
+			// Pearlwood: Star can hit enemies for massive damage
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
 			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
@@ -1975,7 +1975,7 @@ Mods: {
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava
-					'You're telling me this isn't wood?'
+					'"You're telling me this isn't wood?"'
 					''' */
 			}
 
@@ -2295,7 +2295,7 @@ Mods: {
 					'''
 					Your projectiles deal more damage the faster they're moving, up to 20%
 					Drastically increases projectile speed while you're moving slowly
-					'Attack faster than the eye can see'
+					'Wait for when the moment is right'
 					''' */
 			}
 
@@ -5976,6 +5976,7 @@ Mods: {
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
 			// MonkDashDamage.DisplayName: Monk Dash
+			// PearlwoodStareline.DisplayName: Pearlwood Stareline
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

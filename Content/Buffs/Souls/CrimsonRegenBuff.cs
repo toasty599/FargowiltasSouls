@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 player.DelBuff(buffIndex);
             }
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
             {
                 int dustType = modPlayer.CrimsonRegenTime > 420 ? DustID.Crimson : DustID.Blood; //change dust if its wizarded
                 int num6 = Dust.NewDust(player.position, player.width, player.height, dustType, 0f, 0f, 175, default, 1.75f);
