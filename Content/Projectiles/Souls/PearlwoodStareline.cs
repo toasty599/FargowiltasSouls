@@ -55,6 +55,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             //sparkle on queen
             Dust.NewDust(modPlayer.PStarelinePos, Projectile.width, Projectile.height, DustID.TintableDustLighted, default, default, 200, Color.Fuchsia); //idk how to make dust look good
 
+
             //follow the player
             Projectile.position = modPlayer.PStarelinePos;
         }
