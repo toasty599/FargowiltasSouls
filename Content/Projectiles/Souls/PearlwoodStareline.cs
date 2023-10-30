@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 222222222;
+            Projectile.timeLeft = 22;
         }
         
         public override string Texture => "Terraria/Images/Projectile_723";
@@ -40,14 +40,17 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.PearlwoodEnchantItem == null || !player.GetToggleValue("Pearl"))
+            if (modPlayer.PearlwoodEnchantItem == null || !player.GetToggleValue("Pearl") || player == null || !player.active || player.dead) //just making sure
             {
                 Projectile.Kill();
                 return;
-            } //kill projkcetoiele when unequip
+            } //kill projkcetoiele when unequip or toggled off or player dies or leaves or commits a war crime idfk
 
             if (modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type)) { Projectile.friendly = true; } //ability to hit enemy with force
             else { Projectile.friendly = false; }
+
+            //refresh lifetime
+            Projectile.timeLeft = 22;
 
             //spin
             Projectile.rotation = MathHelper.ToRadians(MathHelper.ToDegrees(Projectile.rotation) + 6f);
