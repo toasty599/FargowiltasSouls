@@ -21,6 +21,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         protected readonly int AuraDust;
         public int AuraSize = 5000;
 
+        public abstract int MaxHP { get;  }
+        public abstract int Damage { get; }
+
         protected LunarTowers(int debuffNotToInflict, int auraDust)
         {
             DebuffNotToInflict = debuffNotToInflict;
@@ -39,6 +42,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
         public bool spawned;
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+            npc.lifeMax = MaxHP;
+            npc.damage = Damage;
+        }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             base.SendExtraAI(npc, bitWriter, binaryWriter);
@@ -98,6 +107,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             if (!WorldSavingSystem.EternityMode)
             {
                 return;
+            }
+            if (npc.lifeMax != MaxHP)
+            {
+                npc.lifeMax = npc.life = MaxHP;
+            }
+            if (npc.damage != Damage)
+            {
+                npc.damage = Damage;
             }
             if (npc.type == NPCID.LunarTowerStardust)
             {
