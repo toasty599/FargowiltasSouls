@@ -5112,6 +5112,18 @@ Mods: {
 					'Nobody knows how it works'
 					''' */
 			}
+
+			EaterLauncherJr: {
+				// DisplayName: The Blastbiter
+				/* Tooltip:
+					'''
+					Uses Rotten Chunks for ammo
+					Fires a chunk of rot
+					Increased damage to enemies in the given range
+					50% chance to not consume ammo
+					'The rotting remains of a defeated foe...'
+					''' */
+			}
 		}
 
 		NPCs: {
@@ -6018,6 +6030,7 @@ Mods: {
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
 			// MonkDashDamage.DisplayName: Monk Dash
+			// EaterRocketJr.DisplayName: Rotten Chunk
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

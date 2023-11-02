@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items
     {
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.Acorn || item.type == ItemID.Bone)
+            if (item.type == ItemID.Acorn || item.type == ItemID.Bone || item.type == ItemID.RottenChunk)
             {
                 item.ammo = item.type;
             }

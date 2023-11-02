@@ -4,14 +4,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 using Terraria.DataStructures;
-using Fargowiltas.Items.Summons.SwarmSummons.Energizers;
-using Fargowiltas.Items.Tiles;
 
-namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
+namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
-    public class EaterLauncher : SoulsItem
+    public class EaterLauncherJr : SoulsItem
     {
         public override void SetStaticDefaults()
         {
@@ -24,69 +21,26 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 190;
+            Item.damage = 44;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 24;
             Item.height = 24;
-            Item.useTime = 24;
-            Item.useAnimation = 24;
+            Item.useTime = Item.useAnimation = 42;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 6f;
-            Item.UseSound = SoundID.Item62;
-            Item.useAmmo = AmmoID.Rocket;
+            Item.UseSound = SoundID.Item95;
+            Item.useAmmo = ItemID.RottenChunk;
             Item.value = Item.sellPrice(0, 10);
-            Item.rare = ItemRarityID.Purple;
+            Item.rare = ItemRarityID.Blue;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<EaterRocket>();
-            Item.shootSpeed = 24f;
-            Item.scale = .7f;
+            Item.shoot = ModContent.ProjectileType<EaterRocketJr>();
+            Item.shootSpeed = 18f;
         }
 
-        //make them hold it different
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-12, -2);
-        }
-        public const int BaseDistance = 600;
-        public const int IncreasedDistance = 1200;
-        //public int Cooldown = 0;
-        public const int CooldownTime = 24 * 60;
-        public override bool AltFunctionUse(Player player) => true;
-        public override bool CanUseItem(Player player)
-        {
-            if (player.altFunctionUse == 2)
-            {
-                //if (Cooldown > 0)
-                    //return false;
-
-                Item.useAnimation = 24 * 2;
-                Item.useTime = 24 * 2;
-                Item.UseSound = SoundID.Item117;
-            }
-            else
-            {
-                Item.useAnimation = 24;
-                Item.useTime = 24;
-                Item.UseSound = SoundID.Item62;
-            }
-            return base.CanUseItem(player);
-        }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            if (player.altFunctionUse == 2)
-            {
-                player.FargoSouls().RockeaterDistance = IncreasedDistance;
-                //Cooldown = CooldownTime;
-                return false;
-            }
-            for (int i = 0; i < 3; i++)
-            {
-                Vector2 shotgunVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
-                shotgunVelocity *= Main.rand.NextFloat(0.9f, 1.1f);
-                Projectile.NewProjectile(source, position + Vector2.Normalize(velocity) * Item.width * 0.9f, shotgunVelocity, type, damage, knockback);
-            }
-            return false;
+            return new Vector2(-12 / 0.7f, -2 / 0.7f);
         }
         public override void HoldItem(Player player)
         {
@@ -123,13 +77,13 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
                     dust2.scale = 1f;
                 }
             }
-            
+
         }
 
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            type = ModContent.ProjectileType<EaterRocket>();
+            type = ModContent.ProjectileType<EaterRocketJr>();
         }
 
         public override bool CanConsumeAmmo(Item ammo, Player player)
@@ -137,17 +91,6 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
             return Main.rand.NextBool();
         }
 
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<EaterStaff>())
-            .AddIngredient(ModContent.ItemType<EnergizerWorm>())
-            .AddIngredient(ItemID.LunarBar, 10)
-
-            .AddTile(ModContent.TileType<CrucibleCosmosSheet>())
-
-            .Register();
-        }
+        
     }
 }

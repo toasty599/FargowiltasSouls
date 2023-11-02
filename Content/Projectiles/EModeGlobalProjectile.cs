@@ -1170,7 +1170,6 @@ namespace FargowiltasSouls.Content.Projectiles
                     }
                     break;
             }
-            base.PostAI(projectile);
         }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
