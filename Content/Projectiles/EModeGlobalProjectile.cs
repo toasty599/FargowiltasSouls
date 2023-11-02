@@ -1143,6 +1143,35 @@ namespace FargowiltasSouls.Content.Projectiles
 
             firstTickAICheckDone = true;
         }
+        private int FadeTimer = 0;
+        public override void PostAI(Projectile projectile)
+        {
+            switch (projectile.type)
+            {
+                case ProjectileID.HallowBossLastingRainbow:
+                case ProjectileID.HallowBossRainbowStreak:
+                    {
+                        if (projectile.hostile)
+                        {
+                            const int FadeTime = 10;
+                            if (!EModeCanHurt)
+                            {
+                                if (FadeTimer < FadeTime)
+                                    FadeTimer++;
+                            }
+                            else
+                            {
+                                if (FadeTimer > 0)
+                                    FadeTimer--;
+                            }
+                            float fade = 1f - (0.8f * FadeTimer / FadeTime);
+                            projectile.Opacity = fade;
+                        }
+                    }
+                    break;
+            }
+            base.PostAI(projectile);
+        }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (!WorldSavingSystem.EternityMode)
