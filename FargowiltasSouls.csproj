@@ -42,6 +42,7 @@
     <None Remove="Content\Items\Accessories\Expert\RustedOxygenTank.png" />
     <None Remove="Content\Items\Accessories\Expert\RustedOxygenTankInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\BionomicClusterInactive.png" />
+    <None Remove="Content\Items\Accessories\Masomode\EurusSock.png" />
     <None Remove="Content\Items\Accessories\Masomode\FrigidGemstoneInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\FusedLens.png" />
     <None Remove="Content\Items\Accessories\Masomode\MysticSkullInactive.png" />

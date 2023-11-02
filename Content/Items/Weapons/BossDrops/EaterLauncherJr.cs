@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-12 / 0.7f, -2 / 0.7f);
+            return new Vector2(2, -4);
         }
         public override void HoldItem(Player player)
         {
