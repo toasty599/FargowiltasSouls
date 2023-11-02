@@ -48,9 +48,6 @@ namespace FargowiltasSouls.Content.Projectiles
             float HoldoutRangeMin = (float)projectile.Size.Length(); //(float)-tex.Size().Length() / 4 * projectile.scale; 
             Player player = Main.player[projectile.owner];
 
-            FargoSoulsGlobalProjectile globalProj = projectile.FargoSouls();
-
-
             int duration = (int)(player.itemAnimationMax / 1.5f);
             int WaitTime = player.itemAnimationMax / 5;
             player.heldProj = projectile.whoAmI;

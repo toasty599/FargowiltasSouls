@@ -180,7 +180,7 @@ namespace FargowiltasSouls.Core.Globals
                     break;
                 case NPCID.DungeonGuardian:
                     {
-                        emodeRule.OnSuccess(FargoSoulsUtil.BossBagDropCustom(ModContent.ItemType<SinisterIcon>()));
+                        emodeRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SinisterIcon>()));
                     }
                     break;
                 case NPCID.EaterofWorldsBody or NPCID.EaterofWorldsHead or NPCID.EaterofWorldsTail: //just to be sure
