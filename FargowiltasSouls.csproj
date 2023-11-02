@@ -75,6 +75,7 @@
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadBar.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadSlider.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadZone.png" />
+    <None Remove="Content\Projectiles\BossWeapons\EaterRocketJr.png" />
     <None Remove="Content\Projectiles\BossWeapons\Hungry2.png" />
     <None Remove="Content\Projectiles\ChallengerItems\EnchantedLifebladeProjectile.png" />
     <None Remove="Content\Projectiles\Minions\GladiatorStandard.png" />

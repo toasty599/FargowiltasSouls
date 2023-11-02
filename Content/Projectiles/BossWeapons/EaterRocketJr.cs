@@ -10,7 +10,6 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
     [LegacyName("EaterStaff")]
     public class EaterRocketJr : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Item_68";
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Eater Rocket");
@@ -19,8 +18,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         }
         public override void SetDefaults()
         {
-            Projectile.width = 22;
-            Projectile.height = 22;
+            Projectile.width = 19;
+            Projectile.height = 19;
+            Projectile.scale = 1f;
             Projectile.aiStyle = -1;
             AIType = -1;
             Projectile.friendly = true;
@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
             */
 
-            /*
+            
             if (Projectile.owner == Main.myPlayer)
             {
                 int max = 1;
@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                         Main.projectile[p].DamageType = DamageClass.Ranged;
                 }
             }
-            */
+            
         }
 
         public override bool PreDraw(ref Color lightColor)
