@@ -161,7 +161,13 @@ namespace FargowiltasSouls.Content.Items
 
             if (modPlayer.Berserked)
                 return true;
-
+            if (modPlayer.BoxofGizmos)
+            {
+                if (item.DamageType == DamageClass.Default && item.damage <= 0)
+                {
+                    return true;
+                }
+            }
             return base.CanAutoReuseItem(item, player);
         }
 
