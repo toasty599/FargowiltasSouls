@@ -141,11 +141,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         {
             CreateRecipe()
 
-            .AddIngredient(ModContent.ItemType<EaterStaff>())
+            .AddIngredient(ModContent.ItemType<EaterLauncherJr>())
             .AddIngredient(ModContent.ItemType<EnergizerWorm>())
             .AddIngredient(ItemID.LunarBar, 10)
 
-            .AddTile(ModContent.TileType<CrucibleCosmosSheet>())
+            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
             .Register();
         }
