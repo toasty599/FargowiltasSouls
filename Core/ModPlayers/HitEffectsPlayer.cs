@@ -54,42 +54,28 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (TungstenEnchantItem != null && proj.FargoSouls().TungstenScale != 1)
             {
-                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers, proj.DamageType);
+                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers);
             }
 
             if (HuntressEnchantActive && proj.FargoSouls().HuntressProj == 1 && target.type != NPCID.TargetDummy)
             {
                 HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
             }
+
+            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl"))
+            {
+                PearlwoodEnchant.PearlwoodCritReroll(Player, ref modifiers, proj.DamageType);
+            }
+
             ModifyHitNPCBoth(target, ref modifiers, proj.DamageType);
         }
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
-            {
-                //modifiers.FinalDamage /= 2;
+            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl")) {
+                PearlwoodEnchant.PearlwoodCritReroll(Player, ref modifiers, item.DamageType);
             }
-            /*
-            if (Hexed || (ReverseManaFlow && item.CountsAsClass(DamageClass.Magic)))
-            {
-                modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
-                {
-                    target.life += hitInfo.Damage;
-                    target.HealEffect(hitInfo.Damage);
 
-                    if (target.life > target.lifeMax)
-                    {
-                        target.life = target.lifeMax;
-                    }
-                    
-                    hitInfo.Null();
-                };
-
-                return;
-
-            }
-            */
             if (SqueakyToy)
             {
                 modifiers.SetMaxDamage(1);
@@ -105,7 +91,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (TungstenEnchantItem != null && Toggler != null && Player.GetToggleValue("Tungsten")
                 && (ForceEffect(TungstenEnchantItem.type) || item.shoot == ProjectileID.None))
             {
-                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers, item.DamageType);
+                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers);
             }
 
             ModifyHitNPCBoth(target, ref modifiers, item.DamageType);
@@ -223,11 +209,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 Player.beetleCounter += hitInfo.Damage;
             }
-
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.FargoSouls().noInteractionWithNPCImmunityFrames))
-            {
-                PearlwoodEnchant.PearlwoodStarDrop(this, target, GetBaseDamage());
-            }
             /*
             if (BeeEnchantItem != null && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
                 && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity && !projectile.usesIDStaticNPCImmunity && projectile.owner == Main.myPlayer)))
@@ -256,6 +237,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (PalladEnchantItem != null && !Player.onHitRegen)
             {
                 Player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
+            }
+
+            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && hitInfo.Crit)
+            {
+                SoundEngine.PlaySound(SoundID.Item25, target.position);
+                for (int i = 0; i < 30; i++) { //idk how to make dust look good (3)
+                    Dust.NewDust(target.position, target.width, target.height, DustID.YellowStarDust); 
+                }
             }
 
             bool wetCheck = target.HasBuff(BuffID.Wet) && Main.rand.NextBool(4);
