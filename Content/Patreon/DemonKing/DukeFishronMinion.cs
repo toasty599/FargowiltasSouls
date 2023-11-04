@@ -302,7 +302,7 @@ namespace FargowiltasSouls.Content.Patreon.DemonKing
             vel.Normalize();
             vel *= speed;
             int type = ModContent.ProjectileType<RazorbladeTyphoonFriendly2>();
-            int dmg = Projectile.damage / 10;
+            int dmg = (int)(Projectile.damage / 3.6f);
             for (int i = 0; i < max; i++)
             {
                 vel = vel.RotatedBy(rotation);

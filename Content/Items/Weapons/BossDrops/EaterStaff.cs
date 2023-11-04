@@ -9,15 +9,14 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
+    
     public class EaterStaff : SoulsItem
     {
+        public override bool IsLoadingEnabled(Mod mod) => false;
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             // DisplayName.SetDefault("Eater of Worlds Staff");
-            /* Tooltip.SetDefault(
-                @"Summons 4 segments for each minion slot
-'An old foe beaten into submission..'"); */
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "世界吞噬者法杖");
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
             //@"一个被迫屈服的老对手..
@@ -111,4 +110,5 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
             return false;
         }
     }
+
 }

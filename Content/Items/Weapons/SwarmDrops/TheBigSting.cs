@@ -25,12 +25,12 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 222;
             Item.DamageType = DamageClass.Ranged;
-            Item.width = 24;
-            Item.height = 24;
-            Item.useTime = 6;
-            Item.useAnimation = 6;
+            Item.width = 22;
+            Item.height = 22;
+            Item.damage = 22 * 22 * 3;
+            Item.useTime = 22 * 2;
+            Item.useAnimation = 22 * 2;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 2.2f;
@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 
         }
 
-        public override Vector2? HoldoutOffset() => new Vector2(-10, 0);
+        public override Vector2? HoldoutOffset() => new Vector2(-30, 0);
 
         public override bool CanConsumeAmmo(Item ammo, Player player) => Main.rand.NextBool(3);
 

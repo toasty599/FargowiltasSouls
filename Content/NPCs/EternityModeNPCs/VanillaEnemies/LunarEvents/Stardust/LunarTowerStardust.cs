@@ -25,15 +25,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             new NPCMatcher().MatchType(NPCID.LunarTowerStardust);
 
         public LunarTowerStardust() : base(ModContent.BuffType<AntisocialBuff>(), 20) { }
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-            if (!WorldSavingSystem.EternityMode)
-            {
-                return;
-            }
+        public override int MaxHP => 20000;
+        public override int Damage => 0;
 
-        }
         List<int> DragonParts = new List<int>
                 {
                     NPCID.CultistDragonHead,

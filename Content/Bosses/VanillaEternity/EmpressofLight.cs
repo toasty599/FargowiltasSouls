@@ -79,7 +79,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<PurgedBuff>(), 2);
 
             bool useP2Attacks = npc.ai[3] != 0 || WorldSavingSystem.MasochistModeReal;
-
             switch ((int)npc.ai[0])
             {
                 //0 spawn

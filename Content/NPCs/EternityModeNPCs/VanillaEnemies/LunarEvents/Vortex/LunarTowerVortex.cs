@@ -22,16 +22,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             new NPCMatcher().MatchType(NPCID.LunarTowerVortex);
 
         public LunarTowerVortex() : base(ModContent.BuffType<JammedBuff>(), DustID.Vortex) { }
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-            if (!WorldSavingSystem.EternityMode)
-            {
-                return;
-            }
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
-            npc.damage = (int)Math.Round(npc.damage * 0.9f);
-        }
+        public override int MaxHP => 80000;
+        public override int Damage => 80;
         public enum Attacks
         {
             Idle,
