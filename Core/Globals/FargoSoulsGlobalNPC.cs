@@ -1123,20 +1123,6 @@ namespace FargowiltasSouls.Core.Globals
             return true;
         }
 
-        public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
-        {
-            if (Corrupted || CorruptedForce)
-            {
-                modifiers.FinalDamage *= 0.8f;
-            }
-
-            if (target.HasBuff(ModContent.BuffType<ShellHideBuff>()))
-                modifiers.FinalDamage *= 2;
-
-            if (BloodDrinker)
-                modifiers.FinalDamage *= 1.3f;
-        }
-
         public override void ModifyHitNPC(NPC npc, NPC target, ref NPC.HitModifiers modifiers)
         {
             Player player = Main.player[Main.myPlayer];

@@ -47,10 +47,10 @@ This has a cooldown of 10 seconds during which you cannot gain shards
             }
         }
 
-        public static void TryTitaniumDR(FargoSoulsPlayer modPlayer, Entity attacker)
+        public static float TitaniumDR(FargoSoulsPlayer modPlayer, Entity attacker)
         {
             if (!modPlayer.TitaniumDRBuff)
-                return;
+                return 0;
 
             Player player = modPlayer.Player;
 
@@ -62,8 +62,9 @@ This has a cooldown of 10 seconds during which you cannot gain shards
             {
                 float diff = 1f - player.endurance;
                 diff *= modPlayer.ForceEffect(modPlayer.TitaniumEnchantItem.type) ? 0.35f : 0.25f;
-                player.endurance += diff;
+                return diff;
             }
+            return 0;
         }
 
         public static void TitaniumShards(FargoSoulsPlayer modPlayer, Player player)

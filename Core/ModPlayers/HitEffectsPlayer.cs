@@ -19,6 +19,8 @@ using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs;
 using Terraria.WorldBuilding;
 using Terraria.Audio;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -502,45 +504,66 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             OnHitNPCEither(target, hit, item.DamageType, item: item);
         }
-
+        private void ApplyDR(Player player, float dr, ref Player.HurtModifiers modifiers)
+        {
+            float DRCap = 0.75f;
+            player.endurance += dr;
+            if (WorldSavingSystem.EternityMode)
+            {
+                if (Player.endurance > DRCap)
+                {
+                    player.endurance = DRCap;
+                }
+            }
+        }
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            if (NecromanticBrewItem != null && IsInADashState)
-            {
-                modifiers.FinalDamage /= 4;
-            }
+            float dr = 0;
+            dr += NecromanticBrew.NecroBrewDashDR(Player);
 
-            TitaniumEnchant.TryTitaniumDR(this, npc);
+            dr += TitaniumEnchant.TitaniumDR(this, npc);
 
+            if (npc.FargoSouls().Corrupted || npc.FargoSouls().CorruptedForce)
+                dr += 0.2f;
+
+            if (npc.FargoSouls().BloodDrinker)
+                dr -= 0.3f;
+
+            if (Player.HasBuff(ModContent.BuffType<ShellHideBuff>()))
+                dr -= 1;
 
             if (Smite)
-                modifiers.FinalDamage *= 1.2f;
+                dr -= 0.2f;
 
             if (npc.coldDamage && Hypothermia)
-                modifiers.FinalDamage *= 1.2f;
+                dr -= 0.2f;
 
             if (npc.FargoSouls().CurseoftheMoon)
-                modifiers.FinalDamage *= 0.8f;
+                dr += 0.2f;
+
+            ApplyDR(Player, dr, ref modifiers);
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
+            float dr = 0;
             if (GroundStick)
             {
-                GroundStickCheck(proj, ref modifiers);
+                dr += GroundStickDR(proj, ref modifiers);
             }
 
-            TitaniumEnchant.TryTitaniumDR(this, proj);
+            dr += NecromanticBrew.NecroBrewDashDR(Player);
+
+            dr += TitaniumEnchant.TitaniumDR(this, proj);
 
 
             if (Smite)
-                modifiers.FinalDamage *= 1.2f;
+                dr -= 0.2f;
 
             if (proj.coldDamage && Hypothermia)
-                modifiers.FinalDamage *= 1.2f;
+                dr -= 0.2f;
 
-            //if (npc.FargoSouls().CurseoftheMoon)
-            //damage = (int)(damage * 0.8);
+            ApplyDR(Player, dr, ref modifiers);
         }
 
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

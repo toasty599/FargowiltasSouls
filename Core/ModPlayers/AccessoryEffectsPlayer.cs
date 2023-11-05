@@ -1955,10 +1955,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             ProjectileID.DD2LightningBugZap
         };
 
-        public void GroundStickCheck(Projectile proj, ref Player.HurtModifiers modifiers)
+        public float GroundStickDR(Projectile proj, ref Player.HurtModifiers modifiers)
         {
+            float dr = 0;
             if (!Player.GetToggleValue("MasoLightning"))
-                return;
+                return dr;
 
             bool electricAttack = false;
 
@@ -1985,7 +1986,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (electricAttack && Player.whoAmI == Main.myPlayer && !Player.HasBuff(ModContent.BuffType<SuperchargedBuff>()))
             {
-                modifiers.FinalDamage /= 2;
+                dr = 0.5f;
 
                 Player.AddBuff(ModContent.BuffType<SuperchargedBuff>(), 60 * 30);
 
@@ -2036,6 +2037,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Main.dust[d].position = Player.Center;
                 }
             }
+            return dr;
         }
 
         public void DeerclawpsAttack(Vector2 pos)
