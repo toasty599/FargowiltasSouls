@@ -68,7 +68,7 @@ Mods: {
 			Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 10% to 15%
 			Tiki: Increases whip range by 20%
 			Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
-			Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
+			Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 35%
 			Tungsten: Weapon size tripled instead of doubled, damage bonus increased from 7% to 14%, and cooldown reduced
 			Turtle: Occasionally recover a projectile block point, number of needles and damage increased
 			ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
@@ -2560,7 +2560,7 @@ Mods: {
 				Tooltip:
 					'''
 					Attacking generates a defensive barrier of up to 20 titanium shards
-					When you reach the maximum amount, you gain resistance to most debuffs on hit and 50% damage resistance against contact damage and projectiles in close range
+					When you reach the maximum amount, you gain resistance to most debuffs on hit and 25% damage resistance against contact damage and projectiles in close range
 					This has a cooldown of 10 seconds during which you cannot gain shards
 					'The power of titanium in the palm of your hand'
 					'''

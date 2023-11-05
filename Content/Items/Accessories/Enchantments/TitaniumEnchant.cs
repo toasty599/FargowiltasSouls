@@ -61,7 +61,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
             if (canUseDR)
             {
                 float diff = 1f - player.endurance;
-                diff *= modPlayer.ForceEffect(modPlayer.TitaniumEnchantItem.type) ? 0.75f : 0.5f;
+                diff *= modPlayer.ForceEffect(modPlayer.TitaniumEnchantItem.type) ? 0.35f : 0.25f;
                 player.endurance += diff;
             }
         }
