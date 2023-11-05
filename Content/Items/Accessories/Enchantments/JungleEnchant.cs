@@ -50,9 +50,7 @@ Double tap a direction
             .AddIngredient(ItemID.JungleShirt)
             .AddIngredient(ItemID.JunglePants)
             .AddIngredient(ItemID.ThornChakram)
-            .AddIngredient(ItemID.JungleYoyo)
-            //snapthorn
-            //staff of regrowth
+            .AddIngredient(ItemID.IvyWhip)
             .AddIngredient(ItemID.JungleRose)
             //.AddIngredient(ItemID.Buggy);
             //panda pet
