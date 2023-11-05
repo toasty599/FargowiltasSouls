@@ -12,7 +12,7 @@ using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Nebula
 {
-	public class LunarTowerNebula : LunarTowers
+    public class LunarTowerNebula : LunarTowers
     {
         public override int ShieldStrength
         {
@@ -24,16 +24,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             new NPCMatcher().MatchType(NPCID.LunarTowerNebula);
 
         public LunarTowerNebula() : base(ModContent.BuffType<ReverseManaFlowBuff>(), 58) { }
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-            if (!WorldSavingSystem.EternityMode)
-            {
-                return;
-            }
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 3f);
-            npc.damage = 95;
-        }
+
+        public override int MaxHP => 60000;
+        public override int Damage => 80;
         public enum Attacks
         {
             Idle,

@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Misc
             Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item61;
             Item.autoReuse = true;
-            Item.shoot = Item.shoot = ModContent.ProjectileType<AcornProjectile>();
+            Item.shoot = ModContent.ProjectileType<AcornProjectile>();
             Item.shootSpeed = 18f;
             Item.useAmmo = ItemID.Acorn;
         }

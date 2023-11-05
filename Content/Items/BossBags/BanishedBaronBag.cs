@@ -9,8 +9,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
 {
 	public class BanishedBaronBag : BossBag
     {
-        protected override bool IsPreHMBag => false;
-
+        protected override bool IsPreHMBag => true; //so it doesn't drop dev sets
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<RustedOxygenTank>()));

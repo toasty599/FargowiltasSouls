@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items
     {
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.Acorn || item.type == ItemID.Bone)
+            if (item.type == ItemID.Acorn || item.type == ItemID.Bone || item.type == ItemID.RottenChunk)
             {
                 item.ammo = item.type;
             }
@@ -161,7 +161,13 @@ namespace FargowiltasSouls.Content.Items
 
             if (modPlayer.Berserked)
                 return true;
-
+            if (modPlayer.BoxofGizmos)
+            {
+                if (item.DamageType == DamageClass.Default && item.damage <= 0)
+                {
+                    return true;
+                }
+            }
             return base.CanAutoReuseItem(item, player);
         }
 

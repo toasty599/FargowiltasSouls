@@ -76,6 +76,9 @@ namespace FargowiltasSouls.Content.Projectiles
 
         private bool firstTick = true;
         private readonly bool squeakyToy = false;
+
+
+
         public const int TimeFreezeMoveDuration = 10;
         public int TimeFrozen = 0;
         public bool TimeFreezeImmune;

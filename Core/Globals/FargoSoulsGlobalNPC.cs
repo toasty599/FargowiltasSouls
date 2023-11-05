@@ -969,7 +969,7 @@ namespace FargowiltasSouls.Core.Globals
                 case NPCID.EaterofWorldsTail:
                     {
                         LeadingConditionRule lastEater = new(new Conditions.LegacyHack_IsABoss());
-                        lastEater.OnSuccess(BossDrop(ModContent.ItemType<EaterStaff>()));
+                        lastEater.OnSuccess(BossDrop(ModContent.ItemType<EaterLauncherJr>()));
                         npcLoot.Add(lastEater);
                     }
                     break;

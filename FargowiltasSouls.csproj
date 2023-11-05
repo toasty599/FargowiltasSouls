@@ -28,6 +28,7 @@
     <None Remove="Assets\UI\ForgorMenuLogo.png" />
     <None Remove="Assets\UI\MenuLogo.png" />
     <None Remove="changelog.txt" />
+    <None Remove="Content\Bosses\AbomBoss\AbomSwordFire.png" />
     <None Remove="Content\Bosses\BanishedBaron\BaronWhirlpool.png" />
     <None Remove="Content\Bosses\Champions\Cosmos\CosmosChampion_Still.png" />
     <None Remove="Content\Bosses\Lifelight\LifeBomb.png" />
@@ -41,6 +42,7 @@
     <None Remove="Content\Items\Accessories\Expert\RustedOxygenTank.png" />
     <None Remove="Content\Items\Accessories\Expert\RustedOxygenTankInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\BionomicClusterInactive.png" />
+    <None Remove="Content\Items\Accessories\Masomode\EurusSock.png" />
     <None Remove="Content\Items\Accessories\Masomode\FrigidGemstoneInactive.png" />
     <None Remove="Content\Items\Accessories\Masomode\FusedLens.png" />
     <None Remove="Content\Items\Accessories\Masomode\MysticSkullInactive.png" />
@@ -59,6 +61,8 @@
     <None Remove="Content\Items\Weapons\Challengers\NavalRustrifle.png" />
     <None Remove="Content\Items\Weapons\Challengers\RoseTintedVisor.png" />
     <None Remove="Content\Items\Weapons\Challengers\TheBaronsTusk.png" />
+    <None Remove="Content\Items\Weapons\SwarmDrops\EaterLauncherJr.png" />
+    <None Remove="Content\Items\Weapons\SwarmDrops\TheBigSting.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinion.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Stardust\StardustMinionOld.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\VanillaEnemies\LunarEvents\Vortex\LightningTelegraph.png" />
@@ -72,6 +76,7 @@
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadBar.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadSlider.png" />
     <None Remove="Content\PlayerDrawLayers\RustrifleReloadZone.png" />
+    <None Remove="Content\Projectiles\BossWeapons\EaterRocketJr.png" />
     <None Remove="Content\Projectiles\BossWeapons\Hungry2.png" />
     <None Remove="Content\Projectiles\ChallengerItems\EnchantedLifebladeProjectile.png" />
     <None Remove="Content\Projectiles\Minions\GladiatorStandard.png" />
