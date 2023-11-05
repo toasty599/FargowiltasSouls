@@ -10,11 +10,35 @@ using Microsoft.CodeAnalysis;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Content.Projectiles;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.Items
 {
 	public class EModeGlobalItem : GlobalItem
     {
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            base.ModifyTooltips(item, tooltips);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
+            if (item.prefix >= PrefixID.Hard && item.prefix <= PrefixID.Warding)
+            {
+                int life = 5;
+                foreach (TooltipLine tooltip in tooltips)
+                {
+                    if (tooltip.Name == "PrefixAccDefense")
+                    {
+                        List<char> text = tooltip.Text.ToList();
+                        text[1] = (char)((int)text[1] - 1);
+                        tooltip.Text = new string(text.ToArray());
+                        tooltip.Text += $"\n+{life} max life";
+                    }
+                }
+            }
+        }
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
             if (!WorldSavingSystem.EternityMode)
@@ -24,6 +48,22 @@ namespace FargowiltasSouls.Content.Items
             //{
             //    damage -= (int)Math.Round(ammo.damage * player.GetDamage(DamageClass.Ranged).Additive * 0.5, MidpointRounding.AwayFromZero); //always round up
             //}
+        }
+        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+            base.UpdateAccessory(item, player, hideVisual);
+            if (!WorldSavingSystem.EternityMode)
+            {
+                return;
+            }
+            if (item.prefix >= PrefixID.Hard && item.prefix <= PrefixID.Warding)
+            {
+                if (!Main.hardMode)
+                {
+                    player.statDefense -= 1;
+                }
+                player.statLifeMax2 += 5;
+            }
         }
         public override void HoldItem(Item item, Player player)
         {
@@ -185,7 +225,7 @@ namespace FargowiltasSouls.Content.Items
                 case ItemID.CobaltSword:
                     if (ePlayer.CobaltHitCounter < 2) //only twice per swing
                     {
-                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
+                        Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_OnHit(target), target.position + Vector2.UnitX * Main.rand.Next(target.width) + Vector2.UnitY * Main.rand.Next(target.height), Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), hit.Damage / 2, 0f, Main.myPlayer);
                         if (p != null)
                             p.FargoSouls().CanSplit = false;
                         ePlayer.CobaltHitCounter++;

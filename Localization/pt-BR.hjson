@@ -68,7 +68,7 @@ Mods: {
 			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 10% to 15%
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
-			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
+			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 35%
 			// Tungsten: Weapon size tripled instead of doubled, damage bonus increased from 7% to 14%, and cooldown reduced
 			// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
 			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
@@ -1036,6 +1036,7 @@ Mods: {
 			MoonsWaves: Morrer diminui o progresso da onda
 			WhipSpeed: Não se beneficia de bônus de velocidade do ataque físico
 			WhipStack: Efeitos e efeitos negativos de chicote não podem acumular
+			// DefensePrefix: Adjusted prefix stats: reduced defense before Hardmode, +5 max life
 			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: O dano dos lacaios diminui ao invocar mais de 3 cópias (o limite do efeito é 12)
 			SummonMulticlass: O dano por lacaios diminui quando você ataca usando outras classes (exceto no EdA)
