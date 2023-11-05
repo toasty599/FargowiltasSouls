@@ -922,21 +922,45 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         //p.Position -= p.Velocity * 4; //implosion
                     }
                 }
-
-                if (AI_Timer == 180f)
+                const int MineAmount = 100;
+                if (AI_Timer <= 180 && AI_Timer > 180 - MineAmount)
                 {
                     //mine explosion
-                    const int MineAmount = 90;
+                    int bombwidth = 22;
                     if (FargoSoulsUtil.HostCheck)
                     {
-                        for (int i = 0; i < MineAmount; i++)
+                        int bombType = ModContent.ProjectileType<LifeTransitionBomb>();
+                        //for (int i = 0; i < MineAmount; i++)
+                        //{
+                        int i = (int)(AI_Timer - (180 - MineAmount));
+                        Vector2 FindPos()
                         {
-                            float rotation = (i / 64f) * MathHelper.TwoPi;
-                            float distance = Main.rand.NextFloat(NPC.width / 3f, 1200);
-                            Vector2 pos = NPC.Center + (rotation.ToRotationVector2() * distance);
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<LifeTransitionBomb>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, pos.X, pos.Y);
+                            float rotation = ((float)i / MineAmount) * MathHelper.TwoPi;
+                            float distFrac = Main.rand.NextFloat(1);
+                            float modifier = (float)Math.Sin(MathHelper.TwoPi * i / 8f) * 0.3f + 0.9f;
+                            distFrac = (float)Math.Pow(distFrac, modifier);
+                            float min = NPC.width / 3f;
+                            float max = 1200;
+                            float distance = MathHelper.Lerp(min, max, distFrac);
+                            return NPC.Center + (rotation.ToRotationVector2() * distance);
                         }
+                        Vector2 pos = FindPos();
+                        const int maxAttempts = 30;
+                        for (int attempt = 0; attempt < maxAttempts; attempt++)
+                        {
+                            pos = FindPos();
+                            if (!Main.projectile.Any(p => p.active && p.type == bombType && (Vector2.UnitX * p.ai[1] + Vector2.UnitY * p.ai[2]).Distance(pos) < bombwidth * 1.2f))
+                            {
+                                break;
+                            }
+                        }
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, bombType, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, 0, pos.X, pos.Y);
+                        //}
                     }
+                }
+                if (AI_Timer == 180f)
+                {
+                    
                     SoundEngine.PlaySound(SoundID.Item92 with { Pitch = -0.5f }, NPC.Center);
 
                     if (!Main.dedServ)
@@ -1055,7 +1079,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     DoAura = WorldSavingSystem.MasochistModeReal;
 
                 }
-                if (LaserTimer > endTime && PyramidPhase == 1) //after shell crack animation
+                if (LaserTimer > endTime && PyramidPhase == 0) //after shell crack animation
                 {
                     P1state = 0;
                     
