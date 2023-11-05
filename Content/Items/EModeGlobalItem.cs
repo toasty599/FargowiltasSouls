@@ -31,9 +31,13 @@ namespace FargowiltasSouls.Content.Items
                 {
                     if (tooltip.Name == "PrefixAccDefense")
                     {
-                        List<char> text = tooltip.Text.ToList();
-                        text[1] = (char)((int)text[1] - 1);
-                        tooltip.Text = new string(text.ToArray());
+                        if (!Main.hardMode)
+                        {
+                            List<char> text = tooltip.Text.ToList();
+                            text[1] = (char)((int)text[1] - 1);
+                            tooltip.Text = new string(text.ToArray());
+                        }
+                        
                         tooltip.Text += $"\n+{life} max life";
                     }
                 }
