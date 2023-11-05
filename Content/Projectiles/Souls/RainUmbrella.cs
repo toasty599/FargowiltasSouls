@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             if (modPlayer.ForceEffect(modPlayer.RainEnchantItem.type))
             {
-                hp = 1000;
+                hp = 400;
             }
 
             return hp;

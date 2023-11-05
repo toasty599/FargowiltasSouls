@@ -1884,7 +1884,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+				// Description: +5% damage reduction, +5% damage, knockback immunity, improved spear rain
 			}
 
 			ROBBuff: {
