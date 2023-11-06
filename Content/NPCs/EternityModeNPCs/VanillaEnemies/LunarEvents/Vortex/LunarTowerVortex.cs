@@ -66,7 +66,17 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             else
             {
                 if (Attack == (int)Attacks.VortexVortex)
+                {
                     EndAttack(npc);
+                    if (Vortex.IsWithinBounds(Main.maxProjectiles))
+                    {
+                        if (Main.projectile[Vortex].active)
+                        {
+                            Main.projectile[Vortex].Kill();
+                        }
+                    }
+                }
+                    
             }
         }
         #region Attacks
@@ -96,7 +106,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     }
                         
                 }
-                if (Vortex > -1 && Vortex < Main.maxNPCs)
+                if (Vortex.IsWithinBounds(Main.maxProjectiles))
                 {
                     if (Main.projectile[Vortex].active)
                     {
