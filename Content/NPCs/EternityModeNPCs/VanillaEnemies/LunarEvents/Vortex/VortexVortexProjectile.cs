@@ -123,5 +123,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             Projectile.rotation += Rotate;
             Timer++;
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor);
+            return false;
+        }
     }
 }

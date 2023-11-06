@@ -63,6 +63,11 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         break;
                 }
             }
+            else
+            {
+                if (Attack == (int)Attacks.VortexVortex)
+                    EndAttack(npc);
+            }
         }
         #region Attacks
         private int Vortex = -1;
