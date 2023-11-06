@@ -172,6 +172,10 @@ namespace FargowiltasSouls.Content.Projectiles
                     ProjectileID.Sets.MinionShot[projectile.type] = true;
                     break;
 
+                case ProjectileID.MechanicalPiranha:
+                    NinjaCanSpeedup = false;
+                    break;
+
                 case ProjectileID.SpiderEgg:
                 case ProjectileID.BabySpider:
                 case ProjectileID.FrostBlastFriendly:
