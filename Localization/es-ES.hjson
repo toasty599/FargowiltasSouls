@@ -2962,15 +2962,13 @@ Mods: {
 				// DisplayName: Chalice of the Moon
 				/* Tooltip:
 					'''
-					Grants immunity to Venom, Ivy Venom, Burning, Fused, Low Ground, and Marked for Death
-					Grants immunity to Swarming, Atrophied, Jammed, Reverse Mana Flow, and Antisocial
-					Press the Magical Cleanse key to cure yourself of most debuffs
-					Increases life regeneration based on how much light you receive
-					Double tap DOWN in the air to fastfall
-					Fastfall will create a fiery eruption on impact after falling a certain distance
-					When you land after a jump, you create a burst of boulders
-					You fire additional attacks depending on weapon type and erupt into Ancient Visions when injured
-					Summons a friendly Cultist and plant to fight at your side
+					[i:FargowiltasSouls/ChaliceoftheMoon] Grants immunity to Swarming, Atrophied, Jammed, Reverse Mana Flow, and Antisocial
+					Grants immunity to [i:FargowiltasSouls/MagicalBulb] Venom, Ivy Venom, [i:FargowiltasSouls/LihzahrdTreasureBox] Burning, Fused, Low Ground, [i:FargowiltasSouls/CelestialRune] and Marked for Death
+					[i:FargowiltasSouls/MagicalBulb] Press the Magical Cleanse key to cure yourself of most debuffs
+					[i:FargowiltasSouls/MagicalBulb] Increases life regeneration based on how much light you receive
+					[i:FargowiltasSouls/LihzahrdTreasureBox] Double tap DOWN in the air to fastfall, creating an explosion on landing after falling a certain distance
+					[i:FargowiltasSouls/ChaliceoftheMoon] You fire additional attacks depending on weapon type and erupt into Ancient Visions when injured
+					Summons a friendly [i:FargowiltasSouls/ChaliceoftheMoon] Cultist and [i:FargowiltasSouls/MagicalBulb] plant to fight at your side
 					'Consume it'
 					''' */
 			}
@@ -3134,20 +3132,19 @@ Mods: {
 				// DisplayName: Heart of the Master
 				/* Tooltip:
 					'''
-					Grants immunity to Living Wasteland, Hypothermia, Oozed, Withered Weapon, and Withered Armor
-					Grants immunity to Feral Bite, Mutant Nibble, Flipped, Unstable, Distorted, and Curse of the Moon
-					Grants immunity to Wet, Electrified, Oceanic Maul, Smite, Moon Leech, Nullification Curse, and water debuffs
-					Increases damage and critical strike chance by 10% and increases damage reduction by 5%
-					Increases flight time by 100%
-					Right Click to guard with your cape
-					Press the Special Dash key to perform a short invincible fireball dash
-					Press the Ammo Cycle key to cycle ammos (this effect works passively from inventory)
-					Grants effects of Wet debuff while riding Cute Fishron and gravity control
-					Submerging in water refreshes flight time and gives you improved speed and increased max flight time
-					Graze attacks to gain a bomb that will freeze almost all enemies and projectiles
-					Reduces your hurtbox size for projectiles
-					Hold the Precision Seal key to disable dashes and double jumps
-					Summons a friendly Mini Saucer and true eyes of Cthulhu
+					Grants immunity to [i:FargowiltasSouls/PumpkingsCape] Living Wasteland, [i:FargowiltasSouls/IceQueensCrown] Hypothermia, [i:FargowiltasSouls/SaucerControlConsole] Electrified, Distorted, [i:FargowiltasSouls/BetsysHeart] Oozed, Withered Weapon, Withered Armor, 
+					[i:FargowiltasSouls/MutantAntibodies] Wet, Feral Bite, Mutant Nibble, Oceanic Maul, water debuffs, [i:FargowiltasSouls/PrecisionSeal] Smite, [i:FargowiltasSouls/GalacticGlobe] Nullification Curse, Flipped, Unstable, and Curse of the Moon	
+					[i:FargowiltasSouls/PumpkingsCape] [i:FargowiltasSouls/MutantAntibodies] [i:FargowiltasSouls/IceQueensCrown] Increases damage and crit chance by 10%, current class damage by 20%, and damage reduction by 5%
+					[i:FargowiltasSouls/PumpkingsCape] Right Click to guard and parry attacks. Parries heali you based on damage. While guarding, gain an aura of Rotting
+					[i:FargowiltasSouls/IceQueensCrown] Graze attacks to charge up a bomb. When it's charged, press Bomb Key to freeze all projectiles and enemies for a short time.
+					[i:FargowiltasSouls/SaucerControlConsole] Summons a friendly Mini Saucer which slows enemies it hits
+					[i:FargowiltasSouls/BetsysHeart] Press the Special Dash key to perform a short invincible fireball dash which inflicts Betsy's Curse
+					[i:FargowiltasSouls/MutantAntibodies] Submerging yourself in water refreshes your flight time, and gives improved speed and max flight time
+					[i:FargowiltasSouls/MutantAntibodies] Riding Cute Fishron gives you the Wet debuff
+					[i:FargowiltasSouls/PrecisionSeal] Hold Precision Seal key to disable dashes and double jumps, and show your hurtbox
+					[i:FargowiltasSouls/PrecisionSeal] Decreases hurtbox for projectiles, even when it isnt shown
+					[i:FargowiltasSouls/GalacticGlobe] Allows you to control gravity, increases flight time, and summons mini True Eyes of Cthulhu
+					[i:FargowiltasSouls/SaucerControlConsole] Press Ammo Cycle key to cycle ammos (works passively in inventory)
 					'Warm, beating, and no body needed'
 					''' */
 			}
@@ -3179,16 +3176,14 @@ Mods: {
 				// DisplayName: Lump of Flesh
 				/* Tooltip:
 					'''
-					Grants immunity to knockback, Anticoagulation, Blackout, Obstructed, Dazed, Slow, and Frozen
-					Increases damage dealt by 15%
-					Increases spawn rate of rare enemies
-					Your cursor causes nearby enemies to take increased damage
-					Effect intensifies the longer you track them
-					Right Click to parry attacks with extremely tight timing
-					Defense and damage reduction drastically decreased while and shortly after guarding
-					Dashing leaves a trail of blood spikes
-					The pungent eyeball charges energy to fire a laser as you attack
-					Enemies are less likely to target you
+					Grants immunity to [i:FargowiltasSouls/DreadShell] knockback, Anticoagulation, [i:FargowiltasSouls/PungentEyeball] Blackout, Obstructed, [i:FargowiltasSouls/SkullCharm] Dazed, [i:FargowiltasSouls/Deerclawps] Slow, and Frozen
+					[i:FargowiltasSouls/PungentEyeball] Your cursor causes nearby enemies to take up to 15% increased damage
+					[i:FargowiltasSouls/PungentEyeball] Massively increases spawn rate of rare enemies
+					[i:FargowiltasSouls/SkullCharm] Increases damage dealt by 15%, and gives you an eyeball minion which charges up as you attack
+					[i:FargowiltasSouls/SkullCharm] Enemies are less likely to target you
+					[i:FargowiltasSouls/DreadShell] Right Click to parry, blocking 200 damage and dealing a massive counterattack if it lands
+					[i:FargowiltasSouls/DreadShell] Defense and damage reduction drastically decreased while and shortly after guarding
+					[i:FargowiltasSouls/Deerclawps] Dashing leaves a trail of blood spikes
 					'It's growing'
 					''' */
 			}
@@ -5618,10 +5613,10 @@ Mods: {
 			// CultistFireballHoming.DisplayName: Mods.FargowiltasSouls.Projectiles.CultistFireballHoming.DisplayName
 			// CuresedFlameHostile2.DisplayName: Mods.FargowiltasSouls.Projectiles.CuresedFlameHostile2.DisplayName
 			// CursedFlamethrower.DisplayName: Eye Fire
-			// DarkStar.DisplayName: Electric Star
-			// DarkStarDestroyer.DisplayName: Electric Star
-			// DarkStarHoming.DisplayName: Electric Star
-			// DarkStarTwins.DisplayName: Electric Star
+			// DarkStar.DisplayName: Dark Star
+			// DarkStarDestroyer.DisplayName: Dark Star
+			// DarkStarHoming.DisplayName: Dark Star
+			// DarkStarTwins.DisplayName: Dark Star
 			// DeathSkull.DisplayName: Death Skull
 			// DeerclopsHand.DisplayName: Shadow Hand
 			// DestroyerLaser.DisplayName: Death Laser

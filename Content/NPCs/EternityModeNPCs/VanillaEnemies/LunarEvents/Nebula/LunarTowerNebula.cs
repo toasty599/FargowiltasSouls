@@ -117,10 +117,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (AttackTimer == 1 && FargoSoulsUtil.HostCheck)
                 {
                     int randReal = Main.rand.Next(4);
+                    float rand = Main.rand.NextFloat();
                     for (int i = 0; i < 4; i++)
                     {
+                        float num = i + rand;
                         int fake = randReal == i ? 0 : 1;
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<NebulaPillarProj>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage * 2), 3f, Main.myPlayer, i, fake, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<NebulaPillarProj>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage * 2), 3f, Main.myPlayer, num, fake, npc.whoAmI);
                     }
                 }
             }
@@ -311,8 +313,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                             if (AttackTimer == Attack2)
                                 degOff += 0.5f;
                             Vector2 posOffset = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * (float)degOff / CircleProjs);
-                            posOffset *= 800;
-                            int speed = Main.rand.Next(6, 8);
+                            posOffset *= 1300;
+                            float speed = Main.rand.NextFloat(5f, 6f);
                             Vector2 pos = player.Center + posOffset;
                             Vector2 vel = pos.DirectionTo(player.Center) * speed;
                             Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<PillarNebulaBlaze>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, 0.03f, ai2: npc.whoAmI);
