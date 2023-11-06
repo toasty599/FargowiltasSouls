@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             }
 
 
-            modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex] = player.position; //set position of stareline next cycle
+            modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex] = player.Center; //set position of stareline next cycle
 
             modPlayer.PearlwoodIndex++; //read next in array
             if (modPlayer.PearlwoodIndex >= modPlayer.PearlwoodTrail.Length) { modPlayer.PearlwoodIndex = 0; } //loop around
