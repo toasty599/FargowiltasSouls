@@ -2356,7 +2356,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         ++num;
                     if (Main.rand.NextBool(9))
                         ++num;
-                    int dam = PureHeart ? 38 : 18;
+                    int dam = PureHeart ? 45 : 18;
                     if (MasochistSoul)
                         dam *= 2;
                     for (int index = 0; index < num; ++index)
