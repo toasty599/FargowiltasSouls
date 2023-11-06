@@ -2901,24 +2901,22 @@ Mods: {
 				// DisplayName: Bionomic Cluster
 				/* Tooltip:
 					'''
-					Grants immunity to Frostburn, Shadowflame, and Squeaky Toy
-					Grants immunity to Flames of the Universe, Clipped Wings, Crippled, Webbed, and Purified
-					Grants immunity to Lovestruck, Stinky, Midas, and Hexed
-					Use to teleport to your last death point
-					Your attacks can inflict Clipped Wings and produce hearts
-					Attacks have a chance to squeak and deal 1 damage to you
-					While attacking, gain massively increased damage and shadowflame, but less move and defenses and attack speed bonuses
-					Summons a friendly rainbow slime
-					Certain enemies will drop potions when defeated
-					When attacking by manually clicking, increases non-summon damage by 30%
+					Grants immunity to [i:FargowiltasSouls/FrigidGemstone] Frostburn, [i:FargowiltasSouls/WretchedPouch] Shadowflame, [i:FargowiltasSouls/SqueakyToy] Squeaky Toy, [i:FargowiltasSouls/ConcentratedRainbowMatter] Flames of the Universe, 
+					[i:FargowiltasSouls/WyvernFeather] Clipped Wings, Crippled, [i:FargowiltasSouls/TribalCharm] Webbed, Purified, [i:FargowiltasSouls/NymphsPerfume] Lovestruck, Stinky, Hexed, and [i:FargowiltasSouls/SecurityWallet] Midas
+					[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
+					[i:FargowiltasSouls/WyvernFeather] Your attacks can inflict Clipped Wings [i:FargowiltasSouls/NymphsPerfume] and produce hearts
+					[i:FargowiltasSouls/SqueakyToy] Attacks have a chance to squeak and deal 1 damage to you
+					[i:FargowiltasSouls/WretchedPouch] While attacking, gain massively increased damage and shadowflame, but less move and defenses and attack speed bonuses
+					[i:FargowiltasSouls/ConcentratedRainbowMatter] Summons a friendly rainbow slime
+					[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
+					[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
 					[c/00FFFF:Following effects work passively from inventory or vanity slots (right click to disable in inventory):]
-					    Grants immunity to Mighty Wind, Suffocation, Chilled, and Guilty
-					    You have improved night vision
-					    Automatically uses healing & mana potions when needed and increases pickup range for mana stars
-					    You respawn with more life and when no boss is alive, respawn faster
-					    Press the Frigid Spell key to cast Ice Rod
-					    Right click to zoom and drastically improves reforges
-					    Stabilizes gravity in space and in liquids
+					    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
+					    [i:FargowiltasSouls/WyvernFeather] Stabilizes gravity in space and in liquid, [i:FargowiltasSouls/OrdinaryCarrot] improves your nightvision, [i:FargowiltasSouls/SecurityWallet] and drastically improves reforges
+					    [i:FargowiltasSouls/ConcentratedRainbowMatter] Automatically uses healing & [i:FargowiltasSouls/MysticSkull] mana potions when needed and increases pickup range for mana stars
+					    [i:FargowiltasSouls/NymphsPerfume] You respawn with more life [i:FargowiltasSouls/SandsofTime] and when no boss is alive, respawn faster
+					    [i:FargowiltasSouls/FrigidGemstone] Press the Frigid Spell key to cast Ice Rod
+					    [i:FargowiltasSouls/OrdinaryCarrot] Press right click to zoom in
 					'The amalgamate born of a thousand common enemies'
 					''' */
 			}
@@ -3029,22 +3027,19 @@ Mods: {
 				// DisplayName: Dubious Circuitry
 				/* Tooltip:
 					'''
-					Grants immunity to Cursed Inferno, Ichor, Lightning Rod, Defenseless, Nano Injection, and knockback
-					When inflicted with Cursed Inferno, 15% increased attack speed and you inflict Cursed Inferno
-					When inflicted with Ichor, 15% increased critical strike chance and you inflict Ichor
-					Press the Debuff Install key to inflict yourself with Cursed Inferno and Ichor for 30 seconds
-					Your attacks have a small chance to inflict Lightning Rod
-					Electric and ray attacks supercharge you and do halved damage if not already supercharged
-					While supercharged, you have increased movement speed, attack speed, and inflict Electrified
-					Two friendly probes fight by your side and will supercharge with you
-					Reduces damage taken by 5%
+					Grants immunity to [i:FargowiltasSouls/FusedLens] Cursed Inferno, Ichor, [i:FargowiltasSouls/GroundStick] Lightning Rod, [i:FargowiltasSouls/ReinforcedPlating] Defenseless, Nano Injection, and knockback
+					[i:FargowiltasSouls/FusedLens] Press Debuff Install key to toggle being debuffed with Ichor and Cursed Inferno
+					[i:FargowiltasSouls/FusedLens] While being debuffed by Ichor and Cursed Inferno, gain 15% attack speed, 15% crit chance, and inflict Ichor and Cursed Inferno yourself
+					[i:FargowiltasSouls/GroundStick] Your attacks have a small chance to inflict Lightning Rod and get supercharged on electric attacks
+					[i:FargowiltasSouls/GroundStick] Two friendly probes fight by your side and will supercharge with you
+					[i:FargowiltasSouls/ReinforcedPlating] Reduces damage taken by 5%
 					'Malware probably not included'
 					''' */
 			}
 
 			EurusSock: {
 				// DisplayName: Eurus Socks
-				// Tooltip: The wearer can run pretty fast
+				// Tooltip: The wearer can run kinda fast
 			}
 
 			FrigidGemstone: {
@@ -3337,13 +3332,13 @@ Mods: {
 				// DisplayName: Pure Heart
 				/* Tooltip:
 					'''
-					Grants immunity to Rotting and Bloodthirsty
-					Grants immunity to biome debuffs
-					10% increased movement speed, 10% increased max life, increased turnaround traction
-					You spawn mini eaters to seek out enemies every few attacks
-					Creepers hover around you blocking some damage
-					A new Creeper appears every 15 seconds, and 5 can exist at once
-					Creeper respawn speed increases when not moving
+					[i:FargowiltasSouls/PureHeart] Grants immunity to biome debuffs and gives 10% increased max life
+					Grants immunity to [i:FargowiltasSouls/DarkenedHeart] Rotting and [i:FargowiltasSouls/GuttedHeart] Bloodthirsty
+					[i:FargowiltasSouls/DarkenedHeart] Increased movement speed and turnaround traction
+					[i:FargowiltasSouls/DarkenedHeart] You spawn mini eaters to seek out enemies every few attacks
+					[i:FargowiltasSouls/GuttedHeart] Up to 5 creepers hover around you blocking some damage, respawning faster when not moving
+					[i:FargowiltasSouls/GelicWings] Allows the wearer to double jump
+					[i:FargowiltasSouls/GelicWings] When you land after a jump, slime spikes shoot out to the sides
 					'It pulses with vitality'
 					''' */
 			}
@@ -3465,17 +3460,14 @@ Mods: {
 				// DisplayName: Supreme Deathbringer Fairy
 				/* Tooltip:
 					'''
-					Grants immunity to Slimed, Berserked, Lethargic, and Infested
-					Honey buff increases your armor penetration by 10
-					Increased fall speed
-					When you land after a jump, slime will fall from the sky over your cursor
-					While dashing or running quickly you will create a trail of blood scythes
-					Press the Debuff Install key while holding UP and DOWN to go berserk
-					Press the Special Dash key to perform a short quick bee dash
-					Increases speed when dashing by 50%
-					When dashing, take 75% less contact damage and reflect 100% of contact damage on attacker
-					Bees and weak Hornets become friendlier
-					Summons 2 Skeletron arms to whack enemies
+					Grants immunity to [i:FargowiltasSouls/SlimyShield] Slimed, [i:FargowiltasSouls/AgitatingLens] Berserked, [i:FargowiltasSouls/QueenStinger] Infested, and [i:FargowiltasSouls/NecromanticBrew] Lethargic
+					[i:FargowiltasSouls/SlimyShield] Increases fall speed and landing spawns slime over your cursor
+					[i:FargowiltasSouls/AgitatingLens] While dashing or running quickly you will create a trail of blood scythes
+					[i:FargowiltasSouls/AgitatingLens] Press the Debuff Install key while holding UP and DOWN to go berserk
+					[i:FargowiltasSouls/QueenStinger] Honey buff increases your armor penetration by 10, and bees and weak hornets become friendlier
+					[i:FargowiltasSouls/QueenStinger] Press the Special Dash key to perform a short quick bee dash
+					[i:FargowiltasSouls/NecromanticBrew] Massively increases dash speed, take less contact damage while dashing, and reflect all damage back to attacker while dashing
+					[i:FargowiltasSouls/NecromanticBrew] Summons 2 Skeletron arms to whack enemies
 					'Supremacy not necessarily guaranteed'
 					''' */
 			}
@@ -5626,10 +5618,10 @@ Mods: {
 			// CultistFireballHoming.DisplayName: Mods.FargowiltasSouls.Projectiles.CultistFireballHoming.DisplayName
 			// CuresedFlameHostile2.DisplayName: Mods.FargowiltasSouls.Projectiles.CuresedFlameHostile2.DisplayName
 			// CursedFlamethrower.DisplayName: Eye Fire
-			// DarkStar.DisplayName: Dark Star
-			// DarkStarDestroyer.DisplayName: Dark Star
-			// DarkStarHoming.DisplayName: Dark Star
-			// DarkStarTwins.DisplayName: Dark Star
+			// DarkStar.DisplayName: Electric Star
+			// DarkStarDestroyer.DisplayName: Electric Star
+			// DarkStarHoming.DisplayName: Electric Star
+			// DarkStarTwins.DisplayName: Electric Star
 			// DeathSkull.DisplayName: Death Skull
 			// DeerclopsHand.DisplayName: Shadow Hand
 			// DestroyerLaser.DisplayName: Death Laser
