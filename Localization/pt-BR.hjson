@@ -5991,6 +5991,7 @@ Mods: {
 			// MonkDashDamage.DisplayName: Monk Dash
 			// PearlwoodStareline.DisplayName: Pearlwood Stareline
 			// EaterRocketJr.DisplayName: Rotten Chunk
+			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

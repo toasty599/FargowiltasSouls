@@ -1,7 +1,9 @@
 using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
+using FargowiltasSouls.Content.Bosses.Champions.Will;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Color = Microsoft.Xna.Framework.Color;
@@ -25,7 +27,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             Projectile.DamageType = DamageClass.Default;
             Projectile.friendly = false;
             Projectile.hostile = false;
-            Projectile.timeLeft = 30;
+            Projectile.timeLeft = 40;
             Projectile.scale = 1;
             AIType = 0;
             Projectile.aiStyle = 0;
@@ -39,11 +41,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             if (Projectile.ai[0] == 13) //if its the top one
             {
+                SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, Vector2.UnitX * Projectile.Center.X + Vector2.UnitY * Main.LocalPlayer.Center.Y);
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 dir = Vector2.UnitY;
-                    Vector2 vel = Vector2.Normalize(dir) * 6f;
-                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel * 6, ModContent.ProjectileType<CosmosLightning>(),
+                    Vector2 vel = Vector2.Normalize(dir);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel * 6, ModContent.ProjectileType<VortexLightningDeathray>(),
                         Projectile.damage, 0, Main.myPlayer, dir.ToRotation(), 1);
                 }
             }

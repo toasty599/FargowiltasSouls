@@ -180,8 +180,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             void Attack()
             {
-                const int distance = 300;
-                const int AttackDelay = 50;
+                const int distance = 180;
+                const int AttackDelay = 45;
                 if ((AttackTimer - WindupDuration) % AttackDelay == 1)
                 {
                     bool second = false;
@@ -189,12 +189,13 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     {
                         second = true;
                     }
-                    for (int i = 0; i < 16; i++)
+                    const int Bolts = 24;
+                    for (int i = 0; i < Bolts; i++)
                     {
                         int x = i;
-                        if (x >= 8)
+                        if (x >= Bolts / 2)
                         {
-                            x = 7 - x; //split i into 1 to 8 and -1 to -8
+                            x = (Bolts / 2) - 1 - x; //split i into 1 to bolts/2 and -1 to -bolts/2
                         }
                         if (FargoSoulsUtil.HostCheck)
                         {
