@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -52,7 +54,9 @@ You spawn mini eaters to seek out enemies every few attacks
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
             => entity.type == ProjectileID.TinyEater;
 
-        bool fromEnch;
+        
+        int HeartItemType = -1;
+        bool fromEnch => HeartItemType != -1;
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
@@ -62,10 +66,22 @@ You spawn mini eaters to seek out enemies every few attacks
             Item heartItem = player.FargoSouls().DarkenedHeartItem;
             if (player != null && heartItem != null && player.active && source is EntitySource_ItemUse itemSource  && itemSource.Item.type == heartItem.type)
             {
-                fromEnch = true;
+                HeartItemType = heartItem.type;
             }
         }
-
+        public override bool PreDraw(Projectile projectile, ref Color lightColor)
+        {
+            if (fromEnch)
+            {
+                if (HeartItemType != ModContent.ItemType<DarkenedHeart>())
+                {
+                    Texture2D pureSeekerTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Misc/PureSeeker", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                    FargoSoulsUtil.GenericProjectileDraw(projectile, lightColor, pureSeekerTexture);
+                    return false;
+                }
+            }
+            return base.PreDraw(projectile, ref lightColor);
+        }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (fromEnch)
