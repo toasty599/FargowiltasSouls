@@ -83,7 +83,7 @@ $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion tha
 
 
             DarkArtistEnchant.DarkArtistEffect(player, Item);
-            ApprenticeEnchant.ApprenticeEffect(player);
+            ApprenticeEnchant.ApprenticeEffect(player, Item);
 
             NecroEnchant.NecroEffect(player, Item);
             //shadow orbs

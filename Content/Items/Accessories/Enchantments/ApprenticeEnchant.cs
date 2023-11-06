@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.ModPlayers;
+using Microsoft.Xna.Framework;
 using System.Reflection;
 using Terraria;
 using Terraria.ID;
@@ -25,16 +26,19 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ApprenticeEffect(player);
+            ApprenticeEffect(player, Item);
         }
 
-        public static void ApprenticeEffect(Player player)
+        public static void ApprenticeEffect(Player player, Item enchant)
         {
             player.DisplayToggle("Apprentice");
-
+            player.FargoSouls().ApprenticeEnchantItem = enchant;
+            
+        }
+        public static void ApprenticeSupport(Player player)
+        {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            bool forceEffect = modPlayer.ForceEffect(ModContent.ItemType<ApprenticeEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<DarkArtistEnchant>());
-
+            bool forceEffect = modPlayer.ForceEffect(modPlayer.ApprenticeEnchantItem.type);
             //update item cds
             for (int i = 0; i < 10; i++)
             {
@@ -58,7 +62,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 {
                     numExtraSlotsToUse = 2;
                 }
-                
+
 
                 if (player.controlUseItem)
                 {
@@ -135,7 +139,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                             {
                                 item2.stack--;
                             }
-                            modPlayer.ApprenticeItemCDs[j] = item2.useTime * 4;
+                            modPlayer.ApprenticeItemCDs[j] = item2.useAnimation * 4;
                             int p = Projectile.NewProjectile(player.GetSource_ItemUse(item), pos, Vector2.Normalize(velocity) * speed, projToShoot, damage, KnockBack, player.whoAmI);
                             Projectile proj = Main.projectile[p];
 
@@ -162,7 +166,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 }
             }
         }
-
         public override void AddRecipes()
         {
             CreateRecipe()
