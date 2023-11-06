@@ -185,7 +185,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             }
 
             player.FargoSouls().ValhallaDashCD = 30;
-
+            player.dashDelay = 60;
             if (player.FargoSouls().IsDashingTimer < 10)
                 player.FargoSouls().IsDashingTimer = 10;
 
