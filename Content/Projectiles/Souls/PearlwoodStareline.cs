@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 projectile.friendly = false;
                 projectile.penetrate = -1;
                 projectile.timeLeft = 22;
-                projectile.aiStyle = -1;
+                //projectile.aiStyle = -1;
                 projectile.tileCollide = false;
                 
             }
@@ -66,6 +66,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 base.AI(projectile);
                 return;
             }
+            base.AI(projectile);
 
             Player player = Main.player[projectile.owner];
             if (player == null || !player.active || player.dead)
@@ -89,10 +90,10 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             projectile.timeLeft = 22;
 
             //spin
-            projectile.rotation = MathHelper.ToRadians(MathHelper.ToDegrees(projectile.rotation) + 6f);
+            //projectile.rotation += MathHelper.ToRadians(6);
 
             //sparkle on queen
-            Dust.NewDust(modPlayer.PStarelinePos, projectile.width, projectile.height, DustID.TintableDustLighted, default, default, 200, Color.Fuchsia); //idk how to make dust look good
+            //Dust.NewDust(modPlayer.PStarelinePos, projectile.width, projectile.height, DustID.TintableDustLighted, default, default, 200, Color.Fuchsia); //idk how to make dust look good
 
 
             //follow the player
