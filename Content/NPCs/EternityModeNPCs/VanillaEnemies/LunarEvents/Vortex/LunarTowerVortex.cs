@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Core.Systems;
+using Terraria.Audio;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Vortex
 {
@@ -202,7 +203,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                             int offset = second ? distance / 2 : 0;
                             Vector2 pos = npc.Center + Vector2.UnitX * (distance * x + offset);
                             Vector2 vel = Vector2.UnitY * 16;
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<PillarSpawner>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, ai0: 2, ai2: npc.whoAmI);
+                            SpawnLightning(npc, pos);
                         }
 
                     }
@@ -269,6 +270,22 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             if (AttackTimer > IdleTime)
             {
                 RandomAttack(npc);
+            }
+        }
+
+        private readonly SoundStyle NukeBeep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
+        private void SpawnLightning(NPC parent, Vector2 position)
+        {
+            SoundEngine.PlaySound(NukeBeep, position);
+            if (FargoSoulsUtil.HostCheck)
+            {
+                Vector2 posOrig = position;
+                posOrig.Y = Main.player[parent.target].Center.Y + (150 * 7);
+                for (int i = 0; i < 14; i++)
+                {
+                    Vector2 pos = posOrig - (Vector2.UnitY * 150 * i);
+                    Projectile.NewProjectile(parent.GetSource_FromThis(), pos, Vector2.Zero, ModContent.ProjectileType<LightningTelegraph>(), FargoSoulsUtil.ScaledProjectileDamage(parent.damage), 2f, Main.myPlayer, i);
+                }
             }
         }
         #endregion
