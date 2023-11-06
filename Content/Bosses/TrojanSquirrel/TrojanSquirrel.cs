@@ -278,11 +278,11 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             if (p.IsWithinBounds(Main.maxPlayers))
             {
                 Player player = Main.player[p];
-                if (player != null) 
+                if (player != null && player.active && !player.dead) 
                 { 
                     if (NPC.Distance(player.Center) < 400)
                     {
-                        NPC.Center = player.Center - Vector2.UnitX * 1000;
+                        NPC.Center = player.Center - Vector2.UnitX * 1000 * player.direction;
                     }
                 };
             }
