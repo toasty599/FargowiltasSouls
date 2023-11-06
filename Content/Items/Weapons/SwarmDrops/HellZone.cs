@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 262; //
+            Item.damage = 274; //
             Item.knockBack = 4f;
             Item.shootSpeed = 12f; //
 
