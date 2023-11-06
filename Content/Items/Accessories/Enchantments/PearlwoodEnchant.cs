@@ -1,5 +1,6 @@
 ﻿
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -42,9 +43,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             player.DisplayToggle("Pearl");
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.PearlwoodEnchantItem = item;
-
-            
-
+        }
+        public static void PearlwoodStar(Player player, Item item)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex] != Vector2.Zero && player.GetToggleValue("Pearl")) //check if trail actually exists and if its toggled on
             {
                 modPlayer.PStarelinePos = modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex]; //set stareline position
@@ -53,14 +55,17 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 {
                     if (modPlayer.PearlwoodGrace == 120) //spawn after 2 seconds 
                     {
-                        Projectile.NewProjectile(player.GetSource_Accessory(item), modPlayer.PStarelinePos, Vector2.Zero, ModContent.ProjectileType<PearlwoodStareline>(), 1000, 0f);
+                        Projectile.NewProjectile(player.GetSource_Accessory(item), modPlayer.PStarelinePos, Vector2.Zero, ProjectileID.FairyQueenMagicItemShot, 1000, 0f);
                         modPlayer.PStarelineActive = true;
                         modPlayer.PearlwoodGrace = 0;
-                    } else {
-                        modPlayer.PearlwoodGrace += 1;
+                    }
+                    else
+                    {
+                        if (player.velocity.Length() > 0)
+                            modPlayer.PearlwoodGrace += 1;
                     }
                 }
-            } 
+            }
 
 
             modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex] = player.position; //set position of stareline next cycle
@@ -68,7 +73,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             modPlayer.PearlwoodIndex++; //read next in array
             if (modPlayer.PearlwoodIndex >= modPlayer.PearlwoodTrail.Length) { modPlayer.PearlwoodIndex = 0; } //loop around
         }
-
         public static void PearlwoodCritReroll(Player player, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
             if (Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass))
