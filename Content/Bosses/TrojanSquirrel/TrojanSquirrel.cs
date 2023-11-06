@@ -272,6 +272,21 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                 }
             }
+
+            //spawnfrag fix
+            int p = Player.FindClosest(NPC.Center, 0, 0);
+            if (p.IsWithinBounds(Main.maxPlayers))
+            {
+                Player player = Main.player[p];
+                if (player != null) 
+                { 
+                    if (NPC.Distance(player.Center) < 400)
+                    {
+                        NPC.Center = player.Center - Vector2.UnitX * 1000;
+                    }
+                };
+            }
+            
         }
 
         private void TileCollision(bool fallthrough = false, bool dropDown = false)
