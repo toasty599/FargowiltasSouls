@@ -526,13 +526,14 @@ namespace FargowiltasSouls.Content.Items.Misc
                 build += GetBuildText(
                     ModContent.ItemType<FlightMasterySoul>(),
                     ModContent.ItemType<UniverseCore>(),
-                    ModContent.ItemType<UniverseCore>(),
-                    ModContent.ItemType<ColossusSoul>(),
-                    ModContent.ItemType<EarthForce>()
+                    ModContent.ItemType<ColossusSoul>()
                 ) + GetBuildTextRandom(
-                    1,
+                    3,
+                    ModContent.ItemType<EarthForce>(),
+                    ModContent.ItemType<CosmoForce>(),
                     ModContent.ItemType<SpiritForce>(),
-                    ModContent.ItemType<NatureForce>()
+                    ModContent.ItemType<NatureForce>(),
+                    ModContent.ItemType<HeartoftheMasochist>()
                 );
                 meleeSpecific = new int[] { ModContent.ItemType<BerserkerSoul>() };
                 rangerSpecific = new int[] { ModContent.ItemType<SnipersSoul>() };
