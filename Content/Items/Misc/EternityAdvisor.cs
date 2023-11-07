@@ -576,12 +576,15 @@ namespace FargowiltasSouls.Content.Items.Misc
             
             if (Main.hardMode)
             {
-                if (!player.inventory.Any(i => !i.IsAir && i.type == ModContent.ItemType<BionomicCluster>())
+                if (NPC.downedMechBossAny)
+                {
+                    if (!player.inventory.Any(i => !i.IsAir && i.type == ModContent.ItemType<BionomicCluster>())
                     && !player.armor.Any(i => !i.IsAir && i.type == ModContent.ItemType<BionomicCluster>())
                     && !player.armor.Any(i => !i.IsAir && i.type == ModContent.ItemType<MasochistSoul>())
                     && !WorldSavingSystem.DownedAbom)
-                {
-                    other += $" [i:{ModContent.ItemType<BionomicCluster>()}]";
+                    {
+                        other += $" [i:{ModContent.ItemType<BionomicCluster>()}]";
+                    }
                 }
 
                 if (ModContent.TryFind("Fargowiltas", "Omnistation", out ModItem omni1) && ModContent.TryFind("Fargowiltas", "Omnistation2", out ModItem omni2))
