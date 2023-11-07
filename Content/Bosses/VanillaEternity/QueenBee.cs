@@ -392,6 +392,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
             target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 600);
+
+            if (npc.ai[0] == 0) //in dash mode
+            {
+                target.AddBuff(BuffID.BrokenArmor, 60 * 5);
+            }
         }
 
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)

@@ -170,7 +170,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             }
         }
 
-        public static void TungstenModifyDamage(Player player, ref NPC.HitModifiers modifiers, DamageClass damageClass)
+        public static void TungstenModifyDamage(Player player, ref NPC.HitModifiers modifiers)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
@@ -201,7 +201,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 .AddIngredient(ItemID.TungstenGreaves)
                 .AddIngredient(ItemID.TungstenBroadsword)
                 .AddIngredient(ItemID.Ruler)
-                .AddIngredient(ItemID.Rockfish)
+                .AddIngredient(ItemID.Katana)
 
                 .AddTile(TileID.DemonAltar)
                 .Register();

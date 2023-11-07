@@ -51,7 +51,7 @@ Mods: {
 			Pearlwood: 增加伤害，冷却时间减少
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
-			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
+			// Rain: Umbrella can block up to 400 damage and reflected damage is tripled
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
 			Shadewood: 增加光环大小和血液伤害，并且会附加灵液效果
@@ -1036,6 +1036,7 @@ Mods: {
 			MoonsWaves: 死亡会降低当前波数
 			WhipSpeed: 不接受近战攻速加成
 			WhipStack: 鞭子的增益/减益不能堆叠
+			// DefensePrefix: Adjusted prefix stats: reduced defense before Hardmode, +5 max life
 			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: 同时召唤超过3个相同召唤物时，它们的伤害会降低（超过12个后不再降低）
 			SummonMulticlass: 当你使用其他职业的武器攻击时，召唤伤害降低（在撒旦军队中除外）
@@ -1883,7 +1884,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+				// Description: +5% damage reduction, +5% damage, knockback immunity, improved spear rain
 			}
 
 			ROBBuff: {
@@ -1969,7 +1970,7 @@ Mods: {
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava
-					'You're telling me this isn't wood?'
+					'"You're telling me this isn't wood?"'
 					''' */
 			}
 
@@ -2284,7 +2285,7 @@ Mods: {
 					'''
 					Your projectiles deal more damage the faster they're moving, up to 20%
 					Drastically increases projectile speed while you're moving slowly
-					'Attack faster than the eye can see'
+					'Wait for when the moment is right'
 					''' */
 			}
 
@@ -5971,7 +5972,9 @@ Mods: {
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
 			// MonkDashDamage.DisplayName: Monk Dash
+			// PearlwoodStareline.DisplayName: Pearlwood Stareline
 			// EaterRocketJr.DisplayName: Rotten Chunk
+			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

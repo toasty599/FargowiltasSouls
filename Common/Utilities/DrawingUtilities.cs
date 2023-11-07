@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Reflection;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 
 namespace FargowiltasSouls
@@ -96,5 +97,17 @@ namespace FargowiltasSouls
 		public static void SetTexture2(this Texture2D texture) => Main.instance.GraphicsDevice.Textures[2] = texture;
 
 		public static Vector4 ToVector4(this Rectangle rectangle) => new(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+
+		public static void GenericProjectileDraw(Projectile projectile, Color lightColor, Texture2D texture = null)
+		{
+            Texture2D _texture = texture != null ? texture : TextureAssets.Projectile[projectile.type].Value;
+            int sizeY = _texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            int frameY = projectile.frame * sizeY;
+            Rectangle rectangle = new(0, frameY, _texture.Width, sizeY);
+            Vector2 origin = rectangle.Size() / 2f;
+            SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            Main.EntitySpriteDraw(_texture, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
+                    projectile.rotation, origin, projectile.scale, spriteEffects, 0);
+        }
 	}
 }

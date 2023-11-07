@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetDamage(DamageClass.Generic) += 0.05f;
-            player.statDefense += 10;
+            player.endurance += 0.05f;
             player.noKnockback = true;
         }
     }

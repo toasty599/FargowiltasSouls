@@ -172,6 +172,10 @@ namespace FargowiltasSouls.Content.Projectiles
                     ProjectileID.Sets.MinionShot[projectile.type] = true;
                     break;
 
+                case ProjectileID.MechanicalPiranha:
+                    NinjaCanSpeedup = false;
+                    break;
+
                 case ProjectileID.SpiderEgg:
                 case ProjectileID.BabySpider:
                 case ProjectileID.FrostBlastFriendly:
@@ -824,28 +828,16 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.Arkhalis:
                 case ProjectileID.Terragrim:
                     {
-                        GenericProjectileDraw(projectile, lightColor);
+                        FargoSoulsUtil.GenericProjectileDraw(projectile, lightColor);
                     }
                     return false;
                 case ProjectileID.FlowerPetal:
                     {
-                        GenericProjectileDraw(projectile, lightColor);
+                        FargoSoulsUtil.GenericProjectileDraw(projectile, lightColor);
                     }
                     return false;
                 default:
                     break;
-
-                void GenericProjectileDraw(Projectile projectile, Color lightColor)
-                {
-                        Texture2D Texture = TextureAssets.Projectile[projectile.type].Value;
-                        int sizeY = Texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-                        int frameY = projectile.frame * sizeY;
-                        Rectangle rectangle = new(0, frameY, Texture.Width, sizeY);
-                        Vector2 origin = rectangle.Size() / 2f;
-                        SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                        Main.EntitySpriteDraw(Texture, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
-                                projectile.rotation, origin, projectile.scale, spriteEffects, 0);
-                    }
             }
             return base.PreDraw(projectile, ref lightColor);
         }

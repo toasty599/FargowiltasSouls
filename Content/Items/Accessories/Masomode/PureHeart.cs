@@ -46,15 +46,21 @@ Creeper respawn speed increases when not moving
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.PureHeart = true;
 
+            //darkened effect
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.RottingBuff>()] = true;
             player.moveSpeed += 0.1f;
             fargoPlayer.DarkenedHeartItem = Item;
             if (fargoPlayer.DarkenedHeartCD > 0)
                 fargoPlayer.DarkenedHeartCD--;
 
+            //gutted effect
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.BloodthirstyBuff>()] = true;
             player.statLifeMax2 += player.statLifeMax / 10;
             fargoPlayer.GuttedHeart = true;
+
+            //gelic effect
+            player.FargoSouls().GelicWingsItem = Item;
+            player.GetJumpState(ExtraJump.UnicornMount).Enable();
         }
 
         public override void AddRecipes()
@@ -63,7 +69,7 @@ Creeper respawn speed increases when not moving
 
             .AddIngredient(ModContent.ItemType<DarkenedHeart>())
             .AddIngredient(ModContent.ItemType<GuttedHeart>())
-            //.AddIngredient(ModContent.ItemType<VolatileEnergy>(), 20);
+            .AddIngredient(ModContent.ItemType<GelicWings>())
             .AddIngredient(ItemID.PurificationPowder, 30)
             .AddIngredient(ItemID.GreenSolution, 50)
             .AddIngredient(ItemID.ChlorophyteBar, 5)

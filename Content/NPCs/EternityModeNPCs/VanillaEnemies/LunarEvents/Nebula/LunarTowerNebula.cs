@@ -117,10 +117,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (AttackTimer == 1 && FargoSoulsUtil.HostCheck)
                 {
                     int randReal = Main.rand.Next(4);
+                    float rand = Main.rand.NextFloat();
                     for (int i = 0; i < 4; i++)
                     {
+                        float num = i + rand;
                         int fake = randReal == i ? 0 : 1;
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<NebulaPillarProj>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage * 2), 3f, Main.myPlayer, i, fake, npc.whoAmI);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<NebulaPillarProj>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage * 2), 3f, Main.myPlayer, num, fake, npc.whoAmI);
                     }
                 }
             }
@@ -274,14 +276,16 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         private void Idle(NPC npc, Player player)
         {
             const int WindupDuration = 60 * 0;
-            const int AttackDuration = 60 * 3;
+            const int AttackDuration = 60 * 2;
             const int EndlagDuration = 60 * 1;
             void Windup()
             {
             }
             void Attack()
             {
+                /*
                 const int AttackCD = 40;
+                
                 if (AttackTimer % AttackCD == AttackCD - 1)
                 {
                     SoundEngine.PlaySound(SoundID.Item20, npc.Center);
@@ -293,6 +297,30 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<PillarNebulaBlaze>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, 0.03f, ai2: npc.whoAmI);
                     }
                     
+                }
+                */
+                const int Attack1 = WindupDuration + 5;
+                const int Attack2 = WindupDuration + AttackDuration - 5;
+                if (AttackTimer == Attack1 || AttackTimer == Attack2)
+                {
+                    SoundEngine.PlaySound(SoundID.Item20, npc.Center);
+                    if (FargoSoulsUtil.HostCheck)
+                    {
+                        const int CircleProjs = 5;
+                        for (int i = 0; i < CircleProjs; i++)
+                        {
+                            float degOff = i;
+                            if (AttackTimer == Attack2)
+                                degOff += 0.5f;
+                            Vector2 posOffset = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * (float)degOff / CircleProjs);
+                            posOffset *= 1300;
+                            float speed = Main.rand.NextFloat(5f, 6f);
+                            Vector2 pos = player.Center + posOffset;
+                            Vector2 vel = pos.DirectionTo(player.Center) * speed;
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<PillarNebulaBlaze>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, 0.03f, ai2: npc.whoAmI);
+                        }
+                        
+                    }
                 }
             }
             void Endlag()

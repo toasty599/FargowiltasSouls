@@ -48,10 +48,10 @@ Mods: {
 			// Orichalcum: Increases multiplier to 4x
 			// Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
 			// PalmWood: Attack speed, damage, and size increased
-			// Pearlwood: Damage increased and cooldown reduced
+			// Pearlwood: Star can hit enemies for massive damage
 			// Platinum: No upgrade
 			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
-			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
+			// Rain: Umbrella can block up to 400 damage and reflected damage is tripled
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
 			// Shadewood: Aura size and blood damage increased, additionally applies Ichor
@@ -68,7 +68,7 @@ Mods: {
 			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 10% to 15%
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
-			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
+			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 35%
 			// Tungsten: Weapon size tripled instead of doubled, damage bonus increased from 7% to 14%, and cooldown reduced
 			// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
 			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
@@ -1036,6 +1036,7 @@ Mods: {
 			MoonsWaves: Morrer diminui o progresso da onda
 			WhipSpeed: Não se beneficia de bônus de velocidade do ataque físico
 			WhipStack: Efeitos e efeitos negativos de chicote não podem acumular
+			// DefensePrefix: Adjusted prefix stats: reduced defense before Hardmode, +5 max life
 			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: O dano dos lacaios diminui ao invocar mais de 3 cópias (o limite do efeito é 12)
 			SummonMulticlass: O dano por lacaios diminui quando você ataca usando outras classes (exceto no EdA)
@@ -1883,7 +1884,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+				// Description: +5% damage reduction, +5% damage, knockback immunity, improved spear rain
 			}
 
 			ROBBuff: {
@@ -1975,7 +1976,7 @@ Mods: {
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava
-					'You're telling me this isn't wood?'
+					'"You're telling me this isn't wood?"'
 					''' */
 			}
 
@@ -2295,7 +2296,7 @@ Mods: {
 					'''
 					Your projectiles deal more damage the faster they're moving, up to 20%
 					Drastically increases projectile speed while you're moving slowly
-					'Attack faster than the eye can see'
+					'Wait for when the moment is right'
 					''' */
 			}
 
@@ -5988,7 +5989,9 @@ Mods: {
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
 			// MonkDashDamage.DisplayName: Monk Dash
+			// PearlwoodStareline.DisplayName: Pearlwood Stareline
 			// EaterRocketJr.DisplayName: Rotten Chunk
+			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

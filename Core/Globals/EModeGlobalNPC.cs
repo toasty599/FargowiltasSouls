@@ -1132,14 +1132,20 @@ namespace FargowiltasSouls.Core.Globals
             {
                 if (--allowedRecursionDepth > 0)
                 {
-                    foreach (IItemDropRuleChainAttempt chain in dropRule.ChainedRules)
+                    if (dropRule != null && dropRule.ChainedRules != null)
                     {
-                        CheckMasterDropRule(chain.RuleToChain);
+                        foreach (IItemDropRuleChainAttempt chain in dropRule.ChainedRules)
+                        {
+                            if (chain != null && chain.RuleToChain != null)
+                                CheckMasterDropRule(chain.RuleToChain);
+                        }
                     }
+                    
 
                     if (dropRule is DropBasedOnMasterMode dropBasedOnMasterMode)
                     {
-                        CheckMasterDropRule(dropBasedOnMasterMode.ruleForMasterMode);
+                        if (dropBasedOnMasterMode != null && dropBasedOnMasterMode.ruleForMasterMode != null)
+                            CheckMasterDropRule(dropBasedOnMasterMode.ruleForMasterMode);
                         //if (dropBasedOnMasterMode.ruleForMasterMode is CommonDrop masterDrop)
                         //{
                         //    IItemDropRule emodeDropRule = ItemDropRule.ByCondition(

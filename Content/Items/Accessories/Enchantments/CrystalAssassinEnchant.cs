@@ -132,7 +132,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
                 .AddIngredient(ItemID.CrystalNinjaChestplate)
                 .AddIngredient(ItemID.CrystalNinjaLeggings)
                 .AddIngredient(ItemID.FlyingKnife)
-                .AddIngredient(ItemID.Katana)
+                .AddIngredient(ItemID.UnicornonaStick)
                 .AddIngredient(ItemID.SmokeBomb, 50)
 
                 .AddTile(TileID.CrystalBall)

@@ -82,7 +82,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 Projectile.scale = maxScale;
                 Projectile.alpha = 0;
-                Projectile.rotation = Projectile.rotation - (float)Math.PI / 60f;
+                float modifier = MathHelper.Lerp(1.5f, 0.4f, (float)Projectile.timeLeft / 180f);
+                float rotationSpeed = modifier * MathHelper.Pi / 60f;
+                Projectile.rotation = Projectile.rotation - rotationSpeed;
                 if (Main.rand.NextBool())
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515) * Projectile.scale;
@@ -94,15 +96,24 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     dust.fadeIn = 0.5f;
                     dust.customData = Projectile.Center;
                 }
-                int projTime = 4;
-                if (Projectile.localAI[0] % projTime == 0)
+                int projTime = 2;
+                if (Projectile.localAI[0] % projTime == 0 && Projectile.timeLeft > 30)
                 {
+                    if (FargoSoulsUtil.HostCheck)
+                    {
+                        float speed = Main.rand.NextFloat(4, 6);
+                        //float rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+                        int i = (int)(Projectile.localAI[0] / projTime % 4);
+                        float rotation = Projectile.rotation + (i * MathHelper.PiOver2);
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, speed * rotation.ToRotationVector2(), ModContent.ProjectileType<PillarNebulaBlaze>(), Projectile.damage, Projectile.knockBack);
 
-                    float speed = Main.rand.NextFloat(4, 6);
-                    float rotation = Main.rand.NextFloat(MathHelper.TwoPi);
-                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, speed * rotation.ToRotationVector2(), ModContent.ProjectileType<PillarNebulaBlaze>(), Projectile.damage, Projectile.knockBack);
-
-                    Projectile.localAI[1] += MathHelper.ToRadians(48f / 60f * projTime) * Projectile.ai[1];
+                        Projectile.localAI[1] += MathHelper.ToRadians(48f / 60f * projTime) * Projectile.ai[1];
+                    }
+                   
+                }
+                if (Projectile.timeLeft == 29)
+                {
+                    SoundEngine.PlaySound(SoundID.Item20 with { Pitch = -1 }, Projectile.Center);
                 }
 
                 Projectile.localAI[0]++;
@@ -160,7 +171,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             for (int index = 0; index < 40; ++index)
             {
                 float speed = Main.rand.NextFloat(4, 6);
-                float rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+                float rotation = ((index / 40f) + Main.rand.NextFloat(1 / 60f)) * MathHelper.TwoPi;
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, speed * rotation.ToRotationVector2(), ModContent.ProjectileType<PillarNebulaBlaze>(), Projectile.damage, Projectile.knockBack);
             }
         }

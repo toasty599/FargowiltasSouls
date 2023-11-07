@@ -28,6 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.timeLeft = 7200;
+            Projectile.FargoSouls().NinjaCanSpeedup = false;
         }
 
         public override bool? CanDamage()

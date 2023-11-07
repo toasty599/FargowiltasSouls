@@ -338,12 +338,12 @@ namespace FargowiltasSouls.Core.Globals
                     int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Lead, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
                     }
                 }
             }
@@ -367,12 +367,12 @@ namespace FargowiltasSouls.Core.Globals
                     int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.PinkTorch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
                     }
                 }
             }
@@ -385,12 +385,12 @@ namespace FargowiltasSouls.Core.Globals
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
                     }
                 }
             }
@@ -403,12 +403,12 @@ namespace FargowiltasSouls.Core.Globals
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
                     }
                 }
             }
@@ -649,7 +649,8 @@ namespace FargowiltasSouls.Core.Globals
                         dot = 4;
                     }
                 }
-                if (player != null && player.active && !player.dead && modPlayer != null && modPlayer.ForceEffect(modPlayer.LeadEnchantItem.type))
+                bool forceEffect = Main.player.Any(p => p.active && !p.dead && p.FargoSouls() is FargoSoulsPlayer pF && pF != null && pF.LeadEnchantItem != null && pF.ForceEffect(pF.LeadEnchantItem.type));
+                if (forceEffect)
                 {
                     dot *= 3;
                 }
@@ -1121,20 +1122,6 @@ namespace FargowiltasSouls.Core.Globals
             if (TimeFrozen)
                 return false;
             return true;
-        }
-
-        public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
-        {
-            if (Corrupted || CorruptedForce)
-            {
-                modifiers.FinalDamage *= 0.8f;
-            }
-
-            if (target.HasBuff(ModContent.BuffType<ShellHideBuff>()))
-                modifiers.FinalDamage *= 2;
-
-            if (BloodDrinker)
-                modifiers.FinalDamage *= 1.3f;
         }
 
         public override void ModifyHitNPC(NPC npc, NPC target, ref NPC.HitModifiers modifiers)

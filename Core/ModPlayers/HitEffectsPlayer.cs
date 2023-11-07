@@ -19,6 +19,8 @@ using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs;
 using Terraria.WorldBuilding;
 using Terraria.Audio;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -54,42 +56,28 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (TungstenEnchantItem != null && proj.FargoSouls().TungstenScale != 1)
             {
-                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers, proj.DamageType);
+                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers);
             }
 
             if (HuntressEnchantActive && proj.FargoSouls().HuntressProj == 1 && target.type != NPCID.TargetDummy)
             {
                 HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
             }
+
+            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl"))
+            {
+                PearlwoodEnchant.PearlwoodCritReroll(Player, ref modifiers, proj.DamageType);
+            }
+
             ModifyHitNPCBoth(target, ref modifiers, proj.DamageType);
         }
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
-            {
-                //modifiers.FinalDamage /= 2;
+            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl")) {
+                PearlwoodEnchant.PearlwoodCritReroll(Player, ref modifiers, item.DamageType);
             }
-            /*
-            if (Hexed || (ReverseManaFlow && item.CountsAsClass(DamageClass.Magic)))
-            {
-                modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
-                {
-                    target.life += hitInfo.Damage;
-                    target.HealEffect(hitInfo.Damage);
 
-                    if (target.life > target.lifeMax)
-                    {
-                        target.life = target.lifeMax;
-                    }
-                    
-                    hitInfo.Null();
-                };
-
-                return;
-
-            }
-            */
             if (SqueakyToy)
             {
                 modifiers.SetMaxDamage(1);
@@ -105,7 +93,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (TungstenEnchantItem != null && Toggler != null && Player.GetToggleValue("Tungsten")
                 && (ForceEffect(TungstenEnchantItem.type) || item.shoot == ProjectileID.None))
             {
-                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers, item.DamageType);
+                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers);
             }
 
             ModifyHitNPCBoth(target, ref modifiers, item.DamageType);
@@ -223,11 +211,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 Player.beetleCounter += hitInfo.Damage;
             }
-
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && PearlwoodCD == 0 && !(projectile != null && projectile.type == ProjectileID.FairyQueenMagicItemShot && projectile.usesIDStaticNPCImmunity && projectile.FargoSouls().noInteractionWithNPCImmunityFrames))
-            {
-                PearlwoodEnchant.PearlwoodStarDrop(this, target, GetBaseDamage());
-            }
             /*
             if (BeeEnchantItem != null && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
                 && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity && !projectile.usesIDStaticNPCImmunity && projectile.owner == Main.myPlayer)))
@@ -256,6 +239,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (PalladEnchantItem != null && !Player.onHitRegen)
             {
                 Player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
+            }
+
+            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && hitInfo.Crit)
+            {
+                SoundEngine.PlaySound(SoundID.Item25, target.position);
+                for (int i = 0; i < 30; i++) { //idk how to make dust look good (3)
+                    Dust.NewDust(target.position, target.width, target.height, DustID.YellowStarDust); 
+                }
             }
 
             bool wetCheck = target.HasBuff(BuffID.Wet) && Main.rand.NextBool(4);
@@ -513,45 +504,66 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             OnHitNPCEither(target, hit, item.DamageType, item: item);
         }
-
+        private void ApplyDR(Player player, float dr, ref Player.HurtModifiers modifiers)
+        {
+            float DRCap = 0.75f;
+            player.endurance += dr;
+            if (WorldSavingSystem.EternityMode)
+            {
+                if (Player.endurance > DRCap)
+                {
+                    player.endurance = DRCap;
+                }
+            }
+        }
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            if (NecromanticBrewItem != null && IsInADashState)
-            {
-                modifiers.FinalDamage /= 4;
-            }
+            float dr = 0;
+            dr += NecromanticBrew.NecroBrewDashDR(Player);
 
-            TitaniumEnchant.TryTitaniumDR(this, npc);
+            dr += TitaniumEnchant.TitaniumDR(this, npc);
 
+            if (npc.FargoSouls().Corrupted || npc.FargoSouls().CorruptedForce)
+                dr += 0.2f;
+
+            if (npc.FargoSouls().BloodDrinker)
+                dr -= 0.3f;
+
+            if (Player.HasBuff(ModContent.BuffType<ShellHideBuff>()))
+                dr -= 1;
 
             if (Smite)
-                modifiers.FinalDamage *= 1.2f;
+                dr -= 0.2f;
 
             if (npc.coldDamage && Hypothermia)
-                modifiers.FinalDamage *= 1.2f;
+                dr -= 0.2f;
 
             if (npc.FargoSouls().CurseoftheMoon)
-                modifiers.FinalDamage *= 0.8f;
+                dr += 0.2f;
+
+            ApplyDR(Player, dr, ref modifiers);
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
+            float dr = 0;
             if (GroundStick)
             {
-                GroundStickCheck(proj, ref modifiers);
+                dr += GroundStickDR(proj, ref modifiers);
             }
 
-            TitaniumEnchant.TryTitaniumDR(this, proj);
+            dr += NecromanticBrew.NecroBrewDashDR(Player);
+
+            dr += TitaniumEnchant.TitaniumDR(this, proj);
 
 
             if (Smite)
-                modifiers.FinalDamage *= 1.2f;
+                dr -= 0.2f;
 
             if (proj.coldDamage && Hypothermia)
-                modifiers.FinalDamage *= 1.2f;
+                dr -= 0.2f;
 
-            //if (npc.FargoSouls().CurseoftheMoon)
-            //damage = (int)(damage * 0.8);
+            ApplyDR(Player, dr, ref modifiers);
         }
 
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

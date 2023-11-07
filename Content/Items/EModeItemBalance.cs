@@ -502,6 +502,10 @@ namespace FargowiltasSouls.Content.Items
                     ItemBalance(tooltips, EModeChange.Nerf, "WhipSpeed");
                     ItemBalance(tooltips, EModeChange.Nerf, "WhipStack");
                 }
+                if (item.prefix >= PrefixID.Hard && item.prefix <= PrefixID.Warding)
+                {
+                    ItemBalance(tooltips, EModeChange.Neutral, "DefensePrefix");
+                }
                 //else if (item.CountsAsClass(DamageClass.Summon))
                 //{
                 //    if (!(EModeGlobalProjectile.IgnoreMinionNerf.TryGetValue(item.shoot, out bool ignoreNerf) && ignoreNerf))

@@ -181,7 +181,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (!IsStillHoldingInSameDirectionAsMovement)
                     Player.runSlowdown += 7f;
             }
-
+            if (PearlwoodEnchantItem != null)
+            {
+                PearlwoodEnchant.PearlwoodStar(Player, PearlwoodEnchantItem);
+            }
+            if (ApprenticeEnchantItem != null)
+            {
+                ApprenticeEnchant.ApprenticeSupport(Player);
+            }
             if (TribalCharmEquipped)
             {
                 Content.Items.Accessories.Masomode.TribalCharm.Effects(this);
