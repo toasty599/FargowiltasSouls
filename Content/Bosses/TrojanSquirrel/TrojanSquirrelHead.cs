@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         NPC.ai[1]++;
 
                         int start = 60;
-                        int end = 300;
+                        int end = 240;
                         if (WorldSavingSystem.MasochistModeReal)
                         {
                             start -= 30;
