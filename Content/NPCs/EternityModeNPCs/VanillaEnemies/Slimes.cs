@@ -60,6 +60,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
             //slimes target nearest player on spawn
             npc.TargetClosest(true);
 
+            if (NPC.AnyNPCs(NPCID.KingSlime)) //no KS minions in emode
+            {
+                npc.active = false;
+                return;
+            }
+
             if (npc.type == NPCID.JungleSlime && Main.rand.NextBool(5))
                 npc.Transform(NPCID.SpikedJungleSlime);
 
