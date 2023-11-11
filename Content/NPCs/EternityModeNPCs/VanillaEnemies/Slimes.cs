@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
-            target.AddBuff(BuffID.Slimed, 120);
+            target.AddBuff(BuffID.Slimed, 60);
 
             switch (npc.type)
             {

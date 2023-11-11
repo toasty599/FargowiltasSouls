@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.Slimed, 120);
+            target.AddBuff(BuffID.Slimed, 60);
         }
 
         public override bool PreDraw(ref Color lightColor)

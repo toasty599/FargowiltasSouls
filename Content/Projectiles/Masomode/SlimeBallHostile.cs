@@ -45,12 +45,12 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.Slimed, 240);
+            target.AddBuff(BuffID.Slimed, 60);
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.Slimed, 240);
+            target.AddBuff(BuffID.Slimed, 60);
         }
     }
 }

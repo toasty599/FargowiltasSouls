@@ -408,7 +408,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
-            target.AddBuff(BuffID.Slimed, 120);
+            target.AddBuff(BuffID.Slimed, 60);
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
