@@ -60,6 +60,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         public override void AI()
         {
             ref float direction = ref NPC.ai[0];
+            ref float timer = ref NPC.ai[1];
 
             float accelX = 0.1f;
             int maxSpeedX = 12;
@@ -72,6 +73,19 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             if (NPC.velocity.Y == 0)
             {
                 NPC.velocity.Y = -jumpSpeed;
+            }
+            bool playerFar = true;
+            int p = Player.FindClosest(NPC.Center, 0, 0);
+            if (p.IsWithinBounds(Main.maxPlayers) && Main.player[p].Distance(NPC.Center) < 1500)
+                playerFar = false;
+
+            if (++timer > 60 * 15 || playerFar)
+            {
+                NPC.alpha += 17;
+                if (NPC.alpha >= 250)
+                {
+                    NPC.active = false;
+                }
             }
             
         }
