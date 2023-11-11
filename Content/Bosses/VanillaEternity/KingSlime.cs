@@ -253,7 +253,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     JumpTimer++;
 
                     const int ProjTime = 5;
-                    if (JumpTimer % ProjTime < 1 && JumpTimer % (ProjTime * 3) > 1)
+                    if (JumpTimer % ProjTime < 1 && (JumpTimer % (ProjTime * 3) > 1 || WorldSavingSystem.MasochistModeReal))
                     {
                         SoundEngine.PlaySound(SoundID.Item17, npc.Center);
                         if (FargoSoulsUtil.HostCheck)
