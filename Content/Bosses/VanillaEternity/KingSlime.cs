@@ -40,6 +40,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             EModeGlobalNPC.slimeBoss = npc.whoAmI;
             npc.color = Main.DiscoColor * 0.3f; // Rainbow colour
 
+            ref float teleportTimer = ref npc.ai[2];
             
 
             if (WorldSavingSystem.SwarmActive)
@@ -47,11 +48,18 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             Player player = Main.player[npc.target];
 
+            /*
             if (JumpTimer < SpecialJumpTime)
             {
                 JumpTimer += Math.Min(2 - npc.GetLifePercent(), SpecialJumpTime - JumpTimer);
             }
-            
+            */
+            if (teleportTimer >= 145 && teleportTimer < 150) //at half of teleport timer progress, pause it and do special jump
+            {
+                if (JumpTimer < SpecialJumpTime)
+                    JumpTimer = SpecialJumpTime;
+                teleportTimer = 145;
+            }
             if (npc.GetLifePercent() < SummonCounter / SummonWaves)
             {
                 const int Slimes = 6;
@@ -113,6 +121,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         {
                             JumpTimer = 0;
                             SpecialJumping = false;
+                            teleportTimer = 150; //continue teleport timer
                         }
                         else
                         {
@@ -233,14 +242,18 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 CurrentlyJumping = false;
             }
 
-            if (npc.velocity.Y != 0) //midair
+            if (npc.velocity.Y == 0) //on ground
+            {
+                
+            }
+            else //midair
             {
                 if (SpecialJumping) //special jump
                 {
                     JumpTimer++;
 
-                    const int ProjTime = 15;
-                    if (JumpTimer % ProjTime < 1)
+                    const int ProjTime = 5;
+                    if (JumpTimer % ProjTime < 1 && JumpTimer % (ProjTime * 3) > 1)
                     {
                         SoundEngine.PlaySound(SoundID.Item17, npc.Center);
                         if (FargoSoulsUtil.HostCheck)
@@ -253,6 +266,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
+
             if ((IsBerserk || npc.life < npc.lifeMax * .66f) && npc.HasValidTarget && !SpecialJumping)
             {
                 if (--SpikeRainCounter < 0) // Spike rain
@@ -261,12 +275,14 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     if (FargoSoulsUtil.HostCheck)
                     {
+                        const int Gap = 110;
+                        Vector2 spawnPos = player.Center + (Vector2.UnitX * Main.rand.Next(-Gap / 2, Gap / 2));
                         for (int i = -12; i <= 12; i++)
                         {
-                            Vector2 spawnPos = player.Center;
-                            spawnPos.X += 110 * i;
-                            spawnPos.Y -= 500;
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, (IsBerserk ? 6f : 0f) * Vector2.UnitY,
+                            Vector2 spikePos = spawnPos;
+                            spikePos.X += Gap * i;
+                            spikePos.Y -= 500;
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), spikePos, (IsBerserk ? 6f : 0f) * Vector2.UnitY,
                                 ModContent.ProjectileType<SlimeSpike2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
                         }
                     }
@@ -379,9 +395,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 else
                 {
                     if (!DidSpecialTeleport)
-                        npc.ai[2] += 60;
+                        teleportTimer += 60;
 
-                    npc.ai[2] += 1f / 3f; //always increment the teleport timer
+                    teleportTimer += 1f / 3f; //always increment the teleport timer
                 }
             }
 
@@ -389,6 +405,14 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             EModeUtils.DropSummon(npc, "SlimyCrown", NPC.downedSlimeKing, ref DroppedSummon);
 
             return base.SafePreAI(npc);
+        }
+        public override bool? CanFallThroughPlatforms(NPC npc)
+        {
+            if (SpecialJumping && !LandingAttackReady)
+            {
+                return false;
+            }
+            return base.CanFallThroughPlatforms(npc);
         }
         public override void OnKill(NPC npc)
         {
