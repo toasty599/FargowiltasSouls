@@ -11,6 +11,8 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using Terraria.DataStructures;
 using System;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
+using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -27,11 +29,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public bool DroppedSummon;
 
-        public int JumpCounter = 0;
-        const int SpecialJump = 4;
+        public float JumpTimer = 0;
+        const int SpecialJumpTime = 60 * 15;
 
         const int SummonWaves = 6;
         public float SummonCounter = SummonWaves - 1;
+        public bool SpecialJumping = false;
         public override bool SafePreAI(NPC npc)
         {
             EModeGlobalNPC.slimeBoss = npc.whoAmI;
@@ -44,38 +47,44 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             Player player = Main.player[npc.target];
 
-            //FargoSoulsUtil.PrintAI(npc);
-
-            float lifeFrac = npc.GetLifePercent();
-            if (lifeFrac < SummonCounter / SummonWaves)
+            if (JumpTimer < SpecialJumpTime)
+            {
+                JumpTimer += Math.Min(2 - npc.GetLifePercent(), SpecialJumpTime - JumpTimer);
+            }
+            
+            if (npc.GetLifePercent() < SummonCounter / SummonWaves)
             {
                 const int Slimes = 6;
-                for (int i = 0; i < Slimes; i++)
+                if (FargoSoulsUtil.HostCheck)
                 {
-                    int x = (int)(npc.position.X + (float)Main.rand.Next(npc.width - 32));
-                    int y = (int)(npc.position.Y + (float)Main.rand.Next(npc.height - 32));
-                    int type = NPCID.Hornet;
-                    int slime = NPC.NewNPC(npc.GetSource_FromThis(), x, y, type);
-                    if (slime.IsWithinBounds(Main.maxNPCs))
+                    for (int i = 0; i < Slimes; i++)
                     {
-                        Main.npc[slime].SetDefaults(type);
-                        Main.npc[slime].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
-                        Main.npc[slime].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
-                        /*
-                        if (npc.HasValidTarget)
+                        int x = (int)(npc.position.X + (float)Main.rand.Next(npc.width - 32));
+                        int y = (int)(npc.position.Y + (float)Main.rand.Next(npc.height - 32));
+                        int type = ModContent.NPCType<SlimeSwarm>();
+                        int slime = NPC.NewNPC(npc.GetSource_FromThis(), x, y, type);
+                        if (slime.IsWithinBounds(Main.maxNPCs))
                         {
-                            Main.npc[slime].ai[0] = Math.Sign(player.Center.X - npc.Center.X);
-                        }
-                        */
-                        //Main.npc[slime].ai[0] = -1000 * Main.rand.Next(3);
-                        //Main.npc[slime].ai[1] = 0f;
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, slime);
+                            Main.npc[slime].SetDefaults(type);
+                            Main.npc[slime].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
+                            Main.npc[slime].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
+
+                            if (npc.HasValidTarget)
+                            {
+                                Main.npc[slime].ai[0] = Math.Sign(player.Center.X - npc.Center.X);
+                            }
+
+                            //Main.npc[slime].ai[0] = -1000 * Main.rand.Next(3);
+                            //Main.npc[slime].ai[1] = 0f;
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, slime);
+                            }
                         }
                     }
                 }
 
+                SoundEngine.PlaySound(SoundID.Item167, npc.Center);
                 SummonCounter--;
             }
 
@@ -89,48 +98,58 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     LandingAttackReady = false;
 
-                    //JumpCounter++;
-                    if (JumpCounter > SpecialJump)
-                        JumpCounter = 0;
 
-                    if (JumpCounter >= SpecialJump)
+                    if (JumpTimer >= SpecialJumpTime && !SpecialJumping)
                     {
+                        SoundEngine.PlaySound(SoundID.Item21 with { Pitch = -1, Volume = 1.5f }, npc.Center);
+                        Particle p = new ExpandingBloomParticle(npc.Center, Vector2.Zero, Color.Blue, Vector2.One, Vector2.One * 60, 40, true, Color.Transparent);
+                        SpecialJumping = true;
+                        p.Spawn();
                         
                     }
                     else
                     {
-                        if (FargoSoulsUtil.HostCheck)
+                        if (SpecialJumping)
                         {
-                            if (WorldSavingSystem.MasochistModeReal)
+                            JumpTimer = 0;
+                            SpecialJumping = false;
+                        }
+                        else
+                        {
+                            if (FargoSoulsUtil.HostCheck)
                             {
-                                for (int i = 0; i < 30; i++) //spike spray
+                                if (WorldSavingSystem.MasochistModeReal)
                                 {
-                                    Projectile.NewProjectile(npc.GetSource_FromThis(), new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
-                                        new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
-                                        ProjectileID.SpikedSlimeSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
-                                }
-                            }
-
-                            if (npc.HasValidTarget)
-                            {
-                                SoundEngine.PlaySound(SoundID.Item21, player.Center);
-                                if (FargoSoulsUtil.HostCheck)
-                                {
-                                    for (int i = 0; i < 6; i++)
+                                    for (int i = 0; i < 30; i++) //spike spray
                                     {
-                                        Vector2 spawn = player.Center;
-                                        spawn.X += Main.rand.Next(-150, 151);
-                                        spawn.Y -= Main.rand.Next(600, 901);
-                                        Vector2 speed = player.Center - spawn;
-                                        speed.Normalize();
-                                        speed *= IsBerserk ? 10f : 5f;
-                                        speed = speed.RotatedByRandom(MathHelper.ToRadians(4));
-                                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, speed, ModContent.ProjectileType<SlimeBallHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), new Vector2(npc.Center.X + Main.rand.Next(-5, 5), npc.Center.Y - 15),
+                                            new Vector2(Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-8, -5)),
+                                            ProjectileID.SpikedSlimeSpike, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                                    }
+                                }
+
+                                if (npc.HasValidTarget)
+                                {
+                                    SoundEngine.PlaySound(SoundID.Item21, player.Center);
+                                    if (FargoSoulsUtil.HostCheck)
+                                    {
+                                        for (int i = 0; i < 6; i++)
+                                        {
+                                            Vector2 spawn = player.Center;
+                                            spawn.X += Main.rand.Next(-150, 151);
+                                            spawn.Y -= Main.rand.Next(600, 901);
+                                            Vector2 speed = player.Center - spawn;
+                                            speed.Normalize();
+                                            speed *= IsBerserk ? 10f : 5f;
+                                            speed = speed.RotatedByRandom(MathHelper.ToRadians(4));
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, speed, ModContent.ProjectileType<SlimeBallHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                    
                 }
             }
             else if (npc.velocity.Y > 0)
@@ -146,8 +165,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     CurrentlyJumping = true;
 
 
-                    if (JumpCounter >= SpecialJump) //special jump
+                    if (SpecialJumping) //special jump
                     {
+                        npc.velocity.Y = -18;
+                        int direction = Math.Sign(player.Center.X - npc.Center.X);
+                        int pastPlayer = 1000;
+                        Vector2 desiredDestination = player.Center + (Vector2.UnitX * pastPlayer * direction);
+
+                        //funny highschool physics math
+                        float jumpTime = Math.Abs(2 * npc.velocity.Y / npc.gravity);
+                        npc.velocity.X = (desiredDestination.X - npc.Center.X) / jumpTime;
 
                     }
                     else
@@ -174,7 +201,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             if (xDif > XThreshold)
                             {
                                 float modifier = xDif - XThreshold;
-                                modifier /= 550f;
+                                modifier /= 700f;
                                 modifier *= modifier;
                                 modifier += 1;
                                 modifier = MathHelper.Clamp(modifier, 1, 8);
@@ -184,7 +211,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         }
 
-                        //no more spikes
 
                         if (shootSpikes && FargoSoulsUtil.HostCheck)
                         {
@@ -207,7 +233,27 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 CurrentlyJumping = false;
             }
 
-            if ((IsBerserk || npc.life < npc.lifeMax * .66f) && npc.HasValidTarget)
+            if (npc.velocity.Y != 0) //midair
+            {
+                if (SpecialJumping) //special jump
+                {
+                    JumpTimer++;
+
+                    const int ProjTime = 15;
+                    if (JumpTimer % ProjTime < 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item17, npc.Center);
+                        if (FargoSoulsUtil.HostCheck)
+                        {
+                            Vector2 spawnPos = npc.Bottom;
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero,
+                                ModContent.ProjectileType<SlimeSpike2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
+                        }
+                    }
+                }
+            }
+
+            if ((IsBerserk || npc.life < npc.lifeMax * .66f) && npc.HasValidTarget && !SpecialJumping)
             {
                 if (--SpikeRainCounter < 0) // Spike rain
                 {

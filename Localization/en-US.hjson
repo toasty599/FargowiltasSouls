@@ -5287,6 +5287,7 @@ Mods: {
 
 			DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			StardustMinion.DisplayName: Stardust Minion
+			SlimeSwarm.DisplayName: Slime Swarm
 		}
 
 		Tiles: {
