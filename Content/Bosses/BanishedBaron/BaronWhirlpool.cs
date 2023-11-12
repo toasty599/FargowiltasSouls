@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             ref float ChildID = ref Projectile.localAI[1];
             ref float attackRandom = ref Projectile.localAI[2];
 
-            Projectile.netUpdate = true; //it's choppy if this isn't done always
+            //Projectile.netUpdate = true; //it's choppy if this isn't done always
 
             if (Timer > 60 * 4)
             {
