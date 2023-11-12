@@ -19,6 +19,14 @@ namespace FargowiltasSouls.Core.Systems
 {
     public class DashPlayer : ModPlayer
     {
+        public enum DashType
+        {
+            None,
+            Monk,
+            Shinobi,
+            Jungle,
+            DeerSinew
+        }
         public override void PostUpdateEquips()
         {
             if (Player.whoAmI != Main.myPlayer)
@@ -26,11 +34,13 @@ namespace FargowiltasSouls.Core.Systems
                 return;
             }
             FargoSoulsPlayer modPlayer = Player.FargoSouls();
-            
+            Main.NewText(Player.dashDelay);
+            if (modPlayer.FargoDash != DashType.None)
+                Player.dashType = 22;
 
             if (Player.dashDelay == 0 && !Player.mount.Active)
             {
-                if (modPlayer.MonkDashReady)
+                if (modPlayer.FargoDash == DashType.Monk)
                 {
                     CustomDashManager.HandleDash(out bool dashing, out int dir);
                     if (dashing && dir != 0)
@@ -39,7 +49,7 @@ namespace FargowiltasSouls.Core.Systems
                         Player.ClearBuff(ModContent.BuffType<MonkBuff>());
                     }
                 }
-                else if (modPlayer.ShinobiEnchantActive && Player.GetToggleValue("ShinobiDash"))
+                else if (modPlayer.FargoDash == DashType.Shinobi && Player.GetToggleValue("ShinobiDash"))
                 {
                     CustomDashManager.HandleDash(out bool dashing, out int dir);
                     if (dashing && dir != 0)
@@ -47,7 +57,7 @@ namespace FargowiltasSouls.Core.Systems
                         ShinobiEnchant.ShinobiDash(Player, dir);
                     }
                 }
-                else if (modPlayer.JungleDashReady)
+                else if (modPlayer.FargoDash == DashType.Jungle)
                 {
                     CustomDashManager.HandleDash(out bool dashing, out int dir);
                     if (dashing && dir != 0)
@@ -55,7 +65,7 @@ namespace FargowiltasSouls.Core.Systems
                         JungleEnchant.JungleDash(Player, dir);
                     }
                 }
-                else if (modPlayer.DeerSinewNerf)
+                else if (modPlayer.FargoDash == DashType.DeerSinew)
                 {
                     CustomDashManager.HandleDash(out bool dashing, out int dir);
                     if (dashing && dir != 0)

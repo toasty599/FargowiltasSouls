@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 return;
             }
             player.FargoSouls().HasDash = true;
-            player.FargoSouls().MonkDashReady = true;
+            player.FargoSouls().FargoDash = DashPlayer.DashType.Monk;
         }
         public static void MonkDash(Player player, bool vertical, int direction)
         {

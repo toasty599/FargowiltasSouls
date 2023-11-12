@@ -25,6 +25,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
+using static FargowiltasSouls.Core.Systems.DashPlayer;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -165,8 +166,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void ResetEffects()
         {
             HasDash = false;
-            MonkDashReady = false;
-            JungleDashReady = false;
+            FargoDash = DashType.None;
 
             AttackSpeed = 1f;
             if (Screenshake > 0)

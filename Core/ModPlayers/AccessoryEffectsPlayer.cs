@@ -575,7 +575,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             HasDash = true;
-            JungleDashReady = true;
+            FargoDash = DashPlayer.DashType.Jungle;
             /*
             HasDash = true;
 
@@ -975,6 +975,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             }*/
 
             ShinobiEnchantActive = true;
+            if (!HasDash)
+            {
+                HasDash = true;
+                FargoDash = DashPlayer.DashType.Shinobi;
+            }
             ShinobiEnchantItem = item;
             MonkEnchantActive = true;
         }
@@ -2895,7 +2900,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             HasDash = true;
-
+            FargoDash = DashPlayer.DashType.DeerSinew;
             DeerSinewNerf = true;
 
             if (IsDashingTimer > 0)

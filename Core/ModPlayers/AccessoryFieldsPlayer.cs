@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using static FargowiltasSouls.Core.Systems.DashPlayer;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -459,8 +460,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int NoUsingItems;
 
         public bool HasDash;
-        public bool JungleDashReady;
-        public bool MonkDashReady;
+        public DashType FargoDash;
 
         public int WeaponUseTimer;
 
