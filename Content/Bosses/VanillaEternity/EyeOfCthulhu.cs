@@ -126,7 +126,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (ai_AttackState == 2f) 
                     npc.position += npc.ai[3] * 0.3f * npc.velocity;
             }
-            if (ai_Phase == 3f && ai_AttackState == 2f)
+            if (ai_Phase == 3f && ai_AttackState == 2f && !IsInFinalPhase)
                 npc.position += npc.ai[3] * 0.5f * npc.velocity; //Faster consecutive dashes in p2
 
             if (ai_Phase == 0f && ai_AttackState == 2f && npc.HasValidTarget) //Dashes curve in phase 1
@@ -456,8 +456,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         }
                         npc.netUpdate = false;
                     }
-                    //if (npc.HasValidTarget)
-                        //npc.position += Main.player[npc.target].velocity.Y * Vector2.UnitY;
                     return false;
                 }
                 else if (!IsInFinalPhase && npc.life <= npc.lifeMax * 0.1) //go into final phase
