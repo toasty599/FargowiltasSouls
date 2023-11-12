@@ -348,7 +348,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override bool PreDraw(ref Color lightColor)
         {
-            string resprite = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode ? "Resprites" : "Vanilla";
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+            string resprite = recolor ? "Resprites" : "Vanilla";
             Texture2D tex = ModContent.Request<Texture2D>($"FargowiltasSouls/Assets/ExtraTextures/{resprite}/{EoCName}").Value;
             int sizeY = tex.Height / Main.projFrames[Type]; //ypos of lower right corner of sprite to draw
             int frameY = Projectile.frame * sizeY;
@@ -356,7 +357,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Vector2 origin = rectangle.Size() / 2f;
             SpriteEffects spriteEffects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Color color = Color.Cyan with { A = 0 } * 0.5f;
+            Color baseColor = recolor ? Color.Cyan : Color.Red;
+            Color color = baseColor with { A = 0 } * 0.4f;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {

@@ -6025,7 +6025,7 @@ Mods: {
 			// PearlwoodStareline.DisplayName: Pearlwood Stareline
 			// EaterRocketJr.DisplayName: Rotten Chunk
 			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
-			// SpectralEoC.DisplayName: Spectral Eo C
+			// SpectralEoC.DisplayName: Spectral Eye of Cthulhu
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
