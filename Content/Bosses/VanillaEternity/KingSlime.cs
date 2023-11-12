@@ -213,7 +213,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 modifier /= 700f;
                                 modifier *= modifier;
                                 modifier += 1;
-                                modifier = MathHelper.Clamp(modifier, 1, 8);
+                                modifier = MathHelper.Clamp(modifier, 1, 4);
                                 npc.velocity.X *= modifier;
                                 npc.velocity.Y *= Math.Min((float)Math.Cbrt(modifier), 1.5f);
                             }

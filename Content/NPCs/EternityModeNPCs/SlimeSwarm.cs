@@ -49,6 +49,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
             //NPC.scale *= 1.5f;
             NPC.lifeMax *= 3;
+            NPC.damage = 32;
 
             NPC.GravityMultiplier *= 2;
         }
