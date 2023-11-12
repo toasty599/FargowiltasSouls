@@ -34,6 +34,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool DroppedSummon;
         public bool ScytheRingIsOnCD;
 
+        public int TeleportDirection = 0;
+
         Vector2 targetCenter = Vector2.Zero;
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
@@ -45,6 +47,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             binaryWriter.Write7BitEncodedInt(FinalPhaseDashCD);
             binaryWriter.Write7BitEncodedInt(FinalPhaseDashStageDuration);
             binaryWriter.Write7BitEncodedInt(FinalPhaseAttackCounter);
+            binaryWriter.Write7BitEncodedInt(TeleportDirection);
+
             bitWriter.WriteBit(IsInFinalPhase);
             bitWriter.WriteBit(FinalPhaseBerserkDashesComplete);
             bitWriter.WriteBit(FinalPhaseDashHorizSpeedSet);
@@ -59,9 +63,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             FinalPhaseDashCD = binaryReader.Read7BitEncodedInt();
             FinalPhaseDashStageDuration = binaryReader.Read7BitEncodedInt();
             FinalPhaseAttackCounter = binaryReader.Read7BitEncodedInt();
+            TeleportDirection = binaryReader.Read7BitEncodedInt();
+
             IsInFinalPhase = bitReader.ReadBit();
             FinalPhaseBerserkDashesComplete = bitReader.ReadBit();
             FinalPhaseDashHorizSpeedSet = bitReader.ReadBit();
+
+            
         }
 
         public override bool SafePreAI(NPC npc)
@@ -503,13 +511,21 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 ai_AttackState = 5f;
 
                                 Vector2 distance = Main.player[npc.target].Center - npc.Center;
+                                if (distance.X == 0) //never zero side
+                                    distance.X = 1;
                                 const int Xmax = 1200; //1.6.1 note: was 1200 before
                                 const int Xmin = 1100; //1.6.1 note: was 600 before
                                 if (Math.Abs(distance.X) > Xmax)
                                     distance.X = Xmax * Math.Sign(distance.X); 
                                 else if (Math.Abs(distance.X) < Xmin)
-                                    distance.X = Xmin * Math.Sign(distance.X); 
-                                distance.X *= Main.rand.NextBool() ? 1 : -1; //random side
+                                    distance.X = Xmin * Math.Sign(distance.X);
+
+                                if (TeleportDirection == 0)
+                                    TeleportDirection = Math.Sign(distance.X); //first dash picks side towards player
+                                else
+                                    TeleportDirection *= -1; //switch side
+
+                                distance.X = Math.Abs(distance.X) * TeleportDirection;
 
                                 if (distance.Y > 0) //ensure to teleport above
                                     distance.Y *= -1;
@@ -534,26 +550,27 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         const int aDif = 2;
                         npc.alpha -= aDif;
-                        if (Math.Abs(npc.alpha - 245) <= aDif)
+                        const int delay = 30;
+                        if (Math.Abs(npc.alpha - (245 - delay)) <= aDif)
                         {
                             SoundEngine.PlaySound(SoundID.Roar, npc.Center);
                             
                         }
-                        if (npc.alpha < 245 && npc.alpha > 212) //latter value calibrates dash distance, basically
+                        if (npc.alpha < 245 - delay && npc.alpha > 212 - delay) //latter value calibrates dash distance, basically
                         {
                             if (npc.HasValidTarget)
                                 npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * 50;
 
                             
                         }
-                        if (npc.alpha < 245 && npc.alpha > 120) //scythes
+                        if (npc.alpha < 245 - delay && npc.alpha > 120 - delay) //scythes
                         {
                             if (npc.alpha % (aDif * 10) <= aDif && FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 1f, Main.myPlayer);
                             }
                         }
-                        if (npc.alpha < 245 && npc.alpha > 30) //curve towards player
+                        if (npc.alpha < 245 - delay && npc.alpha > 30) //curve towards player
                         {
                             float speed = npc.velocity.Length();
                             float modifier = 1f;

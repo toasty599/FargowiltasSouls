@@ -358,7 +358,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             SpriteEffects spriteEffects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             Color baseColor = recolor ? Color.Cyan : Color.Red;
-            Color color = baseColor with { A = 0 } * 0.07f;
+            Color color = baseColor with { A = 0 } * 0.13f;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
