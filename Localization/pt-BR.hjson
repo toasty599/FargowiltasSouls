@@ -5993,6 +5993,7 @@ Mods: {
 			// PearlwoodStareline.DisplayName: Pearlwood Stareline
 			// EaterRocketJr.DisplayName: Rotten Chunk
 			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
+			// SpectralEoC.DisplayName: Spectral Eo C
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

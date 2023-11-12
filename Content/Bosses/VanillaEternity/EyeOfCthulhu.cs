@@ -34,6 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool DroppedSummon;
         public bool ScytheRingIsOnCD;
 
+        Vector2 targetCenter = Vector2.Zero;
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -211,14 +212,28 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             npc.Center = Main.player[npc.target].Center;
                             npc.position.X += Main.rand.NextBool() ? -600 : 600;
                             npc.position.Y += Main.rand.NextBool() ? -400 : 400;
+
+                            npc.position.X += Main.rand.Next(-100, 100); //1.6.1 change: random offset
+
                             npc.TargetClosest(false);
                             npc.netUpdate = true;
                             NetSync(npc);
+
+                            AITimer = 40; //1.6.1 change: skip most of windup
+
+                            if (npc.HasValidTarget) //1.6.1 change: telegraph with spectral EoC clone
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<SpectralEoC>(), 0, 0, Main.myPlayer, AITimer + 20, npc.target);
                         }
+
+                        if (npc.HasValidTarget)
+                            targetCenter = Main.player[npc.target].Center;
+                        else
+                            targetCenter = npc.Center;
                     }
-                    else if (AITimer < 90) //fade in, moving into position
+                    else if (AITimer < 90) //fade in
                     {
-                        npc.alpha -= WorldSavingSystem.MasochistModeReal ? 5 : 4;
+                        
+                        npc.alpha -= WorldSavingSystem.MasochistModeReal ? 30 : 25;
                         if (npc.alpha < 0)
                         {
                             npc.alpha = 0;
@@ -232,12 +247,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (npc.rotation < -PI)
                             npc.rotation += 2 * PI;
 
-                        float targetRotation = npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - PI / 2;
+                        float targetRotation = npc.DirectionTo(targetCenter).ToRotation() - PI / 2;
                         if (targetRotation > PI)
                             targetRotation -= 2 * PI;
                         if (targetRotation < -PI)
                             targetRotation += 2 * PI;
-                        npc.rotation = MathHelper.Lerp(npc.rotation, targetRotation, 0.07f);
+                        npc.rotation = MathHelper.Lerp(npc.rotation, targetRotation, 0.3f);
 
                         for (int i = 0; i < 3; i++)
                         {
@@ -247,10 +262,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             Main.dust[d].velocity *= 4f;
                         }
 
-                        Vector2 target = Main.player[npc.target].Center;
+                        Vector2 target = targetCenter;
                         target.X += npc.Center.X < target.X ? -600 : 600;
                         target.Y += npc.Center.Y < target.Y ? -400 : 400;
 
+                        /*
                         if (npc.Center.X < target.X)
                         {
                             npc.velocity.X += speedModifier;
@@ -279,6 +295,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             npc.velocity.X = 24 * Math.Sign(npc.velocity.X);
                         if (Math.Abs(npc.velocity.Y) > 24)
                             npc.velocity.Y = 24 * Math.Sign(npc.velocity.Y);
+                        */
+                        npc.velocity = Vector2.Zero;
                     }
                     else if (!FinalPhaseBerserkDashesComplete) //berserk dashing phase
                     {
@@ -289,15 +307,15 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         if (++FinalPhaseDashCD == 1)
                         {
-                            SoundEngine.PlaySound(SoundID.ForceRoarPitched, Main.player[npc.target].Center);
+                            SoundEngine.PlaySound(SoundID.ForceRoarPitched, targetCenter);
 
                             if (!FinalPhaseDashHorizSpeedSet) //only set this on the first dash of each set
                             {
                                 FinalPhaseDashHorizSpeedSet = true;
-                                npc.velocity.X = npc.Center.X < Main.player[npc.target].Center.X ? xSpeed : -xSpeed;
+                                npc.velocity.X = npc.Center.X < targetCenter.X ? xSpeed : -xSpeed;
                             }
 
-                            npc.velocity.Y = npc.Center.Y < Main.player[npc.target].Center.Y ? ySpeed : -ySpeed; //alternate this every dash
+                            npc.velocity.Y = npc.Center.Y < targetCenter.Y ? ySpeed : -ySpeed; //alternate this every dash
 
                             ScytheSpawnTimer = 30;
                             //if (WorldSavingSystem.MasochistModeReal)
@@ -311,6 +329,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         {
                             FinalPhaseDashCD = 0;
                         }
+
 
                         if (++FinalPhaseDashStageDuration > 600 * 3 / xSpeed + 5) //proceed
                         {
@@ -437,6 +456,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         }
                         npc.netUpdate = false;
                     }
+                    //if (npc.HasValidTarget)
+                        //npc.position += Main.player[npc.target].velocity.Y * Vector2.UnitY;
                     return false;
                 }
                 else if (!IsInFinalPhase && npc.life <= npc.lifeMax * 0.1) //go into final phase
