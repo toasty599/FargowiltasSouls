@@ -511,6 +511,7 @@ Mods: {
 			// PureHeartHeader: "{$Mods.FargowiltasSouls.Items.PureHeart.DisplayName}"
 			MasoEaterConfig: 迷你噬魂者
 			MasoBrainConfig: 飞眼怪
+			// MasoQueenConfig: Slimy Spikes
 			// LumpofFleshHeader: "{$Mods.FargowiltasSouls.Items.LumpOfFlesh.DisplayName}"
 			MasoPungentCursorConfig: 易伤区域光标
 			MasoPugentConfig: 眼球仆从
@@ -6099,6 +6100,7 @@ Mods: {
 		// PureHeartHeader: "[i:FargowiltasSouls/PureHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PureHeartHeader}]"
 		// MasoEaterConfig: "[i:FargowiltasSouls/DarkenedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoEaterConfig}]"
 		// MasoBrainConfig: "[i:FargowiltasSouls/GuttedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBrainConfig}]"
+		// MasoQueenConfig: "[i:FargowiltasSouls/GelicWings][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoQueenConfig}]"
 		// LumpofFleshHeader: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.LumpofFleshHeader}]"
 		// MasoPungentCursorConfig: "[i:FargowiltasSouls/PungentEyeball][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPungentCursorConfig}]"
 		// MasoPugentConfig: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPugentConfig}]"

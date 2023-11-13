@@ -511,6 +511,7 @@ Mods: {
 			PureHeartHeader: "{$Mods.FargowiltasSouls.Items.PureHeart.DisplayName}"
 			MasoEaterConfig: Tiny Eaters
 			MasoBrainConfig: Creeper Shield
+			MasoQueenConfig: Slimy Spikes
 			LumpofFleshHeader: "{$Mods.FargowiltasSouls.Items.LumpOfFlesh.DisplayName}"
 			MasoPungentCursorConfig: Pungent Eye Cursor
 			MasoPugentConfig: Lump of Flesh Minion
@@ -3327,11 +3328,12 @@ Mods: {
 				DisplayName: Pure Heart
 				Tooltip:
 					'''
-					[i:FargowiltasSouls/PureHeart] Grants immunity to biome debuffs and gives 10% increased max life
+					[i:FargowiltasSouls/PureHeart] Grants immunity to biome debuffs
 					Grants immunity to [i:FargowiltasSouls/DarkenedHeart] Rotting and [i:FargowiltasSouls/GuttedHeart] Bloodthirsty
 					[i:FargowiltasSouls/DarkenedHeart] Increased movement speed and turnaround traction
 					[i:FargowiltasSouls/DarkenedHeart] You spawn mini eaters to seek out enemies every few attacks
 					[i:FargowiltasSouls/GuttedHeart] Up to 5 creepers hover around you blocking some damage, respawning faster when not moving
+					[i:FargowiltasSouls/GuttedHeart] Gives 10% increased max life
 					[i:FargowiltasSouls/GelicWings] Allows the wearer to double jump
 					[i:FargowiltasSouls/GelicWings] When you land after a jump, slime spikes shoot out to the sides
 					'It pulses with vitality'
@@ -6128,6 +6130,7 @@ Mods: {
 		PureHeartHeader: "[i:FargowiltasSouls/PureHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PureHeartHeader}]"
 		MasoEaterConfig: "[i:FargowiltasSouls/DarkenedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoEaterConfig}]"
 		MasoBrainConfig: "[i:FargowiltasSouls/GuttedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBrainConfig}]"
+		MasoQueenConfig: "[i:FargowiltasSouls/GelicWings][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoQueenConfig}]"
 		LumpofFleshHeader: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.LumpofFleshHeader}]"
 		MasoPungentCursorConfig: "[i:FargowiltasSouls/PungentEyeball][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPungentCursorConfig}]"
 		MasoPugentConfig: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPugentConfig}]"
