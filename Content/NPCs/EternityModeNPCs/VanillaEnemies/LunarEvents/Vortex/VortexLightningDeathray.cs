@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
     public class VortexLightningDeathray : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Will/WillDeathray";
-        public VortexLightningDeathray() : base(15, sheeting: TextureSheeting.Horizontal) { }
+        public VortexLightningDeathray() : base(15, hitboxModifier: 3, sheeting: TextureSheeting.Horizontal) { }
 
         public PrimDrawer LaserDrawer { get; private set; } = null;
 

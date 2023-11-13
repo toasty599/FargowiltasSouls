@@ -8,6 +8,7 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Core.Systems;
 using Terraria.Audio;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Vortex
 {
@@ -66,15 +67,13 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             else
             {
+                
                 if (Attack == (int)Attacks.VortexVortex)
                 {
                     EndAttack(npc);
-                    if (Vortex.IsWithinBounds(Main.maxProjectiles))
+                    foreach (Projectile projectile in Main.projectile.Where(p => p != null && p.active && p.type == ModContent.ProjectileType<VortexVortex>()))
                     {
-                        if (Main.projectile[Vortex].active)
-                        {
-                            Main.projectile[Vortex].Kill();
-                        }
+                        projectile.Kill();
                     }
                 }
                     
@@ -182,7 +181,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             void Attack()
             {
                 const int distance = 180;
-                const int AttackDelay = 45;
+                const int AttackDelay = 70;
                 if ((AttackTimer - WindupDuration) % AttackDelay == 1)
                 {
                     bool second = false;

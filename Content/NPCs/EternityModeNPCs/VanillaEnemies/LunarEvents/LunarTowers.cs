@@ -10,6 +10,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using System.Linq;
 using System.Collections.Generic;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Vortex;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents
 {
@@ -238,6 +239,20 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     }
                     */
                     ShieldsDownAI(npc);
+                }
+                else
+                {
+                    if (npc.type == NPCID.LunarTowerVortex)
+                    {
+                        if (Attack == (int)LunarTowerVortex.Attacks.VortexVortex)
+                        {
+                            EndAttack(npc);
+                            foreach (Projectile projectile in Main.projectile.Where(p => p != null && p.active && p.type == ModContent.ProjectileType<VortexVortex>()))
+                            {
+                                projectile.Kill();
+                            }
+                        }
+                    }
                 }
             }
         }
