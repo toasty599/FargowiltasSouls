@@ -5994,6 +5994,7 @@ Mods: {
 			// EaterRocketJr.DisplayName: Rotten Chunk
 			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
 			// SpectralEoC.DisplayName: Spectral Eye of Cthulhu
+			// MonkDashSlash.DisplayName: Monk Dash Slash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using static FargowiltasSouls.Core.Systems.DashPlayer;
+using static FargowiltasSouls.Core.Systems.DashManager;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {

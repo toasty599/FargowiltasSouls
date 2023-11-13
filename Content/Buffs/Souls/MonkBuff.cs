@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 return;
             }
             player.FargoSouls().HasDash = true;
-            player.FargoSouls().FargoDash = DashPlayer.DashType.Monk;
+            player.FargoSouls().FargoDash = DashManager.DashType.Monk;
         }
         public static void MonkDash(Player player, bool vertical, int direction)
         {
@@ -45,9 +45,10 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 player.immuneTime = Math.Max(player.immuneTime, invul);
                 player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
                 player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], invul);
-
-                bool monkForce = modPlayer.ForceEffect(modPlayer.MonkEnchantItem.type) || modPlayer.ShinobiEnchantActive;
-                bool shinobiForce = modPlayer.ForceEffect(modPlayer.ShinobiEnchantItem.type);
+                bool monkForce = modPlayer.ShinobiEnchantActive;
+                if (modPlayer.MonkEnchantItem != null && modPlayer.ForceEffect(modPlayer.MonkEnchantItem.type))
+                    monkForce = true;
+                bool shinobiForce = modPlayer.ShinobiEnchantItem != null && modPlayer.ForceEffect(modPlayer.ShinobiEnchantItem?.type);
 
                 Vector2 pos = player.Center;
 
@@ -62,7 +63,6 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             }
 
             player.dashDelay = 115;
-            player.dashType = 0;
             if (player.FargoSouls().IsDashingTimer < 20)
                 player.FargoSouls().IsDashingTimer = 20;
 
