@@ -38,11 +38,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
 
         }
+        private static readonly SoundStyle LightningSound = new SoundStyle("FargowiltasSouls/Assets/Sounds/LightningStrike");
         public override void OnKill(int timeLeft)
         {
             if (Projectile.ai[0] == 13) //if its the top one
             {
-                SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, Vector2.UnitX * Projectile.Center.X + Vector2.UnitY * Main.LocalPlayer.Center.Y);
+                SoundEngine.PlaySound(LightningSound with { MaxInstances = 4, Volume = 0.2f }, Main.LocalPlayer.Center);
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 dir = Vector2.UnitY;

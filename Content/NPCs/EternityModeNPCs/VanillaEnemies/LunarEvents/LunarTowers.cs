@@ -109,20 +109,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 return;
             }
-            if (npc.lifeMax != MaxHP)
-            {
-                npc.lifeMax = npc.life = MaxHP;
-            }
-            if (npc.damage != Damage)
-            {
-                npc.damage = Damage;
-            }
             if (npc.type == NPCID.LunarTowerStardust)
             {
                 npc.ai[1] = 1000; //disable vanilla constellation spawn
             }
             if (!spawned)
             {
+                npc.lifeMax = npc.life = MaxHP;
+                npc.damage = Damage;
                 spawned = true;
                 SpawnedDuringLunarEvent = NPC.LunarApocalypseIsUp;
                 npc.damage += 150;
