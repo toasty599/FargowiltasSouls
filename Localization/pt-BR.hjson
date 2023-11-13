@@ -5275,6 +5275,7 @@ Mods: {
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
+			// SlimeSwarm.DisplayName: Slime Swarm
 		}
 
 		Tiles: {
@@ -5992,6 +5993,8 @@ Mods: {
 			// PearlwoodStareline.DisplayName: Pearlwood Stareline
 			// EaterRocketJr.DisplayName: Rotten Chunk
 			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
+			// SpectralEoC.DisplayName: Spectral Eye of Cthulhu
+			// MonkDashSlash.DisplayName: Monk Dash Slash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

@@ -52,7 +52,6 @@ namespace FargowiltasSouls.Common.Graphics
 
         public override void OnModLoad()
         {
-            ManagedTargets = new();
             Main.OnPreDraw += HandleTargetUpdateLoop;
             Main.OnResolutionChanged += ResetTargetSizes;
         }
@@ -70,7 +69,7 @@ namespace FargowiltasSouls.Common.Graphics
             {
                 foreach (ManagedRenderTarget target in ManagedTargets)
                 {
-                    if (target == null || target.IsDisposed || !target.ShouldAutoDispose)
+                    if (target.IsUninitialized || target == null || target.IsDisposed || !target.ShouldAutoDispose)
                         continue;
 
                     if (target.TimeSinceLastAccessed >= TimeBeforeAutoDispose)

@@ -591,7 +591,7 @@ namespace FargowiltasSouls
                     70,
                     80,
                     88,
-                    94,
+                    //BuffID.ManaSickness, this is mana sickness, why was it here?
                     103,
                     137,
                     144,

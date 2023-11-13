@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public int ReticleTarget;
         public int BabyGuardianTimer;
+        public bool DGDaytime;
         public int DGSpeedRampup;
         public int MasoArmsTimer;
 
@@ -292,6 +293,19 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         npc.position -= npc.velocity * (120 - DGSpeedRampup) / 120;
                     }
                 }
+
+                if (Main.dayTime)
+                {
+                    npc.Transform(NPCID.DungeonGuardian);
+                    //DGDaytime = true;
+                }
+                /*
+                if (DGDaytime)
+                {
+                    npc.position += npc.velocity * DGSpeedRampup / 120;
+                    DGSpeedRampup++;
+                }
+                */
             }
 
             EModeUtils.DropSummon(npc, "SuspiciousSkull", NPC.downedBoss3, ref DroppedSummon);

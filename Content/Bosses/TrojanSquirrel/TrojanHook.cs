@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Squirrel Hook");
-            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 4800;
+            ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 8000;
         }
 
         public override void SetDefaults()
@@ -146,10 +146,27 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), ChainOrigin, Projectile.Center);
         }
 
-        protected virtual bool flashingZapEffect => WorldSavingSystem.EternityMode && Projectile.timeLeft % 10 < 5;
+        protected virtual bool flashingZapEffect => false; //WorldSavingSystem.EternityMode && Projectile.timeLeft % 10 < 5;
 
         public override bool PreDraw(ref Color lightColor)
         {
+            Texture2D lightningTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/TrojanSquirrel/TrojanHookLightning").Value;
+            int lightningFrames = 5;
+            
+            Rectangle GetRandomLightningFrame()
+            {
+                int frameHeight = lightningTexture.Height / lightningFrames;
+                int frame = Main.rand.Next(lightningFrames);
+                return new(0, frameHeight * frame, lightningTexture.Width, frameHeight);
+            }
+            void DrawLightning(Vector2 position, Color color, float rotation)
+            {
+                if (!Main.rand.NextBool(4))
+                    return;
+                Rectangle lightningRect = GetRandomLightningFrame();
+                Vector2 lightningOrigin = lightningRect.Size() / 2f;
+                Main.EntitySpriteDraw(lightningTexture, position - Main.screenPosition, lightningRect, Color.White, rotation, lightningOrigin, 1f, SpriteEffects.None, 0);
+            }
             if (npc != null && TextureAssets.Chain.IsLoaded)
             {
                 Texture2D texture = TextureAssets.Chain.Value;
@@ -179,11 +196,22 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
                         color2 = flashingZapEffect ? Color.White * Projectile.Opacity : Projectile.GetAlpha(color2);
                         Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
+
+                        bool lightningBehind2 = Main.rand.NextBool();
+                        if (lightningBehind2)
+                        {
+                            DrawLightning(position, lightColor, rotation);
+                        }
                         if (flashingZapEffect)
                         {
                             color2.A = 0;
                             Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1f, SpriteEffects.None, 0);
                         }
+                        if (!lightningBehind2)
+                        {
+                            DrawLightning(position, lightColor, rotation);
+                        }
+                        
                     }
             }
 
@@ -194,12 +222,23 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             Vector2 origin2 = rectangle.Size() / 2f;
             SpriteEffects effects = SpriteEffects.None;
             Color color = flashingZapEffect ? Color.White * Projectile.Opacity : Projectile.GetAlpha(lightColor);
+
+            bool lightningBehind = Main.rand.NextBool();
+            if (lightningBehind)
+            {
+                DrawLightning(Projectile.Center, lightColor, Projectile.rotation);
+            }
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             if (flashingZapEffect)
             {
                 color.A = 0;
                 Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             }
+            if (!lightningBehind)
+            {
+                DrawLightning(Projectile.Center, lightColor, Projectile.rotation);
+            }
+
             return false;
         }
     }

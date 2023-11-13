@@ -389,6 +389,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                     lihzahrdFallCD = 2;
             }
 
+            DashManager.ManageDashes(Player);
+
             if (DeerclawpsItem != null && IsInADashState)
                 DeerclawpsAttack(Player.Bottom);
 

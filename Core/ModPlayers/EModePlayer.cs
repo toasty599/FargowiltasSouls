@@ -71,6 +71,14 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.active && !Player.dead && !Player.ghost)
             {
+                //KILL alchnpc greater dangersense (when boss alive)
+                if (ModLoader.TryGetMod("AlchemistNPC", out Mod alchNPC) && FargoSoulsUtil.AnyBossAlive())
+                {
+                    if (alchNPC.TryFind("GreaterDangersense", out ModBuff greaterDangersense))
+                    {
+                        Player.buffImmune[greaterDangersense.Type] = true;
+                    }
+                }
                 //falling gives you dazed. wings save you
                 /*if (Player.velocity.Y == 0f && Player.wingsLogic == 0 && !Player.noFallDmg && !Player.ghost && !Player.dead)
                 {
