@@ -31,6 +31,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             VortexVortex,
             LightningBall,
             SkyLightning,
+            LightningElderHu,
             VortexShield
 
         }
@@ -38,7 +39,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             (int)Attacks.LightningBall,
             (int)Attacks.SkyLightning,
+            (int)Attacks.LightningElderHu,
             (int)Attacks.VortexShield
+            
         };
         public override void ShieldsDownAI(NPC npc)
         {
@@ -55,6 +58,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         break;
                     case (int)Attacks.SkyLightning:
                         SkyLightning(npc, target);
+                        break;
+                    case (int)Attacks.LightningElderHu:
+                        LightningElderHu(npc, target);
                         break;
                     case (int)Attacks.VortexShield:
                         VortexShield(npc, target);
@@ -182,7 +188,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             void Attack()
             {
                 const int distance = 180;
-                const int AttackDelay = 45;
+                const int AttackDelay = 60;
                 if ((AttackTimer - WindupDuration) % AttackDelay == 1)
                 {
                     bool second = false;
@@ -191,6 +197,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         second = true;
                     }
                     const int Bolts = 24;
+                    SoundEngine.PlaySound(NukeBeep, player.Center);
                     for (int i = 0; i < Bolts; i++)
                     {
                         int x = i;
@@ -202,10 +209,61 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         {
                             int offset = second ? distance / 2 : 0;
                             Vector2 pos = npc.Center + Vector2.UnitX * (distance * x + offset);
-                            Vector2 vel = Vector2.UnitY * 16;
                             SpawnLightning(npc, pos);
                         }
 
+                    }
+                }
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+                Windup();
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        private void LightningElderHu(NPC npc, Player player)
+        {
+            const int WindupDuration = 60 * 0;
+            const int AttackDuration = 60 * 6;
+            const int EndlagDuration = 60 * 0;
+            void Windup()
+            {
+
+            }
+            void Attack()
+            {
+                const int distance = 100 + 30;
+                const int Volleys = 12;
+                const int AttackDelay = AttackDuration / Volleys;
+                if ((AttackTimer - WindupDuration) % AttackDelay == 0)
+                {
+                    int i = Volleys - ((AttackTimer - WindupDuration) / AttackDelay);
+
+                    for (int side = -1; side < 2; side += 2)
+                    {
+                        Vector2 pos = npc.Center + Vector2.UnitX * (distance * i * side);
+                        SoundEngine.PlaySound(NukeBeep, pos);
+                        if (FargoSoulsUtil.HostCheck)
+                        {
+                            
+                            SpawnLightning(npc, pos);
+                        }
                     }
                 }
             }
@@ -276,7 +334,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         private readonly SoundStyle NukeBeep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
         private void SpawnLightning(NPC parent, Vector2 position)
         {
-            SoundEngine.PlaySound(NukeBeep, position);
+            
             if (FargoSoulsUtil.HostCheck)
             {
                 Vector2 posOrig = position;
