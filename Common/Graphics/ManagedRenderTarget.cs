@@ -95,13 +95,5 @@ namespace FargowiltasSouls.Common.Graphics
         }
 
         public static implicit operator RenderTarget2D(ManagedRenderTarget target) => target.Target;
-
-        public static bool operator ==(ManagedRenderTarget value1, ManagedRenderTarget value2) => value1.target == value2.target;
-
-        public static bool operator !=(ManagedRenderTarget value1, ManagedRenderTarget value2) => value1.target != value2.target;
-
-        public override bool Equals(object obj) => this == (ManagedRenderTarget)obj;
-
-		public override int GetHashCode() => Width * Height;
 	}
 }
