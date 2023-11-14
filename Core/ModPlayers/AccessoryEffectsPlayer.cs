@@ -2291,7 +2291,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             }
                         }
 
-                        if (GelicWingsItem != null)
+                        if (GelicWingsItem != null && Player.GetToggleValue("MasoQueen"))
                         {
                             int dam = 60; //deliberately no scaling
                             for (int j = -1; j <= 1; j += 2)
