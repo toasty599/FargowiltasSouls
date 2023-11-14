@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 45;
+            Item.damage = 41;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 24;
             Item.height = 24;
