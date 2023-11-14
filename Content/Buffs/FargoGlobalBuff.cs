@@ -110,22 +110,30 @@ namespace FargowiltasSouls.Content.Buffs
 
                     if (npc.buffTime[buffIndex] % 30 == 0)
                     {
-                        for (int i = 0; i < Main.maxNPCs; i++)
+                        if (FargoSoulsUtil.HostCheck)
                         {
-                            NPC target = Main.npc[i];
-                            if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 250)
+                            Player player = Main.player.FirstOrDefault(p => p.active && !p.dead && p.FargoSouls().AncientShadowEnchantActive);
+                            if (player != null && player.active && !player.dead)
                             {
-                                Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
-                                int p = Projectile.NewProjectile(npc.GetSource_Buff(buffIndex), npc.Center, velocity, ProjectileID.ShadowFlame, 40 + FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
-                                if (p.IsWithinBounds(Main.maxProjectiles))
+                                for (int i = 0; i < Main.maxNPCs; i++)
                                 {
-                                    Main.projectile[p].friendly = true;
-                                    Main.projectile[p].hostile = false;
+                                    NPC target = Main.npc[i];
+                                    if (target.active && !target.friendly && Vector2.Distance(npc.Center, target.Center) < 250)
+                                    {
+                                        Vector2 velocity = Vector2.Normalize(target.Center - npc.Center) * 5;
+                                        int p = Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center, velocity, ProjectileID.ShadowFlame, 40 + FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0, Main.myPlayer);
+                                        if (p.IsWithinBounds(Main.maxProjectiles))
+                                        {
+                                            Main.projectile[p].friendly = true;
+                                            Main.projectile[p].hostile = false;
+                                        }
+                                        if (Main.rand.NextBool(3))
+                                            break;
+                                    }
                                 }
-                                if (Main.rand.NextBool(3))
-                                    break;
                             }
                         }
+                        
                     }
                     break;
 
