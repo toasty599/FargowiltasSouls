@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -39,6 +40,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
         public override void AI()
         {
+            if (!Main.npc.Any(n => n.active && n.type == NPCID.LunarTowerVortex))
+                Projectile.Kill();
+
             int time = 360;
             int maxScale = 3;
 
