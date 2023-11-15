@@ -26,7 +26,6 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.ignoreWater = true;
-            Projectile.extraUpdates = 1;
         }
         public const int TravelTime = 30;
         ref float Timer => ref Projectile.ai[2];

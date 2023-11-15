@@ -6,4 +6,4 @@ buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, lib\*, .git\*, Folders to P
 languageVersion = 6
 hideCode = false
 hideResources = false
-modReferences = Fargowiltas@3.2
+modReferences = Fargowiltas@3.2.1
