@@ -222,6 +222,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             writer.Write7BitEncodedInt(oldP1state);
 
             writer.Write(UseTrueOriginAI);
+            writer.Write(AttackF1);
 
             writer.WriteVector2(LockVector1);
             writer.WriteVector2(LockVector2);
@@ -240,6 +241,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             oldP1state = reader.Read7BitEncodedInt();
 
             UseTrueOriginAI = reader.ReadBoolean();
+            AttackF1 = reader.ReadBoolean();
 
             LockVector1 = reader.ReadVector2();
             LockVector2 = reader.ReadVector2();
@@ -312,8 +314,10 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 if (ChunkDistance == DefaultChunkDistance)
                 {
                     PyramidPhase = 0;
+                    NPC.netUpdate = true;
                 }
             }
+            PyramidTimer++;
             //rotation
             BodyRotation += RPS * MathHelper.TwoPi / 60f; //first number is rotations/second
             //ChunkTriangleOuterRotation -= 0.2f * MathHelper.TwoPi / 60f; //first number is rotations/second
@@ -915,7 +919,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         PyramidTimer = 0;
                     }
                     PyramidPhase = 1;
-                    
+                    NPC.netUpdate = true;
+
                     for (int i = 0; i < 100; i++)
                     {
                         Color color = Main.rand.NextFromList(Color.Goldenrod, Color.Pink, Color.Cyan);
@@ -2797,7 +2802,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         spriteBatch.Draw(origin: origins[i], texture: pyramidp[i], position: NPC.Center + offsets[i] - screenPos, sourceRectangle: rects[i], color: color, rotation: pyramidRot, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
                     }
                 }
-                PyramidTimer++;
             }
 
         }
