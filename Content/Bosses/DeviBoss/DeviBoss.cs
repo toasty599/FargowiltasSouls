@@ -115,7 +115,14 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             NPC.defense = 10;
             NPC.lifeMax = 6000;
             if (WorldSavingSystem.EternityMode)
-                NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 1.5);
+            {
+                NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 1.5f); 
+
+                if (!Main.masterMode) //master mode is already hard enough
+                    NPC.lifeMax = (int)Math.Round(NPC.lifeMax * 1.4f);
+            }
+                
+            
             NPC.HitSound = SoundID.NPCHit9;
             NPC.noGravity = true;
             NPC.noTileCollide = true;

@@ -220,9 +220,14 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             writer.Write7BitEncodedInt(index2);
             writer.Write7BitEncodedInt(P1state);
             writer.Write7BitEncodedInt(oldP1state);
+
+            writer.Write(UseTrueOriginAI);
+
             writer.WriteVector2(LockVector1);
             writer.WriteVector2(LockVector2);
-            writer.Write(UseTrueOriginAI);
+
+            writer.Write7BitEncodedInt(PyramidPhase);
+            writer.Write7BitEncodedInt(PyramidTimer);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -233,9 +238,14 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             index2 = reader.Read7BitEncodedInt();
             P1state = reader.Read7BitEncodedInt();
             oldP1state = reader.Read7BitEncodedInt();
+
             UseTrueOriginAI = reader.ReadBoolean();
+
             LockVector1 = reader.ReadVector2();
             LockVector2 = reader.ReadVector2();
+
+            PyramidPhase = reader.Read7BitEncodedInt();
+            PyramidTimer = reader.Read7BitEncodedInt();
 
         }
         #endregion

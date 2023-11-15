@@ -34,6 +34,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             npc.trapImmune = true;
 
             npc.damage = (int)Math.Round(npc.damage * 1.1);
+
+            if (!Main.masterMode)
+                npc.lifeMax = (int)(npc.lifeMax * 1.25);
         }
 
         public override void OnFirstTick(NPC npc)
