@@ -23,6 +23,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
+using Fargowiltas.Common.Configs;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -252,34 +253,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
         }
-
-
-        public override void Load()
-        {
-            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateForbiddenStorm);
-            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateVortex);
-        }
-        public override void Unload()
-        {
-            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateForbiddenStorm);
-            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateVortex);
-        }
-        public void ActivateForbiddenStorm(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
-        {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            orig.Invoke(player, keyDir);
-            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
-            {
-                if (modPlayer.ForbiddenEnchantActive)
-                {
-                    if (modPlayer.CanSummonForbiddenStorm)
-                    {
-                        modPlayer.CommandForbiddenStorm();
-                        modPlayer.CanSummonForbiddenStorm = false;
-                    }
-                }
-            }
-        }
+        
         public void ForbiddenEffect()
         {
             Player.DisplayToggle("Forbidden");
@@ -1392,38 +1366,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //Main.NewText($"shell HP: {TurtleShellHP}, counter: {TurtleCounter}, recovery: {turtleRecoverCD}");
         }
-        public static void ActivateVortex(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
-        {
-            if (player != Main.LocalPlayer)
-            {
-                return;
-            }
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            orig.Invoke(player, keyDir);
-            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
-            {
-                if (modPlayer.VortexEnchantActive)
-                {
-                    //stealth memes
-                    modPlayer.VortexStealth = !modPlayer.VortexStealth;
-
-                    if (!player.GetToggleValue("VortexS"))
-                        modPlayer.VortexStealth = false;
-
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
-
-                    if (modPlayer.VortexStealth && player.GetToggleValue("VortexV") && !player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
-                    {
-                        int p = Projectile.NewProjectile(player.GetSource_Misc(""), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 60), 5f, player.whoAmI);
-                        Main.projectile[p].FargoSouls().CanSplit = false;
-                        Main.projectile[p].netUpdate = true;
-
-                        player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
-                    }
-                }
-            }
-        }
+        
         public void VortexEffect(bool hideVisual)
         {
             Player.DisplayToggle("VortexS");

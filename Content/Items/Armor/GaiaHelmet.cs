@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -65,39 +66,27 @@ Increases max number of minions and sentries by 1"); */
             string key = Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN");
             return Language.GetTextValue($"Mods.FargowiltasSouls.SetBonus.Gaia", key);
         }
-        public override void Load()
-        {
-            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateSetBonus);
-        }
-        public override void Unload()
-        {
-            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateSetBonus);
-        }
-        public void ActivateSetBonus(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        public static void GaiaSetBonusKey(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            orig.Invoke(player, keyDir);
-            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            if (modPlayer.GaiaSet)
             {
-                if (modPlayer.GaiaSet)
+                modPlayer.GaiaOffense = !modPlayer.GaiaOffense;
+
+                if (modPlayer.GaiaOffense)
+                    SoundEngine.PlaySound(SoundID.Item4, player.Center);
+
+                Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
+                const int max = 36; //make some indicator dusts
+                for (int i = 0; i < max; i++)
                 {
-                    modPlayer.GaiaOffense = !modPlayer.GaiaOffense;
-
-                    if (modPlayer.GaiaOffense)
-                        SoundEngine.PlaySound(SoundID.Item4, player.Center);
-
-                    Vector2 baseVel = Vector2.UnitX.RotatedByRandom(2 * Math.PI);
-                    const int max = 36; //make some indicator dusts
-                    for (int i = 0; i < max; i++)
-                    {
-                        Vector2 vector6 = baseVel * 6f;
-                        vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + player.Center;
-                        Vector2 vector7 = vector6 - player.Center;
-                        int d = Dust.NewDust(vector6 + vector7, 0, 0, Main.rand.NextBool() ? 107 : 110, 0f, 0f, 0, default);
-                        Main.dust[d].scale = 2.5f;
-                        Main.dust[d].noGravity = true;
-                        Main.dust[d].velocity = vector7;
-                    }
+                    Vector2 vector6 = baseVel * 6f;
+                    vector6 = vector6.RotatedBy((i - (max / 2 - 1)) * 6.28318548f / max) + player.Center;
+                    Vector2 vector7 = vector6 - player.Center;
+                    int d = Dust.NewDust(vector6 + vector7, 0, 0, Main.rand.NextBool() ? 107 : 110, 0f, 0f, 0, default);
+                    Main.dust[d].scale = 2.5f;
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity = vector7;
                 }
             }
         }

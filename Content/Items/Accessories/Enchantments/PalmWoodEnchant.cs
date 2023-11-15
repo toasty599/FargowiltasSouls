@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -35,48 +36,35 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             PalmEffect(player, Item);
         }
-        public override void Load()
-        {
-            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivatePalmwoodSentry);
-        }
-        public override void Unload()
-        {
-            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivatePalmwoodSentry);
-        }
-        public void ActivatePalmwoodSentry(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        public static void ActivatePalmwoodSentry(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            orig.Invoke(player, keyDir);
-            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            if (modPlayer.PalmEnchantItem != null)
             {
-                if (modPlayer.PalmEnchantItem != null)
+                if (player.GetToggleValue("Palm") && player.whoAmI == Main.myPlayer)
                 {
-                    if (player.GetToggleValue("Palm") && player.whoAmI == Main.myPlayer)
+                    Vector2 mouse = Main.MouseWorld;
+
+                    int maxSpawn = 1;
+
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<PalmTreeSentry>()] > maxSpawn - 1)
                     {
-                        Vector2 mouse = Main.MouseWorld;
-
-                        int maxSpawn = 1;
-
-                        if (player.ownedProjectileCounts[ModContent.ProjectileType<PalmTreeSentry>()] > maxSpawn - 1)
+                        for (int i = 0; i < Main.maxProjectiles; i++)
                         {
-                            for (int i = 0; i < Main.maxProjectiles; i++)
-                            {
-                                Projectile proj = Main.projectile[i];
+                            Projectile proj = Main.projectile[i];
 
-                                if (proj.active && proj.type == ModContent.ProjectileType<PalmTreeSentry>() && proj.owner == player.whoAmI)
-                                {
-                                    proj.Kill();
-                                    break;
-                                }
+                            if (proj.active && proj.type == ModContent.ProjectileType<PalmTreeSentry>() && proj.owner == player.whoAmI)
+                            {
+                                proj.Kill();
+                                break;
                             }
                         }
-
-
-                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse - 10 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 100 : 15, 0f, player.whoAmI);
                     }
+
+
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse - 10 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 100 : 15, 0f, player.whoAmI);
                 }
             }
-
         }
         public static void PalmEffect(Player player, Item item)
         {

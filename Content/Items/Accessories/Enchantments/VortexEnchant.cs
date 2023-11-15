@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Buffs.Souls;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -39,7 +41,34 @@ While in stealth, your own projectiles will not be sucked in
         {
             player.FargoSouls().VortexEffect(hideVisual);
         }
+        public static void ActivateVortex(Player player)
+        {
+            if (player != Main.LocalPlayer)
+            {
+                return;
+            }
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.VortexEnchantActive)
+            {
+                //stealth memes
+                modPlayer.VortexStealth = !modPlayer.VortexStealth;
 
+                if (!player.GetToggleValue("VortexS"))
+                    modPlayer.VortexStealth = false;
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
+
+                if (modPlayer.VortexStealth && player.GetToggleValue("VortexV") && !player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
+                {
+                    int p = Projectile.NewProjectile(player.GetSource_Misc(""), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 60), 5f, player.whoAmI);
+                    Main.projectile[p].FargoSouls().CanSplit = false;
+                    Main.projectile[p].netUpdate = true;
+
+                    player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
+                }
+            }
+        }
         public override void AddRecipes()
         {
             CreateRecipe()

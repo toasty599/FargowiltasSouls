@@ -36,6 +36,18 @@ Touch it yourself to add back missing wing time
             player.FargoSouls().ForbiddenEffect();
         }
 
+        public static void ActivateForbiddenStorm(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.ForbiddenEnchantActive)
+            {
+                if (modPlayer.CanSummonForbiddenStorm)
+                {
+                    modPlayer.CommandForbiddenStorm();
+                    modPlayer.CanSummonForbiddenStorm = false;
+                }
+            }
+        }
         public override void AddRecipes()
         {
             CreateRecipe()

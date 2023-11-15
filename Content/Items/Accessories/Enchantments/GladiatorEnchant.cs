@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -42,30 +43,19 @@ Grants knockback immunity when you are facing the attack
         {
             GladiatorEffect(player);
         }
-        public override void Load()
-        {
-            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateGladiatorBanner);
-        }
-        public override void Unload()
-        {
-            On_Player.KeyDoubleTap -= new On_Player.hook_KeyDoubleTap(ActivateGladiatorBanner);
-        }
-        public void ActivateGladiatorBanner(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+
+        
+        public static void ActivateGladiatorBanner(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            orig.Invoke(player, keyDir);
-            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            if (player.whoAmI == Main.myPlayer && modPlayer.GladiatorEnchantActive && player.GetToggleValue("GladiatorBanner"))
             {
-                if (player.whoAmI == Main.myPlayer && modPlayer.GladiatorEnchantActive && player.GetToggleValue("GladiatorBanner"))
+                int GladiatorStandard = ModContent.ProjectileType<GladiatorStandard>();
+                if (player.ownedProjectileCounts[GladiatorStandard] < 1)
                 {
-                    int GladiatorStandard = ModContent.ProjectileType<GladiatorStandard>();
-                    if (player.ownedProjectileCounts[GladiatorStandard] < 1)
-                    {
-                        Projectile.NewProjectile(player.GetSource_Misc(""), player.Top, Vector2.UnitY * 25, GladiatorStandard, modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 300 : 100, 3f, player.whoAmI);
-                    }
+                    Projectile.NewProjectile(player.GetSource_Misc(""), player.Top, Vector2.UnitY * 25, GladiatorStandard, modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 300 : 100, 3f, player.whoAmI);
                 }
             }
-
         }
         public static void GladiatorEffect(Player player)
         {
