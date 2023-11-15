@@ -41,15 +41,20 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         private int WaterwallDistance = 0;
         public override void AI()
         {
-            ref float ParentID = ref Projectile.ai[0];
+            //ref float ParentID = ref Projectile.ai[0];
             ref float Timer = ref Projectile.ai[1];
             ref float State = ref Projectile.ai[2];
 
-            NPC baron = Main.npc[(int)ParentID];
-            if (baron == null || !baron.active || baron.type != ModContent.NPCType<BanishedBaron>() || !NPC.AnyNPCs(ModContent.NPCType<BanishedBaron>()))
-            {
+            int ParentID = NPC.FindFirstNPC(ModContent.NPCType<BanishedBaron>());
+            if (!ParentID.IsWithinBounds(Main.maxNPCs))
                 Projectile.Kill();
-            }
+
+            NPC baron = Main.npc[ParentID];
+            if (baron == null || !baron.active || baron.type != ModContent.NPCType<BanishedBaron>())
+                Projectile.Kill();
+
+            Projectile.timeLeft = 60 * 60 * 60;
+
             float p2MaxLife = baron.lifeMax / 2;
             float modifier = 1f - ((float)baron.life / p2MaxLife);
             float distanceDecrease = 400 * modifier;
