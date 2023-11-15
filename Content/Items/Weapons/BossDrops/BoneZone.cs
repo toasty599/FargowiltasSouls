@@ -1,6 +1,8 @@
 ﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,19 +25,19 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
-
+        private static readonly int[] RiffVariants = new int[4] { 1, 2, 3, 4 };
+        private static readonly SoundStyle badtothebone = new SoundStyle("FargowiltasSouls/Assets/Sounds/Boneriff/boneriff") with { Variants = RiffVariants, Volume = 0.15f };
         public override void SetDefaults()
         {
             Item.damage = 12;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 54;
             Item.height = 14;
-            Item.useTime = 24;
-            Item.useAnimation = 24;
+            Item.useTime = Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 1.5f;
-            Item.UseSound = SoundID.Item2;
+            Item.UseSound = badtothebone;
             Item.value = 50000;
             Item.rare = ItemRarityID.Orange;
             Item.autoReuse = true;
@@ -65,7 +67,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 
             return false;
         }
-
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            //damage *= (15f / 24f); //current usetime / old usetime
+        }
         public override bool CanConsumeAmmo(Item ammo, Player player) => !Main.rand.NextBool(3);
     }
 }

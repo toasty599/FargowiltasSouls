@@ -26,7 +26,6 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using static FargowiltasSouls.Core.Systems.DashManager;
-
 namespace FargowiltasSouls.Core.ModPlayers
 {
 	public partial class FargoSoulsPlayer : ModPlayer
