@@ -1709,6 +1709,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Anim = 0;
                 arena.ai[2] = 1; //activate projectile shooting AI of arena
+                arena.netUpdate = true;
             }
             if (Timer >= 61)
             {
@@ -1743,6 +1744,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (Timer > 420)
             {
                 arena.ai[2] = 0; //deactivate projectile shooting AI of arena
+                arena.netUpdate = true;
             }
             int endTime = WorldSavingSystem.MasochistModeReal ? 560 : 500; //maso alternation makes it kinda bullshit otherwise
             if (Timer > endTime)
