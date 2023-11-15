@@ -5064,7 +5064,18 @@ Mods: {
 					Fires a chunk of rotted flesh
 					Increased damage to enemies in the given range
 					50% chance to not consume ammo
-					'The rotting remains of a defeated foe...'
+					'The rotting remains of a defeated foe..'
+					''' */
+			}
+
+			TheBiggestSting: {
+				// DisplayName: The Biggest Sting
+				/* Tooltip:
+					'''
+					Uses darts for ammo
+					Scales with your bee damage and knockback increases
+					66% chance to not consume ammo
+					'The Queen's unwavering swarm..'
 					''' */
 			}
 		}
