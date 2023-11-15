@@ -98,6 +98,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         }
         public static List<int> TungstenNeverAffectProjType = new List<int>
         {
+            ModContent.ProjectileType<FishStickProjTornado>()
         };
         public static List<int> TungstenNeverAffectProjStyle = new List<int>
         {

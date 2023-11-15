@@ -1,5 +1,9 @@
-﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
+using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 77;
+            Item.damage = 110;
             Item.DamageType = DamageClass.Ranged;
             //Item.mana = 10;
             Item.width = 24;
@@ -46,6 +50,37 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
                 : ModContent.ProjectileType<FishStickProj>();
 
             return base.CanUseItem(player);
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                foreach (Projectile tornado in Main.projectile.Where(p => p.active && p.type == ModContent.ProjectileType<FishStickProjTornado>()))
+                {
+                    if (player.altFunctionUse == 2)
+                    {
+                        tornado.Kill();
+                    }
+                    else
+                    {
+                        float shootSpeed = velocity.Length();
+                        Vector2 vel = Vector2.Normalize(Main.MouseWorld - tornado.Center) * shootSpeed;
+                        Projectile.NewProjectile(source, tornado.Center, vel, ModContent.ProjectileType<FishStickShark>(), damage, knockback, player.whoAmI);
+                    }
+                }
+            }
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+        }
+        public override bool? UseItem(Player player)
+        {
+            
+            
+            return base.UseItem(player);
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (player.altFunctionUse == 2)
+                velocity = Vector2.Normalize(velocity) * (Main.MouseWorld - position).Length() / FishStickProjTornado.TravelTime;
         }
     }
 }

@@ -6,41 +6,54 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-    public class FishStickProjTornado : FishStickProj
+    public class FishStickProjTornado : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/FishStickProj";
+        public override string Texture => FargoSoulsUtil.VanillaTextureProjectile(ProjectileID.Tempest);
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void SetStaticDefaults()
         {
+            // DisplayName.SetDefault("Fish Stick");
+            Main.projFrames[Type] = Main.projFrames[ProjectileID.Tempest];
+        }
 
+        public override void SetDefaults()
+        {
+            Projectile.width = 48;
+            Projectile.height = 48;
+            Projectile.aiStyle = -1;
+            AIType = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.ignoreWater = true;
+            Projectile.extraUpdates = 1;
+        }
+        public const int TravelTime = 30;
+        ref float Timer => ref Projectile.ai[2];
+        public override bool? CanDamage() => false;
+        public override void AI()
+        {
+            if (++Projectile.frameCounter > 4)
+                if (++Projectile.frame >= Main.projFrames[Type])
+                    Projectile.frame = 0;
+
+            if (Timer >= TravelTime)
+            {
+                Projectile.velocity = Vector2.Zero;
+            }
+            Timer++;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            return true;
+            Projectile.position -= oldVelocity;
+            Projectile.velocity = Vector2.Zero;
+            return false;
         }
-
-        public override void OnKill(int timeLeft)
+        public override bool PreDraw(ref Color lightColor)
         {
-            Player player = Main.player[Projectile.owner];
-
-            if (Projectile.owner == Main.myPlayer)
-            {
-                foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && p.type == ModContent.ProjectileType<Whirlpool>() || p.type == ModContent.ProjectileType<WhirlpoolBase>()))
-                    p.Kill();
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WhirlpoolBase>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 16, 11);
-            }
-
-            for (int i = 0; i < 20; i++)
-            {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueTorch, -Projectile.velocity.X * 0.2f,
-                    -Projectile.velocity.Y * 0.2f, 100, default, 2f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 2f;
-                dust = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.BlueTorch, -Projectile.velocity.X * 0.2f,
-                    -Projectile.velocity.Y * 0.2f, 100);
-                Main.dust[dust].velocity *= 2f;
-            }
+            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor);
+            return false;
         }
     }
 }

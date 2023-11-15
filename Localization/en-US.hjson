@@ -4391,7 +4391,8 @@ Mods: {
 				DisplayName: Fish Stick
 				Tooltip:
 					'''
-					Right click to throw a sharknado stick
+					Right click to deploy a typhoon
+					The typhoon fires sharks when you attack
 					'The carcass of a defeated foe shoved violently on a stick..'
 					'''
 			}

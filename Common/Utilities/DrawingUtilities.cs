@@ -98,7 +98,10 @@ namespace FargowiltasSouls
 
 		public static Vector4 ToVector4(this Rectangle rectangle) => new(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
-		public static void GenericProjectileDraw(Projectile projectile, Color lightColor, Texture2D texture = null)
+        public static string VanillaTextureProjectile(int projectileID) => $"Terraria/Images/Projectile_{projectileID}";
+        public static string VanillaTextureNPC(int npcID) => $"Terraria/Images/NPC_{npcID}";
+
+        public static void GenericProjectileDraw(Projectile projectile, Color lightColor, Texture2D texture = null)
 		{
             Texture2D _texture = texture != null ? texture : TextureAssets.Projectile[projectile.type].Value;
             int sizeY = _texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
