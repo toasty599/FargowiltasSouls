@@ -21,6 +21,8 @@ using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using FargowiltasSouls.Content.Items.Summons;
+using Fargowiltas.NPCs;
+using FargowiltasSouls.Content.Items.Misc;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -1085,7 +1087,6 @@ namespace FargowiltasSouls.Core.Globals
 
             return base.CheckDead(npc);
         }
-
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
             OnHitByEither(npc, player, damageDone);
@@ -1201,6 +1202,13 @@ namespace FargowiltasSouls.Core.Globals
             //            //normal damage calc
         }
 
+        public override void ModifyShop(NPCShop shop)
+        {
+            if (shop.NpcType == ModContent.NPCType<Deviantt>())
+            {
+                shop.Add(new Item(ModContent.ItemType<EternityAdvisor>()) { shopCustomPrice = Item.buyPrice(copper: 10000) });
+            }
+        }
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
         {
             Player player = Main.player[Main.myPlayer];
