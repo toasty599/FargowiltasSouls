@@ -9,7 +9,6 @@ namespace FargowiltasSouls.Content.Items.Pets
 {
     public class PortableFogMachine : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";
 
         public override void SetStaticDefaults()
         {

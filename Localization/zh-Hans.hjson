@@ -6437,7 +6437,7 @@ Mods: {
 		// VeneratedLocketConfig: "[i:CalamityMod/VeneratedLocket] Venerated Locket"
 		// DragonScalesConfig: "[i:CalamityMod/DragonScales] Dragon Scales"
 		// EclipseMirrorConfig: "[i:CalamityMod/EclipseMirror] Eclipse Mirror"
-		// NanotechConfig: "[i:CalamityMod/Nanotech] Nanotech"
 		// VagabondsSoulHeader: "[i:FargowiltasCrossmod/VagabondsSoul] Vagabond's Soul"
+		// NanotechConfig: "[i:CalamityMod/Nanotech] Nanotech"
 	}
 }

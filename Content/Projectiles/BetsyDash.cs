@@ -10,13 +10,14 @@ namespace FargowiltasSouls.Content.Projectiles
 {
     public class BetsyDash : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_686";
 
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Dash");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+
+            Main.projFrames[Type] = 6;
         }
 
         public override void SetDefaults()
@@ -49,6 +50,10 @@ namespace FargowiltasSouls.Content.Projectiles
                 Projectile.Kill();
                 return;
             }
+
+            if (++Projectile.frameCounter > 4)
+                if (++Projectile.frame >= Main.projFrames[Type])
+                    Projectile.frame = 0;
 
             player.FargoSouls().BetsyDashing = true;
 
