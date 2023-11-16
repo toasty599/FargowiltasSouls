@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 color26 = Projectile.GetAlpha(color26);
                 color26.A = (byte)Projectile.alpha;
 
-                SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                SpriteEffects effects = Projectile.velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
                 for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
                 {
