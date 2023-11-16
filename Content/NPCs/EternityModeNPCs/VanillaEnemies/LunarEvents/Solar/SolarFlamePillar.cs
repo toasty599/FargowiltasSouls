@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             if (Timer == 60 * 2)
             {
                 SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 aim = Vector2.UnitY * -30;
                     child = FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), Projectile.Center + (Vector2.UnitY * height / 2), NPCID.SolarGoop, velocity: aim);

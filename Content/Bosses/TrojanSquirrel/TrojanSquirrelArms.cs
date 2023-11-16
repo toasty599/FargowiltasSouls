@@ -108,11 +108,11 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                             if (Math.Abs(MathHelper.WrapAngle(angle - baseAngle)) > MathHelper.PiOver2)
                                 angle = MathHelper.PiOver2 * Math.Sign(angle);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, 8f * angle.ToRotationVector2(), ModContent.ProjectileType<TrojanHook>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                         }
 
-                        if (NPC.ai[1] > 300 && Main.netMode != NetmodeID.MultiplayerClient && Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<TrojanHook>()] <= 0)
+                        if (NPC.ai[1] > 300 && FargoSoulsUtil.HostCheck && Main.LocalPlayer.ownedProjectileCounts[ModContent.ProjectileType<TrojanHook>()] <= 0)
                         {
                             NPC.ai[0] = 0;
                             NPC.ai[1] = 0;
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                             Vector2 distance = target - pos;
                             distance.X /= time;
                             distance.Y = distance.Y / time - 0.5f * gravity * time;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, distance, ModContent.ProjectileType<TrojanSnowball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, gravity);
                         }
 

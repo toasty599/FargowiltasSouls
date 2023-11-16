@@ -15,11 +15,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "丛林魔石");
 
-            string tooltip =
+            /*string tooltip =
 @"Grants a double spore jump
 Allows the ability to dash slightly
 Double tap a direction
-'The wrath of the jungle dwells within'";
+'The wrath of the jungle dwells within'";*/
             // Tooltip.SetDefault(tooltip);
             //             string tooltip_ch =
             // @"使你获得孢子二段跳能力
@@ -50,9 +50,7 @@ Double tap a direction
             .AddIngredient(ItemID.JungleShirt)
             .AddIngredient(ItemID.JunglePants)
             .AddIngredient(ItemID.ThornChakram)
-            .AddIngredient(ItemID.JungleYoyo)
-            //snapthorn
-            //staff of regrowth
+            .AddIngredient(ItemID.IvyWhip)
             .AddIngredient(ItemID.JungleRose)
             //.AddIngredient(ItemID.Buggy);
             //panda pet
@@ -67,7 +65,6 @@ Double tap a direction
             if (player.FargoSouls().IsDashingTimer < 10)
                 player.FargoSouls().IsDashingTimer = 10;
             player.dashDelay = 60;
-            player.GetModPlayer<DashPlayer>().modDashDelay = player.dashDelay;
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
         }

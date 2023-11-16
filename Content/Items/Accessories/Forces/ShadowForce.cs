@@ -83,7 +83,7 @@ $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion tha
 
 
             DarkArtistEnchant.DarkArtistEffect(player, Item);
-            ApprenticeEnchant.ApprenticeEffect(player);
+            ApprenticeEnchant.ApprenticeEffect(player, Item);
 
             NecroEnchant.NecroEffect(player, Item);
             //shadow orbs
@@ -91,9 +91,9 @@ $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion tha
             //darkness debuff
             modPlayer.ShadowEffect(hideVisual);
             //tele thru walls
-            modPlayer.ShinobiEffect(hideVisual);
+            modPlayer.ShinobiEffect(hideVisual, Item);
             //monk dash mayhem
-            modPlayer.MonkEffect();
+            modPlayer.MonkEffect(Item);
             //smoke bomb nonsense
             CrystalAssassinEnchant.CrystalAssassinEffect(player, Item);
             //scythe doom

@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 Jumped = true;
 
                 int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                if (t != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (t != -1 && FargoSoulsUtil.HostCheck)
                 {
                     const float time = 90;
                     Vector2 distance;
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             {
                 JumpTimer++; //avoid edge case
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
             }
 
@@ -120,7 +120,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             if (npc.velocity.Y == 0f && Jumped)
             {
                 Jumped = false;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreStomp, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
 

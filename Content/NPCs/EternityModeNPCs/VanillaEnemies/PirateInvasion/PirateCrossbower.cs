@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateIn
             //num3 = 80, num5 = 16f, num8 = Math.Abs(num7) * .08f, damage = 32/40, num12 = 800f?
             if (npc.ai[2] > 0f && npc.ai[1] <= 45f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 speed = Main.player[npc.target].Center - npc.Center;
                     speed.X += Main.rand.Next(-20, 21);

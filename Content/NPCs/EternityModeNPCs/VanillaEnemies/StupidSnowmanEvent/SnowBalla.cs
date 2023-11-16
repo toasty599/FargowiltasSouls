@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.StupidSn
                 float num7 = num3 / num6;
                 float SpeedX = num4 * num7;
                 float SpeedY = num5 * num7;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int Damage = 35;
                     int Type = 109;

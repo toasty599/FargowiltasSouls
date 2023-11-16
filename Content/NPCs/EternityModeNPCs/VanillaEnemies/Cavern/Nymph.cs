@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 {
                     Counter = 300;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient && npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < 1000)
+                    if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < 1000)
                     {
                         Vector2 spawnVel = npc.DirectionFrom(Main.player[npc.target].Center) * 10f;
                         for (int i = -3; i < 3; i++)

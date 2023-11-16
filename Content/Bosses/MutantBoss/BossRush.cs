@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         private void ManualSpawn(NPC npc, int type)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 int n = FargoSoulsUtil.NewNPCEasy(Terraria.Entity.InheritSource(Projectile), npc.Center, type);
                 if (n != Main.maxNPCs)

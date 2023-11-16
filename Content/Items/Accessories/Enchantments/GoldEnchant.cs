@@ -34,10 +34,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddIngredient(ItemID.GoldHelmet)
             .AddIngredient(ItemID.GoldChainmail)
             .AddIngredient(ItemID.GoldGreaves)
-            .AddIngredient(ItemID.GoldCrown)
-            .AddIngredient(ItemID.GoldBunny)
-            .AddIngredient(ItemID.SquirrelGold)
-            .AddIngredient(ItemID.GoldGoldfish)
+            .AddIngredient(ItemID.PharaohsMask)
+            .AddIngredient(ItemID.Goldfish)
+            .AddIngredient(ItemID.GoldenDelight)
 
             .AddTile(TileID.DemonAltar)
             .Register();

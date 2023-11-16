@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
                 for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
                     NPC.oldPos[i] = NPC.position;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient) //spawn segments
+                if (FargoSoulsUtil.HostCheck) //spawn segments
                 {
                     int prev = NPC.whoAmI;
                     const int max = 99;
@@ -202,7 +202,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
                         {
                             SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Vector2 dir = NPC.DirectionTo(player.Center);
                                 float ai1New = Main.rand.NextBool() ? 1 : -1; //randomize starting direction
@@ -217,7 +217,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
                     {
                         NPC.localAI[1] = 420;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient) //shoot orb
+                        if (FargoSoulsUtil.HostCheck) //shoot orb
                         {
                             int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TerraLightningOrb2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                             Main.projectile[p].localAI[0] += 1f + Main.rand.NextFloatDirection(); //random starting rotation
@@ -258,7 +258,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
                             segment.netUpdate = true;
                         }
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 12f, NPC.whoAmI);
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 12f, NPC.whoAmI);
@@ -300,7 +300,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
                         if (++NPC.localAI[2] > 2)
                         {
                             NPC.localAI[2] = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Vector2 vel = NPC.DirectionTo(player.Center) * 12;
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<TerraFireball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -382,7 +382,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
                         {
                             SoundEngine.PlaySound(SoundID.Item12, NPC.Center);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 for (int j = -5; j <= 5; j++)
                                 {
@@ -452,7 +452,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
                         if (++NPC.localAI[2] > 2)
                         {
                             NPC.localAI[2] = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Vector2 vel = 12f * Vector2.Normalize(NPC.velocity).RotatedBy(Math.PI / 2);
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<TerraFireball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -525,7 +525,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
                             }
                         }
 
-                        if (NPC.localAI[0] == 0 && Main.netMode != NetmodeID.MultiplayerClient) //shoot orb
+                        if (NPC.localAI[0] == 0 && FargoSoulsUtil.HostCheck) //shoot orb
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<TerraLightningOrb2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
                         }

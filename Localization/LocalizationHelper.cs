@@ -144,6 +144,7 @@ namespace FargowiltasSouls
 
             AddToggle("WillHeader", "WillForce");
             AddToggle("GladiatorConfig", "GladiatorEnchant", "9c924e");
+            AddToggle("GladiatorBannerConfig", "GladiatorEnchant", "9c924e");
             AddToggle("GoldConfig", "GoldEnchant", "e7b21c");
             AddToggle("GoldToPiggyConfig", "GoldEnchant", "e7b21c");
             AddToggle("HuntressConfig", "HuntressEnchant", "7ac04c");
@@ -255,6 +256,7 @@ namespace FargowiltasSouls
             AddToggle("PureHeartHeader", "PureHeart");
             AddToggle("MasoEaterConfig", "DarkenedHeart");
             AddToggle("MasoBrainConfig", "GuttedHeart");
+            AddToggle("MasoQueenConfig", "GelicWings");
 
             //lump of flesh
             AddToggle("LumpofFleshHeader", "LumpOfFlesh");

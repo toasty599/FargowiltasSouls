@@ -34,6 +34,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             npc.trapImmune = true;
 
             npc.damage = (int)Math.Round(npc.damage * 1.1);
+
+            if (!Main.masterMode)
+                npc.lifeMax = (int)(npc.lifeMax * 1.25);
         }
 
         public override void OnFirstTick(NPC npc)
@@ -214,7 +217,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 int tilePosX = (int)spawnPos.X / 16 + npc.width * i * 3 / 16;
                                 int tilePosY = (int)spawnPos.Y / 16;// + 1;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, 0f, ModContent.ProjectileType<GolemGeyser2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI);
                             }
 
@@ -224,7 +227,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 int tilePosX = (int)spawnPos.X / 16 + npc.width * i * 3 / 16;
                                 int tilePosY = (int)spawnPos.Y / 16;// + 1;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), tilePosX * 16 + 8, tilePosY * 16 + 8, 0f, 0f, ModContent.ProjectileType<GolemGeyser>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI);
                             }
                         }
@@ -242,7 +245,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 if (!Main.dedServ)
                                     Main.LocalPlayer.FargoSouls().Screenshake = 20;
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, 0, 0, Main.myPlayer);
 
                                 for (int i = -2; i <= 2; i++)
@@ -269,7 +272,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     }
 
                                     Vector2 spawn = new(tilePosX * 16 + 8, tilePosY * 16 + 8);
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<GolemBoulder>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                 }
                             }
@@ -296,7 +299,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 tilePosY++;
                             }
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 if (npc.HasPlayerTarget && Main.player[npc.target].position.Y > tilePosY * 16)
                                 {
@@ -328,7 +331,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 }
 
                                 Vector2 spawn = new(tilePosX * 16 + 8, tilePosY * 16 + 8);
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), spawn, Vector2.Zero, ModContent.ProjectileType<GolemBoulder>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                             }
                         }
@@ -371,7 +374,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             //{
             //    AntiAirTimer = 0;
             //    if (npc.HasPlayerTarget && Main.player[npc.target].Center.Y < npc.Bottom.Y
-            //        && Main.netMode != NetmodeID.MultiplayerClient) //shoutouts to arterius
+            //        && FargoSoulsUtil.HostCheck) //shoutouts to arterius
             //    {
             //        bool inTemple = Framing.GetTileSafely(npc.Center).WallType == WallID.LihzahrdBrickUnsafe;
 
@@ -493,7 +496,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 DoAttackOnFistImpact = false;
                 if (Framing.GetTileSafely(Main.player[npc.target].Center).WallType != WallID.LihzahrdBrickUnsafe || WorldSavingSystem.MasochistModeReal)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                 }
             }
@@ -676,7 +679,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
                             //telegraph
-                            if (DoDeathray && Main.netMode != NetmodeID.MultiplayerClient)
+                            if (DoDeathray && FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, NPCID.QueenBee);
                         }
 
@@ -697,7 +700,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             SweepToLeft = Main.player[npc.target].Center.X < npc.Center.X;
                         npc.netUpdate = true;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             if (DoDeathray)
                             {
@@ -783,7 +786,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         DoDeathray = !DoDeathray;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int max = IsInTemple ? 6 : 10;
                             int speed = IsInTemple ? 6 : -12; //down in temple, up outside it

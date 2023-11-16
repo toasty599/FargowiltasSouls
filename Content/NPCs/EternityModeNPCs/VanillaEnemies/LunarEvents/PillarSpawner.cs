@@ -35,10 +35,23 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
         public override void AI()
         {
-
+            if (Projectile.ai[0] == 2)
+                Projectile.Kill();
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            if (Projectile.ai[0] == 2)
+            {
+                int p = Player.FindClosest(Projectile.Center, 0, 0);
+                if (p.IsWithinBounds(Main.maxPlayers))
+                {
+                    Player player = Main.player[p];
+                    if (player.active && player.Center.Y > Projectile.Center.Y)
+                    {
+                        return false;
+                    }
+                }
+            }
             Projectile.Kill();
             return true;
         }
@@ -49,30 +62,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 case 1: //solar pillar flamepillar
                     {
                         SoundEngine.PlaySound(SoundID.Item34, Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SolarFlamePillar>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
-                        }
-                        break;
-                    }
-                case 2: //vortex pillar thunder
-                    {
-                        SoundEngine.PlaySound(new("FargowiltasSouls/Assets/Sounds/NukeBeep"), Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
-                            for (int i = 0; i < 14; i++)
-                            {
-                                Vector2 posOrig = Projectile.position;
-                                NPC parent = Main.npc[(int)Projectile.ai[2]];
-                                if (parent.active && Main.player[parent.target].active && !Main.player[parent.target].ghost)
-                                {
-                                    posOrig.Y = Math.Min(Main.player[parent.target].Center.Y + 500, posOrig.Y); //use the furthest up position of the two
-                                }
-                                Vector2 pos = posOrig - (Vector2.UnitY * 150 * i);
-                                
-                                
-                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, Vector2.Zero, ModContent.ProjectileType<LightningTelegraph>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, i);
-                            }
                         }
                         break;
                     }

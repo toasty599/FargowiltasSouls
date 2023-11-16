@@ -219,7 +219,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 if (FuryRingTimer == 0)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 3), 0f, Main.myPlayer, 4);
 
                     if (WorldSavingSystem.MasochistModeReal)
@@ -232,7 +232,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 FuryRingTimer++;
                 if (FuryRingTimer % 2 == 0)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         float rotation = FuryRingShotRotationCounter;
                         if (WorldSavingSystem.MasochistModeReal && FuryRingTimer >= 30 && FuryRingTimer <= 60)

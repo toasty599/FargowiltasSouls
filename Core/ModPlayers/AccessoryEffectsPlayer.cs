@@ -23,6 +23,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
+using Fargowiltas.Common.Configs;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -252,29 +253,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
         }
-
-
-        public override void Load()
-        {
-            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateForbiddenStorm);
-            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateVortex);
-        }
-        public void ActivateForbiddenStorm(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
-        {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            orig.Invoke(player, keyDir);
-            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
-            {
-                if (modPlayer.ForbiddenEnchantActive)
-                {
-                    if (modPlayer.CanSummonForbiddenStorm)
-                    {
-                        modPlayer.CommandForbiddenStorm();
-                        modPlayer.CanSummonForbiddenStorm = false;
-                    }
-                }
-            }
-        }
+        
         public void ForbiddenEffect()
         {
             Player.DisplayToggle("Forbidden");
@@ -570,7 +549,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             HasDash = true;
-            JungleDashReady = true;
+            FargoDash = DashManager.DashType.Jungle;
             /*
             HasDash = true;
 
@@ -715,6 +694,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MeteorMomentum"))
             {
                 MeteorMomentum = true;
+                Player.hasMagiluminescence = true;
 
                 const int SparkDelay = 2;
                 int Timer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
@@ -937,7 +917,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
         }
 
-        public void ShinobiEffect(bool hideVisual)
+        public void ShinobiEffect(bool hideVisual, Item item)
         {
             Player.DisplayToggle("Shinobi");
             Player.DisplayToggle("ShinobiDash");
@@ -969,6 +949,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             }*/
 
             ShinobiEnchantActive = true;
+            if (!HasDash)
+            {
+                HasDash = true;
+                FargoDash = DashManager.DashType.Shinobi;
+            }
+            ShinobiEnchantItem = item;
             MonkEnchantActive = true;
         }
 
@@ -1380,37 +1366,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //Main.NewText($"shell HP: {TurtleShellHP}, counter: {TurtleCounter}, recovery: {turtleRecoverCD}");
         }
-        public void ActivateVortex(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
-        {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            orig.Invoke(player, keyDir);
-            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
-            {
-                if (modPlayer.VortexEnchantActive)
-                {
-                    //stealth memes
-                    if (Player.whoAmI == Main.myPlayer)
-                    {
-                        VortexStealth = !VortexStealth;
-
-                        if (!Player.GetToggleValue("VortexS"))
-                            VortexStealth = false;
-
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
-                            NetMessage.SendData(MessageID.SyncPlayer, number: Player.whoAmI);
-
-                        if (VortexStealth && Player.GetToggleValue("VortexV") && !Player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
-                        {
-                            int p = Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center.X, Player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(Player, 60), 5f, Player.whoAmI);
-                            Main.projectile[p].FargoSouls().CanSplit = false;
-                            Main.projectile[p].netUpdate = true;
-
-                            Player.AddBuff(ModContent.BuffType<VortexCDBuff>(), 3600);
-                        }
-                    }
-                }
-            }
-        }
+        
         public void VortexEffect(bool hideVisual)
         {
             Player.DisplayToggle("VortexS");
@@ -1446,13 +1402,17 @@ namespace FargowiltasSouls.Core.ModPlayers
         //public int baseMountJumpHeight;
 
 
-        public void MonkEffect()
+        public void MonkEffect(Item item)
         {
             Player.DisplayToggle("Monk");
+            MonkEnchantItem = item;
             MonkEnchantActive = true;
 
             if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuff>()))
             {
+                FargoDash = DashManager.DashType.Monk;
+                HasDash = true;
+
                 monkTimer++;
 
                 if (monkTimer >= 120)
@@ -1625,9 +1585,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.DisplayToggle("DefenseBee");
             Player.DisplayToggle("DefensePanic");
             Player.DisplayToggle("MasoAeolusFlower");
-
-
-            Player.hasMagiluminescence = true;
 
             //amph boot
             if (Player.GetToggleValue("MasoAeolusFrog"))
@@ -1949,10 +1906,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             ProjectileID.DD2LightningBugZap
         };
 
-        public void GroundStickCheck(Projectile proj, ref Player.HurtModifiers modifiers)
+        public float GroundStickDR(Projectile proj, ref Player.HurtModifiers modifiers)
         {
+            float dr = 0;
             if (!Player.GetToggleValue("MasoLightning"))
-                return;
+                return dr;
 
             bool electricAttack = false;
 
@@ -1979,7 +1937,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (electricAttack && Player.whoAmI == Main.myPlayer && !Player.HasBuff(ModContent.BuffType<SuperchargedBuff>()))
             {
-                modifiers.FinalDamage /= 2;
+                dr = 0.5f;
 
                 Player.AddBuff(ModContent.BuffType<SuperchargedBuff>(), 60 * 30);
 
@@ -2030,6 +1988,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Main.dust[d].position = Player.Center;
                 }
             }
+            return dr;
         }
 
         public void DeerclawpsAttack(Vector2 pos)
@@ -2070,7 +2029,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (GuttedHeartCD <= 0)
             {
-                GuttedHeartCD = 900;
+                int cd = (int)Math.Round(Utils.Lerp(10 * 60, 15 * 60, (float)Player.statLife / Player.statLifeMax2));
+                GuttedHeartCD = cd;
                 if (Player.GetToggleValue("MasoBrain"))
                 {
                     int count = 0;
@@ -2274,7 +2234,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             }
                         }
 
-                        if (GelicWingsItem != null)
+                        if (GelicWingsItem != null && Player.GetToggleValue("MasoQueen"))
                         {
                             int dam = 60; //deliberately no scaling
                             for (int j = -1; j <= 1; j += 2)
@@ -2347,7 +2307,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         ++num;
                     if (Main.rand.NextBool(9))
                         ++num;
-                    int dam = PureHeart ? 30 : 12;
+                    int dam = PureHeart ? 45 : 18;
                     if (MasochistSoul)
                         dam *= 2;
                     for (int index = 0; index < num; ++index)
@@ -2414,7 +2374,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (SpecialDashCD <= 0)
             {
-                SpecialDashCD = 180;
+                SpecialDashCD = 60 * 5;
 
                 if (Player.whoAmI == Main.myPlayer)
                 {
@@ -2886,7 +2846,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             HasDash = true;
-
+            FargoDash = DashManager.DashType.DeerSinew;
             DeerSinewNerf = true;
 
             if (IsDashingTimer > 0)
@@ -2903,7 +2863,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             float dashSpeed = 12f;
             dashCD = 60;
-            Player.GetModPlayer<DashPlayer>().modDashDelay = Player.dashDelay = dashCD;
+            Player.dashDelay = dashCD;
             if (IsDashingTimer < 15)
                 IsDashingTimer = 15;
             Player.velocity.X = dir * dashSpeed;

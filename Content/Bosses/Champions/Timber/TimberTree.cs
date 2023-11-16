@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             if (WorldSavingSystem.EternityMode)
                 FargoSoulsUtil.NewNPCEasy(Terraria.Entity.InheritSource(Projectile), Projectile.Top - 20 * Vector2.UnitY, ModContent.NPCType<LesserSquirrel>(), velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-20, -10)));
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Player player = FargoSoulsUtil.PlayerExists(Projectile.ai[0]);
                 if (player != null)

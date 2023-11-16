@@ -8,6 +8,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Materials;
 using System;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Content.Items.Armor
 {
@@ -58,45 +59,37 @@ Increases max number of minions by 2"); */
         public const int MAX_METER = 60 * 60;
         public const int MAX_HEARTS = 9;
 
-        public override void Load()
-        {
-            On_Player.KeyDoubleTap += new On_Player.hook_KeyDoubleTap(ActivateSetBonus);
-        }
-        public void ActivateSetBonus(On_Player.orig_KeyDoubleTap orig, Player player, int keyDir)
+        public static void NekomiSetBonusKey(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            orig.Invoke(player, keyDir);
-            if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
+            if (modPlayer.NekomiSet && player.whoAmI == Main.myPlayer)
             {
-                if (modPlayer.NekomiSet && player.whoAmI == Main.myPlayer)
+                bool superAttack = modPlayer.NekomiMeter >= MAX_METER;
+                if (superAttack)
                 {
-                    bool superAttack = modPlayer.NekomiMeter >= MAX_METER;
-                    if (superAttack)
+                    int baseDamage = 2222 / 3;
+                    if (!Main.hardMode)
+                        baseDamage /= 2;
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), player.Center, Vector2.Zero, ModContent.ProjectileType<NekomiDevi>(), baseDamage, 16f, player.whoAmI);
+                    SoundEngine.PlaySound(SoundID.Item43, player.Center);
+                    modPlayer.NekomiMeter = 0;
+                }
+                else
+                {
+                    int hearts = (int)((double)modPlayer.NekomiMeter / MAX_METER * MAX_HEARTS);
+                    for (int i = 0; i < hearts; i++)
                     {
-                        int baseDamage = 2222 / 3;
-                        if (!Main.hardMode)
-                            baseDamage /= 2;
-                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<NekomiDevi>(), baseDamage, 16f, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item43, player.Center);
-                        modPlayer.NekomiMeter = 0;
+                        Vector2 offset = -150f * Vector2.UnitY.RotatedBy(MathHelper.TwoPi / hearts * i);
+                        Vector2 spawnPos = player.Center + offset;
+                        const float speed = 12;
+                        Vector2 vel = speed * player.DirectionFrom(spawnPos);
+                        int baseHeartDamage = 17;
+                        const float ai1 = 150 / speed;
+                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), spawnPos, vel, ModContent.ProjectileType<FriendHeart>(), baseHeartDamage, 3f, player.whoAmI, -1, ai1);
                     }
-                    else
-                    {
-                        int hearts = (int)((double)modPlayer.NekomiMeter / MAX_METER * MAX_HEARTS);
-                        for (int i = 0; i < hearts; i++)
-                        {
-                            Vector2 offset = -150f * Vector2.UnitY.RotatedBy(MathHelper.TwoPi / hearts * i);
-                            Vector2 spawnPos = player.Center + offset;
-                            const float speed = 12;
-                            Vector2 vel = speed * player.DirectionFrom(spawnPos);
-                            int baseHeartDamage = 17;
-                            const float ai1 = 150 / speed;
-                            FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), spawnPos, vel, ModContent.ProjectileType<FriendHeart>(), baseHeartDamage, 3f, player.whoAmI, -1, ai1);
-                        }
 
-                        if (hearts > 0)
-                            modPlayer.NekomiMeter = 0;
-                    }
+                    if (hearts > 0)
+                        modPlayer.NekomiMeter = 0;
                 }
             }
         }

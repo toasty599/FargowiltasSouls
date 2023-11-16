@@ -195,7 +195,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 HiveThrowTimer++;
 
-                if (ForgorDeathrayTimer > 0 && --ForgorDeathrayTimer % 10 == 0 && npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                if (ForgorDeathrayTimer > 0 && --ForgorDeathrayTimer % 10 == 0 && npc.HasValidTarget && FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(),
                         Main.player[npc.target].Center - 2000 * Vector2.UnitY, Vector2.UnitY,
@@ -219,7 +219,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     Vector2 distance = Main.player[npc.target].Center - Vector2.UnitY * 16 - npc.Center + Main.player[npc.target].velocity * 30f;
                     distance.X /= time;
                     distance.Y = distance.Y / time - 0.5f * gravity * time;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, ModContent.ProjectileType<Beehive>(),
                             FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, time - 5);
@@ -246,7 +246,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             npc.netUpdate = true;
                             NetSync(npc);
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
 
                             if (npc.HasValidTarget)
@@ -270,7 +270,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         npc.velocity = Vector2.Zero;
 
-                        if (BeeSwarmTimer % 2 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                        if (BeeSwarmTimer % 2 == 0 && FargoSoulsUtil.HostCheck)
                         {
                             const float rotation = 0.025f;
                             for (int i = -1; i <= 1; i += 2)
@@ -313,7 +313,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     float speed = WorldSavingSystem.MasochistModeReal ? 6 : 5;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         FargoSoulsUtil.XWay(StingerRingTimer == threshold * 3 ? 16 : 8, npc.GetSource_FromThis(), npc.Center, ProjectileID.QueenBeeStinger, speed, 11, 1);
                 }
             }
@@ -392,6 +392,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             target.AddBuff(ModContent.BuffType<InfestedBuff>(), 300);
             target.AddBuff(ModContent.BuffType<SwarmingBuff>(), 600);
+
+            if (npc.ai[0] == 0) //in dash mode
+            {
+                target.AddBuff(BuffID.BrokenArmor, 60 * 5);
+            }
         }
 
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)

@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.damage > spawnedDamage / 3)
-                Projectile.damage = (int)Math.Min(Projectile.damage - 1, Projectile.damage * 0.95);
+                Projectile.damage = (int)Math.Min(Projectile.damage - 1, Projectile.damage * 0.8);
 
             Projectile.velocity = Projectile.velocity.RotatedByRandom(MathHelper.TwoPi);
             Projectile.ai[0] = Projectile.velocity.ToRotation();

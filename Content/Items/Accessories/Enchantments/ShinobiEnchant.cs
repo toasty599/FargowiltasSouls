@@ -37,9 +37,9 @@ Greatly enhances Lightning Aura effectiveness
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             //tele thru wall
-            modPlayer.ShinobiEffect(hideVisual);
+            modPlayer.ShinobiEffect(hideVisual, Item);
             //monk dash mayhem
-            modPlayer.MonkEffect();
+            modPlayer.MonkEffect(Item);
         }
 
         public override void AddRecipes()
@@ -64,7 +64,7 @@ Greatly enhances Lightning Aura effectiveness
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             modPlayer.dashCD = 90;
-            player.GetModPlayer<DashPlayer>().modDashDelay = player.dashDelay = modPlayer.dashCD;
+            player.dashDelay = modPlayer.dashCD;
 
             var teleportPos = player.position;
 

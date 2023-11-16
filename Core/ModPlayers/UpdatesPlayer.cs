@@ -4,6 +4,7 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
+using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -165,8 +166,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
             {
-                Player.runAcceleration *= 2f;
-                Player.runSlowdown *= 2f;
+                Player.runAcceleration *= 1.3f;
+                Player.runSlowdown *= 1.3f;
 
             }
             if (NoMomentum && !Player.mount.Active)
@@ -180,7 +181,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (!IsStillHoldingInSameDirectionAsMovement)
                     Player.runSlowdown += 7f;
             }
-
+            if (PearlwoodEnchantItem != null)
+            {
+                PearlwoodEnchant.PearlwoodStar(Player, PearlwoodEnchantItem);
+            }
+            if (ApprenticeEnchantItem != null)
+            {
+                ApprenticeEnchant.ApprenticeSupport(Player);
+            }
             if (TribalCharmEquipped)
             {
                 Content.Items.Accessories.Masomode.TribalCharm.Effects(this);
@@ -364,21 +372,24 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (PrecisionSealNoDashNoJump)
             {
                 Player.dashType = 0;
-                Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
-                Player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
-                Player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
-                Player.GetJumpState(ExtraJump.FartInAJar).Enable();
-                Player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
-                Player.GetJumpState(ExtraJump.UnicornMount).Enable();
+                Player.GetJumpState(ExtraJump.CloudInABottle).Disable();
+                Player.GetJumpState(ExtraJump.SandstormInABottle).Disable();
+                Player.GetJumpState(ExtraJump.BlizzardInABottle).Disable();
+                Player.GetJumpState(ExtraJump.FartInAJar).Disable();
+                Player.GetJumpState(ExtraJump.TsunamiInABottle).Disable();
+                Player.GetJumpState(ExtraJump.UnicornMount).Disable();
                 JungleJumping = false;
                 CanJungleJump = false;
                 dashCD = 2;
                 IsDashingTimer = 0;
                 HasDash = false;
+                Player.dashDelay = 10;
 
                 if (lihzahrdFallCD < 2)
                     lihzahrdFallCD = 2;
             }
+
+            DashManager.ManageDashes(Player);
 
             if (DeerclawpsItem != null && IsInADashState)
                 DeerclawpsAttack(Player.Bottom);
@@ -567,7 +578,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 bool hallowForce = HallowEnchantItem != null ? modPlayer.ForceEffect(HallowEnchantItem.type) : false;
                 int healDelay = 60;
-                int heal = hallowForce ? 14 : 12;
+                int heal = hallowForce ? 17 : 14;
                 if (HallowEnchantItem != null && HallowHealTime % healDelay == 0)
                 {
                     Player.Heal(heal);
@@ -729,6 +740,15 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.statDefense /= 2;
                 Player.endurance /= 2;
                 Player.shinyStone = false;
+            }
+
+            if (RockeaterDistance > EaterLauncher.BaseDistance)
+            {
+                RockeaterDistance -= (int)((EaterLauncher.IncreasedDistance - EaterLauncher.BaseDistance) / (EaterLauncher.CooldownTime / 3f));
+            }
+            else
+            {
+                RockeaterDistance = EaterLauncher.BaseDistance;
             }
 
             StatLifePrevious = Player.statLife;

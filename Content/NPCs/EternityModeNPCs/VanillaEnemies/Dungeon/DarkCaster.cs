@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
                     for (int i = 0; i < 5; i++) //spray water bolts
                     {
                         SoundEngine.PlaySound(SoundID.Item21, npc.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Main.rand.NextVector2CircularEdge(-4.5f, 4.5f), ProjectileID.WaterBolt, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                             if (p != Main.maxProjectiles)

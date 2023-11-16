@@ -232,7 +232,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                         if (counter == maxTime)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 for (int j = 0; j < 4; j++)
                                 {
@@ -341,7 +341,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         Projectile.localAI[1] += MathHelper.ToRadians(maxDegreeVariance) * rotationModifier / maxTime;
                         Projectile.rotation = Projectile.localAI[1];
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             if (npc.ai[2] == 0)
                             {
@@ -445,7 +445,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             Projectile.position -= Projectile.velocity;
                             Projectile.rotation = Projectile.velocity.ToRotation();
                         }
-                        else if (Main.netMode != NetmodeID.MultiplayerClient)
+                        else if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.Kill();
                             return;
@@ -558,7 +558,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             if (npc.ai[0] == 5)
                             {
                                 //in here so it doesnt kill itself as soon as it spawns
-                                if (counter > 0 && npc.ai[1] == 1f && Main.netMode != NetmodeID.MultiplayerClient)
+                                if (counter > 0 && npc.ai[1] == 1f && FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.Kill();
                                     return;

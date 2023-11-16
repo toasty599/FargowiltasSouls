@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 {
                     SoundEngine.PlaySound(SoundID.Item89, Projectile.Center);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient) //rain meteors
+                    if (FargoSoulsUtil.HostCheck) //rain meteors
                     {
                         Vector2 spawnPos = Projectile.Center;
                         spawnPos.X += Main.rand.Next(-200, 201);
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 {
                     Projectile.netUpdate = true;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, -1, -5);
                 }
 

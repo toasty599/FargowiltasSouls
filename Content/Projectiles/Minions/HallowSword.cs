@@ -190,7 +190,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 return false;
             }
-            if (projHitbox.ClosestPointInRect(handlePos).Distance(handlePos) > width) //optimization, don't do any laser checks if too far away
+            if (projHitbox.ClosestPointInRect(handlePos).Distance(handlePos) > width * Projectile.scale) //optimization, don't do any laser checks if too far away
             {
                 return false;
             }
@@ -199,8 +199,6 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 float frac = (float)i / CollisionChecks;
                 float angle = SlashRotation + (SlashArc * frac) - (MathHelper.PiOver2);
-                //Particle p = new SmallSparkle(handlePos + angle.ToRotationVector2() * Main.rand.NextFloat(width) * Projectile.scale, Vector2.Zero, Color.LightGoldenrodYellow, 1f, 10, Main.rand.NextFloat(MathHelper.Pi), -Math.Abs(SlashArc));
-                //p.Spawn();
                 float num6 = 0f;
                 if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), handlePos, handlePos + angle.ToRotationVector2() * width * Projectile.scale, height * Projectile.scale, ref num6))
                 {

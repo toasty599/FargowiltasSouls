@@ -51,13 +51,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 target.AddBuff(BuffID.Electrified, 180);
 
-                int dmg = 35;
+                int dmg = 50;
                 int maxTargets = 1;
                 int cdLength = 300;
 
                 if (modPlayer.ForceEffect(modPlayer.CopperEnchantItem.type))
                 {
-                    dmg = 150;
+                    dmg = 200;
                     maxTargets = 5;
                     cdLength = 150;
                 }

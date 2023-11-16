@@ -10,6 +10,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using System.Linq;
 using System.Collections.Generic;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Vortex;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents
 {
@@ -20,6 +21,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         protected readonly int DebuffNotToInflict;
         protected readonly int AuraDust;
         public int AuraSize = 5000;
+
+        public abstract int MaxHP { get;  }
+        public abstract int Damage { get; }
 
         protected LunarTowers(int debuffNotToInflict, int auraDust)
         {
@@ -39,6 +43,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
 
         public bool spawned;
 
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+            npc.lifeMax = MaxHP;
+            npc.damage = Damage;
+        }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             base.SendExtraAI(npc, bitWriter, binaryWriter);
@@ -105,6 +115,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             if (!spawned)
             {
+                npc.lifeMax = npc.life = MaxHP;
+                npc.damage = Damage;
                 spawned = true;
                 SpawnedDuringLunarEvent = NPC.LunarApocalypseIsUp;
                 npc.damage += 150;
@@ -180,9 +192,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                                     IDs = Stardust.StardustEnemies.StardustEnemyIDs;
                                     break;
                                 default:
-                                    IDs = null;
-                                    Main.NewText("You shouldn't be seeing this. Tell Javyz or Terry.");
-                                    break;
+                                    //something is very wrong. this ai shouldn't be running in the first place. leave
+                                    Mod.Logger.Warn($"Lunar Pillar eternity behavior: NPC type of {npc.TypeName} does not match any of the Pillars (why is this running?)");
+                                    return;
                             }
                             if (IDs.Contains(n.type))
                             {
@@ -221,6 +233,20 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     }
                     */
                     ShieldsDownAI(npc);
+                }
+                else
+                {
+                    if (npc.type == NPCID.LunarTowerVortex)
+                    {
+                        if (Attack == (int)LunarTowerVortex.Attacks.VortexVortex)
+                        {
+                            EndAttack(npc);
+                            foreach (Projectile projectile in Main.projectile.Where(p => p != null && p.active && p.type == ModContent.ProjectileType<VortexVortex>()))
+                            {
+                                projectile.Kill();
+                            }
+                        }
+                    }
                 }
             }
         }

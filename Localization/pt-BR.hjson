@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			// Adamantite: Projectiles now split into 3, further reduces damage accordingly
+			// Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/40%
 			// Apprentice: The next 2 weapons are used instead of 1
 			// AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			// AncientShadow: Number of Shadow Orbs increased
@@ -21,8 +21,8 @@ Mods: {
 			// Cactus: Number of needles and damage increased
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			// Cobalt: On-hit explosion damage increased
-			// Copper: Lightning damage increased, cooldown reduced
-			// Crimson: No upgrade
+			// Copper: Lightning damage increased to 200, cooldown reduced
+			// Crimson: After you heal, the timer resets and tries to heal again
 			// CrystalAssassin: No upgrade
 			// DarkArtist: The next 3 weapons are used instead of 2
 			// Ebonwood: Aura size increased, defense reduction increased to 30
@@ -31,15 +31,15 @@ Mods: {
 			// Frost: Icicle damage doubled
 			// Gladiator: Increased banner aura size, decreased spear rain cooldown
 			// Gold: No upgrade
-			// Hallow: Potion heal bonus increased from 20 to 40%
+			// Hallow: Potion heal bonus increased from 40 to 70%
 			// Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
-			// Iron: Increases item range by 4x and chance not to consume to 50%
+			// Iron: Increases chance not to consume to 50%
 			// Jungle: Spore damage increased, cooldown decreased
 			// Lead: Lead Poisoning damage increased, DoT resistance increased to 60%
 			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
-			// Monk: No upgrade
+			// Monk: Dash base damage doubled
 			// Mythril: Max attack speed bonus increased and lasts longer
 			// Nebula: Buff booster stack cap increased to 3
 			// Necro: Graves float
@@ -47,11 +47,11 @@ Mods: {
 			// Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
 			// Orichalcum: Increases multiplier to 4x
 			// Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
-			// PalmWood: Attack speed and damage increased, another tree can be spawned
-			// Pearlwood: Damage increased and cooldown reduced
+			// PalmWood: Attack speed, damage, and size increased
+			// Pearlwood: Star can hit enemies for massive damage
 			// Platinum: No upgrade
-			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
-			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
+			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
+			// Rain: Umbrella can block up to 400 damage and reflected damage is tripled
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
 			// Shadewood: Aura size and blood damage increased, additionally applies Ichor
@@ -65,13 +65,13 @@ Mods: {
 			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
 			// Shadow: Number of Shadow Orbs increased
-			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 25% to 33%
+			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 10% to 15%
 			// Tiki: Increases whip range by 20%
 			// Tin: Minimum crit increased to 10%, max crit is at least 50%, reduced proc cooldown
-			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 75%
-			// Tungsten: Increased weapon size increase to 200%, bonus damage to 15%, cooldown reduced
+			// Titanium: Shard damage increased, Titanium Shield duration increased to 5 seconds and damage resistance increased to 35%
+			// Tungsten: Weapon size tripled instead of doubled, damage bonus increased from 7% to 14%, and cooldown reduced
 			// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
-			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 33% to 50%
+			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
 			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
 			// AshWood: Fires balls of fire more often
@@ -417,6 +417,7 @@ Mods: {
 			// AshWoodConfig: Ash Fireballs
 			// WillHeader: "{$Mods.FargowiltasSouls.Items.WillForce.DisplayName}"
 			GladiatorConfig: Gladiador: Chuva
+			// GladiatorBannerConfig: Gladiator Banner
 			GoldConfig: Ouro: Moeda da Sorte
 			GoldToPiggyConfig: Ouro: Ouro Ao Porquinho
 			HuntressConfig: Caçadora: Habilidade da Caçadora
@@ -510,6 +511,7 @@ Mods: {
 			// PureHeartHeader: "{$Mods.FargowiltasSouls.Items.PureHeart.DisplayName}"
 			MasoEaterConfig: Pequenos Devoradores
 			MasoBrainConfig: Escudo de Creepers
+			// MasoQueenConfig: Slimy Spikes
 			// LumpofFleshHeader: "{$Mods.FargowiltasSouls.Items.LumpOfFlesh.DisplayName}"
 			MasoPungentCursorConfig: Cursor do Olho Pungente
 			MasoPugentConfig: Lacaio do Pedaço de Carne
@@ -1035,6 +1037,7 @@ Mods: {
 			MoonsWaves: Morrer diminui o progresso da onda
 			WhipSpeed: Não se beneficia de bônus de velocidade do ataque físico
 			WhipStack: Efeitos e efeitos negativos de chicote não podem acumular
+			// DefensePrefix: Adjusted prefix stats: reduced defense before Hardmode, +5 max life
 			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: O dano dos lacaios diminui ao invocar mais de 3 cópias (o limite do efeito é 12)
 			SummonMulticlass: O dano por lacaios diminui quando você ataca usando outras classes (exceto no EdA)
@@ -1882,7 +1885,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+				// Description: +5% damage reduction, +5% damage, knockback immunity, improved spear rain
 			}
 
 			ROBBuff: {
@@ -1918,13 +1921,16 @@ Mods: {
 			}
 
 			AncientHallowEnchant: {
-				DisplayName: Encantamento Consagrado Antigo
-				Tooltip:
+				// DisplayName: Ancient Hallowed Enchantment
+				/* Tooltip:
 					'''
-					Você ganha um escudo que pode refletir projéteis
-					Invoca uma Terraprisma familiar que fica mais forte com dano por invocação
-					'Você tem poder suficiente para me empunhar?'
-					'''
+					Summons a Terraprisma familiar that scales with minion damage
+					The sword follows the direction of your mouse
+					Press Right Click to slash with the sword
+					Slashing enemy projectiles reflects them back at the enemy
+					Reflects has a 15 second cooldown and can only affect projectiles that deal less than 150 damage
+					'Have you power enough to wield me?'
+					''' */
 			}
 
 			AncientShadowEnchant: {
@@ -1950,14 +1956,16 @@ Mods: {
 			}
 
 			ApprenticeEnchant: {
-				DisplayName: Encantamento do Aprendiz
-				Tooltip:
+				// DisplayName: Apprentice Enchantment
+				/* Tooltip:
 					'''
-					Depois de atacar por 2 segundos você será envolvido em chamas
-					Trocar de armas aumentará o dano do próximo ataque em 50% e invocará um inferno
-					Campo de visão e alcance das Chamas Explosivas consideravelmente maior
-					'Um longo caminho à perfeição'
-					'''
+					While attacking, fire your next closest weapon's projectile as support
+					The support weapon will fire 1/4 as often as they would normally and deal 1/2 damage
+					Only works on hotbar weapons
+					Consumables are consumed, mana is spent, and ammo is selected
+					Flameburst field of view and range are dramatically increased
+					'A long way to perfection'
+					''' */
 			}
 
 			AshWoodEnchant: {
@@ -1969,17 +1977,21 @@ Mods: {
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava
+					'"You're telling me this isn't wood?"'
 					''' */
 			}
 
 			BeeEnchant: {
-				DisplayName: Encantamento da Abelha
-				Tooltip:
+				// DisplayName: Bee Enchantment
+				/* Tooltip:
 					'''
-					Aumenta a força das abelhas amigáveis
-					Acertos físicos e a maioria dos ataques perfurantes invocam abelhas
-					'De acordo com todas as conhecidas leis da aviação, não existe forma pela qual uma abelha fosse capaz de voar'
-					'''
+					Allows flight and slow fall
+					While flying, leave behind flowers that take 4 seconds to form petals
+					Touching fully formed flowers gives you the Honey buff and creates a swarm of bees
+					Enemies touching the flowers also trigger the bee swarm
+					Effects of Hive Pack
+					'According to all known laws of aviation, there is no way a bee should be able to fly'
+					''' */
 			}
 
 			BeetleEnchant: {
@@ -2045,15 +2057,14 @@ Mods: {
 			}
 
 			CrimsonEnchant: {
-				DisplayName: Encantamento de Carmim
-				Tooltip:
+				// DisplayName: Crimson Enchantment
+				/* Tooltip:
 					'''
-					Após receber um golpe, a regeneração é aumentada consideravelmente até que metade do golpe for curado
-					Se você sofrer outro golpe antes que ele for curado, você perde a cura junto do dano normal
-					Se você sofrer outro golpe antes que ele for curado, a cura acaba mais cedo
-					Isto não afeta golpes que causam menos de 10 de dano
-					'O sangue do seu inimigo é o seu renascimento'
-					'''
+					After taking a hit, if you avoid getting hit for 7 seconds, you get 50% of the health back
+					If you take another hit before you heal, the heal gets cancelled
+					This does not affect hits dealing less than 10 damage
+					'The blood of your enemy is your rebirth'
+					''' */
 			}
 
 			CrystalAssassinEnchant: {
@@ -2070,16 +2081,14 @@ Mods: {
 			}
 
 			DarkArtistEnchant: {
-				DisplayName: Encantamento do Artista Sombrio
-				Tooltip:
+				// DisplayName: Dark Artist Enchantment
+				/* Tooltip:
 					'''
-					Invoca um lacaio de Chamas Explosivas que viajará para o seu mouse depois de carregar
-					Ele então agirá como uma sentinela
-					Depois de atacar por 2 segundos você será envolvido em chamas
-					Trocar de armas aumentará o dano do próximo ataque em 50% e invocará um inferno
-					Aumenta bastante a eficiência das Chamas Explosivas
-					'As sombras retém mais do que parecem'
-					'''
+					While attacking, fire your next 2 closest weapons' projectiles as support
+					Summons a Flameburst minion that will also fire while you attack
+					Greatly enhances Flameburst effectiveness
+					'The shadows hold more than they seem'
+					''' */
 			}
 
 			EbonwoodEnchant: {
@@ -2151,33 +2160,35 @@ Mods: {
 			}
 
 			HallowEnchant: {
-				DisplayName: Encantamento Consagrado
-				Tooltip:
+				// DisplayName: Hallowed Enchantment
+				/* Tooltip:
 					'''
-					Fique imune depois de atacar um inimigo
-					'Acerte-me com seu melhor tiro'
-					'''
+					Healing potions restore 40% more, but take effect over time
+					Using a healing potion creates a shockwave that repels nearby enemy projectiles
+					'Hit me with your best shot'
+					''' */
 			}
 
 			HuntressEnchant: {
 				DisplayName: Encantamento da Caçadora
 				Tooltip:
 					'''
-					Ataques ignoram 10 pontos da defesa inimiga e causam 5 de dano extra plano
-					Cada ataque sucessivo ignora 10 pontos de defesa adicionais e causam mais 5 de dano
+					Ataques ignoram 6 pontos da defesa inimiga e causam 3 de dano extra plano
+					Cada ataque sucessivo ignora 6 pontos de defesa adicionais e causam mais 3 de dano
 					Errar qualquer ataque redefinirá esse bônus
 					'Precisão traz poder'
 					'''
 			}
 
 			IronEnchant: {
-				DisplayName: Encantamento de Ferro
-				Tooltip:
+				// DisplayName: Iron Enchantment
+				/* Tooltip:
 					'''
-					Você atrai itens de um alcance maior
-					33% de chance de não consumir ingredientes de criação em uma Bigorna de Ferro
-					'Eita, ferrou!'
-					'''
+					Works in vanity and inventory slots
+					The first time you craft an item, each material has a 33% chance to not be consumed
+					Does not work on Crucible of the Cosmos items
+					'Strike while the iron is hot'
+					''' */
 			}
 
 			JungleEnchant: {
@@ -2203,14 +2214,14 @@ Mods: {
 			}
 
 			MeteorEnchant: {
-				DisplayName: Encantamento de Meteoro
-				Tooltip:
+				// DisplayName: Meteor Enchantment
+				/* Tooltip:
 					'''
-					Reduz o impulso em 50%
-					Você deixa para trás uma rastro de chamas
-					Uma chuva de meteoros é iniciada a cada poucos segundos enquanto você ataca
-					'Derrube um draco neles'
-					'''
+					Moving creates a fire trail
+					Increases your movement speed and acceleration, and decreases your momentum
+					Provides light when worn
+					'Drop a draco on 'em'
+					''' */
 			}
 
 			MinerEnchant: {
@@ -2281,14 +2292,13 @@ Mods: {
 			}
 
 			NinjaEnchant: {
-				DisplayName: Encantamento do Ninja
-				Tooltip:
+				// DisplayName: Ninja Enchantment
+				/* Tooltip:
 					'''
-					Aumenta drasticamente a velocidade dos projéteis
-					Reduz o dano para compensar pela velocidade aumentada
-					Aumenta a perfuração de blindagem em 10
-					'Ataque mais rápido do que o olho pode ver'
-					'''
+					Your projectiles deal more damage the faster they're moving, up to 20%
+					Drastically increases projectile speed while you're moving slowly
+					'Wait for when the moment is right'
+					''' */
 			}
 
 			ObsidianEnchant: {
@@ -2361,14 +2371,16 @@ Mods: {
 			}
 
 			RainEnchant: {
-				DisplayName: Encantamento da Chuva
-				Tooltip:
+				// DisplayName: Rain Enchantment
+				/* Tooltip:
 					'''
-					Oferece imunidade a Molhado
-					Invoca uma tempestade em miniatura que segue o seu cursor
-					Ela só ataca se houver uma linha de visão clara entre você
-					'Volte aqui uma outra hora'
-					'''
+					Spawns an umbrella that reflects projectiles from above
+					It will break after blocking 200 damage
+					While active you have featherfall
+					Grants immunity to Wet and all attacks inflict Wet
+					Effects of Inner Tube
+					'Come again some other day'
+					''' */
 			}
 
 			RedRidingEnchant: {
@@ -2500,13 +2512,15 @@ Mods: {
 			}
 
 			SquireEnchant: {
-				DisplayName: Encantamento do Escudeiro
-				Tooltip:
+				// DisplayName: Squire Enchantment
+				/* Tooltip:
 					'''
-					Aumenta a eficiência de fontes de cura em 25%
-					A Balista perfura mais alvos e entra em pânico quando você sofre danos
-					'Escudeiro, se apressa!'
-					'''
+					Increases mount acceleration, top speed, and jump height
+					While mounted, grants 10 defense, a fart jump, and fall damage immunity
+					Increases the effectiveness of healing sources by 10%
+					Ballista pierces more targets and panics when you take damage
+					'Squire, will you hurry?'
+					''' */
 			}
 
 			StardustEnchant: {
@@ -2554,14 +2568,14 @@ Mods: {
 			}
 
 			TungstenEnchant: {
-				DisplayName: Encantamento de Tungstênio
-				Tooltip:
+				// DisplayName: Tungsten Enchantment
+				/* Tooltip:
 					'''
-					150% de aumento no tamanho das armas mas reduz a velocidade do ataque físico
-					Um projétil terá o seu tamanho dobrado a cada meio segundo
-					Projéteis e espadas sem projéteis ampliados causam 10% a mais de dano e têm uma chance de acerto crítico adicional
-					'Maior é sempre melhor'
-					'''
+					Doubles melee weapon size
+					Once every 2/3 of a second a projectile will be doubled in size
+					Enlarged projectiles and non-projectile swords deal 7% more damage
+					'Bigger is always better'
+					''' */
 			}
 
 			TurtleEnchant: {
@@ -2579,13 +2593,15 @@ Mods: {
 			}
 
 			ValhallaKnightEnchant: {
-				DisplayName: Encantamento do Cavaleiro de Valhalla
-				Tooltip:
+				// DisplayName: Valhalla Knight Enchantment
+				/* Tooltip:
 					'''
-					Aumenta a eficiência de fontes de cura em 33%
-					Aumenta bastante a eficiência da Balista
-					'Valhalla te chama'
-					'''
+					Increases mount acceleration, top speed, and jump height
+					While mounted, grants 15 defense, a fart jump, fall damage immunity, and dash
+					Increases the effectiveness of healing sources by 15%
+					Greatly enhances Ballista effectiveness
+					'Valhalla calls'
+					''' */
 			}
 
 			VortexEnchant: {
@@ -2600,12 +2616,12 @@ Mods: {
 			}
 
 			WizardEnchant: {
-				DisplayName: Encantamento do Bruxo
-				Tooltip:
+				// DisplayName: Wizard Enchantment
+				/* Tooltip:
 					'''
-					Aumenta o poder de todos os outros encantamentos para seus efeitos de Força
-					'Eu sou o quê?
-					'''
+					Upgrades the enchantment directly below this accessory to its Force effect
+					'I'm a what?'
+					''' */
 			}
 
 			WoodEnchant: {
@@ -2673,13 +2689,13 @@ Mods: {
 			}
 
 			UniverseCore: {
-				DisplayName: Núcleo do Universo
-				Tooltip:
+				// DisplayName: Universe Core
+				/* Tooltip:
 					'''
-					Críticos causam 4x em vez de 2x
-					Todos os ataques infligem Chamas do Universo
-					'Explodindo com raios cosmicos de energia extremamente alta'
-					'''
+					Your critical strikes can critically strike
+					These supercrits deal 4x damage and inflict Flames of the Universe
+					'Bursting with ultra-high-energy cosmic rays'
+					''' */
 			}
 
 			CosmoForce: {
@@ -2969,14 +2985,14 @@ Mods: {
 			}
 
 			DarkenedHeart: {
-				DisplayName: Coração Escurecido
-				Tooltip:
+				// DisplayName: Darkened Heart
+				/* Tooltip:
 					'''
-					Oferece imunidade a Apodrecendo
-					10% de aumento na velocidade dos movimentos e aumenta a tração da virada
-					Você invoca mini devoradores para procurar inimigos a cada poucos ataques
-					'As moscas se recusam a se aproximar disto'
-					'''
+					Grants immunity to Rotting
+					10% increased movement speed and increased turnaround traction
+					You spawn mini eaters that inflict Cursed Inferno to seek out enemies every few attacks
+					'Flies refuse to approach it'
+					''' */
 			}
 
 			Deerclawps: {
@@ -3099,16 +3115,17 @@ Mods: {
 			}
 
 			GuttedHeart: {
-				DisplayName: Coração Eviscerado
-				Tooltip:
+				// DisplayName: Gutted Heart
+				/* Tooltip:
 					'''
-					Oferece imunidade a sanguinário
-					10% de aumento na vida máxima
-					Creepers flutuam ao seu redor bloqueando alguns danos
-					Um novo Creeper aparece a cada 15 segundos e 5 podem existir ao mesmo tempo
-					A velocidade de resurgimento dos Creepers aumenta quando parado
-					'Já esteve batendo na mente de um inimigo derrotado'
-					'''
+					Grants immunity to Bloodthirsty
+					10% increased max life
+					Creepers hover around you blocking some damage
+					A new Creeper appears every 15-10 seconds (faster the lower your health is), and 5 can exist at once
+					Creeper respawn speed increases when not moving
+					Creepers inflict Ichor on-hit
+					'Once beating in the mind of a defeated foe'
+					''' */
 			}
 
 			HeartoftheMasochist: {
@@ -4397,14 +4414,15 @@ Mods: {
 			}
 
 			TheSmallSting: {
-				DisplayName: A Ferroadinha
-				Tooltip:
+				// DisplayName: The Small Sting
+				/* Tooltip:
 					'''
-					Utiliza dardos como munição
-					50% de chance de não consumir munição
-					Ferrões grudarão nos inimigos, atingir o mesmo lugar novamente causará mais danos
-					'Reaproveitado do abdômen de um inimigo derrotado..'
-					'''
+					Uses darts for ammo
+					50% chance to not consume ammo
+					Stingers will stick to enemies, hitting the same spot again will deal extra damage
+					Scales with your bee damage and knockback increases
+					'Repurposed from the abdomen of a defeated foe..'
+					''' */
 			}
 
 			TwinRangs: {
@@ -4641,13 +4659,14 @@ Mods: {
 			}
 
 			TheBigSting: {
-				DisplayName: A Ferroadona
-				Tooltip:
+				// DisplayName: The Big Sting
+				/* Tooltip:
 					'''
-					Utiliza dardos como munição
-					66% de chance de não consumir munição
-					'A recompensa por matar muitos...'
-					'''
+					Uses darts for ammo
+					Scales with your bee damage and knockback increases
+					66% chance to not consume ammo
+					'The reward for slaughtering many..'
+					''' */
 			}
 
 			ForgorGift: {
@@ -4950,7 +4969,7 @@ Mods: {
 
 			MechLure: {
 				// DisplayName: Mechanical Lure
-				// Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
+				// Tooltip: Throw while underwater at the Ocean to lure out a shrouded creature
 			}
 
 			TheBaronsTusk: {
@@ -4978,8 +4997,8 @@ Mods: {
 				// DisplayName: Decrepit Airstrike Remote
 				/* Tooltip:
 					'''
-					Marks a location with a reticle, consuming all your sentry slots
-					In a few seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
+					Marks a location with a reticle, consuming all your sentries
+					In a few seconds, a massive airstrike explosion will hit it, dealing damage depending on your sentry slots
 					All your minions hit by the explosion are blown up into homing splinters
 					Splinters can critically strike
 					''' */
@@ -5051,6 +5070,29 @@ Mods: {
 					Grants floaty water movement outside of liquid
 					Increased movement speed while in any liquid
 					'Nobody knows how it works'
+					''' */
+			}
+
+			EaterLauncherJr: {
+				// DisplayName: The Blastbiter
+				/* Tooltip:
+					'''
+					Uses Rotten Chunks for ammo
+					Fires a chunk of rotted flesh
+					Increased damage to enemies in the given range
+					50% chance to not consume ammo
+					'The rotting remains of a defeated foe..'
+					''' */
+			}
+
+			TheBiggestSting: {
+				// DisplayName: The Biggest Sting
+				/* Tooltip:
+					'''
+					Uses darts for ammo
+					Scales with your bee damage and knockback increases
+					66% chance to not consume ammo
+					'The Queen's unwavering swarm..'
 					''' */
 			}
 		}
@@ -5245,6 +5287,7 @@ Mods: {
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
+			// SlimeSwarm.DisplayName: Slime Swarm
 		}
 
 		Tiles: {
@@ -5944,20 +5987,26 @@ Mods: {
 			// BaronWhirlpool.DisplayName: Baron Whirlpool
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
-			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronDeathray.DisplayName: Baron's Laser
 			// BaronEyeFlash.DisplayName: Baron Eye Flash
-			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			// BaronTuskShrapnel.DisplayName: Baron's Tusk Shrapnel
 			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
 			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
-			// MechLureProjectile.DisplayName: Mech Lure Projectile
-			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// MechLureProjectile.DisplayName: Mechanical Lure
+			// RoseTintedVisorDeathray.DisplayName: Rose-Tinted Visor Laser
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
+			// MonkDashDamage.DisplayName: Monk Dash
+			// PearlwoodStareline.DisplayName: Pearlwood Stareline
+			// EaterRocketJr.DisplayName: Rotten Chunk
+			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
+			// SpectralEoC.DisplayName: Spectral Eye of Cthulhu
+			// MonkDashSlash.DisplayName: Monk Dash Slash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
@@ -5988,6 +6037,7 @@ Mods: {
 		// AshWoodConfig: "[i:FargowiltasSouls/AshWoodEnchant][c/958083:{$Mods.FargowiltasSouls.Toggler.AshWoodConfig}]"
 		// WillHeader: "[i:FargowiltasSouls/WillForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WillHeader}]"
 		// GladiatorConfig: "[i:FargowiltasSouls/GladiatorEnchant][c/9c924e:{$Mods.FargowiltasSouls.Toggler.GladiatorConfig}]"
+		// GladiatorBannerConfig: "[i:FargowiltasSouls/GladiatorEnchant][c/9c924e:{$Mods.FargowiltasSouls.Toggler.GladiatorBannerConfig}]"
 		// GoldConfig: "[i:FargowiltasSouls/GoldEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.GoldConfig}]"
 		// GoldToPiggyConfig: "[i:FargowiltasSouls/GoldEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.GoldToPiggyConfig}]"
 		// HuntressConfig: "[i:FargowiltasSouls/HuntressEnchant][c/7ac04c:{$Mods.FargowiltasSouls.Toggler.HuntressConfig}]"
@@ -6082,6 +6132,7 @@ Mods: {
 		// PureHeartHeader: "[i:FargowiltasSouls/PureHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PureHeartHeader}]"
 		// MasoEaterConfig: "[i:FargowiltasSouls/DarkenedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoEaterConfig}]"
 		// MasoBrainConfig: "[i:FargowiltasSouls/GuttedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBrainConfig}]"
+		// MasoQueenConfig: "[i:FargowiltasSouls/GelicWings][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoQueenConfig}]"
 		// LumpofFleshHeader: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.LumpofFleshHeader}]"
 		// MasoPungentCursorConfig: "[i:FargowiltasSouls/PungentEyeball][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPungentCursorConfig}]"
 		// MasoPugentConfig: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPugentConfig}]"
@@ -6382,13 +6433,12 @@ Mods: {
 			}
 		}
 
-		// Conditions.RoombaPetSold: Mods.FargowiltasSouls.Conditions.RoombaPetSold
+		// Conditions.RoombaPetSold: When the Roomba config is enabled
 		// AbyssalDivingSuitConfig: "[i:CalamityMod/AbyssalDivingSuit] Abyssal Diving Suit"
 		// CalamityTrawlerHeader: "[i:FargowiltasSouls/TrawlerSoul] Calamity Trawler's Soul Toggles"
 		// NucleogenesisConfig: "[i:CalamityMod/Nucleogenesis] Nucleogenesis"
 		// CalamityConjuristHeader: "[i:FargowiltasSouls/ConjuristsSoul] Calamity Conjurist's Soul Toggles"
 		// DynamoStemCellsConfig: "[i:CalamityMod/DynamoStemCells] Dynamo Stem Cells"
-		// DaawnlightSpiritOriginConfig: "[i:CalamityMod/DaawnlightSpiritOrigin] Daawnlight Spirit Origin"
 		// QuiverofNihilityConfig: "[i:CalamityMod/QuiverofNihility] Quiver of Nihility"
 		// ElementalQuiverConfig: "[i:CalamityMod/ElementalQuiver] Elemental Quiver"
 		// CalamitySniperHeader: "[i:FargowiltasSouls/SnipersSoul] Calamity Sniper's Soul Toggles"
@@ -6404,7 +6454,7 @@ Mods: {
 		// VeneratedLocketConfig: "[i:CalamityMod/VeneratedLocket] Venerated Locket"
 		// DragonScalesConfig: "[i:CalamityMod/DragonScales] Dragon Scales"
 		// EclipseMirrorConfig: "[i:CalamityMod/EclipseMirror] Eclipse Mirror"
-		// NanotechConfig: "[i:CalamityMod/Nanotech] Nanotech"
 		// VagabondsSoulHeader: "[i:FargowiltasCrossmod/VagabondsSoul] Vagabond's Soul"
+		// NanotechConfig: "[i:CalamityMod/Nanotech] Nanotech"
 	}
 }

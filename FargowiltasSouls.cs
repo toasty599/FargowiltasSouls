@@ -314,6 +314,9 @@ namespace FargowiltasSouls
             ModProjDict.Clear();
 
             Instance = null;
+
+            On_Player.CheckSpawn_Internal -= LifeRevitalizer_CheckSpawn_Internal;
+            On_Player.AddBuff -= AddBuff;
         }
 
         public override object Call(params object[] args)
@@ -330,11 +333,11 @@ namespace FargowiltasSouls
                         return WorldSavingSystem.EternityMode;
 
                     case "EternityVanillaBossBehaviour":
-                        bool BehaviourWasOn = WorldSavingSystem.EternityVanillaBossBehaviour;
+                        bool BehaviourWasOn = WorldSavingSystem.EternityVanillaBehaviour;
                         bool? arg = args[1] as bool?;
                         if (arg != null)
                         {
-                            WorldSavingSystem.EternityVanillaBossBehaviour = (bool)arg;
+                            WorldSavingSystem.EternityVanillaBehaviour = (bool)arg;
                         }
                         return BehaviourWasOn;
 
@@ -588,7 +591,7 @@ namespace FargowiltasSouls
                     70,
                     80,
                     88,
-                    94,
+                    //BuffID.ManaSickness, this is mana sickness, why was it here?
                     103,
                     137,
                     144,

@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
                         break;
 
                     case 1: //spawn mutant
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), Projectile.Center, ModContent.NPCType<MutantBoss>());
                             FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}MutantBoss", 175, 75, 255);

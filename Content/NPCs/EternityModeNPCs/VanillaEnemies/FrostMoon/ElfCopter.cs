@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoo
             if (npc.localAI[0] >= 14f)
             {
                 npc.localAI[0] = 0f;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     float num8 = Main.player[npc.target].Center.X - npc.Center.X;
                     float num9 = Main.player[npc.target].Center.Y - npc.Center.Y;

@@ -1,7 +1,10 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,14 +29,15 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 return;
             }
             player.FargoSouls().HasDash = true;
-            player.FargoSouls().MonkDashReady = true;
+            player.FargoSouls().FargoDash = DashManager.DashType.Monk;
         }
         public static void MonkDash(Player player, bool vertical, int direction)
         {
             //horizontal
             if (!vertical)
             {
-                player.FargoSouls().MonkDashing = 30;
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                modPlayer.MonkDashing = 30;
                 player.velocity.X = 14 * (float)direction;
 
                 player.immune = true;
@@ -41,6 +45,16 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 player.immuneTime = Math.Max(player.immuneTime, invul);
                 player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
                 player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], invul);
+                bool monkForce = modPlayer.ShinobiEnchantActive;
+                if (modPlayer.MonkEnchantItem != null && modPlayer.ForceEffect(modPlayer.MonkEnchantItem.type))
+                    monkForce = true;
+                bool shinobiForce = modPlayer.ShinobiEnchantItem != null && modPlayer.ForceEffect(modPlayer.ShinobiEnchantItem?.type);
+
+                Vector2 pos = player.Center;
+
+                int damage = monkForce ? (shinobiForce ? 1500 : 1000) : 500;
+
+                Projectile.NewProjectile(player.GetSource_FromThis(), pos, Vector2.Zero, ModContent.ProjectileType<MonkDashDamage>(), damage, 0);
             }
             else
             {
@@ -49,8 +63,6 @@ namespace FargowiltasSouls.Content.Buffs.Souls
             }
 
             player.dashDelay = 115;
-            player.dashType = 0;
-            player.GetModPlayer<DashPlayer>().modDashDelay = player.dashDelay;
             if (player.FargoSouls().IsDashingTimer < 20)
                 player.FargoSouls().IsDashingTimer = 20;
 

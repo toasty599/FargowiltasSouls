@@ -134,8 +134,9 @@ Summons a Terraprisma familiar that scales with minion damage
                 .AddRecipeGroup("FargowiltasSouls:AnyAncientHallowHead")
                 .AddIngredient(ItemID.AncientHallowedPlateMail)
                 .AddIngredient(ItemID.AncientHallowedGreaves)
+                .AddIngredient(ItemID.RainbowRod)
                 .AddIngredient(ItemID.SwordWhip) //durendal
-                .AddIngredient(ItemID.BouncingShield) //sergent united
+                .AddIngredient(ItemID.HolyWater, 50)
                 .AddTile(TileID.CrystalBall)
                 .Register();
         }

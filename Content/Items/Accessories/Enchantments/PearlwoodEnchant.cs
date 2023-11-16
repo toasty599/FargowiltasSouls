@@ -1,8 +1,11 @@
 ﻿
+using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -19,8 +22,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         }
 
         protected override Color nameColor => new(173, 154, 95);
-        
 
+        
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -34,38 +37,48 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             PearlwoodEffect(player, Item);
         }
 
+
         public static void PearlwoodEffect(Player player, Item item)
         {
             player.DisplayToggle("Pearl");
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.PearlwoodEnchantItem = item;
-
-            if (modPlayer.PearlwoodCD > 0)
-                modPlayer.PearlwoodCD--;
         }
-
-        public static void PearlwoodStarDrop(FargoSoulsPlayer modPlayer, NPC target, int damage)
+        public static void PearlwoodStar(Player player, Item item)
         {
-            int starDamage = damage / 2;
-            if (!modPlayer.TerrariaSoul)
-                starDamage = Math.Min(starDamage, FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type) ? 250 : 100));
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex] != Vector2.Zero && player.GetToggleValue("Pearl")) //check if trail actually exists and if its toggled on
+            {
+                modPlayer.PStarelinePos = modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex]; //set stareline position
 
-            Player player = modPlayer.Player;
-            //holy star spawn code funny
-            float x = target.position.X + Main.rand.Next(-400, 400);
-            float y = target.position.Y - Main.rand.Next(600, 900);
-            Vector2 vector12 = new(x, y);
-            float num483 = target.position.X + target.width / 2 - vector12.X;
-            float num484 = target.position.Y + target.height / 2 - vector12.Y;
-            int num485 = 22;
-            float num486 = (float)Math.Sqrt((double)(num483 * num483 + num484 * num484));
-            num486 = num485 / num486;
-            num483 *= num486;
-            num484 *= num486;
-            //if you change this source, make sure the check for this proj type in OnSpawn fargosoulsglobalproj matches!
-            Projectile.NewProjectile(player.GetSource_Misc("Pearlwood"), x, y, num483, num484, ProjectileID.FairyQueenMagicItemShot, starDamage, 0, player.whoAmI, 0f, 0);
+                if (!modPlayer.PStarelineActive) //check if stareline is active
+                {
+                    if (modPlayer.PearlwoodGrace == 120) //spawn after 2 seconds 
+                    {
+                        Projectile.NewProjectile(player.GetSource_Accessory(item), modPlayer.PStarelinePos, Vector2.Zero, ProjectileID.FairyQueenMagicItemShot, 1000, 0f);
+                        modPlayer.PStarelineActive = true;
+                        modPlayer.PearlwoodGrace = 0;
+                    }
+                    else
+                    {
+                        if (player.velocity.Length() > 0)
+                            modPlayer.PearlwoodGrace += 1;
+                    }
+                }
+            }
 
-            modPlayer.PearlwoodCD = modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type) ? 15 : 30;
+
+            modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex] = player.Center; //set position of stareline next cycle
+
+            modPlayer.PearlwoodIndex++; //read next in array
+            if (modPlayer.PearlwoodIndex >= modPlayer.PearlwoodTrail.Length) { modPlayer.PearlwoodIndex = 0; } //loop around
+        }
+        public static void PearlwoodCritReroll(Player player, ref NPC.HitModifiers modifiers, DamageClass damageClass)
+        {
+            if (Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass))
+            {
+                modifiers.SetCrit();
+            }
         }
 
         public override void AddRecipes()

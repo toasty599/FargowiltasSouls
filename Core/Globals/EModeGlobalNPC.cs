@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Core.Globals
             if (!WorldSavingSystem.EternityMode) return;
 
             npc.value = (int)(npc.value * 1.3);
-            if (!npc.boss && !npc.townNPC && !Main.masterMode && !FargoSoulsUtil.AnyBossAlive())
+            if (!npc.boss && !npc.townNPC && !npc.CountsAsACritter && npc.life > 10 && !Main.masterMode && !FargoSoulsUtil.AnyBossAlive())
             {
                 npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.1f);
             }
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Core.Globals
                 else if (npc.position.Y / 16 > Main.maxTilesY - 200) //enemy in hell
                 {
                     //because of funny bug where town npcs fall forever in mp, including into hell
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         npc.AddBuff(BuffID.OnFire, 2);
                 }
 
@@ -1132,14 +1132,20 @@ namespace FargowiltasSouls.Core.Globals
             {
                 if (--allowedRecursionDepth > 0)
                 {
-                    foreach (IItemDropRuleChainAttempt chain in dropRule.ChainedRules)
+                    if (dropRule != null && dropRule.ChainedRules != null)
                     {
-                        CheckMasterDropRule(chain.RuleToChain);
+                        foreach (IItemDropRuleChainAttempt chain in dropRule.ChainedRules)
+                        {
+                            if (chain != null && chain.RuleToChain != null)
+                                CheckMasterDropRule(chain.RuleToChain);
+                        }
                     }
+                    
 
                     if (dropRule is DropBasedOnMasterMode dropBasedOnMasterMode)
                     {
-                        CheckMasterDropRule(dropBasedOnMasterMode.ruleForMasterMode);
+                        if (dropBasedOnMasterMode != null && dropBasedOnMasterMode.ruleForMasterMode != null)
+                            CheckMasterDropRule(dropBasedOnMasterMode.ruleForMasterMode);
                         //if (dropBasedOnMasterMode.ruleForMasterMode is CommonDrop masterDrop)
                         //{
                         //    IItemDropRule emodeDropRule = ItemDropRule.ByCondition(
@@ -1297,6 +1303,7 @@ namespace FargowiltasSouls.Core.Globals
 
         public static void Horde(NPC npc, int size)
         {
+
             if (npc == null || !npc.active)
             {
                 return;
@@ -1317,7 +1324,7 @@ namespace FargowiltasSouls.Core.Globals
                     continue;
                 }
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     int j = NPC.NewNPC(npc.GetSource_FromAI(), (int)pos.X + npc.width / 2, (int)pos.Y + npc.height / 2, npc.type);
                     if (j != Main.maxNPCs)
@@ -1326,10 +1333,13 @@ namespace FargowiltasSouls.Core.Globals
                         if (newNPC != null && newNPC.active && newNPC.type == npc.type) //super mega safeguard check
                         {
                             newNPC.velocity = Vector2.UnitX.RotatedByRandom(2 * Math.PI) * 5f;
+                            newNPC.FargoSouls().CanHordeSplit = false;
+                            /*
                             if (newNPC.TryGetGlobalNPC(out EModeNPCBehaviour globalNPC))
                             {
                                 globalNPC.FirstTick = false;
                             }
+                            */
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, j);
                         }

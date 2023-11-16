@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoo
             //num3 = 110, damage = 36/45, tsunami
             if (npc.ai[2] > 0f && npc.ai[1] <= 60f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 speed = Main.player[npc.target].Center - npc.Center;
                     speed.Y -= Math.Abs(speed.X) * 0.1f; //account for gravity

@@ -53,6 +53,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public int PureHeartHeader = ModContent.ItemType<PureHeart>();
         public string MasoEater;
         public string MasoBrain;
+        public string MasoQueen;
 
         public int LumpofFleshHeader = ModContent.ItemType<LumpOfFlesh>();
         public string MasoPungentCursor;

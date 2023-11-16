@@ -21,6 +21,8 @@ using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using FargowiltasSouls.Content.Items.Summons;
+using Fargowiltas.NPCs;
+using FargowiltasSouls.Content.Items.Misc;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -35,6 +37,8 @@ namespace FargowiltasSouls.Core.Globals
 
         public int originalDefense;
         public bool BrokenArmor;
+
+        public bool CanHordeSplit = true;
 
         public bool FirstTick;
         //        //debuffs
@@ -336,12 +340,12 @@ namespace FargowiltasSouls.Core.Globals
                     int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.Lead, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
                     }
                 }
             }
@@ -365,12 +369,12 @@ namespace FargowiltasSouls.Core.Globals
                     int dust = Dust.NewDust(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.PinkTorch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
                     }
                 }
             }
@@ -383,12 +387,12 @@ namespace FargowiltasSouls.Core.Globals
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
                     }
                 }
             }
@@ -401,12 +405,12 @@ namespace FargowiltasSouls.Core.Globals
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
-                    Dust expr_1CCF_cp_0 = Main.dust[dust];
-                    expr_1CCF_cp_0.velocity.Y -= 0.5f;
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
                     if (Main.rand.NextBool(4))
                     {
-                        Main.dust[dust].noGravity = false;
-                        Main.dust[dust].scale *= 0.5f;
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
                     }
                 }
             }
@@ -647,7 +651,8 @@ namespace FargowiltasSouls.Core.Globals
                         dot = 4;
                     }
                 }
-                if (modPlayer.ForceEffect(modPlayer.LeadEnchantItem.type))
+                bool forceEffect = Main.player.Any(p => p.active && !p.dead && p.FargoSouls() is FargoSoulsPlayer pF && pF != null && pF.LeadEnchantItem != null && pF.ForceEffect(pF.LeadEnchantItem.type));
+                if (forceEffect)
                 {
                     dot *= 3;
                 }
@@ -967,7 +972,7 @@ namespace FargowiltasSouls.Core.Globals
                 case NPCID.EaterofWorldsTail:
                     {
                         LeadingConditionRule lastEater = new(new Conditions.LegacyHack_IsABoss());
-                        lastEater.OnSuccess(BossDrop(ModContent.ItemType<EaterStaff>()));
+                        lastEater.OnSuccess(BossDrop(ModContent.ItemType<EaterLauncherJr>()));
                         npcLoot.Add(lastEater);
                     }
                     break;
@@ -1082,7 +1087,6 @@ namespace FargowiltasSouls.Core.Globals
 
             return base.CheckDead(npc);
         }
-
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
             OnHitByEither(npc, player, damageDone);
@@ -1121,20 +1125,6 @@ namespace FargowiltasSouls.Core.Globals
             return true;
         }
 
-        public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
-        {
-            if (Corrupted || CorruptedForce)
-            {
-                modifiers.FinalDamage *= 0.9f;
-            }
-
-            if (target.HasBuff(ModContent.BuffType<ShellHideBuff>()))
-                modifiers.FinalDamage *= 2;
-
-            if (BloodDrinker)
-                modifiers.FinalDamage *= 1.3f;
-        }
-
         public override void ModifyHitNPC(NPC npc, NPC target, ref NPC.HitModifiers modifiers)
         {
             Player player = Main.player[Main.myPlayer];
@@ -1169,7 +1159,7 @@ namespace FargowiltasSouls.Core.Globals
             }
             if (CorruptedForce)
             {
-                modifiers.ArmorPenetration += 30;
+                modifiers.ArmorPenetration += 40;
             }
 
             if (OceanicMaul)
@@ -1212,6 +1202,13 @@ namespace FargowiltasSouls.Core.Globals
             //            //normal damage calc
         }
 
+        public override void ModifyShop(NPCShop shop)
+        {
+            if (shop.NpcType == ModContent.NPCType<Deviantt>())
+            {
+                shop.Add(new Item(ModContent.ItemType<EternityAdvisor>()) { shopCustomPrice = Item.buyPrice(copper: 10000) });
+            }
+        }
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
         {
             Player player = Main.player[Main.myPlayer];

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             // Tooltip.SetDefault("A living blade that will attack your mouse position");
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 3));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 5));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.BonusAttackSpeedMultiplier[Item.type] = 0.25f;
         }

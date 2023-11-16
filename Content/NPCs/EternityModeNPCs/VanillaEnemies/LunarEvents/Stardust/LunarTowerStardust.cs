@@ -25,15 +25,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             new NPCMatcher().MatchType(NPCID.LunarTowerStardust);
 
         public LunarTowerStardust() : base(ModContent.BuffType<AntisocialBuff>(), 20) { }
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-            if (!WorldSavingSystem.EternityMode)
-            {
-                return;
-            }
+        public override int MaxHP => 20000;
+        public override int Damage => 0;
 
-        }
         List<int> DragonParts = new List<int>
                 {
                     NPCID.CultistDragonHead,
@@ -115,7 +109,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             if (NPC.CountNPCS(NPCID.CultistDragonHead) <= 0 && WorldSavingSystem.MasochistModeReal && DragonTimer <= 0) //spawn james in maso
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     
                     int n = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)(npc.Center.Y - npc.height * 0.45f), NPCID.CultistDragonHead);
@@ -147,7 +141,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 }
                 if (NPC.CountNPCS(NPCID.CultistDragonHead) <= 0) //spawn james
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         int n = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)(npc.Center.Y - npc.height * 0.45f), NPCID.CultistDragonHead);
                         if (Main.npc[n].active)
@@ -362,7 +356,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         }
         private void SpawnMinion(NPC npc, int cell)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 NPC spawn = NPC.NewNPCDirect(npc.GetSource_FromThis(), npc.Center + Main.rand.Next(-20, 20) * Vector2.UnitX + Main.rand.Next(-20, 20) * Vector2.UnitY, ModContent.NPCType<StardustMinion>());
                 spawn.ai[1] = 1;

@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             }
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.deviBoss, ModContent.NPCType<DeviBoss>()))
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     for (int i = 0; i < 4; i++)
                     {

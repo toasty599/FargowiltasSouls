@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Projectile.light = 0.5f;
             Projectile.scale = 1f;
         }
-
+        public override bool? CanDamage() => Projectile.alpha <= 0;
         public override void AI()
         {
             if (Projectile.ai[0] == 0)

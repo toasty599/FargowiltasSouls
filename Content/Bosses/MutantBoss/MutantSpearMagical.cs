@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (--Projectile.localAI[0] < 0)
                 {
                     Projectile.localAI[0] = 4;
-                    if (Projectile.ai[1] == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Projectile.ai[1] == 0 && FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MutantSphereSmall>(), Projectile.damage, 0f, Projectile.owner, Projectile.ai[0]);
                 }
             }
@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             base.OnKill(timeLeft);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordMoonBlast>(),
                     Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.velocity.ToRotation(), 12);

@@ -24,7 +24,8 @@ using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
-
+using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
+using static FargowiltasSouls.Core.Systems.DashManager;
 namespace FargowiltasSouls.Core.ModPlayers
 {
 	public partial class FargoSoulsPlayer : ModPlayer
@@ -48,6 +49,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool RustRifleReloading = false;
         public float RustRifleReloadZonePos = 0;
         public float RustRifleTimer = 0;
+
+        public int RockeaterDistance = EaterLauncher.BaseDistance;
 
         public bool fireNoDamage = false;
 
@@ -162,8 +165,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void ResetEffects()
         {
             HasDash = false;
-            MonkDashReady = false;
-            JungleDashReady = false;
+            FargoDash = DashType.None;
 
             AttackSpeed = 1f;
             if (Screenshake > 0)
@@ -504,6 +506,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             EridanusTimer = 0;
             StyxMeter = 0;
             StyxTimer = 0;
+            StyxAttackReady = false;
             NekomiMeter = 0;
             NekomiTimer = 0;
 
@@ -1326,22 +1329,22 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int GetHealMultiplier(int heal)
         {
-            float bonus = 0f;
+            float multiplier = 1f;
 
             if ((SquireEnchantItem != null || ValhallaEnchantItem != null))
             {
                 bool forceEffect = ForceEffect(ModContent.ItemType<SquireEnchant>()) || ForceEffect(ModContent.ItemType<ValhallaKnightEnchant>());
                 if (Eternity)
-                    bonus = 4f;
+                    multiplier = 5f;
                 else if (forceEffect && ValhallaEnchantItem != null)
-                    bonus = 1f / 2f;
+                    multiplier = 1.2f;
                 else if (ValhallaEnchantItem != null || (forceEffect && SquireEnchantItem != null))
-                    bonus = 1f / 3f;
+                    multiplier = 1.15f;
                 else if (SquireEnchantItem != null)
-                    bonus = 1f / 4f;
+                    multiplier = 1.10f;
             }
 
-            heal = (int)(heal * (1f + bonus));
+            heal = (int)(heal * multiplier);
 
             return heal;
         }
@@ -1514,6 +1517,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     return true;
                 }
+                return false;
+            }
+            if (Main.gamePaused)
+            {
                 return false;
             }
             if (enchType == null)

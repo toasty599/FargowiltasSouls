@@ -23,7 +23,11 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
             Projectile.DamageType = DamageClass.Melee;
             Projectile.aiStyle = 15;
         }
-
+        public override void PostAI()
+        {
+            Projectile.position += Projectile.velocity * 0.25f; //because flail AI is literally entirely static
+            base.PostAI();
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             //chain texture drawing

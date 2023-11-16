@@ -64,13 +64,13 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SolarEcl
                     const int zenithStartup = 100; //this should match MothronZenith
                     Vector2 vel = 2f * (targetPos - npc.Center) / zenithStartup;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, -1f, direction);
                 }
             }
             else if ((npc.ai[0] == 3f || npc.ai[0] == 4f) && npc.ai[1] == 0f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient) //clear old zeniths
+                if (FargoSoulsUtil.HostCheck) //clear old zeniths
                 {
                     int type = ModContent.ProjectileType<MothronZenith>();
                     for (int p = 0; p < Main.maxProjectiles; p++)
@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SolarEcl
 
                     float rotation = MathHelper.TwoPi / max * i;
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MothronZenith>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, rotation);
                 }
             }

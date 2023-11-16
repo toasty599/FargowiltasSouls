@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinM
             if (++Counter >= 300)
             {
                 Counter = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     for (int i = 0; i < 5; i++)
                     {

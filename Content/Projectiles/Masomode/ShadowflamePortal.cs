@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < 3; i++)
                 {

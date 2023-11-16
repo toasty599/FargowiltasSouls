@@ -4,6 +4,7 @@ using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -40,10 +41,20 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void AdamantiteEffect(Player player, Item item)
         {
             player.DisplayToggle("Adamantite");
-            FargoSoulsPlayer modplayer = player.FargoSouls();
-            modplayer.AdamantiteEnchantItem = item;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            modPlayer.AdamantiteEnchantItem = item;
+
+            int adaCap = 60; //ada cap in DEGREES
+
+            if (modPlayer.WeaponUseTimer > 0) modPlayer.AdamantiteSpread += 0.25; //ada spread change. 0.25 per frame, takes 240 frames or 4 seconds to hit max of 60
+            else modPlayer.AdamantiteSpread -= 0.5; //yeah i just copied mythril code so what
+
+            if (modPlayer.AdamantiteSpread < 0) modPlayer.AdamantiteSpread = 0; 
+            if (modPlayer.AdamantiteSpread > adaCap) modPlayer.AdamantiteSpread = adaCap;
+            
         }
-        static int[] AdamIgnoreItems = new int[]
+
+        public static int[] AdamIgnoreItems = new int[]
         {
             ItemID.NightsEdge,
             ItemID.TrueNightsEdge,
@@ -54,12 +65,19 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         };
         public static void AdamantiteSplit(Projectile projectile, FargoSoulsPlayer modPlayer, int splitDegreeAngle)
         {
-            
+            bool adaForce = modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type);
+            bool isProjHoming = ProjectileID.Sets.CultistIsResistantTo[projectile.type];
+
             if (AdamIgnoreItems.Contains(modPlayer.Player.HeldItem.type))
             {
                 return;
             }
-            foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(splitDegreeAngle), modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 1f / 3 : 1f / 2))
+
+            float adaDamageRatio = isProjHoming? (adaForce ? 0.4f : 0.6f) : (adaForce ? 0.5f : 0.7f);
+            // if its homing, damage is 0.6x2/0.4x3 (+20%)
+            // if its not homing, damage is 0.7x2/0.5x3 (+40/50%)
+
+            foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(splitDegreeAngle), adaDamageRatio))
             {
                 if (p != null && p.active)
                 {
@@ -67,7 +85,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 }
             }
 
-            if (!modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type))
+            if (!adaForce)
             {
                 projectile.type = ProjectileID.None;
                 projectile.timeLeft = 0;

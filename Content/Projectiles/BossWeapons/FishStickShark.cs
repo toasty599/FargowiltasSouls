@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             Projectile.CloneDefaults(ProjectileID.MiniSharkron);
             AIType = ProjectileID.MiniSharkron;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 1;
             Projectile.timeLeft = 90;
 
             Projectile.tileCollide = false;

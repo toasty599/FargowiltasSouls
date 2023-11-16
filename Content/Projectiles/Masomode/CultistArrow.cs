@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
 

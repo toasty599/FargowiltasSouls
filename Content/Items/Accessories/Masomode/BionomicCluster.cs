@@ -207,7 +207,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 0;
         }
 
         public override void SetDefaults()

@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 d.velocity = vector2_2;
                 d.scale = 0.5f + Main.rand.NextFloat();
                 d.fadeIn = 0.5f;*/
-                if (Projectile.ai[0] == 90 && Projectile.ai[1] != -1 && Main.netMode != NetmodeID.MultiplayerClient && npc != null)
+                if (Projectile.ai[0] == 90 && Projectile.ai[1] != -1 && FargoSoulsUtil.HostCheck && npc != null)
                 {
                     Vector2 rotationVector2 = npc.Center - Projectile.Center;
                     rotationVector2.Normalize();

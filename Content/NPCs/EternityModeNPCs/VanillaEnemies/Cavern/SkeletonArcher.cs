@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             //damage = 28/35, ID.VenomArrow
             if (npc.ai[2] > 0f && npc.ai[1] <= 40f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 speed = Main.player[npc.target].Center - npc.Center;
                     speed.Y -= Math.Abs(speed.X) * 0.075f; //account for gravity (default *0.1f)

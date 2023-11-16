@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     p.velocity *= 1.015f;
 
                     //kill ones that actually fall in and retaliate
-                    if (Main.netMode != NetmodeID.MultiplayerClient && Projectile.Colliding(Projectile.Hitbox, p.Hitbox))
+                    if (FargoSoulsUtil.HostCheck && Projectile.Colliding(Projectile.Hitbox, p.Hitbox))
                     {
                         Player player = Main.player[p.owner];
                         if (player.active && !player.dead && !player.ghost && Projectile.localAI[1] <= 0)
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                 if (Projectile.localAI[1] == 0)
                 {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = -1; i <= 1; i += 2)
                         {
@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 }
                 else if (Projectile.localAI[1] > 180)
                 {
-                    if (Projectile.localAI[1] % 6 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Projectile.localAI[1] % 6 == 0 && FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = Main.rand.NextFloat(24f, 64f) * Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(maxAttackSpread));
                         float ai1New = Main.rand.NextBool() ? 1 : -1; //randomize starting direction

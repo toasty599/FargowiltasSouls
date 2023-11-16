@@ -24,6 +24,7 @@ using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Content.Items.Placables.Relics;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
@@ -136,11 +137,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 30500;
+            NPC.lifeMax = 32000;
             NPC.defense = 15;
             NPC.damage = 69;
             NPC.knockBackResist = 0f;
-            NPC.width = 194;
+            NPC.width = 132; //194
             NPC.height = 132;
             NPC.boss = true;
             NPC.lavaImmune = true;
@@ -150,7 +151,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             NPC.DeathSound = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronDeath");
             NPC.alpha = 255;
 
-            Music = MusicID.DukeFishron; 
+            Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod) ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Baron") : MusicID.DukeFishron;
             SceneEffectPriority = SceneEffectPriority.BossLow;
 
             NPC.value = Item.buyPrice(0, 2);
@@ -389,7 +390,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BanishedBaronBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BaronTrophy>(), 10));
 
-            //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BanishedBaronRelic>()));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<BaronRelic>()));
 
             LeadingConditionRule rule = new LeadingConditionRule(new Conditions.NotExpert());
             rule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<TheBaronsTusk>(), ModContent.ItemType<RoseTintedVisor>(), ModContent.ItemType<NavalRustrifle>(), ModContent.ItemType<DecrepitAirstrikeRemote>()));
@@ -459,7 +460,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     break;
                 case 2:
                     int type = ModContent.ProjectileType<BaronArenaWhirlpool>();
-                    if (ArenaProjID == -1 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (ArenaProjID == -1 && FargoSoulsUtil.HostCheck)
                     {
                         ArenaProjID = Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, Vector2.Zero, type, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 3f, Main.myPlayer, NPC.whoAmI, 0);
                         
@@ -615,11 +616,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 SoundEngine.PlaySound(SoundID.Item21, NPC.Center);
                 SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -24);
                 }
-                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.BanishedBaron] && Main.netMode != NetmodeID.MultiplayerClient)
+                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.BanishedBaron] && FargoSoulsUtil.HostCheck)
                     Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<MechLure>());
             }
             if (Timer > 90)
@@ -696,8 +697,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Phase = 2;
                 FargoSoulsUtil.ClearHostileProjectiles(2, NPC.whoAmI);
 
-                Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod) ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Baron") : MusicID.Boss2;
-                
+                Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod) ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Baron2") : MusicID.Boss2;
+
             }
             if (Timer > transTime)
             {
@@ -763,7 +764,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     }
                 }
             }
-            const int Distance = 400;
+            int Distance = (int)Math.Min(NPC.Distance(player.Center) + 50, 450);
             if (Timer == 1)
             {
                 
@@ -791,13 +792,13 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
 
             //bool NewCollision = (Collision.SolidCollision(NPC.position, NPC.width, NPC.height) && AI3 != -2); //if didn't originate in collision, 
-            if (Vector2.Distance(NPC.Center, LockVector1) < 25 || Timer > 150 || (AI3 != -2 && AI3 != 0)/* || NewCollision*/) //if ai3 not 0 (default) or -2 (set when original collision)
+            if (Vector2.Distance(NPC.Center, LockVector1) < 25 || Timer > 100 || (AI3 != -2 && AI3 != 0)/* || NewCollision*/) //if ai3 not 0 (default) or -2 (set when original collision)
             {
 
                 AI3 = (AI3 + 1) * 3; //stays negative if set to -2 by checking original collision, otherwise goes positive
-                NPC.velocity *= 0.935f;
+                NPC.velocity *= 0.85f;
                 RotateTowards(player.Center, 3);
-                if (NPC.velocity.Length() < 0.1f && Timer > 45)
+                if (NPC.velocity.Length() < 0.1f && Timer > 50)
                 {
                     if (Wet() && WorldSavingSystem.MasochistModeReal) //chug the ocean in masomode
                     {
@@ -809,12 +810,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             else
             {
-                if (Collision.SolidCollision(NPC.Center + NPC.velocity, NPC.width, NPC.height) && Timer < 135 && AI3 != -2)
+                if (Collision.SolidCollision(NPC.Center + NPC.velocity, NPC.width, NPC.height) && Timer < 40 && AI3 != -2)
                 {
-                    Timer = 135; //so it doesn't get stuck on tiles too long
+                    Timer = 40; //so it doesn't get stuck on tiles too long
                 }
                 Vector2 vectorToIdlePosition = LockVector1 - NPC.Center;
-                float speed = AI3 >= 0 ? 20f : 10f; //less speed if originated in collision
+                float speed = AI3 >= 0 ? 28 : 14; //less speed if originated in collision
                 if (WorldSavingSystem.EternityMode && !WorldSavingSystem.MasochistModeReal) //maso speed is already very fast because ignore water
                 {
                     speed *= 1.2f;
@@ -836,7 +837,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             /*
             if (Timer == 1)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 3, NPC.whoAmI);
             }
             */
@@ -849,7 +850,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (Timer == 30)
             {
                 SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 vel = NPC.rotation.ToRotationVector2() * 10f;
                     AI2 = Main.rand.NextFloat(190, 220); //nuke duration
@@ -871,7 +872,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Anim = 1;
                 SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     float progress = (Timer - 10) / 60;
                     float rotation = progress * (MathHelper.Pi / 6);
@@ -903,7 +904,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (Timer > 10 && Timer % 30 == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 vel = NPC.rotation.ToRotationVector2() * AI3;
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<BaronMine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, player.whoAmI);
@@ -968,7 +969,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer == 60)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     
                     NPC.netUpdate = true;
@@ -994,7 +995,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 NPC.velocity = Vector2.Zero;
                 NPC.rotation = NPC.DirectionTo(player.Center).ToRotation();
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + NPC.rotation.ToRotationVector2() * NPC.width * 0.35f, Vector2.Zero, ModContent.ProjectileType<BaronEyeFlash>(), 0, 0, Main.myPlayer);
                 }
@@ -1041,7 +1042,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
                         for (int i = -1; i < 2; i += 2)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Vector2 v = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * i) * 1f;
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v * 20), v * 0.3f, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 4, player.whoAmI);
@@ -1053,7 +1054,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if ((Timer == 90 + ReactionTime + 15 || Timer == 90 + ReactionTime + 30) && WorldSavingSystem.EternityMode)
             {
                 SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 vel = NPC.velocity * 1.2f;
                     float trackingPower = WorldSavingSystem.MasochistModeReal ? 1.5f : 1f;
@@ -1097,7 +1098,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (Timer == Math.Round(Duration * 0.33f) || Timer == Math.Round(Duration * 0.66f) || Timer == Math.Round(Duration * 0.99f))
                 {
                     SoundEngine.PlaySound(SoundID.Item63, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = (-NPC.rotation).ToRotationVector2() * 5;
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<BaronMine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI);
@@ -1173,7 +1174,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 RotateTowards(NPC.Center - Vector2.UnitY.RotatedBy(MathHelper.ToRadians(1)), 16);
             }
-            if (Timer == 60 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Timer == 60 && FargoSoulsUtil.HostCheck)
             {
                 AnimationSpeed = 2f;
                 int variant = Main.rand.Next(2);
@@ -1195,7 +1196,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             const int ReactTime = 72;
             if (Timer == 1)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, NPC.whoAmI);
             }
             if (Timer == ReactTime - 5) //slight telegraph sound to be cute
@@ -1261,7 +1262,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
                     for (int i = -1; i < 2; i += 2)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 v = NPC.rotation.ToRotationVector2().RotatedBy(MathHelper.PiOver2 * i) * 1f;
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + (v * 20), v * 0.3f, ModContent.ProjectileType<BaronRocket>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI);
@@ -1335,7 +1336,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if ((AI3 % Math.Round(ArcTime / mineCount)) == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item63, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = new Vector2(0, Main.rand.Next(15, 20));
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<BaronMine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI);
@@ -1441,7 +1442,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (Timer % 8 == 0)
                     {
                         SoundEngine.PlaySound(SoundID.Item64, NPC.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int side = (Timer > 140 && Timer < 200) ? -1 : 1;
                             float speed = Main.rand.NextFloat(10, 25);
@@ -1573,7 +1574,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (AI3 < bulletStart)
                 {
                     Anim = 1;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         float speed = Main.rand.NextFloat(8, 13);
                         Vector2 v = Main.rand.NextFloat(MathHelper.TwoPi).ToRotationVector2();
@@ -1664,7 +1665,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (Timer % cd == cd-2 && (!timeFirstHalf || (WorldSavingSystem.MasochistModeReal))) //shoot
                 {
                     SoundEngine.PlaySound(SoundID.Item63, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         float speed = Main.rand.Next(10, 38);
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, speed * NPC.rotation.ToRotationVector2(), ModContent.ProjectileType<BaronMine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 2, player.whoAmI);
@@ -1699,7 +1700,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Anim = 1;
                 SoundEngine.PlaySound(SoundID.Item21, NPC.Center);
                 SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -24);
                 }
@@ -1708,6 +1709,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Anim = 0;
                 arena.ai[2] = 1; //activate projectile shooting AI of arena
+                arena.netUpdate = true;
             }
             if (Timer >= 61)
             {
@@ -1742,6 +1744,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (Timer > 420)
             {
                 arena.ai[2] = 0; //deactivate projectile shooting AI of arena
+                arena.netUpdate = true;
             }
             int endTime = WorldSavingSystem.MasochistModeReal ? 560 : 500; //maso alternation makes it kinda bullshit otherwise
             if (Timer > endTime)
@@ -1788,7 +1791,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (WorldSavingSystem.EternityMode)
                 {
                     SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = NPC.rotation.ToRotationVector2() * 10f;
                         int nukeDur = Main.rand.Next(160, 160); //nuke duration
@@ -1820,7 +1823,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/LaserTelegraph") with { Volume = 1.25f }, NPC.Center);
                     AI3 = Main.rand.NextBool() ? 1 : -1; //sign for rotation
                     LockVector1 = (player.Center - NPC.Center).RotatedBy(AI3 * MaxRot);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 7, NPC.whoAmI, WindupTime + 20);
                     }
@@ -1837,7 +1840,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (WorldSavingSystem.MasochistModeReal)
                     {
                         SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 vel = NPC.rotation.ToRotationVector2() * 10f;
                             int nukeDur = Main.rand.Next(160, 160); //nuke duration
@@ -1851,7 +1854,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     AI4 = FargoSoulsUtil.RotationDifference(NPC.rotation.ToRotationVector2(), (player.Center - NPC.Center)); //cache rotation direction towards player
 
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/LaserSound_Slow") with { Pitch = -0.2f }, NPC.Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, NPC.rotation.ToRotationVector2(), ModContent.ProjectileType<BaronDeathray>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0: NPC.whoAmI, ai2: AttackTime);
                     }
@@ -1915,7 +1918,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 availablestates.Remove((int)State); //avoid possible repeat after refilling list
             }
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck) //only run for host in mp, will sync to others
             {
                 index = Main.rand.Next(availablestates.Count);
                 State = availablestates[index];
@@ -1937,7 +1940,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     NPC.velocity.Y += 1f;
                     if (NPC.timeLeft == 1)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             FargoSoulsUtil.ClearHostileProjectiles(2, NPC.whoAmI);
                         }

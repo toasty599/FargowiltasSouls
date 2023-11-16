@@ -79,7 +79,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<PurgedBuff>(), 2);
 
             bool useP2Attacks = npc.ai[3] != 0 || WorldSavingSystem.MasochistModeReal;
-
             switch ((int)npc.ai[0])
             {
                 //0 spawn
@@ -145,7 +144,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 for (float i = 0; i < 1; i += 1f / 24f)
                                 {
                                     Vector2 spinningpoint = Vector2.UnitY.RotatedBy(MathHelper.PiOver2 + MathHelper.TwoPi * i + startRotation);
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    if (FargoSoulsUtil.HostCheck)
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + spinningpoint.RotatedBy(-MathHelper.PiOver2) * 30f, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(BaseProjDmg(npc), 1.3f), 0f, Main.myPlayer, spinningpoint.ToRotation(), i);
                                 }
                             }
@@ -229,7 +228,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         Vector2 spawnPos = Main.player[npc.target].Center + offset;
                         Vector2 vel = Main.player[npc.target].DirectionFrom(spawnPos);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, Vector2.Zero, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(BaseProjDmg(npc), 1.3f), 0f, Main.myPlayer, vel.ToRotation(), npc.ai[1] / 100f);
                     }
                     break;
@@ -252,7 +251,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         if (npc.ai[1] >= delay && npc.ai[1] < delay + max)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 float ai1 = (npc.ai[1] - delay) / max;
 
@@ -334,7 +333,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     Vector2 spawnPos = targetPos + radius * offsetDirection;
                     Vector2 vel = Vector2.Normalize(targetPos - spawnPos);
                     float ai1 = (float)(AttackTimer - startDelay) / spinTime % 1;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 appearVel = -vel;
                         appearVel *= WorldSavingSystem.MasochistModeReal ? 7.5f : 2.5f;
@@ -374,7 +373,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 for (float i = 0; i < 1; i += 1f / 13f)
                 {
                     Vector2 spinningpoint = Vector2.UnitY.RotatedBy(MathHelper.PiOver2 + MathHelper.TwoPi * i + startRotation);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         void LastingRainbow(Vector2 vel, int timeLeft)
                         {
@@ -423,7 +422,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         float ai1 = (float)effectiveTimer / attackTime;
 
                         Vector2 appearVel = -coverage / 60f * 0.8f * ai0.ToRotationVector2();
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos - appearVel * 60, appearVel, ProjectileID.FairyQueenLance, FargoSoulsUtil.ScaledProjectileDamage(BaseProjDmg(npc), 1.5f), 0f, Main.myPlayer, ai0, ai1);
                     }
                 }
@@ -463,7 +462,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     Vector2 spawnPos = targetPos;
                     spawnPos += 600f * Vector2.UnitX.RotatedBy(startRotation);
                     spawnPos += MathHelper.Lerp(-spaceCovered, spaceCovered, ai1) * Vector2.UnitY.RotatedBy(startRotation);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = (startRotation + MathHelper.Pi).ToRotationVector2();
                         Vector2 appearVel = vel.RotatedBy(-MathHelper.PiOver2);
@@ -489,7 +488,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     spawnPos += 600f * Vector2.UnitX.RotatedBy(startRotation);
                     spawnPos += MathHelper.Lerp(-spaceCovered, spaceCovered, ai1) * Vector2.UnitY.RotatedBy(startRotation);
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = (startRotation + MathHelper.Pi).ToRotationVector2();
                         Vector2 appearVel = vel.RotatedBy(-MathHelper.PiOver2);
@@ -556,7 +555,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         Vector2 vel = Main.rand.NextFloat(24f) * direction * Vector2.UnitY;
                         vel.X += 30f * Math.Sign(npc.DirectionTo(Main.player[npc.target].Center).X);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.HallowBossRainbowStreak, FargoSoulsUtil.ScaledProjectileDamage(BaseProjDmg(npc), 1.5f), 0f, Main.myPlayer, npc.target, ai1);
                     }
                     else
@@ -590,7 +589,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             continue;
 
                         float ai0 = baseDirection + MathHelper.ToRadians(20) / 2 * i;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.FairyQueenSunDance, FargoSoulsUtil.ScaledProjectileDamage(BaseProjDmg(npc), 1.5f), 0f, Main.myPlayer, ai0, npc.whoAmI);
                     }
                 }
@@ -612,7 +611,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (i == 0)
                             continue;
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             float ai0 = baseDirection + MathHelper.ToRadians(40) / 2 * i;
                             float ai1 = (npc.ai[1] - 40f) / 50f;

@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.autoReuse = false;
             Item.shoot = ModContent.ProjectileType<DecrepitAirstrike>();
             Item.shootSpeed = 1f;
-            Item.sentry = true;
+            //Item.sentry = true;
             Item.noMelee = true;
         }
 

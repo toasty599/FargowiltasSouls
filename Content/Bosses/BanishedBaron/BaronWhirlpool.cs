@@ -3,8 +3,10 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -32,8 +34,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.alpha = 255;
             Projectile.FargoSouls().DeletionImmuneRank = 1;
         }
-        public bool Fade;
-        public bool Animate;
+        public bool Fade = false;
+        //public bool Animate = false;
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
@@ -50,12 +52,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             writer.Write(Projectile.localAI[0]);
             writer.Write(Projectile.localAI[1]);
             writer.Write(Projectile.localAI[2]);
+            writer.Write(parentNPC);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            Projectile.localAI[0] = reader.Read();
-            Projectile.localAI[1] = reader.Read();
-            Projectile.localAI[2] = reader.Read();
+            Projectile.localAI[0] = reader.ReadSingle();
+            Projectile.localAI[1] = reader.ReadSingle();
+            Projectile.localAI[2] = reader.ReadSingle();
+            parentNPC = reader.ReadBoolean();
+        }
+        bool parentNPC = false;
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (source is EntitySource_Parent parent && parent.Entity is NPC)
+            {
+                parentNPC = true;
+            }
         }
         public override void AI()
         {
@@ -66,34 +78,41 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             ref float ChildID = ref Projectile.localAI[1];
             ref float attackRandom = ref Projectile.localAI[2];
 
-            Projectile.netUpdate = true; //it's choppy if this isn't done always
+            //Projectile.netUpdate = true; //it's choppy if this isn't done always
 
-            if (Number == BanishedBaron.MaxWhirlpools)
+            if (Timer > 60 * 4)
             {
+                Fade = true;
+            }
+            //Animate = true;
+            /*
+            if (parentNPC)
+            {
+                
                 NPC parent = Main.npc[(int)ParentID];
+                
                 const int BaronHeight = 132 / 2;
-                if (parent.active && parent.type == ModContent.NPCType<BanishedBaron>())
+                
+                if (parent != null && parent.active && parent.type == ModContent.NPCType<BanishedBaron>())
                 {
                     Projectile.Center = parent.Center + (Vector2.UnitY * ((Projectile.height / 2) + BaronHeight));
                 }
-                if (Timer > 60 * 4)
-                {
-                    Fade = true;
-                }
-                Animate = true;
+                
+                
+                
             }
             else
             {
                 Projectile parent = Main.projectile[(int)ParentID];
-                if (parent.active && parent.type == Type && !Animate)
+                if (parent != null && parent.active && parent.type == Type && !Animate)
                 {
-                    Projectile.Center = parent.Center + Vector2.UnitY * Projectile.height;
-                    int frame = Main.projectile[(int)ParentID].frame - 1;
+                    //Projectile.Center = parent.Center + Vector2.UnitY * Projectile.height;
+                    int frame = parent.frame - 1;
                     if (frame < 0 || frame >= Main.projFrames[Type])
                     {
                         frame = Main.projFrames[Type] - 1;
                     }
-                    Projectile.frame = frame; //makes it look very good and connected
+                    Projectile.frame = frame; //makes it look good and connected
                 }
                 else
                 {
@@ -101,6 +120,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     Fade = true;
                 }
             }
+            */
             const int projTime = 50;
             const int projTimeVar = 46;
             if (Projectile.alpha == 0)
@@ -115,7 +135,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         //attackRandom = Main.rand.NextBool() ? 1 : 0;
                         //attackRandom = Main.rand.Next(-12, 0);
                         SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = -1; i < 2; i += 2)
                             {
@@ -129,7 +149,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (Timer % projTime == 0 && Timer % (projTime * 3) == projTime * everyThird)
                     {
                         SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = -1; i < 2; i += 2)
                             {
@@ -152,9 +172,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Number = 3;
             }
-            if (Timer == 8 + (Variant == 1 ? 5 : 0) && Number > 0 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (Timer == 8 + (Variant == 1 ? 5 : 0) && Number > 0 && FargoSoulsUtil.HostCheck)
             {
-                ChildID = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Vector2.UnitY * Projectile.height, Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI, Number - 1, Variant);
+                ChildID = Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + Vector2.UnitY * Projectile.height, Vector2.Zero, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.identity, Number - 1, Variant);
+                int frame = Projectile.frame - 1;
+                if (frame < 0 || frame >= Main.projFrames[Type])
+                {
+                    frame = Main.projFrames[Type] - 1;
+                }
+                Main.projectile[(int)ChildID].frame = frame;
             }
             if (Fade)
             {
@@ -167,23 +193,20 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                         if (child.active && child.type == Type)
                         {
                             (child.ModProjectile as BaronWhirlpool).Fade = true;
-                            (child.ModProjectile as BaronWhirlpool).Animate = true;
+                            //(child.ModProjectile as BaronWhirlpool).Animate = true;
                         }
                     }
                     Projectile.Kill();
                 }
             }
 
-            if (Animate)
+            if (++Projectile.frameCounter > 2)
             {
-                if (++Projectile.frameCounter > 2)
+                if (++Projectile.frame >= Main.projFrames[Type])
                 {
-                    if (++Projectile.frame >= Main.projFrames[Type])
-                    {
-                        Projectile.frame = 0;
-                    }
-                    Projectile.frameCounter = 0;
+                    Projectile.frame = 0;
                 }
+                Projectile.frameCounter = 0;
             }
             Timer++;
 

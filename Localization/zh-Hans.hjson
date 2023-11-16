@@ -9,7 +9,7 @@
 Mods: {
 	FargowiltasSouls: {
 		WizardEffect: {
-			// Adamantite: Projectiles now split into 3, further reduces damage accordingly
+			// Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/40%
 			// Apprentice: The next 2 weapons are used instead of 1
 			// AncientHallow: Sword damage increased, projectile damage cap increased to 200
 			// AncientShadow: Number of Shadow Orbs increased
@@ -22,7 +22,7 @@ Mods: {
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			Cobalt: 增加爆炸伤害
 			Copper: 增加闪电伤害，冷却时间减少
-			// Crimson: No upgrade
+			// Crimson: After you heal, the timer resets and tries to heal again
 			CrystalAssassin: ""
 			DarkArtist: ""
 			Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
@@ -31,7 +31,7 @@ Mods: {
 			// Frost: Icicle damage doubled
 			// Gladiator: Increased banner aura size, decreased spear rain cooldown
 			// Gold: No upgrade
-			// Hallow: Potion heal bonus increased from 20 to 40%
+			// Hallow: Potion heal bonus increased from 40 to 70%
 			// Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
 			Iron: 物品拾取距离提升到四倍，合成加成现在也对任何秘银砧生效
 			// Jungle: Spore damage increased, cooldown decreased
@@ -39,7 +39,7 @@ Mods: {
 			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			Molten: ""
-			// Monk: No upgrade
+			// Monk: Dash base damage doubled
 			Mythril: 增加最大攻速加成，持续时间更长
 			// Nebula: Buff booster stack cap increased to 3
 			// Necro: Graves float
@@ -50,8 +50,8 @@ Mods: {
 			PalmWood: 增加攻击速度和伤害，可以额外召唤两个棕榈树哨兵
 			Pearlwood: 增加伤害，冷却时间减少
 			// Platinum: No upgrade
-			// Pumpkin: Pumpkins can grow while flying, and heal for twice as much
-			// Rain: Umbrella can block up to 1000 damage and reflected damage is tripled
+			// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
+			// Rain: Umbrella can block up to 400 damage and reflected damage is tripled
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
 			Shadewood: 增加光环大小和血液伤害，并且会附加灵液效果
@@ -65,13 +65,13 @@ Mods: {
 			// Stardust: Timestop cooldown decreased from 60 to 50
 			// Snow: No upgrade
 			// Shadow: Number of Shadow Orbs increased
-			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 25% to 33%
+			// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 10% to 15%
 			// Tiki: Increases whip range by 20%
 			Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
 			Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
-			Tungsten: 将武器大小提升到300%，伤害加成提升到20%，冷却时间减少
+			// Tungsten: Weapon size tripled instead of doubled, damage bonus increased from 7% to 14%, and cooldown reduced
 			// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
-			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 33% to 50%
+			// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
 			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
 			// AshWood: Fires balls of fire more often
@@ -417,6 +417,7 @@ Mods: {
 			// AshWoodConfig: Ash Fireballs
 			// WillHeader: "{$Mods.FargowiltasSouls.Items.WillForce.DisplayName}"
 			GladiatorConfig: 角斗士 长矛雨
+			// GladiatorBannerConfig: Gladiator Banner
 			GoldConfig: 金 幸运币
 			GoldToPiggyConfig: 金 自动将钱存进储蓄罐
 			HuntressConfig: 女猎人 相关效果
@@ -510,6 +511,7 @@ Mods: {
 			// PureHeartHeader: "{$Mods.FargowiltasSouls.Items.PureHeart.DisplayName}"
 			MasoEaterConfig: 迷你噬魂者
 			MasoBrainConfig: 飞眼怪
+			// MasoQueenConfig: Slimy Spikes
 			// LumpofFleshHeader: "{$Mods.FargowiltasSouls.Items.LumpOfFlesh.DisplayName}"
 			MasoPungentCursorConfig: 易伤区域光标
 			MasoPugentConfig: 眼球仆从
@@ -1035,6 +1037,7 @@ Mods: {
 			MoonsWaves: 死亡会降低当前波数
 			WhipSpeed: 不接受近战攻速加成
 			WhipStack: 鞭子的增益/减益不能堆叠
+			// DefensePrefix: Adjusted prefix stats: reduced defense before Hardmode, +5 max life
 			// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
 			MinionStack: 同时召唤超过3个相同召唤物时，它们的伤害会降低（超过12个后不再降低）
 			SummonMulticlass: 当你使用其他职业的武器攻击时，召唤伤害降低（在撒旦军队中除外）
@@ -1882,7 +1885,7 @@ Mods: {
 
 			GladiatorBuff: {
 				// DisplayName: Gladiator Strength
-				// Description: +10 defense, +5% damage, knockback immunity, improved spear rain
+				// Description: +5% damage reduction, +5% damage, knockback immunity, improved spear rain
 			}
 
 			ROBBuff: {
@@ -1918,13 +1921,16 @@ Mods: {
 			}
 
 			AncientHallowEnchant: {
-				DisplayName: 远古神圣魔石
-				Tooltip:
+				// DisplayName: Ancient Hallowed Enchantment
+				/* Tooltip:
 					'''
-					使你获得一面可以反弹弹幕的盾牌
-					召唤一柄泰拉棱镜，其伤害接受召唤伤害加成
-					“你有足够的力量驾驭我吗？”
-					'''
+					Summons a Terraprisma familiar that scales with minion damage
+					The sword follows the direction of your mouse
+					Press Right Click to slash with the sword
+					Slashing enemy projectiles reflects them back at the enemy
+					Reflects has a 15 second cooldown and can only affect projectiles that deal less than 150 damage
+					'Have you power enough to wield me?'
+					''' */
 			}
 
 			AncientShadowEnchant: {
@@ -1944,14 +1950,16 @@ Mods: {
 			}
 
 			ApprenticeEnchant: {
-				DisplayName: 学徒魔石
-				Tooltip:
+				// DisplayName: Apprentice Enchantment
+				/* Tooltip:
 					'''
-					持续攻击两秒后你将被火焰包裹
-					切换武器后，下次攻击的伤害增加50%，并造成地狱爆炸
-					大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
-					“追求完美的漫漫长路”
-					'''
+					While attacking, fire your next closest weapon's projectile as support
+					The support weapon will fire 1/4 as often as they would normally and deal 1/2 damage
+					Only works on hotbar weapons
+					Consumables are consumed, mana is spent, and ammo is selected
+					Flameburst field of view and range are dramatically increased
+					'A long way to perfection'
+					''' */
 			}
 
 			AshWoodEnchant: {
@@ -1963,6 +1971,7 @@ Mods: {
 					While you're burning, attacks are accompanied by balls of fire
 					Grants immunity to Oiled
 					Reduces damage from touching lava
+					'"You're telling me this isn't wood?"'
 					''' */
 			}
 
@@ -2038,13 +2047,14 @@ Mods: {
 			}
 
 			CrimsonEnchant: {
-				DisplayName: 猩红魔石
-				Tooltip:
+				// DisplayName: Crimson Enchantment
+				/* Tooltip:
 					'''
-					在你受到伤害后大幅增加你的生命恢复速度，直至你恢复的生命量等同于这次受到的伤害量的一半
-					如果你在完成恢复前再次受伤，生命恢复效果不会叠加
-					“你从敌人的鲜血中重生”
-					'''
+					After taking a hit, if you avoid getting hit for 7 seconds, you get 50% of the health back
+					If you take another hit before you heal, the heal gets cancelled
+					This does not affect hits dealing less than 10 damage
+					'The blood of your enemy is your rebirth'
+					''' */
 			}
 
 			CrystalAssassinEnchant: {
@@ -2060,16 +2070,14 @@ Mods: {
 			}
 
 			DarkArtistEnchant: {
-				DisplayName: 暗黑艺术家魔石
-				Tooltip:
+				// DisplayName: Dark Artist Enchantment
+				/* Tooltip:
 					'''
-					召唤一个爆炸烈焰仆从，在充能完毕后会移动至光标位置
-					然后它会如同一个哨兵，固定在该位置并发射爆炸火球
-					持续攻击会使你被火焰包裹并为仆从充能，持续攻击两秒后完成充能
-					切换武器后，下次攻击的伤害增加50%，并造成地狱爆炸
-					大幅增加爆炸烈焰哨兵的索敌范围和攻击距离
-					“阴影蕴含之物远超其表象”
-					'''
+					While attacking, fire your next 2 closest weapons' projectiles as support
+					Summons a Flameburst minion that will also fire while you attack
+					Greatly enhances Flameburst effectiveness
+					'The shadows hold more than they seem'
+					''' */
 			}
 
 			EbonwoodEnchant: {
@@ -2141,20 +2149,21 @@ Mods: {
 			}
 
 			HallowEnchant: {
-				DisplayName: 神圣魔石
-				Tooltip:
+				// DisplayName: Hallowed Enchantment
+				/* Tooltip:
 					'''
-					攻击敌人后会使你无敌一小段时间
-					《Hit me with your best shot》
-					'''
+					Healing potions restore 40% more, but take effect over time
+					Using a healing potion creates a shockwave that repels nearby enemy projectiles
+					'Hit me with your best shot'
+					''' */
 			}
 
 			HuntressEnchant: {
 				DisplayName: 女猎人魔石
 				Tooltip:
 					'''
-					攻击忽略10点敌怪防御并造成5点额外伤害
-					每次连续攻击会额外忽略10点防御并多造成5点伤害
+					攻击忽略6点敌怪防御并造成3点额外伤害
+					每次连续攻击会额外忽略6点防御并多造成3点伤害
 					追踪武器和召唤物不会增加这些加成
 					任何一次攻击没有击中都会重置这些加成
 					“精确带来力量”
@@ -2162,13 +2171,14 @@ Mods: {
 			}
 
 			IronEnchant: {
-				DisplayName: 铁魔石
-				Tooltip:
+				// DisplayName: Iron Enchantment
+				/* Tooltip:
 					'''
-					扩大你的拾取范围
-					在任何铁砧处合成物品时33%的几率不消耗制作材料
-					“趁热打铁”
-					'''
+					Works in vanity and inventory slots
+					The first time you craft an item, each material has a 33% chance to not be consumed
+					Does not work on Crucible of the Cosmos items
+					'Strike while the iron is hot'
+					''' */
 			}
 
 			JungleEnchant: {
@@ -2193,15 +2203,14 @@ Mods: {
 			}
 
 			MeteorEnchant: {
-				DisplayName: 流星魔石
-				Tooltip:
+				// DisplayName: Meteor Enchantment
+				/* Tooltip:
 					'''
-					减少50%动量
-					你会留下火焰轨迹
-					攻击时每过几秒便会召唤一次流星雨
-					《Drop a draco on 'em》
-					（实际上，效果一点没改）
-					'''
+					Moving creates a fire trail
+					Increases your movement speed and acceleration, and decreases your momentum
+					Provides light when worn
+					'Drop a draco on 'em'
+					''' */
 			}
 
 			MinerEnchant: {
@@ -2272,14 +2281,13 @@ Mods: {
 			}
 
 			NinjaEnchant: {
-				DisplayName: 忍者魔石
-				Tooltip:
+				// DisplayName: Ninja Enchantment
+				/* Tooltip:
 					'''
-					大幅提升弹幕和召唤物速度
-					为了平衡加速度，伤害会降低
-					增加10点护甲穿透
-					“比肉眼所及更快”
-					'''
+					Your projectiles deal more damage the faster they're moving, up to 20%
+					Drastically increases projectile speed while you're moving slowly
+					'Wait for when the moment is right'
+					''' */
 			}
 
 			ObsidianEnchant: {
@@ -2353,15 +2361,16 @@ Mods: {
 			}
 
 			RainEnchant: {
-				DisplayName: 雨云魔石
-				Tooltip:
+				// DisplayName: Rain Enchantment
+				/* Tooltip:
 					'''
-					免疫潮湿减益
-					召唤一个微型雨云跟着你的光标
-					不会穿墙攻击
-					拥有浮游圈的效果
-					“改日再来”
-					'''
+					Spawns an umbrella that reflects projectiles from above
+					It will break after blocking 200 damage
+					While active you have featherfall
+					Grants immunity to Wet and all attacks inflict Wet
+					Effects of Inner Tube
+					'Come again some other day'
+					''' */
 			}
 
 			RedRidingEnchant: {
@@ -2491,13 +2500,15 @@ Mods: {
 			}
 
 			SquireEnchant: {
-				DisplayName: 侍卫魔石
-				Tooltip:
+				// DisplayName: Squire Enchantment
+				/* Tooltip:
 					'''
-					回复生命值时，治疗量增加25%
-					弩车可以穿透更多目标，你受到伤害时会得到弩车恐慌增益
-					“侍卫，你能快点吗？”
-					'''
+					Increases mount acceleration, top speed, and jump height
+					While mounted, grants 10 defense, a fart jump, and fall damage immunity
+					Increases the effectiveness of healing sources by 10%
+					Ballista pierces more targets and panics when you take damage
+					'Squire, will you hurry?'
+					''' */
 			}
 
 			StardustEnchant: {
@@ -2544,14 +2555,14 @@ Mods: {
 			}
 
 			TungstenEnchant: {
-				DisplayName: 钨魔石
-				Tooltip:
+				// DisplayName: Tungsten Enchantment
+				/* Tooltip:
 					'''
-					武器大小增加150%
-					每过0.5秒便会有一个随机弹幕的尺寸翻倍
-					变大的真近战剑刃和弹幕会额外造成10%伤害并且有更高几率造成暴击
-					“大就是好”
-					'''
+					Doubles melee weapon size
+					Once every 2/3 of a second a projectile will be doubled in size
+					Enlarged projectiles and non-projectile swords deal 7% more damage
+					'Bigger is always better'
+					''' */
 			}
 
 			TurtleEnchant: {
@@ -2570,13 +2581,15 @@ Mods: {
 			}
 
 			ValhallaKnightEnchant: {
-				DisplayName: 英灵殿骑士魔石
-				Tooltip:
+				// DisplayName: Valhalla Knight Enchantment
+				/* Tooltip:
 					'''
-					回复生命值时，治疗量增加33%
-					大幅强化弩车的效果
-					“瓦尔哈拉的呼唤”
-					'''
+					Increases mount acceleration, top speed, and jump height
+					While mounted, grants 15 defense, a fart jump, fall damage immunity, and dash
+					Increases the effectiveness of healing sources by 15%
+					Greatly enhances Ballista effectiveness
+					'Valhalla calls'
+					''' */
 			}
 
 			VortexEnchant: {
@@ -2591,12 +2604,12 @@ Mods: {
 			}
 
 			WizardEnchant: {
-				DisplayName: 巫师魔石
-				Tooltip:
+				// DisplayName: Wizard Enchantment
+				/* Tooltip:
 					'''
-					强化其它魔石，使它们获得在合成“力”等级饰品后才能获得的效果
-					“我是啥？”
-					'''
+					Upgrades the enchantment directly below this accessory to its Force effect
+					'I'm a what?'
+					''' */
 			}
 
 			WoodEnchant: {
@@ -2664,13 +2677,13 @@ Mods: {
 			}
 
 			UniverseCore: {
-				DisplayName: 宇宙之核
-				Tooltip:
+				// DisplayName: Universe Core
+				/* Tooltip:
 					'''
-					暴击造成4倍伤害，而不是2倍
-					所有的攻击都会造成宇宙之火减益
-					“爆发出超高能宇宙射线”
-					'''
+					Your critical strikes can critically strike
+					These supercrits deal 4x damage and inflict Flames of the Universe
+					'Bursting with ultra-high-energy cosmic rays'
+					''' */
 			}
 
 			CosmoForce: {
@@ -2957,14 +2970,14 @@ Mods: {
 			}
 
 			DarkenedHeart: {
-				DisplayName: 暗黑之心
-				Tooltip:
+				// DisplayName: Darkened Heart
+				/* Tooltip:
 					'''
-					免疫腐烂减益
-					增加10%移动速度
-					每攻击几次，你就会产生几个追踪敌人的迷你噬魂者
-					“苍蝇都不想接近它”
-					'''
+					Grants immunity to Rotting
+					10% increased movement speed and increased turnaround traction
+					You spawn mini eaters that inflict Cursed Inferno to seek out enemies every few attacks
+					'Flies refuse to approach it'
+					''' */
 			}
 
 			Deerclawps: {
@@ -3088,16 +3101,17 @@ Mods: {
 			}
 
 			GuttedHeart: {
-				DisplayName: 破碎之心
-				Tooltip:
+				// DisplayName: Gutted Heart
+				/* Tooltip:
 					'''
-					免疫嗜血减益
-					增加10%最大生命值
-					召唤徘徊在你周围、为你阻挡伤害的飞眼怪
-					每15秒生成一个新的飞眼怪，最多同时存在5个
-					你不移动时飞眼怪生成速度加快
-					“曾经还在敌人的大脑中跳动着”
-					'''
+					Grants immunity to Bloodthirsty
+					10% increased max life
+					Creepers hover around you blocking some damage
+					A new Creeper appears every 15-10 seconds (faster the lower your health is), and 5 can exist at once
+					Creeper respawn speed increases when not moving
+					Creepers inflict Ichor on-hit
+					'Once beating in the mind of a defeated foe'
+					''' */
 			}
 
 			HeartoftheMasochist: {
@@ -4384,14 +4398,15 @@ Mods: {
 			}
 
 			TheSmallSting: {
-				DisplayName: 小刺
-				Tooltip:
+				// DisplayName: The Small Sting
+				/* Tooltip:
 					'''
-					使用飞镖作为弹药
-					50%的几率不消耗弹药
-					毒刺会扎在敌怪身上，在同样的位置再击中一次会造成额外伤害
-					“重新改装自被击败的敌人的腹部..”
-					'''
+					Uses darts for ammo
+					50% chance to not consume ammo
+					Stingers will stick to enemies, hitting the same spot again will deal extra damage
+					Scales with your bee damage and knockback increases
+					'Repurposed from the abdomen of a defeated foe..'
+					''' */
 			}
 
 			TwinRangs: {
@@ -4608,8 +4623,13 @@ Mods: {
 			}
 
 			OpticStaffEX: {
-				// DisplayName: Mods.FargowiltasSouls.Items.OpticStaffEX.DisplayName
-				// Tooltip: Mods.FargowiltasSouls.ItemTooltip.OpticStaffEX
+				// DisplayName: Omniscience Staff
+				/* Tooltip:
+					'''
+					Summons the real twins to fight for you
+					Needs 3 minion slots
+					'The reward for slaughtering many...
+					''' */
 			}
 
 			RefractorBlaster2: {
@@ -4623,13 +4643,14 @@ Mods: {
 			}
 
 			TheBigSting: {
-				DisplayName: 大螯刺
-				Tooltip:
+				// DisplayName: The Big Sting
+				/* Tooltip:
 					'''
-					使用飞镖作为弹药
-					66%的几率不消耗弹药
-					“屠戮众多的奖励..”
-					'''
+					Uses darts for ammo
+					Scales with your bee damage and knockback increases
+					66% chance to not consume ammo
+					'The reward for slaughtering many..'
+					''' */
 			}
 
 			ForgorGift: {
@@ -4931,7 +4952,7 @@ Mods: {
 
 			MechLure: {
 				// DisplayName: Mechanical Lure
-				// Tooltip: Throw underwater at the Ocean to lure out a shrouded creature
+				// Tooltip: Throw while underwater at the Ocean to lure out a shrouded creature
 			}
 
 			TheBaronsTusk: {
@@ -4959,8 +4980,8 @@ Mods: {
 				// DisplayName: Decrepit Airstrike Remote
 				/* Tooltip:
 					'''
-					Marks a location with a reticle, consuming all your sentry slots
-					In a few seconds, a massive airstrike explosion will hit it, dealing damage depending on sentry slots consumed
+					Marks a location with a reticle, consuming all your sentries
+					In a few seconds, a massive airstrike explosion will hit it, dealing damage depending on your sentry slots
 					All your minions hit by the explosion are blown up into homing splinters
 					Splinters can critically strike
 					''' */
@@ -5032,6 +5053,29 @@ Mods: {
 					Grants floaty water movement outside of liquid
 					Increased movement speed while in any liquid
 					'Nobody knows how it works'
+					''' */
+			}
+
+			EaterLauncherJr: {
+				// DisplayName: The Blastbiter
+				/* Tooltip:
+					'''
+					Uses Rotten Chunks for ammo
+					Fires a chunk of rotted flesh
+					Increased damage to enemies in the given range
+					50% chance to not consume ammo
+					'The rotting remains of a defeated foe..'
+					''' */
+			}
+
+			TheBiggestSting: {
+				// DisplayName: The Biggest Sting
+				/* Tooltip:
+					'''
+					Uses darts for ammo
+					Scales with your bee damage and knockback increases
+					66% chance to not consume ammo
+					'The Queen's unwavering swarm..'
 					''' */
 			}
 		}
@@ -5226,6 +5270,7 @@ Mods: {
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
+			// SlimeSwarm.DisplayName: Slime Swarm
 		}
 
 		Tiles: {
@@ -5925,20 +5970,26 @@ Mods: {
 			// BaronWhirlpool.DisplayName: Baron Whirlpool
 			// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
 			// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
-			// BaronDeathray.DisplayName: Baron Deathray
+			// BaronDeathray.DisplayName: Baron's Laser
 			// BaronEyeFlash.DisplayName: Baron Eye Flash
-			// BaronTuskShrapnel.DisplayName: Baron Tusk Shrapnel
+			// BaronTuskShrapnel.DisplayName: Baron's Tusk Shrapnel
 			// DecrepitAirstrike.DisplayName: Decrepit Airstrike
 			// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
 			// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
-			// MechLureProjectile.DisplayName: Mech Lure Projectile
-			// RoseTintedVisorDeathray.DisplayName: Rose Tinted Visor Deathray
+			// MechLureProjectile.DisplayName: Mechanical Lure
+			// RoseTintedVisorDeathray.DisplayName: Rose-Tinted Visor Laser
 			// GladiatorStandard.DisplayName: Gladiator Standard
 			// HiveSentry.DisplayName: Hive
 			// ROB.DisplayName: R.O.B
 			// MeteorFlame.DisplayName: Meteor Flame
 			// RainUmbrella.DisplayName: Rain Umbrella
 			// BeeFlower.DisplayName: Bee Flower
+			// MonkDashDamage.DisplayName: Monk Dash
+			// PearlwoodStareline.DisplayName: Pearlwood Stareline
+			// EaterRocketJr.DisplayName: Rotten Chunk
+			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
+			// SpectralEoC.DisplayName: Spectral Eye of Cthulhu
+			// MonkDashSlash.DisplayName: Monk Dash Slash
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
@@ -5969,6 +6020,7 @@ Mods: {
 		// AshWoodConfig: "[i:FargowiltasSouls/AshWoodEnchant][c/958083:{$Mods.FargowiltasSouls.Toggler.AshWoodConfig}]"
 		// WillHeader: "[i:FargowiltasSouls/WillForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WillHeader}]"
 		// GladiatorConfig: "[i:FargowiltasSouls/GladiatorEnchant][c/9c924e:{$Mods.FargowiltasSouls.Toggler.GladiatorConfig}]"
+		// GladiatorBannerConfig: "[i:FargowiltasSouls/GladiatorEnchant][c/9c924e:{$Mods.FargowiltasSouls.Toggler.GladiatorBannerConfig}]"
 		// GoldConfig: "[i:FargowiltasSouls/GoldEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.GoldConfig}]"
 		// GoldToPiggyConfig: "[i:FargowiltasSouls/GoldEnchant][c/e7b21c:{$Mods.FargowiltasSouls.Toggler.GoldToPiggyConfig}]"
 		// HuntressConfig: "[i:FargowiltasSouls/HuntressEnchant][c/7ac04c:{$Mods.FargowiltasSouls.Toggler.HuntressConfig}]"
@@ -6063,6 +6115,7 @@ Mods: {
 		// PureHeartHeader: "[i:FargowiltasSouls/PureHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PureHeartHeader}]"
 		// MasoEaterConfig: "[i:FargowiltasSouls/DarkenedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoEaterConfig}]"
 		// MasoBrainConfig: "[i:FargowiltasSouls/GuttedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBrainConfig}]"
+		// MasoQueenConfig: "[i:FargowiltasSouls/GelicWings][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoQueenConfig}]"
 		// LumpofFleshHeader: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.LumpofFleshHeader}]"
 		// MasoPungentCursorConfig: "[i:FargowiltasSouls/PungentEyeball][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPungentCursorConfig}]"
 		// MasoPugentConfig: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPugentConfig}]"
@@ -6363,13 +6416,12 @@ Mods: {
 			}
 		}
 
-		// Conditions.RoombaPetSold: Mods.FargowiltasSouls.Conditions.RoombaPetSold
+		// Conditions.RoombaPetSold: When the Roomba config is enabled
 		// AbyssalDivingSuitConfig: "[i:CalamityMod/AbyssalDivingSuit] Abyssal Diving Suit"
 		// CalamityTrawlerHeader: "[i:FargowiltasSouls/TrawlerSoul] Calamity Trawler's Soul Toggles"
 		// NucleogenesisConfig: "[i:CalamityMod/Nucleogenesis] Nucleogenesis"
 		// CalamityConjuristHeader: "[i:FargowiltasSouls/ConjuristsSoul] Calamity Conjurist's Soul Toggles"
 		// DynamoStemCellsConfig: "[i:CalamityMod/DynamoStemCells] Dynamo Stem Cells"
-		// DaawnlightSpiritOriginConfig: "[i:CalamityMod/DaawnlightSpiritOrigin] Daawnlight Spirit Origin"
 		// QuiverofNihilityConfig: "[i:CalamityMod/QuiverofNihility] Quiver of Nihility"
 		// ElementalQuiverConfig: "[i:CalamityMod/ElementalQuiver] Elemental Quiver"
 		// CalamitySniperHeader: "[i:FargowiltasSouls/SnipersSoul] Calamity Sniper's Soul Toggles"
@@ -6385,7 +6437,7 @@ Mods: {
 		// VeneratedLocketConfig: "[i:CalamityMod/VeneratedLocket] Venerated Locket"
 		// DragonScalesConfig: "[i:CalamityMod/DragonScales] Dragon Scales"
 		// EclipseMirrorConfig: "[i:CalamityMod/EclipseMirror] Eclipse Mirror"
-		// NanotechConfig: "[i:CalamityMod/Nanotech] Nanotech"
 		// VagabondsSoulHeader: "[i:FargowiltasCrossmod/VagabondsSoul] Vagabond's Soul"
+		// NanotechConfig: "[i:CalamityMod/Nanotech] Nanotech"
 	}
 }

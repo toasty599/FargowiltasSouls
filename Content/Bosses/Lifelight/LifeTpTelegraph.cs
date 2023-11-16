@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -29,13 +30,23 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Projectile.ignoreWater = true;
             Projectile.alpha = 0;
         }
-
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Projectile.localAI[0]);
+            base.SendExtraAI(writer);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Projectile.localAI[0] = reader.Read();
+            base.ReceiveExtraAI(reader);
+        }
         public override void AI()
         {
             if (Projectile.localAI[0] == 0)
             {
                 Projectile.localAI[0] = Math.Abs(Timer);
                 SoundEngine.PlaySound(SoundID.Item29 with { Volume = 1.5f }, Projectile.Center);
+                Projectile.netUpdate = true;
             }
 
             if (Timer > 0f)

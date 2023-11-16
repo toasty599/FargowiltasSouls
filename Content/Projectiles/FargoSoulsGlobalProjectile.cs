@@ -76,6 +76,9 @@ namespace FargowiltasSouls.Content.Projectiles
 
         private bool firstTick = true;
         private readonly bool squeakyToy = false;
+
+
+
         public const int TimeFreezeMoveDuration = 10;
         public int TimeFrozen = 0;
         public bool TimeFreezeImmune;
@@ -86,10 +89,15 @@ namespace FargowiltasSouls.Content.Projectiles
         public bool noInteractionWithNPCImmunityFrames;
         private int tempIframe;
 
-        public static List<int> FancySwordSwings = new()
+        public static List<int> ShroomiteBlacklist = new()
         {
-                190
-            };
+            ModContent.ProjectileType<MeteorFlame>(),
+        };
+        public static List<int> ShroomiteNerfList = new()
+        {
+            ModContent.ProjectileType<MechEyeProjectile>(),
+            ModContent.ProjectileType<MechFlail>()
+        };
 
         public override void SetStaticDefaults()
         {
@@ -164,6 +172,10 @@ namespace FargowiltasSouls.Content.Projectiles
                     ProjectileID.Sets.MinionShot[projectile.type] = true;
                     break;
 
+                case ProjectileID.MechanicalPiranha:
+                    NinjaCanSpeedup = false;
+                    break;
+
                 case ProjectileID.SpiderEgg:
                 case ProjectileID.BabySpider:
                 case ProjectileID.FrostBlastFriendly:
@@ -191,6 +203,10 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            if (WorldGen.generatingWorld)
+            {
+                return;
+            }
             //not doing this causes player array index error during worldgen in some cases maybe??
             if (projectile.owner < 0 || projectile.owner >= Main.maxPlayers)
                 return;
@@ -348,16 +364,18 @@ namespace FargowiltasSouls.Content.Projectiles
                 && projectile.aiStyle != ProjAIStyleID.Spear)
             {
                 if (projectile.owner == Main.myPlayer
+                    && !(AdamantiteEnchant.AdamIgnoreItems.Contains(modPlayer.Player.HeldItem.type) || modPlayer.Player.heldProj == projectile.whoAmI)
                     && (FargoSoulsUtil.IsProjSourceItemUseReal(projectile, source)
                     || source is EntitySource_Parent parent && parent.Entity is Projectile sourceProj && (sourceProj.aiStyle == ProjAIStyleID.Spear || sourceProj.minion || sourceProj.sentry || ProjectileID.Sets.IsAWhip[sourceProj.type] && !ProjectileID.Sets.IsAWhip[projectile.type])))
                 {
                     //apen is inherited from proj to proj
                     projectile.ArmorPenetration += projectile.damage / 2;
 
-                    AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer, 8);
-                }
 
-                //AdamModifier = modPlayer.EarthForce ? 3 : 2;
+
+                    AdamantiteEnchant.AdamantiteSplit(projectile, modPlayer, 1 + (int)modPlayer.AdamantiteSpread);
+                    
+                }
                 AdamModifier = modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2;
             }
 
@@ -451,9 +469,13 @@ namespace FargowiltasSouls.Content.Projectiles
                         projectile.Kill();
                     }
 
-                    if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 /*&& !townNPCProj*/ && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 75)
+                    if (modPlayer.ShroomEnchantActive && player.GetToggleValue("ShroomiteShroom") && projectile.damage > 0 && !ShroomiteBlacklist.Contains(projectile.type) && projectile.velocity.Length() > 1 && projectile.minionSlots == 0 && projectile.type != ModContent.ProjectileType<ShroomiteShroom>() && player.ownedProjectileCounts[ModContent.ProjectileType<ShroomiteShroom>()] < 75)
                     {
-                        const float maxCD = 100f;
+                        float maxCD = 100f;
+                        if (ShroomiteNerfList.Contains(projectile.type))
+                        {
+                            maxCD = 800f;
+                        }
                         if (shroomiteMushroomCD >= maxCD)
                         {
                             shroomiteMushroomCD = 0;
@@ -806,28 +828,16 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.Arkhalis:
                 case ProjectileID.Terragrim:
                     {
-                        GenericProjectileDraw(projectile, lightColor);
+                        FargoSoulsUtil.GenericProjectileDraw(projectile, lightColor);
                     }
                     return false;
                 case ProjectileID.FlowerPetal:
                     {
-                        GenericProjectileDraw(projectile, lightColor);
+                        FargoSoulsUtil.GenericProjectileDraw(projectile, lightColor);
                     }
                     return false;
                 default:
                     break;
-
-                void GenericProjectileDraw(Projectile projectile, Color lightColor)
-                {
-                        Texture2D Texture = TextureAssets.Projectile[projectile.type].Value;
-                        int sizeY = Texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
-                        int frameY = projectile.frame * sizeY;
-                        Rectangle rectangle = new(0, frameY, Texture.Width, sizeY);
-                        Vector2 origin = rectangle.Size() / 2f;
-                        SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                        Main.EntitySpriteDraw(Texture, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
-                                projectile.rotation, origin, projectile.scale, spriteEffects, 0);
-                    }
             }
             return base.PreDraw(projectile, ref lightColor);
         }
@@ -1281,7 +1291,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             FargoSoulsPlayer modPlayer = Main.player[projectile.owner].FargoSouls();
             if (AdamModifier != 0)
-                ReduceIFrames(projectile, target, modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2);
+                ReduceIFrames(projectile, target, modPlayer.AdamantiteEnchantItem != null && modPlayer.ForceEffect(modPlayer.AdamantiteEnchantItem.type) ? 3 : 2);
 
             if (projectile.type == ProjectileID.IceBlock && Main.player[projectile.owner].FargoSouls().FrigidGemstoneItem != null)
             {

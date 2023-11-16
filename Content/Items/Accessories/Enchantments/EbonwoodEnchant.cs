@@ -2,6 +2,7 @@
 using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -48,26 +49,20 @@ Any projectiles that would deal less than 10 damage to you are destroyed
             if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
                 return;
             bool forceEffect = modPlayer.ForceEffect(modPlayer.EbonwoodEnchantItem.type);
-            int dist = forceEffect ? 400 : 200;
-
-            for (int i = 0; i < Main.maxNPCs; i++)
+            int dist = forceEffect ? 500 : 200;
+            foreach (NPC npc in Main.npc.Where(n => n.active && !n.friendly && n.lifeMax > 5 && !n.dontTakeDamage))
             {
-                NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage)
+                Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
+                if (player.Distance(npcComparePoint) < dist && (forceEffect || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
                 {
-                    Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
-                    if (player.Distance(npcComparePoint) < dist && (forceEffect || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
+                    if (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>()))
                     {
-                        if (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>()))
-                        {
-                            npc.AddBuff(ModContent.BuffType<CorruptingBuff>(), 2);
-                        }
+                        npc.AddBuff(ModContent.BuffType<CorruptingBuff>(), 2);
                     }
-                    if (npc.FargoSouls().EbonCorruptionTimer > 60 * 4 && (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>())))
-                    {
-                        EbonwoodProc(player, npc, dist, forceEffect, 5);
-                    }
-
+                }
+                if (npc.FargoSouls().EbonCorruptionTimer > 60 * 3 && (!(npc.HasBuff<CorruptedBuffForce>() || npc.HasBuff<CorruptedBuff>())))
+                {
+                    EbonwoodProc(player, npc, dist, forceEffect, 5);
                 }
             }
             //dust
@@ -96,16 +91,12 @@ Any projectiles that would deal less than 10 damage to you are destroyed
         public static void EbonwoodProc(Player player, NPC npc, int AoE, bool force, int limit)
         {
             //corrupt all in vicinity
-            for (int i = 0; i < Main.maxNPCs; i++)
+            foreach (NPC npcToProcOn in Main.npc.Where(n => n.active && !n.friendly && n.lifeMax > 5 && !n.dontTakeDamage))
             {
-                NPC npcToProcOn = Main.npc[i];
-                if (npcToProcOn.active && !npcToProcOn.friendly && npcToProcOn.lifeMax > 5 && !npcToProcOn.dontTakeDamage)
+                Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npcToProcOn, npc.Center);
+                if (npc.Distance(npcComparePoint) < AoE && !npc.HasBuff<CorruptedBuffForce>() && !npc.HasBuff<CorruptedBuff>() && limit > 0)
                 {
-                    Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npcToProcOn, npc.Center);
-                    if (npc.Distance(npcComparePoint) < AoE && !npc.HasBuff<CorruptedBuffForce>() && !npc.HasBuff<CorruptedBuff>() && limit > 0)
-                    {
-                        EbonwoodProc(player, npc, AoE, force, limit - 1); //yes this chains (up to 3 times deep)
-                    }
+                    EbonwoodProc(player, npc, AoE, force, limit - 1); //yes this chains (up to 3 times deep)
                 }
             }
 

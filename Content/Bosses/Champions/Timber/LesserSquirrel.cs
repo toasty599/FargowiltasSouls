@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
         public override bool CheckDead()
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 int p = Player.FindClosest(NPC.Center, 0, 0);
                 NPC npc = Main.npc.FirstOrDefault(n => n.active && (n.type == ModContent.NPCType<TimberChampion>() || n.type == ModContent.NPCType<TimberChampionHead>()));

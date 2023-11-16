@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
                 JumpTimer = 0;
 
                 int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
-                if (npc.life < npc.lifeMax && t != -1 && Main.player[t].wet && Main.netMode != NetmodeID.MultiplayerClient)
+                if (npc.life < npc.lifeMax && t != -1 && Main.player[t].wet && FargoSoulsUtil.HostCheck)
                 {
                     const float gravity = 0.3f;
                     const float time = 120f;

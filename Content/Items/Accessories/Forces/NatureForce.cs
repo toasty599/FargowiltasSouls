@@ -75,7 +75,7 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.natureForce = true;
             //regen
-            CrimsonEnchant.CrimsonEffect(player);
+            CrimsonEnchant.CrimsonEffect(player, Item);
             //inferno and explode
             MoltenEnchant.MoltenEffect(player);
             //rain

@@ -16,6 +16,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,6 +32,9 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             Main.npcFrameCount[NPC.type] = 8;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
+
+            NPCID.Sets.TrailCacheLength[Type] = 8;
+            NPCID.Sets.TrailingMode[Type] = 3;
 
             NPC.AddDebuffImmunities(new List<int>
             {
@@ -131,7 +135,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             if (body == null)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     NPC.life = 0;
                     if (Main.netMode == NetmodeID.Server)
@@ -160,7 +164,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             if (body != null)
                 NPC.frame = body.frame;
         }
-
+        public bool Trail => body.ai[0] == 0 && body.localAI[0] > 0; //while charging
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (body == null)
@@ -175,9 +179,23 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             SpriteEffects effects = NPC.direction < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
+            if (Trail)
+            {
+                for (int i = 0; i < NPCID.Sets.TrailCacheLength[Type]; i++) //math.min to safeguard against uncached trail
+                {
+                    float oldrot = NPC.oldRot[i];
+                    Vector2 oldCenter = body.oldPos[i] + body.Size / 2;
+                    DrawData oldGlow = new DrawData(texture2D13, oldCenter - screenPos + new Vector2(0f, NPC.gfxOffY - 53 * body.scale), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26 * (0.5f / i), oldrot, origin2, NPC.scale, effects, 0);
+                    GameShaders.Misc["LCWingShader"].UseColor(Color.Blue).UseSecondaryColor(Color.Black);
+                    GameShaders.Misc["LCWingShader"].Apply(oldGlow);
+                    oldGlow.Draw(spriteBatch);
+                }
+            }
+            
+
             Vector2 center = body.Center;
 
-            Main.EntitySpriteDraw(texture2D13, center - Main.screenPosition + new Vector2(0f, NPC.gfxOffY - 53 * body.scale), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, NPC.rotation, origin2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, center - screenPos + new Vector2(0f, NPC.gfxOffY - 53 * body.scale), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, NPC.rotation, origin2, NPC.scale, effects, 0);
 
             return false;
         }
@@ -229,7 +247,12 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             NPC.BossBar = ModContent.GetInstance<CompositeBossBar>();
         }
-
+        /*
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            return base.PreDraw(spriteBatch, screenPos, drawColor);
+        }
+        */
         public NPC head;
         public NPC arms;
         public int lifeMaxHead;
@@ -272,6 +295,21 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                 }
             }
+
+            //spawnfrag fix
+            int p = Player.FindClosest(NPC.Center, 0, 0);
+            if (p.IsWithinBounds(Main.maxPlayers))
+            {
+                Player player = Main.player[p];
+                if (player != null && player.active && !player.dead) 
+                { 
+                    if (NPC.Distance(player.Center) < 400)
+                    {
+                        NPC.Center = player.Center - Vector2.UnitX * 1000 * player.direction;
+                    }
+                };
+            }
+            
         }
 
         private void TileCollision(bool fallthrough = false, bool dropDown = false)
@@ -305,6 +343,18 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                 if (NPC.velocity.Y < -4f)
                     NPC.velocity.Y = -4f;
 
+                if (Jumping) //landing effects
+                {
+                    SoundEngine.PlaySound(SoundID.Item14 with { Pitch = 0.4f }, NPC.Bottom);
+                    for (int i = 0; i < 4; i++)
+                    {
+                        int side = i % 2 == 0 ? 1 : -1;
+                        float speed = Main.rand.NextFloat(4, 6);
+                        Vector2 vel = (Vector2.UnitX * side * speed).RotatedByRandom(MathHelper.Pi / 11);
+                        Gore gore = Gore.NewGoreDirect(NPC.GetSource_FromThis(), NPC.Bottom - Vector2.UnitY * 10, vel, Main.rand.Next(11, 14), Scale: 2f);
+                    }
+                    Jumping = false;
+                }
             }
             else
             {
@@ -376,7 +426,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             TileCollision(target.Y > NPC.Bottom.Y, Math.Abs(target.X - NPC.Center.X) < NPC.width / 2 && NPC.Bottom.Y < target.Y);
         }
-
+        public bool Jumping = false;
         public override void AI()
         {
             if (!spawned)
@@ -385,14 +435,14 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                 NPC.TargetClosest(false);
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     head = FargoSoulsUtil.NPCExists(FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, ModContent.NPCType<TrojanSquirrelHead>(), NPC.whoAmI, target: NPC.target));
                     arms = FargoSoulsUtil.NPCExists(FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, ModContent.NPCType<TrojanSquirrelArms>(), NPC.whoAmI, target: NPC.target));
                 }
 
                 //drop summon
-                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel] && Main.netMode != NetmodeID.MultiplayerClient)
+                if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel] && FargoSoulsUtil.HostCheck)
                     Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<SquirrelCoatofArms>());
 
                 //start by jumping
@@ -426,6 +476,15 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         {
                             NPC.localAI[0] -= 1f;
 
+                            if (NPC.localAI[0] % 10 == 0) //hermes boot clouds
+                            {
+                                SoundEngine.PlaySound(SoundID.Run);
+                                Vector2 vel = (-NPC.velocity).RotatedByRandom(MathHelper.Pi / 11f);
+                                vel /= 2;
+                                Gore gore = Gore.NewGoreDirect(player.GetSource_FromThis(), NPC.Bottom - Vector2.UnitY * 10, vel, Main.rand.Next(11, 14), Scale: Main.rand.NextFloat(1.5f, 2f));
+                                gore.timeLeft /= 2;
+                            }
+
                             float distance = NPC.Center.X - target.X;
                             bool passedTarget = Math.Sign(distance) == NPC.localAI[1];
                             if (passedTarget && Math.Abs(distance) > 160)
@@ -436,7 +495,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                             if (NPC.localAI[0] == 0f)
                                 NPC.TargetClosest(false);
 
-                            if (WorldSavingSystem.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
+                            if (WorldSavingSystem.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && FargoSoulsUtil.HostCheck)
                             {
                                 int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Top.X, NPC.Top.Y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5),
                                     Main.rand.Next(326, 329), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -544,11 +603,11 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                 case 1: //telegraph something
                     {
-                        NPC.velocity.X *= 0.9f;
+                        NPC.velocity.X = 0;
 
                         TileCollision(player.Bottom.Y - 1 > NPC.Bottom.Y, Math.Abs(player.Center.X - NPC.Center.X) < NPC.width / 2 && NPC.Bottom.Y < player.Bottom.Y - 1);
 
-                        int threshold = 120;
+                        int threshold = 105;
                         if (WorldSavingSystem.EternityMode)
                         {
                             if (head == null)
@@ -560,6 +619,14 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         }
                         if (WorldSavingSystem.MasochistModeReal || NPC.localAI[3] >= 2)
                             threshold -= 20;
+
+                        if (NPC.ai[3] != 0f) //telegraphing jump
+                        {
+                            int dir = NPC.localAI[0] % 2 == 0 ? 1 : -1;
+                            int maxShake = 8;
+                            float shake = dir * maxShake * (NPC.localAI[0] / threshold);
+                            NPC.position.X += shake;
+                        }
 
                         if (++NPC.localAI[0] > threshold)
                         {
@@ -611,7 +678,17 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                             NPC.netUpdate = true;
 
-                            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+                            SoundEngine.PlaySound(SoundID.Item14, NPC.Bottom);
+
+                            for (int i = 0; i < 4; i++)
+                            {
+                                int side = i % 2 == 0 ? 1 : -1;
+                                float speed = Main.rand.NextFloat(4, 6);
+                                Vector2 vel = (Vector2.UnitX * side * speed).RotatedByRandom(MathHelper.Pi / 11);
+                                Gore gore = Gore.NewGoreDirect(NPC.GetSource_FromThis(), NPC.Bottom - Vector2.UnitY * 10, vel, Main.rand.Next(11, 14), Scale: 2f);
+                            }
+
+                            Jumping = true;
                         }
                         else
                         {
@@ -739,7 +816,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
         private void ExplodeAttack()
         {
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 float offsetX = NPC.width;
                 const float offsetY = 65;

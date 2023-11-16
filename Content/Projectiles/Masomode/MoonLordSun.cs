@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             NPC socket = FargoSoulsUtil.NPCExists(Projectile.ai[1], NPCID.MoonLordHand);
             if (socket == null || core == null || socket.ai[3] != core.whoAmI || core.ai[0] == 2f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, Projectile.owner);
             }
             else
@@ -160,7 +160,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 if (!Main.dedServ && Main.LocalPlayer.active)
                     Main.LocalPlayer.FargoSouls().Screenshake = 30;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient) //chain explosions
+                if (FargoSoulsUtil.HostCheck) //chain explosions
                 {
                     //perpendicular
                     /*Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(),

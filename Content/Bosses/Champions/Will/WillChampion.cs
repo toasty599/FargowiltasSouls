@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                             {
                                 SoundEngine.PlaySound(SoundID.Item92, NPC.Center);
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     int max = NPC.life < NPC.lifeMax / 2 && WorldSavingSystem.EternityMode ? 10 : 8;
                                     float offset = NPC.localAI[0] > 0 && player.velocity != Vector2.Zero //aim to intercept
@@ -213,13 +213,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                                 }
                             }
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<WillShell>(), 0, 0f, Main.myPlayer, 0f, NPC.whoAmI);
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, NPC.DirectionTo(player.Center) * 12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 12f / 40f, NPC.whoAmI);
                             }
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -6);
                         }
                         else if (NPC.ai[1] > 480)
@@ -242,7 +242,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
 
                             Vector2 targetPos = new Vector2(NPC.localAI[0], NPC.localAI[1]);
                             Vector2 speed = new Vector2(Main.rand.NextFloat(-20f, 20f), Main.rand.NextFloat(-20f, 20f));
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<WillJavelin2>(), NPC.defDamage / 4, 0f, Main.myPlayer, targetPos.X, targetPos.Y);
                             }
@@ -264,7 +264,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                             {
                                 Vector2 targetPos = new Vector2(NPC.localAI[0], NPC.localAI[1]);
                                 Vector2 speed = new Vector2(Main.rand.NextFloat(-20f, 20f), Main.rand.NextFloat(-20f, 20f));
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, speed, ModContent.ProjectileType<WillJavelin2>(), NPC.defDamage / 4, 0f, Main.myPlayer, targetPos.X, targetPos.Y);
                                 }
@@ -289,7 +289,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                             else
                                 NPC.localAI[1] -= 1200;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<WillShell>(), 0, 0f, Main.myPlayer, 0f, NPC.whoAmI);
                                 Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 0f, NPC.whoAmI);
@@ -425,7 +425,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                     if (--NPC.localAI[0] < 0)
                     {
                         NPC.localAI[0] = 2;
-                        if (Main.netMode != NetmodeID.MultiplayerClient && NPC.localAI[3] == 1)
+                        if (FargoSoulsUtil.HostCheck && NPC.localAI[3] == 1)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, 1.5f * Vector2.Normalize(NPC.velocity).RotatedBy(Math.PI / 2),
                                 ModContent.ProjectileType<WillFireball2>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -454,7 +454,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                     {
                         SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
 
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, NPC.DirectionTo(player.Center) * 12f, ModContent.ProjectileType<WillBomb>(), NPC.defDamage / 4, 0f, Main.myPlayer, 12f / 40f, NPC.whoAmI);
                         }
@@ -520,7 +520,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                             {
                                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, NPC.Center);
 
-                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                if (FargoSoulsUtil.HostCheck)
                                 {
                                     for (int i = 0; i < 15; i++)
                                     {
@@ -592,7 +592,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                         if (++NPC.localAI[0] > 3)
                         {
                             NPC.localAI[0] = 0;
-                            if (Main.netMode != NetmodeID.MultiplayerClient && NPC.ai[1] < 90) //shoot fireball
+                            if (FargoSoulsUtil.HostCheck && NPC.ai[1] < 90) //shoot fireball
                             {
                                 SoundEngine.PlaySound(SoundID.Item34, NPC.Center);
                                 Vector2 spawn = new(40, 50);
@@ -620,7 +620,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                         {
                             NPC.localAI[1] = NPC.localAI[3] == 1 ? 35 : 180;
 
-                            if (NPC.localAI[2] == 1 && Main.netMode != NetmodeID.MultiplayerClient)
+                            if (NPC.localAI[2] == 1 && FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(player.Center.X, Math.Max(600f, player.Center.Y - 2000f)), Vector2.UnitY, ModContent.ProjectileType<WillDeathraySmall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer, player.Center.X, NPC.whoAmI);
                             }

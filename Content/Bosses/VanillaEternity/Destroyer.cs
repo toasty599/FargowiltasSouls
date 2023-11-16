@@ -102,7 +102,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (--npc.localAI[2] < -120)
                 {
                     npc.localAI[2] += WorldSavingSystem.MasochistModeReal ? 3 : 6;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 distance = npc.DirectionTo(Main.player[npc.target].Center) * 14f;
                         int type = ModContent.ProjectileType<DarkStarHoming>();
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (--npc.localAI[2] < 0) //shoot star spreads into the circle
                 {
                     npc.localAI[2] = Main.player[npc.target].HasBuff(ModContent.BuffType<LightningRodBuff>()) ? 110 : 65;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
                         double angleModifier = MathHelper.ToRadians(30);
@@ -162,7 +162,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (++LaserTimer > 95)
             {
                 LaserTimer = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     float ratio = (float)npc.life / npc.lifeMax;
                     if (WorldSavingSystem.MasochistModeReal)
@@ -289,7 +289,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (npc.life < npc.lifeMax / 10)
                         SoundEngine.PlaySound(SoundID.ForceRoarPitched, Main.player[npc.target].Center); //eoc roar
 
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
@@ -332,7 +332,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 else if (AttackModeTimer == P2_COIL_BEGIN_TIME - 120) //telegraph with roar
                 {
                     SoundEngine.PlaySound(SoundID.Roar, Main.player[npc.target].Center);
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 6, npc.whoAmI);
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 6, npc.whoAmI);
@@ -350,7 +350,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             int darkStarThreshold = P2_ATTACK_SPACING * 3;
             int laserThreshold = P2_ATTACK_SPACING * 2;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient && AttackModeTimer > P2_ATTACK_SPACING - 120 && AttackModeTimer < P2_ATTACK_SPACING * 2 - 60)
+            if (FargoSoulsUtil.HostCheck && AttackModeTimer > P2_ATTACK_SPACING - 120 && AttackModeTimer < P2_ATTACK_SPACING * 2 - 60)
             {
                 int interval = WorldSavingSystem.MasochistModeReal ? 40 : 120;
                 if (AttackModeTimer % interval == 12) //make a probe shoot
@@ -449,7 +449,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         int travelTime = 30 + Math.Abs(i) * 5;
                         Vector2 individualTarget = targetPos + offset * offsetLength;
                         Vector2 vel = (individualTarget - segment.Center) / travelTime;
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), segment.Center, vel * 2, ModContent.ProjectileType<DarkStarDestroyer>(), ProjectileDamage(npc), 0f, Main.myPlayer, accelerationAngle, -travelTime);
                         //Main.NewText($"{segment.Center} to {individualTarget}, dist {segment.Distance(individualTarget)}");
                         //Main.NewText($"vel: {vel * 2} for {travelTime} ticks");
@@ -462,7 +462,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (AttackModeTimer == laserThreshold - 120) //tell for hyper dash for light show
             {
                 SecondaryAttackTimer = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 9, npc.whoAmI);
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRingHollow>(), 0, 0f, Main.myPlayer, 9, npc.whoAmI);
@@ -534,7 +534,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             if (!spawn)
                                 continue;
 
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 if (Main.rand.NextFloat() > npc.life / npc.lifeMax)
                                 {
@@ -743,7 +743,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             target.AddBuff(BuffID.Electrified, 60);
             target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 600);
         }
-
+        
 
         public override void LoadSprites(NPC npc, bool recolor)
         {
@@ -808,7 +808,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (destroyer == null || npc.life <= 0 || !destroyer.active || destroyer.life <= 0)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     npc.life = 0;
                     if (Main.netMode == NetmodeID.Server)
@@ -853,7 +853,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     ProbeReleaseTimer = -Main.rand.Next(360);
                     float lifeThreshold = WorldSavingSystem.MasochistModeReal ? 0.8f : 0.4f;
-                    if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax * lifeThreshold && NPC.CountNPCS(NPCID.Probe) < 10 && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Main.npc[npc.realLife].life < Main.npc[npc.realLife].lifeMax * lifeThreshold && NPC.CountNPCS(NPCID.Probe) < 10 && FargoSoulsUtil.HostCheck)
                     {
                         if (Main.rand.NextBool(WorldSavingSystem.MasochistModeReal ? 5 : 10)) //higher chance in maso
                         {
@@ -871,7 +871,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     AttackTimer = 0;
                     npc.TargetClosest();
-                    if (Collision.CanHit(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (Collision.CanHit(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) && FargoSoulsUtil.HostCheck)
                     {
                         float speed = 2f + npc.Distance(Main.player[npc.target].Center) / 360;
                         if (speed > 16f)
@@ -893,7 +893,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     AttackTimer = 0;
                     npc.TargetClosest();
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
 
@@ -965,7 +965,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 modifiers.FinalDamage *= 0.1f;
             }
+
+            if (Main.npc.Count(n => n.active && n.type == npc.type && n.Distance(npc.Center) < npc.width * 0.75) > 4)
+            {
+                modifiers.Null();
+            }
         }
+        
 
         public override void SafeModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
@@ -979,6 +985,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 modifiers.FinalDamage *= 0.75f;
             if (projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNuke>() || projectile.type == ModContent.ProjectileType<DecrepitAirstrikeNukeSplinter>())
                 modifiers.FinalDamage *= 0.7f;
+        }
+        public override void SafeOnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            if (!FargoSoulsUtil.IsSummonDamage(projectile))
+                projectile.damage = (int)Math.Min(projectile.damage - 1, projectile.damage * 0.75);
+
+            base.SafeOnHitByProjectile(npc, projectile, hit, damageDone);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
@@ -1054,7 +1067,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             npc.buffImmune[BuffID.Suffocation] = true;
 
-            if (Main.rand.NextBool(4) && !FargoSoulsUtil.AnyBossAlive())
+            if (Main.rand.NextBool(4) && !FargoSoulsUtil.AnyBossAlive() && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, 8);
         }
 
@@ -1114,7 +1127,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     if (++AttackTimer > attackTime)
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, towardsPlayer, ProjectileID.DeathLaser, (int)(1.1 * FargoSoulsUtil.ScaledProjectileDamage(npc.damage)), 0f, Main.myPlayer);
 
                         AttackTimer = 0;

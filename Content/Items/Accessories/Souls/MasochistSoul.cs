@@ -167,6 +167,10 @@ Summons the aid of all Eternity Mode bosses to your side
             fargoPlayer.GuttedHeart = true;
             fargoPlayer.GuttedHeartCD -= 2; //faster spawns
 
+            //gelic wings
+            player.FargoSouls().GelicWingsItem = Item;
+            player.GetJumpState(ExtraJump.UnicornMount).Enable();
+
             //mutant antibodies
             player.buffImmune[BuffID.Wet] = true;
             player.buffImmune[BuffID.Rabies] = true;

@@ -61,7 +61,40 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
         }
-
+        public override void PreUpdateBuffs()
+        {
+            MurderGreaterDangersense();
+        }
+        public override void PostUpdate()
+        {
+            MurderGreaterDangersense();
+        }
+        private void MurderGreaterDangersense()//KILL alchnpc greater dangersense (when boss alive)
+        {
+            if (ModLoader.TryGetMod("AlchemistNPC", out Mod alchNPC) && FargoSoulsUtil.AnyBossAlive())
+            {
+                if (alchNPC.TryFind("GreaterDangersense", out ModBuff greaterDangersense))
+                {
+                    MurderBuff(greaterDangersense.Type);
+                }
+            }
+            if (ModLoader.TryGetMod("AlchemistNPCLite", out Mod alchNPCLite) && FargoSoulsUtil.AnyBossAlive())
+            {
+                if (alchNPCLite.TryFind("GreaterDangersense", out ModBuff greaterDangersense))
+                {
+                    MurderBuff(greaterDangersense.Type);
+                }
+            }
+            void MurderBuff(int type)
+            {
+                if (Player.HasBuff(type))
+                {
+                    int index = Player.FindBuffIndex(type);
+                    Player.DelBuff(index);
+                    Player.ClearBuff(type);
+                }
+            }
+        }
         public override void PreUpdate()
         {
             if (!WorldSavingSystem.EternityMode)
@@ -71,6 +104,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.active && !Player.dead && !Player.ghost)
             {
+               
                 //falling gives you dazed. wings save you
                 /*if (Player.velocity.Y == 0f && Player.wingsLogic == 0 && !Player.noFallDmg && !Player.ghost && !Player.dead)
                 {

@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using static FargowiltasSouls.Core.Systems.DashManager;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -13,6 +15,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool StyxSet;
         public int StyxMeter;
         public int StyxTimer;
+        public bool StyxAttackReady;
         public bool NekomiSet;
         public int NekomiMeter;
         public int NekomiTimer;
@@ -48,7 +51,12 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool MahoganyCanUseDR;
         public Item PalmEnchantItem;
         public Item PearlwoodEnchantItem;
-        public int PearlwoodCD;
+        public Vector2[] PearlwoodTrail = new Vector2[30]; //store a second of trail 
+        public int PearlwoodIndex = 0;
+        public int PearlwoodGrace = 0;
+        public Vector2 PStarelinePos;
+        public bool PStarelineActive;
+
         public Item EbonwoodEnchantItem;
         public Item ShadewoodEnchantItem;
         public int ShadewoodCD;
@@ -77,6 +85,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         //force of earth
         public Item AdamantiteEnchantItem;
         public bool AdamantiteCanSplit;
+        public double AdamantiteSpread;
         public Item CobaltEnchantItem;
         public bool CanCobaltJump;
         public bool JustCobaltJumped;
@@ -93,13 +102,14 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool TitaniumDRBuff;
         public bool TitaniumCD;
         //force of nature
-
+        public Item CrimsonEnchantItem;
         //force of life
 
         //force of spirit
 
         //force of shadow
-
+        public Item MonkEnchantItem;
+        public Item ShinobiEnchantItem;
         //force of will
 
         //force of cosmos
@@ -137,6 +147,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool CrimsonEnchantActive;
         public int CrimsonRegenAmount;
+        public int CrimsonRegenTime;
+
 
         public Item DarkArtistEnchantItem;
         public bool ForbiddenEnchantActive;
@@ -448,8 +460,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int NoUsingItems;
 
         public bool HasDash;
-        public bool JungleDashReady;
-        public bool MonkDashReady;
+        public DashType FargoDash;
 
         public int WeaponUseTimer;
 

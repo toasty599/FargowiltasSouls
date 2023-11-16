@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items
     {
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.Acorn || item.type == ItemID.Bone)
+            if (item.type == ItemID.Acorn || item.type == ItemID.Bone || item.type == ItemID.RottenChunk)
             {
                 item.ammo = item.type;
             }
@@ -34,6 +34,7 @@ namespace FargowiltasSouls.Content.Items
         public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
         {
         }
+        /*
         public override void GrabRange(Item item, Player player, ref int grabRange)
         {
             FargoSoulsPlayer p = player.FargoSouls();
@@ -50,7 +51,7 @@ namespace FargowiltasSouls.Content.Items
                 grabRange += rangeBonus;
             }
         }
-
+        */
         public override bool OnPickup(Item item, Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
@@ -160,7 +161,13 @@ namespace FargowiltasSouls.Content.Items
 
             if (modPlayer.Berserked)
                 return true;
-
+            if (modPlayer.BoxofGizmos)
+            {
+                if (item.DamageType == DamageClass.Default && item.damage <= 0)
+                {
+                    return true;
+                }
+            }
             return base.CanAutoReuseItem(item, player);
         }
 
@@ -442,7 +449,7 @@ namespace FargowiltasSouls.Content.Items
             {
                 if (modPlayer.BeeCD == 0)
                 {
-                    int damage = modPlayer.ForceEffect(modPlayer.BeeEnchantItem.type) ? 122 : 22; //22
+                    int damage = modPlayer.ForceEffect(modPlayer.BeeEnchantItem.type) ? 88 : 22; //22
                     Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BeeEnchantItem), player.Center, Vector2.Zero, ModContent.ProjectileType<BeeFlower>(), damage, 0.5f, player.whoAmI);
                     modPlayer.BeeCD = 50;
                 }

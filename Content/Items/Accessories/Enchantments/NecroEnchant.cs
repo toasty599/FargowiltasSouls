@@ -52,11 +52,11 @@ Effects of Bone Glove
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             modPlayer.NecroEnchantActive = true;
-
+            /*
             //whack way of doing it but ok vanilla
             if (player.GetToggleValue("NecroGlove"))
                 player.boneGloveItem = item;
-
+            */
             if (modPlayer.NecroCD != 0)
                 modPlayer.NecroCD--;
         }
@@ -101,7 +101,7 @@ Effects of Bone Glove
                 .AddIngredient(ItemID.NecroHelmet)
                 .AddIngredient(ItemID.NecroBreastplate)
                 .AddIngredient(ItemID.NecroGreaves)
-                .AddIngredient(ItemID.BoneGlove)
+                .AddIngredient(ItemID.BoneWand)
                 .AddIngredient(ItemID.BoneWhip)
                 .AddIngredient(ItemID.StillLife)
 

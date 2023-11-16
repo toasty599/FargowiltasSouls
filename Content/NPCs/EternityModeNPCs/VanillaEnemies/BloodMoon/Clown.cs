@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
                     SoundEngine.PlaySound(npc.DeathSound.Value, npc.Center);
                 npc.active = false;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     if (FargoSoulsUtil.AnyBossAlive())
                     {

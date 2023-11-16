@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         distance.Y = distance.Y / time - 0.5f * gravity * time;
                         for (int i = 0; i < 10; i++)
                         {
-                            if (Main.netMode != NetmodeID.MultiplayerClient)
+                            if (FargoSoulsUtil.HostCheck)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance + Main.rand.NextVector2Square(-0.5f, 0.5f),
                                     ModContent.ProjectileType<TrojanAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         NPC.ai[1]++;
 
                         int start = 60;
-                        int end = 300;
+                        int end = 240;
                         if (WorldSavingSystem.MasochistModeReal)
                         {
                             start -= 30;
@@ -154,7 +154,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 float ai1 = time + Main.rand.Next(-10, 11) - 1;
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance,

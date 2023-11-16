@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     dust.scale *= 2f;
                 }
             }
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            if (FargoSoulsUtil.HostCheck)
             {
                 const int max = 22;
                 const float rotationInterval = 2f * (float)Math.PI / max;

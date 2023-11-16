@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
         {
             base.OnKill(npc);
 
-            if (NPC.downedPlantBoss && Main.netMode != NetmodeID.MultiplayerClient)
+            if (NPC.downedPlantBoss && FargoSoulsUtil.HostCheck)
             {
                 int n = FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.Paladin, velocity: new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 0)));
                 if (n != Main.maxNPCs)

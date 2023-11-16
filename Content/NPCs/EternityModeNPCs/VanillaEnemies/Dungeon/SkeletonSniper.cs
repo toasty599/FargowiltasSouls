@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
             //num3 = 200, num8 = 0
             if (npc.ai[2] > 0f && npc.ai[1] <= 105f)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 speed = Main.player[npc.target].Center - npc.Center;
                     speed.X += Main.rand.Next(-40, 41) * 0.2f;

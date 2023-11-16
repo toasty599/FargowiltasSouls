@@ -42,7 +42,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
                 if (++FireballCounter > 30)
                 {
                     FireballCounter = -90;
-                    if (npc.HasPlayerTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center) * 12f;
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.Fireball, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
         {
             base.OnKill(npc);
 
-            /*if (Main.netMode != NetmodeID.MultiplayerClient)
+            /*if (FargoSoulsUtil.HostCheck)
                 Projectile.NewProjectile(npc.Center, Vector2.UnitY * -6, ProjectileID.SpikyBallTrap, 30, 0f, Main.myPlayer);*/
         }
     }

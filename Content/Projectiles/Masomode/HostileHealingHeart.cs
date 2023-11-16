@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                     if (Projectile.Distance(n.Center) < 16) //die and feed it
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             n.life += Projectile.damage;
                             n.HealEffect(Projectile.damage);

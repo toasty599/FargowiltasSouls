@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             DarkArtistEffect(player, Item);
-            ApprenticeEnchant.ApprenticeEffect(player);
+            ApprenticeEnchant.ApprenticeEffect(player, Item);
         }
 
         public static void DarkArtistEffect(Player player, Item item)

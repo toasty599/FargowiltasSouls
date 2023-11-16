@@ -88,7 +88,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
 
                 if (npc.HasPlayerTarget && npc.Distance(Main.player[npc.target].Center) < Distance
                     && (!NeedLineOfSight || NeedLineOfSight && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
-                    && Main.netMode != NetmodeID.MultiplayerClient)
+                    && FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Speed * npc.DirectionTo(Main.player[npc.target].Center), ProjectileType, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, DamageMultiplier), 0, Main.myPlayer);
                 }

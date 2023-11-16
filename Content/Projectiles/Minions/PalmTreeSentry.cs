@@ -1,5 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Martians;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Drawing;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,6 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.timeLeft = 7200;
+            Projectile.FargoSouls().NinjaCanSpeedup = false;
         }
 
         public override bool? CanDamage()
@@ -36,10 +41,18 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
+
             if (!(player.active && !player.dead && modPlayer.PalmEnchantItem != null))
             {
                 Projectile.Kill();
+                return;
             }//this is to work properly with sentry despawning
+
+            //BIG palm sentry!
+            Projectile.scale = modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 2 : 1;
+            Projectile.height = 82 * (int)Projectile.scale;
+            Projectile.width = 80 * (int)Projectile.scale;
+            //Projectile.height = forcePalm ? 110 : 82; //stupid fucking idiot dumbass hatred way of making palm not clip into death
 
             Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
             if (Projectile.velocity.Y > 16f)
@@ -49,12 +62,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Projectile.ai[1] += 1f;
 
-            int attackRate = 45;
-
-            if (modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type))
-            {
-                attackRate = 35;
-            }
+            int attackRate = modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 30 : 45;
 
             if (Projectile.ai[1] >= attackRate)
             {
@@ -100,6 +108,18 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             return true;
         }
 
+        public override bool PreDraw(ref Microsoft.Xna.Framework.Color lightColor)
+        {
+            Main.EntitySpriteDraw(TextureAssets.Projectile[Type].Value,
+                Projectile.Center - Main.screenPosition,
+                null,
+                lightColor,
+                Projectile.rotation,
+                TextureAssets.Projectile[Type].Size() / 2, // this is the only reason why
+                Projectile.scale,
+                SpriteEffects.None);
+            return false;
+        }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

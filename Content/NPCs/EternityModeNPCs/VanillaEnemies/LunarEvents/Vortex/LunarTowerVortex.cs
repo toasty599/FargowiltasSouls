@@ -7,6 +7,8 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Core.Systems;
+using Terraria.Audio;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Vortex
 {
@@ -22,22 +24,15 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             new NPCMatcher().MatchType(NPCID.LunarTowerVortex);
 
         public LunarTowerVortex() : base(ModContent.BuffType<JammedBuff>(), DustID.Vortex) { }
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-            if (!WorldSavingSystem.EternityMode)
-            {
-                return;
-            }
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 4f);
-            npc.damage = (int)Math.Round(npc.damage * 0.9f);
-        }
+        public override int MaxHP => 80000;
+        public override int Damage => 80;
         public enum Attacks
         {
             Idle,
             VortexVortex,
             LightningBall,
             SkyLightning,
+            LightningElderHu,
             VortexShield
 
         }
@@ -45,7 +40,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             (int)Attacks.LightningBall,
             (int)Attacks.SkyLightning,
+            (int)Attacks.LightningElderHu,
             (int)Attacks.VortexShield
+            
         };
         public override void ShieldsDownAI(NPC npc)
         {
@@ -63,6 +60,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     case (int)Attacks.SkyLightning:
                         SkyLightning(npc, target);
                         break;
+                    case (int)Attacks.LightningElderHu:
+                        LightningElderHu(npc, target);
+                        break;
                     case (int)Attacks.VortexShield:
                         VortexShield(npc, target);
                         break;
@@ -70,6 +70,19 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         Idle(npc, target);
                         break;
                 }
+            }
+            else
+            {
+                
+                if (Attack == (int)Attacks.VortexVortex)
+                {
+                    EndAttack(npc);
+                    foreach (Projectile projectile in Main.projectile.Where(p => p != null && p.active && p.type == ModContent.ProjectileType<VortexVortex>()))
+                    {
+                        projectile.Kill();
+                    }
+                }
+                    
             }
         }
         #region Attacks
@@ -81,7 +94,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                     
 
-                if (Main.netMode != NetmodeID.MultiplayerClient && AttackTimer % 20 == 1) //anti lag
+                if (FargoSoulsUtil.HostCheck && AttackTimer % 20 == 1) //anti lag
                 {
                     bool vortexAlive = false;
                     for (int i = 0; i < Main.maxProjectiles; i++)
@@ -99,7 +112,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     }
                         
                 }
-                if (Vortex > -1 && Vortex < Main.maxNPCs)
+                if (Vortex.IsWithinBounds(Main.maxProjectiles))
                 {
                     if (Main.projectile[Vortex].active)
                     {
@@ -128,7 +141,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     {
                         second = true;
                     }
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 pos = npc.Center - Vector2.UnitY * npc.height * 0.8f;
                         Vector2 vel = second ? pos.DirectionTo(player.Center) * 6 : Vector2.Zero;
@@ -173,8 +186,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             }
             void Attack()
             {
-                const int distance = 300;
-                const int AttackDelay = 50;
+                const int distance = 180;
+                const int AttackDelay = 70;
                 if ((AttackTimer - WindupDuration) % AttackDelay == 1)
                 {
                     bool second = false;
@@ -182,21 +195,74 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     {
                         second = true;
                     }
-                    for (int i = 0; i < 16; i++)
+                    const int Bolts = 24;
+                    SoundEngine.PlaySound(NukeBeep, player.Center);
+                    for (int i = 0; i < Bolts; i++)
                     {
                         int x = i;
-                        if (x >= 8)
+                        if (x >= Bolts / 2)
                         {
-                            x = 7 - x; //split i into 1 to 8 and -1 to -8
+                            x = (Bolts / 2) - 1 - x; //split i into 1 to bolts/2 and -1 to -bolts/2
                         }
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             int offset = second ? distance / 2 : 0;
                             Vector2 pos = npc.Center + Vector2.UnitX * (distance * x + offset);
-                            Vector2 vel = Vector2.UnitY * 16;
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<PillarSpawner>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, ai0: 2, ai2: npc.whoAmI);
+                            SpawnLightning(npc, pos);
                         }
 
+                    }
+                }
+            }
+            void Endlag()
+            {
+
+            }
+
+            if (AttackTimer <= WindupDuration)
+            {
+                Windup();
+            }
+            else if (AttackTimer <= WindupDuration + AttackDuration)
+            {
+                Attack();
+            }
+            else
+            {
+                Endlag();
+            }
+            if (AttackTimer > WindupDuration + AttackDuration + EndlagDuration)
+            {
+                EndAttack(npc);
+            }
+        }
+        private void LightningElderHu(NPC npc, Player player)
+        {
+            const int WindupDuration = 60 * 0;
+            const int AttackDuration = 60 * 6;
+            const int EndlagDuration = 60 * 0;
+            void Windup()
+            {
+
+            }
+            void Attack()
+            {
+                const int distance = 100 + 30;
+                const int Volleys = 12;
+                const int AttackDelay = AttackDuration / Volleys;
+                if ((AttackTimer - WindupDuration) % AttackDelay == 0)
+                {
+                    int i = Volleys - ((AttackTimer - WindupDuration) / AttackDelay);
+
+                    for (int side = -1; side < 2; side += 2)
+                    {
+                        Vector2 pos = npc.Center + Vector2.UnitX * (distance * i * side);
+                        SoundEngine.PlaySound(NukeBeep, pos);
+                        if (FargoSoulsUtil.HostCheck)
+                        {
+                            
+                            SpawnLightning(npc, pos);
+                        }
                     }
                 }
             }
@@ -261,6 +327,22 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             if (AttackTimer > IdleTime)
             {
                 RandomAttack(npc);
+            }
+        }
+
+        private readonly SoundStyle NukeBeep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
+        private void SpawnLightning(NPC parent, Vector2 position)
+        {
+            
+            if (FargoSoulsUtil.HostCheck)
+            {
+                Vector2 posOrig = position;
+                posOrig.Y = Main.player[parent.target].Center.Y + (150 * 7);
+                for (int i = 0; i < 14; i++)
+                {
+                    Vector2 pos = posOrig - (Vector2.UnitY * 150 * i);
+                    Projectile.NewProjectile(parent.GetSource_FromThis(), pos, Vector2.Zero, ModContent.ProjectileType<LightningTelegraph>(), FargoSoulsUtil.ScaledProjectileDamage(parent.damage), 2f, Main.myPlayer, i);
+                }
             }
         }
         #endregion

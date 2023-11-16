@@ -21,14 +21,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.BloodMoo
 
             if (SpawnTimer > 0 && --SpawnTimer % 5 == 0)
             {
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.DemonEye, velocity: Main.rand.NextVector2Circular(8, 8));
             }
 
             if (npc.life < npc.lifeMax / 2 && ++SickleTimer > 15)
             {
                 SickleTimer = 0;
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 1.5f * Vector2.Normalize(npc.velocity), ModContent.ProjectileType<BloodScythe>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
             }
         }
