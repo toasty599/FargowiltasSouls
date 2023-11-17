@@ -22,7 +22,7 @@ Mods: {
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			Cobalt: 增加爆炸伤害
 			Copper: 增加闪电伤害，冷却时间减少
-			// Crimson: After you heal, the timer resets and tries to heal again
+			// Crimson: Timer doubled, but the heal triggers twice. Once in the middle, and once at the end
 			CrystalAssassin: ""
 			DarkArtist: ""
 			Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
@@ -39,7 +39,7 @@ Mods: {
 			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			Molten: ""
-			// Monk: Dash base damage doubled
+			// Monk: Increased dash damage
 			Mythril: 增加最大攻速加成，持续时间更长
 			// Nebula: Buff booster stack cap increased to 3
 			// Necro: Graves float
@@ -55,7 +55,7 @@ Mods: {
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
 			Shadewood: 增加光环大小和血液伤害，并且会附加灵液效果
-			// Shinobi: No upgrade
+			// Shinobi: Increased dash damage
 			// Shroomite: Mushrooms are spawned more often
 			Silver: 格挡会给予惊人一刻增益
 			// Solar: No upgrade
@@ -512,6 +512,7 @@ Mods: {
 			MasoEaterConfig: 迷你噬魂者
 			MasoBrainConfig: 飞眼怪
 			// MasoQueenConfig: Slimy Spikes
+			// MasoQueenJumpConfig: Gelic Jump
 			// LumpofFleshHeader: "{$Mods.FargowiltasSouls.Items.LumpOfFlesh.DisplayName}"
 			MasoPungentCursorConfig: 易伤区域光标
 			MasoPugentConfig: 眼球仆从
@@ -1741,8 +1742,8 @@ Mods: {
 			}
 
 			CrimsonRegenBuff: {
-				// DisplayName: Crimson Regen
-				// Description: You are regenning your last wound
+				// DisplayName: Crimson Healing
+				// Description: Your lifeforce is building up
 			}
 
 			FirstStrikeBuff: {
@@ -6116,6 +6117,7 @@ Mods: {
 		// MasoEaterConfig: "[i:FargowiltasSouls/DarkenedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoEaterConfig}]"
 		// MasoBrainConfig: "[i:FargowiltasSouls/GuttedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBrainConfig}]"
 		// MasoQueenConfig: "[i:FargowiltasSouls/GelicWings][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoQueenConfig}]"
+		// MasoQueenJumpConfig: "[i:FargowiltasSouls/GelicWings][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoQueenJumpConfig}]"
 		// LumpofFleshHeader: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.LumpofFleshHeader}]"
 		// MasoPungentCursorConfig: "[i:FargowiltasSouls/PungentEyeball][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPungentCursorConfig}]"
 		// MasoPugentConfig: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPugentConfig}]"
