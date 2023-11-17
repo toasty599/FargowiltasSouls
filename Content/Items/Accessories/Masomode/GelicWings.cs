@@ -41,8 +41,11 @@ When you land after a jump, slime spikes shoot out to your sides
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[ModContent.BuffType<FlippedHallowBuff>()] = true;
-            player.GetJumpState(ExtraJump.UnicornMount).Enable();
             player.FargoSouls().GelicWingsItem = Item;
+
+            if (player.GetToggleValue("MasoQueenJump")) {
+                player.GetJumpState(ExtraJump.UnicornMount).Enable();
+            }
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
