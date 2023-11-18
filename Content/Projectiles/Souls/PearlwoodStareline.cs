@@ -33,7 +33,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
                 projectile.hostile = true;
                 projectile.friendly = false;
-                projectile.penetrate = -1;
+                projectile.penetrate = 1;
                 projectile.timeLeft = 22;
                 //projectile.aiStyle = -1;
                 projectile.tileCollide = false;
@@ -97,6 +97,12 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             //follow the player
             projectile.velocity = modPlayer.PStarelinePos - projectile.Center;
+        }
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            if (Pearlwood && target.type == NPCID.TargetDummy)
+                return false;
+            return base.CanHitNPC(projectile, target);
         }
         public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
         {

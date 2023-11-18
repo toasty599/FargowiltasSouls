@@ -25,7 +25,7 @@ Mods: {
 			Crimson: After you heal, the timer resets and tries to heal again
 			CrystalAssassin: No upgrade
 			DarkArtist: The next 3 weapons are used instead of 2
-			Ebonwood: Aura size increased, defense reduction increased to 30
+			Ebonwood: Aura size increased, defense reduction increased to 40
 			Forbidden: Damage boost increased from 30 to 60%
 			Fossil: Revive heal increased to 200 and revive bone count doubled
 			Frost: Icicle damage doubled
@@ -48,7 +48,7 @@ Mods: {
 			Orichalcum: Increases multiplier to 4x
 			Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
 			PalmWood: Attack speed, damage, and size increased
-			Pearlwood: Star can hit enemies for massive damage
+			Pearlwood: Star can hit enemies, your attacks have 2 extra chances to crit
 			Platinum: No upgrade
 			Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
 			Rain: Umbrella can block up to 400 damage and reflected damage is tripled
@@ -2088,8 +2088,8 @@ Mods: {
 				Tooltip:
 					'''
 					You are surrounded by an aura that builds up Corruption on enemies
-					After 4 seconds of buildup they burst, Corrupting all nearby enemies
-					Corrupted enemies have 10 less defense and deal 10% less contact damage
+					After 3 seconds of buildup they burst, Corrupting all nearby enemies
+					Corrupted enemies have 10 less defense and deal 20% less contact damage
 					'Untapped potential'
 					'''
 			}
@@ -2823,7 +2823,7 @@ Mods: {
 					[i:FargowiltasSouls/RichMahoganyEnchant] All grappling hooks shoot, pull, and retract 2.5x as fast
 					[i:FargowiltasSouls/EbonwoodEnchant][i:FargowiltasSouls/ShadewoodEnchant] You have an aura of Corruption and Bleeding
 					[i:FargowiltasSouls/PalmWoodEnchant] Double tap down to spawn up to 2 palm tree sentries
-					[i:FargowiltasSouls/PearlwoodEnchant] Gives crit reroll, and your reflection follows you
+					[i:FargowiltasSouls/PearlwoodEnchant] Crits reroll favorably 2 times, and a damaging star follows you
 					'Extremely rigid'
 					'''
 			}
