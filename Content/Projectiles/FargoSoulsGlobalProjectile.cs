@@ -622,6 +622,8 @@ namespace FargowiltasSouls.Content.Projectiles
                         projectile.position = projectile.Bottom;
                         projectile.height = 16 * 6;
                         projectile.Bottom = projectile.position;
+                        projectile.hostile = true;
+                        projectile.friendly = false;
                     }
                 }
 
