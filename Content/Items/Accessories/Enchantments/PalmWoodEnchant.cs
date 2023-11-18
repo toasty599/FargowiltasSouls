@@ -61,8 +61,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         }
                     }
 
-
-                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse - 10 * Vector2.UnitY, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 100 : 15, 0f, player.whoAmI);
+                    Vector2 offset = modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? (-40 * Vector2.UnitX) + (-120 * Vector2.UnitY) : (-41 * Vector2.UnitY);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse + offset, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 100 : 15, 0f, player.whoAmI);
                 }
             }
         }
