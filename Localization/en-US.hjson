@@ -1669,7 +1669,7 @@ Mods: {
 
 			CrystalSkullBuff: {
 				DisplayName: Crystal Skull
-				Description: The pungent eyeball will protect you
+				Description: The crystal skull will protect you
 			}
 
 			EaterMinionBuff: {
