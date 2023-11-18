@@ -2730,7 +2730,7 @@ Mods: {
 					[i:FargowiltasSouls/MythrilEnchant] Stop attacking to gradually increase attack speed for up to 5 seconds
 					[i:FargowiltasSouls/PalladiumEnchant] Grants Rapid Healing after striking an enemy and spawn life orbs based on healing
 					[i:FargowiltasSouls/OrichalcumEnchant] Attacks spawn flower petals and damaging debuffs deal 4x damage
-					[i:FargowiltasSouls/AdamantiteEnchant] Every weapon shot will split into 3, deal 33% damage and have 66% less iframes
+					[i:FargowiltasSouls/AdamantiteEnchant] Every weapon shot will split into 3, 50% damage each, with higher spread the longer you fire
 					[i:FargowiltasSouls/TitaniumEnchant] Attacks generate titanium shards, reaching max grants Titanium Shield
 					'Gaia's blessing shines upon you'
 					'''
@@ -2810,7 +2810,7 @@ Mods: {
 					'''
 					[i:FargowiltasSouls/CopperEnchant][i:FargowiltasSouls/ObsidianEnchant][i:FargowiltasSouls/LeadEnchant] Attacks spawn lightning, explosions, and inflict Lead Poisoning
 					[i:FargowiltasSouls/TinEnchant] Sets Tin crit chance to 10%, increasing up to double your original crit chance or 50%
-					[i:FargowiltasSouls/IronEnchant] You attract items from further away, 50% chance to not consume each item on first craft
+					[i:FargowiltasSouls/IronEnchant] 50% chance to not consume each item on first craft
 					[i:FargowiltasSouls/LeadEnchant] You take 60% less from damage over time
 					[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
 					[i:FargowiltasSouls/TungstenEnchant] Weapon size increased to 300% and projectile size every quarter second
