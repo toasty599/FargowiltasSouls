@@ -54,6 +54,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public string MasoEater;
         public string MasoBrain;
         public string MasoQueen;
+        public string MasoQueenJump;
 
         public int LumpofFleshHeader = ModContent.ItemType<LumpOfFlesh>();
         public string MasoPungentCursor;

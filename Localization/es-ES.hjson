@@ -22,7 +22,7 @@ Mods: {
 			// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
 			// Cobalt: On-hit explosion damage increased
 			// Copper: Lightning damage increased to 200, cooldown reduced
-			// Crimson: After you heal, the timer resets and tries to heal again
+			// Crimson: Timer doubled, but the heal triggers twice. Once in the middle, and once at the end
 			// CrystalAssassin: No upgrade
 			// DarkArtist: The next 3 weapons are used instead of 2
 			// Ebonwood: Aura size increased, defense reduction increased to 30
@@ -39,7 +39,7 @@ Mods: {
 			// Meteor: A meteor shower initiates every few seconds while attacking
 			// Miner: Increased mining speed
 			// Molten: Inferno ring does more damage and can affect enemies in slightly larger range
-			// Monk: Dash base damage doubled
+			// Monk: Increased dash damage
 			// Mythril: Max attack speed bonus increased and lasts longer
 			// Nebula: Buff booster stack cap increased to 3
 			// Necro: Graves float
@@ -55,7 +55,7 @@ Mods: {
 			// RedRiding: Arrow rain has less cooldown and deals more damage
 			// RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased greatly
 			// Shadewood: Aura size and blood damage increased, additionally applies Ichor
-			// Shinobi: No upgrade
+			// Shinobi: Increased dash damage
 			// Shroomite: Mushrooms are spawned more often
 			// Silver: Parrying blocks up to 200 damage and grants the Striking Moment buff
 			// Solar: No upgrade
@@ -435,7 +435,7 @@ Mods: {
 			// TurtleConfig: Turtle Shell Buff
 			// NatureHeader: "{$Mods.FargowiltasSouls.Items.NatureForce.DisplayName}"
 			// ChlorophyteConfig: Chlorophyte Leaf Crystal
-			// CrimsonConfig: Crimson Regen
+			// CrimsonConfig: Crimson Healing
 			// RainConfig: Rain Umbrella
 			// RainInnerTubeConfig: Inner Tube
 			// FrostConfig: Frost Icicles
@@ -512,6 +512,7 @@ Mods: {
 			// MasoEaterConfig: Tiny Eaters
 			// MasoBrainConfig: Creeper Shield
 			// MasoQueenConfig: Slimy Spikes
+			// MasoQueenJumpConfig: Gelic Jump
 			// LumpofFleshHeader: "{$Mods.FargowiltasSouls.Items.LumpOfFlesh.DisplayName}"
 			// MasoPungentCursorConfig: Pungent Eye Cursor
 			// MasoPugentConfig: Lump of Flesh Minion
@@ -766,7 +767,7 @@ Mods: {
 					Getting hit may squeak
 					Getting hit causes you to erupt into spiky balls
 					Getting hit causes you to erupt into Ancient Visions
-					Grants Crimson regen
+					Grants Crimson healing
 					Grants immunity to fire
 					Grants immunity to fall damage
 					Grants immunity to lava
@@ -1738,8 +1739,8 @@ Mods: {
 			}
 
 			CrimsonRegenBuff: {
-				// DisplayName: Crimson Regen
-				// Description: You are regenning your last wound
+				// DisplayName: Crimson Healing
+				// Description: Your lifeforce is building up
 			}
 
 			FirstStrikeBuff: {
@@ -1893,6 +1894,11 @@ Mods: {
 			RainCDBuff: {
 				// DisplayName: Rain Umbrella Cooldown
 				// Description: Your umbrella isn't ready yet
+			}
+
+			SublimationBuff: {
+				// Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
+				// DisplayName: Sublimation Buff
 			}
 		}
 
@@ -2750,7 +2756,7 @@ Mods: {
 				// DisplayName: Force of Nature
 				/* Tooltip:
 					'''
-					[i:FargowiltasSouls/CrimsonEnchant] After taking a hit, regen is greatly increased until the hit is healed off
+					[i:FargowiltasSouls/CrimsonEnchant] Heal back 50% of damage taken after not getting hit for 7 seconds, twice
 					[i:FargowiltasSouls/MoltenEnchant] Nearby enemies are ignited in a greater radius
 					[i:FargowiltasSouls/RainEnchant] Spawns an umbrella that blocks projectiles from above
 					[i:FargowiltasSouls/FrostEnchant] Icicles will start to appear around you
@@ -3331,7 +3337,7 @@ Mods: {
 					[i:FargowiltasSouls/PureHeart] Grants immunity to biome debuffs
 					Grants immunity to [i:FargowiltasSouls/DarkenedHeart] Rotting and [i:FargowiltasSouls/GuttedHeart] Bloodthirsty
 					[i:FargowiltasSouls/DarkenedHeart] Increased movement speed and turnaround traction
-					[i:FargowiltasSouls/DarkenedHeart] You spawn mini eaters to seek out enemies every few attacks
+					[i:FargowiltasSouls/DarkenedHeart] You spawn mini eaters to seek out enemies every few attacks, inflicting DoT and defense reduction
 					[i:FargowiltasSouls/GuttedHeart] Up to 5 creepers hover around you blocking some damage, respawning faster when not moving
 					[i:FargowiltasSouls/GuttedHeart] Gives 10% increased max life
 					[i:FargowiltasSouls/GelicWings] Allows the wearer to double jump
@@ -3718,7 +3724,7 @@ Mods: {
 					Getting hit drops your crit back down, triggers a blood geyser, and reflects damage
 					Projectiles may split or shatter and spawn stars, item and projectile size increased, attract items from further away
 					Nearby enemies are ignited, You leave behind a trail of fire, jump to create a spore explosion
-					Grants Crimson regen, immunity to fire, fall damage, and lava, and doubled herb collection
+					Grants Crimson healing, immunity to fire, fall damage, and lava, and doubled herb collection
 					Grants 50% chance for Mega Bees, 15% chance for minion crits, 20% chance for bonus loot
 					Critters have increased defense and their souls will aid you, You may summon temporary minions
 					All grappling hooks are more effective and fire homing shots, Greatly enhances all DD2 sentries
@@ -6167,6 +6173,7 @@ Mods: {
 		// MasoEaterConfig: "[i:FargowiltasSouls/DarkenedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoEaterConfig}]"
 		// MasoBrainConfig: "[i:FargowiltasSouls/GuttedHeart][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBrainConfig}]"
 		// MasoQueenConfig: "[i:FargowiltasSouls/GelicWings][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoQueenConfig}]"
+		// MasoQueenJumpConfig: "[i:FargowiltasSouls/GelicWings][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoQueenJumpConfig}]"
 		// LumpofFleshHeader: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.LumpofFleshHeader}]"
 		// MasoPungentCursorConfig: "[i:FargowiltasSouls/PungentEyeball][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPungentCursorConfig}]"
 		// MasoPugentConfig: "[i:FargowiltasSouls/LumpOfFlesh][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoPugentConfig}]"

@@ -60,7 +60,10 @@ Creeper respawn speed increases when not moving
 
             //gelic effect
             player.FargoSouls().GelicWingsItem = Item;
-            player.GetJumpState(ExtraJump.UnicornMount).Enable();
+
+            if (player.GetToggleValue("MasoQueenJump")) {
+                player.GetJumpState(ExtraJump.UnicornMount).Enable();
+            }
         }
 
         public override void AddRecipes()

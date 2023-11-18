@@ -257,6 +257,7 @@ namespace FargowiltasSouls
             AddToggle("MasoEaterConfig", "DarkenedHeart");
             AddToggle("MasoBrainConfig", "GuttedHeart");
             AddToggle("MasoQueenConfig", "GelicWings");
+            AddToggle("MasoQueenJumpConfig", "GelicWings");
 
             //lump of flesh
             AddToggle("LumpofFleshHeader", "LumpOfFlesh");
