@@ -6013,6 +6013,7 @@ Mods: {
 			// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
 			// SpectralEoC.DisplayName: Spectral Eye of Cthulhu
 			// MonkDashSlash.DisplayName: Monk Dash Slash
+			// ObsidianExplosion.DisplayName: Obsidian Explosion
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
