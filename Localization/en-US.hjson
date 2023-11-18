@@ -692,7 +692,6 @@ Mods: {
 			CustomPreset: Custom preset {0} (right click to save)
 			ReloadToggles: Reload Toggles (right click to reset)
 			SearchText: Search...
-			
 		}
 
 		ItemExtra: {

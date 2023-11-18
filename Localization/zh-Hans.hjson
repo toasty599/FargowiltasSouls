@@ -683,6 +683,15 @@ Mods: {
 			SoulTogglerButton: 设置饰品效果
 			EternityEnabled: 永恒模式已开启
 			MasochistEnabled: 受虐模式已开启
+			// SavedToSlot: Toggles saved to custom set
+			// NoTogglesFound: No toggles found in custom set
+			// TurnAllTogglesOff: Turn all toggles off
+			// TurnAllTogglesOn: Turn all toggles on
+			// SomeEffectsPreset: Some effects preset
+			// MinimalEffectsPreset: Minimal effects preset
+			// CustomPreset: Custom preset {0} (right click to save)
+			// ReloadToggles: Reload Toggles (right click to reset)
+			// SearchText: Search...
 		}
 
 		ItemExtra: {
