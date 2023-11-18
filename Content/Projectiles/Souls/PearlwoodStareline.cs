@@ -81,10 +81,9 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 return;
             } //kill projkcetoiele when unequip or toggled off or player dies or leaves or commits a war crime idfk
 
-            if (modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type))
-                projectile.friendly = true;  //ability to hit enemy with force
-            else
-                projectile.friendly = false;
+            //damage enemies if force
+            bool force = modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type);
+            projectile.friendly = force;
 
             //refresh lifetime
             projectile.timeLeft = 22;
@@ -131,7 +130,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            for (int i = 0; i < 20; i++) //idk how to make dust look good (2)
+            for (int i = 0; i < 20; i++)
             {
                 Dust.NewDust(modPlayer.PStarelinePos, 22, 22, DustID.GoldFlame, 0f, 0f, 175, default, 1.75f);
             }
