@@ -99,28 +99,28 @@ namespace FargowiltasSouls.Content.UI
             OffButton = new FargoUIPresetButton(FargoUIManager.PresetOffButton.Value, (toggles) =>
             {
                 toggles.SetAll(false);
-            }, FargoSoulsUtil.IsChinese() ? "关闭所有饰品效果" : "Turn all toggles off");
+            }, Language.GetTextValue("Mods.FargowiltasSouls.UI.TurnAllTogglesOff"));
             OffButton.Top.Set(6, 0);
             OffButton.Left.Set(8, 0);
 
             OnButton = new FargoUIPresetButton(FargoUIManager.PresetOnButton.Value, (toggles) =>
             {
                 toggles.SetAll(true);
-            }, FargoSoulsUtil.IsChinese() ? "开启所有饰品效果" : "Turn all toggles on");
+            }, Language.GetTextValue("Mods.FargowiltasSouls.UI.TurnAllTogglesOn"));
             OnButton.Top.Set(6, 0);
             OnButton.Left.Set(30, 0);
 
             SomeEffectsButton = new FargoUIPresetButton(FargoUIManager.PresetMinimalButton.Value, (toggles) =>
             {
                 toggles.SomeEffects();
-            }, FargoSoulsUtil.IsChinese() ? "部分效果预设" : "Some effects preset");
+            }, Language.GetTextValue("Mods.FargowiltasSouls.UI.SomeEffectsPreset"));
             SomeEffectsButton.Top.Set(6, 0);
             SomeEffectsButton.Left.Set(52, 0);
 
             MinimalButton = new FargoUIPresetButton(FargoUIManager.PresetMinimalButton.Value, (toggles) =>
             {
                 toggles.MinimalEffects();
-            }, FargoSoulsUtil.IsChinese() ? "最小化影响预设" : "Minimal effects preset");
+            }, Language.GetTextValue("Mods.FargowiltasSouls.UI.MinimalEffectsPreset"));
             MinimalButton.Top.Set(6, 0);
             MinimalButton.Left.Set(74, 0);
 
@@ -142,7 +142,7 @@ namespace FargowiltasSouls.Content.UI
                 CustomButton[i] = new FargoUIPresetButton(FargoUIManager.PresetCustomButton.Value,
                 toggles => toggles.LoadCustomPreset(slot),
                 toggles => toggles.SaveCustomPreset(slot),
-                $"Custom preset {slot} (right click to save)");
+                Language.GetTextValue("Mods.FargowiltasSouls.UI.CustomPreset", slot));
                 CustomButton[i].Top.Set(6, 0);
                 CustomButton[i].Left.Set(xOffset + 22 * slot, 0);
                 PresetPanel.Append(CustomButton[i]);
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.UI
                 {
                     slot++;
                     ReloadButton = new FargoUIReloadButton(FargoUIManager.ReloadButtonTexture.Value,
-                    $"Reload Toggles (right click to reset)");
+                        Language.GetTextValue("Mods.FargowiltasSouls.UI.ReloadToggles"));
                     ReloadButton.OnLeftClick += ReloadButton_OnLeftClick;
                     ReloadButton.OnRightClick += ReloadButton_OnRightClick;
                     ReloadButton.Top.Set(6, 0);
