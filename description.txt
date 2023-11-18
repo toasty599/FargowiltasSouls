@@ -4,6 +4,20 @@ Features the highly challenging Eternity Mode!
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
 
+NEW UPDATE - V 1.6.1.1
+-Abominationn (Masochist Mode): Health decreased by 10%, nerfed basic scythe attack
+-Nano Core: Summoner mode deals 15% less damage
+-Pearlwood Enchant: Force effect now provides an extra crit reroll, star dies upon hitting an enemy
+-Omniscience Staff damage 302 -> 312
+-Staff of Unleashed Ocean damage 140 -> 115
+-Pure Heart eaters and creepers apply a new debuff with effects of Ichor and Cursed Flames
+-Added new explosion effect for Obsidian Enchantment
+-Added a toggle for Gelic Wings jump
+-Fixed issues with Shinobi Enchantment dashes
+-Fixed several incorrect tooltips
+-Fixed some other lesser issues
+-Several resprites
+
 NEW UPDATE - V 1.6.1
 Major features:
 -Reworked Eternity Advisor display
