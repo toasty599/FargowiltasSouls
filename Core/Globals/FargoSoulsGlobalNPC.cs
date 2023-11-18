@@ -72,6 +72,7 @@ namespace FargowiltasSouls.Core.Globals
         public int LethargicCounter;
         //        public bool ExplosiveCritter = false;
         //        private int critterCounter = 120;
+        public bool Sublimation;
 
         public bool SnowChilled;
         public int SnowChilledTimer;
@@ -122,6 +123,7 @@ namespace FargowiltasSouls.Core.Globals
             MutantNibble = false;
             GodEater = false;
             Suffocation = false;
+            Sublimation = false;
             //            //SnowChilled = false;
             Chilled = false;
             Smite = false;
@@ -286,6 +288,11 @@ namespace FargowiltasSouls.Core.Globals
                 npc.defense = originalDefense - 10;
             }
 
+            if (Sublimation)
+            {
+                npc.defense = originalDefense - 15; //ichor 2
+            }
+
             if (SnowChilled)
             {
                 int dustId = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Snow, npc.velocity.X, npc.velocity.Y, 100, default, 1f);
@@ -376,6 +383,17 @@ namespace FargowiltasSouls.Core.Globals
                         d.noGravity = false;
                         d.scale *= 0.5f;
                     }
+                }
+            }
+
+            if (Sublimation)
+            {
+                if (Main.rand.NextBool(4))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.PortalBolt, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(220, 255, 220), 2.5f);
+                    Main.dust[d].velocity.Y -= 1;
+                    Main.dust[d].velocity *= 1.5f;
+                    Main.dust[d].noGravity = true;
                 }
             }
 
@@ -660,6 +678,7 @@ namespace FargowiltasSouls.Core.Globals
                 npc.lifeRegen -= dot;
             }
 
+
             //50 dps
             if (SolarFlare)
             {
@@ -699,7 +718,19 @@ namespace FargowiltasSouls.Core.Globals
                 }
             }
 
-            //20 dps
+            //25 dps which is 1 more than  
+            if (Sublimation)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
+
+                npc.lifeRegen -= 50;
+
+                if (damage < 5)
+                    damage = 5;
+            }
+
+            //20 dps 
             if (OriPoison)
             {
                 if (npc.lifeRegen > 0)

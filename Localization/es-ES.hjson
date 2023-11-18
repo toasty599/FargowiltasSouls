@@ -1895,6 +1895,11 @@ Mods: {
 				// DisplayName: Rain Umbrella Cooldown
 				// Description: Your umbrella isn't ready yet
 			}
+
+			SublimationBuff: {
+				// Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
+				// DisplayName: Sublimation Buff
+			}
 		}
 
 		Items: {
@@ -3332,7 +3337,7 @@ Mods: {
 					[i:FargowiltasSouls/PureHeart] Grants immunity to biome debuffs
 					Grants immunity to [i:FargowiltasSouls/DarkenedHeart] Rotting and [i:FargowiltasSouls/GuttedHeart] Bloodthirsty
 					[i:FargowiltasSouls/DarkenedHeart] Increased movement speed and turnaround traction
-					[i:FargowiltasSouls/DarkenedHeart] You spawn mini eaters to seek out enemies every few attacks
+					[i:FargowiltasSouls/DarkenedHeart] You spawn mini eaters to seek out enemies every few attacks, inflicting DoT and defense reduction
 					[i:FargowiltasSouls/GuttedHeart] Up to 5 creepers hover around you blocking some damage, respawning faster when not moving
 					[i:FargowiltasSouls/GuttedHeart] Gives 10% increased max life
 					[i:FargowiltasSouls/GelicWings] Allows the wearer to double jump

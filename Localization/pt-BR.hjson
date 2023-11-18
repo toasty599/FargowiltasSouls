@@ -1898,6 +1898,11 @@ Mods: {
 				// DisplayName: Rain Umbrella Cooldown
 				// Description: Your umbrella isn't ready yet
 			}
+
+			SublimationBuff: {
+				// Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
+				// DisplayName: Sublimation Buff
+			}
 		}
 
 		Items: {
