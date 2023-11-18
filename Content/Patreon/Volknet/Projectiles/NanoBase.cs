@@ -251,7 +251,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
                                         if (proj.ai[0] == AtkTimer / 5 || proj.ai[0] == AtkTimer / 5 + 1 || proj.ai[0] == 6)
                                         {
                                             SoundEngine.PlaySound(SoundID.Item91, proj.Center);
-                                            int dmg = (int)(Projectile.damage * 1.2 / 2.0);
+                                            int dmg = (int)(Projectile.damage * 1.05 / 2.0);
                                             Projectile.NewProjectile(owner.GetSource_ItemUse(owner.HeldItem), proj.Center, proj.rotation.ToRotationVector2().RotatedByRandom(MathHelper.ToRadians(2)) * 36, ModContent.ProjectileType<PlasmaProj>(), dmg, proj.knockBack, owner.whoAmI);
                                         }
 
