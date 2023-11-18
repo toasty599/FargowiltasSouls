@@ -88,6 +88,9 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             //refresh lifetime
             projectile.timeLeft = 22;
 
+            //damage to make sure it never can change
+            projectile.damage = 1000;
+
             //spin
             //projectile.rotation += MathHelper.ToRadians(6);
 
