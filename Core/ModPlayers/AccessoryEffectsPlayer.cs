@@ -952,7 +952,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             bool dashCheck = !HasDash;
             if (FargoDash == DashManager.DashType.Monk && !Player.HasBuff<MonkBuff>())
                 dashCheck = true;
-            if (dashCheck && Player.GetToggleValue("Shinobi"))
+            if (dashCheck && Player.GetToggleValue("ShinobiDash"))
             {
                 HasDash = true;
                 FargoDash = DashManager.DashType.Shinobi;
