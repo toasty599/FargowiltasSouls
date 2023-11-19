@@ -284,10 +284,10 @@ namespace FargowiltasSouls.Core.Globals
                         if (normalSpawn && WorldSavingSystem.DownedAnyBoss)
                         {
                             if (snow)
-                                pool[NPCID.IceGolem] = .001f;
+                                pool[NPCID.IceGolem] = .005f;
 
                             if (desert)
-                                pool[NPCID.SandElemental] = .001f;
+                                pool[NPCID.SandElemental] = .005f;
                         }
 
                         if (Main.slimeRain && NPC.downedBoss2 && bossCanSpawn)
@@ -338,7 +338,7 @@ namespace FargowiltasSouls.Core.Globals
                             pool[NPCID.AngryNimbus] = .02f;
 
                             if (WorldSavingSystem.DownedAnyBoss)
-                                pool[NPCID.WyvernHead] = .001f;
+                                pool[NPCID.WyvernHead] = .005f;
                         }
                     }
 
