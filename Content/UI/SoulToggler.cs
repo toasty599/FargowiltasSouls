@@ -99,28 +99,28 @@ namespace FargowiltasSouls.Content.UI
             OffButton = new FargoUIPresetButton(FargoUIManager.PresetOffButton.Value, (toggles) =>
             {
                 toggles.SetAll(false);
-            }, Language.GetTextValue("Mods.FargowiltasSouls.UI.TurnAllTogglesOff"));
+            }, () => Language.GetTextValue("Mods.FargowiltasSouls.UI.TurnAllTogglesOff"));
             OffButton.Top.Set(6, 0);
             OffButton.Left.Set(8, 0);
 
             OnButton = new FargoUIPresetButton(FargoUIManager.PresetOnButton.Value, (toggles) =>
             {
                 toggles.SetAll(true);
-            }, Language.GetTextValue("Mods.FargowiltasSouls.UI.TurnAllTogglesOn"));
+            }, () => Language.GetTextValue("Mods.FargowiltasSouls.UI.TurnAllTogglesOn"));
             OnButton.Top.Set(6, 0);
             OnButton.Left.Set(30, 0);
 
             SomeEffectsButton = new FargoUIPresetButton(FargoUIManager.PresetMinimalButton.Value, (toggles) =>
             {
                 toggles.SomeEffects();
-            }, Language.GetTextValue("Mods.FargowiltasSouls.UI.SomeEffectsPreset"));
+            }, () => Language.GetTextValue("Mods.FargowiltasSouls.UI.SomeEffectsPreset"));
             SomeEffectsButton.Top.Set(6, 0);
             SomeEffectsButton.Left.Set(52, 0);
 
             MinimalButton = new FargoUIPresetButton(FargoUIManager.PresetMinimalButton.Value, (toggles) =>
             {
                 toggles.MinimalEffects();
-            }, Language.GetTextValue("Mods.FargowiltasSouls.UI.MinimalEffectsPreset"));
+            }, () => Language.GetTextValue("Mods.FargowiltasSouls.UI.MinimalEffectsPreset"));
             MinimalButton.Top.Set(6, 0);
             MinimalButton.Left.Set(74, 0);
 
@@ -142,7 +142,7 @@ namespace FargowiltasSouls.Content.UI
                 CustomButton[i] = new FargoUIPresetButton(FargoUIManager.PresetCustomButton.Value,
                 toggles => toggles.LoadCustomPreset(slot),
                 toggles => toggles.SaveCustomPreset(slot),
-                Language.GetTextValue("Mods.FargowiltasSouls.UI.CustomPreset", slot));
+                () => Language.GetTextValue("Mods.FargowiltasSouls.UI.CustomPreset", slot));
                 CustomButton[i].Top.Set(6, 0);
                 CustomButton[i].Left.Set(xOffset + 22 * slot, 0);
                 PresetPanel.Append(CustomButton[i]);
@@ -151,7 +151,7 @@ namespace FargowiltasSouls.Content.UI
                 {
                     slot++;
                     ReloadButton = new FargoUIReloadButton(FargoUIManager.ReloadButtonTexture.Value,
-                        Language.GetTextValue("Mods.FargowiltasSouls.UI.ReloadToggles"));
+                        () => Language.GetTextValue("Mods.FargowiltasSouls.UI.ReloadToggles"));
                     ReloadButton.OnLeftClick += ReloadButton_OnLeftClick;
                     ReloadButton.OnRightClick += ReloadButton_OnRightClick;
                     ReloadButton.Top.Set(6, 0);
@@ -175,7 +175,6 @@ namespace FargowiltasSouls.Content.UI
                 BuildList();
                 NeedsToggleListBuilding = false;
             }
-            
         }
 
         private void ReloadButton_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
@@ -195,7 +194,7 @@ namespace FargowiltasSouls.Content.UI
 
             IEnumerable<Toggle> DisplayToggles = toggler.Toggles.Values.Where((toggle) =>
             {
-                string[] words = GetRawToggleName(toggle.InternalName).Split(' ');
+                string[] words = toggle.GetRawToggleName().Split(' ');
                 return
                 toggle.DisplayToggle &&
                 (string.IsNullOrEmpty(DisplayMod) || toggle.Mod == DisplayMod) &&
@@ -214,7 +213,7 @@ namespace FargowiltasSouls.Content.UI
                         ToggleList.Add(new UIText("", 0.2f)); // Blank line
 
                     (string name, int item) = ToggleLoader.LoadedHeaders[toggle.InternalName];
-                    ToggleList.Add(new FargoUIHeader(name, item, (BackWidth - 16, 20)));
+                    ToggleList.Add(new FargoUIHeader(name, toggle.Mod, item, (BackWidth - 16, 20)));
                 }
                 else if (!SearchBar.IsEmpty)
                 {
@@ -232,29 +231,12 @@ namespace FargowiltasSouls.Content.UI
                         if (ToggleList.Count > 0) // Don't add for the first header
                             ToggleList.Add(new UIText("", 0.2f)); // Blank line
 
-                        ToggleList.Add(new FargoUIHeader(name, item, (BackWidth - 16, 20)));
+                        ToggleList.Add(new FargoUIHeader(name, toggle.Mod, item, (BackWidth - 16, 20)));
                         usedHeaders.Add(name);
                     }
                 }
-                ToggleList.Add(new UIToggle(toggle.InternalName));
+                ToggleList.Add(new UIToggle(toggle.InternalName, toggle.Mod));
             }
-        }
-
-        public static string GetRawToggleName(string key)
-        {
-            string baseText = Language.GetTextValue($"Mods.FargowiltasSouls.{key}Config");
-            List<TextSnippet> parsedText = ChatManager.ParseMessage(baseText, Color.White);
-            string rawText = "";
-
-            foreach (TextSnippet snippet in parsedText)
-            {
-                if (!snippet.Text.StartsWith("["))
-                {
-                    rawText += snippet.Text.Trim();
-                }
-            }
-
-            return rawText;
         }
 
         /*public void SetPositionToPoint(Point point)

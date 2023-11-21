@@ -15,10 +15,12 @@ namespace FargowiltasSouls.Content.UI.Elements
         public static DynamicSpriteFont Font => Terraria.GameContent.FontAssets.ItemStack.Value;
 
         public string Key;
+        public string Mod;
 
-        public UIToggle(string key)
+        public UIToggle(string key, string mod)
         {
             Key = key;
+            Mod = mod;
 
             Width.Set(19, 0);
             Height.Set(21, 0);
@@ -43,7 +45,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             if (Main.LocalPlayer.GetToggleValue(Key, false))
                 spriteBatch.Draw(FargoUIManager.CheckMark.Value, position, Color.White);
 
-            string text = Language.GetTextValue($"Mods.FargowiltasSouls.{Key}Config");
+            string text = Language.GetTextValue($"Mods.{Mod}.{Key}Config");
             position += new Vector2(Width.Pixels * Main.UIScale, 0);
             position += new Vector2(CheckboxTextSpace, 0);
             position += new Vector2(0, Font.MeasureString(text).Y * 0.175f);

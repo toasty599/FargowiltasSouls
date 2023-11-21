@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
 {
     public class SoulToggles : ToggleCollection
     {
-        public override string Mod => "Terraria";
+        public override string Mod => "FargowiltasSouls";
         public override string SortCategory => "Souls";
         public override int Priority => 1;
         public override bool Active => true;
