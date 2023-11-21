@@ -4,6 +4,9 @@ Features the highly challenging Eternity Mode!
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
 
+NEW UPDATE - V 1.6.1.2
+-Fixed localization issues
+
 NEW UPDATE - V 1.6.1.1
 -Abominationn (Masochist Mode): Health decreased by 10%, nerfed basic scythe attack
 -Nano Core: Summoner mode deals 15% less damage
