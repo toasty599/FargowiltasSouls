@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using System;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Projectiles.Souls;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -73,7 +74,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             damage = Math.Min(damage, FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, 300));
 
             Player player = modPlayer.Player;
-            Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.ObsidianEnchantItem), target.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), damage, 0, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.ObsidianEnchantItem), target.Center, Vector2.Zero, ModContent.ProjectileType<ObsidianExplosion>(), damage, 0, player.whoAmI);
 
             if (modPlayer.ForceEffect(modPlayer.ObsidianEnchantItem.type))
             {

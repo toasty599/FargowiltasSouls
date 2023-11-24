@@ -5,7 +5,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
 {
     public class PetToggles : ToggleCollection
     {
-        public override string Mod => "Terraria";
+        public override string Mod => "FargowiltasSouls";
 
         public override string SortCategory => "Pets";
 

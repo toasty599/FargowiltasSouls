@@ -75,10 +75,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         }
         public static void PearlwoodCritReroll(Player player, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
-            if (Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass))
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.PearlwoodEnchantItem == null)
+                return;
+            int rerolls = modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type) ? 2 : 1;
+            for (int i = 0; i < rerolls; i++)
             {
-                modifiers.SetCrit();
+                if (Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass))
+                {
+                    modifiers.SetCrit();
+                }
             }
+            
         }
 
         public override void AddRecipes()

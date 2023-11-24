@@ -11,9 +11,9 @@ namespace FargowiltasSouls.Content.UI.Elements
         public Texture2D Texture;
         public Action<ToggleBackend> ApplyPreset;
         public Action<ToggleBackend> SavePreset;
-        public string Text;
+        public Func<string> Text;  //Needs to be a Func<string> to make it work with localization. Language.GetTextValue does not work correctly on initialize.
 
-        public FargoUIPresetButton(Texture2D tex, Action<ToggleBackend> preset, string text)
+        public FargoUIPresetButton(Texture2D tex, Action<ToggleBackend> preset, Func<string> text)
         {
             Texture = tex;
             ApplyPreset = preset;
@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             Height.Set(20, 0);
         }
 
-        public FargoUIPresetButton(Texture2D tex, Action<ToggleBackend> preset, Action<ToggleBackend> save, string text)
+        public FargoUIPresetButton(Texture2D tex, Action<ToggleBackend> preset, Action<ToggleBackend> save, Func<string> text)
         {
             Texture = tex;
             ApplyPreset = preset;
@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             if (IsMouseHovering)
             {
                 Vector2 textPosition = style.Position() + new Vector2(0, style.Height + 8);
-                Utils.DrawBorderString(spriteBatch, Text, textPosition, Color.White);
+                Utils.DrawBorderString(spriteBatch, Text.Invoke(), textPosition, Color.White);
 
                 hovered = true;
 

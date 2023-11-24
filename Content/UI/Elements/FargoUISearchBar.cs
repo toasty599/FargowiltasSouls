@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
+using Terraria.Localization;
 using Terraria.UI;
 
 namespace FargowiltasSouls.Content.UI.Elements
@@ -10,7 +11,7 @@ namespace FargowiltasSouls.Content.UI.Elements
     public class FargoUISearchBar : UIElement
     {
         public const int CharacterLimit = 16;
-        public string HintText = FargoSoulsUtil.IsChinese() ? "搜索..." : "Search...";
+        public string HintText => Language.GetTextValue("Mods.FargowiltasSouls.UI.SearchText");
 
         public bool IsEmpty => string.IsNullOrEmpty(Input);
 

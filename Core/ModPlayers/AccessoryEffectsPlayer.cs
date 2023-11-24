@@ -949,7 +949,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             }*/
 
             ShinobiEnchantActive = true;
-            if (!HasDash)
+            bool dashCheck = !HasDash;
+            if (FargoDash == DashManager.DashType.Monk && !Player.HasBuff<MonkBuff>())
+                dashCheck = true;
+            if (dashCheck && Player.GetToggleValue("ShinobiDash"))
             {
                 HasDash = true;
                 FargoDash = DashManager.DashType.Shinobi;
@@ -1410,7 +1413,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuff>()))
             {
-                FargoDash = DashManager.DashType.Monk;
+                if (FargoDash != DashManager.DashType.Shinobi)
+                    FargoDash = DashManager.DashType.Monk;
                 HasDash = true;
 
                 monkTimer++;

@@ -82,6 +82,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             NPC.lifeMax = 750000;
             if (Main.expertMode) //compensate universe core
                 NPC.lifeMax *= 2;
+            if (WorldSavingSystem.MasochistModeReal) //he's tanky enough
+                NPC.lifeMax = (int)(NPC.lifeMax * 0.9f);
             NPC.value = Item.buyPrice(5);
             NPC.HitSound = SoundID.NPCHit57;
             NPC.noGravity = true;
@@ -362,7 +364,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     if (NPC.localAI[2] == 0) //store rotation offset
                     {
                         NPC.localAI[2] = player.DirectionTo(NPC.Center).ToRotation()
-                            + MathHelper.ToRadians(WorldSavingSystem.EternityMode ? 100 : 80) * Main.rand.NextFloat(-1, 1);
+                            + MathHelper.ToRadians(WorldSavingSystem.EternityMode ? 90 : 70) * Main.rand.NextFloat(-1, 1);
                         NPC.netUpdate = true;
                     }
 
@@ -429,7 +431,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     {
                         NPC.netUpdate = true;
                         //NPC.TargetClosest();
-                        NPC.ai[1] = WorldSavingSystem.MasochistModeReal ? 60 : 30;
+                        NPC.ai[1] = WorldSavingSystem.MasochistModeReal ? 45 : 30;
                         NPC.localAI[2] = 0;
                         if (++NPC.ai[2] > (WorldSavingSystem.MasochistModeReal ? 7 : 5))
                         {

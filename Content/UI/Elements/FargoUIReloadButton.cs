@@ -10,9 +10,9 @@ namespace FargowiltasSouls.Content.UI.Elements
 	public class FargoUIReloadButton : UIElement
     {
         public Texture2D Texture;
-        public string Text;
+        public Func<string> Text; //Needs to be a Func<string> to make it work with localization. Language.GetTextValue does not work correctly on initialize.
 
-        public FargoUIReloadButton(Texture2D tex,  string text)
+        public FargoUIReloadButton(Texture2D tex,  Func<string> text)
         {
             Texture = tex;
             Text = text;
@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             if (IsMouseHovering)
             {
                 Vector2 textPosition = style.Position() + new Vector2(0, style.Height + 8);
-                Utils.DrawBorderString(spriteBatch, Text, textPosition, Color.White);
+                Utils.DrawBorderString(spriteBatch, Text.Invoke(), textPosition, Color.White);
                 hovered = true;
             }
 

@@ -14,11 +14,13 @@ namespace FargowiltasSouls.Content.UI.Elements
         public const int ItemTextureDimensions = 32;
 
         readonly string Key;
+        readonly string Mod;
         readonly int Item;
 
-        public FargoUIHeader(string key, int item, (int width, int height) dimensions)
+        public FargoUIHeader(string key, string mod, int item, (int width, int height) dimensions)
         {
             Key = key;
+            Mod = mod;
             Item = item;
             Width.Set(dimensions.width, 0);
             Height.Set(dimensions.height, 0);
@@ -40,7 +42,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle((int)position.X + 1, /*Y*/ (int)dimensions.Y + 22 - 1 + 1, 1, 2), Color.Black);
             spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle((int)position.X + (int)dimensions.Width, /*Y*/ (int)dimensions.Y + 22 - 1 + 1, 1, 2), Color.Black);
 
-            Utils.DrawBorderString(spriteBatch, $"{Language.GetTextValue($"Mods.FargowiltasSouls.{Key}")}", position, Color.White);
+            Utils.DrawBorderString(spriteBatch, $"{Language.GetTextValue($"Mods.{Mod}.{Key}")}", position, Color.White);
         }
     }
 }

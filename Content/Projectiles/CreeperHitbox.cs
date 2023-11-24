@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Content.Buffs;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -39,7 +40,10 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.HitDirectionOverride = Main.player[Projectile.owner].Center.X > target.Center.X ? -1 : 1;
-            target.AddBuff(BuffID.Ichor, 60 * 10);
+            if (Projectile.ai[0] == 0) //gutted
+                target.AddBuff(BuffID.Ichor, 60 * 10);
+            else
+                target.AddBuff(ModContent.BuffType<SublimationBuff>(), 60 * 10);
         }
     }
 }

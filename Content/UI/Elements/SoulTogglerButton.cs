@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.Localization;
 using Terraria.UI;
 
 namespace FargowiltasSouls.Content.UI.Elements
@@ -29,14 +30,14 @@ namespace FargowiltasSouls.Content.UI.Elements
             Icon.Top.Set(y, 0); //300
             Append(Icon);
 
-            IconHighlight = new FargoUIHoverTextImageButton(FargoUIManager.SoulTogglerButton_MouseOverTexture, FargoSoulsUtil.IsChinese() ? "设置饰品效果" : "Configure Accessory Effects");
+            IconHighlight = new FargoUIHoverTextImageButton(FargoUIManager.SoulTogglerButton_MouseOverTexture, Language.GetTextValue("Mods.FargowiltasSouls.UI.SoulTogglerButton") );
             IconHighlight.Left.Set(0, 0);
             IconHighlight.Top.Set(0, 0);
             IconHighlight.SetVisibility(1f, 0);
             IconHighlight.OnLeftClick += IconHighlight_OnClick;
             Icon.Append(IconHighlight);
 
-            OncomingMutant = new UIOncomingMutant(FargoUIManager.OncomingMutantTexture.Value, FargoUIManager.OncomingMutantAuraTexture.Value, FargoSoulsUtil.IsChinese() ? "永恒模式已开启" : "Eternity Mode is enabled", FargoSoulsUtil.IsChinese() ? "受虐模式已开启" : "Masochist Mode is enabled");
+            OncomingMutant = new UIOncomingMutant(FargoUIManager.OncomingMutantTexture.Value, FargoUIManager.OncomingMutantAuraTexture.Value, Language.GetTextValue("Mods.FargowiltasSouls.UI.EternityEnabled"), Language.GetTextValue("Mods.FargowiltasSouls.UI.MasochistEnabled"));
             OncomingMutant.Left.Set(610, 0);
             OncomingMutant.Top.Set(250, 0);
             Append(OncomingMutant);
