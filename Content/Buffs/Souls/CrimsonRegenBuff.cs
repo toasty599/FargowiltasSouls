@@ -23,7 +23,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
             if (modPlayer.CrimsonRegenTime % 420 == 0)
             {
-                player.Heal(modPlayer.CrimsonRegenAmount); //crimsonregenamount is set in CrimsonEnchant.cs
+                player.statLife += modPlayer.CrimsonRegenAmount;
+                player.HealEffect(modPlayer.CrimsonRegenAmount);
             }
             if (modPlayer.CrimsonRegenTime > (modPlayer.ForceEffect(modPlayer.CrimsonEnchantItem.type) ? 420*2 : 420)) { //if its force effect, end at 14 seconds instead of 7
                 player.DelBuff(buffIndex);
