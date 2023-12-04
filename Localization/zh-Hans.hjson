@@ -257,6 +257,7 @@ Mods: {
 			NoMusic2: 请加载Fargo的音乐Mod以获得完整的游戏体验！！
 			// NoDLC1: We detected that you're playing Fargo's Souls Mod together with {0}.
 			// NoDLC2: It's recommended to use the "Fargo's Souls DLC" mod for compatibility and content between these mods!
+			// Wiki: Check out the official Fargo's Wiki at [c/0000FF:terrariamods.wiki.gg/wiki/Fargo%27s_Mod]!
 
 			DeviBribe: {
 				Line1: 等一下……
