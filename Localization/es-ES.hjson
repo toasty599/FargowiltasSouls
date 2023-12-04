@@ -255,6 +255,8 @@ Mods: {
 			// Revived: You've been revived!
 			// NoMusic1: Fargo's Music Mod not found!
 			// NoMusic2: Please install Fargo's Music Mod for the full experience!!
+			// NoDLC1: We detected that you're playing Fargo's Souls Mod together with {0}.
+			// NoDLC2: It's recommended to use the "Fargo's Souls DLC" mod for compatibility and content between these mods!
 
 			DeviBribe: {
 				// Line1: Wait a second...

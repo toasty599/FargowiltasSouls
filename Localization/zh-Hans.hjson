@@ -255,6 +255,8 @@ Mods: {
 			Revived: 你复活了！
 			NoMusic1: 未加载Fargo的音乐Mod（Fargo's Music Mod）！
 			NoMusic2: 请加载Fargo的音乐Mod以获得完整的游戏体验！！
+			// NoDLC1: We detected that you're playing Fargo's Souls Mod together with {0}.
+			// NoDLC2: It's recommended to use the "Fargo's Souls DLC" mod for compatibility and content between these mods!
 
 			DeviBribe: {
 				Line1: 等一下……

@@ -142,6 +142,35 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoMusic1"), Color.LimeGreen);
                 Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoMusic2"), Color.LimeGreen);
             }
+            if (!ModLoader.TryGetMod("FargowiltasCrossmod", out Mod soulsDLC))
+            {
+                List<string> supportedMods = new();
+                if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+                {
+                    supportedMods.Add(calamity.DisplayName);
+                }
+                if (ModLoader.TryGetMod("NoxusBoss", out Mod WotG))
+                {
+                    supportedMods.Add(WotG.DisplayName);
+                }
+                string modsString = "";
+                for (int i = 0; i < supportedMods.Count; i++)
+                {
+                    modsString += supportedMods[i];
+                    if (i + 2 < supportedMods.Count)
+                    {
+                        modsString += ", ";
+                    }
+                    else if (i + 1 < supportedMods.Count)
+                    {
+                        modsString += " and ";
+                    }
+                }
+                Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC1", modsString), Color.Green);
+                Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC2"), Color.Green);
+            }
+
+            Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.Wiki"), Color.Lime);
 
             if (Toggler.CanPlayMaso)
             {
