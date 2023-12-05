@@ -499,7 +499,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 if (TelegraphTimer % frequency == 0)
                 {
-                    Particle p = new SparkParticle(eyeCenter + offset, vel, color, Main.rand.NextFloat(0.6f, 1.2f), 20);
+                    Particle p = new SparkParticle(eyeCenter + offset, vel, color, Main.rand.NextFloat(1.25f, 2f), 20);
                     p.Spawn();
                 }
 

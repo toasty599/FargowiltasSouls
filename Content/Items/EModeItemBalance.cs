@@ -370,6 +370,9 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 0.8f;
                     balanceTextKeys = new string[] { "Damage", "SpearRework" };
                     return EModeChange.Buff;
+                case ItemID.WarmthPotion:
+                    balanceTextKeys = new string[] { "WarmthPotionNerf" };
+                    return EModeChange.Nerf;
 
                 default:
                     return EModeChange.None;

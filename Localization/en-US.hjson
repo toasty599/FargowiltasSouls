@@ -1058,6 +1058,7 @@ Mods: {
 			MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
 			OrichalcumHalberdRework: Releases flower petals on swing
 			SuperStarCannon: Decreased maximum pierce to 7
+			WarmthPotionNerf: 
 		}
 
 		EternityMode: {

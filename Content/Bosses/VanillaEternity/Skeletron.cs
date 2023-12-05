@@ -18,6 +18,7 @@ using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Patreon.DanielTheRobot;
 using FargowiltasSouls.Common.Graphics.Particles;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -37,6 +38,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool SpawnedArms;
         public bool HasSaidEndure;
         public bool FirstCycle;
+
+        public int SpawnGrace;
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
@@ -50,6 +53,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             binaryWriter.Write7BitEncodedInt(BabyGuardianTimer);
             binaryWriter.Write7BitEncodedInt(DGSpeedRampup);
             bitWriter.WriteBit(InPhase2);
+            binaryWriter.Write7BitEncodedInt(SpawnGrace);
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
@@ -60,8 +64,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             BabyGuardianTimer = binaryReader.Read7BitEncodedInt();
             DGSpeedRampup = binaryReader.Read7BitEncodedInt();
             InPhase2 = bitReader.ReadBit();
+            SpawnGrace = binaryReader.Read7BitEncodedInt();
         }
 
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            if (WorldSavingSystem.SwarmActive || !WorldSavingSystem.EternityMode)
+                return;
+            SpawnGrace = 60 * 4;
+        }
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) => SpawnGrace > 0 ? false : base.CanHitPlayer(npc, target, ref cooldownSlot);
         static int BabyGuardianTimerRefresh(NPC npc) => !WorldSavingSystem.MasochistModeReal && NPC.AnyNPCs(NPCID.SkeletronHand) && npc.life > npc.lifeMax * 0.25 ? 240 : 180;
 
         void GrowHands(NPC npc, bool secondSet = false)
@@ -94,6 +106,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (WorldSavingSystem.SwarmActive)
                 return result;
+
+            if (SpawnGrace > 0)
+                SpawnGrace--;
 
             if (ArmDR(npc))
             {
@@ -530,6 +545,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         //arm ai notes: ai3 is attack timer, when 300 the arm attacks and it stays at 300
         public const int GuardianTime = 65;
         public const int GuardianDelay = 150;
+
+
         public override bool SafePreAI(NPC npc)
         {
             bool result = base.SafePreAI(npc);
@@ -885,6 +902,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         private bool CollidingWithOtherHand(NPC npc) => Main.npc.Any(n => OtherHandAlive(npc, n) && npc.Hitbox.Intersects(n.Hitbox));
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
+            NPC head = FargoSoulsUtil.NPCExists(npc.ai[1], NPCID.SkeletronHead);
+            if (head != null && head.type == NPCID.SkeletronHead)
+                if (head.GetGlobalNPC<SkeletronHead>().SpawnGrace > 0)
+                    return false;
+
             return HitPlayer;
         }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)

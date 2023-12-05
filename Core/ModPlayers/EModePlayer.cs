@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -71,6 +72,9 @@ namespace FargowiltasSouls.Core.ModPlayers
         }
         private void MurderGreaterDangersense()//KILL alchnpc greater dangersense (when boss alive)
         {
+            if (!WorldSavingSystem.EternityMode)
+                return;
+
             if (ModLoader.TryGetMod("AlchemistNPC", out Mod alchNPC) && FargoSoulsUtil.AnyBossAlive())
             {
                 if (alchNPC.TryFind("GreaterDangersense", out ModBuff greaterDangersense))
@@ -386,6 +390,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.manaRegenBonus += 5;
 
             Player.wellFed = true; //no longer expert half regen unless fed
+
         }
 
         public override void PostUpdateEquips()
@@ -486,6 +491,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             ShadowDodgeNerf();
+
+            if (Player.resistCold && npc.coldDamage) //warmth potion nerf
+            {
+                modifiers.FinalDamage *= 1.15f;
+            }
         }
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
@@ -493,6 +503,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             ShadowDodgeNerf();
+
+            if (Player.resistCold && proj.coldDamage) //warmth potion nerf
+            {
+                modifiers.FinalDamage *= 1.15f;
+            }
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -506,7 +521,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-
             //ShadowDodgeNerf();
         }
 
@@ -520,6 +534,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
             if (modifiers.DamageSource.SourceProjectileType == ProjectileID.Explosives)
                 Player.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
+
+            
 
             base.ModifyHurt(ref modifiers);
         }
