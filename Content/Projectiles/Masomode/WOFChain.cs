@@ -38,9 +38,20 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.extraUpdates = 2;
         }
 
+        public override bool? CanDamage() => (Projectile.timeLeft <= 30 || Projectile.ai[2] == 1) ? false : base.CanDamage();
         public override void AI()
         {
             Lighting.AddLight(Projectile.Center, 0.1f, 0.5f, 0.7f);
+
+            if (Projectile.timeLeft <= 30 || Projectile.ai[2] == 1)
+            {
+                Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 0f, 0.05f);
+                if (Projectile.Opacity < 0.1f)
+                {
+                    Projectile.Kill();
+                    return;
+                } 
+            }
 
             if (Projectile.ai[0] == 0)
             {
@@ -69,7 +80,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.wallBoss, NPCID.WallofFlesh)
                 && Math.Abs(Projectile.Center.X - Main.npc[EModeGlobalNPC.wallBoss].Center.X) < 50)
             {
-                Projectile.Kill(); //chain dies when wall moves over it
+                Projectile.ai[2] = 1; //chain dies when wall moves over it
             }
 
             if (Projectile.velocity != Vector2.Zero)
