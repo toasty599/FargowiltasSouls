@@ -387,6 +387,8 @@ Mods: {
 			OncomingMutantY: Posição Y do ícone no inventário do Modo Eternidade
 			Precision: A tecla do Selo da Precisão deve ser segurada
 			PrecisionTooltip: Se falso, o modo de precisão é alternado com a tecla.
+			// PreBossNightGlow: Pre-Boss Enemy Glow
+			// PreBossNightGlowTooltip: In Eternity Mode, enemies glow at night before any boss has been killed
 			HideTogglerTooltip: Se verdadeiro, o alternador de efeitos é escondido automaticamente quando o seu inventário está fechado.
 		}
 
@@ -1061,7 +1063,7 @@ Mods: {
 			// MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
 			// OrichalcumHalberdRework: Releases flower petals on swing
 			// SuperStarCannon: Decreased maximum pierce to 7
-			// WarmthPotionNerf: Halved damage reduction
+			// WarmthPotionNerf: Halved damage reduction effect
 		}
 
 		EternityMode: {
@@ -6449,6 +6451,11 @@ Mods: {
 				DisplayTogglesRegardless: {
 					// Label: Display Soul Toggles Always
 					// Tooltip: Disable to only show soul toggles when you have the effect's accessory equipped. Enable to always show them.
+				}
+
+				PreBossNightGlow: {
+					// Label: "{$Mods.FargowiltasSouls.Config.PreBossNightGlow}"
+					// Tooltip: "{$Mods.FargowiltasSouls.Config.PreBossNightGlowTooltip}"
 				}
 			}
 		}

@@ -387,6 +387,8 @@ Mods: {
 			OncomingMutantY: 永恒模式图标竖直位置
 			Precision: 按住“玲珑圣印”键时开启精确模式
 			PrecisionTooltip: 如果关闭，你不再需要一直按住热键以开启精度模式。不在精度模式时，按下热键可以激活，再按一次即可取消。
+			// PreBossNightGlow: Pre-Boss Enemy Glow
+			// PreBossNightGlowTooltip: In Eternity Mode, enemies glow at night before any boss has been killed
 			// HideTogglerTooltip: Mods.FargowiltasSouls.Config.HideTogglerTooltip
 		}
 
@@ -1061,7 +1063,7 @@ Mods: {
 			// MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
 			// OrichalcumHalberdRework: Releases flower petals on swing
 			// SuperStarCannon: Decreased maximum pierce to 7
-			// WarmthPotionNerf: Halved damage reduction
+			// WarmthPotionNerf: Halved damage reduction effect
 		}
 
 		EternityMode: {
@@ -6432,6 +6434,11 @@ Mods: {
 				DisplayTogglesRegardless: {
 					// Label: Display Soul Toggles Always
 					// Tooltip: Disable to only show soul toggles when you have the effect's accessory equipped. Enable to always show them.
+				}
+
+				PreBossNightGlow: {
+					// Label: "{$Mods.FargowiltasSouls.Config.PreBossNightGlow}"
+					// Tooltip: "{$Mods.FargowiltasSouls.Config.PreBossNightGlowTooltip}"
 				}
 			}
 		}
