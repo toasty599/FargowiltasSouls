@@ -6062,6 +6062,7 @@ Mods: {
 			// SpectralEoC.DisplayName: Spectral Eye of Cthulhu
 			// MonkDashSlash.DisplayName: Monk Dash Slash
 			// ObsidianExplosion.DisplayName: Obsidian Explosion
+			// DeviGuardianHarmless.DisplayName: Devi Guardian Harmless
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
