@@ -307,7 +307,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     Main.EntitySpriteDraw(value, vector + value3, null, fairyQueenWeaponsColor * num2, num, origin, scale, SpriteEffects.None, 0);
                 }
             }
-            HallowSword sword = proj.ModProjectile != null && proj.ModProjectile is HallowSword ? proj.ModProjectile as HallowSword : null;
+            HallowSword sword = proj.ModProjectile != null && proj.ModProjectile is HallowSword ? proj.As<HallowSword>() : null;
             const float slashTime = 5;
             float fade = (float)(sword.SlashCD + slashTime - sword.SlashCDMax) / slashTime;
             Color fadeColor = Color.Lerp(Color.Transparent, Color.LightGoldenrodYellow with { A = 0 }, fade);

@@ -587,7 +587,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile p = Main.projectile[i];
-                    if (p != null && p.active && p.type == ModContent.ProjectileType<MechLureProjectile>())
+                    if (p.TypeAlive(ModContent.ProjectileType<MechLureProjectile>()))
                     {
                         LockVector1 = p.Center;
                         break;

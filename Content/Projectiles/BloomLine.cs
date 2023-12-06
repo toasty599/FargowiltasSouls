@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case 2: //banished baron dash telegraph
                     {
                         NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
-                        if (baron != null)
+                        if (baron.Alive())
                         {
                             Projectile.rotation = baron.rotation;
                             Projectile.Center = baron.Center;
@@ -133,7 +133,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case 3: //banished baron nuke telegraph
                     {
                         NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
-                        if (baron != null)
+                        if (baron.Alive())
                         {
                             Projectile.rotation = baron.rotation;
                             Projectile.Center = baron.Center;
@@ -147,7 +147,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case 4: //banished baron mine flurry telegraph
                     {
                         NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
-                        if (baron != null)
+                        if (baron.Alive())
                         {
                             Projectile.rotation = baron.rotation;
                             Projectile.Center = baron.Center;
@@ -185,7 +185,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case 7: //sweeping nebula pillar shot telegraph
                     {
                         NPC baron = FargoSoulsUtil.NPCExists(Projectile.ai[1], ModContent.NPCType<BanishedBaron>());
-                        if (baron != null)
+                        if (baron.Alive())
                         {
                             Projectile.rotation = baron.rotation;
                             Projectile.Center = baron.Center + (baron.rotation.ToRotationVector2() * baron.width / 3);

@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 Projectile proj = Main.projectile[i];
                 if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == player.whoAmI)
                 {
-                    if ((proj.ModProjectile as BaronTuskShrapnel).EmbeddedNPC == target)
+                    if (proj.As<BaronTuskShrapnel>().EmbeddedNPC == target)
                     {
                         shrapnel++;
                     }
@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                     Projectile proj = Main.projectile[i];
                     if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == player.whoAmI)
                     {
-                        if ((proj.ModProjectile as BaronTuskShrapnel).EmbeddedNPC == target)
+                        if (proj.As<BaronTuskShrapnel>().EmbeddedNPC == target)
                         {
                             proj.ai[1] = 2;
                         }

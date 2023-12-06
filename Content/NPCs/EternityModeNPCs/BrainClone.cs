@@ -237,7 +237,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.FargoSouls().Needled = false;
 
             NPC brain = FargoSoulsUtil.NPCExists(EModeGlobalNPC.brainBoss, NPCID.BrainofCthulhu);
-            if (brain != null)
+            if (brain.Alive())
             {
                 NPC.active = true;
                 NPC.life = brain.life;

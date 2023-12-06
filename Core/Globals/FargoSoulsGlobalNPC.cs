@@ -608,7 +608,7 @@ namespace FargowiltasSouls.Core.Globals
                 Projectile proj = Main.projectile[i];
                 if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == Main.myPlayer)
                 {
-                    if ((proj.ModProjectile as BaronTuskShrapnel).EmbeddedNPC == npc)
+                    if (proj.As<BaronTuskShrapnel>().EmbeddedNPC == npc)
                     {
                         shrapnel++;
                     }

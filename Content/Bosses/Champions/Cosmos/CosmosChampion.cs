@@ -1757,7 +1757,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     break;
             }
 
-            if (Main.projectile.Any(p => p != null && p.active && p.type == ModContent.ProjectileType<GlowRing>() && p.ai[0] == NPC.whoAmI && (p.ai[1] == -23 || p.ai[1] == -20)))
+            if (Main.projectile.Any(p => p.TypeAlive(ModContent.ProjectileType<GlowRing>()) && p.ai[0] == NPC.whoAmI && (p.ai[1] == -23 || p.ai[1] == -20)))
             {
                 NPC.frame.Y = frameHeight * HandsBackFrame;
             }

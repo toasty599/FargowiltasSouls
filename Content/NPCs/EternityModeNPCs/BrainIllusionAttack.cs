@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         public override void FindFrame(int frameHeight)
         {
             NPC brain = FargoSoulsUtil.NPCExists(NPC.ai[0], NPCID.BrainofCthulhu);
-            if (brain != null)
+            if (brain.Alive())
             {
                 NPC.frame.Y = Main.npc[EModeGlobalNPC.brainBoss].frame.Y;
             }

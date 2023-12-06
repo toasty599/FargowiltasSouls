@@ -192,8 +192,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     {
                         if (child.active && child.type == Type)
                         {
-                            (child.ModProjectile as BaronWhirlpool).Fade = true;
-                            //(child.ModProjectile as BaronWhirlpool).Animate = true;
+                            child.As<BaronWhirlpool>().Fade = true;
+                            //child.As<BaronWhirlpool>().Animate = true;
                         }
                     }
                     Projectile.Kill();

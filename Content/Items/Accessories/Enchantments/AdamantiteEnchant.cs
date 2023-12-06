@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             foreach (Projectile p in FargoSoulsGlobalProjectile.SplitProj(projectile, 3, MathHelper.ToRadians(splitDegreeAngle), adaDamageRatio))
             {
-                if (p != null && p.active)
+                if (p.Alive())
                 {
                     p.FargoSouls().HuntressProj = projectile.FargoSouls().HuntressProj;
                 }
