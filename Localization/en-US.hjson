@@ -387,6 +387,8 @@ Mods: {
 			OncomingMutantY: Eternity Mode inventory icon Y position
 			Precision: Precision Seal Key must be held
 			PrecisionTooltip: If false, precision mode is instead toggled with the key.
+			PreBossNightGlow: Pre-Boss Enemy Glow
+			PreBossNightGlowTooltip: In Eternity Mode, enemies glow at night before any boss has been killed
 			HideTogglerTooltip: Mods.FargowiltasSouls.Config.HideTogglerTooltip
 		}
 

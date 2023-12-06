@@ -508,9 +508,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     TelegraphTimer = 0;
                     TelegraphingLasers = false;
                 }
-                
             }
-            
 
             if (mouth.GetGlobalNPC<WallofFlesh>().InDesperationPhase)
             {

@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Core.Globals
                 return base.PreAI(npc);
 
             //in pre-hm, enemies glow slightly at night
-            if (!Main.dayTime && !Main.hardMode)
+            if (!Main.dayTime && !Main.hardMode && SoulConfig.Instance.PreBossNightGlow)
             {
                 int x = (int)npc.Center.X / 16;
                 int y = (int)npc.Center.Y / 16;

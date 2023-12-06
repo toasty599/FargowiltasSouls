@@ -48,6 +48,11 @@ namespace FargowiltasSouls.Core
         [DefaultValue(true)]
         public bool PrecisionSealIsHold;
 
+        [Label($"$Mods.{ModName}.Config.PreBossNightGlow")]
+        [Tooltip($"$Mods.{ModName}.Config.PreBossNightGlowTooltip")]
+        [DefaultValue(true)]
+        public bool PreBossNightGlow;
+
         private const float max4kX = 3840f;
         [Label($"$Mods.{ModName}.Config.OncomingMutantX")]
         [Increment(1f)]
