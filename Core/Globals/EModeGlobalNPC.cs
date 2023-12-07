@@ -1101,10 +1101,22 @@ namespace FargowiltasSouls.Core.Globals
                     TimsConcoctionDrop(ItemDropRule.Common(ItemID.LifeforcePotion, 1, 1, 12));
                     break;
 
+                case NPCID.ManEater:
+                case NPCID.Nutcracker:
+                case NPCID.Parrot:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.GenderChangePotion, 1, 1, 3));
+                    break;
+                case NPCID.CorruptBunny:
+                case NPCID.CrimsonBunny:
+                case NPCID.CorruptGoldfish:
+                case NPCID.CrimsonGoldfish:
+                case NPCID.CorruptPenguin:
+                case NPCID.CrimsonPenguin:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.BiomeSightPotion, 1, 1, 3));
+                    break;
                 default: break;
             }
             #endregion
-
             //if (npc.ModNPC == null || npc.ModNPC.Mod is FargowiltasSouls) //not for other mods
             //{
             int allowedRecursionDepth = 10;
