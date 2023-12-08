@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             NPC.boss = true;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions") : MusicID.OtherworldlyLunarBoss;
+                ? MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Silent") : MusicID.OtherworldlyLunarBoss;
             SceneEffectPriority = SceneEffectPriority.BossLow;
 
             NPC.scale *= 1.5f;
@@ -174,6 +174,9 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     NPC.localAI[3] = 1;
 
                     NPC.velocity = NPC.DirectionFrom(Main.player[NPC.target].Center).RotatedByRandom(MathHelper.PiOver2) * 20f;
+
+                    Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
+                            ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/PlatinumStar") : MusicID.OtherworldlyLunarBoss;
                 }
                 return;
             }
@@ -703,6 +706,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                         //if (FargoSoulsUtil.HostCheck) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
                         epicMe = 1f;
+
                     }
                     else if (NPC.ai[1] > 180) //LAUGH
                     {
