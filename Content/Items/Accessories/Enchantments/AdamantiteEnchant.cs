@@ -46,11 +46,17 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             int adaCap = 60; //ada cap in DEGREES
 
-            if (modPlayer.WeaponUseTimer > 0) modPlayer.AdamantiteSpread += 0.25; //ada spread change. 0.25 per frame, takes 240 frames or 4 seconds to hit max of 60
-            else modPlayer.AdamantiteSpread -= 0.5; //yeah i just copied mythril code so what
+            const float seconds = 10;
+            if (modPlayer.WeaponUseTimer > 0) 
+                modPlayer.AdamantiteSpread += (adaCap / 60f) / seconds; //ada spread change per frame, based on total amount of seconds to reach cap
+            else 
+                modPlayer.AdamantiteSpread -= 0.5; //yeah i just copied mythril code so what
 
-            if (modPlayer.AdamantiteSpread < 0) modPlayer.AdamantiteSpread = 0; 
-            if (modPlayer.AdamantiteSpread > adaCap) modPlayer.AdamantiteSpread = adaCap;
+            if (modPlayer.AdamantiteSpread < 0) 
+                modPlayer.AdamantiteSpread = 0; 
+
+            if (modPlayer.AdamantiteSpread > adaCap) 
+                modPlayer.AdamantiteSpread = adaCap;
             
         }
 
