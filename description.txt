@@ -32,7 +32,6 @@ Baron's Tusk:
 (Compensation for previous Tungsten Enchant changes)
 
 Eternity Mode item balance: 
--Adamantite Glaive/Titanium Trident +15->10% damage
 -Titanium/Adamantite Sword +40->35% damage and speed
 -Excalibur/Gungnir: +25% damage and speed
 -Halved damage reduction of Warmth Potion
