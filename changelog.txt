@@ -1,6 +1,8 @@
 NEW UPDATE - V {ModVersion}
 
 New Eternity icon on world load screen
+Added a config for enemies glowing during the night in Eternity Mode before any boss is killed
+Added chat disclaimer messages on world join for Fargo's Souls DLC and the wiki
 
 Added new Eridanus theme: Platinum Star
 Changed Eridanus sphere telegraph
@@ -17,19 +19,21 @@ Eternity Skeletron deals no contact damage for 3 seconds after spawning
 
 Improved visuals for Eternity Wall of Flesh
 
+Adamantite Enchant: Spread increases more slowly
+
+Baron's Tusk:
+-Benefits less from melee speed
+-Damage 95 -> 70
+(Compensation for previous Tungsten Enchant changes)
+
 Eternity Mode item balance: 
 -Adamantite Glaive/Titanium Trident +15->10% damage
 -Titanium/Adamantite Sword +40->35% damage and speed
 -Excalibur/Gungnir: +25% damage and speed
 -Halved damage reduction of Warmth Potion
 
-Adamantite Enchant: Spread increases more slowly
-
 New Tim's Concoction drops: 
 -Gender Change Potions from Man Eaters, Nutcrackers and Parrots
 -Biome Sight Potions from Corrupt/Vicious Bunnies, Goldfishes and Penguins
-
-Added a config for enemies glowing during the night in Eternity Mode before any boss is killed
-Added chat disclaimer messages on world join for Fargo's Souls DLC and the wiki
 
 Parrots now instakill women on Masochist Mode
