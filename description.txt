@@ -5,42 +5,33 @@ Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
 
 NEW UPDATE - V 1.6.2
-New Eternity icon on world load screen
-Added a config for enemies glowing during the night in Eternity Mode before any boss is killed
-Added chat disclaimer messages on world join for Fargo's Souls DLC and the wiki
-
-Added new Eridanus theme: Platinum Star
-Changed Eridanus sphere telegraph
-
-Deviantt changes: 
--Rotates in a random direction while performing the Wyvern orb spiral attack
--Does less teleports before repeated hammer spirals in Phase 2
--New telegraph for Guardians attack
--Increased her movement speed at the start of the mimics attack
--Rune wizard outer aura pulls you in instead of inflicting debuffs
--Sparkling Love now has proper physics accelerating rotation
-
-Eternity Skeletron deals no contact damage for 3 seconds after spawning
-
-Improved visuals for Eternity Wall of Flesh
-
-Adamantite Enchant: Spread increases more slowly
-
-Baron's Tusk:
--Benefits less from melee speed
--Damage 95 -> 70
-(Compensation for previous Tungsten Enchant changes)
-
-Eternity Mode item balance: 
--Titanium/Adamantite Sword +40->35% damage and speed
--Excalibur/Gungnir: +25% damage and speed
--Halved damage reduction of Warmth Potion
-
-New Tim's Concoction drops: 
--Gender Change Potions from Man Eaters, Nutcrackers and Parrots
--Biome Sight Potions from Corrupt/Vicious Bunnies, Goldfishes and Penguins
-
-Parrots now instakill women on Masochist Mode
+-Added a new Eternity icon on the world load screen
+-Added a config for enemies glowing during the night in Eternity Mode before any boss is killed
+-Added chat disclaimer messages on world join for Fargo's Souls DLC and the wiki
+-Added new Eridanus theme: Platinum Star
+-Changed Eridanus sphere telegraph
+-Deviantt changes: 
+--Rotates in a random direction while performing the Wyvern orb spiral attack
+--Does less teleports before repeated hammer spirals in Phase 2
+--New telegraph for Guardians attack
+--Increased her movement speed at the start of the mimics attack
+--Rune wizard outer aura pulls you in instead of inflicting debuffs
+--Sparkling Love now has proper physics accelerating rotation
+-Eternity Skeletron deals no contact damage for 3 seconds after spawning
+-Improved visuals for Eternity Wall of Flesh
+-Adamantite Enchantment: Spread increases more slowly
+-Baron's Tusk:
+--Benefits less from melee speed
+--Damage 95 -> 70
+--(Compensation for previous Tungsten Enchant changes)
+-Eternity Mode item balance: 
+--Titanium/Adamantite Sword +40->35% damage and speed
+--Excalibur/Gungnir: +25% damage and speed
+--Halved damage reduction of Warmth Potion
+-New Tim's Concoction drops: 
+--Gender Change Potions from Man Eaters, Nutcrackers and Parrots
+--Biome Sight Potions from Corrupt/Vicious Bunnies, Goldfishes and Penguins
+-Parrots now instakill women on Masochist Mode
 
 NEW UPDATE - V 1.6.1.1
 -Abominationn (Masochist Mode): Health decreased by 10%, nerfed basic scythe attack
