@@ -255,6 +255,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             AncientHallowEnchantActive = false;
             ChloroEnchantActive = false;
             ChloroEnchantItem = null;
+            JungleEnchantItem = null;
             VortexEnchantActive = false;
             AdamantiteEnchantItem = null;
             FrostEnchantActive = false;

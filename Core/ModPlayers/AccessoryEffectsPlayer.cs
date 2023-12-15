@@ -239,6 +239,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             ChloroEnchantActive = true;
 
             ChloroEnchantItem = item;
+            JungleEnchantItem = item;
 
             if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Chlorophyte") && Player.ownedProjectileCounts[ModContent.ProjectileType<Chlorofuck>()] == 0)
             {

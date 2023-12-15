@@ -170,6 +170,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int HuntressCD;
 
         public bool JungleEnchantActive;
+        public Item JungleEnchantItem;
         public int JungleCD;
 
 

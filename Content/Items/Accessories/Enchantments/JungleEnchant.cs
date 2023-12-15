@@ -40,6 +40,7 @@ Double tap a direction
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.FargoSouls().JungleEnchantActive = true;
+            player.FargoSouls().JungleEnchantItem = Item;
         }
 
         public override void AddRecipes()

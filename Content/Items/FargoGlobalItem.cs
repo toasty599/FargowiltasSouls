@@ -434,12 +434,14 @@ namespace FargowiltasSouls.Content.Items
                 modPlayer.CanJungleJump = false;
 
                 //spwn cloud
-                if (modPlayer.JungleCD == 0)
+                if (modPlayer.JungleCD == 0 && modPlayer.JungleEnchantItem != null)
                 {
-                    bool jungleForceEffect = modPlayer.ForceEffect(modPlayer.ChloroEnchantItem.type) || modPlayer.ForceEffect(ModContent.ItemType<JungleEnchant>());
+                    bool jungleForceEffect = modPlayer.ForceEffect(ModContent.ItemType<JungleEnchant>());
+                    if (modPlayer.JungleEnchantItem != null && modPlayer.ForceEffect(modPlayer.JungleEnchantItem.type))
+                         jungleForceEffect = true;
                     int dmg = jungleForceEffect ? 150 : 75;
                     SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, player.Center);
-                    FargoSoulsUtil.XWay(10, player.GetSource_Accessory(modPlayer.ChloroEnchantItem), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
+                    FargoSoulsUtil.XWay(10, player.GetSource_Accessory(modPlayer.JungleEnchantItem), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
 
                     modPlayer.JungleCD = 8;
                 }
