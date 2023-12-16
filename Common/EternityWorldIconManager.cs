@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Common
         {
             Main.QueueMainThreadAction(() =>
             {
-                //On_AWorldListItem.GetDifficulty += EternityDifficulty;
+                On_AWorldListItem.GetDifficulty += EternityDifficultyFix;
                 On_AWorldListItem.GetIconElement += AddEternityElement;
             });
 
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Common
         {
             Main.QueueMainThreadAction(() =>
             {
-                //On_AWorldListItem.GetDifficulty -= EternityDifficulty;
+                On_AWorldListItem.GetDifficulty -= EternityDifficultyFix;
                 On_AWorldListItem.GetIconElement -= AddEternityElement;
             });
         }
@@ -91,13 +91,16 @@ namespace FargowiltasSouls.Common
             
             return worldIcon;
         }
-        /*
-        private void EternityDifficulty(On_AWorldListItem.orig_GetDifficulty orig, AWorldListItem self, out string expertText, out Color gameModeColor)
+        
+        private void EternityDifficultyFix(On_AWorldListItem.orig_GetDifficulty orig, AWorldListItem self, out string expertText, out Color gameModeColor)
         {
-            expertText = "Eternity2";
-            gameModeColor = Color.Cyan;
+            orig.Invoke(self, out string origText, out Color origColor);
+            if (origText == "Legendary")
+                origText = "Legendary  ";
+            expertText = origText;
+            gameModeColor = origColor;
         }
-        */
+        
 
         public override void SaveWorldHeader(TagCompound tag)
         {
