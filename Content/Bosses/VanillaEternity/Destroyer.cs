@@ -988,7 +988,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         }
         public override void SafeOnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            if (!FargoSoulsUtil.IsSummonDamage(projectile))
+            if (!FargoSoulsUtil.IsSummonDamage(projectile) && projectile.damage > 5)
                 projectile.damage = (int)Math.Min(projectile.damage - 1, projectile.damage * 0.75);
 
             base.SafeOnHitByProjectile(npc, projectile, hit, damageDone);
