@@ -4,6 +4,19 @@ Features the highly challenging Eternity Mode!
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
 
+NEW UPDATE - V 1.6.2.1
+Valhalla Enchantment dash now works with Dash Key
+Added boss names to Treasure Bags
+Fixed the DLC chat message showing without having any supported mods
+Fixed the Eternity Mode base stat increase applying twice
+Fixed Lifelight aura and DR issues
+Fixed the space breath meter draining oddly
+Fixed overlap between Legendary Mode and the Eternity icon on world load screen
+Fixed Boss Checklist displaying the wrong item for Abominationn's summoning method
+Fixed Adamantite Enchant center projectile having incorrect damage scale
+Fixed Destroyer projectile damage reduction being able to reduce it to 0
+Fixed several tooltips
+
 NEW UPDATE - V 1.6.2
 -Added a new Eternity icon on the world load screen
 -Added a config for enemies glowing during the night in Eternity Mode before any boss is killed
@@ -32,18 +45,3 @@ NEW UPDATE - V 1.6.2
 --Gender Change Potions from Man Eaters, Nutcrackers and Parrots
 --Biome Sight Potions from Corrupt/Vicious Bunnies, Goldfishes and Penguins
 -Parrots now instakill women on Masochist Mode
-
-NEW UPDATE - V 1.6.1.1
--Abominationn (Masochist Mode): Health decreased by 10%, nerfed basic scythe attack
--Nano Core: Summoner mode deals 15% less damage
--Pearlwood Enchant: Force effect now provides an extra crit reroll, star dies upon hitting an enemy
--Mechanical Leash of Cthulhu damage 160 -> 155
--Omniscience Staff damage 302 -> 312
--Staff of Unleashed Ocean damage 140 -> 115
--Pure Heart eaters and creepers apply a new debuff with effects of Ichor and Cursed Flames
--Added new explosion effect for Obsidian Enchantment
--Added a toggle for Gelic Wings jump
--Fixed issues with Shinobi Enchantment dashes
--Fixed several incorrect tooltips
--Fixed some other lesser issues
--Several resprites

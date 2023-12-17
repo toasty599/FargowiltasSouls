@@ -1,38 +1,13 @@
 NEW UPDATE - V {ModVersion}
 
-New Eternity icon on world load screen
-Added a config for enemies glowing during the night in Eternity Mode before any boss is killed
-Added chat disclaimer messages on world join for Fargo's Souls DLC and the wiki
-
-Added new Eridanus theme: Platinum Star
-Changed Eridanus sphere telegraph
-
-Deviantt changes: 
--Rotates in a random direction while performing the Wyvern orb spiral attack
--Does less teleports before repeated hammer spirals in Phase 2
--New telegraph for Guardians attack
--Increased her movement speed at the start of the mimics attack
--Rune wizard outer aura pulls you in instead of inflicting debuffs
--Sparkling Love now has proper physics accelerating rotation
-
-Eternity Skeletron deals no contact damage for 3 seconds after spawning
-
-Improved visuals for Eternity Wall of Flesh
-
-Adamantite Enchant: Spread increases more slowly
-
-Baron's Tusk:
--Benefits less from melee speed
--Damage 95 -> 70
-(Compensation for previous Tungsten Enchant changes)
-
-Eternity Mode item balance: 
--Titanium/Adamantite Sword +40->35% damage and speed
--Excalibur/Gungnir: +25% damage and speed
--Halved damage reduction of Warmth Potion
-
-New Tim's Concoction drops: 
--Gender Change Potions from Man Eaters, Nutcrackers and Parrots
--Biome Sight Potions from Corrupt/Vicious Bunnies, Goldfishes and Penguins
-
-Parrots now instakill women on Masochist Mode
+Valhalla Enchantment dash now works with Dash Key
+Added boss names to Treasure Bags
+Fixed the DLC chat message showing without having any supported mods
+Fixed the Eternity Mode base stat increase applying twice
+Fixed Lifelight aura and DR issues
+Fixed the space breath meter draining oddly
+Fixed overlap between Legendary Mode and the Eternity icon on world load screen
+Fixed Boss Checklist displaying the wrong item for Abominationn's summoning method
+Fixed Adamantite Enchant center projectile having incorrect damage scale
+Fixed Destroyer projectile damage reduction being able to reduce it to 0
+Fixed several tooltips
