@@ -3951,27 +3951,27 @@ Mods: {
 			}
 
 			AbomBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Treasure Bag (Abominationn)
 				Tooltip: Right click to open
 			}
 
 			CosmosBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Treasure Bag (Eridanus)
 				Tooltip: Right click to open
 			}
 
 			DeviBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Treasure Bag (Deviantt)
 				Tooltip: Right click to open
 			}
 
 			MutantBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Treasure Bag (Mutant)
 				Tooltip: Right click to open
 			}
 
 			TrojanSquirrelBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Treasure Bag (Trojan Squirrel)
 				Tooltip: Right click to open
 			}
 
@@ -4890,7 +4890,7 @@ Mods: {
 			PinkEskimoEnchant.DisplayName: Mods.FargowiltasSouls.Items.PinkEskimoEnchant.DisplayName
 
 			LifelightBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Treasure Bag (Lifelight)
 				Tooltip: Right click to open
 			}
 
@@ -5038,7 +5038,7 @@ Mods: {
 			}
 
 			BanishedBaronBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Treasure Bag (Banished Baron)
 				Tooltip: Right click to open
 			}
 
