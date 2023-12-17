@@ -9,7 +9,7 @@ using static FargowiltasSouls.Content.Items.EmodeItemBalance.EmodeItemBalanceToo
 
 namespace FargowiltasSouls.Content.Items
 {
-	public class EmodeItemBalance : EModePlayer
+	public class EmodeItemBalance : ModPlayer
     {
         /// <summary>
         /// Applies an Eternity-exclusive balance change to chosen item type. <br />
@@ -408,7 +408,7 @@ namespace FargowiltasSouls.Content.Items
 
                         case "Speed":
                             {
-                                AttackSpeed *= balanceNumber;
+                                Player.FargoSouls().AttackSpeed *= balanceNumber;
                                 break;
                             }
                     }
