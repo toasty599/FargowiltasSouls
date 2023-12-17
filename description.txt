@@ -5,7 +5,7 @@ Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
 
 NEW UPDATE - V 1.6.2.1
-Valhalla Enchantment dash now works with Dash Key
+Valhalla Enchantment and Paradox Wolf Soul dash now works with Dash Key
 Added boss names to Treasure Bags
 Fixed the DLC chat message showing without having any supported mods
 Fixed the Eternity Mode base stat increase applying twice

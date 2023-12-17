@@ -91,6 +91,18 @@ There is a cooldown of 3 seconds between uses"); */
             //checking for direction
             int direction = 0;
 
+            if (Fargowiltas.Fargowiltas.DashKey.Current)
+            {
+                if (player.controlRight)
+                {
+                    direction = 1;
+                }
+                else if (player.controlLeft)
+                {
+                    direction = -1;
+                }
+            }
+            
             if (player.controlRight && player.releaseRight)
             {
                 if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
