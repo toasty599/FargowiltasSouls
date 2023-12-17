@@ -102,8 +102,28 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                     if (modPlayer.ValhallaDashCD == 0 && player.GetToggleValue("Valhalla"))
                     {
+                        if (Fargowiltas.Fargowiltas.DashKey.Current)
+                        {
+                            if (player.controlDown)
+                            {
+                                ValhallaDash(player, true, 1);
+                            }
+                            //up
+                            else if (player.controlUp)
+                            {
+                                ValhallaDash(player, true, -1);
+                            }
+                            if (player.controlRight)
+                            {
+                                ValhallaDash(player, false, 1);
+                            }
+                            else if (player.controlLeft)
+                            {
+                                ValhallaDash(player, false, -1);
+                            }
+                        }
                         //mount dash
-                        if ((player.controlDown && player.releaseDown))
+                        if ((player.controlDown && (player.releaseDown)))
                         {
                             if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
                             {
