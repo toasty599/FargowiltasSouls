@@ -265,10 +265,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             NPC.dontTakeDamage = false;
             Attacking = 1;
 
-            if (WorldSavingSystem.MasochistModeReal)
-            {
-                DoAura = true;
-            }
+            DoAura = WorldSavingSystem.MasochistModeReal;
+            useDR = false;
 
             if (PhaseOne && NPC.life < P2Threshold)
                 phaseProtectionDR = true;
@@ -287,17 +285,17 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 NPC.life += healPerSecond / 60;
                 CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
             }
-
             if (PyramidPhase == 1)
             {
                 if (PyramidTimer == PyramidAnimationTime)
                 {
                     SoundEngine.PlaySound(SoundID.Item53, NPC.Center);
                     NPC.HitSound = SoundID.Item52;
-                    useDR = true;
+                    
                     NPC.defense = NPC.defDefense + 100;
                     NPC.netUpdate = true;
                 }
+                useDR = true;
                 ChunkDistance = DefaultChunkDistance * (1 - Math.Min((float)PyramidTimer / PyramidAnimationTime, 1f));
             }
             else if (PyramidPhase == -1)
@@ -306,7 +304,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     SoundEngine.PlaySound(SoundID.Shatter with { Pitch = -0.5f }, NPC.Center);
                     NPC.HitSound = SoundID.NPCHit4;
-                    useDR = false;
                     NPC.defense = NPC.defDefense;
                     NPC.netUpdate = true;
                 }
@@ -1091,7 +1088,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     PyramidPhase = -1;
                     PyramidTimer = 0;
                     NPC.netUpdate = true;
-                    DoAura = WorldSavingSystem.MasochistModeReal;
 
                 }
                 if (LaserTimer > endTime && PyramidPhase == 0) //after shell crack animation

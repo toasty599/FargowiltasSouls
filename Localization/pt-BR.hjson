@@ -2943,24 +2943,22 @@ Mods: {
 				// DisplayName: Bionomic Cluster (Inactive)
 				/* Tooltip:
 					'''
-					Grants immunity to Frostburn, Shadowflame, and Squeaky Toy
-					Grants immunity to Flames of the Universe, Clipped Wings, Crippled, Webbed, and Purified
-					Grants immunity to Lovestruck, Stinky, Midas, and Hexed
-					Use to teleport to your last death point
-					Your attacks can inflict Clipped Wings and produce hearts
-					Attacks have a chance to squeak and deal 1 damage to you
-					While attacking, gain massively increased damage and shadowflame, but less move and defenses and attack speed bonuses
-					Summons a friendly rainbow slime
-					Certain enemies will drop potions when defeated
-					When attacking by manually clicking, increases non-summon damage by 30%
-					[c/00FFFF:Following effects work passively in vanity slots (right click to enable in inventory):]
-					    Grants immunity to Mighty Wind, Suffocation, Chilled, and Guilty
-					    You have improved night vision
-					    Automatically uses healing & mana potions when needed and increases pickup range for mana stars
-					    You respawn with more life and when no boss is alive, respawn faster
-					    Press the Frigid Spell key to cast Ice Rod
-					    Right click to zoom and drastically improves reforges
-					    Stabilizes gravity in space and in liquids
+					Grants immunity to [i:FargowiltasSouls/FrigidGemstone] Frostburn, [i:FargowiltasSouls/WretchedPouch] Shadowflame, [i:FargowiltasSouls/SqueakyToy] Squeaky Toy, [i:FargowiltasSouls/ConcentratedRainbowMatter] Flames of the Universe, 
+					[i:FargowiltasSouls/WyvernFeather] Clipped Wings, Crippled, [i:FargowiltasSouls/TribalCharm] Webbed, Purified, [i:FargowiltasSouls/NymphsPerfume] Lovestruck, Stinky, Hexed, and [i:FargowiltasSouls/SecurityWallet] Midas
+					[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
+					[i:FargowiltasSouls/WyvernFeather] Your attacks can inflict Clipped Wings [i:FargowiltasSouls/NymphsPerfume] and produce hearts
+					[i:FargowiltasSouls/SqueakyToy] Attacks have a chance to squeak and deal 1 damage to you
+					[i:FargowiltasSouls/WretchedPouch] While attacking, gain massively increased damage and shadowflame, but less move and defenses and attack speed bonuses
+					[i:FargowiltasSouls/ConcentratedRainbowMatter] Summons a friendly rainbow slime
+					[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
+					[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
+					[c/00FFFF:Following effects are currently disabled (right click to enable in inventory):]
+					    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
+					    [i:FargowiltasSouls/WyvernFeather] Stabilizes gravity in space and in liquid, [i:FargowiltasSouls/OrdinaryCarrot] improves your nightvision, [i:FargowiltasSouls/SecurityWallet] and drastically improves reforges
+					    [i:FargowiltasSouls/ConcentratedRainbowMatter] Automatically uses healing & [i:FargowiltasSouls/MysticSkull] mana potions when needed and increases pickup range for mana stars
+					    [i:FargowiltasSouls/NymphsPerfume] You respawn with more life [i:FargowiltasSouls/SandsofTime] and when no boss is alive, respawn faster
+					    [i:FargowiltasSouls/FrigidGemstone] Press the Frigid Spell key to cast Ice Rod
+					    [i:FargowiltasSouls/OrdinaryCarrot] Press right click to zoom in
 					'The amalgamate born of a thousand common enemies'
 					''' */
 			}
