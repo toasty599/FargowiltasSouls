@@ -153,21 +153,24 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     supportedMods.Add(WotG.DisplayName);
                 }
-                string modsString = "";
-                for (int i = 0; i < supportedMods.Count; i++)
+                if (supportedMods.Count > 0)
                 {
-                    modsString += supportedMods[i];
-                    if (i + 2 < supportedMods.Count)
+                    string modsString = "";
+                    for (int i = 0; i < supportedMods.Count; i++)
                     {
-                        modsString += ", ";
+                        modsString += supportedMods[i];
+                        if (i + 2 < supportedMods.Count)
+                        {
+                            modsString += ", ";
+                        }
+                        else if (i + 1 < supportedMods.Count)
+                        {
+                            modsString += " and ";
+                        }
                     }
-                    else if (i + 1 < supportedMods.Count)
-                    {
-                        modsString += " and ";
-                    }
+                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC1", modsString), Color.Green);
+                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC2"), Color.Green);
                 }
-                Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC1", modsString), Color.Green);
-                Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC2"), Color.Green);
             }
 
             Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.Wiki"), Color.Lime);
