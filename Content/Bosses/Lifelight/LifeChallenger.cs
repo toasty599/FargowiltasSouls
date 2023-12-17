@@ -221,6 +221,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             writer.Write7BitEncodedInt(P1state);
             writer.Write7BitEncodedInt(oldP1state);
 
+            writer.Write(rotspeed);
+
             writer.Write(UseTrueOriginAI);
             writer.Write(AttackF1);
 
@@ -239,6 +241,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             index2 = reader.Read7BitEncodedInt();
             P1state = reader.Read7BitEncodedInt();
             oldP1state = reader.Read7BitEncodedInt();
+
+            rotspeed = reader.ReadDouble();
 
             UseTrueOriginAI = reader.ReadBoolean();
             AttackF1 = reader.ReadBoolean();
