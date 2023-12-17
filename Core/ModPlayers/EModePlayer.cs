@@ -288,20 +288,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                     bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir) || !Player.armor[0].IsAir && (Player.armor[0].type == ItemID.FishBowl || Player.armor[0].type == ItemID.GoldGoldfishBowl);
                     if (!inLiquid)
                     {
-                        Player.breath -= 1;
-                        
-                        if (++MasomodeSpaceBreathTimer > 4) //player.breath is an int so have to do this
+                        Player.breath -= 3;
+                        if (++MasomodeSpaceBreathTimer > 10)
                         {
                             MasomodeSpaceBreathTimer = 0;
-                            Player.breath -= 3;
+                            Player.breath--;
                         }
-                        
                         if (Player.breath == 0)
                             SoundEngine.PlaySound(SoundID.Drown);
-                        if (Player.breath < 0)
-                        {
+                        if (Player.breath <= 0)
                             Player.AddBuff(BuffID.Suffocation, 2);
-                        }
+
                         if (Player.breath < -10) //don't stack far into negatives
                         {
                             
