@@ -269,7 +269,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             NPC.dontTakeDamage = false;
             Attacking = 1;
 
-            DoAura = WorldSavingSystem.MasochistModeReal;
             useDR = false;
 
             if (PhaseOne && NPC.life < P2Threshold)
@@ -406,6 +405,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 NPC.timeLeft = 60;
             }
+            DoAura = WorldSavingSystem.MasochistModeReal; //reset aura status
 
             if (PhaseOne) //p1 just skip the rest of the ai and do its own ai lolll
             {
