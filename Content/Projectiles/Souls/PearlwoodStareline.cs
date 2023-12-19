@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.FairyQueenMagicItemShot;
         public override bool InstancePerEntity => true;
-        bool Pearlwood = false;
+        public bool Pearlwood = false;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             Player player = Main.player[projectile.owner];
@@ -144,7 +144,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Dust.NewDust(modPlayer.PStarelinePos, 22, 22, DustID.GoldFlame, 0f, 0f, 175, default, 1.75f);
             }
 
-            modPlayer.PStarelineActive = false;
+            //modPlayer.PStarelineActive = false;
         }
 
     }

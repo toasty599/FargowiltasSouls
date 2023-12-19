@@ -1,5 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
+using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using static FargowiltasSouls.Core.Systems.DashManager;
 
 namespace FargowiltasSouls.Core.ModPlayers
@@ -55,7 +59,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int PearlwoodIndex = 0;
         public int PearlwoodGrace = 0;
         public Vector2 PStarelinePos;
-        public bool PStarelineActive;
+
+        public bool PStarelineActive => Main.projectile.Any(p => p.active && p.owner == Player.whoAmI && p.type == ProjectileID.FairyQueenMagicItemShot &&p.TryGetGlobalProjectile(out PearlwoodStareline gp) &&  gp.Pearlwood);
 
         public Item EbonwoodEnchantItem;
         public Item ShadewoodEnchantItem;
