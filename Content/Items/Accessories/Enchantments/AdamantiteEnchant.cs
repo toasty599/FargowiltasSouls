@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             }
             else
             {
-                projectile.damage = (int)(projectile.damage / adaDamageRatio);
+                projectile.damage = (int)(projectile.damage * adaDamageRatio);
             }
         }
 
