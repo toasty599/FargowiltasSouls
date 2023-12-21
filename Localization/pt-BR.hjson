@@ -4872,7 +4872,7 @@ Mods: {
 			// PinkEskimoEnchant.DisplayName: Mods.FargowiltasSouls.Items.PinkEskimoEnchant.DisplayName
 
 			LifelightBag: {
-				// DisplayName: Treasure Bag
+				// DisplayName: Treasure Bag (Lifelight)
 				// Tooltip: Right click to open
 			}
 
@@ -5024,7 +5024,7 @@ Mods: {
 			}
 
 			BanishedBaronBag: {
-				// DisplayName: Treasure Bag
+				// DisplayName: Treasure Bag (Banished Baron)
 				// Tooltip: Right click to open
 			}
 
