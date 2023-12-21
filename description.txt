@@ -4,6 +4,12 @@ Features the highly challenging Eternity Mode!
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
 
+NEW UPDATE - v1.6.2.2
+Fixed some cases where Pearlwood star didn't respawn
+Fixed interactions where Fish Stick tornadoes could be duplicated
+Fixed force effect Adamantie Enchantment central projectile being several times stronger than intended
+Fixed Lifelight lacking aura on phase transition in Eternity Mode
+
 NEW UPDATE - V 1.6.2.1
 Valhalla Enchantment and Paradox Wolf Soul dash now works with Dash Key
 Added boss names to Treasure Bags

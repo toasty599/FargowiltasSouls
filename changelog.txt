@@ -1,13 +1,6 @@
 NEW UPDATE - V {ModVersion}
 
-Valhalla Enchantment and Paradox Wolf Soul dash now works with Dash Key
-Added boss names to Treasure Bags
-Fixed the DLC chat message showing without having any supported mods
-Fixed the Eternity Mode base stat increase applying twice
-Fixed Lifelight aura and DR issues
-Fixed the space breath meter draining oddly
-Fixed overlap between Legendary Mode and the Eternity icon on world load screen
-Fixed Boss Checklist displaying the wrong item for Abominationn's summoning method
-Fixed Adamantite Enchant center projectile having incorrect damage scale
-Fixed Destroyer projectile damage reduction being able to reduce it to 0
-Fixed several tooltips
+Fixed some cases where Pearlwood star didn't respawn
+Fixed interactions where Fish Stick tornadoes could be duplicated
+Fixed force effect Adamantie Enchantment central projectile being several times stronger than intended
+Fixed Lifelight lacking aura on phase transition in Eternity Mode
