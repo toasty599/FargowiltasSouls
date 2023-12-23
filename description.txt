@@ -4,6 +4,10 @@ Features the highly challenging Eternity Mode!
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
 
+NEW UPDATE - v1.6.2.3
+Adjusted speed of Mutant final desperation attack in Masochist Mode
+Adjusted opacity effect on Empress attacks before they can hurt player
+
 NEW UPDATE - v1.6.2.2
 Fixed some cases where Pearlwood star didn't respawn
 Fixed interactions where Fish Stick tornadoes could be duplicated

@@ -1164,7 +1164,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 if (FadeTimer > 0)
                                     FadeTimer--;
                             }
-                            float fade = 1f - (0.8f * FadeTimer / FadeTime);
+                            float fade = 1f - (0.5f * FadeTimer / FadeTime);
                             projectile.Opacity = fade;
                         }
                     }
