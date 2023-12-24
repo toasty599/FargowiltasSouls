@@ -3352,7 +3352,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 float newRotation = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
                 float difference = MathHelper.WrapAngle(newRotation - NPC.ai[3]);
                 float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
-                rotationDirection *= useMasoSpeed ? 1.15f : 1f;
+                rotationDirection *= useMasoSpeed ? 1.1f : 1f;
                 float change = Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
                 if (useMasoSpeed)
                 {
