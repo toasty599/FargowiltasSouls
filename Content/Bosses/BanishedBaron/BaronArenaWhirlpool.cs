@@ -47,11 +47,17 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             int ParentID = NPC.FindFirstNPC(ModContent.NPCType<BanishedBaron>());
             if (!ParentID.IsWithinBounds(Main.maxNPCs))
+            {
                 Projectile.Kill();
+                return;
+            }
 
             NPC baron = Main.npc[ParentID];
             if (baron == null || !baron.active || baron.type != ModContent.NPCType<BanishedBaron>())
+            {
                 Projectile.Kill();
+                return;
+            }
 
             Projectile.timeLeft = 60 * 60 * 60;
 
@@ -64,7 +70,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 MaxDistance -= 300;
             }
 
-            Player player = Main.player[baron.target];
+            Player player = baron.target.IsWithinBounds(Main.maxPlayers) ? Main.player[baron.target] : null;
             
             if (player != null && player.active && !player.dead && !player.ghost)
             {

@@ -1230,16 +1230,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     NPC.velocity = (target - NPC.Center) / 10;
                 }
 
-                LockVector1 = NPC.DirectionTo(player.Center + (player.velocity * PredictStr)) * PredictStr;
+                LockVector1 = FargoSoulsUtil.PredictiveAim(NPC.Center, player.Center, player.velocity, PredictStr);
+                Vector2 dir = Vector2.Lerp(NPC.rotation.ToRotationVector2(), Vector2.Normalize(LockVector1), 0.2f);
+                NPC.rotation = dir.ToRotation();
 
-                RotateTowards(NPC.Center + LockVector1, 4);
+                //LockVector1 = NPC.DirectionTo(player.Center + (player.velocity * PredictStr)) * PredictStr;
+                //RotateTowards(NPC.Center + LockVector1, 4);
             }
             if (Timer == ReactTime)
             {
                 SoundEngine.PlaySound(BaronRoar, NPC.Center);
                 Trail = 8;
-                NPC.velocity = LockVector1;
-                NPC.rotation = NPC.velocity.ToRotation();
+                NPC.velocity = NPC.rotation.ToRotationVector2() * PredictStr;
                 Vector2 uv = Vector2.Normalize(LockVector1);
                 Vector2 lp = player.Center - NPC.Center;
                 float lambda = Vector2.Dot(uv, lp);
@@ -1541,7 +1543,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             }
             const int end = -110;
-            const int bulletStart = -36;
+            const int bulletStart = -42;
             if (AI3 < 0) //spin after dash
             {
                 if (AI3 == -1)
