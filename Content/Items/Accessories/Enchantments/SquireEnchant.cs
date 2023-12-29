@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Buffs.Souls;
+﻿using Fargowiltas.Common.Configs;
+using FargowiltasSouls.Content.Buffs.Souls;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -122,36 +123,40 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                                 ValhallaDash(player, false, -1);
                             }
                         }
-                        //mount dash
-                        if ((player.controlDown && (player.releaseDown)))
+                        else if (!ModContent.GetInstance<FargoClientConfig>().DoubleTapDashDisabled)
                         {
-                            if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                            //mount dash
+                            if ((player.controlDown && (player.releaseDown)))
                             {
-                                ValhallaDash(player, true, 1);
+                                if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                                {
+                                    ValhallaDash(player, true, 1);
+                                }
+                            }
+                            //up
+                            else if ((player.controlUp && player.releaseUp))
+                            {
+                                if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
+                                {
+                                    ValhallaDash(player, true, -1);
+                                }
+                            }
+                            if (player.controlRight && player.releaseRight)
+                            {
+                                if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
+                                {
+                                    ValhallaDash(player, false, 1);
+                                }
+                            }
+                            else if (player.controlLeft && player.releaseLeft)
+                            {
+                                if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
+                                {
+                                    ValhallaDash(player, false, -1);
+                                }
                             }
                         }
-                        //up
-                        else if ((player.controlUp && player.releaseUp))
-                        {
-                            if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
-                            {
-                                ValhallaDash(player, true, -1);
-                            }
-                        }
-                        if (player.controlRight && player.releaseRight)
-                        {
-                            if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
-                            {
-                                ValhallaDash(player, false, 1);
-                            }
-                        }
-                        else if (player.controlLeft && player.releaseLeft)
-                        {
-                            if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
-                            {
-                                ValhallaDash(player, false, -1);
-                            }
-                        }
+                        
                     }
                 }
                 if (player.GetToggleValue("SquireMountJump"))
