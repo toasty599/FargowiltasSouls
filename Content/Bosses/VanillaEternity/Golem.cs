@@ -111,6 +111,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.LoadSprites(npc, recolor);
 
             LoadGolemSpriteBuffered(recolor, npc.type, TextureAssets.Npc, FargowiltasSouls.TextureBuffer.NPC, "NPC_");
+            
         }
     }
 
@@ -448,6 +449,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             for (int i = 1; i <= 3; i++)
                 LoadGolem(recolor, i);
+
+            LoadGolemSpriteBuffered(recolor, 5, TextureAssets.NpcHeadBoss, FargowiltasSouls.TextureBuffer.NPCHeadBoss, "NPC_Head_Boss_");
         }
     }
 
