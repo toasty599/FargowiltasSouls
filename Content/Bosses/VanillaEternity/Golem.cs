@@ -70,7 +70,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     CombatText.NewText(npc.Hitbox, CombatText.HealLife, HealPerSecond);
                 }
             }
-
             return base.SafePreAI(npc);
         }
 
