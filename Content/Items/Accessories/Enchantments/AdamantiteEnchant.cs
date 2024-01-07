@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             int adaCap = 60; //ada cap in DEGREES
 
             const float incSeconds = 10;
-            const float decSeconds = 1;
+            const float decSeconds = 1.5f;
             if (modPlayer.WeaponUseTimer > 0) 
                 modPlayer.AdamantiteSpread += (adaCap / 60f) / incSeconds; //ada spread change per frame, based on total amount of seconds to reach cap
             else 
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 return;
             }
 
-            float adaDamageRatio = isProjHoming? (adaForce ? 0.4f : 0.6f) : (adaForce ? 0.5f : 0.7f);
+            float adaDamageRatio = isProjHoming ? (adaForce ? 0.375f : 0.6f) : (adaForce ? 0.5f : 0.7f);
             // if its homing, damage is 0.6x2/0.4x3 (+20%)
             // if its not homing, damage is 0.7x2/0.5x3 (+40/50%)
 
