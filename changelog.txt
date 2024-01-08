@@ -1,6 +1,21 @@
 NEW UPDATE - V {ModVersion}
 
-Fixed some cases where Pearlwood star didn't respawn
-Fixed interactions where Fish Stick tornadoes could be duplicated
-Fixed force effect Adamantie Enchantment central projectile being several times stronger than intended
-Fixed Lifelight lacking aura on phase transition in Eternity Mode
+Resprited Eternity King Slime
+Resprited Eternity Skeletron
+Resprited Eternity Lunatic Cultist
+Resprited Eternity Golem
+Banished Baron:
+-Polished and smoothened predictive dash telegraph
+-Slightly longer delay before shrapnel during spin attack
+Tweaked Timber Champion rain attack to reduce lag
+Adjusted speed of Mutant final desperation attack in Masochist Mode
+Adjusted opacity effect on Empress attacks before they can hurt player
+
+Optimized code for force effect checks, improving performance for Enchantments across the board
+Readded item grab range increase to Iron Enchantment
+Adamantite Enchant:
+-Force effect damage ratio for homing weapons: 40% -> 37.5%
+-Total spread decrease time 1sec -> 1.5sec
+Resprited Flesh Hand and its projectile
+Fixed Dash double-tap config inconsistencies with the Valhalla Enchantment and Paradox Wolf Soul dashes
+Fixed issue that caused Gravitation Potion to crash the game for some users

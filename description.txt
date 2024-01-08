@@ -4,6 +4,27 @@ Features the highly challenging Eternity Mode!
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
 
+NEW UPDATE - v1.6.3
+Resprited Eternity King Slime
+Resprited Eternity Skeletron
+Resprited Eternity Lunatic Cultist
+Resprited Eternity Golem
+Banished Baron:
+-Polished and smoothened predictive dash telegraph
+-Slightly longer delay before shrapnel during spin attack
+Tweaked Timber Champion rain attack to reduce lag
+Adjusted speed of Mutant final desperation attack in Masochist Mode
+Adjusted opacity effect on Empress attacks before they can hurt player
+
+Optimized code for force effect checks, improving performance for Enchantments across the board
+Readded item grab range increase to Iron Enchantment
+Adamantite Enchant:
+-Force effect damage ratio for homing weapons: 40% -> 37.5%
+-Total spread decrease time 1sec -> 1.5sec
+Resprited Flesh Hand and its projectile
+Fixed Dash double-tap config inconsistencies with the Valhalla Enchantment and Paradox Wolf Soul dashes
+Fixed issue that caused Gravitation Potion to crash the game for some users
+
 NEW UPDATE - v1.6.2.3
 Adjusted speed of Mutant final desperation attack in Masochist Mode
 Adjusted opacity effect on Empress attacks before they can hurt player
