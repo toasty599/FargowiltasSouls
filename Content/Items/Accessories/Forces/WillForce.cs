@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Forces
@@ -15,9 +16,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<ValhallaKnightEnchant>()
         };
 
+        public static bool[] ContainsEnchant;
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
+
 
             // DisplayName.SetDefault("Force of Will");
 

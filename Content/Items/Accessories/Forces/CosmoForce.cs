@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Forces
@@ -16,6 +17,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<NebulaEnchant>(),
             ModContent.ItemType<StardustEnchant>()
         };
+        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {

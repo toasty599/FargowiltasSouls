@@ -1514,39 +1514,40 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             bool CheckForces(int type)
             {
-                if (CosmoForce.Enchants.Contains(type) && cosmoForce)
+                //This will probably be made less ugly in a future refactor update.
+                if (cosmoForce && CosmoForce.ContainsEnchant[type])
                 {
                     return true;
                 }
-                if (EarthForce.Enchants.Contains(type) && earthForce)
+                if (earthForce && EarthForce.ContainsEnchant[type])
                 {
                     return true;
                 }
-                if (LifeForce.Enchants.Contains(type) && lifeForce)
+                if (lifeForce && LifeForce.ContainsEnchant[type])
                 {
                     return true;
                 }
-                if (NatureForce.Enchants.Contains(type) && natureForce)
+                if (natureForce && NatureForce.ContainsEnchant[type])
                 {
                     return true;
                 }
-                if (ShadowForce.Enchants.Contains(type) && shadowForce)
+                if (shadowForce && ShadowForce.ContainsEnchant[type])
                 {
                     return true;
                 }
-                if (SpiritForce.Enchants.Contains(type) && spiritForce)
+                if (spiritForce && SpiritForce.ContainsEnchant[type])
                 {
                     return true;
                 }
-                if (TerraForce.Enchants.Contains(type) && terraForce)
+                if (terraForce && TerraForce.ContainsEnchant[type])
                 {
                     return true;
                 }
-                if (TimberForce.Enchants.Contains(type) && timberForce)
+                if (timberForce && TimberForce.ContainsEnchant[type])
                 {
                     return true;
                 }
-                if (WillForce.Enchants.Contains(type) && willForce)
+                if (willForce && WillForce.ContainsEnchant[type])
                 {
                     return true;
                 }

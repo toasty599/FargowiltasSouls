@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Core.ModPlayers;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Forces
@@ -18,10 +19,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<TungstenEnchant>(),
             ModContent.ItemType<ObsidianEnchant>()
         };
+        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
+
 
             // DisplayName.SetDefault("Terra Force");
 
