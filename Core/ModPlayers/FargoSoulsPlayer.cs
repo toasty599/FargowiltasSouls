@@ -1512,51 +1512,22 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool ForceEffect(int? enchType)
         {
-            bool CheckForces(int type)
-            {
-                //This will probably be made less ugly in a future refactor update.
-                if (cosmoForce && CosmoForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                if (earthForce && EarthForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                if (lifeForce && LifeForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                if (natureForce && NatureForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                if (shadowForce && ShadowForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                if (spiritForce && SpiritForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                if (terraForce && TerraForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                if (timberForce && TimberForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                if (willForce && WillForce.ContainsEnchant[type])
-                {
-                    return true;
-                }
-                return false;
-            }
+            //This will probably be made less ugly in a future refactor update.
+            bool CheckForces(int type) =>
+                (cosmoForce && CosmoForce.ContainsEnchant[type]) ||
+                (earthForce && EarthForce.ContainsEnchant[type]) ||
+                (lifeForce && LifeForce.ContainsEnchant[type]) ||
+                (natureForce && NatureForce.ContainsEnchant[type]) ||
+                (shadowForce && ShadowForce.ContainsEnchant[type]) ||
+                (spiritForce && SpiritForce.ContainsEnchant[type]) ||
+                (terraForce && TerraForce.ContainsEnchant[type]) ||
+                (timberForce && TimberForce.ContainsEnchant[type]) ||
+                (willForce && WillForce.ContainsEnchant[type]) ||
+                (Main.recipe.Any(r => r.ContainsIngredient(type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant && CheckForces(r.createItem.type))); //check force of enchant it crafts into, recursively
+
             if (Main.gamePaused)
-            {
                 return false;
-            }
+
             if (enchType == null)
             {
                 Main.NewText("you shouldn't be seeing this. tall javyz");
@@ -1569,29 +1540,19 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Main.NewText("you shouldn't be seeing this. tall javyz");
                 return false;
             }
+
             if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == item.Item.type)
-            {
                 return true;
-            }
-            if (item != null && item is BaseSoul || item is BaseForce)
-            {
+
+            if (item == null)
+                return false;
+
+            if (item is BaseSoul || item is BaseForce)
                 return true;
-            }
-            if (item != null && item is BaseEnchant)
-            {
-                if (CheckForces(type))
-                {
-                    return true;
-                }
-                else //check force of enchant it crafts into
-                {
-                    if (Main.recipe.Any(r => r.ContainsIngredient(type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant && CheckForces(r.createItem.type)))
-                    {
-                        return true;
-                    }
-                }
-                
-            }
+
+            if (item is BaseEnchant && CheckForces(type))
+                return true;
+
             return false;
         }
         public override void PreSavePlayer()
