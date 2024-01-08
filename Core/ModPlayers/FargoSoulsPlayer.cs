@@ -1523,7 +1523,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 (terraForce && TerraForce.ContainsEnchant[type]) ||
                 (timberForce && TimberForce.ContainsEnchant[type]) ||
                 (willForce && WillForce.ContainsEnchant[type]) ||
-                (Main.recipe.Any(r => r.ContainsIngredient(type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant && CheckForces(r.createItem.type))); //check force of enchant it crafts into, recursively
+                (BaseEnchant.CraftsInto[type] != -1 && CheckForces(BaseEnchant.CraftsInto[type])); //check force of enchant it crafts into, recursively
 
             if (Main.gamePaused)
                 return false;

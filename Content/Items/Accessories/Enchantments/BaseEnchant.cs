@@ -63,6 +63,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             }
             
         }
+        /// <summary>
+        /// IDs for enchants that craft into other enchants. Index is material, value is result. Default value is -1.
+        /// </summary>
+        public static int[] CraftsInto;
 
         public override void SetDefaults()
         {
@@ -98,6 +102,22 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             //todo, change this to sealed UpdateAccessory and refactor every single enchantment file to accommodate
             player.FargoSouls().EquippedEnchants.Add(this);
+        }
+    }
+
+    public class EnchantSystem : ModSystem
+    {
+        public override void PostSetupContent()
+        {
+            SetFactory factory = new(ContentSamples.ItemsByType.Count);
+            BaseEnchant.CraftsInto = factory.CreateIntSet();
+
+            foreach (var item in ContentSamples.ItemsByType.Values.Where(i => i.ModItem != null && i.ModItem is BaseEnchant))
+            {
+                Recipe recipe = Main.recipe.FirstOrDefault(r => r.ContainsIngredient(item.type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant, null);
+                if (recipe != null)
+                    BaseEnchant.CraftsInto[item.type] = recipe.createItem.type;
+            }
         }
     }
 }
