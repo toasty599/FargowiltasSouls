@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using Fargowiltas.Common.Configs;
 
 namespace FargowiltasSouls.Content.Patreon.ParadoxWolf
 {
@@ -102,20 +103,22 @@ There is a cooldown of 3 seconds between uses"); */
                     direction = -1;
                 }
             }
-            
-            if (player.controlRight && player.releaseRight)
+            else if (!ModContent.GetInstance<FargoClientConfig>().DoubleTapDashDisabled)
             {
-                if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
+                if (player.controlRight && player.releaseRight)
                 {
-                    direction = 1;
+                    if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
+                    {
+                        direction = 1;
+                    }
                 }
-            }
-            //left
-            else if (player.controlLeft && player.releaseLeft)
-            {
-                if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
+                //left
+                else if (player.controlLeft && player.releaseLeft)
                 {
-                    direction = -1;
+                    if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
+                    {
+                        direction = -1;
+                    }
                 }
             }
 
