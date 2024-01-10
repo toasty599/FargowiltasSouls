@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,12 +14,12 @@ namespace FargowiltasSouls.Core.Toggler
         public readonly static string ConfigPath = Path.Combine(Main.SavePath, "ModConfigs", "FargowiltasSouls_Toggles.json");
         public Preferences Config;
 
-        public Dictionary<string, Toggle> Toggles;
+        public Dictionary<AccessoryEffect, Toggle> Toggles;
         //public Point TogglerPosition;
         public bool CanPlayMaso;
 
         public const int CustomPresetCount = 3;
-        public List<string>[] CustomPresets = new List<string>[CustomPresetCount];
+        public List<AccessoryEffect>[] CustomPresets = new List<AccessoryEffect>[CustomPresetCount];
 
         public bool Initialized;
 
@@ -53,7 +54,7 @@ namespace FargowiltasSouls.Core.Toggler
             //TODO: figure out how to extract a plain list from json, only using Dict rn because i know it can be loaded from json
             for (int i = 0; i < CustomPresets.Length; i++)
             {
-                var toggleUnpack = Config.Get<Dictionary<string, bool>>($"CustomPresetsOff{i + 1}", null);
+                var toggleUnpack = Config.Get<Dictionary<AccessoryEffect, bool>>($"CustomPresetsOff{i + 1}", null);
                 if (toggleUnpack != null)
                     CustomPresets[i] = toggleUnpack.Keys.ToList();
             }
@@ -78,8 +79,8 @@ namespace FargowiltasSouls.Core.Toggler
                     if (CustomPresets[i] == null)
                         continue;
 
-                    Dictionary<string, bool> togglesOff = new(CustomPresets.Length);
-                    foreach (string toggle in CustomPresets[i])
+                    Dictionary<AccessoryEffect, bool> togglesOff = new(CustomPresets.Length);
+                    foreach (AccessoryEffect toggle in CustomPresets[i])
                         togglesOff[toggle] = false;
                     Config.Put($"CustomPresetsOff{i + 1}", togglesOff);
                 }
@@ -96,10 +97,10 @@ namespace FargowiltasSouls.Core.Toggler
             Toggles = ToggleLoader.LoadedToggles;
             SetAll(true);
 
-            foreach (string entry in modPlayer.disabledToggles)
+            foreach (AccessoryEffect entry in modPlayer.disabledToggles)
                 Main.LocalPlayer.SetToggleValue(entry, false);
 
-            foreach (KeyValuePair<string, Toggle> entry in Toggles)
+            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles)
                 modPlayer.TogglesToSync[entry.Key] = entry.Value.ToggleBool;
         }
 
@@ -112,7 +113,7 @@ namespace FargowiltasSouls.Core.Toggler
         {
             foreach (Toggle toggle in Toggles.Values)
             {
-                Main.LocalPlayer.SetToggleValue(toggle.InternalName, value);
+                Main.LocalPlayer.SetToggleValue(toggle.Effect, value);
             }
         }
 
@@ -121,7 +122,7 @@ namespace FargowiltasSouls.Core.Toggler
             Player player = Main.LocalPlayer;
 
             SetAll(true);
-
+            
             player.SetToggleValue("Boreal", false);
             player.SetToggleValue("Ebon", false);
             player.SetToggleValue("Shade", false);
@@ -196,9 +197,9 @@ namespace FargowiltasSouls.Core.Toggler
 
             player.SetToggleValue("TrawlerSpore", false);
 
-            foreach (Toggle toggle in Toggles.Values.Where(toggle => toggle.InternalName.Contains("Pet")))
+            foreach (Toggle toggle in Toggles.Values.Where(toggle => toggle.Effect.Name.Contains("Pet")))
             {
-                player.SetToggleValue(toggle.InternalName, false);
+                player.SetToggleValue(toggle.Effect, false);
             }
         }
 
@@ -265,8 +266,8 @@ namespace FargowiltasSouls.Core.Toggler
 
         public void SaveCustomPreset(int slot)
         {
-            var togglesOff = new List<string>();
-            foreach (KeyValuePair<string, Toggle> entry in Toggles)
+            var togglesOff = new List<AccessoryEffect>();
+            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles)
             {
                 if (!Toggles[entry.Key].ToggleBool)
                     togglesOff.Add(entry.Key);
@@ -282,7 +283,7 @@ namespace FargowiltasSouls.Core.Toggler
 
         public void LoadCustomPreset(int slot)
         {
-            List<string> togglesOff = CustomPresets[slot - 1];
+            List<AccessoryEffect> togglesOff = CustomPresets[slot - 1];
             if (togglesOff == null)
             {
                 Main.NewText($"{Language.GetTextValue("Mods.FargowiltasSouls.UI.NoTogglesFound")} {slot}.", Color.Yellow);
@@ -290,7 +291,7 @@ namespace FargowiltasSouls.Core.Toggler
             }
 
             FargoSoulsPlayer modPlayer = Main.LocalPlayer.FargoSouls();
-            modPlayer.disabledToggles = new List<string>(togglesOff);
+            modPlayer.disabledToggles = new List<AccessoryEffect>(togglesOff);
 
             LoadPlayerToggles(modPlayer);
             modPlayer.disabledToggles.Clear();

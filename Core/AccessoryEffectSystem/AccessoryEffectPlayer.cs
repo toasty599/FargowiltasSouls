@@ -6,20 +6,26 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace FargowiltasSouls.Core.AccessoryEffect
+namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
     public class AccessoryEffectPlayer : ModPlayer
     {
-        public List<AccessoryEffect> ActiveEffects = new();
-        public List<AccessoryEffectInstance> EffectInstances = new();
+        public HashSet<AccessoryEffect> ActiveEffects = new();
+        internal AccessoryEffectInstance[] EffectInstances;
         public Dictionary<AccessoryEffect, bool> EffectToggle; // TODO: rework to be implemented properly with toggle-side of rework
-        public override void SetStaticDefaults()
+        public override void Initialize()
         {
-            EffectInstances = AccessoryEffectLoader.AccessoryEffectInstances;
+            int instanceCount = AccessoryEffectLoader.AccessoryEffectInstances.Count;
+            EffectInstances = new AccessoryEffectInstance[instanceCount];
+            for (int i = 0; i < instanceCount; i++)
+            {
+                EffectInstances[i] = AccessoryEffectLoader.AccessoryEffectInstances[i];
+            }
         }
         
         public override void ResetEffects()
         {
+            ActiveEffects.Clear();
             foreach (AccessoryEffectInstance effectInstance in EffectInstances)
             {
                 effectInstance.ResetEffects();
@@ -30,7 +36,7 @@ namespace FargowiltasSouls.Core.AccessoryEffect
         {
             foreach (AccessoryEffect effect in ActiveEffects)
             {
-                effect.PostUpdateEquips();
+                effect.PostUpdateEquips(Player);
             }
         }
         // etc etc

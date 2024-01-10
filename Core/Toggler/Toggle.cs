@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.Localization;
 using Terraria.UI.Chat;
@@ -9,25 +10,27 @@ namespace FargowiltasSouls.Core.Toggler
     {
         public string Mod;
         public string Category;
-        public string InternalName;
+        public AccessoryEffect Effect;
+        public Header Header;
         public bool ToggleBool;
         public bool DisplayToggle;
 
-        public Toggle(string internalName, string mod, string category)
+        public Toggle(AccessoryEffect effect, string mod, string category, Header header)
         {
-            InternalName = internalName;
+            Effect = effect;
             Mod = mod;
             Category = category;
+            Header = header;
 
             ToggleBool = true;
             DisplayToggle = true;
         }
 
-        public override string ToString() => $"Mod: {Mod}, Category: {Category}, InternalName: {InternalName}, Toggled: {ToggleBool}";
+        public override string ToString() => $"Mod: {Mod}, Category: {Category}, Effect: {Effect.Name}, Toggled: {ToggleBool}";
 
         public string GetRawToggleName()
         {
-            string baseText = Language.GetTextValue($"Mods.{Mod}.{InternalName}Config");
+            string baseText = Effect.ToggleDescription;
             List<TextSnippet> parsedText = ChatManager.ParseMessage(baseText, Color.White);
             string rawText = "";
 

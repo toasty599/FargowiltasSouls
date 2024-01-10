@@ -33,6 +33,7 @@ using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Content.Patreon.Volknet;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls
 {
@@ -899,7 +900,7 @@ namespace FargowiltasSouls
                             Player player = Main.player[reader.ReadByte()];
                             FargoSoulsPlayer modPlayer = player.FargoSouls();
                             byte count = reader.ReadByte();
-                            List<string> keys = ToggleLoader.LoadedToggles.Keys.ToList();
+                            List<AccessoryEffect> keys = ToggleLoader.LoadedToggles.Keys.ToList();
 
                             for (int i = 0; i < count; i++)
                             {
@@ -911,7 +912,7 @@ namespace FargowiltasSouls
                     case PacketID.SyncOneToggle: //sync single toggle
                         {
                             Player player = Main.player[reader.ReadByte()];
-                            player.SetToggleValue(reader.ReadString(), reader.ReadBoolean());
+                            player.SetToggleValue(AccessoryEffectLoader.EffectType(reader.ReadString()), reader.ReadBoolean());
                         }
                         break;
 

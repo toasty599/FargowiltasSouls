@@ -5115,6 +5115,11 @@ Mods: {
 					'The Queen's unwavering swarm..'
 					''' */
 			}
+
+			TestAccessory: {
+				// DisplayName: Test Accessory
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

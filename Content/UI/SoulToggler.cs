@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.UI.Elements;
+using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -192,6 +193,7 @@ namespace FargowiltasSouls.Content.UI
             Player player = Main.LocalPlayer;
             ToggleBackend toggler = player.FargoSouls().Toggler;
 
+            /*
             IEnumerable<Toggle> DisplayToggles = toggler.Toggles.Values.Where((toggle) =>
             {
                 string[] words = toggle.GetRawToggleName().Split(' ');
@@ -204,7 +206,49 @@ namespace FargowiltasSouls.Content.UI
 
             HashSet<string> usedHeaders = new();
             List<Toggle> togglesAsLists = ToggleLoader.LoadedToggles.Values.ToList();
+            */
 
+            // TODO: Rewrite to: 
+            // Load headers, if header has elements, display header and its elements, if not, don't display
+
+            bool SearchMatches(string[] words) => words.Any(s => s.StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase));
+
+            IEnumerable<Header> DisplayHeaders = ToggleLoader.LoadedHeaders.Where((header) =>
+            {
+                string[] words = header.GetRawToggleName().Split(' ');
+                return
+                (string.IsNullOrEmpty(DisplayMod) || header.Mod.Name == DisplayMod) &&
+                (string.IsNullOrEmpty(SortCategory) || header.SortCategory == SortCategory);
+            });
+
+            foreach (Header header in DisplayHeaders)
+            {
+                string[] headerWords = header.GetRawToggleName().Split(' ');
+                IEnumerable<Toggle> headerToggles = toggler.Toggles.Values.Where((toggle) =>
+                {
+                    string[] words = toggle.GetRawToggleName().Split(' ');
+                    return
+                    toggle.DisplayToggle &&
+                    toggle.Header == header &&
+                    (string.IsNullOrEmpty(DisplayMod) || toggle.Mod == DisplayMod) &&
+                    (string.IsNullOrEmpty(SortCategory) || toggle.Category == SortCategory) &&
+                    (string.IsNullOrEmpty(SearchBar.Input) || SearchMatches(words) || SearchMatches(headerWords));
+                });
+                if (!headerToggles.Any())
+                    continue;
+                if (ToggleList.Count > 0) // Don't add for the first header
+                    ToggleList.Add(new UIText("", 0.2f)); // Blank line
+
+                (string text, int item) = (header.HeaderDescription, header.Item);
+                ToggleList.Add(new FargoUIHeader(text, header.Mod.Name, item, (BackWidth - 16, 20)));
+                foreach (Toggle toggle in headerToggles)
+                {
+                    ToggleList.Add(new UIToggle(toggle.Effect, toggle.Mod));
+                }
+            }
+
+            //old
+            /*
             foreach (Toggle toggle in DisplayToggles)
             {
                 if (ToggleLoader.LoadedHeaders.ContainsKey(toggle.InternalName) && SearchBar.IsEmpty)
@@ -237,6 +281,7 @@ namespace FargowiltasSouls.Content.UI
                 }
                 ToggleList.Add(new UIToggle(toggle.InternalName, toggle.Mod));
             }
+            */
         }
 
         /*public void SetPositionToPoint(Point point)

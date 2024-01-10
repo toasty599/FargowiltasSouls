@@ -1,9 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace FargowiltasSouls.Content.UI.Elements
@@ -14,12 +16,12 @@ namespace FargowiltasSouls.Content.UI.Elements
 
         public static DynamicSpriteFont Font => Terraria.GameContent.FontAssets.ItemStack.Value;
 
-        public string Key;
+        public AccessoryEffect Effect;
         public string Mod;
 
-        public UIToggle(string key, string mod)
+        public UIToggle(AccessoryEffect effect, string mod)
         {
-            Key = key;
+            Effect = effect;
             Mod = mod;
 
             Width.Set(19, 0);
@@ -35,17 +37,17 @@ namespace FargowiltasSouls.Content.UI.Elements
             {
                 Player player = Main.LocalPlayer;
                 FargoSoulsPlayer modPlayer = player.FargoSouls();
-                modPlayer.Toggler.Toggles[Key].ToggleBool = !modPlayer.Toggler.Toggles[Key].ToggleBool;
+                modPlayer.Toggler.Toggles[Effect].ToggleBool = !modPlayer.Toggler.Toggles[Effect].ToggleBool;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
-                    modPlayer.SyncToggle(Key);
+                    modPlayer.SyncToggle(Effect);
             }
 
             spriteBatch.Draw(FargoUIManager.CheckBox.Value, position, Color.White);
-            if (Main.LocalPlayer.GetToggleValue(Key, false))
+            if (Main.LocalPlayer.GetToggleValue(Effect, false))
                 spriteBatch.Draw(FargoUIManager.CheckMark.Value, position, Color.White);
 
-            string text = Language.GetTextValue($"Mods.{Mod}.{Key}Config");
+            string text = Effect.ToggleDescription;
             position += new Vector2(Width.Pixels * Main.UIScale, 0);
             position += new Vector2(CheckboxTextSpace, 0);
             position += new Vector2(0, Font.MeasureString(text).Y * 0.175f);

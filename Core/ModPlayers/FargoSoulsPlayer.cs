@@ -26,15 +26,17 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using static FargowiltasSouls.Core.Systems.DashManager;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+
 namespace FargowiltasSouls.Core.ModPlayers
 {
 	public partial class FargoSoulsPlayer : ModPlayer
     {
         public ToggleBackend Toggler = new();
 
-        public Dictionary<string, bool> TogglesToSync = new();
+        public Dictionary<AccessoryEffect, bool> TogglesToSync = new();
 
-        public List<string> disabledToggles = new();
+        public List<AccessoryEffect> disabledToggles = new();
 
         public List<BaseEnchant> EquippedEnchants = new();
 
@@ -94,7 +96,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             var togglesOff = new List<string>();
             if (Toggler != null && Toggler.Toggles != null)
             {
-                foreach (KeyValuePair<string, Toggle> entry in Toggler.Toggles)
+                foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggler.Toggles)
                 {
                     if (!Toggler.Toggles[entry.Key].ToggleBool)
                         togglesOff.Add(entry.Key);
@@ -128,7 +130,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            disabledToggles = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
+            disabledToggles = tag.GetList<AccessoryEffect>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
         }
 
         public override void OnEnterWorld()
@@ -1412,21 +1414,21 @@ namespace FargowiltasSouls.Core.ModPlayers
             modPlayer.Toggler = Toggler;
         }
 
-        public void SyncToggle(string key)
+        public void SyncToggle(AccessoryEffect effect)
         {
-            if (!TogglesToSync.ContainsKey(key))
-                TogglesToSync.Add(key, Player.GetToggle(key).ToggleBool);
+            if (!TogglesToSync.ContainsKey(effect))
+                TogglesToSync.Add(effect, Player.GetToggle(effect).ToggleBool);
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            foreach (KeyValuePair<string, bool> toggle in TogglesToSync)
+            foreach (KeyValuePair<AccessoryEffect, bool> toggle in TogglesToSync)
             {
                 ModPacket packet = Mod.GetPacket();
 
                 packet.Write((byte)FargowiltasSouls.PacketID.SyncOneToggle);
                 packet.Write((byte)Player.whoAmI);
-                packet.Write(toggle.Key);
+                packet.Write(toggle.Key.FullName);
                 packet.Write(toggle.Value);
 
                 packet.Send(toWho, fromWho);
