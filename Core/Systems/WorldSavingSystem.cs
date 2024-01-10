@@ -23,7 +23,8 @@ namespace FargowiltasSouls.Core.Systems
             TrojanSquirrel,
             Lifelight,
             CursedCoffin,
-            BanishedBaron
+            BanishedBaron,
+            Magmaw
         }
 
         //masomode

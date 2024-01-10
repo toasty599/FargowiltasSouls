@@ -101,15 +101,18 @@ namespace FargowiltasSouls
         public static string VanillaTextureProjectile(int projectileID) => $"Terraria/Images/Projectile_{projectileID}";
         public static string VanillaTextureNPC(int npcID) => $"Terraria/Images/NPC_{npcID}";
 
-        public static void GenericProjectileDraw(Projectile projectile, Color lightColor, Texture2D texture = null)
+        public static void GenericProjectileDraw(Projectile projectile, Color lightColor, Texture2D texture = null, Vector2? drawPos = null)
 		{
+			if (drawPos == null)
+                drawPos = projectile.Center;
+
             Texture2D _texture = texture != null ? texture : TextureAssets.Projectile[projectile.type].Value;
             int sizeY = _texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int frameY = projectile.frame * sizeY;
             Rectangle rectangle = new(0, frameY, _texture.Width, sizeY);
             Vector2 origin = rectangle.Size() / 2f;
             SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            Main.EntitySpriteDraw(_texture, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
+            Main.EntitySpriteDraw(_texture, drawPos.Value - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
                     projectile.rotation, origin, projectile.scale, spriteEffects, 0);
         }
 	}

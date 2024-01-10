@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Terra
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
             NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = $"FargowiltasSouls/Content/Bosses/Champions/Terra/{Name}_Still",
                 Scale = 1.25f,

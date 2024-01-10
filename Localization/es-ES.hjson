@@ -5343,6 +5343,7 @@ Mods: {
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
 			// SlimeSwarm.DisplayName: Slime Swarm
+			// Magmaw.DisplayName: Magmaw
 		}
 
 		Tiles: {
@@ -6064,6 +6065,8 @@ Mods: {
 			// MonkDashSlash.DisplayName: Monk Dash Slash
 			// ObsidianExplosion.DisplayName: Obsidian Explosion
 			// DeviGuardianHarmless.DisplayName: Devi Guardian Harmless
+			// MagmawJaw.DisplayName: Magmaw Jaw
+			// MagmawHand.DisplayName: Magmaw Hand
 		}
 
 		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"

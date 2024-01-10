@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
 
             //always max size in force
-            if (modPlayer.ForceEffect(ModContent.ItemType<RainEnchant>()))
+            if (modPlayer.ForceEffect<RainEnchant>())
             {
                 Projectile.scale = 3f;
                 //shrinkTimer = 1;

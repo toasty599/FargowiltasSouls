@@ -429,14 +429,14 @@ namespace FargowiltasSouls.Content.Items
         public override bool WingUpdate(int wings, Player player, bool inUse)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if ((modPlayer.ChloroEnchantActive || modPlayer.ForceEffect(ModContent.ItemType<JungleEnchant>())) && player.GetToggleValue("Jungle") && inUse)
+            if ((modPlayer.ChloroEnchantActive || modPlayer.ForceEffect<JungleEnchant>()) && player.GetToggleValue("Jungle") && inUse)
             {
                 modPlayer.CanJungleJump = false;
 
                 //spwn cloud
                 if (modPlayer.JungleCD == 0 && modPlayer.JungleEnchantItem != null)
                 {
-                    bool jungleForceEffect = modPlayer.ForceEffect(ModContent.ItemType<JungleEnchant>());
+                    bool jungleForceEffect = modPlayer.ForceEffect<JungleEnchant>();
                     if (modPlayer.JungleEnchantItem != null && modPlayer.ForceEffect(modPlayer.JungleEnchantItem.type))
                          jungleForceEffect = true;
                     int dmg = jungleForceEffect ? 150 : 75;

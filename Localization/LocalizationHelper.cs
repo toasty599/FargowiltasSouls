@@ -99,7 +99,7 @@ namespace FargowiltasSouls
 
                 AddBossSpawnInfo("TrojanSquirrel", $"Spawn by using [i:{"SquirrelCoatofArms"}]");
                 AddBossSpawnInfo("Lifelight", $"Spawn by using [i:{"FragilePixieLamp"}] in the Hallow at day.");
-                //JAVYZ TODO: Cursed Coffin and Banished Baron
+                //JAVYZ TODO: Cursed Coffin
                 //AddBossSpawnInfo("CursedCoffin", $"Spawn by using [i:{"CoffinSummon"}] in the Underground Desert.");
                 AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{"BaronSummon"}] underwater at the ocean.");
             }

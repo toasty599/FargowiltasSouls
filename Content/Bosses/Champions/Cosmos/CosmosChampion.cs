@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 ModContent.BuffType<LightningRodBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = false,
                 Position = new Vector2(8, 16),

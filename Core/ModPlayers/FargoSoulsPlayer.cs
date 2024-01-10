@@ -1366,7 +1366,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if ((SquireEnchantItem != null || ValhallaEnchantItem != null))
             {
-                bool forceEffect = ForceEffect(ModContent.ItemType<SquireEnchant>()) || ForceEffect(ModContent.ItemType<ValhallaKnightEnchant>());
+                bool forceEffect = ForceEffect<SquireEnchant>() || ForceEffect<ValhallaKnightEnchant>();
                 if (Eternity)
                     multiplier = 5f;
                 else if (forceEffect && ValhallaEnchantItem != null)
@@ -1509,8 +1509,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             hurtbox.Y -= hurtbox.Height / 2;
             return hurtbox;
         }
-
-        public bool ForceEffect(int? enchType)
+        public bool ForceEffect(ModItem modItem)
         {
             //This will probably be made less ugly in a future refactor update.
             bool CheckForces(int type) =>
@@ -1525,35 +1524,28 @@ namespace FargowiltasSouls.Core.ModPlayers
                 (willForce && WillForce.ContainsEnchant[type]) ||
                 (BaseEnchant.CraftsInto[type] != -1 && CheckForces(BaseEnchant.CraftsInto[type])); //check force of enchant it crafts into, recursively
 
-            if (Main.gamePaused)
+            if (Main.gamePaused || modItem == null || modItem.Item == null || modItem.Item.IsAir)
                 return false;
 
-            if (enchType == null)
-            {
-                Main.NewText("you shouldn't be seeing this. tall javyz");
-                return false;
-            }
-            int type = (int)enchType;
-            ModItem item = ModContent.GetModItem(type);
-            if (item == null || item.Item.IsAir)
-            {
-                Main.NewText("you shouldn't be seeing this. tall javyz");
-                return false;
-            }
-
-            if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == item.Item.type)
+            if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == modItem.Item.type)
                 return true;
 
-            if (item == null)
-                return false;
-
-            if (item is BaseSoul || item is BaseForce)
+            if (modItem is BaseSoul || modItem is BaseForce)
                 return true;
 
-            if (item is BaseEnchant && CheckForces(type))
+            if (modItem is BaseEnchant && CheckForces(modItem.Item.type))
                 return true;
 
             return false;
+        }
+        public bool ForceEffect<T>() where T : BaseEnchant => ForceEffect(ModContent.ItemType<T>());
+        public bool ForceEffect(int? enchType)
+        {
+            if (enchType == null)
+                return false;
+
+            ModItem item = ModContent.GetModItem((int)enchType);
+            return item != null && ForceEffect(item);
         }
         public override void PreSavePlayer()
         {

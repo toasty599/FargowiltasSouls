@@ -53,7 +53,7 @@ Grants knockback immunity when you are facing the attack
                 int GladiatorStandard = ModContent.ProjectileType<GladiatorStandard>();
                 if (player.ownedProjectileCounts[GladiatorStandard] < 1)
                 {
-                    Projectile.NewProjectile(player.GetSource_Misc(""), player.Top, Vector2.UnitY * 25, GladiatorStandard, modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 300 : 100, 3f, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_Misc(""), player.Top, Vector2.UnitY * 25, GladiatorStandard, modPlayer.ForceEffect<GladiatorEnchant>() ? 300 : 100, 3f, player.whoAmI);
                 }
             }
         }
@@ -93,7 +93,7 @@ Grants knockback immunity when you are facing the attack
                     Projectile.NewProjectile(player.GetSource_Misc(""), spawn, Vector2.Normalize(aim - spawn).RotatedByRandom(MathHelper.Pi / 20) * speed, ModContent.ProjectileType<GladiatorJavelin>(), spearDamage, 4f, Main.myPlayer);
                 }
 
-                modPlayer.GladiatorCD = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 10 : 30;
+                modPlayer.GladiatorCD = modPlayer.ForceEffect<GladiatorEnchant>() ? 10 : 30;
                 modPlayer.GladiatorCD = buff ? modPlayer.GladiatorCD : (int)Math.Round(modPlayer.GladiatorCD * 1.5f);
             }
         }

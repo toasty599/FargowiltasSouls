@@ -479,7 +479,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         if (shroomiteMushroomCD >= maxCD)
                         {
                             shroomiteMushroomCD = 0;
-                            if (modPlayer.ForceEffect(ModContent.ItemType<ShroomiteEnchant>()))
+                            if (modPlayer.ForceEffect<ShroomiteEnchant>())
                             {
                                 shroomiteMushroomCD += maxCD / 4f;
                             }
@@ -529,7 +529,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                                 spookyCD = 30 + Main.rand.Next(player.maxMinions * 5);
 
-                                if (modPlayer.ForceEffect(ModContent.ItemType<SpookyEnchant>()))
+                                if (modPlayer.ForceEffect<SpookyEnchant>())
                                 {
                                     spookyCD -= 10;
                                 }
@@ -1200,7 +1200,7 @@ namespace FargowiltasSouls.Content.Projectiles
             FargoSoulsPlayer modPlayer = Main.player[projectile.owner].FargoSouls();
 
             if (stormTimer > 0)
-                modifiers.FinalDamage *= modPlayer.ForceEffect(ModContent.ItemType<ForbiddenEnchant>()) ? 1.6f : 1.3f;
+                modifiers.FinalDamage *= modPlayer.ForceEffect<ForbiddenEnchant>() ? 1.6f : 1.3f;
 
             if (Main.player[projectile.owner].FargoSouls().NinjaEnchantItem != null)
             {

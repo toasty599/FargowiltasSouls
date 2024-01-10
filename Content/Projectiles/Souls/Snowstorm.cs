@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             //dust
             int dist = 50;
 
-            bool forceEffect = modPlayer.ForceEffect(ModContent.ItemType<SnowEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<FrostEnchant>());
+            bool forceEffect = modPlayer.ForceEffect<SnowEnchant>() || modPlayer.ForceEffect<FrostEnchant>();
             if (forceEffect)
             {
                 dist = 100;

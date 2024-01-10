@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()
             { // Influences how the NPC looks in the Bestiary
                 CustomTexturePath = "FargowiltasSouls/Assets/Effects/LifeStar", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
                 Position = new Vector2(0f, 0f),

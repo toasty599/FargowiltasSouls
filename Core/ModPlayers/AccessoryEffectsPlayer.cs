@@ -438,7 +438,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (IcicleCount >= 1 && Player.controlUseItem && Player.HeldItem.damage > 0 && Player.HeldItem.createTile == -1 && Player.HeldItem.createWall == -1 && Player.HeldItem.ammo == AmmoID.None && Player.HeldItem.hammer == 0 && Player.HeldItem.pick == 0 && Player.HeldItem.axe == 0)
                 {
                     
-                    int dmg = ForceEffect(ModContent.ItemType<FrostEnchant>()) ? 100 : 50;
+                    int dmg = ForceEffect<FrostEnchant>() ? 100 : 50;
 
                     for (int i = 0; i < Main.maxProjectiles; i++)
                     {
@@ -499,7 +499,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 int duration = 300;
 
-                if (ForceEffect(ModContent.ItemType<GoldEnchant>()))
+                if (ForceEffect<GoldEnchant>())
                 {
                     duration *= 2;
                 }
@@ -651,7 +651,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     int tier = 1;
                     if (ChloroEnchantActive)
                         tier++;
-                    bool jungleForceEffect = ForceEffect(ModContent.ItemType<JungleEnchant>()) || ForceEffect(ModContent.ItemType<ChlorophyteEnchant>());
+                    bool jungleForceEffect = ForceEffect<JungleEnchant>() || ForceEffect<ChlorophyteEnchant>();
                     if (jungleForceEffect)
                         tier++;
 
@@ -798,7 +798,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.nebulaCD > 0)
                 Player.nebulaCD--;
 
-            if (!TerrariaSoul && !ForceEffect(ModContent.ItemType<NebulaEnchant>())) //cap boosters
+            if (!TerrariaSoul && !ForceEffect<NebulaEnchant>()) //cap boosters
             {
                 void DecrementBuff(int buffType)
                 {
@@ -858,7 +858,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 int max = 2;
                 
-                bool forceEffect = ForceEffect(ModContent.ItemType<ShadowEnchant>()) || ForceEffect(ModContent.ItemType<AncientShadowEnchant>());
+                bool forceEffect = ForceEffect<ShadowEnchant>() || ForceEffect<AncientShadowEnchant>();
 
                 if (TerrariaSoul)
                 {
@@ -1305,7 +1305,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             Player.DisplayToggle("Tiki");
 
-            if (ForceEffect(ModContent.ItemType<TikiEnchant>()))
+            if (ForceEffect<TikiEnchant>())
                 Player.whipRangeMultiplier += 0.2f;
 
             if (Player.GetToggleValue("Tiki"))
@@ -1357,7 +1357,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 TurtleCounter = 0;
             }
             
-            if (TurtleShellHP < 20 && !Player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && !ShellHide && ForceEffect(ModContent.ItemType<TurtleEnchant>()))
+            if (TurtleShellHP < 20 && !Player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && !ShellHide && ForceEffect<TurtleEnchant>())
             {
                 turtleRecoverCD--;
                 if (turtleRecoverCD <= 0)

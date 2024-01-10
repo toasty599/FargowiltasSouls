@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             if (modPlayer.ObsidianCD > 0)
                 modPlayer.ObsidianCD--;
 
-            if (modPlayer.ForceEffect(ModContent.ItemType<ObsidianEnchant>()) || player.lavaWet || modPlayer.LavaWet)
+            if (modPlayer.ForceEffect<ObsidianEnchant>() || player.lavaWet || modPlayer.LavaWet)
             {
                 modPlayer.ObsidianEnchantItem = item;
             }

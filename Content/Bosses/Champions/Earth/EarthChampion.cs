@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
                     ModContent.BuffType<ClippedWingsBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = $"FargowiltasSouls/Content/Bosses/Champions/Earth/{Name}_Still",
                 Scale = 0.75f,

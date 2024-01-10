@@ -49,7 +49,7 @@ Enemies take 25% increased damage while inside the inferno ring
                 float distance = 200f;
                 int baseDamage = 40;
 
-                if (modPlayer.ForceEffect(ModContent.ItemType<MoltenEnchant>()))
+                if (modPlayer.ForceEffect<MoltenEnchant>())
                 {
                     distance *= 1.5f;
                     baseDamage *= 2;

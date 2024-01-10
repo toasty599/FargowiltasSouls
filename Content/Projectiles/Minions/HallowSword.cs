@@ -215,7 +215,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 return;
             }
-            int damageCap = player.FargoSouls().ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 200 : 150;
+            int damageCap = player.FargoSouls().ForceEffect<AncientHallowEnchant>() ? 200 : 150;
 
             foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(p) && p.damage <= damageCap && sword.Colliding(sword.Hitbox, p.Hitbox)))
             {

@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                     ModContent.BuffType<ClippedWingsBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true
             });

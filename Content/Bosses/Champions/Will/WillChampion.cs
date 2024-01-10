@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
                     ModContent.BuffType<ClippedWingsBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(16 * 3.5f, 16 * -1.5f),
                 PortraitPositionXOverride = 0,

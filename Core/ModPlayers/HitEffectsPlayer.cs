@@ -215,7 +215,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (BeeEnchantItem != null && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
                 && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity && !projectile.usesIDStaticNPCImmunity && projectile.owner == Main.myPlayer)))
             {
-                bool force = ForceEffect(ModContent.ItemType<BeeEnchant>());
+                bool force = ForceEffect<BeeEnchant>();
                 if (force || Main.rand.NextBool())
                 {
                     int beeDamage = GetBaseDamage();
@@ -421,7 +421,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (SpectreEnchantActive && Player.GetToggleValue("Spectre") && !target.immortal && SpectreCD <= 0 && Main.rand.NextBool())
             {
-                bool spectreForceEffect = ForceEffect(ModContent.ItemType<SpectreEnchant>());
+                bool spectreForceEffect = ForceEffect<SpectreEnchant>();
                 if (projectile == null)
                 {
                     //forced orb spawn reeeee

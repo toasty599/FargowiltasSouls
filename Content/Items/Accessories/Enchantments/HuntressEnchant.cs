@@ -70,7 +70,7 @@ Missing any attack will reset these bonuses
 
                 modPlayer.HuntressCD = 30;
             }
-            int bonus = modPlayer.ForceEffect(ModContent.ItemType<HuntressEnchant>()) || modPlayer.RedRidingEnchantItem != null ? 5 : 3;
+            int bonus = modPlayer.ForceEffect<HuntressEnchant>() || modPlayer.RedRidingEnchantItem != null ? 5 : 3;
             proj.ArmorPenetration = bonus * 2 * modPlayer.HuntressStage;
             modifiers.SourceDamage.Flat += bonus * modPlayer.HuntressStage;
         }

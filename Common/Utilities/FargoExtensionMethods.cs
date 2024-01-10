@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Globals;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -144,6 +145,10 @@ namespace FargowiltasSouls //lets everything access it without using
             }
             return false;
         }
+        /// <summary>
+        /// Sets the magnitude of the vector. Does not modify the original vector. Defaults to Vector2.UnitY if vector length is 0.
+        /// </summary>
+        public static Vector2 SetMagnitude(this Vector2 vector, float magnitude) => vector.SafeNormalize(Vector2.UnitY) * magnitude;
 
         /// <summary>
         /// Returns total crit chance, including class-specific and generic boosts.

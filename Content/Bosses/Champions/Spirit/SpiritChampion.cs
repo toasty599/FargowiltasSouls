@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
                 ModContent.BuffType<ClippedWingsBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = $"FargowiltasSouls/Content/Bosses/Champions/Spirit/{Name}_Still",
                 Position = new Vector2(4, 0),

@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 SoundEngine.PlaySound(SoundID.Item2, Projectile.Center);
             }
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.ForceEffect(ModContent.ItemType<NecroEnchant>()))
+            if (modPlayer.ForceEffect<NecroEnchant>())
             {
                 Projectile.velocity.Y = 0;
 

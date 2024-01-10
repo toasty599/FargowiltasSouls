@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             FargoSoulsPlayer localModPlayer = Main.LocalPlayer.FargoSouls();
 
-            int AuraSize = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 800 : 400;
+            int AuraSize = modPlayer.ForceEffect<GladiatorEnchant>() ? 800 : 400;
 
             FargoSoulsUtil.AuraDust(Projectile, AuraSize, DustID.GoldCoin);
             if (FargoSoulsUtil.ClosestPointInHitbox(Main.LocalPlayer.Hitbox, Projectile.Center).Distance(Projectile.Center) < AuraSize && modPlayer.GladiatorEnchantActive && !localModPlayer.Purified)
