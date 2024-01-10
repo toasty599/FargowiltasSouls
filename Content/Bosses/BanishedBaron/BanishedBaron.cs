@@ -1893,8 +1893,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 RandomizeState();
             else
                 State = (int)StateEnum.Swim;
-            bool expertP2 = NPC.life < NPC.lifeMax / 2 && Phase == 1 && Main.expertMode;
-            bool nonexpertP2 = NPC.life < NPC.lifeMax / 3 && Phase == 1 && !Main.expertMode;
+            bool expertP2 = NPC.GetLifePercent() < (2f/3) && Phase == 1 && Main.expertMode;
+            bool nonexpertP2 = NPC.GetLifePercent() < 0.5f && Phase == 1 && !Main.expertMode;
             if (expertP2 || nonexpertP2)
             {
                 State = (float)StateEnum.Phase2Transition;
