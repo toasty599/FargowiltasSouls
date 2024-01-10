@@ -3,6 +3,48 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler.Content
 {
+    public abstract class EnchantHeader : Header
+    {
+        public override int Priority => 0;
+        public override string SortCategory => "Enchantments";
+    }
+    public class WoodHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<TimberForce>();
+    }
+    public class EarthHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<EarthForce>();
+    }
+    public class TerraHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<TerraForce>();
+    }
+    public class WillHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<WillForce>();
+    }
+    public class LifeHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<LifeForce>();
+    }
+    public class NatureHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<NatureForce>();
+    }
+    public class ShadowHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<ShadowForce>();
+    }
+    public class SpiritHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<SpiritForce>();
+    }
+    public class CosmoHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<CosmoForce>();
+    }
+    /*
     public class EnchantToggles : ToggleCollection
     {
         public override string Mod => "FargowiltasSouls";
@@ -104,4 +146,5 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public string VortexS;
         public string VortexV;
     }
+    */
 }

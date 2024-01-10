@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls.Content.Items.Accessories
 {
@@ -33,7 +35,8 @@ namespace FargowiltasSouls.Content.Items.Accessories
     }
     public class TestAccessoryEffect : AccessoryEffect
     {
-        public override string ToggleCategory => "Test";
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => ToggleLoader.GetHeader<TerraHeader>();
         public override void PostUpdateEquips(Player player)
         {
             TestAccessoryEffectFields fieldInstance = player.GetEffectInstance<TestAccessoryEffectFields>();
@@ -46,7 +49,6 @@ namespace FargowiltasSouls.Content.Items.Accessories
         public int Test;
         public override void ResetEffects()
         {
-            Main.NewText(Index);
             //test = 0;
         }
     }

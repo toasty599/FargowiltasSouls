@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         /// </summary>
         public abstract bool HasToggle { get; }
         public string ToggleDescription => Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
-        public Header ToggleHeader { get; }
+        public abstract Header ToggleHeader { get; }
 
         public bool MinionEffect = false;
         public bool ExtraAttackEffect = false;

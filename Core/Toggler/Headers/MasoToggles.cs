@@ -1,10 +1,53 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+﻿using FargowiltasSouls.Content.Items.Accessories.Forces;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler.Content
 {
+    public abstract class MasoHeader : Header
+    {
+        public override int Priority => 2;
+        public override string SortCategory => "Maso";
+    }
+    public class DeviEnergyHeader : MasoHeader
+    {
+        public override int Item => ModContent.ItemType<DeviatingEnergy>();
+    }
+    public class SupremeFairyHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<SupremeDeathbringerFairy>();
+    }
+    public class BionomicHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<BionomicCluster>();
+    }
+    public class DubiousHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<DubiousCircuitry>();
+    }
+    public class PureHeartHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<PureHeart>();
+    }
+    public class LumpofFleshHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<LumpOfFlesh>();
+    }
+    public class ChaliceHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<ChaliceoftheMoon>();
+    }
+    public class HeartHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<HeartoftheMasochist>();
+    }
+    public class MutantArmorHeader : EnchantHeader
+    {
+        public override int Item => ModContent.ItemType<MutantBody>();
+    }
+    /*
     public class MasoToggles : ToggleCollection
     {
         public override string Mod => "FargowiltasSouls";
@@ -82,4 +125,5 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public string MasoRing;
         public string MasoReviveDeathray;
     }
+    */
 }

@@ -3,6 +3,40 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler.Content
 {
+    public abstract class SoulHeader : Header
+    {
+        public override int Priority => 1;
+        public override string SortCategory => "Souls";
+    }
+    public class UniverseHeader : SoulHeader
+    {
+        public override int Item => ModContent.ItemType<UniverseSoul>();
+    }
+    public class WorldShaperHeader : SoulHeader
+    {
+        public override int Item => ModContent.ItemType<WorldShaperSoul>();
+    }
+    public class ColossusHeader : SoulHeader
+    {
+        public override int Item => ModContent.ItemType<ColossusSoul>();
+    }
+    public class FlightMasteryHeader : SoulHeader
+    {
+        public override int Item => ModContent.ItemType<FlightMasterySoul>();
+    }
+    public class SupersonicHeader : SoulHeader
+    {
+        public override int Item => ModContent.ItemType<SupersonicSoul>();
+    }
+    public class TrawlerHeader : SoulHeader
+    {
+        public override int Item => ModContent.ItemType<TrawlerSoul>();
+    }
+    public class EternityHeader : SoulHeader
+    {
+        public override int Item => ModContent.ItemType<EternitySoul>();
+    }
+    /*
     public class SoulToggles : ToggleCollection
     {
         public override string Mod => "FargowiltasSouls";
@@ -37,7 +71,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public string DefenseFrozen;
         public string ShimmerImmunity;
 
-        public int FlightMasteryHeader = ModContent.ItemType<SupersonicSoul>();
+        public int FlightMasteryHeader = ModContent.ItemType<FlightMasterySoul>();
         public string FlightMasteryInsignia;
         public string FlightMasteryGravity;
 
@@ -64,4 +98,5 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public int EternityHeader = ModContent.ItemType<EternitySoul>();
         public string Eternity;
     }
+    */
 }

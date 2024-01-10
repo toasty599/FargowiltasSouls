@@ -15,8 +15,14 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         internal static void Register(AccessoryEffect effect)
         {
             AccessoryEffectTypes.Add(effect);
+            
             if (effect.HasToggle)
+            {
+                if (effect.ToggleHeader == null)
+                    throw new Exception($"Accessory effect {effect.Name} tried to register a toggle without a valid header");
                 ToggleLoader.RegisterToggle(new Toggle(effect, effect.Mod.Name, effect.ToggleHeader.SortCategory, effect.ToggleHeader));
+            }
+                
         }
         internal static void Register(AccessoryEffectInstance effect)
         {
@@ -33,8 +39,9 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
                 effectPlayer.ActiveEffects.Add(effect);
             }
         }
+        public static void EffectEnabled<T>(this Player player) where T : AccessoryEffect => player.GetModPlayer<AccessoryEffectPlayer>().ActiveEffects.Contains(ModContent.GetInstance<T>());
         public static T EffectType<T>() where T : AccessoryEffect => ModContent.GetInstance<T>();
-        public static T EffectType(string internalName) => ModContent.Find<AccessoryEffect>(internalName);
+        public static AccessoryEffect EffectType(string internalName)  => ModContent.Find<AccessoryEffect>(internalName);
         public static T GetEffectInstance<T>(this Player player) where T : AccessoryEffectInstance =>
             GetEffectInstance(ModContent.GetInstance<T>(), player);
         public static T GetEffectInstance<T>(T baseInstance, Player player) where T : AccessoryEffectInstance

@@ -13,11 +13,11 @@ using static Terraria.GameContent.UI.EmoteID;
 
 namespace FargowiltasSouls.Core.Toggler
 {
-    public class Header : ModType
+    public abstract class Header : ModType
     {
-        public string SortCategory { get; }
-        public int Priority { get; }
-        public int Item { get; }
+        public abstract string SortCategory { get; }
+        public abstract int Priority { get; }
+        public abstract int Item { get; }
 
         public string HeaderDescription => Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
 
@@ -44,5 +44,6 @@ namespace FargowiltasSouls.Core.Toggler
 
             return rawText;
         }
+
     }
 }
