@@ -161,8 +161,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateEquips()
         {
-            if (MahoganyEnchantItem != null)
-                RichMahoganyEnchant.PostUpdate(Player);
 
             if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
             {

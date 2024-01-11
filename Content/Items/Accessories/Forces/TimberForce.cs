@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -64,13 +65,11 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.timberForce = true;
             WoodEnchant.WoodEffect(player, Item);
-            BorealWoodEnchant.BorealEffect(player, Item);
-            modPlayer.MahoganyEnchantItem = Item;
-            player.DisplayToggle("Mahogany");
-            modPlayer.EbonwoodEnchantItem = Item;
-            EbonwoodEnchant.EbonwoodEffect(player);
-            ShadewoodEnchant.ShadewoodEffect(player, Item);
-            PalmWoodEnchant.PalmEffect(player, Item);
+            player.AddEffect<BorealEffect>(Item);
+            player.AddEffect<MahoganyEffect>(Item);
+            player.AddEffect<EbonwoodEffect>(Item);
+            player.AddEffect<ShadewoodEffect>(Item);
+            player.AddEffect<PalmwoodEffect>(Item);
             PearlwoodEnchant.PearlwoodEffect(player, Item);
         }
 

@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
         public override int Priority => 0;
         public override string SortCategory => "Enchantments";
     }
-    public class WoodHeader : EnchantHeader
+    public class TimberHeader : EnchantHeader
     {
         public override int Item => ModContent.ItemType<TimberForce>();
     }

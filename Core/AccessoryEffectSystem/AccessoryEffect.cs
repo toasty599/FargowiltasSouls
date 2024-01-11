@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
@@ -28,14 +30,45 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 
         public bool MinionEffect = false;
         public bool ExtraAttackEffect = false;
-        public virtual void PostUpdateEquips(Player player) { }
 
-        // Add more methods as needed here
         protected sealed override void Register()
         {
             AccessoryEffectLoader.Register(this);
             ModTypeLookup<AccessoryEffect>.Register(this);
         }
+        /// <summary>
+        /// The item associated with this effect. Null if none is found.
+        /// </summary>
+        public Item EffectItem(Player player) => player.GetModPlayer<AccessoryEffectPlayer>().EffectItems.TryGetValue(this, out Item value) ? value : null;
+
+        #region Overridables
+        public virtual void PreUpdate(Player player) { }
+        public virtual void PostUpdateEquips(Player player) { }
+        public virtual void UpdateBadLifeRegen(Player player) { }
+        public virtual void PostUpdate(Player player) { }
+        public virtual void PostUpdateMiscEffects(Player player) { }
+        public virtual void TryAdditionalAttacks(Player player, int damage, DamageClass damageType) { }
+        public virtual void ModifyHitNPCWithProj(Player player, Projectile proj, NPC target, ref NPC.HitModifiers modifiers) { }
+        public virtual void ModifyHitNPCWithItem(Player player, Item item, NPC target, ref NPC.HitModifiers modifiers) { }
+        public virtual void ModifyHitNPCBoth(Player player, NPC target, ref NPC.HitModifiers modifiers, DamageClass damageClass) { }
+        public virtual void ModifyHitInfo(Player player, NPC target, ref NPC.HitInfo hitInfo, DamageClass damageClass) { }
+        public virtual void OnHitNPCWithProj(Player player, Projectile proj, NPC target, NPC.HitInfo hit, int damageDone) { }
+        public virtual void OnHitNPCWithItem(Player player, Item item, NPC target, NPC.HitInfo hit, int damageDone) { }
+        public virtual void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item) { }
+        public virtual void MeleeEffects(Player player, Item item, Rectangle hitbox) { }
+        public virtual float ModifyUseSpeed(Player player, Item item) { return 0f; }
+        public virtual void ModifyHitByNPC(Player player, NPC npc, ref Player.HurtModifiers modifiers) { }
+        public virtual void ModifyHitByProjectile(Player player, Projectile projectile, ref Player.HurtModifiers modifiers) { }
+        public virtual void OnHitByNPC(Player player, NPC npc, Player.HurtInfo hurtInfo) { }
+        public virtual void OnHitByProjectile(Player player, Projectile proj, Player.HurtInfo hurtInfo) { }
+        public virtual void OnHitByEither(Player player, NPC npc, Projectile proj) { }
+        public virtual bool CanBeHitByNPC(Player player, NPC npc) { return true; }
+        public virtual bool CanBeHitByProjectile(Player player, Projectile projectile) { return true; }
+        public virtual bool PreKill(Player player, double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource) { return true; }
+        public virtual void DrawEffects(Player player, PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright) { }
+        #endregion
+
+
     }
     /// <summary>
     /// Contains the parts of an accessory effect that should be instanced - for example fields.
@@ -57,11 +90,14 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         /// <summary>
         /// Runs in ModPlayer ResetEffects (once per frame). See ModPlayer.ResetEffects for more info.
         /// </summary>
-        public virtual void ResetEffects() { }
         protected sealed override void Register()
         {
             AccessoryEffectLoader.Register(this);
             ModTypeLookup<AccessoryEffectInstance>.Register(this);
         }
+        #region Overridables
+        public virtual void ResetEffects() { }
+        public virtual void UpdateDead() { }
+        #endregion
     }
 }

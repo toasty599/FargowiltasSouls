@@ -31,12 +31,12 @@ namespace FargowiltasSouls.Content.Items.Accessories
             Item.expert = true;
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual) => player.EnableEffect<TestAccessoryEffect>(Item);
+        public override void UpdateAccessory(Player player, bool hideVisual) => player.AddEffect<TestAccessoryEffect>(Item);
     }
     public class TestAccessoryEffect : AccessoryEffect
     {
         public override bool HasToggle => true;
-        public override Header ToggleHeader => ToggleLoader.GetHeader<TerraHeader>();
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
         public override void PostUpdateEquips(Player player)
         {
             TestAccessoryEffectFields fieldInstance = player.GetEffectInstance<TestAccessoryEffectFields>();

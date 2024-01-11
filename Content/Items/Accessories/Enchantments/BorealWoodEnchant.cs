@@ -1,9 +1,12 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
-
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -26,32 +29,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            BorealEffect(player, Item);
-        }
-
-        public static void BorealEffect(Player player, Item item)
-        {
-            player.DisplayToggle("Boreal");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.BorealEnchantItem = item;
-
-            if (modPlayer.BorealCD > 0)
-                modPlayer.BorealCD--;
-        }
-
-        public static void BorealSnowballs(FargoSoulsPlayer modPlayer, int damage)
-        {
-            Player player = modPlayer.Player;
-
-            Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
-            int snowballDamage = damage / 2;
-            if (!modPlayer.TerrariaSoul)
-                snowballDamage = Math.Min(snowballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.ForceEffect(modPlayer.BorealEnchantItem.type) ? 300 : 30));
-            int p = Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BorealEnchantItem), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
-
-            int numSnowballs = modPlayer.ForceEffect(modPlayer.BorealEnchantItem.type) ? 7 : 3;
-            if (p != Main.maxProjectiles)
-                FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
+            player.AddEffect<BorealEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -67,5 +45,42 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddTile(TileID.DemonAltar)
             .Register();
         }
+    }
+    public class BorealEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+
+        public override void PostUpdateEquips(Player player)
+        {
+            BorealEffectInstance effectFields = player.GetEffectInstance<BorealEffectInstance>();
+            if (effectFields.BorealCD > 0)
+                effectFields.BorealCD--;
+        }
+        public override void TryAdditionalAttacks(Player player, int damage, DamageClass damageType)
+        {
+            BorealEffectInstance effectFields = player.GetEffectInstance<BorealEffectInstance>();
+            if (effectFields.BorealCD <= 0)
+            {
+                Item item = EffectItem(player);
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                bool forceEffect = modPlayer.ForceEffect(item.type);
+                effectFields.BorealCD = forceEffect ? 30 : 60;
+
+                Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
+                int snowballDamage = damage / 2;
+                if (!modPlayer.TerrariaSoul)
+                    snowballDamage = Math.Min(snowballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, forceEffect ? 300 : 30));
+                int p = Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, vel, ProjectileID.SnowBallFriendly, snowballDamage, 1, Main.myPlayer);
+
+                int numSnowballs = forceEffect ? 7 : 3;
+                if (p != Main.maxProjectiles)
+                    FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
+            }
+        }
+    }
+    public class BorealEffectInstance : AccessoryEffectInstance
+    {
+        public int BorealCD;
     }
 }

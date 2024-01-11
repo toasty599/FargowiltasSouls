@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Martians;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Martians;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Drawing;
@@ -42,14 +44,15 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
 
-            if (!(player.active && !player.dead && modPlayer.PalmEnchantItem != null))
+            if (!(player.Alive() && player.HasEffect<PalmwoodEffect>()))
             {
                 Projectile.Kill();
                 return;
             }//this is to work properly with sentry despawning
+            bool forceEffect = modPlayer.ForceEffect<PalmWoodEnchant>();
 
             //BIG palm sentry!
-            Projectile.scale = modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 2 : 1;
+            Projectile.scale = forceEffect ? 2 : 1;
             Projectile.height = 82 * (int)Projectile.scale;
             Projectile.width = 80 * (int)Projectile.scale;
             //Projectile.height = forcePalm ? 110 : 82; //stupid fucking idiot dumbass hatred way of making palm not clip into death
@@ -62,7 +65,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Projectile.ai[1] += 1f;
 
-            int attackRate = modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 30 : 45;
+            int attackRate = forceEffect ? 30 : 45;
 
             if (Projectile.ai[1] >= attackRate)
             {

@@ -5,6 +5,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -34,56 +37,7 @@ Enemies struck while Bleeding spew damaging blood
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ShadewoodEffect(player, Item);
-        }
-
-        public static void ShadewoodEffect(Player player, Item item)
-        {
-            player.DisplayToggle("Shade");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
-                return;
-
-            modPlayer.ShadewoodEnchantItem = item;
-
-            int dist = modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) ? 400 : 200;
-
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC npc = Main.npc[i];
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage)
-                {
-                    Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
-                    if (player.Distance(npcComparePoint) < dist && (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
-                        npc.AddBuff(ModContent.BuffType<SuperBleedBuff>(), 120);
-                }
-            }
-
-            for (int i = 0; i < 20; i++)
-            {
-                Vector2 offset = new();
-                double angle = Main.rand.NextDouble() * 2d * Math.PI;
-                offset.X += (float)(Math.Sin(angle) * dist);
-                offset.Y += (float)(Math.Cos(angle) * dist);
-                Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-                if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
-                {
-                    Dust dust = Main.dust[Dust.NewDust(
-                        spawnPos, 0, 0,
-                        DustID.Blood, 0, 0, 100, Color.White, 1f
-                        )];
-                    dust.velocity = player.velocity;
-                    if (Main.rand.NextBool(3))
-                        dust.velocity += Vector2.Normalize(offset) * -5f;
-                    dust.noGravity = true;
-                }
-            }
-
-            if (modPlayer.ShadewoodCD > 0)
-            {
-                modPlayer.ShadewoodCD--;
-            }
+            player.AddEffect<ShadewoodEffect>(Item);
         }
 
         public static void ShadewoodProc(FargoSoulsPlayer modPlayer, NPC target, Projectile projectile)
@@ -129,6 +83,56 @@ Enemies struck while Bleeding spew damaging blood
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class ShadewoodEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+
+            if (player.whoAmI != Main.myPlayer)
+                return;
+            bool forceEffect = modPlayer.ForceEffect<ShadewoodEnchant>();
+            int dist = forceEffect ? 400 : 200;
+
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+                if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage)
+                {
+                    Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
+                    if (player.Distance(npcComparePoint) < dist && (forceEffect || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
+                        npc.AddBuff(ModContent.BuffType<SuperBleedBuff>(), 120);
+                }
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 offset = new();
+                double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                offset.X += (float)(Math.Sin(angle) * dist);
+                offset.Y += (float)(Math.Cos(angle) * dist);
+                Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
+                if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
+                {
+                    Dust dust = Main.dust[Dust.NewDust(
+                        spawnPos, 0, 0,
+                        DustID.Blood, 0, 0, 100, Color.White, 1f
+                        )];
+                    dust.velocity = player.velocity;
+                    if (Main.rand.NextBool(3))
+                        dust.velocity += Vector2.Normalize(offset) * -5f;
+                    dust.noGravity = true;
+                }
+            }
+
+            if (modPlayer.ShadewoodCD > 0)
+            {
+                modPlayer.ShadewoodCD--;
+            }
         }
     }
 }

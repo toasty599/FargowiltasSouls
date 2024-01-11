@@ -15,14 +15,12 @@ namespace FargowiltasSouls.Core.Toggler
             get;
             private set;
         } = new Dictionary<AccessoryEffect, Toggle>();
-        public static List<Header> LoadedHeaders
+        public static HashSet<Header> LoadedHeaders
         {
             get;
             private set;
-        } = new List<Header>();
-        public static T GetHeader<T>() where T : Header => LoadedHeaders.First(h => h.GetType() == typeof(T)) as T;
-        public static Header GetHeaderFromItem<T>() where T : ModItem => LoadedHeaders.FirstOrDefault(h => h.Item == ModContent.ItemType<T>(), null);
-        public static Header GetHeaderFromItemType(int type) => LoadedHeaders.FirstOrDefault(h => h.Item == type, null);
+        } = new HashSet<Header>();
+
 
         public static void Load()
         {

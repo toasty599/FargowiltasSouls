@@ -43,7 +43,7 @@ Enemies will explode into needles on death if they are struck with your needles
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.GetModPlayer<FargoSoulsPlayer>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             CactusEnchant.CactusEffect(player, Item);
             modPlayer.TurtleEffect(hideVisual);
         }

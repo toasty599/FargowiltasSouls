@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Core.Systems
             if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
             {
                 GladiatorEnchant.ActivateGladiatorBanner(player);
-                PalmWoodEnchant.ActivatePalmwoodSentry(player);
+                PalmwoodEffect.ActivatePalmwoodSentry(player);
                 EridanusHat.EridanusSetBonusKey(player);
                 GaiaHelmet.GaiaSetBonusKey(player);
                 NekomiHood.NekomiSetBonusKey(player);

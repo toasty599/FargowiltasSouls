@@ -24,6 +24,7 @@ using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using Terraria.GameContent;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -450,9 +451,9 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
 
                 //hook ai
-                if (modPlayer.MahoganyEnchantItem != null && player.GetToggleValue("Mahogany", false) && projectile.aiStyle == 7)
+                if (player.HasEffect<MahoganyEffect>() && projectile.aiStyle == 7)
                 {
-                    RichMahoganyEnchant.MahoganyHookAI(projectile, modPlayer);
+                    MahoganyEffect.MahoganyHookAI(projectile, modPlayer);
                 }
 
                 if (!projectile.hostile && !projectile.trap && !projectile.npcProj)
@@ -1369,11 +1370,11 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.MahoganyEnchantItem != null && player.GetToggleValue("Mahogany", false))
+            if (player.HasEffect<MahoganyEffect>())
             {
                 float multiplier = 1.5f;
 
-                if (modPlayer.ForceEffect(modPlayer.MahoganyEnchantItem.type))
+                if (modPlayer.ForceEffect<RichMahoganyEnchant>())
                 {
                     multiplier = 2.5f;
                 }
@@ -1384,9 +1385,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void GrappleRetreatSpeed(Projectile projectile, Player player, ref float speed)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            if (modPlayer.MahoganyEnchantItem != null && player.GetToggleValue("Mahogany", false))
+            if (player.HasEffect<MahoganyEffect>())
             {
                 float multiplier = 3f;
                 speed *= multiplier;

@@ -1,4 +1,6 @@
 ﻿
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -33,31 +35,7 @@ While grappling you gain 10% damage resistance for one hit and a 50% thorns effe
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().MahoganyEnchantItem = Item;
-            player.DisplayToggle("Mahogany");
-        }
-
-        public static void PostUpdate(Player player)
-        {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            if (player.grapCount > 0)
-            {
-                modPlayer.Player.thorns += modPlayer.ForceEffect(modPlayer.MahoganyEnchantItem.type) ? 5.0f : 0.5f;
-
-                if (modPlayer.MahoganyCanUseDR)
-                    modPlayer.Player.endurance += modPlayer.ForceEffect(modPlayer.MahoganyEnchantItem.type) ? 0.3f : 0.1f;
-            }
-            else //when not grapple, refresh DR
-            {
-                modPlayer.MahoganyCanUseDR = true;
-            }
-        }
-
-        public static void MahoganyHookAI(Projectile projectile, FargoSoulsPlayer modPlayer)
-        {
-            if (projectile.extraUpdates < 1)
-                projectile.extraUpdates = 1;
+            player.AddEffect<MahoganyEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -73,6 +51,33 @@ While grappling you gain 10% damage resistance for one hit and a 50% thorns effe
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class MahoganyEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            bool forceEffect = modPlayer.ForceEffect<RichMahoganyEnchant>();
+
+            if (player.grapCount > 0)
+            {
+                player.thorns += forceEffect ? 5.0f : 0.5f;
+
+                if (modPlayer.MahoganyCanUseDR)
+                    player.endurance += forceEffect ? 0.3f : 0.1f;
+            }
+            else //when not grapple, refresh DR
+            {
+                modPlayer.MahoganyCanUseDR = true;
+            }
+        }
+        public static void MahoganyHookAI(Projectile projectile, FargoSoulsPlayer modPlayer)
+        {
+            if (projectile.extraUpdates < 1)
+                projectile.extraUpdates = 1;
         }
     }
 }

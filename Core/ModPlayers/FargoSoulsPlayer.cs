@@ -293,12 +293,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             RedRidingEnchantItem = null;
             TungstenEnchantItem = null;
 
-            MahoganyEnchantItem = null;
-            BorealEnchantItem = null;
             WoodEnchantItem = null;
 			WoodEnchantDiscount = false;
-            PalmEnchantItem = null;
-            EbonwoodEnchantItem = null;
             ShadewoodEnchantItem = null;
             PearlwoodEnchantItem = null;
             AshWoodEnchantItem = null;
@@ -658,6 +654,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!HaveCheckedAttackSpeed)
             {
                 HaveCheckedAttackSpeed = true;
+
+                AttackSpeed += Player.AccessoryEffects().ModifyUseSpeed(item);
 
                 if (Berserked)
                 {
@@ -1359,9 +1357,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         }
 
-
-      
-
         public int GetHealMultiplier(int heal)
         {
             float multiplier = 1f;
@@ -1470,16 +1465,10 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (Player.whoAmI != Main.myPlayer)
                 return;
+
             if (CactusEnchantItem != null)
             {
                 CactusEnchant.CactusSelfProc(this);
-            }
-            if (BorealEnchantItem != null && Player.GetToggleValue("Boreal") && BorealCD <= 0)
-            {
-                BorealCD = ForceEffect(BorealEnchantItem.type) ? 30 : 60;
-
-
-                BorealWoodEnchant.BorealSnowballs(this, damage);
             }
 
             bool ashBurning = AshWoodEnchantItem != null && (Player.onFire || Player.onFire2 || Player.onFire3);

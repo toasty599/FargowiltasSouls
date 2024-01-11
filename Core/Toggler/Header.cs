@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
@@ -18,7 +19,6 @@ namespace FargowiltasSouls.Core.Toggler
         public abstract string SortCategory { get; }
         public abstract int Priority { get; }
         public abstract int Item { get; }
-
         public string HeaderDescription => Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
 
         protected override void Register()
@@ -45,5 +45,8 @@ namespace FargowiltasSouls.Core.Toggler
             return rawText;
         }
 
+        public static T GetHeader<T>() where T : Header => ModContent.GetInstance<T>();
+        public static Header GetHeaderFromItem<T>() where T : ModItem => ToggleLoader.LoadedHeaders.FirstOrDefault(h => h.Item == ModContent.ItemType<T>());
+        public static Header GetHeaderFromItemType(int type) => ToggleLoader.LoadedHeaders.FirstOrDefault(h => h.Item == type);
     }
 }

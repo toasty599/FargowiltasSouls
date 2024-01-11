@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -120,6 +121,8 @@ namespace FargowiltasSouls //lets everything access it without using
             => player.GetModPlayer<FargoSoulsPlayer>();
         public static EModePlayer Eternity(this Player player)
             => player.GetModPlayer<EModePlayer>();
+        public static AccessoryEffectPlayer AccessoryEffects(this Player player) 
+            => player.GetModPlayer<AccessoryEffectPlayer>();
 
         public static T As<T>(this NPC npc) where T : ModNPC => npc.ModNPC as T;
         public static T As<T>(this Projectile projectile) where T : ModProjectile => projectile.ModProjectile as T;

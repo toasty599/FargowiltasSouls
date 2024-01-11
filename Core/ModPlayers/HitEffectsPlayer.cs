@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return baseDamage;
             }
 
-            
+            Player.AccessoryEffects().OnHitNPCEither(target, hitInfo, damageClass, projectile, item);
 
             if (StyxSet)
             {
@@ -541,6 +541,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (npc.FargoSouls().CurseoftheMoon)
                 dr += 0.2f;
 
+            dr += Player.AccessoryEffects().ContactDamageDR(npc, ref modifiers);
+
             ApplyDR(Player, dr, ref modifiers);
         }
 
@@ -562,6 +564,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (proj.coldDamage && Hypothermia)
                 dr -= 0.2f;
+
+            dr += Player.AccessoryEffects().ProjectileDamageDR(proj, ref modifiers);
 
             ApplyDR(Player, dr, ref modifiers);
         }
