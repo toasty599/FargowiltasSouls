@@ -50,7 +50,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         #region enchantments
         //force of timber
         public bool MahoganyCanUseDR;
-        public Item PearlwoodEnchantItem;
         public Vector2[] PearlwoodTrail = new Vector2[30]; //store a second of trail 
         public int PearlwoodIndex = 0;
         public int PearlwoodGrace = 0;
@@ -58,29 +57,20 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool PStarelineActive => Main.projectile.Any(p => p.active && p.owner == Player.whoAmI && p.type == ProjectileID.FairyQueenMagicItemShot &&p.TryGetGlobalProjectile(out PearlwoodStareline gp) &&  gp.Pearlwood);
 
-        public Item ShadewoodEnchantItem;
         public int ShadewoodCD;
         public Item WoodEnchantItem;
         public bool WoodEnchantDiscount;
         //force of terra
-        public Item CopperEnchantItem;
         public int CopperProcCD;
-        public Item IronEnchantItem;
         public bool GuardRaised;
         public int ParryDebuffImmuneTime;
-        public Item LeadEnchantItem;
-        public Item ObsidianEnchantItem;
         public int ObsidianCD;
         public bool LavaWet;
-        public Item SilverEnchantItem;
-        public Item TinEnchantItem;
         public float TinCritMax;
         public float TinCrit = 5;
         public int TinProcCD;
         public bool TinCritBuffered;
-        public Item TungstenEnchantItem;
         public int TungstenCD;
-        public Item AshWoodEnchantItem;
         public int AshwoodCD;
         //force of earth
         public Item AdamantiteEnchantItem;

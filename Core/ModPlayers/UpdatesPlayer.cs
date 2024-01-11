@@ -179,10 +179,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (!IsStillHoldingInSameDirectionAsMovement)
                     Player.runSlowdown += 7f;
             }
-            if (PearlwoodEnchantItem != null)
-            {
-                PearlwoodEnchant.PearlwoodStar(Player, PearlwoodEnchantItem);
-            }
             if (ApprenticeEnchantItem != null)
             {
                 ApprenticeEnchant.ApprenticeSupport(Player);
@@ -227,9 +223,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (!StardustEnchantActive)
                 FreezeTime = false;
-
-            if (TungstenEnchantItem != null && TungstenCD > 0)
-                TungstenCD--;
 
             UpdateShield();
 
@@ -489,14 +482,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.lifeRegen < 0)
             {
-                if (LeadEnchantItem != null && ForceEffect(LeadEnchantItem.type))
-                {
-                    Player.lifeRegen = (int)(Player.lifeRegen * 0.4f);
-                }
-                else if (LeadEnchantItem != null)
-                {
-                    Player.lifeRegen = (int)(Player.lifeRegen * 0.6f);
-                }
+                LeadEffect.ProcessLeadEffectLifeRegen(Player);
 
                 FusedLensCanDebuff = true;
             }
@@ -588,9 +574,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (HealTimer > 0)
                 HealTimer--;
-
-            if (TinEnchantItem != null)
-                TinEnchant.TinPostUpdate(this);
 
             if (NebulaEnchantActive)
                 NebulaEffect();

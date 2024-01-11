@@ -39,12 +39,12 @@ namespace FargowiltasSouls.Content.Items.Accessories
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
         public override void PostUpdateEquips(Player player)
         {
-            TestAccessoryEffectFields fieldInstance = player.GetEffectInstance<TestAccessoryEffectFields>();
+            TestAccessoryEffectFields fieldInstance = player.GetEffectFields<TestAccessoryEffectFields>();
             fieldInstance.Test++;
             Main.NewText(fieldInstance.Test);
         }
     }
-    public class TestAccessoryEffectFields : AccessoryEffectInstance
+    public class TestAccessoryEffectFields : EffectFields
     {
         public int Test;
         public override void ResetEffects()

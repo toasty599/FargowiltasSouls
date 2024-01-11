@@ -1,6 +1,8 @@
 ﻿using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -169,6 +171,7 @@ This stacks up to 950 times until you get hit"); */
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             //auto use, debuffs, mana up
             modPlayer.Eternity = true;
+            player.AddEffect<EternityTin>(Item);
 
             //UNIVERSE
             modPlayer.UniverseSoul = true;
@@ -224,4 +227,10 @@ This stacks up to 950 times until you get hit"); */
             .Register();
         }
     }
+    public class EternityTin : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<EternityHeader>();
+    }
+
 }

@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 //using FargowiltasSouls.Content.Buffs.Souls;
 //using FargowiltasSouls.Content.Projectiles.Critters;
 using Microsoft.Xna.Framework;
@@ -39,11 +40,11 @@ namespace FargowiltasSouls.Content.Items
         {
             FargoSoulsPlayer p = player.FargoSouls();
             //ignore money, hearts, mana stars
-            if (player.whoAmI == Main.myPlayer && p.IronEnchantItem != null && player.GetToggleValue("IronM", false) && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
+            if (player.whoAmI == Main.myPlayer && player.HasEffect<IronEffect>() && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
                 item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
             {
                 int rangeBonus = 160;
-                if (p.ForceEffect(p.IronEnchantItem.type))
+                if (p.ForceEffect<IronEnchant>())
                     rangeBonus = 320;
                 if (p.TerrariaSoul)
                     rangeBonus = 640;
@@ -134,10 +135,10 @@ namespace FargowiltasSouls.Content.Items
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.TungstenEnchantItem != null && player.GetToggleValue("Tungsten")
+            if (player.HasEffect<TungstenEffect>()
                 && !item.IsAir && item.damage > 0 && (!item.noMelee || TungstenAlwaysAffects.Contains(item.type)) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
             {
-                scale *= TungstenEnchant.TungstenIncreaseWeaponSize(modPlayer);
+                scale *= TungstenEffect.TungstenIncreaseWeaponSize(modPlayer);
             }
         }
 

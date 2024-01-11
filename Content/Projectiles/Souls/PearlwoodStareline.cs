@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,9 +25,9 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             Player player = Main.player[projectile.owner];
-            if (player == null || !player.active || player.dead || player.FargoSouls().PearlwoodEnchantItem == null)
+            if (player == null || !player.active || player.dead || !player.HasEffect<PearlwoodEffect>())
                 return;
-            if (source is EntitySource_ItemUse itemSource && itemSource.Item.type == player.FargoSouls().PearlwoodEnchantItem.type)
+            if (source is EntitySource_ItemUse itemSource && itemSource.Item.type == player.EffectItem<PearlwoodEffect>().type)
             {
                 SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
                 Pearlwood = true;
@@ -75,14 +76,14 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 return;
             }
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.PearlwoodEnchantItem == null || !player.GetToggleValue("Pearl"))
+            if (!player.HasEffect<PearlwoodEffect>())
             {
                 projectile.Kill();
                 return;
             } //kill projkcetoiele when unequip or toggled off or player dies or leaves or commits a war crime idfk
 
             //damage enemies if force
-            bool force = modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type);
+            bool force = modPlayer.ForceEffect<PearlwoodEnchant>();
             projectile.friendly = force;
 
             //refresh lifetime

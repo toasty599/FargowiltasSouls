@@ -24,6 +24,7 @@ using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
 using Fargowiltas.Common.Configs;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -2886,6 +2887,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         // TODO: rework this because we can only get final damage in hurtinfo hooks
         public void TryParryAttack(ref Player.HurtInfo hurtInfo)
         {
+            bool silverEffect = Player.HasEffect<SilverEffect>();
             if (GuardRaised && shieldTimer > 0 && !Player.immune)
             {
                 Player.immune = true;
@@ -2902,17 +2904,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                     invul += 60;
 
                     extrashieldCD = LONG_SHIELD_COOLDOWN;
-                    if (SilverEnchantItem != null)
+                    if (silverEffect)
                         extrashieldCD = (LONG_SHIELD_COOLDOWN + BASE_SHIELD_COOLDOWN) / 2;
                 }
-                else if (SilverEnchantItem != null)
+                else if (silverEffect)
                 {
                     extrashieldCD = BASE_SHIELD_COOLDOWN;
                 }
 
-                if (SilverEnchantItem != null)
+                if (silverEffect)
                 {
-                    if (ForceEffect(SilverEnchantItem.type))
+                    if (ForceEffect<SilverEnchant>())
                     {
                         damageBlockCap = higherCap;
                         Player.AddBuff(BuffID.ParryDamageBuff, 300);
@@ -2963,6 +2965,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         void RaisedShieldEffects()
         {
+            bool silverEffect = Player.HasEffect<SilverEffect>();
             if (DreadShellItem != null)
             {
                 if (!MasochistSoul)
@@ -2990,7 +2993,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if ((DreadShellItem != null || PumpkingsCapeItem != null) && SilverEnchantItem == null)
+            if ((DreadShellItem != null || PumpkingsCapeItem != null) && !silverEffect)
             {
                 Player.velocity.X *= 0.85f;
                 if (Player.velocity.Y < 0)
@@ -3001,10 +3004,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (DreadShellItem != null || PumpkingsCapeItem != null)
             {
                 cooldown = LONG_SHIELD_COOLDOWN;
-                if (SilverEnchantItem != null)
+                if (silverEffect)
                     cooldown = (LONG_SHIELD_COOLDOWN + BASE_SHIELD_COOLDOWN) / 2;
             }
-            else if (SilverEnchantItem != null)
+            else if (silverEffect)
             {
                 cooldown = BASE_SHIELD_COOLDOWN;
             }
@@ -3015,10 +3018,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void UpdateShield()
         {
+            bool silverEffect = Player.HasEffect<SilverEffect>();
             GuardRaised = false;
 
             //no need when player has brand of inferno
-            if ((SilverEnchantItem == null && DreadShellItem == null && PumpkingsCapeItem == null) ||
+            if ((!silverEffect && DreadShellItem == null && PumpkingsCapeItem == null) ||
                 Player.inventory[Player.selectedItem].type == ItemID.DD2SquireDemonSword || Player.inventory[Player.selectedItem].type == ItemID.BouncingShield)
             {
                 shieldTimer = 0;
@@ -3053,7 +3057,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         if (DreadShellItem != null || PumpkingsCapeItem != null)
                         {
                             shieldTimer = HARD_PARRY_WINDOW;
-                            if (SilverEnchantItem != null)
+                            if (silverEffect)
                                 shieldTimer += (BASE_PARRY_WINDOW - HARD_PARRY_WINDOW) / 2;
                         }
                         else if (SilverEnchantItem != null)
@@ -3080,7 +3084,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         dusts.Add(DustID.LifeDrain);
                     if (PumpkingsCapeItem != null)
                         dusts.Add(87);
-                    if (SilverEnchantItem != null)
+                    if (silverEffect)
                         dusts.Add(66);
 
                     if (dusts.Count > 0)
@@ -3116,7 +3120,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         dusts.Add(DustID.LifeDrain);
                     if (PumpkingsCapeItem != null)
                         dusts.Add(87);
-                    if (SilverEnchantItem != null)
+                    if (silverEffect)
                         dusts.Add(66);
                     
                     if (dusts.Count > 0)

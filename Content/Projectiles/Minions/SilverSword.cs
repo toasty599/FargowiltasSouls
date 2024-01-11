@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,7 +37,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (player.whoAmI == Main.myPlayer && (modPlayer.SilverEnchantItem == null || !player.GetToggleValue("Silver")))
+            if (player.whoAmI == Main.myPlayer && !player.HasEffect<SilverEffect>())
             {
                 Projectile.Kill();
                 return;

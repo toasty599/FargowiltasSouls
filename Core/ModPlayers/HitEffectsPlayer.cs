@@ -21,6 +21,7 @@ using Terraria.WorldBuilding;
 using Terraria.Audio;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -54,29 +55,21 @@ namespace FargowiltasSouls.Core.ModPlayers
                 modifiers.Null();
             }
 
-            if (TungstenEnchantItem != null && proj.FargoSouls().TungstenScale != 1)
-            {
-                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers);
-            }
+
 
             if (HuntressEnchantActive && proj.FargoSouls().HuntressProj == 1 && target.type != NPCID.TargetDummy)
             {
                 HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
             }
 
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl"))
-            {
-                PearlwoodEnchant.PearlwoodCritReroll(Player, ref modifiers, proj.DamageType);
-            }
+
 
             ModifyHitNPCBoth(target, ref modifiers, proj.DamageType);
         }
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl")) {
-                PearlwoodEnchant.PearlwoodCritReroll(Player, ref modifiers, item.DamageType);
-            }
+
 
             if (SqueakyToy)
             {
@@ -88,12 +81,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Atrophied)
             {
                 modifiers.Null();
-            }
-
-            if (TungstenEnchantItem != null && Toggler != null && Player.GetToggleValue("Tungsten")
-                && (ForceEffect(TungstenEnchantItem.type) || item.shoot == ProjectileID.None))
-            {
-                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers);
             }
 
             ModifyHitNPCBoth(target, ref modifiers, item.DamageType);
@@ -198,8 +185,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return baseDamage;
             }
 
-            Player.AccessoryEffects().OnHitNPCEither(target, hitInfo, damageClass, projectile, item);
-
             if (StyxSet)
             {
                 StyxMeter += hitInfo.Damage;
@@ -241,34 +226,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
             }
 
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && hitInfo.Crit)
-            {
-                SoundEngine.PlaySound(SoundID.Item25, target.position);
-                for (int i = 0; i < 30; i++) { //idk how to make dust look good (3)
-                    Dust.NewDust(target.position, target.width, target.height, DustID.YellowStarDust); 
-                }
-            }
-
-            bool wetCheck = target.HasBuff(BuffID.Wet) && Main.rand.NextBool(4);
-            if (CopperEnchantItem != null && (hitInfo.Crit || wetCheck))
-            {
-                CopperEnchant.CopperProc(this, target);
-            }
-
-            if (ShadewoodEnchantItem != null)
-            {
-                ShadewoodEnchant.ShadewoodProc(this, target, projectile);
-            }
 
             if (TitaniumEnchantItem != null && (projectile == null || projectile.type != ProjectileID.TitaniumStormShard))
             {
                 TitaniumEnchant.TitaniumShards(this, Player);
-            }
-
-
-            if (ObsidianEnchantItem != null && Player.GetToggleValue("Obsidian") && ObsidianCD == 0)
-            {
-                ObsidianEnchant.ObsidianProc(this, target, GetBaseDamage());
             }
 
             if (DevianttHeartItem != null && DevianttHeartsCD <= 0 && Player.GetToggleValue("MasoDevianttHearts")
@@ -329,16 +290,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (SolarEnchantActive && Player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
                 target.AddBuff(ModContent.BuffType<SolarFlareBuff>(), 300);
-
-            if (TinEnchantItem != null)
-            {
-                TinEnchant.TinOnHitEnemy(this, hitInfo);
-            }
-
-            if (LeadEnchantItem != null)
-            {
-                target.AddBuff(ModContent.BuffType<LeadPoisonBuff>(), 30);
-            }
 
 
             //            /*if (PalladEnchant && !TerrariaSoul && palladiumCD == 0 && !target.immortal && !Player.moonLeech)
@@ -751,8 +702,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (BeetleEnchantActive)
                 BeetleHurt();
 
-            if (TinEnchantItem != null)
-                TinEnchant.TinHurt(this);
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
             {

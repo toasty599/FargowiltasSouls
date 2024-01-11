@@ -70,7 +70,7 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
             player.AddEffect<EbonwoodEffect>(Item);
             player.AddEffect<ShadewoodEffect>(Item);
             player.AddEffect<PalmwoodEffect>(Item);
-            PearlwoodEnchant.PearlwoodEffect(player, Item);
+            player.AddEffect<PearlwoodEffect>(Item);
         }
 
         public override void UpdateVanity(Player player)

@@ -40,37 +40,6 @@ Enemies struck while Bleeding spew damaging blood
             player.AddEffect<ShadewoodEffect>(Item);
         }
 
-        public static void ShadewoodProc(FargoSoulsPlayer modPlayer, NPC target, Projectile projectile)
-        {
-            Player player = modPlayer.Player;
-            bool trueMelee = projectile == null || projectile.aiStyle == 19;
-            int dmg = 20;
-
-            if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type))
-            {
-                dmg *= 3;
-            }
-
-            if (target.HasBuff(ModContent.BuffType<SuperBleedBuff>()) && (trueMelee || modPlayer.ShadewoodCD == 0) && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
-            {
-                for (int i = 0; i < Main.rand.Next(3, 6); i++)
-                {
-                    Projectile.NewProjectile(player.GetSource_Misc(""), target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0f, Main.myPlayer);
-                }
-
-                if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type))
-                {
-                    target.AddBuff(BuffID.Ichor, 30);
-                }
-
-                //true melee attack does not go on cooldown
-                if (!trueMelee)
-                {
-                    modPlayer.ShadewoodCD = 30;
-                }
-            }
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -116,7 +85,7 @@ Enemies struck while Bleeding spew damaging blood
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
                 Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-                if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
+                if (forceEffect || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
                         spawnPos, 0, 0,
@@ -132,6 +101,41 @@ Enemies struck while Bleeding spew damaging blood
             if (modPlayer.ShadewoodCD > 0)
             {
                 modPlayer.ShadewoodCD--;
+            }
+        }
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            ShadewoodProc(player, target, projectile);
+        }
+        public static void ShadewoodProc(Player player, NPC target, Projectile projectile)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            bool forceEffect = modPlayer.ForceEffect<ShadewoodEnchant>();
+            bool trueMelee = projectile == null || projectile.aiStyle == ProjAIStyleID.Spear;
+            int dmg = 20;
+
+            if (forceEffect)
+            {
+                dmg *= 3;
+            }
+
+            if (target.HasBuff(ModContent.BuffType<SuperBleedBuff>()) && (trueMelee || modPlayer.ShadewoodCD == 0) && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
+            {
+                for (int i = 0; i < Main.rand.Next(3, 6); i++)
+                {
+                    Projectile.NewProjectile(player.GetSource_Misc(""), target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0f, Main.myPlayer);
+                }
+
+                if (forceEffect)
+                {
+                    target.AddBuff(BuffID.Ichor, 30);
+                }
+
+                //true melee attack does not go on cooldown
+                if (!trueMelee)
+                {
+                    modPlayer.ShadewoodCD = 30;
+                }
             }
         }
     }

@@ -23,6 +23,7 @@ using ReLogic.Content;
 using FargowiltasSouls.Content.Items.Summons;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Content.Items.Misc;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -669,7 +670,7 @@ namespace FargowiltasSouls.Core.Globals
                         dot = 4;
                     }
                 }
-                bool forceEffect = Main.player.Any(p => p.active && !p.dead && p.FargoSouls() is FargoSoulsPlayer pF && pF != null && pF.LeadEnchantItem != null && pF.ForceEffect(pF.LeadEnchantItem.type));
+                bool forceEffect = Main.player.Any(p => p.Alive() && p.HasEffect<LeadEffect>() && p.FargoSouls() is FargoSoulsPlayer pF && pF != null && pF.ForceEffect<LeadEnchant>());
                 if (forceEffect)
                 {
                     dot *= 3;

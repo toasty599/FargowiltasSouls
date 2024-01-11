@@ -53,13 +53,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void PostUpdateEquips(Player player)
         {
-            BorealEffectInstance effectFields = player.GetEffectInstance<BorealEffectInstance>();
+            BorealEffectFields effectFields = player.GetEffectFields<BorealEffectFields>();
             if (effectFields.BorealCD > 0)
                 effectFields.BorealCD--;
         }
         public override void TryAdditionalAttacks(Player player, int damage, DamageClass damageType)
         {
-            BorealEffectInstance effectFields = player.GetEffectInstance<BorealEffectInstance>();
+            BorealEffectFields effectFields = player.GetEffectFields<BorealEffectFields>();
             if (effectFields.BorealCD <= 0)
             {
                 Item item = EffectItem(player);
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             }
         }
     }
-    public class BorealEffectInstance : AccessoryEffectInstance
+    public class BorealEffectFields : EffectFields
     {
         public int BorealCD;
     }

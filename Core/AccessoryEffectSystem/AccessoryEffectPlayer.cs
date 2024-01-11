@@ -35,6 +35,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.UI;
 using Terraria.WorldBuilding;
 using Microsoft.CodeAnalysis;
+using Terraria.ModLoader.Core;
 
 namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
@@ -42,14 +43,14 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
     {
         public HashSet<AccessoryEffect> ActiveEffects = new();
         public Dictionary<AccessoryEffect, Item> EffectItems;
-        internal AccessoryEffectInstance[] EffectInstances;
+        internal EffectFields[] EffectInstances;
         public override void Initialize()
         {
-            int instanceCount = AccessoryEffectLoader.AccessoryEffectInstances.Count;
-            EffectInstances = new AccessoryEffectInstance[instanceCount];
+            int instanceCount = AccessoryEffectLoader.EffectFields.Count;
+            EffectInstances = new EffectFields[instanceCount];
             for (int i = 0; i < instanceCount; i++)
             {
-                EffectInstances[i] = AccessoryEffectLoader.AccessoryEffectInstances[i];
+                EffectInstances[i] = AccessoryEffectLoader.EffectFields[i];
             }
         }
         #region Hooks
@@ -57,7 +58,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         {
             EffectItems.Clear();
             ActiveEffects.Clear();
-            foreach (AccessoryEffectInstance effectInstance in EffectInstances)
+            foreach (EffectFields effectInstance in EffectInstances)
             {
                 effectInstance.ResetEffects();
             }
@@ -65,7 +66,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         public override void UpdateDead()
         {
             ResetEffects();
-            foreach (AccessoryEffectInstance effectInstance in EffectInstances)
+            foreach (EffectFields effectInstance in EffectInstances)
             {
                 effectInstance.UpdateDead();
             }
@@ -138,7 +139,6 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 
             ModifyHitNPCBoth(target, ref modifiers, item.DamageType);
         }
-
         public void ModifyHitNPCBoth(NPC target, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
             modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>
@@ -227,13 +227,19 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         public float ContactDamageDR(NPC npc, ref Player.HurtModifiers modifiers)
         {
             float dr = 0;
-
+            foreach (AccessoryEffect effect in ActiveEffects)
+            {
+                dr += effect.ContactDamageDR(Player, npc, ref modifiers);
+            }
             return dr;
         }
         public float ProjectileDamageDR(Projectile projectile, ref Player.HurtModifiers modifiers)
         {
             float dr = 0;
-
+            foreach (AccessoryEffect effect in ActiveEffects)
+            {
+                dr += effect.ProjectileDamageDR(Player, projectile, ref modifiers);
+            }
             return dr;
         }
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
@@ -305,11 +311,17 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         }
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
         {
-            
+            foreach (AccessoryEffect effect in ActiveEffects)
+            {
+                effect.ModifyHurt(Player, ref modifiers);
+            }
         }
         public override void OnHurt(Player.HurtInfo info)
         {
-            
+            foreach (AccessoryEffect effect in ActiveEffects)
+            {
+                effect.OnHurt(Player, info);
+            }
         }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {

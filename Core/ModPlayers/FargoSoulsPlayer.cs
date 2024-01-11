@@ -268,36 +268,27 @@ namespace FargowiltasSouls.Core.ModPlayers
             OriEnchantItem = null;
             MeteorEnchantItem = null;
             MoltenEnchantActive = false;
-            CopperEnchantItem = null;
             PlatinumEnchantActive = false;
             CrystalEnchantActive = false;
             FirstStrike = false;
-            IronEnchantItem = null;
             TurtleEnchantActive = false;
             ShellHide = false;
-            LeadEnchantItem = null;
             GladiatorEnchantActive = false;
             GoldEnchantActive = false;
             GoldShell = false;
             CactusEnchantItem = null;
             ForbiddenEnchantActive = false;
             NecroEnchantActive = false;
-            ObsidianEnchantItem = null;
             LavaWet = false;
-            TinEnchantItem = null;
             TikiEnchantActive = false;
             SolarEnchantActive = false;
             ShinobiEnchantActive = false;
             ValhallaEnchantItem = null;
             DarkArtistEnchantItem = null;
             RedRidingEnchantItem = null;
-            TungstenEnchantItem = null;
 
             WoodEnchantItem = null;
 			WoodEnchantDiscount = false;
-            ShadewoodEnchantItem = null;
-            PearlwoodEnchantItem = null;
-            AshWoodEnchantItem = null;
             fireNoDamage = false;
 
             RainEnchantItem = null;
@@ -465,7 +456,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             BoxofGizmos = false;
             OxygenTank = false;
             //IronEnchantShield = false;
-            SilverEnchantItem = null;
             DreadShellItem = null;
             WizardedItem = null;
 
@@ -1469,13 +1459,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (CactusEnchantItem != null)
             {
                 CactusEnchant.CactusSelfProc(this);
-            }
-
-            bool ashBurning = AshWoodEnchantItem != null && (Player.onFire || Player.onFire2 || Player.onFire3);
-            if ((ashBurning || ObsidianEnchantItem != null) && Player.GetToggleValue("AshWood") && AshwoodCD <= 0)
-            {
-                AshwoodCD = ForceEffect(AshWoodEnchantItem.type) ? 15 : ObsidianEnchantItem != null ? 20 : 30;
-                AshWoodEnchant.AshwoodFireball(this, damage);
             }
 
             if (AdditionalAttacks && AdditionalAttacksTimer <= 0)

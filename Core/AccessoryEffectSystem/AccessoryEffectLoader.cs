@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
     public static class AccessoryEffectLoader
     {
         public static List<AccessoryEffect> AccessoryEffectTypes = new();
-        public static List<AccessoryEffectInstance> AccessoryEffectInstances = new();
+        public static List<EffectFields> EffectFields = new();
         internal static void Register(AccessoryEffect effect)
         {
             AccessoryEffectTypes.Add(effect);
@@ -23,30 +23,33 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
                 ToggleLoader.RegisterToggle(new Toggle(effect, effect.Mod.Name, effect.ToggleHeader.SortCategory, effect.ToggleHeader));
             }
         }
-        internal static void Register(AccessoryEffectInstance effect)
+        internal static void Register(EffectFields effect)
         {
-            AccessoryEffectInstances.Add(effect);
+            EffectFields.Add(effect);
         }
         
         public static void AddEffect<T>(this Player player, Item item) where T : AccessoryEffect
         {
-            // TODO: field for items calling the effect, probably a lookup/dictionary-like structure in AccessoryEffectPlayer
             AccessoryEffect effect = ModContent.GetInstance<T>();
-            AccessoryEffectPlayer effectPlayer = player.GetModPlayer<AccessoryEffectPlayer>();
-            if (player.GetToggleValue<T>())
+            AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
+            if (player.FargoSouls().MutantPresence) // todo: implement system for mutant presence
+            {
+
+            }
+            if (!effect.HasToggle || player.GetToggleValue<T>())
             {
                 effectPlayer.ActiveEffects.Add(effect);
                 effectPlayer.EffectItems[effect] = item;
             }
         }
         public static bool HasEffect<T>(this Player player) where T : AccessoryEffect => player.HasEffect(ModContent.GetInstance<AccessoryEffect>());
-        public static bool HasEffect(this Player player, AccessoryEffect accessoryEffect) => player.GetModPlayer<AccessoryEffectPlayer>().ActiveEffects.Contains(accessoryEffect);
-        public static Item EffectItem<T>(this Player player) where T : AccessoryEffect => player.GetModPlayer<AccessoryEffectPlayer>().EffectItems.TryGetValue(ModContent.GetInstance<T>(), out Item item) ? item : null;
+        public static bool HasEffect(this Player player, AccessoryEffect accessoryEffect) => player.AccessoryEffects().ActiveEffects.Contains(accessoryEffect);
+        public static Item EffectItem<T>(this Player player) where T : AccessoryEffect => player.AccessoryEffects().EffectItems.TryGetValue(ModContent.GetInstance<T>(), out Item item) ? item : null;
         public static T EffectType<T>() where T : AccessoryEffect => ModContent.GetInstance<T>();
         public static AccessoryEffect EffectType(string internalName)  => ModContent.Find<AccessoryEffect>(internalName);
-        public static T GetEffectInstance<T>(this Player player) where T : AccessoryEffectInstance =>
-            GetEffectInstance(ModContent.GetInstance<T>(), player);
-        public static T GetEffectInstance<T>(T baseInstance, Player player) where T : AccessoryEffectInstance
-        => player.GetModPlayer<AccessoryEffectPlayer>().EffectInstances[baseInstance.Index] as T ?? throw new KeyNotFoundException($"Instance of '{typeof(T).Name}' does not exist on the current player.");
+        public static T GetEffectFields<T>(this Player player) where T : EffectFields =>
+            GetEffectFields(ModContent.GetInstance<T>(), player);
+        public static T GetEffectFields<T>(T baseInstance, Player player) where T : EffectFields
+        => player.AccessoryEffects().EffectInstances[baseInstance.Index] as T ?? throw new KeyNotFoundException($"Instance of '{typeof(T).Name}' does not exist on the current player.");
     }
 }

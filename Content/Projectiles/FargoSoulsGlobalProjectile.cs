@@ -344,9 +344,9 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
             }
 
-            if (modPlayer.TungstenEnchantItem != null && player.GetToggleValue("TungstenProj"))
+            if (player.HasEffect<TungstenEffect>())
             {
-                TungstenEnchant.TungstenIncreaseProjSize(projectile, modPlayer, source);
+                TungstenEffect.TungstenIncreaseProjSize(projectile, modPlayer, source);
             }
 
             if (modPlayer.HuntressEnchantActive && player.GetToggleValue("Huntress")
@@ -416,7 +416,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (projectile.owner == Main.myPlayer)
             {
                 //reset tungsten size
-                if (TungstenScale != 1 && (modPlayer.TungstenEnchantItem == null || !player.GetToggleValue("TungstenProj")))
+                if (TungstenScale != 1 && player.HasEffect<TungstenEffect>())
                 {
                     projectile.position = projectile.Center;
                     projectile.scale /= TungstenScale;
