@@ -10,11 +10,11 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
     public static class AccessoryEffectLoader
     {
-        public static List<AccessoryEffect> AccessoryEffectTypes = new();
+        public static HashSet<AccessoryEffect> AccessoryEffects = new();
         public static List<EffectFields> EffectFields = new();
         internal static void Register(AccessoryEffect effect)
         {
-            AccessoryEffectTypes.Add(effect);
+            AccessoryEffects.Add(effect);
             
             if (effect.HasToggle)
             {
