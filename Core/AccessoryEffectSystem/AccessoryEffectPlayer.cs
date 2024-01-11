@@ -44,19 +44,24 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
     public class AccessoryEffectPlayer : ModPlayer
     {
         public HashSet<AccessoryEffect> ActiveEffects = new();
-        public bool Active(AccessoryEffect effect) => ActiveEffects.Contains(effect);
+        
         public Dictionary<AccessoryEffect, Item> EffectItems = new();
-        internal EffectFields[] EffectInstances;
+        internal EffectFields[] EffectFieldsInstances;
         private static readonly Dictionary<MethodInfo, List<AccessoryEffect>> Hooks = new();
 
+        public bool Active(AccessoryEffect effect) => ActiveEffects.Contains(effect);
         public override void Initialize()
         {
             int instanceCount = AccessoryEffectLoader.EffectFields.Count;
-            EffectInstances = new EffectFields[instanceCount];
+            EffectFieldsInstances = new EffectFields[instanceCount];
             for (int i = 0; i < instanceCount; i++)
             {
-                EffectInstances[i] = AccessoryEffectLoader.EffectFields[i];
+                EffectFieldsInstances[i] = AccessoryEffectLoader.EffectFields[i];
             }
+            Expression<Func<EffectFields, Action>> resetEffects = p => p.ResetEffects;
+            HookResetEffects.AddRange(EffectFieldsInstances.WhereMethodIsOverridden(resetEffects.ToMethodInfo()));
+            Expression<Func<EffectFields, Action>> updateDead = p => p.UpdateDead;
+            HookResetEffects.AddRange(EffectFieldsInstances.WhereMethodIsOverridden(updateDead.ToMethodInfo()));
         }
         public override void SetStaticDefaults()
         {
@@ -73,21 +78,23 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             Hooks.Add(expr.ToMethodInfo(), effectSet);
             return effectSet;
         }
+        public List<EffectFields> HookResetEffects = new();
         public override void ResetEffects()
         {
             EffectItems.Clear();
             ActiveEffects.Clear();
-            foreach (EffectFields effectInstance in EffectInstances)
+            foreach (EffectFields effectFields in HookResetEffects)
             {
-                effectInstance.ResetEffects();
+                effectFields.ResetEffects();
             }
         }
+        public List<EffectFields> HookUpdateDead = new();
         public override void UpdateDead()
         {
             ResetEffects();
-            foreach (EffectFields effectInstance in EffectInstances)
+            foreach (EffectFields effectFields in HookUpdateDead)
             {
-                effectInstance.UpdateDead();
+                effectFields.UpdateDead();
             }
         }
         private static List<AccessoryEffect> HookPreUpdate = AddHook<Action<Player>>(p => p.PreUpdate);

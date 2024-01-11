@@ -50,6 +50,6 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         public static T GetEffectFields<T>(this Player player) where T : EffectFields =>
             GetEffectFields(ModContent.GetInstance<T>(), player);
         public static T GetEffectFields<T>(T baseInstance, Player player) where T : EffectFields
-        => player.AccessoryEffects().EffectInstances[baseInstance.Index] as T ?? throw new KeyNotFoundException($"Instance of '{typeof(T).Name}' does not exist on the current player.");
+        => player.AccessoryEffects().EffectFieldsInstances[baseInstance.Index] as T ?? throw new KeyNotFoundException($"Instance of '{typeof(T).Name}' does not exist on the current player.");
     }
 }
