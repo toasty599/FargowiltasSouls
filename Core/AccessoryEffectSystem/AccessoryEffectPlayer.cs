@@ -398,8 +398,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             foreach (AccessoryEffect effect in HookPreKill)
             {
                 if (Active(effect))
-                    if (!effect.PreKill(Player, damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource))
-                        result = false;
+                    result &= effect.PreKill(Player, damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
             }
             return result;
         }
