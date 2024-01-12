@@ -1476,12 +1476,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             //This will probably be made less ugly in a future refactor update.
             bool CheckForces(int type)
             {
-                foreach (var force in BaseForce.ContainsEnchant)
+                int force = BaseEnchant.Force[type];
+                if (Player.GetEffectFields<ForceFields>().ForceEffects.Contains(force))
                 {
-                    if (force.Value[type] && Player.GetEffectFields<ForceFields>().ForceEffects.Contains(force.Key))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 return BaseEnchant.CraftsInto[type] != -1 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
             }

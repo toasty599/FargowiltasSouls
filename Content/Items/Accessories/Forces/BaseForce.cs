@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System.Collections.Generic;
 using Terraria;
@@ -9,7 +10,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
     public abstract class BaseForce : SoulsItem
     {
         public static Dictionary<int, int[]> ForceEnchants;
-        public static Dictionary<int, bool[]> ContainsEnchant;
         public static int[] EnchantsIn<T>() where T : BaseForce => ForceEnchants[ModContent.ItemType<T>()];
         public void SetActive(Player player) => player.GetEffectFields<ForceFields>().ForceEffects.Add(Type);
         public virtual int[] Enchants { get; }
@@ -41,7 +41,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             foreach (BaseForce force in ModContent.GetContent<BaseForce>())
             {
                 BaseForce.ForceEnchants[force.Type] = force.Enchants;
-                BaseForce.ContainsEnchant[force.Type] = factory.CreateBoolSet(force.Enchants);
+                foreach (int enchant in force.Enchants)
+                {
+                    BaseEnchant.Force[enchant] = force.Type;
+                }
             }
         }
     }
