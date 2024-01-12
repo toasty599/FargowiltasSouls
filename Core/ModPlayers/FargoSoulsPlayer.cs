@@ -1477,15 +1477,17 @@ namespace FargowiltasSouls.Core.ModPlayers
             bool CheckForces(int type)
             {
                 int force = BaseEnchant.Force[type];
+                if (force <= 0)
+                    return false;
                 if (Player.GetEffectFields<ForceFields>().ForceEffects.Contains(force))
-                {
                     return true;
-                }
-                return BaseEnchant.CraftsInto[type] != -1 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
+                return BaseEnchant.CraftsInto[type] > 0 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
             }
             bool CheckWizard(int type)
             {
-                return WizardedItem != null && !WizardedItem.IsAir && (WizardedItem.type == modItem.Item.type || (BaseEnchant.CraftsInto[type] != -1 && CheckWizard(BaseEnchant.CraftsInto[type])));
+                if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == modItem.Item.type)
+                    return true;
+                return (BaseEnchant.CraftsInto[type] > 0 && CheckWizard(BaseEnchant.CraftsInto[type]));
             }
 
             if (Main.gamePaused || modItem == null || modItem.Item == null || modItem.Item.IsAir)

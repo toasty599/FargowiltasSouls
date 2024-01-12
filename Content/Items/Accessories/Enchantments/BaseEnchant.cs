@@ -116,7 +116,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             SetFactory factory = new(ContentSamples.ItemsByType.Count);
             BaseEnchant.CraftsInto = factory.CreateIntSet();
-            BaseEnchant.Force = factory.CreateIntSet();
 
             foreach (BaseEnchant modItem in ModContent.GetContent<BaseEnchant>())
             {
