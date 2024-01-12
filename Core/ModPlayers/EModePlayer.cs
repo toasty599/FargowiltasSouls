@@ -152,7 +152,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (Player.ZoneUnderworldHeight)
                 {
-                    bool anyAshwoodEffect = Player.HasEffect<AshwoodEffect>() || Player.HasEffect<ObsidianEffect>();
+                    bool anyAshwoodEffect = Player.HasEffect<AshWoodEffect>() || Player.HasEffect<ObsidianEffect>();
                     if (anyAshwoodEffect || !(Player.fireWalk || fargoSoulsPlayer.PureHeart || Player.lavaMax > 0))
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.OnFire, 2);
                 }

@@ -42,6 +42,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             player.AddEffect<AshWoodEffect>(item);
+            player.AddEffect<AshWoodFireballs>(item);
             player.AddEffect<ObsidianEffect>(item);
 
             player.lavaImmune = true;
@@ -89,6 +90,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         public override bool HasToggle => true;
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override bool ExtraAttackEffect => true;
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
             if (player.FargoSouls().ObsidianCD == 0)

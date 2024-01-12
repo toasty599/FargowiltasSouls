@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,10 +33,22 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         {
             AccessoryEffect effect = ModContent.GetInstance<T>();
             AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
-            if (player.FargoSouls().MutantPresence) // todo: implement system for mutant presence
+            
+            if (effect.MinionEffect || effect.ExtraAttackEffect)
             {
-
+                PrimeSoulFields primeSoulFields = player.GetEffectFields<PrimeSoulFields>();
+                if (primeSoulFields.PrimeSoulActive)
+                {
+                    if (!player.HasEffect(effect)) // Don't stack per item
+                        primeSoulFields.PrimeSoulItemCount++;
+                    return;
+                }
             }
+            
+            if (player.FargoSouls().MutantPresence) // todo: implement system for mutant presence
+                if (!effect.IgnoresMutantPresence)
+                    return;
+
             if (!effect.HasToggle || player.GetToggleValue<T>())
             {
                 effectPlayer.ActiveEffects.Add(effect);

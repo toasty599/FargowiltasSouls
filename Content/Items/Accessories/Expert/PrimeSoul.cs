@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Placables;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -59,6 +60,21 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
             .Register();
+        }
+    }
+    public class PrimeSoulFields : EffectFields
+    {
+        public bool PrimeSoulActive = false;
+        private bool PrimeSoulActiveBuffer = false; // Needed to make sure the item effect is applied during the entirety of the update cycle, so it doesn't miss anything
+        public int PrimeSoulItemCount = 0;
+        public override void ResetEffects()
+        {
+            PrimeSoulItemCount = 0;
+            if (!PrimeSoulActiveBuffer)
+            {
+                PrimeSoulActive = false;
+            }
+            PrimeSoulActiveBuffer = false;
         }
     }
 }

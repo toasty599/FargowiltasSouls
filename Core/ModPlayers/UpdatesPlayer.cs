@@ -5,6 +5,7 @@ using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -475,7 +476,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Anticoagulation)
                 DamageOverTime(4, true);
 
-            if (Player.onFire && Player.FargoSouls().AshWoodEnchantItem != null)
+            if (Player.onFire && Player.HasEffect<AshWoodEffect>())
             {
                 Player.lifeRegen += 8;
             }

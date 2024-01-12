@@ -3060,7 +3060,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             if (silverEffect)
                                 shieldTimer += (BASE_PARRY_WINDOW - HARD_PARRY_WINDOW) / 2;
                         }
-                        else if (SilverEnchantItem != null)
+                        else if (silverEffect)
                         {
                             shieldTimer = BASE_PARRY_WINDOW;
                         }

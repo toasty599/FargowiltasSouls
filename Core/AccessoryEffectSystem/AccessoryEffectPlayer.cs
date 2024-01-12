@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             EffectFieldsInstances = new EffectFields[instanceCount];
             for (int i = 0; i < instanceCount; i++)
             {
-                EffectFieldsInstances[i] = AccessoryEffectLoader.EffectFields[i];
+                EffectFieldsInstances[i] = AccessoryEffectLoader.EffectFields[i].NewInstance(this);
             }
             Expression<Func<EffectFields, Action>> resetEffects = p => p.ResetEffects;
             HookResetEffects.AddRange(EffectFieldsInstances.WhereMethodIsOverridden(resetEffects.ToMethodInfo()));

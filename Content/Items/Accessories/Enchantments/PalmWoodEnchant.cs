@@ -58,6 +58,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         public override bool HasToggle => true;
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override bool MinionEffect => true;
 
         public static void ActivatePalmwoodSentry(Player player)
         {

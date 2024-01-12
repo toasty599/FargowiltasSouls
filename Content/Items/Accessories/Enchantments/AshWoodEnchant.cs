@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
@@ -36,6 +37,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<AshWoodEffect>(Item);
+            player.AddEffect<AshWoodFireballs>(Item);
         }
 
 
@@ -55,15 +57,24 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class AshWoodEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
-        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override bool HasToggle => false;
+        public override Header ToggleHeader => null;
+        
         public override void PostUpdateEquips(Player player)
         {
             AshWoodEnchant.PassiveEffect(player);
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
             player.buffImmune[ModContent.BuffType<OiledBuff>()] = true;
             player.ashWoodBonus = true;
-
+        }
+    }
+    public class AshWoodFireballs : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override bool ExtraAttackEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.AshwoodCD > 0)
                 modPlayer.AshwoodCD--;
         }

@@ -57,6 +57,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         public override bool HasToggle => true;
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
