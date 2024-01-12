@@ -227,7 +227,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 }
             }
 
-            if (modPlayer.NinjaEnchantItem != null
+            if (player.HasEffect<NinjaEffect>()
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
                 && projectile.type != ProjectileID.WireKite
                 && projectile.whoAmI != player.heldProj
@@ -1042,7 +1042,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 projectile.extraUpdates = Math.Max(projectile.extraUpdates, NinjaSpeedup);
 
-                if (projectile.owner == Main.myPlayer && !(modPlayer.NinjaEnchantItem != null && player.GetToggleValue("NinjaSpeed")))
+                if (projectile.owner == Main.myPlayer && !player.HasEffect<NinjaEffect>())
                     projectile.Kill();
             }
 
@@ -1197,15 +1197,14 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
-            NPC sourceNPC = projectile.GetSourceNPC();
             FargoSoulsPlayer modPlayer = Main.player[projectile.owner].FargoSouls();
 
             if (stormTimer > 0)
                 modifiers.FinalDamage *= modPlayer.ForceEffect<ForbiddenEnchant>() ? 1.6f : 1.3f;
 
-            if (Main.player[projectile.owner].FargoSouls().NinjaEnchantItem != null)
+            if (Main.player[projectile.owner].HasEffect<NinjaEffect>())
             {
-                float maxDamageIncrease = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 0.3f : 0.2f;
+                float maxDamageIncrease = modPlayer.ForceEffect<NinjaEnchant>() ? 0.3f : 0.2f;
                 modifiers.FinalDamage *= 1f + (maxDamageIncrease * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 40f, 1));
                 
             }
@@ -1251,7 +1250,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (noInteractionWithNPCImmunityFrames)
                 target.immune[projectile.owner] = tempIframe;
 
-            if (Main.player[projectile.owner].FargoSouls().NinjaEnchantItem != null)
+            if (Main.player[projectile.owner].HasEffect<NinjaEffect>())
             {
                 const float maxKnockbackMult = 2f;
                 hit.Knockback = hit.Knockback * (maxKnockbackMult * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 60, 1f));

@@ -1,4 +1,7 @@
-﻿using FargowiltasSouls.Core.ModPlayers;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System.Reflection;
 using Terraria;
@@ -26,19 +29,53 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ApprenticeEffect(player, Item);
+            player.GetEffectFields<ApprenticeFields>().ApprenticeEnchantActive = true;
+            player.AddEffect<ApprenticeSupport>(Item);
         }
 
-        public static void ApprenticeEffect(Player player, Item enchant)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Apprentice");
-            player.FargoSouls().ApprenticeEnchantItem = enchant;
-            
+            CreateRecipe()
+            .AddIngredient(ItemID.ApprenticeHat)
+            .AddIngredient(ItemID.ApprenticeRobe)
+            .AddIngredient(ItemID.ApprenticeTrousers)
+            .AddIngredient(ItemID.DD2FlameburstTowerT2Popper)
+            //magic missile
+            //ice rod
+            //golden shower
+            .AddIngredient(ItemID.BookStaff)
+            .AddIngredient(ItemID.ClingerStaff)
+
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
-        public static void ApprenticeSupport(Player player)
+
+        /*
+        public static MethodInfo ApprenticeShootMethod
+        {
+            get;
+            set;
+        }
+        public override void Load()
+        {
+            ApprenticeShootMethod = typeof(Player).GetMethod("ItemCheck_Shoot", FargoSoulsUtil.UniversalBindingFlags);
+        }
+        public static void ApprenticeShoot(Player player, int playerWhoAmI, Item item, int weaponDamage)
+        {
+            object[] args = new object[] { playerWhoAmI, item, weaponDamage };
+            ApprenticeShootMethod.Invoke(player, args);
+;
+        }
+        */
+    }
+    public class ApprenticeSupport : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            bool forceEffect = modPlayer.ForceEffect(modPlayer.ApprenticeEnchantItem.type);
+            bool forceEffect = modPlayer.ForceEffect<ApprenticeEnchant>();
             //update item cds
             for (int i = 0; i < 10; i++)
             {
@@ -50,7 +87,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     modPlayer.ApprenticeItemCDs[i] = itemCD;
                 }
             }
-            if (player.GetToggleValue("Apprentice") && player.controlUseItem)
+            if (player.controlUseItem)
             {
                 int numExtraSlotsToUse = 1;
 
@@ -166,39 +203,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 }
             }
         }
-        public override void AddRecipes()
+    }
+    public class ApprenticeFields : EffectFields
+    {
+        public bool ApprenticeEnchantActive;
+        public bool DarkArtistEnchantActive;
+        public override void ResetEffects()
         {
-            CreateRecipe()
-            .AddIngredient(ItemID.ApprenticeHat)
-            .AddIngredient(ItemID.ApprenticeRobe)
-            .AddIngredient(ItemID.ApprenticeTrousers)
-            .AddIngredient(ItemID.DD2FlameburstTowerT2Popper)
-            //magic missile
-            //ice rod
-            //golden shower
-            .AddIngredient(ItemID.BookStaff)
-            .AddIngredient(ItemID.ClingerStaff)
-
-            .AddTile(TileID.CrystalBall)
-            .Register();
+            ApprenticeEnchantActive = false;
+            DarkArtistEnchantActive = false;
         }
-
-        /*
-        public static MethodInfo ApprenticeShootMethod
-        {
-            get;
-            set;
-        }
-        public override void Load()
-        {
-            ApprenticeShootMethod = typeof(Player).GetMethod("ItemCheck_Shoot", FargoSoulsUtil.UniversalBindingFlags);
-        }
-        public static void ApprenticeShoot(Player player, int playerWhoAmI, Item item, int weaponDamage)
-        {
-            object[] args = new object[] { playerWhoAmI, item, weaponDamage };
-            ApprenticeShootMethod.Invoke(player, args);
-;
-        }
-        */
     }
 }

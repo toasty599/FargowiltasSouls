@@ -1,4 +1,7 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -26,28 +29,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            DarkArtistEffect(player, Item);
-            ApprenticeEnchant.ApprenticeEffect(player, Item);
+            ApprenticeFields apprenticeFields = player.GetEffectFields<ApprenticeFields>();
+            apprenticeFields.ApprenticeEnchantActive = true;
+            apprenticeFields.DarkArtistEnchantActive = true;
+            player.AddEffect<ApprenticeSupport>(Item);
+            player.AddEffect<DarkArtistMinion>(Item);
         }
 
-        public static void DarkArtistEffect(Player player, Item item)
-        {
-            player.DisplayToggle("DarkArt");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] == 0)
-            {
-                //spawn tower boi
-                if (player.whoAmI == Main.myPlayer && player.GetToggleValue("DarkArt"))
-                {
-                    Projectile proj = Projectile.NewProjectileDirect(player.GetSource_Misc(""), player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
-                    proj.netUpdate = true; // TODO make this proj sync meme
-                }
-            }
-
-            modPlayer.DarkArtistEnchantItem = item;
-        }
 
         public override void AddRecipes()
         {
@@ -64,6 +52,24 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             .AddTile(TileID.CrystalBall)
             .Register();
+        }
+    }
+    public class DarkArtistMinion : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<FlameburstMinion>()] == 0)
+            {
+                //spawn tower boi
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    Projectile proj = Projectile.NewProjectileDirect(player.GetSource_Accessory(EffectItem(player)), player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
+                    proj.netUpdate = true; // TODO make this proj sync meme
+                }
+            }
         }
     }
 }

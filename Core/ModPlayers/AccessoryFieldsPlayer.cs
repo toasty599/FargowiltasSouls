@@ -125,7 +125,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool AncientHallowEnchantActive;
         public bool AncientShadowEnchantActive;
-        public Item ApprenticeEnchantItem;
         public int ApprenticeCD;
         public Item BeeEnchantItem;
         public int BeeCD;
@@ -173,7 +172,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool NecroEnchantActive;
         public int NecroCD;
-        public Item NinjaEnchantItem;
         public bool CrystalEnchantActive;
         public Projectile CrystalSmokeBombProj = null;
         public bool FirstStrike;

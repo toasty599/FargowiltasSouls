@@ -180,10 +180,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (!IsStillHoldingInSameDirectionAsMovement)
                     Player.runSlowdown += 7f;
             }
-            if (ApprenticeEnchantItem != null)
-            {
-                ApprenticeEnchant.ApprenticeSupport(Player);
-            }
             if (TribalCharmEquipped)
             {
                 Content.Items.Accessories.Masomode.TribalCharm.Effects(this);
@@ -505,14 +501,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             SquireFields squireFields = Player.GetEffectFields<SquireFields>();
             if (squireFields.SquireEnchantActive)
                 Player.setSquireT2 = true;
-
             if (squireFields.ValhallaEnchantActive)
                 Player.setSquireT3 = true;
 
-            if (ApprenticeEnchantItem != null)
+            ApprenticeFields apprenticeFields = Player.GetEffectFields<ApprenticeFields>();
+            if (apprenticeFields.ApprenticeEnchantActive)
                 Player.setApprenticeT2 = true;
-
-            if (DarkArtistEnchantItem != null)
+            if (apprenticeFields.DarkArtistEnchantActive)
                 Player.setApprenticeT3 = true;
 
             if (MonkEnchantActive)

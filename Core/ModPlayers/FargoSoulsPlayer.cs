@@ -212,7 +212,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             WingTimeModifier = 1f;
 
-            NinjaEnchantItem = null;
 
             QueenStingerItem = null;
             EridanusSet = false;
@@ -288,7 +287,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             RainEnchantItem = null;
             AncientShadowEnchantActive = false;
-            ApprenticeEnchantItem = null;
             HuntressEnchantActive = false;
             if (!MonkEnchantActive)
             {
@@ -652,11 +650,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     float diff = AttackSpeed - 1f;
                     diff /= 2;
                     AttackSpeed -= diff;
-                }
-
-                if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
-                {
-                    //AttackSpeed *= 2;
                 }
 
                 //modify attack speed so it rounds up

@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -80,12 +81,12 @@ $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion tha
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             SetActive(player);
 
-            modPlayer.NinjaEnchantItem = Item;
-            player.DisplayToggle("NinjaSpeed");
-
-
-            DarkArtistEnchant.DarkArtistEffect(player, Item);
-            ApprenticeEnchant.ApprenticeEffect(player, Item);
+            player.AddEffect<NinjaEffect>(Item);
+            ApprenticeFields apprenticeFields = player.GetEffectFields<ApprenticeFields>();
+            apprenticeFields.ApprenticeEnchantActive = true;
+            apprenticeFields.DarkArtistEnchantActive = true;
+            player.AddEffect<ApprenticeSupport>(Item);
+            player.AddEffect<DarkArtistMinion>(Item);
 
             NecroEnchant.NecroEffect(player, Item);
             //shadow orbs

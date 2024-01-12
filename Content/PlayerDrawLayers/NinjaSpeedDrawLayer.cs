@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -15,23 +17,14 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
         {
             Player player = drawInfo.drawPlayer;
             if (player == null || !player.active || player.dead || player.ghost || player.whoAmI != Main.myPlayer || drawInfo.shadow != 0)
-            {
                 return false;
-            }
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer == null)
-            {
                 return false;
-            }
-            if (modPlayer.NinjaEnchantItem == null)
-            {
+            if (player.HasEffect<NinjaEffect>())
                 return false;
-            }
-            if (!player.GetToggleValue("NinjaSpeed"))
-            {
-                return false;
-            }
-            float maxSpeed = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 7 : 4;
+
+            float maxSpeed = modPlayer.ForceEffect<NinjaEnchant>() ? 7 : 4;
             if (player.velocity.Length() < maxSpeed && DrawTime < 15)
             {
                 DrawTime++;
