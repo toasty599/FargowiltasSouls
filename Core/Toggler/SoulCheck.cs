@@ -12,12 +12,12 @@ namespace FargowiltasSouls.Core.Toggler
         {
             return player.FargoSouls().Toggler.Toggles[effect];
         }
-        public static bool GetToggleValue<T>(this Player player, bool checkForMutantPresence = true) where T : AccessoryEffect => player.GetToggleValue(ModContent.GetInstance<T>(), checkForMutantPresence);
-        public static bool GetToggleValue(this Player player, AccessoryEffect effect, bool checkForMutantPresence = true)
+        public static bool GetToggleValue<T>(this Player player) where T : AccessoryEffect => player.GetToggleValue(ModContent.GetInstance<T>());
+        public static bool GetToggleValue(this Player player, AccessoryEffect effect)
         {
             Toggle toggle = player.GetToggle(effect);
             toggle.DisplayToggle = true;
-            return (!checkForMutantPresence || !Main.player[Main.myPlayer].FargoSouls().MutantPresence) && toggle.ToggleBool;
+            return toggle.ToggleBool;
         }
 
         public static bool GetPlayerBoolValue(this Player player, AccessoryEffect effect)

@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 //regular OnRespawn() doesnt account for lifeforce, and is lowered by dying with oceanic maul
             }
 
-            if (SquireEnchantItem == null && BaseMountType != -1)
+            if (Player.GetEffectFields<SquireFields>().SquireEnchantActive && BaseMountType != -1)
             {
                 SquireEnchant.ResetMountStats(this);
             }
@@ -502,10 +502,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             FargoSoulsPlayer modPlayer = Player.FargoSouls();
 
             //these are here so that emode minion nerf can properly detect the real set bonuses over in EModePlayer postupdateequips
-            if (SquireEnchantItem != null)
+            SquireFields squireFields = Player.GetEffectFields<SquireFields>();
+            if (squireFields.SquireEnchantActive)
                 Player.setSquireT2 = true;
 
-            if (ValhallaEnchantItem != null)
+            if (squireFields.ValhallaEnchantActive)
                 Player.setSquireT3 = true;
 
             if (ApprenticeEnchantItem != null)

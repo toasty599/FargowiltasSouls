@@ -147,9 +147,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool FrostEnchantActive;
         public int IcicleCount;
         private int icicleCD;
-        public bool GladiatorEnchantActive;
         public int GladiatorCD;
-        public bool GoldEnchantActive;
         public bool GoldEnchMoveCoins;
         public bool GoldShell;
         private int goldHP;
@@ -188,7 +186,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public Item RainEnchantItem;
         //public int RainCD;
 
-        public Item RedRidingEnchantItem;
         public int RedRidingArrowCD;
 
         public bool ShadowEnchantActive;
@@ -196,7 +193,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int dashCD;
         public bool ShroomEnchantActive;
 
-        public bool PlatinumEnchantActive;
         public bool SnowEnchantActive;
         public bool SnowVisual;
         public bool SolarEnchantActive;
@@ -204,7 +200,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int SpectreCD;
         public bool SpiderEnchantActive;
         public bool SpookyEnchantActive;
-        public Item SquireEnchantItem;
         //public bool squireReduceIframes;
         public bool StardustEnchantActive;
         public bool FreezeTime;
@@ -220,7 +215,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int TurtleShellHP = 25;
         private int turtleRecoverCD = 240;
         public bool ShellHide;
-        public Item ValhallaEnchantItem;
         public int ValhallaDashCD;
         public bool VortexEnchantActive;
         public bool VortexStealth;

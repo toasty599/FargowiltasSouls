@@ -1,5 +1,7 @@
 ﻿using Fargowiltas.Common.Configs;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -32,13 +34,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void SquireEffect(Player player, Item item)
         {
+            player.AddEffect<SquireMountSpeed>(item);
+            player.AddEffect<SquireMountJump>(item);
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.SquireEnchantItem = item;
+            player.GetEffectFields<SquireFields>().SquireEnchantActive = true;
 
-            player.DisplayToggle("SquirePanic");
-
-            if (!player.GetToggleValue("SquirePanic"))
-                player.buffImmune[BuffID.BallistaPanic] = true;
+            player.buffImmune[BuffID.BallistaPanic] = true;
 
             Mount mount = player.mount;
 
@@ -69,13 +70,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 float accelBoost;
                 float speedBoost;
 
-                if (modPlayer.ValhallaEnchantItem != null && modPlayer.ForceEffect(modPlayer.ValhallaEnchantItem.type))
+                if (player.GetEffectFields<SquireFields>().ValhallaEnchantActive && modPlayer.ForceEffect<ValhallaKnightEnchant>())
                 {
                     defenseBoost = 20;
                     accelBoost = 2f;
                     speedBoost = 1.5f;
                 }
-                else if (modPlayer.ValhallaEnchantItem != null || modPlayer.ForceEffect(modPlayer.SquireEnchantItem.type))
+                else if (player.GetEffectFields<SquireFields>().ValhallaEnchantActive || modPlayer.ForceEffect<SquireEnchant>())
                 {
                     defenseBoost = 15;
                     accelBoost = 1.5f;
@@ -87,21 +88,22 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     accelBoost = 1.25f;
                     speedBoost = 1.25f;
                 }
-                if (!player.GetToggleValue("SquireMountSpeed"))
+                
+                
+                if (!player.HasEffect<SquireMountSpeed>())
                 {
                     accelBoost = 1;
                     speedBoost = 1;
                 }
-                if (modPlayer.ValhallaEnchantItem != null)
+                if (player.HasEffect<ValhallaDash>())
                 {
-                    player.DisplayToggle("Valhalla");
 
                     if (modPlayer.ValhallaDashCD > 0)
                     {
                         modPlayer.ValhallaDashCD--;
                     }
 
-                    if (modPlayer.ValhallaDashCD == 0 && player.GetToggleValue("Valhalla"))
+                    if (modPlayer.ValhallaDashCD == 0)
                     {
                         if (Fargowiltas.Fargowiltas.DashKey.Current)
                         {
@@ -159,7 +161,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         
                     }
                 }
-                if (player.GetToggleValue("SquireMountJump"))
+                
+                if (player.HasEffect<SquireMountJump>())
                 {
                     player.GetJumpState(ExtraJump.FartInAJar).Enable();
                 }
@@ -266,6 +269,26 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             .AddTile(TileID.CrystalBall)
             .Register();
+        }
+    }
+    public class SquireMountSpeed : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+    }
+    public class SquireMountJump : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+    }
+    public class SquireFields : EffectFields
+    {
+        public bool SquireEnchantActive = false;
+        public bool ValhallaEnchantActive = false;
+        public override void ResetEffects()
+        {
+            SquireEnchantActive = false;
+            ValhallaEnchantActive = false;
         }
     }
 }

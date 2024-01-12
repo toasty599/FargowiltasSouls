@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.UI;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
@@ -123,7 +124,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (FargowiltasSouls.SoulToggleKey.JustPressed)
                 FargoUIManager.ToggleSoulToggler();
 
-            if (FargowiltasSouls.GoldKey.JustPressed && GoldEnchantActive)
+            if (FargowiltasSouls.GoldKey.JustPressed && Player.HasEffect<GoldEffect>())
             {
                 GoldKey();
             }

@@ -469,30 +469,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         }
 
 
-        public void GoldEffect(bool hideVisual)
-        {
-            Player.DisplayToggle("Gold");
-            Player.DisplayToggle("GoldToPiggy");
-
-            ////gold ring
-            //Player.goldRing = true;
-            ////lucky coin
-            //if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gold"))
-            //    Player.hasLuckyCoin = true;
-            ////discount card
-            //Player.discountAvailable = true;
-            //midas
-            GoldEnchantActive = true;
-
-            if (Player.GetToggleValue("GoldToPiggy", false))
-            {
-                for (int i = 50; i <= 53; i++) //detect coins in coin slots
-                {
-                    if (!Player.inventory[i].IsAir && Player.inventory[i].IsACoin)
-                        GoldEnchMoveCoins = true;
-                }
-            }
-        }
 
         public void GoldKey()
         {

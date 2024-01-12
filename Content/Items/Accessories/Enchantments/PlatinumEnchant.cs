@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -33,7 +34,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().PlatinumEnchantActive = true;
+            player.GetEffectFields<PlatinumFields>().PlatinumEffectActive = true;
         }
 
         public override void AddRecipes()
@@ -48,6 +49,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class PlatinumFields : EffectFields
+    {
+        public bool PlatinumEffectActive = false;
+        public override void ResetEffects()
+        {
+            PlatinumEffectActive = false;
         }
     }
 }

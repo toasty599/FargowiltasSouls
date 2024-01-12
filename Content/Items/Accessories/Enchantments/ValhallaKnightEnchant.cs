@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -23,7 +25,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().ValhallaEnchantItem = Item;
+            player.GetEffectFields<SquireFields>().ValhallaEnchantActive = true;
             SquireEnchant.SquireEffect(player, Item);
         }
 
@@ -40,5 +42,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddTile(TileID.CrystalBall)
             .Register();
         }
+    }
+    public class ValhallaDash : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<WillHeader>();
     }
 }

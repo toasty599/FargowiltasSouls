@@ -268,13 +268,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             OriEnchantItem = null;
             MeteorEnchantItem = null;
             MoltenEnchantActive = false;
-            PlatinumEnchantActive = false;
             CrystalEnchantActive = false;
             FirstStrike = false;
             TurtleEnchantActive = false;
             ShellHide = false;
-            GladiatorEnchantActive = false;
-            GoldEnchantActive = false;
             GoldShell = false;
             CactusEnchantItem = null;
             ForbiddenEnchantActive = false;
@@ -283,9 +280,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             TikiEnchantActive = false;
             SolarEnchantActive = false;
             ShinobiEnchantActive = false;
-            ValhallaEnchantItem = null;
             DarkArtistEnchantItem = null;
-            RedRidingEnchantItem = null;
 
             WoodEnchantItem = null;
 			WoodEnchantDiscount = false;
@@ -293,7 +288,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             RainEnchantItem = null;
             AncientShadowEnchantActive = false;
-            SquireEnchantItem = null;
             ApprenticeEnchantItem = null;
             HuntressEnchantActive = false;
             if (!MonkEnchantActive)
@@ -1341,17 +1335,20 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int GetHealMultiplier(int heal)
         {
             float multiplier = 1f;
-
-            if ((SquireEnchantItem != null || ValhallaEnchantItem != null))
+            SquireFields squireFields = Player.GetEffectFields<SquireFields>();
+            bool squire = squireFields.SquireEnchantActive;
+            bool valhalla = squireFields.ValhallaEnchantActive;
+            if ((squire || valhalla))
             {
+                
                 bool forceEffect = ForceEffect<SquireEnchant>() || ForceEffect<ValhallaKnightEnchant>();
                 if (Eternity)
                     multiplier = 5f;
-                else if (forceEffect && ValhallaEnchantItem != null)
+                else if (forceEffect && valhalla)
                     multiplier = 1.2f;
-                else if (ValhallaEnchantItem != null || (forceEffect && SquireEnchantItem != null))
+                else if (valhalla || (forceEffect && squire))
                     multiplier = 1.15f;
-                else if (SquireEnchantItem != null)
+                else if (squire)
                     multiplier = 1.10f;
             }
 
@@ -1488,11 +1485,15 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
                 return BaseEnchant.CraftsInto[type] != -1 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
             }
+            bool CheckWizard(int type)
+            {
+                return WizardedItem != null && !WizardedItem.IsAir && (WizardedItem.type == modItem.Item.type || (BaseEnchant.CraftsInto[type] != -1 && CheckWizard(BaseEnchant.CraftsInto[type])));
+            }
 
             if (Main.gamePaused || modItem == null || modItem.Item == null || modItem.Item.IsAir)
                 return false;
 
-            if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == modItem.Item.type)
+            if (CheckWizard(modItem.Item.type))
                 return true;
 
             if (modItem is BaseEnchant && CheckForces(modItem.Item.type))

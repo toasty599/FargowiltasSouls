@@ -1,4 +1,7 @@
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -36,41 +39,51 @@ Missing any attack will reset these bonuses
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            RedRidingEffect(player, Item);
-            HuntressEnchant.HuntressEffect(player);
+            player.AddEffect<RedRidingEffect>(Item);
+            player.AddEffect<HuntressEffect>(Item);
         }
 
-        public static void RedRidingEffect(Player player, Item item)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("RedRidingRain");
+            CreateRecipe()
+            .AddIngredient(ItemID.HuntressAltHead)
+            .AddIngredient(ItemID.HuntressAltShirt)
+            .AddIngredient(ItemID.HuntressAltPants)
+            .AddIngredient(null, "HuntressEnchant")
+            .AddIngredient(ItemID.Marrow)
+            .AddIngredient(ItemID.DD2BetsyBow)
+
+            .AddTile(TileID.CrystalBall)
+            .Register();
+        }
+    }
+    public class RedRidingEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.RedRidingEnchantItem != null || !player.GetToggleValue("RedRidingRain"))
-                return;
-
-            modPlayer.RedRidingEnchantItem = item;
-
             if (modPlayer.RedRidingArrowCD > 0)
             {
                 modPlayer.RedRidingArrowCD--;
             }
         }
-
         public static void SpawnArrowRain(Player player, NPC target)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-
+            Item effectItem = player.EffectItem<RedRidingEffect>();
             Item firstAmmo = PickAmmo(player);
             int arrowType = firstAmmo.shoot;
-            int damage = firstAmmo.damage * (modPlayer.ForceEffect(modPlayer.RedRidingEnchantItem.type) ? 7 : 5);
+            int damage = firstAmmo.damage * (modPlayer.ForceEffect<RedRidingEnchant>() ? 7 : 5);
             //int damage = FargoSoulsUtil.HighestDamageTypeScaling(player, (int)(firstAmmo.damage * 5f));
-            int heatray = Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.RedRidingEnchantItem), player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
+            int heatray = Projectile.NewProjectile(player.GetSource_Accessory(effectItem), player.Center, new Vector2(0, -6f), ProjectileID.HeatRay, 0, 0, Main.myPlayer);
             Main.projectile[heatray].tileCollide = false;
             //proj spawns arrows all around it until it dies
-            Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.RedRidingEnchantItem), target.Center.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(player, damage), 0f, player.whoAmI, arrowType, target.whoAmI);
+            Projectile.NewProjectile(player.GetSource_Accessory(effectItem), target.Center.X, player.Center.Y - 500, 0f, 0f, ModContent.ProjectileType<ArrowRain>(), FargoSoulsUtil.HighestDamageTypeScaling(player, damage), 0f, player.whoAmI, arrowType, target.whoAmI);
 
-            modPlayer.RedRidingArrowCD = modPlayer.ForceEffect(modPlayer.RedRidingEnchantItem.type) ? 240 : 360;
+            modPlayer.RedRidingArrowCD = modPlayer.ForceEffect<RedRidingEnchant>() ? 240 : 360;
         }
-
         private static Item PickAmmo(Player player)
         {
             Item item = new();
@@ -102,20 +115,6 @@ Missing any attack will reset these bonuses
             }
 
             return item;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.HuntressAltHead)
-            .AddIngredient(ItemID.HuntressAltShirt)
-            .AddIngredient(ItemID.HuntressAltPants)
-            .AddIngredient(null, "HuntressEnchant")
-            .AddIngredient(ItemID.Marrow)
-            .AddIngredient(ItemID.DD2BetsyBow)
-
-            .AddTile(TileID.CrystalBall)
-            .Register();
         }
     }
 }

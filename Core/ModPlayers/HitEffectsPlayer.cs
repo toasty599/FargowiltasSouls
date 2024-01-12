@@ -54,16 +54,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 modifiers.Null();
             }
-
-
-
-            if (HuntressEnchantActive && proj.FargoSouls().HuntressProj == 1 && target.type != NPCID.TargetDummy)
-            {
-                HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
-            }
-
-
-
             ModifyHitNPCBoth(target, ref modifiers, proj.DamageType);
         }
 
@@ -283,10 +273,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 target.AddBuff(ModContent.BuffType<GodEaterBuff>(), 420);
             }
 
-            if (GladiatorEnchantActive && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gladiator") && GladiatorCD <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
-            {
-                GladiatorEnchant.GladiatorSpearDrop(this, target, GetBaseDamage());
-            }
 
             if (SolarEnchantActive && Player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
                 target.AddBuff(ModContent.BuffType<SolarFlareBuff>(), 300);
@@ -358,9 +344,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 target.AddBuff(BuffID.Electrified, 240);
                 target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 60);
             }
-
-            if (GoldEnchantActive)
-                target.AddBuff(BuffID.Midas, 120, true);
+                
 
             if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] && Main.rand.NextBool(10))
             {

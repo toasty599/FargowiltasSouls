@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Items
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.GoldEnchantActive && player.whoAmI == Main.myPlayer && player.GetToggleValue("GoldToPiggy", false))
+            if (player.whoAmI == Main.myPlayer && player.HasEffect<GoldToPiggy>())
                 modPlayer.GoldEnchMoveCoins = true;
 
             return base.OnPickup(item, player);
