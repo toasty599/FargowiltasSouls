@@ -38,6 +38,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void PostSetupContent()
         {
             SetFactory factory = new(ContentSamples.ItemsByType.Count);
+            BaseEnchant.Force = factory.CreateIntSet();
             foreach (BaseForce force in ModContent.GetContent<BaseForce>())
             {
                 BaseForce.ForceEnchants[force.Type] = force.Enchants;
