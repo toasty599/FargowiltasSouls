@@ -14,10 +14,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蜘蛛魔石");
 
-            string tooltip =
-@"Your minions and sentries can crit
-Summon crits do x1.5 damage instead of x2
-'Arachnophobia is punishable by arachnid induced death'";
             // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =

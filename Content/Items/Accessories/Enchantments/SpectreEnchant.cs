@@ -14,10 +14,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "幽魂魔石");
 
-            string tooltip =
-@"Damage has a chance to spawn damaging orbs
-If you crit, you might also get a healing orb
-'Their lifeforce will be their undoing'";
             // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =

@@ -16,24 +16,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             // DisplayName.SetDefault("Soul of Dimensions");
 
-            string tooltip =
-@"Increases HP by 300
-20% damage reduction
-Increases life regeneration by 8
-Grants immunity to knockback and several debuffs
-Enemies are more likely to target you
-Allows Supersonic running and infinite flight
-Increases fishing skill substantially, All fishing rods will have 10 extra lures
-Increased block and wall placement speed by 50%
-Near infinite block placement and mining reach, Mining speed tripled
-Shine, Spelunker, Hunter, and Dangersense effects
-Auto paint and actuator effect
-Grants the ability to enable Builder Mode
-Effects of the Brain of Confusion, Star Veil, Sweetheart Necklace, Bee Cloak, Spore Sac, and Shiny Stone
-Effects of Paladin's Shield, Frozen Turtle Shell, Arctic Diving Gear, Frog Legs, and Flying Carpet
-Effects of Lava Waders, Angler Tackle Bag, Paint Sprayer, Presserator, Cell Phone, and Gravity Globe
-Effects of Shield of Cthulhu and Master Ninja Gear
-'The dimensions of Terraria at your fingertips'";
             // Tooltip.SetDefault(tooltip);
 
 

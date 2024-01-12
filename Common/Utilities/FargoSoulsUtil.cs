@@ -600,7 +600,7 @@ namespace FargowiltasSouls //lets everything access it without using
                 Vector2 offset = spawnPos - Main.LocalPlayer.Center;
                 if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
                     continue;
-                Particle p = null;
+                Particle p;
                 switch (particleType)
                 {
                     case 1:

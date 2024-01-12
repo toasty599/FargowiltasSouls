@@ -15,17 +15,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             // DisplayName.SetDefault("Supersonic Soul");
 
-            string tooltip =
-@"Allows Supersonic running, flight, and extra mobility on ice
-Allows the holder to quintuple jump if no wings are equipped
-Increases jump height, jump speed, and allows auto-jump
-Flowers grow on the grass you walk on
-Grants the ability to swim and greatly extends underwater breathing
-Provides the ability to walk on water and lava
-Grants immunity to lava and fall damage
-Effects of Flying Carpet, Shield of Cthulhu and Master Ninja Gear
-Effects of Sweetheart Necklace and Amber Horseshoe Balloon
-'I am speed'";
             //string tooltip_ch =
             //@"'我就是速度'
             //获得超音速奔跑,飞行,以及额外的冰上移动力

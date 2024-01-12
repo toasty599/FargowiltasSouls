@@ -1820,7 +1820,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(CosmoForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<CosmoForce>()));
 
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CosmosBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EridanusTrophy>(), 10));

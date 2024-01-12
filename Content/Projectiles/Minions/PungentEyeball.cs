@@ -109,11 +109,11 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 }
                 if (Projectile.localAI[0] > chargeTime * 2f)
                 {
-                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
+                    int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Shadowflame, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                     Main.dust[d].scale += 0.5f;
-                    d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
+                    d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Shadowflame, Projectile.velocity.X * 0.4f, Projectile.velocity.Y * 0.4f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 1.5f;
                 }

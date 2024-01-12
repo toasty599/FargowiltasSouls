@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -7,6 +8,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
     public abstract class BaseForce : SoulsItem
     {
+        public static Dictionary<int, int[]> ForceEnchants;
+        public static Dictionary<int, bool[]> ContainsEnchant;
+        public static int[] EnchantsIn<T>() where T : BaseForce => ForceEnchants[ModContent.ItemType<T>()];
+        public void SetActive(Player player) => player.GetEffectFields<ForceFields>().ForceEffects.Add(Type);
+        public virtual int[] Enchants { get; }
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -25,8 +31,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             Item.rare = ItemRarityID.Purple;
             Item.value = 600000;
         }
-
-        
     }
 
     public class ForceSystem : ModSystem
@@ -34,15 +38,19 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void PostSetupContent()
         {
             SetFactory factory = new(ContentSamples.ItemsByType.Count);
-            CosmoForce.ContainsEnchant = factory.CreateBoolSet(CosmoForce.Enchants);
-            EarthForce.ContainsEnchant = factory.CreateBoolSet(EarthForce.Enchants);
-            LifeForce.ContainsEnchant = factory.CreateBoolSet(LifeForce.Enchants);
-            NatureForce.ContainsEnchant = factory.CreateBoolSet(NatureForce.Enchants);
-            ShadowForce.ContainsEnchant = factory.CreateBoolSet(ShadowForce.Enchants);
-            SpiritForce.ContainsEnchant = factory.CreateBoolSet(SpiritForce.Enchants);
-            TerraForce.ContainsEnchant = factory.CreateBoolSet(TerraForce.Enchants);
-            TimberForce.ContainsEnchant = factory.CreateBoolSet(TimberForce.Enchants);
-            WillForce.ContainsEnchant = factory.CreateBoolSet(WillForce.Enchants);
+            foreach (BaseForce force in ModContent.GetContent<BaseForce>())
+            {
+                BaseForce.ForceEnchants[force.Type] = force.Enchants;
+                BaseForce.ContainsEnchant[force.Type] = factory.CreateBoolSet(force.Enchants);
+            }
+        }
+    }
+    public class ForceFields : EffectFields
+    {
+        public HashSet<int> ForceEffects;
+        public override void ResetEffects()
+        {
+            ForceEffects.Clear();
         }
     }
 }

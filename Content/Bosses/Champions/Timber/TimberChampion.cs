@@ -739,7 +739,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(TimberForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<TimberForce>()));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<TimberChampionRelic>()));
         }

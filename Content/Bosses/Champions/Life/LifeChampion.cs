@@ -747,7 +747,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(LifeForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<LifeForce>()));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<LifeChampionRelic>()));
 

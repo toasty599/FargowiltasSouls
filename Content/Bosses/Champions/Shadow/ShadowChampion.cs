@@ -699,7 +699,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(ShadowForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<ShadowForce>()));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<ShadowChampionRelic>()));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<PortableFogMachine>(), 4));

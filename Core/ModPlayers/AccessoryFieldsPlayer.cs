@@ -234,16 +234,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int CritterAttackTimer;
 
-        public bool cosmoForce;
-        public bool earthForce;
-        public bool lifeForce;
-        public bool natureForce;
-        public bool spiritForce;
-        public bool shadowForce;
-        public bool terraForce;
-        public bool willForce;
-        public bool timberForce;
-
         #endregion
 
         //        //soul effects

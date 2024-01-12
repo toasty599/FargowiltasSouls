@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
-            var togglesOff = new List<string>();
+            var togglesOff = new List<AccessoryEffect>();
             if (Toggler != null && Toggler.Toggles != null)
             {
                 foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggler.Toggles)
@@ -307,15 +307,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             TitaniumDRBuff = false;
             TitaniumCD = false;
 
-            cosmoForce = false;
-            earthForce = false;
-            lifeForce = false;
-            natureForce = false;
-            spiritForce = false;
-            terraForce = false;
-            shadowForce = false;
-            willForce = false;
-            timberForce = false;
 
             //            #endregion
 
@@ -1486,17 +1477,17 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool ForceEffect(ModItem modItem)
         {
             //This will probably be made less ugly in a future refactor update.
-            bool CheckForces(int type) =>
-                (cosmoForce && CosmoForce.ContainsEnchant[type]) ||
-                (earthForce && EarthForce.ContainsEnchant[type]) ||
-                (lifeForce && LifeForce.ContainsEnchant[type]) ||
-                (natureForce && NatureForce.ContainsEnchant[type]) ||
-                (shadowForce && ShadowForce.ContainsEnchant[type]) ||
-                (spiritForce && SpiritForce.ContainsEnchant[type]) ||
-                (terraForce && TerraForce.ContainsEnchant[type]) ||
-                (timberForce && TimberForce.ContainsEnchant[type]) ||
-                (willForce && WillForce.ContainsEnchant[type]) ||
-                (BaseEnchant.CraftsInto[type] != -1 && CheckForces(BaseEnchant.CraftsInto[type])); //check force of enchant it crafts into, recursively
+            bool CheckForces(int type)
+            {
+                foreach (var force in BaseForce.ContainsEnchant)
+                {
+                    if (force.Value[type] && Player.GetEffectFields<ForceFields>().ForceEffects.Contains(force.Key))
+                    {
+                        return true;
+                    }
+                }
+                return BaseEnchant.CraftsInto[type] != -1 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
+            }
 
             if (Main.gamePaused || modItem == null || modItem.Item == null || modItem.Item.IsAir)
                 return false;
@@ -1504,10 +1495,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == modItem.Item.type)
                 return true;
 
-            if (modItem is BaseSoul || modItem is BaseForce)
+            if (modItem is BaseEnchant && CheckForces(modItem.Item.type))
                 return true;
 
-            if (modItem is BaseEnchant && CheckForces(modItem.Item.type))
+            if (modItem is BaseSoul || modItem is BaseForce)
                 return true;
 
             return false;

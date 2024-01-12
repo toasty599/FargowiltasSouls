@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 	[AutoloadEquip(EquipType.Shield)]
     public class TerraForce : BaseForce
     {
-        public static int[] Enchants => new int[]
+        public override int[] Enchants => new int[]
         {
             ModContent.ItemType<CopperEnchant>(),
             ModContent.ItemType<TinEnchant>(),
@@ -20,7 +20,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<TungstenEnchant>(),
             ModContent.ItemType<ObsidianEnchant>()
         };
-        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -40,7 +39,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.terraForce = true;
+            SetActive(player);
             player.AddEffect<CopperEffect>(Item);
             player.AddEffect<TinEffect>(Item);
             IronEnchant.AddEffects(player, Item);

@@ -16,15 +16,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巨像之魂");
 
-            string tooltip =
-@"Increases HP by 100
-15% damage reduction
-Increases life regeneration by 5
-Grants immunity to knockback, several debuffs, Shimmering, and fall damage
-Enemies are more likely to target you
-Effects of Brain of Confusion, Star Veil, and Bee Cloak
-Effects of Shiny Stone, Paladin's Shield, and Frozen Turtle Shell
-'Nothing can stop you'";
             // Tooltip.SetDefault(tooltip);
 
             //string tooltip_ch =

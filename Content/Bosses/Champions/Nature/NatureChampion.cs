@@ -739,7 +739,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(NatureForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<NatureForce>()));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NatureChampionRelic>()));
         }

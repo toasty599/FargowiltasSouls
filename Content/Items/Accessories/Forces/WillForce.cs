@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class WillForce : BaseForce
     {
-        public static int[] Enchants => new int[]
+        public override int[] Enchants => new int[]
         {
             ModContent.ItemType<GoldEnchant>(),
             ModContent.ItemType<PlatinumEnchant>(),
@@ -15,8 +15,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<RedRidingEnchant>(),
             ModContent.ItemType<ValhallaKnightEnchant>()
         };
-
-        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -66,7 +64,7 @@ $"[i:{ModContent.ItemType<ValhallaKnightEnchant>()}] Increases the effectiveness
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.willForce = true;
+            SetActive(player);
             modPlayer.GoldEffect(hideVisual);
 
             modPlayer.PlatinumEnchantActive = true;

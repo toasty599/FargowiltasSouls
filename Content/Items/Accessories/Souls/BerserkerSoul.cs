@@ -16,13 +16,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "狂战士之魂");
 
-            string tooltip =
-@"30% increased melee damage
-20% increased melee speed
-15% increased melee crit chance
-Increased melee knockback
-Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
-'None shall live to tell the tale'";
             // Tooltip.SetDefault(tooltip);
             //string tooltip_ch =
             //@"增加30%近战伤害

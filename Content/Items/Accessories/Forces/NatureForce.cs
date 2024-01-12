@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class NatureForce : BaseForce
     {
-        public static int[] Enchants => new int[]
+        public override int[] Enchants => new int[]
         {
             ModContent.ItemType<CrimsonEnchant>(),
             ModContent.ItemType<MoltenEnchant>(),
@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<ChlorophyteEnchant>(),
             ModContent.ItemType<ShroomiteEnchant>()
         };
-        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -76,7 +75,7 @@ $"[i:{ModContent.ItemType<ShroomiteEnchant>()}] All attacks gain trails of mushr
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.natureForce = true;
+            SetActive(player);
             //regen
             CrimsonEnchant.CrimsonEffect(player, Item);
             //inferno and explode

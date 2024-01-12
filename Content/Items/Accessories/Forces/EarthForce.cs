@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class EarthForce : BaseForce
     {
-        public static int[] Enchants => new int[]
+        public override int[] Enchants => new int[]
         {
             ModContent.ItemType<CobaltEnchant>(),
             ModContent.ItemType<PalladiumEnchant>(),
@@ -16,7 +16,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<AdamantiteEnchant>(),
             ModContent.ItemType<TitaniumEnchant>()
         };
-        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -58,7 +57,7 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacks generate titanium shards,
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.earthForce = true;
+            SetActive(player);
             //mythril
             MythrilEnchant.MythrilEffect(player, Item);
             //shards

@@ -14,11 +14,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "甲虫魔石");
 
-            string tooltip =
-@"Beetles increase your damage and melee speed
-When hit, beetles instead protect you from damage for 10 seconds
-Beetle buffs capped at level two
-'The unseen life of dung courses through your veins'";
             // Tooltip.SetDefault(tooltip);
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "甲虫魔石");

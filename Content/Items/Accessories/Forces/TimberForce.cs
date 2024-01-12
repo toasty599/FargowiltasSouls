@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class TimberForce : BaseForce
     {
-        public static int[] Enchants => new int[]
+        public override int[] Enchants => new int[]
         {
             ModContent.ItemType<WoodEnchant>(),
             ModContent.ItemType<BorealWoodEnchant>(),
@@ -18,7 +18,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<PalmWoodEnchant>(),
             ModContent.ItemType<PearlwoodEnchant>()
         };
-        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -63,7 +62,7 @@ $"[i:{ModContent.ItemType<PearlwoodEnchant>()}] Projectiles may spawn a star whe
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.timberForce = true;
+            SetActive(player);
             WoodEnchant.WoodEffect(player, Item);
             player.AddEffect<BorealEffect>(Item);
             player.AddEffect<MahoganyEffect>(Item);

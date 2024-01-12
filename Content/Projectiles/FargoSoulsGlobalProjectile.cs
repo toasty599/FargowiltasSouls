@@ -682,7 +682,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 float num6 = 2f;
                                 for (int i = 0; (float)i < num6; i++)
                                 {
-                                    Dust dust = Dust.NewDustDirect(projectile.Center, 14, 14, 228, 0f, 0f, 110);
+                                    Dust dust = Dust.NewDustDirect(projectile.Center, 14, 14, DustID.GoldFlame, 0f, 0f, 110);
                                     dust.velocity = vector2.DirectionTo(dust.position) * 2f;
                                     dust.position = projectile.Center + vector4.RotatedBy(num2 * ((float)Math.PI * 2f) * 2f + (float)i / num6 * ((float)Math.PI * 2f)) * 10f;
                                     dust.scale = 1f + 0.6f * Main.rand.NextFloat();
@@ -691,9 +691,9 @@ namespace FargowiltasSouls.Content.Projectiles
                                 }
                                 for (int j = 0; j < 1; j++)
                                 {
-                                    if (Main.rand.Next(3) == 0)
+                                    if (Main.rand.NextBool(3))
                                     {
-                                        Dust dust2 = Dust.NewDustDirect(projectile.Center, 20, 20, 228, 0f, 0f, 110);
+                                        Dust dust2 = Dust.NewDustDirect(projectile.Center, 20, 20, DustID.GoldFlame, 0f, 0f, 110);
                                         dust2.velocity = vector2.DirectionTo(dust2.position) * 2f;
                                         dust2.position = projectile.Center + vector3 * -110f;
                                         dust2.scale = 0.45f + 0.4f * Main.rand.NextFloat();
@@ -765,17 +765,17 @@ namespace FargowiltasSouls.Content.Projectiles
                                             num12 = 0.5f;
                                             break;
                                     }
-                                    if (Main.rand.Next(6) != 0)
+                                    if (!Main.rand.NextBool(6))
                                     {
                                         num13 *= 1.2f;
-                                        Dust dust3 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 226, 0f, 0f, 100);
+                                        Dust dust3 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Electric, 0f, 0f, 100);
                                         dust3.velocity = vector6 * (4f + 4f * Main.rand.NextFloat()) * num13 * num12;
                                         dust3.noGravity = true;
                                         dust3.noLight = true;
                                         dust3.scale = 0.75f;
                                         dust3.fadeIn = 0.8f;
                                         dust3.customData = this;
-                                        if (Main.rand.Next(3) == 0)
+                                        if (Main.rand.NextBool(3))
                                         {
                                             dust3.noGravity = false;
                                             dust3.fadeIn = 0f;
@@ -1209,7 +1209,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 modifiers.FinalDamage *= 1f + (maxDamageIncrease * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 40f, 1));
                 
             }
-
+            /*
             int AccountForDefenseShred(int modifier)
             {
                 int defenseIgnored = projectile.ArmorPenetration;
@@ -1223,13 +1223,14 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 return effectOnDamage / modifier;
             }
-
+            
             if (AdamModifier != 0)
             {
                //modifiers.FinalDamage /= AdamModifier;
                 // TODO: maybe use defense here
                 //modifiers.FinalDamage.Flat -= AccountForDefenseShred(AdamModifier);
             }
+            */
 
             if (noInteractionWithNPCImmunityFrames)
                 tempIframe = target.immune[projectile.owner];

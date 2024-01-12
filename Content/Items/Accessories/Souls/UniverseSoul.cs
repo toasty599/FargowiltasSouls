@@ -13,20 +13,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             // DisplayName.SetDefault("Soul of the Universe");
 
-            string tooltip =
-@"66% increased all damage for your current weapon class
-25% increased critical chance for your current weapon class
-50% increased use speed for all weapons
-50% increased shoot speed
-Crits deal 4x instead of 2x
-All weapons have double knockback
-Increases your maximum mana by 300
-Increases your max number of minions by 2
-Increases your max number of sentries by 2
-All attacks inflict Flames of the Universe
-Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
-Effects of Sniper Scope, Celestial Cuffs and Mana Flower
-'The heavens themselves bow to you'";
             // Tooltip.SetDefault(tooltip);
 
 

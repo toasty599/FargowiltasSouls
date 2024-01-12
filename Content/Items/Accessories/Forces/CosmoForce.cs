@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class CosmoForce : BaseForce
     {
-        public static int[] Enchants => new int[]
+        public override int[] Enchants => new int[]
         {
             ModContent.ItemType<MeteorEnchant>(),
             ModContent.ItemType<WizardEnchant>(),
@@ -17,7 +17,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<NebulaEnchant>(),
             ModContent.ItemType<StardustEnchant>()
         };
-        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -64,7 +63,7 @@ $"[i:{ModContent.ItemType<StardustEnchant>()}] Press the Freeze Key to freeze ti
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             //meme speed, solar flare,
-            modPlayer.cosmoForce = true;
+            SetActive(player);
             modPlayer.WizardEnchantActive = true;
             //meteor shower
             modPlayer.MeteorEffect(Item);

@@ -16,12 +16,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神枪手之魂");
 
-            string tooltip =
-@"30% increased ranged damage
-20% chance to not consume ammo
-15% increased ranged critical chance
-Effects of Sniper Scope
-'Ready, aim, fire'";
             // Tooltip.SetDefault(tooltip);
 
             //string tooltip_ch =

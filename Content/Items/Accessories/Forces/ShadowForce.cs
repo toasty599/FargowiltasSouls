@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class ShadowForce : BaseForce
     {
-        public static int[] Enchants => new int[]
+        public override int[] Enchants => new int[]
         {
             ModContent.ItemType<NinjaEnchant>(),
             ModContent.ItemType<AncientShadowEnchant>(),
@@ -17,7 +17,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<DarkArtistEnchant>(),
             ModContent.ItemType<NecroEnchant>()
         };
-        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -79,7 +78,7 @@ $"[i:{ModContent.ItemType<DarkArtistEnchant>()}] Summons a Flameburst minion tha
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.shadowForce = true;
+            SetActive(player);
 
             modPlayer.NinjaEnchantItem = Item;
             player.DisplayToggle("NinjaSpeed");

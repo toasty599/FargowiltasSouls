@@ -13,12 +13,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             // DisplayName.SetDefault("Shinobi Infiltrator Enchantment");
 
-            string tooltip =
-@"Dash into any walls, to teleport through them to the next opening
-Allows the ability to dash
-Double tap a direction
-Greatly enhances Lightning Aura effectiveness
-'Village Hidden in the Wall'";
             // Tooltip.SetDefault(tooltip);
         }
 

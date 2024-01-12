@@ -13,14 +13,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             // DisplayName.SetDefault("Trawler Soul");
 
-            string tooltip =
-@"Increases fishing skill substantially
-All fishing rods will have 10 extra lures
-You catch fish almost instantly
-Permanent Sonar and Crate Buffs
-Effects of Angler Tackle Bag, Volatile Gel, and Spore Sac 
-Effects of Pink Horseshoe Balloon and Arctic Diving Gear
-'The fish catch themselves'";
             // Tooltip.SetDefault(tooltip);
         }
 

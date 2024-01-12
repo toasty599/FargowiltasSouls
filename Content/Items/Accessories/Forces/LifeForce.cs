@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class LifeForce : BaseForce
     {
-        public static int[] Enchants => new int[]
+        public override int[] Enchants => new int[]
         {
             ModContent.ItemType<PumpkinEnchant>(),
             ModContent.ItemType<BeeEnchant>(),
@@ -15,7 +15,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<TurtleEnchant>(),
             ModContent.ItemType<BeetleEnchant>()
         };
-        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -58,7 +57,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.lifeForce = true;
+            SetActive(player);
             modPlayer.BeeEffect(hideVisual, Item);
             modPlayer.SpiderEffect(hideVisual);
             modPlayer.BeetleEffect();
