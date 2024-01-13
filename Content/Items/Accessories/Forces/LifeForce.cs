@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
@@ -58,12 +59,12 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             SetActive(player);
-            modPlayer.BeeEffect(hideVisual, Item);
-            modPlayer.SpiderEffect(hideVisual);
-            modPlayer.BeetleEffect();
-            PumpkinEnchant.PumpkinEffect(player, Item);
-            modPlayer.TurtleEffect(hideVisual);
-            CactusEnchant.CactusEffect(player, Item);
+            player.AddEffect<BeeEffect>(Item);
+            player.AddEffect<SpiderEffect>(Item);
+            player.AddEffect<BeetleEffect>(Item);
+            player.AddEffect<PumpkinEffect>(Item);
+            player.AddEffect<TurtleEffect>(Item);
+            player.AddEffect<CactusEffect>(Item);
         }
 
         public override void AddRecipes()

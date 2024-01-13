@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -14,6 +17,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "蜘蛛魔石");
 
+            string tooltip =
+@"Your minions and sentries can crit
+Summon crits do x1.5 damage instead of x2
+'Arachnophobia is punishable by arachnid induced death'";
             // Tooltip.SetDefault(tooltip);
 
             //             string tooltip_ch =
@@ -36,7 +43,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().SpiderEffect(hideVisual);
+            player.AddEffect<SpiderEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -55,6 +62,20 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             .AddTile(TileID.CrystalBall)
             .Register();
+        }
+    }
+
+    public class SpiderEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
+        public override bool HasToggle => true;
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            //minion crits
+            player.FargoSouls().SpiderEnchantActive = true;
+
+            player.GetCritChance(DamageClass.Summon) += 4;
         }
     }
 }

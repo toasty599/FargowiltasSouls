@@ -152,12 +152,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 TryAdditionalAttacks(proj.damage, proj.DamageType);
 
             OnHitNPCEither(target, hit, proj.DamageType, projectile: proj);
-
-            if (OriEnchantItem != null && proj.type == ProjectileID.FlowerPetal)
-            {
-                target.AddBuff(ModContent.BuffType<OriPoisonBuff>(), 300);
-                target.immune[proj.owner] = 2;
-            }
         }
 
         private void OnHitNPCEither(NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, Projectile projectile = null, Item item = null)
@@ -182,10 +176,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     StyxTimer = 60;
             }
 
-            if (BeetleEnchantActive && Player.beetleOffense && damageClass != DamageClass.Melee)
-            {
-                Player.beetleCounter += hitInfo.Damage;
-            }
             /*
             if (BeeEnchantItem != null && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
                 && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity && !projectile.usesIDStaticNPCImmunity && projectile.owner == Main.myPlayer)))
@@ -211,15 +201,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
             */
 
-            if (PalladEnchantItem != null && !Player.onHitRegen)
-            {
-                Player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
-            }
 
 
-            if (TitaniumEnchantItem != null && (projectile == null || projectile.type != ProjectileID.TitaniumStormShard))
+            if (Player.HasEffect<TitaniumEffect>() && (projectile == null || projectile.type != ProjectileID.TitaniumStormShard))
             {
-                TitaniumEnchant.TitaniumShards(this, Player);
+                TitaniumEffect.TitaniumShards(this, Player);
             }
 
             if (DevianttHeartItem != null && DevianttHeartsCD <= 0 && Player.GetToggleValue("MasoDevianttHearts")
@@ -344,7 +330,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 target.AddBuff(BuffID.Electrified, 240);
                 target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 60);
             }
-                
+
 
             if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] && Main.rand.NextBool(10))
             {
@@ -646,9 +632,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (CobaltEnchantItem != null)
-                CobaltEnchant.CobaltHurt(Player, damage);
-
             if (FossilEnchantItem != null)
                 FossilEnchant.FossilHurt(this, (int)damage);
         }
@@ -682,9 +665,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (NekomiMeter < 0)
                     NekomiMeter = 0;
             }
-
-            if (BeetleEnchantActive)
-                BeetleHurt();
 
 
             if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))

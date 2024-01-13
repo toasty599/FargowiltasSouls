@@ -5,6 +5,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static FargowiltasSouls.Core.Systems.DashManager;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -73,24 +75,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int TungstenCD;
         public int AshwoodCD;
         //force of earth
-        public Item AdamantiteEnchantItem;
-        public bool AdamantiteCanSplit;
-        public double AdamantiteSpread;
-        public Item CobaltEnchantItem;
-        public bool CanCobaltJump;
-        public bool JustCobaltJumped;
-        public int CobaltCooldownTimer;
-        public int CobaltImmuneTimer;
-        public Item MythrilEnchantItem;
-        public int MythrilTimer;
-        public int MythrilMaxTime => MythrilEnchantItem != null ? ForceEffect(MythrilEnchantItem.type) ? 300 : 180 : 180;
-        public float MythrilMaxSpeedBonus => MythrilEnchantItem != null ? ForceEffect(MythrilEnchantItem.type) ? 1.75f : 1.5f : 1.5f;
-        public Item OriEnchantItem;
-        public Item PalladEnchantItem;
-        public int PalladCounter;
-        public Item TitaniumEnchantItem;
-        public bool TitaniumDRBuff;
-        public bool TitaniumCD;
         //force of nature
         public Item CrimsonEnchantItem;
         //force of life
@@ -126,8 +110,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool AncientHallowEnchantActive;
         public bool AncientShadowEnchantActive;
         public int ApprenticeCD;
-        public Item BeeEnchantItem;
-        public int BeeCD;
 
         public Item CactusEnchantItem;
         public int CactusProcCD;
@@ -180,7 +162,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
 
-        public int PumpkinSpawnCD;
         public Item RainEnchantItem;
         //public int RainCD;
 
@@ -221,8 +202,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public Item WizardedItem;
 
         public bool NebulaEnchantActive;
-        public bool BeetleEnchantActive;
-        public int BeetleEnchantDefenseTimer;
 
         public int CritterAttackTimer;
 

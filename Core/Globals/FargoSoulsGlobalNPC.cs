@@ -864,9 +864,9 @@ namespace FargowiltasSouls.Core.Globals
                     damage = 6;
             }
 
-            if (modPlayer.OriEnchantItem != null && npc.lifeRegen < 0)
+            if (modPlayer.Player.HasEffect<OrichalcumEffect>() && npc.lifeRegen < 0)
             {
-                OrichalcumEnchant.OriDotModifier(npc, modPlayer, ref damage);
+                OrichalcumEffect.OriDotModifier(npc, modPlayer, ref damage);
             }
 
             if (TimeFrozen && npc.life == 1)
@@ -1114,7 +1114,7 @@ namespace FargowiltasSouls.Core.Globals
 
             if (Needled && npc.lifeMax > 1 && npc.lifeMax != int.MaxValue) //super dummy
             {
-                CactusEnchant.CactusProc(npc, player);
+                CactusEffect.CactusProc(npc, player);
             }
 
             return base.CheckDead(npc);

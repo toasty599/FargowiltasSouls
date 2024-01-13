@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class SpiritForce : BaseForce
     {
-        public override int[] Enchants => new int[]
+        public static int[] Enchants => new int[]
         {
             ModContent.ItemType<FossilEnchant>(),
             ModContent.ItemType<ForbiddenEnchant>(),
@@ -16,6 +16,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             ModContent.ItemType<TikiEnchant>(),
             ModContent.ItemType<SpectreEnchant>()
         };
+        public static bool[] ContainsEnchant;
 
         public override void SetStaticDefaults()
         {
@@ -73,7 +74,7 @@ $"[i:{ModContent.ItemType<SpectreEnchant>()}] Damage has a chance to spawn damag
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             //spectre works for all, spirit trapper works for all
-            SetActive(player);
+            modPlayer.spiritForce = true;
             FossilEnchant.FossilEffect(player, Item);
             modPlayer.ForbiddenEffect();
             HallowEnchant.HallowEffect(player, Item);

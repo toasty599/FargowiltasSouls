@@ -244,27 +244,20 @@ namespace FargowiltasSouls.Core.ModPlayers
             CrimsonEnchantActive = false;
             //CrimsonRegen = false;
             SpectreEnchantActive = false;
-            BeeEnchantItem = null;
             SpiderEnchantActive = false;
             StardustEnchantActive = false;
-            MythrilEnchantItem = null;
             FossilEnchantItem = null;
             JungleEnchantActive = false;
             ShroomEnchantActive = false;
-            CobaltEnchantItem = null;
             SpookyEnchantActive = false;
             NebulaEnchantActive = false;
-            BeetleEnchantActive = false;
             HallowEnchantItem = null;
             AncientHallowEnchantActive = false;
             ChloroEnchantActive = false;
             ChloroEnchantItem = null;
             JungleEnchantItem = null;
             VortexEnchantActive = false;
-            AdamantiteEnchantItem = null;
             FrostEnchantActive = false;
-            PalladEnchantItem = null;
-            OriEnchantItem = null;
             MeteorEnchantItem = null;
             MoltenEnchantActive = false;
             CrystalEnchantActive = false;
@@ -295,9 +288,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             MonkEnchantActive = false;
             SnowEnchantActive = false;
             SnowVisual = false;
-            TitaniumEnchantItem = null;
-            TitaniumDRBuff = false;
-            TitaniumCD = false;
 
 
             //            #endregion
@@ -498,8 +488,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.Center = Main.player[Main.npc[FargoSoulsGlobalNPC.boss].target].Center;
             }
 
-            BeetleEnchantDefenseTimer = 0;
-
             ReallyAwfulDebuffCooldown = 0;
             ParryDebuffImmuneTime = 0;
             WingTimeModifier = 1f;
@@ -546,8 +534,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             MaxLifeReduction = 0;
             CurrentLifeReduction = 0;
-
-            MythrilTimer = MythrilMaxTime;
         }
 
         
@@ -560,7 +546,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Unlucky = false;
         }
 
-        List<int> prevDyes = null;
+        internal List<int> prevDyes = null;
 
         public void ManageLifeReduction()
         {
@@ -640,9 +626,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                     AttackSpeed += .2f;
                 }
 
-                if (MythrilEnchantItem != null)
+                if (Player.HasEffect<MythrilEffect>())
                 {
-                    MythrilEnchant.CalcMythrilAttackSpeed(this, item);
+                    MythrilEffect.CalcMythrilAttackSpeed(this, item);
                 }
 
                 if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
@@ -1333,7 +1319,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             bool valhalla = squireFields.ValhallaEnchantActive;
             if ((squire || valhalla))
             {
-                
                 bool forceEffect = ForceEffect<SquireEnchant>() || ForceEffect<ValhallaKnightEnchant>();
                 if (Eternity)
                     multiplier = 5f;
@@ -1436,11 +1421,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (Player.whoAmI != Main.myPlayer)
                 return;
-
-            if (CactusEnchantItem != null)
-            {
-                CactusEnchant.CactusSelfProc(this);
-            }
 
             if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
             {
