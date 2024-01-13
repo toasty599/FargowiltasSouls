@@ -1,3 +1,5 @@
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 
@@ -23,7 +25,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             //{
             player.wingsLogic = ArmorIDs.Wing.LongTrailRainbowWings;
             ascentWhenFalling = 0.85f;
-            if (player.GetToggleValue("FlightMasteryGravity", false))
+            if (player.HasEffect<FlightMasteryGravity>())
                 ascentWhenFalling *= 1.5f;
             ascentWhenRising = 0.25f;
             maxCanAscendMultiplier = 1f;
@@ -59,8 +61,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             acceleration = 0.75f;
             //}
 
-            if (HasSupersonicSpeed && player.GetToggleValue("Supersonic"))
+            if (HasSupersonicSpeed && player.GetToggleValue<SupersonicSpeedEffect>())
                 speed = 25f;
         }
+    }
+    public class SupersonicSpeedEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
     }
 }

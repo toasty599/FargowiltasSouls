@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -315,8 +316,7 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.VortexDebuff] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
             fargoPlayer.GravityGlobeEXItem = Item;
-            if (player.GetToggleValue("MasoGrav"))
-                player.gravControl = true;
+            player.AddEffect<MasoGravEffect>(Item);
 
             //heart of maso
             fargoPlayer.MasochistHeart = true;

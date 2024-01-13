@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -46,14 +48,29 @@ Increases flight time by 100%
             player.buffImmune[ModContent.BuffType<CurseoftheMoonBuff>()] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
 
-            if (player.GetToggleValue("MasoGrav"))
-                player.gravControl = true;
+            player.AddEffect<MasoGravEffect>(Item);
+            player.AddEffect<MasoTrueEyeMinion>(Item);
 
-            if (player.GetToggleValue("MasoTrueEye"))
-                player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
 
             player.FargoSouls().GravityGlobeEXItem = Item;
             player.FargoSouls().WingTimeModifier += 1f;
+        }
+    }
+    public class MasoGravEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.gravControl = true;
+        }
+    }
+    public class MasoTrueEyeMinion : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
         }
     }
 }

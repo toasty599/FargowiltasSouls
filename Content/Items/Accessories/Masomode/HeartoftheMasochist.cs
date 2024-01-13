@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -115,10 +116,8 @@ Summons a friendly Mini Saucer and true eyes of Cthulhu
             player.buffImmune[ModContent.BuffType<UnstableBuff>()] = true;
             player.buffImmune[ModContent.BuffType<CurseoftheMoonBuff>()] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
-            if (player.GetToggleValue("MasoGrav"))
-                player.gravControl = true;
-            if (player.GetToggleValue("MasoTrueEye"))
-                player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
+            player.AddEffect<MasoGravEffect>(Item);
+            player.AddEffect<MasoTrueEyeMinion>(Item);
             fargoPlayer.GravityGlobeEXItem = Item;
             fargoPlayer.WingTimeModifier += 1f;
 

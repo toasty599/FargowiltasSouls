@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -40,9 +42,6 @@ Increases jump height and negates fall damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.DisplayToggle("MasoAeolusFlower");
-            player.DisplayToggle("MasoAeolus");
-            player.DisplayToggle("MasoAeolusFrog");
             //terraspark
             player.accRunSpeed = 6.75f;
             player.rocketBoots = player.vanityRocketBoots = ArmorIDs.RocketBoots.TerrasparkBoots;
@@ -56,30 +55,14 @@ Increases jump height and negates fall damage
             player.lavaRose = true;
 
             //amph boot
-            if (player.GetToggleValue("MasoAeolusFrog"))
-            {
-                player.frogLegJumpBoost = true;
-                player.autoJump = true;
-            }
+            player.AddEffect<MasoAeolusFrog>(Item);
 
-            //fairy boot
-            if (!player.flowerBoots && player.GetToggleValue("MasoAeolusFlower"))
-            {
-                player.flowerBoots = true;
-                if (player.whoAmI == Main.myPlayer)
-                    player.DoBootsEffect(new Utils.TileActionAttempt(player.DoBootsEffect_PlaceFlowersOnTile));
-            }
+            player.AddEffect<MasoAeolusFlower>(Item);
+            player.AddEffect<MasoAeolus>(Item);
 
             //dunerider boot
             player.desertBoots = true;
 
-            //fart balloon
-            if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoAeolus"))
-            {
-                player.GetJumpState(ExtraJump.FartInAJar).Enable();
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
-            }
             player.jumpBoost = true;
             player.noFallDmg = true;
         }
@@ -97,6 +80,43 @@ Increases jump height and negates fall damage
                 .AddIngredient(ModContent.ItemType<DeviatingEnergy>(), 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
+        }
+    }
+    public class MasoAeolusFrog : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.frogLegJumpBoost = true;
+            player.autoJump = true;
+        }
+    }
+    public class MasoAeolusFlower : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            if (!player.flowerBoots)
+            {
+                player.flowerBoots = true;
+                if (player.whoAmI == Main.myPlayer)
+                    player.DoBootsEffect(new Utils.TileActionAttempt(player.DoBootsEffect_PlaceFlowersOnTile));
+            }
+        }
+    }
+    public class MasoAeolus : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                player.GetJumpState(ExtraJump.FartInAJar).Enable();
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
+            }
         }
     }
 }

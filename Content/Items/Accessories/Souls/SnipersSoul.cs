@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -40,10 +42,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             //add new effects
 
-            if (player.GetToggleValue("Sniper"))
-            {
-                player.scope = true;
-            }
+            player.AddEffect<SniperScopeEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -73,6 +72,14 @@ hive pack*/
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
 
+        }
+    }
+    public class SniperScopeEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.scope = true;
         }
     }
 }

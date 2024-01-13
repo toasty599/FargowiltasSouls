@@ -37,8 +37,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             player.GetCritChance(DamageClass.Magic) += 15;
             player.statManaMax2 += 200;
             //accessorys
-            if (player.GetToggleValue("ManaFlower", false))
-                player.manaFlower = true;
+            player.manaFlower = true;
             //add mana cloak
             player.manaMagnet = true;
             player.magicCuffs = true;

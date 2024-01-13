@@ -1,3 +1,9 @@
+using Fargowiltas.Items.Tiles;
+using FargowiltasSouls.Content.Items.Accessories.Expert;
+using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -45,37 +51,23 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             modPlayer.UniverseSoul = true;
             modPlayer.UniverseCore = true;
 
-            if (player.GetToggleValue("Universe"))
-                modPlayer.AttackSpeed += .5f;
+            player.AddEffect<UniverseSpeedEffect>(Item);
 
             player.maxMinions += 2;
             player.maxTurrets += 2;
 
-            if (player.GetToggleValue("MagmaStone"))
-            {
-                player.magmaStone = true;
-            }
+            player.AddEffect<MagmaStoneEffect>(Item);
             player.kbGlove = true;
             player.autoReuseGlove = true;
             player.meleeScaleGlove = true;
 
-            if (player.GetToggleValue("YoyoBag", false))
-            {
-                player.counterWeight = 556 + Main.rand.Next(6);
-                player.yoyoGlove = true;
-                player.yoyoString = true;
-            }
+            player.counterWeight = 556 + Main.rand.Next(6);
+            player.yoyoGlove = true;
+            player.yoyoString = true;
 
             //celestial shell
-            if (player.GetToggleValue("MoonCharm"))
-            {
-                player.wolfAcc = true;
-            }
-
-            if (player.GetToggleValue("NeptuneShell"))
-            {
-                player.accMerman = true;
-            }
+            player.wolfAcc = true;
+            player.accMerman = true;
 
             if (hideVisual)
             {
@@ -85,13 +77,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             player.lifeRegen += 2;
 
-            if (player.GetToggleValue("Sniper"))
-            {
-                player.scope = true;
-            }
+            player.AddEffect<SniperScopeEffect>(Item);
 
-            if (player.GetToggleValue("ManaFlower", false))
-                player.manaFlower = true;
+            player.manaFlower = true;
             player.manaMagnet = true;
             player.magicCuffs = true;
         }
@@ -99,15 +87,24 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe()
-            .AddIngredient(null, "UniverseCore")
-            .AddIngredient(null, "BerserkerSoul")
-            .AddIngredient(null, "SnipersSoul")
-            .AddIngredient(null, "ArchWizardsSoul")
-            .AddIngredient(null, "ConjuristsSoul")
-            .AddIngredient(null, "AbomEnergy", 10)
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
+            .AddIngredient<UniverseCore>()
+            .AddIngredient<BerserkerSoul>()
+            .AddIngredient<SnipersSoul>()
+            .AddIngredient<ArchWizardsSoul>()
+            .AddIngredient<ConjuristsSoul>()
+            .AddIngredient<AbomEnergy>(10)
+            .AddTile<CrucibleCosmosSheet>();
 
             recipe.Register();
+        }
+    }
+    public class UniverseSpeedEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            float speed = player.FargoSouls().Eternity ? 2.5f : 0.5f;
+            player.FargoSouls().AttackSpeed += speed;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -42,35 +44,22 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             player.GetDamage(DamageClass.Melee) += 0.3f;
             player.GetCritChance(DamageClass.Melee) += 15;
 
-            if (player.GetToggleValue("Melee"))
-                player.GetAttackSpeed(DamageClass.Melee) += .2f;
+            player.AddEffect<MeleeSpeedEffect>(Item);
+
 
             //gauntlet
-            if (player.GetToggleValue("MagmaStone"))
-            {
-                player.magmaStone = true;
-            }
+            player.AddEffect<MagmaStoneEffect>(Item);
             player.kbGlove = true;
             player.autoReuseGlove = true;
             player.meleeScaleGlove = true;
 
-            if (player.GetToggleValue("YoyoBag", false))
-            {
-                player.counterWeight = 556 + Main.rand.Next(6);
-                player.yoyoGlove = true;
-                player.yoyoString = true;
-            }
+            player.counterWeight = 556 + Main.rand.Next(6);
+            player.yoyoGlove = true;
+            player.yoyoString = true;
 
             //celestial shell
-            if (player.GetToggleValue("MoonCharm"))
-            {
-                player.wolfAcc = true;
-            }
-
-            if (player.GetToggleValue("NeptuneShell"))
-            {
-                player.accMerman = true;
-            }
+            player.wolfAcc = true;
+            player.accMerman = true;
 
             if (hideVisual)
             {
@@ -104,6 +93,22 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
+        }
+    }
+    public class MeleeSpeedEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.GetAttackSpeed(DamageClass.Melee) += .2f;
+        }
+    }
+    public class MagmaStoneEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.magmaStone = true;
         }
     }
 }

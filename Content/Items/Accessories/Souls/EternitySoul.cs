@@ -177,21 +177,16 @@ This stacks up to 950 times until you get hit"); */
             modPlayer.UniverseSoul = true;
             modPlayer.UniverseCore = true;
             player.GetDamage(DamageClass.Generic) += 2.5f;
-            if (player.GetToggleValue("Universe"))
-                modPlayer.AttackSpeed += 2.5f;
+            player.AddEffect<UniverseSpeedEffect>(Item);
             player.maxMinions += 20;
             player.maxTurrets += 10;
             //accessorys
-            if (player.GetToggleValue("YoyoBag", false))
-            {
-                player.counterWeight = 556 + Main.rand.Next(6);
-                player.yoyoGlove = true;
-                player.yoyoString = true;
-            }
-            if (player.GetToggleValue("Sniper"))
-            {
-                player.scope = true;
-            }
+
+            player.counterWeight = 556 + Main.rand.Next(6);
+            player.yoyoGlove = true;
+            player.yoyoString = true;
+
+            player.AddEffect<SniperScopeEffect>(Item);
             player.manaFlower = true;
             player.manaMagnet = true;
             player.magicCuffs = true;
@@ -200,16 +195,17 @@ This stacks up to 950 times until you get hit"); */
             //DIMENSIONS
             player.statLifeMax2 *= 5;
             player.buffImmune[BuffID.ChaosState] = true;
-            modPlayer.ColossusSoul(Item, 0, 0.4f, 15, hideVisual);
-            modPlayer.SupersonicSoul(Item, hideVisual);
-            modPlayer.FlightMasterySoul();
-            modPlayer.TrawlerSoul(Item, hideVisual);
+            ColossusSoul.AddEffects(player, Item, 0, 0.4f, 15);
+            SupersonicSoul.AddEffects(player, Item, hideVisual);
+            FlightMasterySoul.AddEffects(player, Item);
+            TrawlerSoul.AddEffects(player, Item, hideVisual);
+            WorldShaperSoul.AddEffects(player, Item, hideVisual);
             modPlayer.WorldShaperSoul(hideVisual);
 
             //TERRARIA
-            ModContent.Find<ModItem>(Mod.Name, "TerrariaSoul").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<TerrariaSoul>().UpdateAccessory(player, hideVisual);
             //MASOCHIST
-            ModContent.Find<ModItem>(Mod.Name, "MasochistSoul").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<MasochistSoul>().UpdateAccessory(player, hideVisual);
 
         }
         public override void AddRecipes()
@@ -229,7 +225,6 @@ This stacks up to 950 times until you get hit"); */
     }
     public class EternityTin : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<EternityHeader>();
     }
 
