@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void AddEffects(Player player, Item item)
         {
             player.AddEffect<IronEffect>(item);
-            player.GetEffectFields<IronFields>().IronRecipes = true;
+            player.FargoSouls().IronRecipes = true;
         }
 
         public override void AddRecipes()
@@ -50,13 +50,5 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
-    }
-    public class IronFields : EffectFields
-    {
-        public bool IronRecipes = false;
-        public override void ResetEffects()
-        {
-            IronRecipes = false;
-        }
     }
 }

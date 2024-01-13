@@ -372,7 +372,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     //apen is inherited from proj to proj
                     projectile.ArmorPenetration += projectile.damage / 2;
 
-                    AdamantiteEffect.AdamantiteSplit(projectile, modPlayer, 1 + (int)player.GetEffectFields<AdamantiteFields>().AdamantiteSpread);
+                    AdamantiteEffect.AdamantiteSplit(projectile, modPlayer, 1 + (int)modPlayer.AdamantiteSpread);
                     
                 }
                 AdamModifier = modPlayer.ForceEffect(player.EffectItem<AdamantiteEffect>().ModItem) ? 3 : 2;
@@ -1110,7 +1110,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
 
                     //because the bow refuses to acknowledge changes in attack speed after initial spawning
-                    if (projectile.type == ProjectileID.DD2PhoenixBow && player.HasEffect<MythrilEffect>() && modPlayer.Player.GetEffectFields<MythrilFields>().MythrilTimer > -60 && counter > 60)
+                    if (projectile.type == ProjectileID.DD2PhoenixBow && player.HasEffect<MythrilEffect>() && modPlayer.Player.FargoSouls().MythrilTimer > -60 && counter > 60)
                         projectile.Kill();
                 }
 

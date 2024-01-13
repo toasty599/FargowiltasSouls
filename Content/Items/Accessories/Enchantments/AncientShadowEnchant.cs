@@ -40,7 +40,7 @@ Three Shadow Orbs will orbit around you
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetEffectFields<ShadowFields>().AncientShadowEnchantActive = true;
+            player.FargoSouls().AncientShadowEnchantActive = true;
             player.AddEffect<AncientShadowDarkness>(Item);
             player.AddEffect<ShadowBalls>(Item);
         }

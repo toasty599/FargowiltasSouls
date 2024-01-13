@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
         public override void Update(Player player, ref int buffIndex)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            player.GetEffectFields<TitaniumFields>().TitaniumDRBuff = true;
+            modPlayer.TitaniumDRBuff = true;
 
             //kill all shards before running out
             if (player.buffTime[buffIndex] == 2)

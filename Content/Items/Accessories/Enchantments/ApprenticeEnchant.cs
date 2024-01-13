@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetEffectFields<ApprenticeFields>().ApprenticeEnchantActive = true;
+            player.FargoSouls().ApprenticeEnchantActive = true;
             player.AddEffect<ApprenticeSupport>(Item);
         }
 
@@ -90,12 +90,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             if (player.controlUseItem)
             {
                 int numExtraSlotsToUse = 1;
-                ApprenticeFields apprenticeFields = player.GetEffectFields<ApprenticeFields>();
-                if (apprenticeFields.DarkArtistEnchantActive && forceEffect)
+                if (modPlayer.DarkArtistEnchantActive && forceEffect)
                 {
                     numExtraSlotsToUse = 3;
                 }
-                else if (apprenticeFields.DarkArtistEnchantActive || forceEffect)
+                else if (modPlayer.DarkArtistEnchantActive || forceEffect)
                 {
                     numExtraSlotsToUse = 2;
                 }
@@ -202,16 +201,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     }
                 }
             }
-        }
-    }
-    public class ApprenticeFields : EffectFields
-    {
-        public bool ApprenticeEnchantActive;
-        public bool DarkArtistEnchantActive;
-        public override void ResetEffects()
-        {
-            ApprenticeEnchantActive = false;
-            DarkArtistEnchantActive = false;
         }
     }
 }

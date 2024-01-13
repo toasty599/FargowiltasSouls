@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetEffectFields<PlatinumFields>().PlatinumEffectActive = true;
+            player.FargoSouls().PlatinumEffectActive = true;
         }
 
         public override void AddRecipes()
@@ -49,14 +49,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             .AddTile(TileID.DemonAltar)
             .Register();
-        }
-    }
-    public class PlatinumFields : EffectFields
-    {
-        public bool PlatinumEffectActive = false;
-        public override void ResetEffects()
-        {
-            PlatinumEffectActive = false;
         }
     }
 }

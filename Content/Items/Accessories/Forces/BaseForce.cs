@@ -9,9 +9,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
     public abstract class BaseForce : SoulsItem
     {
-        public static Dictionary<int, int[]> ForceEnchants;
-        public static int[] EnchantsIn<T>() where T : BaseForce => ForceEnchants[ModContent.ItemType<T>()];
-        public void SetActive(Player player) => player.GetEffectFields<ForceFields>().ForceEffects.Add(Type);
+        public static Dictionary<BaseForce, int[]> ForceEnchants;
+        public static int[] EnchantsIn<T>() where T : BaseForce => ModContent.GetInstance<T>().Enchants;
+        public void SetActive(Player player) => player.FargoSouls().ForceEffects.Add(Type);
         public virtual int[] Enchants { get; }
         public override void SetStaticDefaults()
         {
@@ -31,17 +31,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             Item.rare = ItemRarityID.Purple;
             Item.value = 600000;
         }
-    }
-
-    public class ForceSystem : ModSystem
-    {
-        public override void PostSetupContent()
+        public static void SetupForces()
         {
             SetFactory factory = new(ContentSamples.ItemsByType.Count);
             BaseEnchant.Force = factory.CreateIntSet();
             foreach (BaseForce force in ModContent.GetContent<BaseForce>())
             {
-                BaseForce.ForceEnchants[force.Type] = force.Enchants;
+                force.Load();
+                force.SetupContent();
+                ForceEnchants[force] = force.Enchants;
                 foreach (int enchant in force.Enchants)
                 {
                     BaseEnchant.Force[enchant] = force.Type;
@@ -49,12 +47,5 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             }
         }
     }
-    public class ForceFields : EffectFields
-    {
-        public HashSet<int> ForceEffects;
-        public override void ResetEffects()
-        {
-            ForceEffects.Clear();
-        }
-    }
+
 }

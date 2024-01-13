@@ -70,20 +70,19 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             int adaCap = 60; //ada cap in DEGREES
 
-            AdamantiteFields fields = player.GetEffectFields<AdamantiteFields>();
 
             const float incSeconds = 10;
             const float decSeconds = 1.5f;
             if (modPlayer.WeaponUseTimer > 0)
-                fields.AdamantiteSpread += (adaCap / 60f) / incSeconds; //ada spread change per frame, based on total amount of seconds to reach cap
+                modPlayer.AdamantiteSpread += (adaCap / 60f) / incSeconds; //ada spread change per frame, based on total amount of seconds to reach cap
             else
-                fields.AdamantiteSpread -= (adaCap / 60f) / decSeconds;
+                modPlayer.AdamantiteSpread -= (adaCap / 60f) / decSeconds;
 
-            if (fields.AdamantiteSpread < 0)
-                fields.AdamantiteSpread = 0;
+            if (modPlayer.AdamantiteSpread < 0)
+                modPlayer.AdamantiteSpread = 0;
 
-            if (fields.AdamantiteSpread > adaCap)
-                fields.AdamantiteSpread = adaCap;
+            if (modPlayer.AdamantiteSpread > adaCap)
+                modPlayer.AdamantiteSpread = adaCap;
         }
 
         public static int[] AdamIgnoreItems = new int[]
@@ -129,10 +128,5 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 projectile.damage = (int)(projectile.damage * adaDamageRatio);
             }
         }
-    }
-
-    public class AdamantiteFields : EffectFields
-    {
-        public double AdamantiteSpread;
     }
 }

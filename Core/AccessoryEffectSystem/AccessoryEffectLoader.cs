@@ -13,17 +13,12 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
     public static class AccessoryEffectLoader
     {
         public static HashSet<AccessoryEffect> AccessoryEffects = new();
-        public static List<EffectFields> EffectFields = new();
         internal static void Register(AccessoryEffect effect)
         {
             AccessoryEffects.Add(effect);
             
             if (effect.HasToggle)
                 ToggleLoader.RegisterToggle(new Toggle(effect, effect.Mod.Name, effect.ToggleHeader.SortCategory, effect.ToggleHeader));
-        }
-        internal static void Register(EffectFields effect)
-        {
-            EffectFields.Add(effect);
         }
         /// <summary>
         /// Adds the effect to the player. Lasts one frame. 
@@ -38,11 +33,11 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             
             if (effect.MinionEffect || effect.ExtraAttackEffect)
             {
-                PrimeSoulFields primeSoulFields = player.GetEffectFields<PrimeSoulFields>();
-                if (primeSoulFields.PrimeSoulActive)
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                if (modPlayer.PrimeSoulActive)
                 {
                     if (!player.HasEffect(effect)) // Don't stack per item
-                        primeSoulFields.PrimeSoulItemCount++;
+                        modPlayer.PrimeSoulItemCount++;
                     return false;
                 }
             }
@@ -68,9 +63,5 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         public static IEntitySource GetSource_EffectItem<T>(this Player player) where T : AccessoryEffect => ModContent.GetInstance<T>().GetSource_EffectItem(player);
         public static T EffectType<T>() where T : AccessoryEffect => ModContent.GetInstance<T>();
         public static AccessoryEffect EffectType(string internalName)  => ModContent.Find<AccessoryEffect>(internalName);
-        public static T GetEffectFields<T>(this Player player) where T : EffectFields =>
-            GetEffectFields(ModContent.GetInstance<T>(), player);
-        public static T GetEffectFields<T>(T baseInstance, Player player) where T : EffectFields
-        => player.AccessoryEffects().EffectFieldsInstances[baseInstance.Index] as T ?? throw new KeyNotFoundException($"Instance of '{typeof(T).Name}' does not exist on the current player.");
     }
 }

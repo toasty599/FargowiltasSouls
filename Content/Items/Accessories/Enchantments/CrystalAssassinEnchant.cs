@@ -42,7 +42,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
         public static void AddEffects(Player player, Item item)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            player.GetEffectFields<CrystalFields>().CrystalEnchantActive = true;
+            modPlayer.CrystalEnchantActive = true;
 
             //cooldown
             if (modPlayer.SmokeBombCD != 0)
@@ -145,13 +145,5 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
         
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
         public override bool IgnoresMutantPresence => true;
-    }
-    public class CrystalFields : EffectFields
-    {
-        public bool CrystalEnchantActive = false;
-        public override void ResetEffects()
-        {
-            CrystalEnchantActive = false;
-        }
     }
 }

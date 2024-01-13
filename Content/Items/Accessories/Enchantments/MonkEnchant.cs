@@ -30,8 +30,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void AddEffects(Player player, Item item)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            MonkFields monkFields = player.GetEffectFields<MonkFields>();
-            monkFields.MonkEnchantActive = true;
+            modPlayer.MonkEnchantActive = true;
 
             if (!player.HasBuff(ModContent.BuffType<MonkBuff>()) && player.AddEffect<MonkDashEffect>(item))
             {
@@ -39,12 +38,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     modPlayer.FargoDash = DashManager.DashType.Monk;
                 modPlayer.HasDash = true;
 
-                monkFields.monkTimer++;
+                modPlayer.monkTimer++;
 
-                if (monkFields.monkTimer >= 120)
+                if (modPlayer.monkTimer >= 120)
                 {
                     player.AddBuff(ModContent.BuffType<MonkBuff>(), 2);
-                    monkFields.monkTimer = 0;
+                    modPlayer.monkTimer = 0;
 
                     //dust
                     double spread = 2 * Math.PI / 36;
@@ -82,18 +81,5 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class MonkDashEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
-    }
-    public class MonkFields : EffectFields
-    {
-        public bool MonkEnchantActive = false;
-        public bool ShinobiEnchantActive = false;
-        public int monkTimer = 0;
-        public override void ResetEffects()
-        {
-            if (!MonkEnchantActive)
-                Player.ClearBuff(ModContent.BuffType<MonkBuff>());
-            MonkEnchantActive = false;
-            ShinobiEnchantActive = false;
-        }
     }
 }

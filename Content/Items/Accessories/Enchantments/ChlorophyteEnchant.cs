@@ -53,7 +53,7 @@ Double tap a direction
         public static void AddEffects(Player player, Item item)
         {
             player.AddEffect<ChloroMinion>(item);
-            player.GetEffectFields<JungleFields>().ChlorophyteEnchantActive = true;
+            player.FargoSouls().ChlorophyteEnchantActive = true;
             player.AddEffect<JungleJump>(item);
             player.AddEffect<JungleDashEffect>(item);
         }

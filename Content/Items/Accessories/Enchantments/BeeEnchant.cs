@@ -63,9 +63,4 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             player.strongBees = true;
         }
     }
-
-    public class BeeFields : EffectFields
-    {
-        public int BeeCD;
-    }
 }

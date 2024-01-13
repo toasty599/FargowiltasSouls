@@ -964,7 +964,7 @@ namespace FargowiltasSouls.Core.Globals
                     npc.NPCLoot();
                 }
 
-                if (player.GetEffectFields<PlatinumFields>().PlatinumEffectActive && !npc.boss && Main.rand.NextBool(5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                if (player.FargoSouls().PlatinumEffectActive && !npc.boss && Main.rand.NextBool(5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
                 {
                     npc.extraValue /= 5;
 

@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             player.AddEffect<ShinobiThroughWalls>(item);
-            player.GetEffectFields<MonkFields>().ShinobiEnchantActive = true;
+            modPlayer.ShinobiEnchantActive = true;
             bool dashCheck = !modPlayer.HasDash;
             if (modPlayer.FargoDash == DashManager.DashType.Monk && !player.HasBuff<MonkBuff>())
                 dashCheck = true;

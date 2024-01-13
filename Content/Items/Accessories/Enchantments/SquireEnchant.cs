@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             player.AddEffect<SquireMountSpeed>(item);
             player.AddEffect<SquireMountJump>(item);
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            player.GetEffectFields<SquireFields>().SquireEnchantActive = true;
+            modPlayer.SquireEnchantActive = true;
 
             player.buffImmune[BuffID.BallistaPanic] = true;
 
@@ -70,13 +70,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 float accelBoost;
                 float speedBoost;
 
-                if (player.GetEffectFields<SquireFields>().ValhallaEnchantActive && modPlayer.ForceEffect<ValhallaKnightEnchant>())
+                if (modPlayer.ValhallaEnchantActive && modPlayer.ForceEffect<ValhallaKnightEnchant>())
                 {
                     defenseBoost = 20;
                     accelBoost = 2f;
                     speedBoost = 1.5f;
                 }
-                else if (player.GetEffectFields<SquireFields>().ValhallaEnchantActive || modPlayer.ForceEffect<SquireEnchant>())
+                else if (modPlayer.ValhallaEnchantActive || modPlayer.ForceEffect<SquireEnchant>())
                 {
                     defenseBoost = 15;
                     accelBoost = 1.5f;
@@ -280,15 +280,5 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
-    }
-    public class SquireFields : EffectFields
-    {
-        public bool SquireEnchantActive = false;
-        public bool ValhallaEnchantActive = false;
-        public override void ResetEffects()
-        {
-            SquireEnchantActive = false;
-            ValhallaEnchantActive = false;
-        }
     }
 }

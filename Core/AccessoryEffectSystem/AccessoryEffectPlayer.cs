@@ -46,23 +46,10 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         public HashSet<AccessoryEffect> ActiveEffects = new();
         
         public Dictionary<AccessoryEffect, Item> EffectItems = new();
-        internal EffectFields[] EffectFieldsInstances;
         private static readonly Dictionary<MethodInfo, List<AccessoryEffect>> Hooks = new();
 
         public bool Active(AccessoryEffect effect) => ActiveEffects.Contains(effect);
-        public override void Initialize()
-        {
-            int instanceCount = AccessoryEffectLoader.EffectFields.Count;
-            EffectFieldsInstances = new EffectFields[instanceCount];
-            for (int i = 0; i < instanceCount; i++)
-            {
-                EffectFieldsInstances[i] = AccessoryEffectLoader.EffectFields[i].NewInstance(this);
-            }
-            Expression<Func<EffectFields, Action>> resetEffects = p => p.ResetEffects;
-            HookResetEffects.AddRange(EffectFieldsInstances.WhereMethodIsOverridden(resetEffects.ToMethodInfo()));
-            Expression<Func<EffectFields, Action>> updateDead = p => p.UpdateDead;
-            HookResetEffects.AddRange(EffectFieldsInstances.WhereMethodIsOverridden(updateDead.ToMethodInfo()));
-        }
+
         public override void SetStaticDefaults()
         {
             foreach (var hook in Hooks)
@@ -77,25 +64,6 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             var effectSet = new List<AccessoryEffect>();
             Hooks.Add(expr.ToMethodInfo(), effectSet);
             return effectSet;
-        }
-        public List<EffectFields> HookResetEffects = new();
-        public override void ResetEffects()
-        {
-            EffectItems.Clear();
-            ActiveEffects.Clear();
-            foreach (EffectFields effectFields in HookResetEffects)
-            {
-                effectFields.ResetEffects();
-            }
-        }
-        public List<EffectFields> HookUpdateDead = new();
-        public override void UpdateDead()
-        {
-            ResetEffects();
-            foreach (EffectFields effectFields in HookUpdateDead)
-            {
-                effectFields.UpdateDead();
-            }
         }
         private static List<AccessoryEffect> HookPreUpdate = AddHook<Action<Player>>(p => p.PreUpdate);
         public override void PreUpdate()
@@ -170,7 +138,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         private static List<AccessoryEffect> HookModifyHitNPCWithItem = AddHook<DelegateModifyHitNPCWithItem>(p => p.ModifyHitNPCWithItem);
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            foreach (AccessoryEffect effect in ActiveEffects)
+            foreach (AccessoryEffect effect in HookModifyHitNPCWithItem)
             {
                 if (Active(effect))
                     effect.ModifyHitNPCWithItem(Player, item, target, ref modifiers);
@@ -179,7 +147,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             ModifyHitNPCBoth(target, ref modifiers, item.DamageType);
         }
         private delegate void DelegateHookModifyHitNPCBoth(Player player, NPC target, ref NPC.HitModifiers modifiers, DamageClass damageClass);
-        private static List<AccessoryEffect> HookModifyHitNPCBoth = AddHook<DelegateModifyHitNPCWithItem>(p => p.ModifyHitNPCWithItem);
+        private static List<AccessoryEffect> HookModifyHitNPCBoth = AddHook<DelegateHookModifyHitNPCBoth>(p => p.ModifyHitNPCBoth);
         public void ModifyHitNPCBoth(NPC target, ref NPC.HitModifiers modifiers, DamageClass damageClass)
         {
             modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) =>

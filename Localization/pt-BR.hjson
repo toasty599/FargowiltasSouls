@@ -394,7 +394,7 @@ Mods: {
 		}
 
 		Toggler: {
-			// WoodHeader: "{$Mods.FargowiltasSouls.Items.TimberForce.DisplayName}"
+			// TimberHeader: "{$Mods.FargowiltasSouls.Items.TimberForce.DisplayName}"
 			BorealConfig: Madeira Boreal: Bolas de Neve
 			MahoganyConfig: Mogno: Velocidade do Gancho
 			EbonConfig: Madeira de Ébano: Chamas das Sombras
@@ -6037,9 +6037,10 @@ Mods: {
 			// DeviGuardianHarmless.DisplayName: Devi Guardian Harmless
 			// MagmawJaw.DisplayName: Magmaw Jaw
 			// MagmawHand.DisplayName: Magmaw Hand
+			// PungentEyeballMinion.DisplayName: Pungent Eyeball Minion
 		}
 
-		// WoodHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.WoodHeader}]"
+		// TimberHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TimberHeader}]"
 		// BorealConfig: "[i:FargowiltasSouls/BorealWoodEnchant][c/8B7464:{$Mods.FargowiltasSouls.Toggler.BorealConfig}]"
 		// MahoganyConfig: "[i:FargowiltasSouls/RichMahoganyEnchant][c/b56c64:{$Mods.FargowiltasSouls.Toggler.MahoganyConfig}]"
 		// EbonConfig: "[i:FargowiltasSouls/EbonwoodEnchant][c/645a8d:{$Mods.FargowiltasSouls.Toggler.EbonConfig}]"

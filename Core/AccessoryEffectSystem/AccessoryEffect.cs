@@ -80,34 +80,4 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 
 
     }
-    /// <summary>
-    /// Contains the parts of an accessory effect that should be instanced - for example fields.
-    /// </summary>
-    public abstract class EffectFields : ModType<ModPlayer, EffectFields>, IIndexed
-    {
-        public ModPlayer ModPlayer => Entity;
-        public Player Player => Entity.Player;
-        public ushort Index { get; internal set; }
-        protected override ModPlayer CreateTemplateEntity() => null;
-        public override EffectFields NewInstance(ModPlayer entity)
-        {
-            var inst = base.NewInstance(entity);
-
-            inst.Index = Index;
-            return inst;
-        }
-
-        protected sealed override void Register()
-        {
-            AccessoryEffectLoader.Register(this);
-            ModTypeLookup<EffectFields>.Register(this);
-        }
-        #region Overridables
-        /// <summary>
-        /// Runs in ModPlayer ResetEffects (once per frame). See ModPlayer.ResetEffects for more info.
-        /// </summary>
-        public virtual void ResetEffects() { }
-        public virtual void UpdateDead() { }
-        #endregion
-    }
 }

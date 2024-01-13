@@ -71,9 +71,9 @@ This has a cooldown of 10 seconds during which you cannot gain shards
         }
         public static float TitaniumDR(Player player, Entity attacker)
         {
-            TitaniumFields fields = player.GetEffectFields<TitaniumFields>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (!fields.TitaniumDRBuff)
+            if (!modPlayer.TitaniumDRBuff)
                 return 0;
 
             bool canUseDR = attacker is NPC ||
@@ -82,7 +82,6 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
             if (canUseDR)
             {
-                FargoSoulsPlayer modPlayer = player.FargoSouls();
                 float diff = 1f - player.endurance;
                 diff *= modPlayer.ForceEffect<TitaniumEnchant>() ? 0.35f : 0.25f;
                 return diff;
@@ -92,9 +91,8 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
         public static void TitaniumShards(FargoSoulsPlayer modPlayer, Player player)
         {
-            TitaniumFields fields = modPlayer.Player.GetEffectFields<TitaniumFields>();
 
-            if (fields.TitaniumCD)
+            if (modPlayer.TitaniumCD)
                 return;
 
             player.AddBuff(306, 600, true, false);
@@ -132,10 +130,9 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
         public override void PostUpdateMiscEffects(Player player)
         {
-            TitaniumFields fields = player.GetEffectFields<TitaniumFields>();
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (fields.TitaniumDRBuff && modPlayer.prevDyes == null)
+            if (modPlayer.TitaniumDRBuff && modPlayer.prevDyes == null)
             {
                 modPlayer.prevDyes = new List<int>();
                 int reflectiveSilver = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
@@ -170,18 +167,6 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
                 modPlayer.prevDyes = null;
             }
-        }
-    }
-
-    public class TitaniumFields : EffectFields
-    {
-        public bool TitaniumDRBuff;
-        public bool TitaniumCD;
-
-        public override void ResetEffects()
-        {
-            TitaniumDRBuff = false;
-            TitaniumCD = false;
         }
     }
 }

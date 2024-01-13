@@ -66,11 +66,11 @@ Enemies will explode into needles on death if they are struck with your needles
 
         public override void PostUpdateEquips(Player player)
         {
-            CactusFields fields = player.GetEffectFields<CactusFields>();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (fields.CactusProcCD > 0)
+            if (modPlayer.CactusProcCD > 0)
             {
-                fields.CactusProcCD--;
+                modPlayer.CactusProcCD--;
             }
         }
 
@@ -79,11 +79,11 @@ Enemies will explode into needles on death if they are struck with your needles
             if (player.whoAmI != Main.myPlayer)
                 return;
 
-            var fields = player.GetEffectFields<CactusFields>();
-            if (fields.CactusProcCD == 0)
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.CactusProcCD == 0)
             {
                 CactusSpray(player, player.Center);
-                fields.CactusProcCD = 15;
+                modPlayer.CactusProcCD = 15;
             }
         }
 
@@ -97,7 +97,7 @@ Enemies will explode into needles on death if they are struck with your needles
             int dmg = 20;
             int numNeedles = 8;
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.ForceEffect(modPlayer.CactusEnchantItem.type))
+            if (modPlayer.ForceEffect<CactusEnchant>())
             {
                 dmg = 75;
                 numNeedles = 16;
@@ -105,7 +105,7 @@ Enemies will explode into needles on death if they are struck with your needles
 
             for (int i = 0; i < numNeedles; i++)
             {
-                int p = Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.CactusEnchantItem), player.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 4, ModContent.ProjectileType<CactusNeedle>(), FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
+                int p = Projectile.NewProjectile(player.GetSource_EffectItem<CactusEffect>(), player.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 4, ModContent.ProjectileType<CactusNeedle>(), FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 5f);
                 if (p != Main.maxProjectiles)
                 {
                     Projectile proj = Main.projectile[p];
@@ -121,8 +121,4 @@ Enemies will explode into needles on death if they are struck with your needles
         }
     }
 
-    public class CactusFields : EffectFields
-    {
-        public int CactusProcCD;
-    }
 }

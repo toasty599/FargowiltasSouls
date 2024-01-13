@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetEffectFields<SquireFields>().ValhallaEnchantActive = true;
+            player.FargoSouls().ValhallaEnchantActive = true;
             SquireEnchant.SquireEffect(player, Item);
         }
 

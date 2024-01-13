@@ -59,16 +59,15 @@ You spawn an orb of damaging life energy every 80 life regenerated
 
         public override void PostUpdateEquips(Player player)
         {
-            PalladiumFields fields = player.GetEffectFields<PalladiumFields>();
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             int increment = player.statLife - modPlayer.StatLifePrevious;
             if (increment > 0)
             {
-                fields.PalladCounter += increment;
-                if (fields.PalladCounter > 80)
+                modPlayer.PalladCounter += increment;
+                if (modPlayer.PalladCounter > 80)
                 {
-                    fields.PalladCounter = 0;
+                    modPlayer.PalladCounter = 0;
                     if (player.whoAmI == Main.myPlayer && player.statLife < player.statLifeMax2)
                     {
                         int damage = player.ForceEffect<PalladiumEffect>() ? 100 : 50;
@@ -89,10 +88,5 @@ You spawn an orb of damaging life energy every 80 life regenerated
                 player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
             }
         }
-    }
-
-    public class PalladiumFields : EffectFields
-    {
-        public int PalladCounter;
     }
 }

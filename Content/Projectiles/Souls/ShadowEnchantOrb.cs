@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                     int numBalls = 5;
                     int dmg = 25;
 
-                    if (player.GetEffectFields<ShadowFields>().AncientShadowEnchantActive)
+                    if (modPlayer.AncientShadowEnchantActive)
                     {
                         numBalls = 10;
                         dmg = 50;

@@ -68,11 +68,10 @@ Enemies that touch them will destroy them and take damage
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            PumpkinFields fields = player.GetEffectFields<PumpkinFields>();
 
             if ((player.controlLeft || player.controlRight) && !modPlayer.IsStandingStill && player.whoAmI == Main.myPlayer)
             {
-                if (fields.PumpkinSpawnCD <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<GrowingPumpkin>()] < 10)
+                if (modPlayer.PumpkinSpawnCD <= 0 && player.ownedProjectileCounts[ModContent.ProjectileType<GrowingPumpkin>()] < 10)
                 {
                     int x = (int)player.Center.X / 16;
                     int y = (int)(player.position.Y + player.height - 1f) / 16;
@@ -86,21 +85,16 @@ Enemies that touch them will destroy them and take damage
                         || modPlayer.ForceEffect<PumpkinEnchant>())
                     {
                         Projectile.NewProjectile(player.GetSource_Accessory(player.EffectItem<PumpkinEffect>()), player.Center, Vector2.Zero, ModContent.ProjectileType<GrowingPumpkin>(), 0, 0, player.whoAmI);
-                        fields.PumpkinSpawnCD = 450;
+                        modPlayer.PumpkinSpawnCD = 450;
                     }
                 }
             }
 
-            if (fields.PumpkinSpawnCD > 0)
+            if (modPlayer.PumpkinSpawnCD > 0)
             {
-                fields.PumpkinSpawnCD--;
+                modPlayer.PumpkinSpawnCD--;
             }
         }
     }
 
-    // hehe
-    public class PumpkinFields : EffectFields
-    {
-        public int PumpkinSpawnCD;
-    }
 }

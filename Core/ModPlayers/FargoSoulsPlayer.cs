@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         togglesOff.Add(entry.Key);
                 }
             }
-            tag.Add($"{Mod.Name}.{Player.name}.TogglesOff", togglesOff);
+            //tag.Add($"{Mod.Name}.{Player.name}.TogglesOff", togglesOff);
             Toggler.Save();
         }
 
@@ -131,7 +131,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            disabledToggles = tag.GetList<AccessoryEffect>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
+            //disabledToggles = tag.GetList<AccessoryEffect>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
         }
 
         public override void OnEnterWorld()
@@ -246,7 +246,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             FirstStrike = false;
             ShellHide = false;
             GoldShell = false;
-            CactusEnchantItem = null;
             LavaWet = false;
 
             WoodEnchantItem = null;
@@ -254,6 +253,23 @@ namespace FargowiltasSouls.Core.ModPlayers
             fireNoDamage = false;
 
             SnowVisual = false;
+            ApprenticeEnchantActive = false;
+            DarkArtistEnchantActive = false;
+            BeetleEnchantDefenseTimer = 0;
+            CrystalEnchantActive = false;
+            IronRecipes = false;
+            ChlorophyteEnchantActive = false;
+
+            if (!MonkEnchantActive)
+                Player.ClearBuff(ModContent.BuffType<MonkBuff>());
+            MonkEnchantActive = false;
+            ShinobiEnchantActive = false;
+            PlatinumEffectActive = false;
+            AncientShadowEnchantActive = false;
+            SquireEnchantActive = false;
+            ValhallaEnchantActive = false;
+            TitaniumDRBuff = false;
+            TitaniumCD = false;
 
 
             //            #endregion
@@ -270,6 +286,16 @@ namespace FargowiltasSouls.Core.ModPlayers
             TerrariaSoul = false;
             VoidSoul = false;
             Eternity = false;
+
+            PrimeSoulItemCount = 0;
+            if (!PrimeSoulActiveBuffer)
+            {
+                PrimeSoulActive = false;
+            }
+            PrimeSoulActiveBuffer = false;
+
+            if (ForceEffects != null)
+                ForceEffects.Clear();
 
             //maso
             SlimyShieldItem = null;
@@ -475,8 +501,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             NymphsPerfumeCD = 30;
             WretchedPouchCD = 0;
 
+
             DeviGrazeBonus = 0;
             MutantEyeCD = 60;
+
+            MythrilTimer = MythrilMaxTime;
 
             Mash = false;
             WizardEnchantActive = false;
@@ -1214,9 +1243,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int GetHealMultiplier(int heal)
         {
             float multiplier = 1f;
-            SquireFields squireFields = Player.GetEffectFields<SquireFields>();
-            bool squire = squireFields.SquireEnchantActive;
-            bool valhalla = squireFields.ValhallaEnchantActive;
+            bool squire = SquireEnchantActive;
+            bool valhalla = ValhallaEnchantActive;
             if ((squire || valhalla))
             {
                 bool forceEffect = ForceEffect<SquireEnchant>() || ForceEffect<ValhallaKnightEnchant>();
@@ -1341,7 +1369,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 int force = BaseEnchant.Force[type];
                 if (force <= 0)
                     return BaseEnchant.CraftsInto[type] > 0 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
-                return Player.GetEffectFields<ForceFields>().ForceEffects.Contains(force); 
+                return ForceEffects.Contains(force); 
             }
             bool CheckWizard(int type)
             {

@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using static FargowiltasSouls.Core.Systems.DashManager;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -79,10 +80,34 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int MeteorTimer;
         public int MeteorCD = 60;
         public bool MeteorShower;
-        public int ApprenticeCD;
 
-        public Item CactusEnchantItem;
+        public int ApprenticeCD;
+        public bool IronRecipes = false;
         public int CactusProcCD;
+        public bool ChlorophyteEnchantActive = false;
+        public bool MonkEnchantActive = false;
+        public bool ShinobiEnchantActive = false;
+        public int monkTimer = 0;
+
+        public int PumpkinSpawnCD;
+
+        public bool TitaniumDRBuff;
+        public bool TitaniumCD;
+        public bool SquireEnchantActive = false;
+        public bool ValhallaEnchantActive = false;
+
+        public bool AncientShadowEnchantActive = false;
+        public int ShadowOrbRespawnTimer;
+
+        public bool PlatinumEffectActive = false;
+        public int PalladCounter;
+        public int MythrilTimer;
+        public int MythrilMaxTime => Player.HasEffect<MythrilEffect>() ? Player.ForceEffect<MythrilEffect>() ? 300 : 180 : 180;
+        public float MythrilMaxSpeedBonus => Player.HasEffect<MythrilEffect>() ? Player.ForceEffect<MythrilEffect>() ? 1.75f : 1.5f : 1.5f;
+
+        public bool PrimeSoulActive = false;
+        private bool PrimeSoulActiveBuffer = false; // Needed to make sure the item effect is applied during the entirety of the update cycle, so it doesn't miss anything
+        public int PrimeSoulItemCount = 0;
 
         public int CrimsonRegenAmount;
         public int CrimsonRegenTime;
@@ -97,8 +122,19 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int HallowHealTime;
         public int HuntressStage;
         public int HuntressCD;
+        public double AdamantiteSpread;
 
+        public bool CanCobaltJump;
+        public bool JustCobaltJumped;
+        public int CobaltCooldownTimer;
+        public int CobaltImmuneTimer;
+        public bool ApprenticeEnchantActive;
+        public bool DarkArtistEnchantActive;
+        public int BeeCD;
         public int JungleCD;
+        public int BeetleEnchantDefenseTimer;
+        public int BorealCD;
+        public bool CrystalEnchantActive = false;
 
         public int MonkDashing;
 
@@ -134,6 +170,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public Item WizardedItem;
 
         public int CritterAttackTimer;
+
+        public HashSet<int> ForceEffects = new();
 
         #endregion
 

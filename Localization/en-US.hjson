@@ -6052,6 +6052,7 @@ Mods: {
 			DeviGuardianHarmless.DisplayName: Devi Guardian Harmless
 			MagmawJaw.DisplayName: Magmaw Jaw
 			MagmawHand.DisplayName: Magmaw Hand
+			PungentEyeballMinion.DisplayName: Pungent Eyeball Minion
 		}
 
 		TimberHeader: "[i:FargowiltasSouls/TimberForce][c/ffffff:{$Mods.FargowiltasSouls.Toggler.TimberHeader}]"

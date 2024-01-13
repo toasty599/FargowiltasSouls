@@ -445,7 +445,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(BaseForce.ForceEnchants[ModContent.ItemType<EarthForce>()]));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<EarthForce>()));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<EarthChampionRelic>()));
         }

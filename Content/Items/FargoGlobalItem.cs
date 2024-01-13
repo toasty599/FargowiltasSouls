@@ -291,7 +291,7 @@ namespace FargowiltasSouls.Content.Items
             {
                 player.ClearBuff(ModContent.BuffType<GoldenStasisBuff>());
 
-                if (player.GetEffectFields<CrystalFields>().CrystalEnchantActive)
+                if (player.FargoSouls().CrystalEnchantActive)
                     player.AddBuff(ModContent.BuffType<FirstStrikeBuff>(), 60);
             }
             return base.UseItem(item, player);
@@ -437,7 +437,7 @@ namespace FargowiltasSouls.Content.Items
                 //spwn cloud
                 if (modPlayer.JungleCD == 0)
                 {
-                    bool jungleForceEffect = player.GetEffectFields<JungleFields>().ChlorophyteEnchantActive || modPlayer.ForceEffect<JungleEnchant>();
+                    bool jungleForceEffect = modPlayer.ChlorophyteEnchantActive || modPlayer.ForceEffect<JungleEnchant>();
 
                     int dmg = jungleForceEffect ? 150 : 75;
                     SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, player.Center);
@@ -449,15 +449,14 @@ namespace FargowiltasSouls.Content.Items
 
             if (player.HasEffect<BeeEffect>() && inUse)
             {
-                BeeFields beeFields = player.GetEffectFields<BeeFields>();
-                if (player.GetEffectFields<BeeFields>().BeeCD == 0)
+                if (modPlayer.BeeCD == 0)
                 {
                     int damage = player.ForceEffect<BeeEffect>() ? 88 : 22; //22
                     Projectile.NewProjectile(player.GetSource_Accessory(player.EffectItem<BeeEffect>()), player.Center, Vector2.Zero, ModContent.ProjectileType<BeeFlower>(), damage, 0.5f, player.whoAmI);
-                    beeFields.BeeCD = 50;
+                    modPlayer.BeeCD = 50;
                 }
-                if (beeFields.BeeCD > 0)
-                    beeFields.BeeCD--;
+                if (modPlayer.BeeCD > 0)
+                    modPlayer.BeeCD--;
             }
 
             return base.WingUpdate(wings, player, inUse);

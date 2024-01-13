@@ -89,8 +89,8 @@ Beetle buffs capped at level two
 
         public override void OnHurt(Player player, Player.HurtInfo info)
         {
-            BeetleFields fields = player.GetEffectFields<BeetleFields>();
-            fields.BeetleEnchantDefenseTimer = 600;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            modPlayer.BeetleEnchantDefenseTimer = 600;
 
             //AFTER THIS DAMAGE, transfer all offense beetles to endurance instead
             //doesnt really work rn, only trasnfers 1 beetle, but tbh its more balanced this way
@@ -127,9 +127,8 @@ Beetle buffs capped at level two
                 return;
 
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            BeetleFields fields = player.GetEffectFields<BeetleFields>();
 
-            if (fields.BeetleEnchantDefenseTimer > 0) //do defensive beetle things
+            if (modPlayer.BeetleEnchantDefenseTimer > 0) //do defensive beetle things
             {
                 player.beetleDefense = true;
                 player.beetleCounter += 1f;
@@ -280,18 +279,9 @@ Beetle buffs capped at level two
                 }
             }
 
-            if (fields.BeetleEnchantDefenseTimer > 0)
-                fields.BeetleEnchantDefenseTimer--;
+            if (modPlayer.BeetleEnchantDefenseTimer > 0)
+                modPlayer.BeetleEnchantDefenseTimer--;
         }
     }
 
-    public class BeetleFields : EffectFields
-    {
-        public int BeetleEnchantDefenseTimer;
-
-        public override void UpdateDead()
-        {
-            BeetleEnchantDefenseTimer = 0;
-        }
-    }
 }

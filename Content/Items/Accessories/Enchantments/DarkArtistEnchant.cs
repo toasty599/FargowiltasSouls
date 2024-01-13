@@ -29,9 +29,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ApprenticeFields apprenticeFields = player.GetEffectFields<ApprenticeFields>();
-            apprenticeFields.ApprenticeEnchantActive = true;
-            apprenticeFields.DarkArtistEnchantActive = true;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            modPlayer.ApprenticeEnchantActive = true;
+            modPlayer.DarkArtistEnchantActive = true;
             player.AddEffect<ApprenticeSupport>(Item);
             player.AddEffect<DarkArtistMinion>(Item);
         }

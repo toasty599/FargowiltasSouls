@@ -54,19 +54,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void PostUpdateEquips(Player player)
         {
-            BorealEffectFields effectFields = player.GetEffectFields<BorealEffectFields>();
-            if (effectFields.BorealCD > 0)
-                effectFields.BorealCD--;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.BorealCD > 0)
+                modPlayer.BorealCD--;
         }
         public override void TryAdditionalAttacks(Player player, int damage, DamageClass damageType)
         {
-            BorealEffectFields effectFields = player.GetEffectFields<BorealEffectFields>();
-            if (effectFields.BorealCD <= 0)
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.BorealCD <= 0)
             {
                 Item item = EffectItem(player);
-                FargoSoulsPlayer modPlayer = player.FargoSouls();
                 bool forceEffect = modPlayer.ForceEffect(item.type);
-                effectFields.BorealCD = forceEffect ? 30 : 60;
+                modPlayer.BorealCD = forceEffect ? 30 : 60;
 
                 Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
                 int snowballDamage = damage / 2;
@@ -79,9 +78,5 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     FargoSoulsGlobalProjectile.SplitProj(Main.projectile[p], numSnowballs, MathHelper.Pi / 10, 1);
             }
         }
-    }
-    public class BorealEffectFields : EffectFields
-    {
-        public int BorealCD;
     }
 }

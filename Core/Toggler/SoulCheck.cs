@@ -21,11 +21,11 @@ namespace FargowiltasSouls.Core.Toggler
             {
                 if (effect.MinionEffect || effect.ExtraAttackEffect)
                 {
-                    PrimeSoulFields primeSoulFields = player.GetEffectFields<PrimeSoulFields>();
-                    if (primeSoulFields.PrimeSoulActive)
+                    FargoSoulsPlayer modPlayer = player.FargoSouls();
+                    if (modPlayer.PrimeSoulActive)
                     {
                         if (!player.HasEffect(effect)) // Don't stack per item
-                            primeSoulFields.PrimeSoulItemCount++;
+                            modPlayer.PrimeSoulItemCount++;
                         return false;
                     }
                 }

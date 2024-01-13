@@ -22,16 +22,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             SetActive(player);
-
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             player.AddEffect<NinjaEffect>(Item);
-            ApprenticeFields apprenticeFields = player.GetEffectFields<ApprenticeFields>();
-            apprenticeFields.ApprenticeEnchantActive = true;
-            apprenticeFields.DarkArtistEnchantActive = true;
+            modPlayer.ApprenticeEnchantActive = true;
+            modPlayer.DarkArtistEnchantActive = true;
             player.AddEffect<ApprenticeSupport>(Item);
             player.AddEffect<DarkArtistMinion>(Item);
             player.AddEffect<NecroEffect>(Item);
             //shadow orbs
-            player.GetEffectFields<ShadowFields>().AncientShadowEnchantActive = true;
+            modPlayer.AncientShadowEnchantActive = true;
             player.AddEffect<ShadowBalls>(Item);
             //darkness debuff
             player.AddEffect<AncientShadowDarkness>(Item);

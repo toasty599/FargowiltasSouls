@@ -35,6 +35,7 @@ using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Content.Patreon.Volknet;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls
 {
@@ -217,8 +218,8 @@ namespace FargowiltasSouls
                     || modPlayer.GoldShell 
                     || modPlayer.ShellHide 
                     || modPlayer.MonkDashing > 0 
-                    || self.GetEffectFields<AncientCobaltFields>().CobaltImmuneTimer > 0
-                    || self.GetEffectFields<TitaniumFields>().TitaniumDRBuff)
+                    || modPlayer.CobaltImmuneTimer > 0
+                    || modPlayer.TitaniumDRBuff)
                 && DebuffIDs.Contains(type))
             {
                 return; //doing it this way so that debuffs previously had are retained, but existing debuffs also cannot be extended by reapplying
@@ -664,7 +665,7 @@ namespace FargowiltasSouls
 
                     ModContent.BuffType<TimeFrozenBuff>()
                 };
-
+                BaseForce.SetupForces();
                 BossChecklistCompatibility();
 
                 //Mod bossHealthBar = ModLoader.GetMod("FKBossHealthBar");

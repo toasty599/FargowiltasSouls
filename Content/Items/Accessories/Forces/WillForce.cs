@@ -20,14 +20,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             SetActive(player);
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             player.AddEffect<GoldEffect>(Item);
             player.AddEffect<GoldToPiggy>(Item);
-            player.GetEffectFields<PlatinumFields>().PlatinumEffectActive = true;
+            modPlayer.PlatinumEffectActive = true;
             player.AddEffect<GladiatorBanner>(Item);
             player.AddEffect<GladiatorSpears>(Item);
             player.AddEffect<RedRidingEffect>(Item);
             player.AddEffect<HuntressEffect>(Item);
-            player.GetEffectFields<SquireFields>().ValhallaEnchantActive = true;
+            modPlayer.ValhallaEnchantActive = true;
             SquireEnchant.SquireEffect(player, Item);
             
         }

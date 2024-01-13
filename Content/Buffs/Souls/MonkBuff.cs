@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 player.immuneTime = Math.Max(player.immuneTime, invul);
                 player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
                 player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], invul);
-                bool monkForce = player.GetEffectFields<MonkFields>().ShinobiEnchantActive || modPlayer.ForceEffect<MonkEnchant>();
+                bool monkForce = modPlayer.ShinobiEnchantActive || modPlayer.ForceEffect<MonkEnchant>();
                 bool shinobiForce = modPlayer.ForceEffect<ShinobiEnchant>();
 
                 Vector2 pos = player.Center;

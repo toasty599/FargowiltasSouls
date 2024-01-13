@@ -45,14 +45,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .Register();
         }
     }
-    public class JungleFields : EffectFields
-    {
-        public bool ChlorophyteEnchantActive = false;
-        public override void ResetEffects()
-        {
-            ChlorophyteEnchantActive = false;
-        }
-    }
     public class JungleDashEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
@@ -73,10 +65,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         }
         public static void JungleDash(Player player, int direction)
         {
-            float dashSpeed = player.GetEffectFields<JungleFields>().ChlorophyteEnchantActive ? 12f : 9f;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            float dashSpeed = modPlayer.ChlorophyteEnchantActive ? 12f : 9f;
             player.velocity.X = dashSpeed * direction;
-            if (player.FargoSouls().IsDashingTimer < 10)
-                player.FargoSouls().IsDashingTimer = 10;
+            if (modPlayer.IsDashingTimer < 10)
+                modPlayer.IsDashingTimer = 10;
             player.dashDelay = 60;
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
@@ -131,7 +124,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 if (modPlayer.JungleCD == 0)
                 {
                     int tier = 1;
-                    if (player.GetEffectFields<JungleFields>().ChlorophyteEnchantActive)
+                    if (modPlayer.ChlorophyteEnchantActive)
                         tier++;
                     bool jungleForceEffect = modPlayer.ForceEffect<JungleEnchant>();
                     if (jungleForceEffect)

@@ -64,8 +64,7 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
                 int currentOrbs = player.ownedProjectileCounts[ModContent.ProjectileType<ShadowEnchantOrb>()];
 
                 int max = 2;
-                ShadowFields shadowFields = player.GetEffectFields<ShadowFields>();
-                bool ancientShadow = shadowFields.AncientShadowEnchantActive;
+                bool ancientShadow = modPlayer.AncientShadowEnchantActive;
                 bool forceEffect = modPlayer.ForceEffect<ShadowEnchant>();
 
                 if (modPlayer.TerrariaSoul)
@@ -94,9 +93,9 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
                     }
                 }
                 //equipped somwthing that allows for more or less, respawn, only once every 10 seconds to prevent exploit
-                else if ((currentOrbs < max && shadowFields.ShadowOrbRespawnTimer <= 0) || currentOrbs > max)
+                else if ((currentOrbs < max && modPlayer.ShadowOrbRespawnTimer <= 0) || currentOrbs > max)
                 {
-                    shadowFields.ShadowOrbRespawnTimer = 60 * 10;
+                    modPlayer.ShadowOrbRespawnTimer = 60 * 10;
 
                     for (int i = 0; i < Main.maxProjectiles; i++)
                     {
@@ -117,17 +116,8 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
                         Main.projectile[p].FargoSouls().CanSplit = false;
                     }
                 }
-                shadowFields.ShadowOrbRespawnTimer--;
+                modPlayer.ShadowOrbRespawnTimer--;
             }
-        }
-    }
-    public class ShadowFields : EffectFields
-    {
-        public bool AncientShadowEnchantActive = false;
-        public int ShadowOrbRespawnTimer;
-        public override void ResetEffects()
-        {
-            AncientShadowEnchantActive = false;
         }
     }
 }
