@@ -57,7 +57,6 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacks generate titanium shards,
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
             SetActive(player);
             player.AddEffect<AncientCobaltEffect>(Item);
             player.AddEffect<CobaltEffect>(Item);
