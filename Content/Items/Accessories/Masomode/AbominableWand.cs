@@ -1,4 +1,8 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -50,6 +54,7 @@ Endurance recovers when you reach full life again
             player.buffImmune[ModContent.BuffType<Buffs.Boss.AbomPresenceBuff>()] = true;
 
             player.FargoSouls().AbomWandItem = Item;
+            player.AddEffect<AbomWandCrit>(Item);
             if (player.FargoSouls().AbomWandCD > 0)
                 player.FargoSouls().AbomWandCD--;
             /*if (player.mount.Active && player.mount.Type == MountID.CuteFishron)
@@ -111,6 +116,48 @@ Endurance recovers when you reach full life again
                         player.velocity.Y = 16f;
                 }
             }*/
+        }
+    }
+    public class AbomWandCrit : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            Player Player = player;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (hitInfo.Crit && modPlayer.AbomWandCD <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<AbomScytheFriendly>()))
+            {
+                modPlayer.AbomWandCD = 360;
+
+                float screenX = Main.screenPosition.X;
+                if (Player.direction < 0)
+                    screenX += Main.screenWidth;
+                float screenY = Main.screenPosition.Y;
+                screenY += Main.rand.Next(Main.screenHeight);
+                Vector2 spawn = new(screenX, screenY);
+                Vector2 vel = target.Center - spawn;
+                vel.Normalize();
+                vel *= 27f;
+
+                int dam = 150;
+                if (modPlayer.MutantEyeItem != null)
+                    dam *= 3;
+
+                if (projectile != null && FargoSoulsUtil.IsSummonDamage(projectile))
+                {
+                    int p = FargoSoulsUtil.NewSummonProjectile(Player.GetSource_EffectItem<AbomWandCrit>(), spawn, vel, ModContent.ProjectileType<SpectralAbominationn>(), dam, 10f, Player.whoAmI, target.whoAmI);
+                    if (p != Main.maxProjectiles)
+                        Main.projectile[p].DamageType = DamageClass.Summon;
+                }
+                else
+                {
+                    dam = (int)(dam * Player.ActualClassDamage(damageClass));
+
+                    int p = Projectile.NewProjectile(Player.GetSource_EffectItem<AbomWandCrit>(), spawn, vel, ModContent.ProjectileType<SpectralAbominationn>(), dam, 10f, Player.whoAmI, target.whoAmI);
+                    if (p != Main.maxProjectiles)
+                        Main.projectile[p].DamageType = damageClass;
+                }
+            }
         }
     }
 }

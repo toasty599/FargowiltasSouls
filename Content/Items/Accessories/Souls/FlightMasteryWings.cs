@@ -12,17 +12,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
             ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
-            //if (player.GetToggleValue("FlightMasteryStarboard"))
-            //{
-            //    player.wingsLogic = ArmorIDs.Wing.LongTrailRainbowWings;
-            //    ascentWhenFalling = 0.95f;
-            //    ascentWhenRising = 0.15f;
-            //    maxCanAscendMultiplier = 1f;
-            //    maxAscentMultiplier = 4.5f;
-            //    constantAscend = 0.1f;
-            //}
-            //else
-            //{
+
             player.wingsLogic = ArmorIDs.Wing.LongTrailRainbowWings;
             ascentWhenFalling = 0.85f;
             if (player.HasEffect<FlightMasteryGravity>())
@@ -37,29 +27,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
                 ascentWhenRising *= 3f;
                 constantAscend *= 3f;
             }
-            //}
         }
 
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
         {
-            //if (player.GetToggleValue("FlightMasteryStarboard"))
-            //{
-            //    if (player.TryingToHoverDown)
-            //    {
-            //        speed = 16f;
-            //        acceleration = 2.5984f;
-            //    }
-            //    else
-            //    {
-            //        speed = 8f;
-            //        acceleration = 0.7308f;
-            //    }
-            //}
-            //else
-            //{
             speed = 18f;
             acceleration = 0.75f;
-            //}
 
             if (HasSupersonicSpeed && player.GetToggleValue<SupersonicSpeedEffect>())
                 speed = 25f;

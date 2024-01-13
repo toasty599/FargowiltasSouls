@@ -3,6 +3,8 @@ using Terraria;
 using Terraria.ID;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
+using FargowiltasSouls.Content.Buffs.Souls;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -45,9 +47,43 @@ Enemies will explode into needles on death if they are struck with your needles
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            AddEffects(player, Item);
+        }
+        public static void AddEffects(Player player, Item item)
+        {
+            player.AddEffect<CactusEffect>(item);
+            player.AddEffect<TurtleEffect>(item);
+
+            player.turtleThorns = true;
+            player.thorns = 1f;
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            CactusEnchant.CactusEffect(player, Item);
-            modPlayer.TurtleEffect(hideVisual);
+
+            if (player.HasEffect<TurtleEffect>() && !player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && modPlayer.IsStandingStill && !player.controlUseItem && player.whoAmI == Main.myPlayer && !modPlayer.noDodge)
+            {
+                modPlayer.TurtleCounter++;
+
+                if (modPlayer.TurtleCounter > 20)
+                {
+                    player.AddBuff(ModContent.BuffType<ShellHideBuff>(), 2);
+                }
+            }
+            else
+            {
+                modPlayer.TurtleCounter = 0;
+            }
+
+            if (modPlayer.TurtleShellHP < 20 && !player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && !modPlayer.ShellHide && modPlayer.ForceEffect<TurtleEnchant>())
+            {
+                modPlayer.turtleRecoverCD--;
+                if (modPlayer.turtleRecoverCD <= 0)
+                {
+                    modPlayer.turtleRecoverCD = 240;
+
+                    modPlayer.TurtleShellHP++;
+                }
+            }
+
+            //Main.NewText($"shell HP: {TurtleShellHP}, counter: {TurtleCounter}, recovery: {turtleRecoverCD}");
         }
 
         public override void AddRecipes()

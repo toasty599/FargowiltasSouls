@@ -1,3 +1,6 @@
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 
@@ -47,6 +50,33 @@ All effects negated if toggled off or another dash is already in use
                 player.FargoSouls().DeerSinew = true;
             }
             return true;
+        }
+    }
+    public class DeerSinewEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.DeerSinewFreezeCD > 0)
+                modPlayer.DeerSinewFreezeCD--;
+
+            if (modPlayer.HasDash || player.mount.Active || player.whoAmI != Main.myPlayer)
+                return;
+
+            modPlayer.HasDash = true;
+            modPlayer.FargoDash = DashManager.DashType.DeerSinew;
+            modPlayer.DeerSinewNerf = true;
+
+            if (modPlayer.IsDashingTimer > 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    int d = Dust.NewDust(player.position, player.width, player.height, DustID.GemSapphire, Scale: 1.25f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 0.2f;
+                }
+            }
         }
     }
 }

@@ -58,7 +58,7 @@ Increases jump height and negates fall damage
             player.AddEffect<MasoAeolusFrog>(Item);
 
             player.AddEffect<MasoAeolusFlower>(Item);
-            player.AddEffect<MasoAeolus>(Item);
+            player.AddEffect<ZephyrJump>(Item);
 
             //dunerider boot
             player.desertBoots = true;
@@ -102,20 +102,6 @@ Increases jump height and negates fall damage
                 player.flowerBoots = true;
                 if (player.whoAmI == Main.myPlayer)
                     player.DoBootsEffect(new Utils.TileActionAttempt(player.DoBootsEffect_PlaceFlowersOnTile));
-            }
-        }
-    }
-    public class MasoAeolus : AccessoryEffect
-    {
-        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
-        public override bool IgnoresMutantPresence => true;
-        public override void PostUpdateEquips(Player player)
-        {
-            if (player.whoAmI == Main.myPlayer)
-            {
-                player.GetJumpState(ExtraJump.FartInAJar).Enable();
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
             }
         }
     }

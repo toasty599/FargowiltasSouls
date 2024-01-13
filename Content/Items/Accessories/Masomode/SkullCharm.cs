@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -55,8 +57,17 @@ The crystal skull charges energy to attack as you attack
                 player.npcTypeNoAggro[NPCID.RaggedCaster] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
             }*/
-            if (player.GetToggleValue("MasoPugent"))
-                player.AddBuff(ModContent.BuffType<Buffs.Minions.CrystalSkullBuff>(), 5);
+            player.AddEffect<PungentMinion>(Item);
+                
+        }
+    }
+    public class PungentMinion : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<LumpofFleshHeader>();
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.AddBuff(ModContent.BuffType<Buffs.Minions.CrystalSkullBuff>(), 5);
         }
     }
 }

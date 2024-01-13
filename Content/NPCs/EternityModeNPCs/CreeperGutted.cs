@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 using Terraria;
@@ -65,7 +67,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.defense = NPC.defDefense;
 
             Player player = Main.player[(int)NPC.ai[0]];
-            if (!player.active || player.dead || !player.FargoSouls().GuttedHeart)
+            if (!player.active || player.dead || !player.HasEffect<GuttedHeartMinions>())
             {
                 NPC.SimpleStrikeNPC(NPC.lifeMax * 2, 0);
                 return;
@@ -95,7 +97,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 NPC.ai[3] = MathHelper.ToRadians(Main.rand.NextFloat(-15, 15));
                 //NPC.velocity = NPC.velocity.RotatedByRandom(2 * Math.PI);
 
-                if (player.whoAmI == Main.myPlayer && !player.GetToggleValue("MasoBrain"))
+                if (player.whoAmI == Main.myPlayer && !player.HasEffect<GuttedHeartMinions>())
                 {
                     int n = NPC.whoAmI;
                     NPC.SimpleStrikeNPC(NPC.lifeMax * 2, 0);

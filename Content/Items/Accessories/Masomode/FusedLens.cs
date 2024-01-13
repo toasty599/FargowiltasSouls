@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -40,11 +42,17 @@ Press the Debuff Install key to inflict yourself with Cursed Inferno and Ichor f
             player.buffImmune[BuffID.Ichor] = true;
 
             player.FargoSouls().FusedLens = true;
+            player.AddEffect<FusedLensInstall>(Item);
 
             if (player.onFire2)
                 player.FargoSouls().AttackSpeed += 0.15f;
             if (player.ichor)
                 player.GetCritChance(DamageClass.Generic) += 15;
         }
+    }
+    public class FusedLensInstall : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DubiousHeader>();
+        public override bool IgnoresMutantPresence => true;
     }
 }

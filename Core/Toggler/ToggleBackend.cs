@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Core.Toggler
             Player player = Main.LocalPlayer;
 
             SetAll(true);
-            
+            /*
             player.SetToggleValue("Boreal", false);
             player.SetToggleValue("Ebon", false);
             player.SetToggleValue("Shade", false);
@@ -196,6 +196,7 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue("Supersonic", false);
 
             player.SetToggleValue("TrawlerSpore", false);
+            */
 
             foreach (Toggle toggle in Toggles.Values.Where(toggle => toggle.Effect.Name.Contains("Pet")))
             {
@@ -208,6 +209,7 @@ namespace FargowiltasSouls.Core.Toggler
             Player player = Main.LocalPlayer;
 
             SetAll(false);
+            /*
             player.SetToggleValue("Mythril", true);
             player.SetToggleValue("Palladium", true);
             player.SetToggleValue("IronM", true);
@@ -262,6 +264,7 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue("MasoAeolusFrog", true);
             player.SetToggleValue("MasoConcoction", true);
             player.SetToggleValue("ManaFlower", true);
+            */
         }
 
         public void SaveCustomPreset(int slot)

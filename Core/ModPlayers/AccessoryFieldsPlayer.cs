@@ -87,8 +87,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int CrimsonRegenAmount;
         public int CrimsonRegenTime;
 
-
-        public Item DarkArtistEnchantItem;
         public bool CanSummonForbiddenStorm = false;
         public int IcicleCount;
         public int icicleCD;
@@ -102,10 +100,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int JungleCD;
 
-
-
-
-        public bool MoltenEnchantActive;
         public int MonkDashing;
 
         public int NecroCD;
@@ -121,22 +115,19 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool SnowVisual;
         public int SpectreCD;
-        public bool SpiderEnchantActive;
+        public bool MinionCrits;
         //public bool squireReduceIframes;
-        public bool StardustEnchantActive;
         public bool FreezeTime;
         public int freezeLength;
         public bool ChillSnowstorm;
         public int chillLength;
         public int CHILL_DURATION => Player.HasEffect<FrostEffect>() ? 60 * 20 : 60 * 15;
 
-        public bool TurtleEnchantActive;
         public int TurtleCounter;
         public int TurtleShellHP = 25;
-        private int turtleRecoverCD = 240;
+        public int turtleRecoverCD = 240;
         public bool ShellHide;
         public int ValhallaDashCD;
-        public bool VortexEnchantActive;
         public bool VortexStealth;
         public bool WizardEnchantActive;
         public bool WizardTooltips;
@@ -165,11 +156,9 @@ namespace FargowiltasSouls.Core.ModPlayers
         //maso items
         public Item SlimyShieldItem;
         public bool SlimyShieldFalling;
-        public Item AgitatingLensItem;
         public int AgitatingLensCD;
         public Item DarkenedHeartItem;
         public int DarkenedHeartCD;
-        public bool GuttedHeart;
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
         public float NecromanticBrewRotation;
@@ -181,7 +170,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool CrystalSkullMinion;
         public bool FusedLens;
         public bool FusedLensCanDebuff;
-        public bool GroundStick;
         public bool Supercharged;
         public bool Probes;
         public bool MagicalBulb;
@@ -189,7 +177,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool SkullCharm;
         public bool PungentEyeball;
         public bool LumpOfFlesh;
-        public Item PumpkingsCapeItem;
         public Item LihzahrdTreasureBoxItem;
         public int GroundPound;
         public Item BetsysHeartItem;
@@ -197,8 +184,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int SpecialDashCD;
         public bool MutantAntibodies;
         public Item GravityGlobeEXItem;
-        public Item CelestialRuneItem;
-        public bool AdditionalAttacks;
         public int AdditionalAttacksTimer;
         public bool MoonChalice;
         public bool LunarCultist;
@@ -210,17 +195,14 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool MutantsPactSlot;
         public bool HasClickedWrench;
         public bool SandsofTime;
-        public bool StabilizedGravity;
         public bool SecurityWallet;
         public Item FrigidGemstoneItem;
         public int FrigidGemstoneCD;
-        public Item WretchedPouchItem;
         public int WretchedPouchCD;
         public bool NymphsPerfume;
         public bool NymphsPerfumeRespawn;
         public int NymphsPerfumeRestoreLife;
         public int NymphsPerfumeCD = 30;
-        public bool SqueakyAcc;
         public bool RainbowSlime;
         public bool SkeletronArms;
         public bool IceQueensCrown;
@@ -257,7 +239,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool AbomRebirth;
         public bool WasHurtBySomething;
         public bool PrecisionSeal;
-        public bool PrecisionSealHurtbox;
         public bool PrecisionSealNoDashNoJump;
         public Item GelicWingsItem;
         public bool ConcentratedRainbowMatter;
@@ -278,8 +259,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool Bloodthirsty;
         public bool Unlucky;
         public bool DisruptedFocus;
-        public bool SinisterIcon;
-        public bool SinisterIconDrops;
 
         public bool Smite;
         public bool Anticoagulation;
@@ -336,9 +315,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool BoxofGizmos;
         public bool OxygenTank;
 
-
-
-        public Item DreadShellItem;
         public int DreadShellVulnerabilityTimer;
         public int shieldTimer;
         public int shieldCD;

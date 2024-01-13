@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -65,7 +67,7 @@ Grants autofire to all weapons (this effect also works in your inventory)
                     player.GetDamage(DamageClass.Generic) += 0.30f;
                 }
             }
-            else if (player.ItemTimeIsZero && player.GetToggleValue("TribalCharmClickBonus"))
+            else if (player.ItemTimeIsZero && player.GetToggleValue<TribalCharmClickBonus>())
             {
                 modPlayer.TribalCharmClickBonus = true;
             }
@@ -78,5 +80,9 @@ Grants autofire to all weapons (this effect also works in your inventory)
                 Main.dust[d].velocity *= 4f;
             }
         }
+    }
+    public class TribalCharmClickBonus : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
     }
 }

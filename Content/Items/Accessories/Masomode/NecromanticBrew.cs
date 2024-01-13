@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -41,8 +43,9 @@ Summons 2 Skeletron arms to whack enemies
         {
             player.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
             player.FargoSouls().NecromanticBrewItem = Item;
-            if (player.GetToggleValue("MasoSkele"))
-                player.AddBuff(ModContent.BuffType<SkeletronArmsBuff>(), 2);
+            player.AddEffect<NecroBrewSpin>(Item);
+            player.AddEffect<SkeleMinionEffect>(Item);
+                
         }
 
         public static float NecroBrewDashDR(Player player)
@@ -55,6 +58,19 @@ Summons 2 Skeletron arms to whack enemies
             }
             
             return dr;
+        }
+    }
+    public class NecroBrewSpin : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+    }
+    public class SkeleMinionEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.AddBuff(ModContent.BuffType<SkeletronArmsBuff>(), 2);
         }
     }
 }

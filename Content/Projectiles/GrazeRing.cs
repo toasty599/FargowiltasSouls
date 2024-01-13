@@ -1,3 +1,6 @@
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -28,7 +31,7 @@ namespace FargowiltasSouls.Content.Projectiles
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
-            if (!player.active || player.dead || player.ghost || Projectile.owner == Main.myPlayer && (!fargoPlayer.Graze || !player.GetToggleValue("MasoGrazeRing", false)))
+            if (!player.active || player.dead || player.ghost || Projectile.owner == Main.myPlayer && (!fargoPlayer.Graze || !player.GetToggleValue<MasoGrazeRing>()))
             {
                 Projectile.Kill();
                 return;
@@ -58,5 +61,10 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             return base.GetAlpha(lightColor) * 0.8f * Projectile.Opacity;
         }
+    }
+    public class MasoGrazeRing : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override bool IgnoresMutantPresence => true;
     }
 }

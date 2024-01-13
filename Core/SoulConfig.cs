@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Core
         [DefaultValue(true)]
         public bool HideTogglerWhenInventoryIsClosed;
 
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         [ReloadRequired]
         public bool DisplayTogglesRegardless;
 

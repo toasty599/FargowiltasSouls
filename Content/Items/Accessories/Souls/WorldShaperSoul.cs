@@ -96,7 +96,7 @@ Summons a pet Magic Lantern
         {
             AddEffects(player, Item, hideVisual);
         }
-        public void AddEffects(Player player, Item item, bool hideVisual)
+        public static void AddEffects(Player player, Item item, bool hideVisual)
         {
             Player Player = player;
             //mining speed, spelunker, dangersense, light, hunter, pet

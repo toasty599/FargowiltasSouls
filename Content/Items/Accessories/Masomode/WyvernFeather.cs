@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,7 +32,16 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;
             player.AddEffect<ClippedEffect>(Item);
-            player.FargoSouls().StabilizedGravity = true;
+            player.AddEffect<StabilizedGravity>(Item);
+        }
+    }
+    public class StabilizedGravity : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateMiscEffects(Player player)
+        {
+            player.gravity = Math.Max(player.gravity, Player.defaultGravity);
         }
     }
     public class ClippedEffect : AccessoryEffect

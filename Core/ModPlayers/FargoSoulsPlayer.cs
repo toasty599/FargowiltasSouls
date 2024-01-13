@@ -27,6 +27,7 @@ using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using static FargowiltasSouls.Core.Systems.DashManager;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -241,17 +242,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             //            #region enchantments 
             PetsActive = true;
             //CrimsonRegen = false;
-            SpiderEnchantActive = false;
-            StardustEnchantActive = false;
-            VortexEnchantActive = false;
-            MoltenEnchantActive = false;
+            MinionCrits = false;
             FirstStrike = false;
-            TurtleEnchantActive = false;
             ShellHide = false;
             GoldShell = false;
             CactusEnchantItem = null;
             LavaWet = false;
-            DarkArtistEnchantItem = null;
 
             WoodEnchantItem = null;
 			WoodEnchantDiscount = false;
@@ -277,9 +273,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //maso
             SlimyShieldItem = null;
-            AgitatingLensItem = null;
             DarkenedHeartItem = null;
-            GuttedHeart = false;
             NecromanticBrewItem = null;
             DeerSinewNerf = false;
             PureHeart = false;
@@ -287,7 +281,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             CrystalSkullMinion = false;
             FusedLens = false;
             FusedLensCanDebuff = false;
-            GroundStick = false;
             Supercharged = false;
             Probes = false;
             MagicalBulb = false;
@@ -295,14 +288,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             SkullCharm = false;
             PungentEyeball = false;
             LumpOfFlesh = false;
-            PumpkingsCapeItem = null;
             LihzahrdTreasureBoxItem = null;
             BetsysHeartItem = null;
             BetsyDashing = false;
             MutantAntibodies = false;
             GravityGlobeEXItem = null;
-            CelestialRuneItem = null;
-            AdditionalAttacks = false;
             MoonChalice = false;
             LunarCultist = false;
             TrueEyes = false;
@@ -310,13 +300,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             MasochistSoul = false;
             MasochistHeart = false;
             SandsofTime = false;
-			StabilizedGravity = false;
             SecurityWallet = false;
             FrigidGemstoneItem = null;
-            WretchedPouchItem = null;
             NymphsPerfume = false;
             NymphsPerfumeRespawn = false;
-            SqueakyAcc = false;
             RainbowSlime = false;
             SkeletronArms = false;
             IceQueensCrown = false;
@@ -341,7 +328,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             AbomRebirth = false;
             WasHurtBySomething = false;
             PrecisionSeal = false;
-            PrecisionSealHurtbox = false;
             GelicWingsItem = null;
             ConcentratedRainbowMatter = false;
 
@@ -357,8 +343,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             NoMomentum = false;
             Bloodthirsty = false;
             DisruptedFocus = false;
-            SinisterIcon = false;
-            SinisterIconDrops = false;
 
             Smite = false;
             Anticoagulation = false;
@@ -396,7 +380,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             BoxofGizmos = false;
             OxygenTank = false;
             //IronEnchantShield = false;
-            DreadShellItem = null;
             WizardedItem = null;
 
             EquippedEnchants.Clear();
@@ -598,7 +581,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     MythrilEffect.CalcMythrilAttackSpeed(this, item);
                 }
 
-                if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
+                if (Player.HasEffect<WretchedPouchEffect>() && !MasochistSoul && AttackSpeed > 1f)
                 {
                     float diff = AttackSpeed - 1f;
                     diff /= 2;
@@ -870,7 +853,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (ConcentratedRainbowMatter
                 && Player.statLife < Player.statLifeMax2
                 && Player.potionDelay <= 0
-                && Player.GetToggleValue("MasoHealingPotion", false))
+                && Player.HasEffect<RainbowHealEffect>())
             {
                 Item potion = Player.QuickHeal_GetItemToUse();
                 if (potion != null)
@@ -1011,9 +994,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye)
                     };
-                    if (DreadShellItem != null)
+                    if (Player.HasEffect<DreadShellEffect>())
                         shaders.Add(GameShaders.Armor.GetShaderIdFromItemId(ItemID.BloodbathDye));
-                    if (PumpkingsCapeItem != null)
+                    if (Player.HasEffect<PumpkingsCapeEffect>())
                         shaders.Add(GameShaders.Armor.GetShaderIdFromItemId(ItemID.PixieDye));
 
                     int shader = shaders[(int)(Main.GameUpdateCount / 4 % shaders.Count)];
@@ -1176,8 +1159,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostNurseHeal(NPC nurse, int health, bool removeDebuffs, int price)
         {
-            if (GuttedHeart)
-                GuttedHeartNurseHeal();
+            if (Player.HasEffect<GuttedHeartMinions>())
+                GuttedHeartMinions.NurseHeal(Player);
         }
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
@@ -1336,18 +1319,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void TryAdditionalAttacks(int damage, DamageClass damageType)
         {
-            if (Player.whoAmI != Main.myPlayer)
-                return;
-
-            if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
-            {
-                AdditionalAttacksTimer = 60;
-
-                if (CelestialRuneItem != null && Player.GetToggleValue("MasoCelest"))
-                {
-                    CelestialRuneSupportAttack(damage, damageType);
-                }
-            }
+            // :)
         }
 
         public Rectangle GetPrecisionHurtbox()

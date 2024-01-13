@@ -200,7 +200,6 @@ This stacks up to 950 times until you get hit"); */
             FlightMasterySoul.AddEffects(player, Item);
             TrawlerSoul.AddEffects(player, Item, hideVisual);
             WorldShaperSoul.AddEffects(player, Item, hideVisual);
-            modPlayer.WorldShaperSoul(hideVisual);
 
             //TERRARIA
             ModContent.GetInstance<TerrariaSoul>().UpdateAccessory(player, hideVisual);

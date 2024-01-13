@@ -47,11 +47,11 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
                 }
             }
             
-            if (player.FargoSouls().MutantPresence) // todo: implement system for mutant presence
+            if (player.FargoSouls().MutantPresence)
                 if (!effect.IgnoresMutantPresence)
                     return false;
 
-            if (!effect.HasToggle || player.GetToggleValue<T>())
+            if (!effect.HasToggle || player.GetToggleValue(effect, true))
             {
                 AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
                 if (effectPlayer.ActiveEffects.Add(effect))

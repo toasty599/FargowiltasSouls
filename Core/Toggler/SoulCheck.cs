@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
@@ -13,9 +14,25 @@ namespace FargowiltasSouls.Core.Toggler
             return player.FargoSouls().Toggler.Toggles[effect];
         }
         public static bool GetToggleValue<T>(this Player player) where T : AccessoryEffect => player.GetToggleValue(ModContent.GetInstance<T>());
-        public static bool GetToggleValue(this Player player, AccessoryEffect effect)
+        public static bool GetToggleValue(this Player player, AccessoryEffect effect, bool skipChecks = false)
         {
             Toggle toggle = player.GetToggle(effect);
+            if (!skipChecks)
+            {
+                if (effect.MinionEffect || effect.ExtraAttackEffect)
+                {
+                    PrimeSoulFields primeSoulFields = player.GetEffectFields<PrimeSoulFields>();
+                    if (primeSoulFields.PrimeSoulActive)
+                    {
+                        if (!player.HasEffect(effect)) // Don't stack per item
+                            primeSoulFields.PrimeSoulItemCount++;
+                        return false;
+                    }
+                }
+                if (player.FargoSouls().MutantPresence)
+                    if (!effect.IgnoresMutantPresence)
+                        return false;
+            }
             toggle.DisplayToggle = true;
             return toggle.ToggleBool;
         }

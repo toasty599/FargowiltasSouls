@@ -63,7 +63,7 @@ $"[i:{ModContent.ItemType<BeetleEnchant>()}] Beetles aid both offense and defens
             player.AddEffect<SpiderEffect>(Item);
             player.AddEffect<BeetleEffect>(Item);
             player.AddEffect<PumpkinEffect>(Item);
-            player.AddEffect<TurtleEffect>(Item);
+            TurtleEnchant.AddEffects(player, Item);
             player.AddEffect<CactusEffect>(Item);
         }
 

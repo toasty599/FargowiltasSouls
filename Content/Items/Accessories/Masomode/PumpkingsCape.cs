@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,9 +47,12 @@ Counter an attack to gain life based on the blocked damage
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             player.GetDamage(DamageClass.Generic) += 0.05f;
             player.GetCritChance(DamageClass.Generic) += 5;
-            if (player.GetToggleValue("MasoPump"))
-                fargoPlayer.PumpkingsCapeItem = Item;
+            player.AddEffect<PumpkingsCapeEffect>(Item);
             player.buffImmune[ModContent.BuffType<LivingWastelandBuff>()] = true;
         }
+    }
+    public class PumpkingsCapeEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
     }
 }

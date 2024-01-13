@@ -82,18 +82,16 @@ Summons a friendly Mini Saucer and true eyes of Cthulhu
 
             //pumpking's cape
             player.buffImmune[ModContent.BuffType<LivingWastelandBuff>()] = true;
-            if (player.GetToggleValue("MasoPump"))
-                fargoPlayer.PumpkingsCapeItem = Item;
+            player.AddEffect<PumpkingsCapeEffect>(Item);
 
             //ice queen's crown
             player.buffImmune[ModContent.BuffType<HypothermiaBuff>()] = true;
-            IceQueensCrown.Effects(player, Item);
+            IceQueensCrown.AddEffects(player, Item);
 
             //saucer control console
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;
-            if (player.GetToggleValue("MasoUfo"))
-                player.AddBuff(ModContent.BuffType<SaucerMinionBuff>(), 2);
+            player.AddEffect<UfoMinionEffect>(Item);
 
             //betsy's heart
             player.buffImmune[BuffID.OgreSpit] = true;
@@ -124,8 +122,7 @@ Summons a friendly Mini Saucer and true eyes of Cthulhu
             //precision seal
             player.buffImmune[ModContent.BuffType<SmiteBuff>()] = true;
             fargoPlayer.PrecisionSeal = true;
-            if (player.GetToggleValue("PrecisionSealHurtbox", false))
-                fargoPlayer.PrecisionSealHurtbox = true;
+            player.AddEffect<PrecisionSealHurtbox>(Item);
 
             //heart of maso
             player.buffImmune[BuffID.MoonLeech] = true;

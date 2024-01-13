@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 Projectile.velocity = -Vector2.UnitY;
             }
-            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<PungentEyeball>());
+            int byIdentity = FargoSoulsUtil.GetProjectileByIdentity(Projectile.owner, (int)Projectile.ai[0], ModContent.ProjectileType<PungentEyeballMinion>());
             if (byIdentity != -1)
             {
                 Projectile.Center = Main.projectile[byIdentity].Center + Vector2.UnitX.RotatedBy(Main.projectile[byIdentity].rotation) * 20f;

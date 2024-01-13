@@ -20,6 +20,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using FargowiltasSouls.Content.Items.Consumables;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -28,6 +29,9 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void PreUpdate()
         {
             Toggler.TryLoad();
+
+            if (DeerSinew)
+                Player.AddEffect<DeerSinewEffect>(ModContent.GetInstance<DeerSinew>().Item);
 
             if (Player.CCed)
             {
@@ -180,40 +184,13 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Content.Items.Accessories.Masomode.TribalCharm.Effects(this);
             }
 
-            if (PungentEyeball && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPungentCursor"))
-            {
-                const float distance = 16 * 5;
-
-                foreach (NPC n in Main.npc.Where(n => n.active && !n.dontTakeDamage && n.lifeMax > 5 && !n.friendly))
-                {
-                    if (Vector2.Distance(Main.MouseWorld, FargoSoulsUtil.ClosestPointInHitbox(n.Hitbox, Main.MouseWorld)) < distance)
-                    {
-                        n.AddBuff(ModContent.BuffType<PungentGazeBuff>(), 2, true);
-                    }
-                }
-
-                for (int i = 0; i < 32; i++)
-                {
-                    Vector2 spawnPos = Main.MouseWorld + Main.rand.NextVector2CircularEdge(distance, distance);
-                    Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, DustID.GemRuby, 0, 0, 100, Color.White)];
-                    dust.scale = 0.5f;
-                    dust.velocity = Vector2.Zero;
-                    if (Main.rand.NextBool(3))
-                    {
-                        dust.velocity += Vector2.Normalize(Main.MouseWorld - dust.position) * Main.rand.NextFloat(5f);
-                        dust.position += dust.velocity * 5f;
-                    }
-                    dust.noGravity = true;
-                }
-            }
-
             if (DarkenedHeartItem != null)
             {
                 if (!IsStillHoldingInSameDirectionAsMovement)
                     Player.runSlowdown += 0.2f;
             }
 
-            if (!StardustEnchantActive)
+            if (!Player.HasEffect<StardustEffect>())
                 FreezeTime = false;
 
             UpdateShield();
@@ -295,8 +272,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (GuttedHeart)
-                GuttedHeartEffect();
 
             if (Player.velocity.Y == 0) //practically, if on the ground or hooked or similar
             {
@@ -306,31 +281,18 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null || GelicWingsItem != null)
                 OnLandingEffects();
 
-            if (AgitatingLensItem != null)
-                AgitatingLensEffect();
-
-            if (WretchedPouchItem != null)
-                WretchedPouchEffect();
-
             if (noDodge)
             {
                 Player.onHitDodge = false;
                 Player.shadowDodge = false;
                 Player.blackBelt = false;
                 Player.brainOfConfusionItem = null;
-                GuttedHeart = false;
             }
 
             #region dashes
 
             if (Player.dashType != 0)
                 HasDash = true;
-
-            if (SolarEnchantActive)
-                SolarEffect();
-
-            if (DeerSinew)
-                DeerSinewEffect();
 
             if (LihzahrdTreasureBoxItem != null)
                 LihzahrdTreasureBoxUpdate();
@@ -362,7 +324,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.HasEffect<DeerclawpsEffect>() && IsInADashState)
                 DeerclawpsEffect.DeerclawpsAttack(Player, Player.Bottom);
 
-            if (NecromanticBrewItem != null && IsInADashState && Player.GetToggleValue("MasoSkeleSpin"))
+            if (NecromanticBrewItem != null && IsInADashState && Player.HasEffect<NecroBrewSpin>())
             {
                 //if (NecromanticBrewRotation == 0)
                 //{
@@ -593,8 +555,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     CirnoGrazeCounter--;
             }
 
-            if (StabilizedGravity && Player.GetToggleValue("MasoGrav2", false))
-                Player.gravity = Math.Max(Player.gravity, Player.defaultGravity);
 
             if (Atrophied)
             {
@@ -687,7 +647,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             else if (UniverseSoul)
                 Player.statManaMax2 += 300;
 
-            if (AdditionalAttacks && AdditionalAttacksTimer > 0)
+            if (Player.HasEffect<CelestialRuneAttacks>() && AdditionalAttacksTimer > 0)
                 AdditionalAttacksTimer--;
 
             if (MutantPresence || DevianttPresence)

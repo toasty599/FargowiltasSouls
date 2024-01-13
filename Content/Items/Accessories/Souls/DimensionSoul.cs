@@ -76,7 +76,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             SupersonicSoul.AddEffects(player, Item, hideVisual);
             FlightMasterySoul.AddEffects(player, Item);
             TrawlerSoul.AddEffects(player, Item, hideVisual);
-            modPlayer.WorldShaperSoul(hideVisual);
+            WorldShaperSoul.AddEffects(player, Item, hideVisual);
         }
 
         public override void AddRecipes()

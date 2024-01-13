@@ -1,5 +1,7 @@
 
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -44,15 +46,16 @@ Your attacks periodically summon life-draining hearts
             player.buffImmune[BuffID.Lovestruck] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.LovestruckBuff>()] = true;
 
-            if (player.GetToggleValue("MasoGraze", false))
+            if (player.AddEffect<MasoGraze>(Item))
             {
                 fargoPlayer.Graze = true;
                 fargoPlayer.DeviGraze = true;
             }
 
             fargoPlayer.DevianttHeartItem = Item;
+            player.AddEffect<DevianttHearts>(Item);
 
-            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoGrazeRing", false) && player.ownedProjectileCounts[ModContent.ProjectileType<GrazeRing>()] < 1)
+            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue<MasoGrazeRing>() && player.ownedProjectileCounts[ModContent.ProjectileType<GrazeRing>()] < 1)
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<GrazeRing>(), 0, 0f, Main.myPlayer);
         }
 
@@ -100,5 +103,15 @@ Your attacks periodically summon life-draining hearts
                 Main.dust[d].velocity = vector7;
             }
         }
+    }
+    public class DevianttHearts : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override bool ExtraAttackEffect => true;
+    }
+    public class MasoGraze : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override bool IgnoresMutantPresence => true;
     }
 }

@@ -890,7 +890,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (player.FindBuffIndex(buff) == -1)
             {
-                if (player.dead || !toggle || (minion ? !modPlayer.StardustEnchantActive : !modPlayer.VoidSoul) || !modPlayer.PetsActive && !minion)
+                if (player.dead || !toggle || (minion ? !player.HasEffect<StardustEffect>() : !modPlayer.VoidSoul) || !modPlayer.PetsActive && !minion)
                 {
                     projectile.Kill();
                 }

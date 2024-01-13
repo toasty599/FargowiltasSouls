@@ -39,7 +39,13 @@ Summons a baby rainbow slime to fight for you
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.FlamesoftheUniverseBuff>()] = true;
             player.FargoSouls().ConcentratedRainbowMatter = true;
             player.AddEffect<RainbowSlimeMinion>(Item);
+            player.AddEffect<RainbowHealEffect>(Item);
         }
+    }
+    public class RainbowHealEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override bool IgnoresMutantPresence => true;
     }
     public class RainbowSlimeMinion : AccessoryEffect
     {

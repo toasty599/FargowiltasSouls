@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,9 +50,11 @@ Absorb Anticoagulation blood clots to gain 30% increased damage
             player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;
 
             player.noKnockback = true;
-
-            if (player.GetToggleValue("DreadShellParry"))
-                player.FargoSouls().DreadShellItem = Item;
+            player.AddEffect<DreadShellEffect>(Item);
         }
+    }
+    public class DreadShellEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<LumpofFleshHeader>();
     }
 }

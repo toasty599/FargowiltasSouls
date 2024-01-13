@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
@@ -48,8 +50,18 @@ The saucer's tractor beam slows enemies hit by it
 
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;
-            if (player.GetToggleValue("MasoUfo"))
-                player.AddBuff(Terraria.ModLoader.ModContent.BuffType<Buffs.Minions.SaucerMinionBuff>(), 2);
+            player.AddEffect<UfoMinionEffect>(Item);
+                
         }
+    }
+    public class UfoMinionEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.AddBuff(Terraria.ModLoader.ModContent.BuffType<Buffs.Minions.SaucerMinionBuff>(), 2);
+        }
+
     }
 }

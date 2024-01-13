@@ -388,7 +388,7 @@ namespace FargowiltasSouls
                         return Main.LocalPlayer.FargoSouls().MutantAntibodies;
 
                     case "SinisterIcon":
-                        return Main.LocalPlayer.FargoSouls().SinisterIcon;
+                        return Main.LocalPlayer.HasEffect<SinisterIconEffect>();
 
                     case "AbomAlive":
                         return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());

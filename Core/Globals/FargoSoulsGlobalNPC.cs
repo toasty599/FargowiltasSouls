@@ -907,7 +907,7 @@ namespace FargowiltasSouls.Core.Globals
                 maxSpawns *= 3;
             }
 
-            if (modPlayer.SinisterIcon)
+            if (player.HasEffect<SinisterIconEffect>())
             {
                 spawnRate /= 2;
                 maxSpawns *= 2;
@@ -954,13 +954,12 @@ namespace FargowiltasSouls.Core.Globals
         public override void OnKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (!lootMultiplierCheck)
             {
                 lootMultiplierCheck = true;
 
-                if (modPlayer.SinisterIconDrops && !npc.boss && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                if (player.HasEffect<SinisterIconDropsEffect>() && !npc.boss && !IllegalLootMultiplierNPCs.Contains(npc.type))
                 {
                     npc.NPCLoot();
                 }

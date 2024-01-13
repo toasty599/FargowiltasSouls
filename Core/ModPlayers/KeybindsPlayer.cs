@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (FargowiltasSouls.FreezeKey.JustPressed)
             {
-                if (StardustEnchantActive && !Player.HasBuff(ModContent.BuffType<TimeStopCDBuff>()))
+                if (Player.HasEffect<StardustEffect>() && !Player.HasBuff(ModContent.BuffType<TimeStopCDBuff>()))
                 {
                     int cooldownInSeconds = 60;
                     if (ForceEffect<StardustEnchant>())

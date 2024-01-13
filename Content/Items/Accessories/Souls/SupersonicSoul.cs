@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             player.AddEffect<MasoAeolusFrog>(item);
             player.AddEffect<MasoAeolusFlower>(item);
-            player.AddEffect<MasoAeolus>(item);
+            player.AddEffect<ZephyrJump>(item);
 
             if (Player.AddEffect<SupersonicSpeedEffect>(item) && !Player.FargoSouls().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
             {

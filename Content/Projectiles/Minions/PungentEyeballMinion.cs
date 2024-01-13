@@ -7,7 +7,7 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-    public class PungentEyeball : ModProjectile
+    public class PungentEyeballMinion : ModProjectile
     {
         public override void SetStaticDefaults()
         {

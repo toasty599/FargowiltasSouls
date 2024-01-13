@@ -73,7 +73,7 @@ Summon crits do x1.5 damage instead of x2
         public override void PostUpdateEquips(Player player)
         {
             //minion crits
-            player.FargoSouls().SpiderEnchantActive = true;
+            player.FargoSouls().MinionCrits = true;
 
             player.GetCritChance(DamageClass.Summon) += 4;
         }

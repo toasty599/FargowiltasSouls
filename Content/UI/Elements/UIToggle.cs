@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             }
 
             spriteBatch.Draw(FargoUIManager.CheckBox.Value, position, Color.White);
-            if (Main.LocalPlayer.GetToggleValue(Effect, false))
+            if (Main.LocalPlayer.GetToggleValue(Effect, true))
                 spriteBatch.Draw(FargoUIManager.CheckMark.Value, position, Color.White);
 
             string text = Effect.ToggleDescription;

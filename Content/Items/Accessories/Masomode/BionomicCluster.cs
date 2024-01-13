@@ -88,8 +88,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             fargoPlayer.TribalCharm = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
             fargoPlayer.ConcentratedRainbowMatter = true;
+            player.AddEffect<RainbowHealEffect>(item);
             fargoPlayer.FrigidGemstoneItem = item;
-            fargoPlayer.StabilizedGravity = true;
+            player.AddEffect<StabilizedGravity>(item);
         }
 
         public override void UpdateInventory(Player player) => PassiveEffect(player, Item);
@@ -116,7 +117,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             // Wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
             player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
-            player.FargoSouls().WretchedPouchItem = Item;
+            player.AddEffect<WretchedPouchEffect>(Item);
 
             // Sands of time
             player.buffImmune[BuffID.WindPushed] = true;
@@ -125,7 +126,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             // Squeaky toy
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<GuiltyBuff>()] = true;
-            fargoPlayer.SqueakyAcc = true;
+            player.AddEffect<SqueakEffect>(Item);
 
             // Tribal charm
             player.buffImmune[BuffID.Webbed] = true;
@@ -242,7 +243,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             // Wretched pouch
             player.buffImmune[BuffID.ShadowFlame] = true;
             player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
-            player.FargoSouls().WretchedPouchItem = Item;
+            player.AddEffect<WretchedPouchEffect>(Item);
 
             // Sands of time
             player.buffImmune[BuffID.WindPushed] = true;
@@ -251,7 +252,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             // Squeaky toy
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<GuiltyBuff>()] = true;
-            fargoPlayer.SqueakyAcc = true;
+            player.AddEffect<SqueakEffect>(Item);
 
             // Tribal charm
             player.buffImmune[BuffID.Webbed] = true;

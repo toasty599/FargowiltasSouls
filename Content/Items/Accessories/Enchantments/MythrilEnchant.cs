@@ -36,7 +36,7 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.AddEffect<MythrilEffect>();
+            player.AddEffect<MythrilEffect>(Item);
         }
 
 
