@@ -250,10 +250,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
 
-            if (SolarEnchantActive && Player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
-                target.AddBuff(ModContent.BuffType<SolarFlareBuff>(), 300);
-
-
             //            /*if (PalladEnchant && !TerrariaSoul && palladiumCD == 0 && !target.immortal && !Player.moonLeech)
             //            {
             //                int heal = damage / 10;
@@ -365,9 +361,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (DarkenedHeartItem != null)
                 DarkenedHeartAttack(projectile);
-
-            if (NebulaEnchantActive)
-                NebulaOnHit(target, projectile, damageClass);
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)

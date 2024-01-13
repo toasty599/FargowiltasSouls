@@ -1,6 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -37,10 +42,8 @@ Attacks may inflict the Solar Flare debuff
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            //solar shields and flare debuff
-            //flare debuff
-            modPlayer.SolarEnchantActive = true;
+            player.AddEffect<SolarEffect>(Item);
+            player.AddEffect<SolarFlareEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -60,6 +63,84 @@ Attacks may inflict the Solar Flare debuff
             .AddTile(TileID.LunarCraftingStation)
             .Register();
 
+        }
+    }
+    public class SolarEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            Player Player = player;
+            if (!Player.setSolar && !player.FargoSouls().TerrariaSoul) //nerf DR
+            {
+                Player.endurance -= 0.15f;
+            }
+
+            Player.AddBuff(BuffID.SolarShield3, 5, false);
+
+            Player.setSolar = true;
+            int solarCD = 240;
+            if (++Player.solarCounter >= solarCD)
+            {
+                if (Player.solarShields > 0 && Player.solarShields < 3)
+                {
+                    for (int i = 0; i < Player.MaxBuffs; i++)
+                    {
+                        if (Player.buffType[i] >= BuffID.SolarShield1 && Player.buffType[i] <= BuffID.SolarShield2)
+                        {
+                            Player.DelBuff(i);
+                        }
+                    }
+                }
+                if (Player.solarShields < 3)
+                {
+                    Player.AddBuff(BuffID.SolarShield1 + Player.solarShields, 5, false);
+                    for (int i = 0; i < 16; i++)
+                    {
+                        Dust dust = Main.dust[Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch, 0f, 0f, 100)];
+                        dust.noGravity = true;
+                        dust.scale = 1.7f;
+                        dust.fadeIn = 0.5f;
+                        dust.velocity *= 5f;
+                    }
+                    Player.solarCounter = 0;
+                }
+                else
+                {
+                    Player.solarCounter = solarCD;
+                }
+            }
+            for (int i = Player.solarShields; i < 3; i++)
+            {
+                Player.solarShieldPos[i] = Vector2.Zero;
+            }
+            for (int i = 0; i < Player.solarShields; i++)
+            {
+                Player.solarShieldPos[i] += Player.solarShieldVel[i];
+                Vector2 value = (Player.miscCounter / 100f * 6.28318548f + i * (6.28318548f / Player.solarShields)).ToRotationVector2() * 6f;
+                value.X = Player.direction * 20;
+                Player.solarShieldVel[i] = (value - Player.solarShieldPos[i]) * 0.2f;
+            }
+            if (Player.dashDelay >= 0)
+            {
+                Player.solarDashing = false;
+                Player.solarDashConsumedFlare = false;
+            }
+            bool flag = Player.solarDashing && Player.dashDelay < 0;
+            if (Player.solarShields > 0 || flag)
+            {
+                Player.dashType = 3;
+                player.FargoSouls().HasDash = true; //doesnt check this itself, so overrides most other dashes(?)
+            }
+        }
+    }
+    public class SolarFlareEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            if (Main.rand.NextBool(4))
+                target.AddBuff(ModContent.BuffType<SolarFlareBuff>(), 300);
         }
     }
 }

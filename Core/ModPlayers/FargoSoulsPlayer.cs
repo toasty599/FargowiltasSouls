@@ -243,9 +243,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             //CrimsonRegen = false;
             SpiderEnchantActive = false;
             StardustEnchantActive = false;
-            NebulaEnchantActive = false;
             VortexEnchantActive = false;
-            MeteorEnchantItem = null;
             MoltenEnchantActive = false;
             FirstStrike = false;
             TurtleEnchantActive = false;
@@ -253,7 +251,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             GoldShell = false;
             CactusEnchantItem = null;
             LavaWet = false;
-            SolarEnchantActive = false;
             DarkArtistEnchantItem = null;
 
             WoodEnchantItem = null;
@@ -361,7 +358,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             noDodge = false;
             noSupersonic = false;
             NoMomentum = false;
-            MeteorMomentum = false;
             Bloodthirsty = false;
             DisruptedFocus = false;
             SinisterIcon = false;

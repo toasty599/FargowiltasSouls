@@ -1,6 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Common.Graphics.Shaders;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -39,7 +46,8 @@ There is a 60 second cooldown for this effect
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().StardustEffect(Item);
+            player.AddEffect<StardustMinionEffect>(Item);
+            player.AddEffect<StardustEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -58,6 +66,85 @@ There is a 60 second cooldown for this effect
 
             .AddTile(TileID.LunarCraftingStation)
             .Register();
+        }
+    }
+    public class StardustMinionEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ProjectileID.StardustGuardian] < 1)
+            {
+                FargoSoulsUtil.NewSummonProjectile(GetSource_EffectItem(player), player.Center, Vector2.Zero, ProjectileID.StardustGuardian, 30, 10f, Main.myPlayer);
+            }
+        }
+    }
+    public class StardustEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => null;
+        public const int TIMESTOP_DURATION = 540; //300
+        public override void PostUpdateEquips(Player player)
+        {
+            player.setStardust = true;
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.FreezeTime && modPlayer.freezeLength > 0)
+            {
+                player.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = true;
+
+                if (Main.netMode != NetmodeID.Server)
+                    ShaderManager.GetFilterIfExists("Invert").SetFocusPosition(player.Center);
+
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
+                    if (npc.active && !npc.HasBuff(ModContent.BuffType<TimeFrozenBuff>()))
+                        npc.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), modPlayer.freezeLength);
+                }
+
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    Projectile p = Main.projectile[i];
+                    FargoSoulsGlobalProjectile globalProj = p.FargoSouls();
+                    if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !globalProj.TimeFreezeImmune && globalProj.TimeFrozen == 0)
+                    {
+                        globalProj.TimeFrozen = modPlayer.freezeLength;
+
+                        /*if (p.owner == Player.whoAmI && p.friendly && !p.hostile)
+                        {
+                            //p.maxPenetrate = 1;
+                            if (!p.usesLocalNPCImmunity && !p.usesIDStaticNPCImmunity)
+                            {
+                                p.usesLocalNPCImmunity = true;
+                                p.localNPCHitCooldown = 1;
+                            }
+                        }*/
+                    }
+                }
+
+                modPlayer.freezeLength--;
+
+                FargowiltasSouls.ManageMusicTimestop(modPlayer.freezeLength < 5);
+
+                if (modPlayer.freezeLength == 90)
+                {
+                    if (!Main.dedServ)
+                        SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudoResume"), player.Center);
+                }
+
+                if (modPlayer.freezeLength <= 0)
+                {
+                    modPlayer.FreezeTime = false;
+                    modPlayer.freezeLength = TIMESTOP_DURATION;
+
+                    for (int i = 0; i < Main.maxNPCs; i++)
+                    {
+                        NPC npc = Main.npc[i];
+                        if (npc.active && !npc.dontTakeDamage && npc.life == 1 && npc.lifeMax > 1)
+                            npc.SimpleStrikeNPC(int.MaxValue, 0, false, 0, null, false, 0, true);
+                    }
+                }
+            }
         }
     }
 }

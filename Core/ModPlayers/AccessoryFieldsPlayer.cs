@@ -76,7 +76,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int AshwoodCD;
 
         //force of cosmos
-        public Item MeteorEnchantItem;
         public int MeteorTimer;
         public int MeteorCD = 60;
         public bool MeteorShower;
@@ -122,14 +121,12 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int dashCD;
 
         public bool SnowVisual;
-        public bool SolarEnchantActive;
         public int SpectreCD;
         public bool SpiderEnchantActive;
         //public bool squireReduceIframes;
         public bool StardustEnchantActive;
         public bool FreezeTime;
         public int freezeLength;
-        public const int TIMESTOP_DURATION = 540; //300
         public bool ChillSnowstorm;
         public int chillLength;
         public int CHILL_DURATION => Player.HasEffect<FrostEffect>() ? 60 * 20 : 60 * 15;
@@ -145,8 +142,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool WizardEnchantActive;
         public bool WizardTooltips;
         public Item WizardedItem;
-
-        public bool NebulaEnchantActive;
 
         public int CritterAttackTimer;
 
@@ -283,7 +278,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool noDodge;
         public bool noSupersonic;
         public bool NoMomentum;
-        public bool MeteorMomentum;
         public bool Bloodthirsty;
         public bool Unlucky;
         public bool DisruptedFocus;

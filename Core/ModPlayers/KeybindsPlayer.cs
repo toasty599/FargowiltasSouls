@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.AddBuff(ModContent.BuffType<TimeStopCDBuff>(), cooldownInSeconds * 60);
 
                     FreezeTime = true;
-                    freezeLength = TIMESTOP_DURATION;
+                    freezeLength = StardustEffect.TIMESTOP_DURATION;
 
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Player.Center);
                 }

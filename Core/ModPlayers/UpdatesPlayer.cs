@@ -163,12 +163,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void PostUpdateEquips()
         {
 
-            if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
-            {
-                Player.runAcceleration *= 1.3f;
-                Player.runSlowdown *= 1.3f;
-
-            }
             if (NoMomentum && !Player.mount.Active)
             {
                 if (Player.vortexStealthActive && Math.Abs(Player.velocity.X) > 6)
@@ -556,8 +550,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (HealTimer > 0)
                 HealTimer--;
 
-            if (NebulaEnchantActive)
-                NebulaEffect();
 
             if (LowGround)
             {
