@@ -1,5 +1,9 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
@@ -36,8 +40,36 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
         {
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
+            player.AddEffect<DeerclawpsEffect>(Item);
+        }
+    }
+    public class DeerclawpsEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<LumpofFleshHeader>();
+        public static void DeerclawpsAttack(Player player, Vector2 pos)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                Vector2 vel = 16f * -Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(30));
 
-            player.FargoSouls().DeerclawpsItem = Item;
+                int dam = 32;
+                int type = ProjectileID.DeerclopsIceSpike;
+                float ai0 = -15f;
+                float ai1 = Main.rand.NextFloat(0.5f, 1f);
+                if (player.FargoSouls().LumpOfFlesh)
+                {
+                    dam = 48;
+                    type = ProjectileID.SharpTears;
+                    ai0 *= 2f;
+                    ai1 += 0.5f;
+                }
+                dam = (int)(dam * player.ActualClassDamage(DamageClass.Melee));
+
+                if (player.velocity.Y == 0)
+                    Projectile.NewProjectile(player.GetSource_EffectItem<DeerclawpsEffect>(), pos, vel, type, dam, 4f, Main.myPlayer, ai0, ai1);
+                else
+                    Projectile.NewProjectile(player.GetSource_EffectItem<DeerclawpsEffect>(), pos, vel * (Main.rand.NextBool() ? 1 : -1), type, dam, 4f, Main.myPlayer, ai0, ai1 / 2);
+            }
         }
     }
 }

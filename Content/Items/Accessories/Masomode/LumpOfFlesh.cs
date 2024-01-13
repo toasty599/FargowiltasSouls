@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -82,7 +83,7 @@ Enemies are less likely to target you
 
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            player.FargoSouls().DeerclawpsItem = Item;
+            player.AddEffect<DeerclawpsEffect>(Item);
         }
 
         public override void AddRecipes()

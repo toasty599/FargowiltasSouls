@@ -281,7 +281,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             DarkenedHeartItem = null;
             GuttedHeart = false;
             NecromanticBrewItem = null;
-            DeerclawpsItem = null;
             DeerSinewNerf = false;
             PureHeart = false;
             PungentEyeballMinion = false;
@@ -311,7 +310,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             MasochistSoul = false;
             MasochistHeart = false;
             SandsofTime = false;
-            DragonFang = false;
 			StabilizedGravity = false;
             SecurityWallet = false;
             FrigidGemstoneItem = null;

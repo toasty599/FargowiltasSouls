@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Toggler;
@@ -103,12 +104,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 for (int i = 0; i < length; i += 16)
                 {
-                    if (modPlayer.DeerclawpsItem != null)
+                    if (player.HasEffect<DeerclawpsEffect>())
                     {
-                        if (player.whoAmI == Main.myPlayer && player.GetToggleValue("Deerclawps"))
-                        {
-                            modPlayer.DeerclawpsAttack(new Vector2(teleportPos.X, player.Bottom.Y));
-                        }
+                        DeerclawpsEffect.DeerclawpsAttack(player, Vector2.UnitX * teleportPos.X + Vector2.UnitY * player.Bottom.Y);
                     }
 
                     teleportPos.X += 16 * direction;

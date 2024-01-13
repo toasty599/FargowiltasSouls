@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -78,10 +79,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.nightVision = true;
 
             player.manaMagnet = true;
-            if (player.GetToggleValue("ManaFlower", false))
-                player.manaFlower = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
+            player.manaFlower = true;
+            player.AddEffect<MasoCarrotEffect>(item);
 
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.SandsofTime = true;
@@ -104,14 +103,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Concentrated rainbow matter
             player.buffImmune[ModContent.BuffType<FlamesoftheUniverseBuff>()] = true;
-            if (player.GetToggleValue("MasoRainbow"))
-                player.AddBuff(ModContent.BuffType<RainbowSlimeBuff>(), 2);
+            player.AddEffect<RainbowSlimeMinion>(Item);
 
             // Dragon fang
             player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;
-            if (player.GetToggleValue("MasoClipped"))
-                fargoPlayer.DragonFang = true;
+            player.AddEffect<ClippedEffect>(Item);
 
             // Frigid gemstone
             player.buffImmune[BuffID.Frostburn] = true;
@@ -139,8 +136,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             // Mystic skull
             player.buffImmune[BuffID.Suffocation] = true;
             player.manaMagnet = true;
-            if (player.GetToggleValue("ManaFlower", false))
-                player.manaFlower = true;
+            player.manaFlower = true;
 
             // Security wallet
             player.buffImmune[ModContent.BuffType<MidasBuff>()] = true;
@@ -148,8 +144,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Carrot
             player.nightVision = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
+            player.AddEffect<MasoCarrotEffect>(Item);
 
             // Nymph's perfume
             player.buffImmune[BuffID.Lovestruck] = true;
@@ -157,16 +152,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.buffImmune[ModContent.BuffType<HexedBuff>()] = true;
             player.buffImmune[BuffID.Stinky] = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
-            if (player.GetToggleValue("MasoNymph"))
-            {
-                fargoPlayer.NymphsPerfume = true;
-                if (fargoPlayer.NymphsPerfumeCD > 0)
-                    fargoPlayer.NymphsPerfumeCD--;
-            }
+            player.AddEffect<NymphPerfumeEffect>(Item);
 
             // Tim's concoction
-            if (player.GetToggleValue("MasoConcoction"))
-                player.FargoSouls().TimsConcoction = true;
+            player.AddEffect<TimsConcoctionEffect>(Item);
         }
 
         public override void UseItemFrame(Player player) => SandsofTime.Use(player);
@@ -240,14 +229,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Concentrated rainbow matter
             player.buffImmune[ModContent.BuffType<FlamesoftheUniverseBuff>()] = true;
-            if (player.GetToggleValue("MasoRainbow"))
-                player.AddBuff(ModContent.BuffType<RainbowSlimeBuff>(), 2);
+            player.AddEffect<RainbowSlimeMinion>(Item);
 
             // Dragon fang
             player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;
-            if (player.GetToggleValue("MasoClipped"))
-                fargoPlayer.DragonFang = true;
+            player.AddEffect<ClippedEffect>(Item);
 
             // Frigid gemstone
             player.buffImmune[BuffID.Frostburn] = true;
@@ -275,8 +262,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             // Mystic skull
             player.buffImmune[BuffID.Suffocation] = true;
             player.manaMagnet = true;
-            if (player.GetToggleValue("ManaFlower", false))
-                player.manaFlower = true;
+            player.manaFlower = true;
 
             // Security wallet
             player.buffImmune[ModContent.BuffType<MidasBuff>()] = true;
@@ -284,8 +270,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Carrot
             player.nightVision = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
+            player.AddEffect<MasoCarrotEffect>(Item);
 
             // Nymph's perfume
             player.buffImmune[BuffID.Lovestruck] = true;
@@ -293,16 +278,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.buffImmune[ModContent.BuffType<HexedBuff>()] = true;
             player.buffImmune[BuffID.Stinky] = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
-            if (player.GetToggleValue("MasoNymph"))
-            {
-                fargoPlayer.NymphsPerfume = true;
-                if (fargoPlayer.NymphsPerfumeCD > 0)
-                    fargoPlayer.NymphsPerfumeCD--;
-            }
+            player.AddEffect<NymphPerfumeEffect>(Item);
 
             // Tim's concoction
-            if (player.GetToggleValue("MasoConcoction"))
-                player.FargoSouls().TimsConcoction = true;
+            player.AddEffect<TimsConcoctionEffect>(Item);
         }
 
         public override void UseItemFrame(Player player) => SandsofTime.Use(player);

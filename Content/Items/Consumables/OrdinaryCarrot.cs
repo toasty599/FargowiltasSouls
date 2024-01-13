@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Consumables
@@ -42,8 +44,7 @@ Right click to increase view range while in inventory
 
         public override void UpdateInventory(Player player)
         {
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
+            player.AddEffect<MasoCarrotEffect>(Item);
         }
 
         public override bool? UseItem(Player player)
@@ -54,6 +55,15 @@ Right click to increase view range while in inventory
                 player.AddBuff(BuffID.WellFed, 3600);
             }
             return true;
+        }
+    }
+    public class MasoCarrotEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.scope = true;
         }
     }
 }

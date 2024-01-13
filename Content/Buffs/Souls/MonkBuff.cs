@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (!(player.whoAmI == Main.myPlayer && (!player.GetToggleValue("Monk"))))
+            if (!(player.whoAmI == Main.myPlayer && !player.HasEffect<MonkDashEffect>()))
                 player.buffTime[buffIndex] = 2;
             if (player.mount.Active)
             {

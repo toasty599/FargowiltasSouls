@@ -173,7 +173,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
         public float NecromanticBrewRotation;
-        public Item DeerclawpsItem;
         public int IsDashingTimer;
         public bool DeerSinewNerf;
         public int DeerSinewFreezeCD;
@@ -211,7 +210,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool MutantsPactSlot;
         public bool HasClickedWrench;
         public bool SandsofTime;
-        public bool DragonFang;
         public bool StabilizedGravity;
         public bool SecurityWallet;
         public Item FrigidGemstoneItem;

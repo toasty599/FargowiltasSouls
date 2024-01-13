@@ -311,15 +311,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 60);
             }
 
-
-            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] && Main.rand.NextBool(10))
-            {
-                target.velocity.X = 0f;
-                target.velocity.Y = 10f;
-                target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 240);
-                target.netUpdate = true;
-            }
-
             if (AbomWandItem != null)
             {
                 //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);

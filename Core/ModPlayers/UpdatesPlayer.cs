@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
@@ -358,8 +359,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             DashManager.ManageDashes(Player);
 
-            if (DeerclawpsItem != null && IsInADashState)
-                DeerclawpsAttack(Player.Bottom);
+            if (Player.HasEffect<DeerclawpsEffect>() && IsInADashState)
+                DeerclawpsEffect.DeerclawpsAttack(Player, Player.Bottom);
 
             if (NecromanticBrewItem != null && IsInADashState && Player.GetToggleValue("MasoSkeleSpin"))
             {

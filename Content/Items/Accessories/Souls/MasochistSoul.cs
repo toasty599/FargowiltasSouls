@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
@@ -85,18 +86,6 @@ Summons the aid of all Eternity Mode bosses to your side
         public override void UpdateVanity(Player player) => PassiveEffect(player, Item);
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.DisplayToggle("MasoIcon");
-            player.DisplayToggle("MasoIconDrops");
-            player.DisplayToggle("SlimeFalling");
-            player.DisplayToggle("MasoSlime");
-            player.DisplayToggle("MasoClipped");
-            player.DisplayToggle("ManaFlower");
-            player.DisplayToggle("MasoCarrot");
-            player.DisplayToggle("MasoNymph");
-            player.DisplayToggle("MasoConcoction");
-            player.DisplayToggle("MasoPump");
-            player.DisplayToggle("MasoGrav");
-            player.DisplayToggle("PrecisionSealHurtbox");
 
             BionomicCluster.PassiveEffect(player, Item);
 
@@ -217,8 +206,7 @@ Summons the aid of all Eternity Mode bosses to your side
                 player.FargoSouls().DevianttHearts = true;*/
 
             //dragon fang
-            if (player.GetToggleValue("MasoClipped"))
-                fargoPlayer.DragonFang = true;
+            player.AddEffect<ClippedEffect>(Item);
 
             //frigid gemstone
             player.buffImmune[BuffID.Frostburn] = true;
@@ -242,8 +230,7 @@ Summons the aid of all Eternity Mode bosses to your side
 
             //carrot
             player.nightVision = true;
-            if (player.GetToggleValue("MasoCarrot", false))
-                player.scope = true;
+            player.AddEffect<MasoCarrotEffect>(Item);
 
             //squeaky toy
             fargoPlayer.SqueakyAcc = true;
@@ -257,16 +244,10 @@ Summons the aid of all Eternity Mode bosses to your side
             player.buffImmune[BuffID.Lovestruck] = true;
             player.buffImmune[BuffID.Stinky] = true;
             fargoPlayer.NymphsPerfumeRespawn = true;
-            if (player.GetToggleValue("MasoNymph"))
-            {
-                fargoPlayer.NymphsPerfume = true;
-                if (fargoPlayer.NymphsPerfumeCD > 0)
-                    fargoPlayer.NymphsPerfumeCD -= 10;
-            }
+            player.AddEffect<NymphPerfumeEffect>(Item);
 
             //tim's concoction
-            if (player.GetToggleValue("MasoConcoction"))
-                player.FargoSouls().TimsConcoction = true;
+            player.AddEffect<TimsConcoctionEffect>(Item);
 
             //dubious circuitry
             player.buffImmune[BuffID.CursedInferno] = true;
@@ -334,7 +315,7 @@ Summons the aid of all Eternity Mode bosses to your side
             //deerclaws
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            player.FargoSouls().DeerclawpsItem = Item;
+            player.AddEffect<DeerclawpsEffect>(Item);
 
             //sadism
             player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;

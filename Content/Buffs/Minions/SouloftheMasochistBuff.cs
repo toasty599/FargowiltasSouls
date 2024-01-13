@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.Minions;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -41,7 +42,8 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<PungentEyeball>(), damage, 0f, player.whoAmI);
                 }
 
-                if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoRainbow"))
+                
+                if (player.whoAmI == Main.myPlayer && player.GetToggleValue<RainbowSlimeMinion>())
                 {
                     fargoPlayer.RainbowSlime = true;
                     const int damage = 105;
