@@ -334,38 +334,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 target.netUpdate = true;
             }
 
-            if (SpectreEnchantActive && Player.GetToggleValue("Spectre") && !target.immortal && SpectreCD <= 0 && Main.rand.NextBool())
-            {
-                bool spectreForceEffect = ForceEffect<SpectreEnchant>();
-                if (projectile == null)
-                {
-                    //forced orb spawn reeeee
-                    float num = 4f;
-                    float speedX = Main.rand.Next(-100, 101);
-                    float speedY = Main.rand.Next(-100, 101);
-                    float num2 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
-                    num2 = num / num2;
-                    speedX *= num2;
-                    speedY *= num2;
-                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(Player.GetSource_Misc(""), target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, hitInfo.Damage / 2, 0, Player.whoAmI, target.whoAmI);
-
-                    if ((spectreForceEffect || (hitInfo.Crit && Main.rand.NextBool(5))) && p != null)
-                    {
-                        SpectreHeal(target, p);
-                        SpectreCD = spectreForceEffect ? 5 : 20;
-                    }
-                }
-                else if (projectile.type != ProjectileID.SpectreWrath)
-                {
-                    SpectreHurt(projectile);
-
-                    if (spectreForceEffect || (hitInfo.Crit && Main.rand.NextBool(5)))
-                        SpectreHeal(target, projectile);
-
-                    SpectreCD = spectreForceEffect ? 5 : 20;
-                }
-            }
-
             if (AbomWandItem != null)
             {
                 //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
@@ -436,8 +404,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             float dr = 0;
             dr += NecromanticBrew.NecroBrewDashDR(Player);
 
-            dr += TitaniumEnchant.TitaniumDR(this, npc);
-
             if (npc.FargoSouls().Corrupted || npc.FargoSouls().CorruptedForce)
                 dr += 0.2f;
 
@@ -470,9 +436,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             dr += NecromanticBrew.NecroBrewDashDR(Player);
-
-            dr += TitaniumEnchant.TitaniumDR(this, proj);
-
 
             if (Smite)
                 dr -= 0.2f;
@@ -625,9 +588,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
             }
-
-            if (FossilEnchantItem != null)
-                FossilEnchant.FossilHurt(this, (int)damage);
         }
 
         public override void OnHurt(Player.HurtInfo info)

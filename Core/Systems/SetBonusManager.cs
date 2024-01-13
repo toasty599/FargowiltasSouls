@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Core.Systems
                 GaiaHelmet.GaiaSetBonusKey(player);
                 NekomiHood.NekomiSetBonusKey(player);
                 StyxCrown.StyxSetBonusKey(player);
-                ForbiddenEnchant.ActivateForbiddenStorm(player);
+                ForbiddenEffect.ActivateForbiddenStorm(player);
                 VortexEnchant.ActivateVortex(player);
             }
 

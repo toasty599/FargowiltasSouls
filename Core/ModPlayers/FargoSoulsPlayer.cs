@@ -242,15 +242,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             PetsActive = true;
             CrimsonEnchantActive = false;
             //CrimsonRegen = false;
-            SpectreEnchantActive = false;
             SpiderEnchantActive = false;
             StardustEnchantActive = false;
-            FossilEnchantItem = null;
             JungleEnchantActive = false;
             ShroomEnchantActive = false;
             NebulaEnchantActive = false;
-            HallowEnchantItem = null;
-            AncientHallowEnchantActive = false;
             ChloroEnchantActive = false;
             ChloroEnchantItem = null;
             JungleEnchantItem = null;
@@ -263,9 +259,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             ShellHide = false;
             GoldShell = false;
             CactusEnchantItem = null;
-            ForbiddenEnchantActive = false;
             LavaWet = false;
-            TikiEnchantActive = false;
             SolarEnchantActive = false;
             DarkArtistEnchantItem = null;
 
@@ -885,41 +879,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (ForbiddenEnchantActive && drawInfo.shadow == 0f)
-            {
-                Color color12 = Player.GetImmuneAlphaPure(Lighting.GetColor((int)(drawInfo.Position.X + Player.width * 0.5) / 16, (int)(drawInfo.Position.Y + Player.height * 0.5) / 16, Color.White), drawInfo.shadow);
-                Color color21 = Color.Lerp(color12, value2: Color.White, 0.7f);
-
-                Texture2D texture2D2 = TextureAssets.Extra[74].Value;
-                Texture2D texture = TextureAssets.GlowMask[217].Value;
-                bool flag8 = !Player.setForbiddenCooldownLocked;
-                int num52 = (int)((Player.miscCounter / 300f * 6.28318548f).ToRotationVector2().Y * 6f);
-                float num53 = (Player.miscCounter / 75f * 6.28318548f).ToRotationVector2().X * 4f;
-                Color color22 = new Color(80, 70, 40, 0) * (num53 / 8f + 0.5f) * 0.8f;
-                if (!flag8)
-                {
-                    num52 = 0;
-                    num53 = 2f;
-                    color22 = new Color(80, 70, 40, 0) * 0.3f;
-                    color21 = color21.MultiplyRGB(new Color(0.5f, 0.5f, 1f));
-                }
-                Vector2 vector4 = new Vector2((int)(drawInfo.Position.X - Main.screenPosition.X - (Player.bodyFrame.Width / 2) + (Player.width / 2)), (int)(drawInfo.Position.Y - Main.screenPosition.Y + Player.height - Player.bodyFrame.Height + 4f)) + Player.bodyPosition + new Vector2(Player.bodyFrame.Width / 2, Player.bodyFrame.Height / 2);
-                vector4 += new Vector2((float)(-(float)Player.direction * 10), (float)(-20 + num52));
-                DrawData value = new(texture2D2, vector4, null, color21, Player.bodyRotation, texture2D2.Size() / 2f, 1f, drawInfo.playerEffect, 0);
-
-                int num6 = 0;
-                if (Player.dye[1] != null)
-                {
-                    num6 = Player.dye[1].dye;
-                }
-                value.shader = num6;
-                drawInfo.DrawDataCache.Add(value);
-                for (float num54 = 0f; num54 < 4f; num54 += 1f)
-                {
-                    value = new DrawData(texture, vector4 + (num54 * 1.57079637f).ToRotationVector2() * num53, null, color22, Player.bodyRotation, texture2D2.Size() / 2f, 1f, drawInfo.playerEffect, 0);
-                    drawInfo.DrawDataCache.Add(value);
-                }
-            }
+            
         }
 
         
@@ -996,12 +956,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     retVal = false;
 
                     Projectile.NewProjectile(Player.GetSource_Accessory(MutantSetBonusItem), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.ActualClassDamage(DamageClass.Magic)), 10f, Player.whoAmI);
-                }
-
-                if (Player.whoAmI == Main.myPlayer && retVal && FossilEnchantItem != null && Player.FindBuffIndex(ModContent.BuffType<FossilReviveCDBuff>()) == -1)
-                {
-                    FossilEnchant.FossilRevive(this);
-                    retVal = false;
                 }
 
                 if (Player.whoAmI == Main.myPlayer && retVal && AbomWandItem != null && !AbominableWandRevived)
@@ -1327,7 +1281,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
         {
             healValue = GetHealMultiplier(healValue);
-            if (HallowEnchantItem != null)
+            if (Player.HasEffect<HallowEffect>())
             {
                 healValue = 0;
             }
@@ -1440,10 +1394,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 int force = BaseEnchant.Force[type];
                 if (force <= 0)
-                    return false;
-                if (Player.GetEffectFields<ForceFields>().ForceEffects.Contains(force))
-                    return true;
-                return BaseEnchant.CraftsInto[type] > 0 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
+                    return BaseEnchant.CraftsInto[type] > 0 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
+                return Player.GetEffectFields<ForceFields>().ForceEffects.Contains(force); 
             }
             bool CheckWizard(int type)
             {
@@ -1451,25 +1403,27 @@ namespace FargowiltasSouls.Core.ModPlayers
                     return true;
                 return (BaseEnchant.CraftsInto[type] > 0 && CheckWizard(BaseEnchant.CraftsInto[type]));
             }
+            if (TerrariaSoul)
+                return true;
 
             if (Main.gamePaused || modItem == null || modItem.Item == null || modItem.Item.IsAir)
                 return false;
 
-            if (CheckWizard(modItem.Item.type))
-                return true;
-
-            if (modItem is BaseEnchant && CheckForces(modItem.Item.type))
-                return true;
+            if (modItem is BaseEnchant)
+            {
+                if (CheckWizard(modItem.Item.type) || CheckForces(modItem.Item.type))
+                    return true;
+            }
 
             if (modItem is BaseSoul || modItem is BaseForce)
                 return true;
 
             return false;
         }
-        public bool ForceEffect<T>() where T : BaseEnchant => ForceEffect(ModContent.ItemType<T>());
+        public bool ForceEffect<T>() where T : BaseEnchant => ForceEffect(ModContent.GetInstance<T>());
         public bool ForceEffect(int? enchType)
         {
-            if (enchType == null)
+            if (enchType == null || enchType <= 0)
                 return false;
 
             ModItem item = ModContent.GetModItem((int)enchType);

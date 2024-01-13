@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -34,7 +36,13 @@ Whip your summons to make them work harder
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().TikiEffect(hideVisual);
+            AddEffects(player, Item);
+        }
+        public static void AddEffects(Player player, Item item)
+        {
+            if (player.FargoSouls().ForceEffect<TikiEnchant>())
+                player.whipRangeMultiplier += 0.2f;
+            player.AddEffect<TikiEffect>(item);
         }
 
         public override void AddRecipes()
@@ -54,5 +62,10 @@ Whip your summons to make them work harder
             .AddTile(TileID.CrystalBall)
             .Register();
         }
+    }
+    public class TikiEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
     }
 }

@@ -6,10 +6,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-	public class AncientHallowEnchant : BaseEnchant
+    public class AncientHallowEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {
@@ -34,18 +36,16 @@ Summons a Terraprisma familiar that scales with minion damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            AncientHallowEffect(player, Item);
+            AddEffects(player, Item);
         }
 
-        public static void AncientHallowEffect(Player player, Item item)
+        public static void AddEffects(Player player, Item item)
         {
-            player.DisplayToggle("AHallowed");
-            //player.DisplayToggle("HallowS");
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.AncientHallowEnchantActive = true;
 
+            bool minion = player.AddEffect<AncientHallowMinion>(item);
             int damage = modPlayer.ForceEffect<AncientHallowEnchant>() ? 600 : 350;
-            modPlayer.AddMinion(item, player.GetToggleValue("AHallowed"), ModContent.ProjectileType<HallowSword>(), damage, 2);
+            modPlayer.AddMinion(item, minion, ModContent.ProjectileType<HallowSword>(), damage, 2);
 
             /*
             //reflect proj
@@ -140,5 +140,11 @@ Summons a Terraprisma familiar that scales with minion damage
                 .AddTile(TileID.CrystalBall)
                 .Register();
         }
+    }
+    public class AncientHallowMinion : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
+        public override bool MinionEffect => true;
     }
 }

@@ -113,7 +113,7 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
                     for (int i = 0; i < max; i++)
                     {
                         Vector2 spawnPos = player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                        int p = Projectile.NewProjectile(player.GetSource_Accessory(EffectItem(player)), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, player.whoAmI, 0, rotation * i);
+                        int p = Projectile.NewProjectile(GetSource_EffectItem(player), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, player.whoAmI, 0, rotation * i);
                         Main.projectile[p].FargoSouls().CanSplit = false;
                     }
                 }

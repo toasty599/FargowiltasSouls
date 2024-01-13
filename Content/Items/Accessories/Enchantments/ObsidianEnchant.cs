@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 FargoSoulsPlayer modPlayer = player.FargoSouls();
                 damage = Math.Min(damage, FargoSoulsUtil.HighestDamageTypeScaling(player, 300));
 
-                Projectile.NewProjectile(player.GetSource_Accessory(EffectItem(player)), target.Center, Vector2.Zero, ModContent.ProjectileType<ObsidianExplosion>(), damage, 0, player.whoAmI);
+                Projectile.NewProjectile(GetSource_EffectItem(player), target.Center, Vector2.Zero, ModContent.ProjectileType<ObsidianExplosion>(), damage, 0, player.whoAmI);
 
                 if (modPlayer.ForceEffect<ObsidianEnchant>())
                 {

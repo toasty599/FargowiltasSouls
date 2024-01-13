@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.AccessoryEffectSystem
@@ -65,6 +66,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         public static bool HasEffect<T>(this Player player) where T : AccessoryEffect => player.HasEffect(ModContent.GetInstance<AccessoryEffect>());
         public static bool HasEffect(this Player player, AccessoryEffect accessoryEffect) => player.AccessoryEffects().ActiveEffects.Contains(accessoryEffect);
         public static Item EffectItem<T>(this Player player) where T : AccessoryEffect => player.AccessoryEffects().EffectItems.TryGetValue(ModContent.GetInstance<T>(), out Item item) ? item : null;
+        public static IEntitySource GetSource_EffectItem<T>(this Player player) where T : AccessoryEffect => ModContent.GetInstance<T>().GetSource_EffectItem(player);
         public static T EffectType<T>() where T : AccessoryEffect => ModContent.GetInstance<T>();
         public static AccessoryEffect EffectType(string internalName)  => ModContent.Find<AccessoryEffect>(internalName);
         public static T GetEffectFields<T>(this Player player) where T : EffectFields =>

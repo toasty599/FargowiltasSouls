@@ -41,6 +41,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         /// The item associated with this effect. Null if none is found.
         /// </summary>
         public Item EffectItem(Player player) => player.AccessoryEffects().EffectItems.TryGetValue(this, out Item value) ? value : null;
+        public IEntitySource GetSource_EffectItem(Player player) => player.GetSource_Accessory(EffectItem(player));
 
         #region Overridables
         public virtual void PreUpdate(Player player) { }

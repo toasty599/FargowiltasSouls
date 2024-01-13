@@ -243,7 +243,7 @@ namespace FargowiltasSouls.Content.Projectiles
             switch (projectile.type)
             {
                 case ProjectileID.SpiritHeal:
-                    if (modPlayer.SpectreEnchantActive && !modPlayer.TerrariaSoul)
+                    if (player.HasEffect<SpectreEffect>() && !modPlayer.TerrariaSoul)
                     {
                         projectile.extraUpdates = 1;
                         projectile.timeLeft = 180 * projectile.MaxUpdates;

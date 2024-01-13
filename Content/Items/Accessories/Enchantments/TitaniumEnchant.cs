@@ -61,15 +61,20 @@ This has a cooldown of 10 seconds during which you cannot gain shards
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
         public override bool HasToggle => true;
-
-        public static float TitaniumDR(FargoSoulsPlayer modPlayer, Entity attacker)
+        public override float ContactDamageDR(Player player, NPC npc, ref Player.HurtModifiers modifiers)
         {
-            TitaniumFields fields = modPlayer.Player.GetEffectFields<TitaniumFields>();
+            return base.ContactDamageDR(player, npc, ref modifiers);
+        }
+        public override float ProjectileDamageDR(Player player, Projectile projectile, ref Player.HurtModifiers modifiers)
+        {
+            return TitaniumDR(player, projectile);
+        }
+        public static float TitaniumDR(Player player, Entity attacker)
+        {
+            TitaniumFields fields = player.GetEffectFields<TitaniumFields>();
 
             if (!fields.TitaniumDRBuff)
                 return 0;
-
-            Player player = modPlayer.Player;
 
             bool canUseDR = attacker is NPC ||
                 attacker is Projectile projectile && projectile.GetSourceNPC() is NPC sourceNPC
@@ -77,8 +82,9 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
             if (canUseDR)
             {
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
                 float diff = 1f - player.endurance;
-                diff *= modPlayer.ForceEffect(modPlayer.Player.EffectItem<TitaniumEffect>().ModItem) ? 0.35f : 0.25f;
+                diff *= modPlayer.ForceEffect<TitaniumEnchant>() ? 0.35f : 0.25f;
                 return diff;
             }
             return 0;

@@ -96,10 +96,10 @@ namespace FargowiltasSouls.Content.Items
 
             if (item.healLife > 0)
             {
-                if (modPlayer.HallowEnchantItem != null)
+                if (player.HasEffect<HallowEffect>())
                 {
                     modPlayer.HallowHealTime = 6 * modPlayer.GetHealMultiplier(item.healLife);
-                    HallowEnchant.HealRepel(player, modPlayer.HallowEnchantItem);
+                    HallowEffect.HealRepel(player);
                 }
                 modPlayer.StatLifePrevious += modPlayer.GetHealMultiplier(item.healLife);
             }

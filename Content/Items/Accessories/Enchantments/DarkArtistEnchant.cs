@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 //spawn tower boi
                 if (player.whoAmI == Main.myPlayer)
                 {
-                    Projectile proj = Projectile.NewProjectileDirect(player.GetSource_Accessory(EffectItem(player)), player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
+                    Projectile proj = Projectile.NewProjectileDirect(GetSource_EffectItem(player), player.Center, Vector2.Zero, ModContent.ProjectileType<FlameburstMinion>(), 0, 0f, player.whoAmI);
                     proj.netUpdate = true; // TODO make this proj sync meme
                 }
             }

@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 int fireballDamage = damage;
                 if (!modPlayer.TerrariaSoul)
                     fireballDamage = Math.Min(fireballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, 60));
-                Projectile.NewProjectile(player.GetSource_Accessory(EffectItem(player)), player.Center, vel, ProjectileID.BallofFire, fireballDamage, 1, Main.myPlayer);
+                Projectile.NewProjectile(GetSource_EffectItem(player), player.Center, vel, ProjectileID.BallofFire, fireballDamage, 1, Main.myPlayer);
             }
         }
     }

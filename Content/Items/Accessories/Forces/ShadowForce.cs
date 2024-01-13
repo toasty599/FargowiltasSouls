@@ -21,7 +21,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
             SetActive(player);
 
             player.AddEffect<NinjaEffect>(Item);

@@ -82,23 +82,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int MeteorTimer;
         public int MeteorCD = 60;
         public bool MeteorShower;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public bool AncientHallowEnchantActive;
         public int ApprenticeCD;
 
         public Item CactusEnchantItem;
@@ -112,9 +95,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
         public Item DarkArtistEnchantItem;
-        public bool ForbiddenEnchantActive;
         public bool CanSummonForbiddenStorm = false;
-        public Item FossilEnchantItem;
         public bool FrostEnchantActive;
         public int IcicleCount;
         private int icicleCD;
@@ -122,7 +103,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool GoldEnchMoveCoins;
         public bool GoldShell;
         private int goldHP;
-        public Item HallowEnchantItem;
         public int HallowHealTime;
         public bool HuntressEnchantActive;
         public int HuntressStage;
@@ -157,7 +137,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool SnowEnchantActive;
         public bool SnowVisual;
         public bool SolarEnchantActive;
-        public bool SpectreEnchantActive;
         public int SpectreCD;
         public bool SpiderEnchantActive;
         //public bool squireReduceIframes;
@@ -168,7 +147,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool ChillSnowstorm;
         public int chillLength;
         public int CHILL_DURATION => FrostEnchantActive ? 60 * 20 : 60 * 15;
-        public bool TikiEnchantActive;
 
         public bool TurtleEnchantActive;
         public int TurtleCounter;
