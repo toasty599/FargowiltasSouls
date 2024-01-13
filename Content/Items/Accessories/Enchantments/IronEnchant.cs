@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class IronEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
     }
     public class IronFields : EffectFields

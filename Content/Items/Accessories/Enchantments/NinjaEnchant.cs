@@ -64,7 +64,7 @@ Increases armor pen by 15
     }
     public class NinjaEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
     }
 }

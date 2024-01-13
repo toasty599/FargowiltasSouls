@@ -66,7 +66,7 @@ Effects of Bone Glove
     }
     public class NecroEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
         public override void PostUpdateEquips(Player player)
         {

@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class BorealEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
         public override bool ExtraAttackEffect => true;
 

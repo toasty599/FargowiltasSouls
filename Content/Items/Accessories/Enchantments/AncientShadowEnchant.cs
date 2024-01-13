@@ -66,7 +66,7 @@ Three Shadow Orbs will orbit around you
     }
     public class AncientShadowDarkness : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {

@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class ForbiddenEffect : AccessoryEffect
     {
-        public override bool HasToggle => false;
+        
         public override Header ToggleHeader => null;
         public static void ActivateForbiddenStorm(Player player)
         {

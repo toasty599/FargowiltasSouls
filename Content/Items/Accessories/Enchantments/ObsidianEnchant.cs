@@ -83,12 +83,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class ObsidianEffect : AccessoryEffect
     {
-        public override bool HasToggle => false;
+        
         public override Header ToggleHeader => null;
     }
     public class ObsidianProcEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
         public override bool ExtraAttackEffect => true;
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)

@@ -56,7 +56,7 @@ Enemies struck while Bleeding spew damaging blood
     }
     public class ShadewoodEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
         public override void PostUpdateEquips(Player player)
         {

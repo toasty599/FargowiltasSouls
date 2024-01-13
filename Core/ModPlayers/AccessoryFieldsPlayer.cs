@@ -74,8 +74,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool TinCritBuffered;
         public int TungstenCD;
         public int AshwoodCD;
-        //force of nature
-        public Item CrimsonEnchantItem;
 
         //force of cosmos
         public Item MeteorEnchantItem;
@@ -86,19 +84,15 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public Item CactusEnchantItem;
         public int CactusProcCD;
-        public bool ChloroEnchantActive;
-        public Item ChloroEnchantItem;
 
-        public bool CrimsonEnchantActive;
         public int CrimsonRegenAmount;
         public int CrimsonRegenTime;
 
 
         public Item DarkArtistEnchantItem;
         public bool CanSummonForbiddenStorm = false;
-        public bool FrostEnchantActive;
         public int IcicleCount;
-        private int icicleCD;
+        public int icicleCD;
         public int GladiatorCD;
         public bool GoldEnchMoveCoins;
         public bool GoldShell;
@@ -108,8 +102,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int HuntressStage;
         public int HuntressCD;
 
-        public bool JungleEnchantActive;
-        public Item JungleEnchantItem;
         public int JungleCD;
 
 
@@ -123,18 +115,12 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool FirstStrike;
         public int SmokeBombCD;
 
-
-
-
-        public Item RainEnchantItem;
         //public int RainCD;
 
         public int RedRidingArrowCD;
 
         public int dashCD;
-        public bool ShroomEnchantActive;
 
-        public bool SnowEnchantActive;
         public bool SnowVisual;
         public bool SolarEnchantActive;
         public int SpectreCD;
@@ -146,7 +132,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public const int TIMESTOP_DURATION = 540; //300
         public bool ChillSnowstorm;
         public int chillLength;
-        public int CHILL_DURATION => FrostEnchantActive ? 60 * 20 : 60 * 15;
+        public int CHILL_DURATION => Player.HasEffect<FrostEffect>() ? 60 * 20 : 60 * 15;
 
         public bool TurtleEnchantActive;
         public int TurtleCounter;

@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class BeeEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        public override bool HasToggle => false;
+        
         public override void PostUpdateEquips(Player player)
         {
             player.strongBees = true;

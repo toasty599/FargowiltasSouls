@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class LeadEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {

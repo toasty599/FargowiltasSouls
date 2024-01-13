@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class SpectreEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {

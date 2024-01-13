@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class TinEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
 
         public override void PostUpdateEquips(Player player)

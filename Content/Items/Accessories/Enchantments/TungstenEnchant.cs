@@ -62,7 +62,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
     public class TungstenEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
         public override void ModifyHitNPCWithItem(Player player, Item item, NPC target, ref NPC.HitModifiers modifiers)
         {

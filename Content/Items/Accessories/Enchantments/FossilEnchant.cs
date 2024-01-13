@@ -65,7 +65,7 @@ Collect the bones to heal for 20 HP each
     }
     public class FossilEffect : AccessoryEffect
     {
-        public override bool HasToggle => false;
+        
         public override Header ToggleHeader => null;
         public override void OnHurt(Player player, Player.HurtInfo info)
         {
@@ -122,7 +122,7 @@ Collect the bones to heal for 20 HP each
     }
     public class FossilBones : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
         public override void OnHurt(Player player, Player.HurtInfo info)
         {

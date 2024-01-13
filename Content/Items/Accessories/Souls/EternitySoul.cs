@@ -229,7 +229,7 @@ This stacks up to 950 times until you get hit"); */
     }
     public class EternityTin : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<EternityHeader>();
     }
 

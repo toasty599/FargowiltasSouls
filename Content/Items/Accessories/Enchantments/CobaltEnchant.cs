@@ -55,7 +55,7 @@ When you are hurt, you violently explode to damage nearby enemies
     public class CobaltEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        public override bool HasToggle => true;
+        
 
         public override void OnHurt(Player player, Player.HurtInfo info)
         {

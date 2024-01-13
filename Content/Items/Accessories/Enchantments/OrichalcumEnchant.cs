@@ -56,7 +56,7 @@ Damaging debuffs deal 2.5x damage
     public class OrichalcumEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        public override bool HasToggle => true;
+        
         public override bool ExtraAttackEffect => true;
 
         public static void OriDotModifier(NPC npc, FargoSoulsPlayer modPlayer, ref int damage)

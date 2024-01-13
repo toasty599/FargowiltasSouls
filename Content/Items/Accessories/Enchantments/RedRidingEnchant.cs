@@ -59,7 +59,7 @@ Missing any attack will reset these bonuses
     }
     public class RedRidingEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
         public override void PostUpdateEquips(Player player)
         {

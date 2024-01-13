@@ -68,7 +68,7 @@ Summon crits do x1.5 damage instead of x2
     public class SpiderEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        public override bool HasToggle => true;
+        
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {

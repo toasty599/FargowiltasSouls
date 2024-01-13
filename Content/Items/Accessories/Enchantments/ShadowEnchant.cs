@@ -54,7 +54,7 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
     }
     public class ShadowBalls : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
         public override void PostUpdateEquips(Player player)
         {

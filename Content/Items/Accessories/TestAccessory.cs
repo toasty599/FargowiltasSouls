@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Items.Accessories
     }
     public class TestAccessoryEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
         public override void PostUpdateEquips(Player player)
         {

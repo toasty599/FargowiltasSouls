@@ -61,7 +61,7 @@ Enemies will explode into needles on death if they are struck with your needles
     public class CactusEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        public override bool HasToggle => true;
+        
         public override bool ExtraAttackEffect => true; 
 
         public override void PostUpdateEquips(Player player)

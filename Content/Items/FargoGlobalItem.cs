@@ -430,19 +430,18 @@ namespace FargowiltasSouls.Content.Items
         public override bool WingUpdate(int wings, Player player, bool inUse)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if ((modPlayer.ChloroEnchantActive || modPlayer.ForceEffect<JungleEnchant>()) && player.GetToggleValue("Jungle") && inUse)
+            if (player.HasEffect<JungleJump>() && inUse)
             {
                 modPlayer.CanJungleJump = false;
 
                 //spwn cloud
-                if (modPlayer.JungleCD == 0 && modPlayer.JungleEnchantItem != null)
+                if (modPlayer.JungleCD == 0)
                 {
-                    bool jungleForceEffect = modPlayer.ForceEffect<JungleEnchant>();
-                    if (modPlayer.JungleEnchantItem != null && modPlayer.ForceEffect(modPlayer.JungleEnchantItem.type))
-                         jungleForceEffect = true;
+                    bool jungleForceEffect = player.GetEffectFields<JungleFields>().ChlorophyteEnchantActive || modPlayer.ForceEffect<JungleEnchant>();
+
                     int dmg = jungleForceEffect ? 150 : 75;
                     SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, player.Center);
-                    FargoSoulsUtil.XWay(10, player.GetSource_Accessory(modPlayer.JungleEnchantItem), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
+                    FargoSoulsUtil.XWay(10, player.GetSource_EffectItem<JungleJump>(), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
 
                     modPlayer.JungleCD = 8;
                 }

@@ -143,7 +143,7 @@ Summons a Terraprisma familiar that scales with minion damage
     }
     public class AncientHallowMinion : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
         public override bool MinionEffect => true;
     }

@@ -63,7 +63,7 @@ Grants knockback immunity when you are facing the attack
     }
     public class GladiatorBanner : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
         public override void PostUpdateEquips(Player player)
         {
@@ -89,7 +89,7 @@ Grants knockback immunity when you are facing the attack
     }
     public class GladiatorSpears : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {

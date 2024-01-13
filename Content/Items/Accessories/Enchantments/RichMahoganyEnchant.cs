@@ -55,7 +55,7 @@ While grappling you gain 10% damage resistance for one hit and a 50% thorns effe
     }
     public class MahoganyEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
         public override void PostUpdateEquips(Player player)
         {

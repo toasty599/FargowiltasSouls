@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class PalmwoodEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
         public override bool MinionEffect => true;
 

@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class DarkArtistMinion : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)

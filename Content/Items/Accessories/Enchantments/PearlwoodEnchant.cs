@@ -56,7 +56,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class PearlwoodEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
         public override void PostUpdateEquips(Player player)
         {

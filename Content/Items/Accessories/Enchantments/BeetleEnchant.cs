@@ -76,7 +76,7 @@ Beetle buffs capped at level two
 
     public class BeetleEffect : AccessoryEffect
     {
-        public override bool HasToggle => false;
+        
         public override Header ToggleHeader => null;
 
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)

@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class ApprenticeSupport : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
         public override void PostUpdateEquips(Player player)
         {

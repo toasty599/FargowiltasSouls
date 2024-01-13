@@ -240,18 +240,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //            #region enchantments 
             PetsActive = true;
-            CrimsonEnchantActive = false;
             //CrimsonRegen = false;
             SpiderEnchantActive = false;
             StardustEnchantActive = false;
-            JungleEnchantActive = false;
-            ShroomEnchantActive = false;
             NebulaEnchantActive = false;
-            ChloroEnchantActive = false;
-            ChloroEnchantItem = null;
-            JungleEnchantItem = null;
             VortexEnchantActive = false;
-            FrostEnchantActive = false;
             MeteorEnchantItem = null;
             MoltenEnchantActive = false;
             FirstStrike = false;
@@ -267,9 +260,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 			WoodEnchantDiscount = false;
             fireNoDamage = false;
 
-            RainEnchantItem = null;
             HuntressEnchantActive = false;
-            SnowEnchantActive = false;
             SnowVisual = false;
 
 
@@ -881,16 +872,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             
         }
-
-        
-
-        public override void MeleeEffects(Item item, Rectangle hitbox)
-        {
-            if (ShroomEnchantActive && Player.GetToggleValue("ShroomiteShroom"))
-                ShroomiteMeleeEffect(item, hitbox);
-        }
-
-
         public void ConcentratedRainbowMatterTryAutoHeal()
         {
             if (ConcentratedRainbowMatter

@@ -63,7 +63,7 @@ Enemies that touch them will destroy them and take damage
     public class PumpkinEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        public override bool HasToggle => true;
+        
 
         public override void PostUpdateEquips(Player player)
         {

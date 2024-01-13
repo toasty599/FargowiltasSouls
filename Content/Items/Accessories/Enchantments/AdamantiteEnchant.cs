@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class AdamantiteEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        public override bool HasToggle => true;
+        
         public override bool ExtraAttackEffect => true;
 
         public override void PostUpdateEquips(Player player)

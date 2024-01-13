@@ -1,5 +1,9 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -35,33 +39,14 @@ Effects of Inner Tube
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            RainEffect(player, Item);
+            AddEffects(player, Item);
         }
-
-        public static void RainEffect(Player player, Item item)
+        public static void AddEffects(Player player, Item item)
         {
-            player.DisplayToggle("Rain");
-            player.DisplayToggle("RainInnerTube");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
             player.buffImmune[BuffID.Wet] = true;
-            
-            modPlayer.RainEnchantItem = item;
-            //modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainCloud>(), 24, 0);
-            if (!player.HasBuff(ModContent.BuffType<RainCDBuff>()) && player.GetToggleValue("Rain"))
-            {
-                modPlayer.AddMinion(item, player.GetToggleValue("Rain"), ModContent.ProjectileType<RainUmbrella>(), 0, 0);
-
-                if (!player.controlDown)
-                {
-                    player.slowFall = true;
-                }
-            }
-
-            if (player.GetToggleValue("RainInnerTube"))
-            {
-                player.hasFloatingTube = true;
-                player.canFloatInWater = true;
-            }
+            player.AddEffect<RainUmbrellaEffect>(item);
+            player.AddEffect<RainInnerTubeEffect>(item);
+            player.AddEffect<RainWetEffect>(item);
         }
 
         public override void AddRecipes()
@@ -77,6 +62,39 @@ Effects of Inner Tube
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class RainUmbrellaEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            if (!player.HasBuff(ModContent.BuffType<RainCDBuff>()))
+            {
+                player.FargoSouls().AddMinion(EffectItem(player), true, ModContent.ProjectileType<RainUmbrella>(), 0, 0);
+
+                if (!player.controlDown)
+                {
+                    player.slowFall = true;
+                }
+            }
+        }
+    }
+    public class RainWetEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => null;
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            target.AddBuff(BuffID.Wet, 180);
+        }
+    }
+    public class RainInnerTubeEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.hasFloatingTube = true;
+            player.canFloatInWater = true;
         }
     }
 }

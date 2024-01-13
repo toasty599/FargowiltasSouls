@@ -334,9 +334,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (SolarEnchantActive)
                 SolarEffect();
 
-            if (JungleEnchantActive)
-                JungleEffect();
-
             if (DeerSinew)
                 DeerSinewEffect();
 

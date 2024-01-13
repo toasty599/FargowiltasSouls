@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class AshWoodEffect : AccessoryEffect
     {
-        public override bool HasToggle => false;
+        
         public override Header ToggleHeader => null;
         
         public override void PostUpdateEquips(Player player)
@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class AshWoodFireballs : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
         public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)

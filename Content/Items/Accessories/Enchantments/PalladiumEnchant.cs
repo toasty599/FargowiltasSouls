@@ -56,7 +56,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
     public class PalladiumEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        public override bool HasToggle => true;
+        
 
         public override void PostUpdateEquips(Player player)
         {

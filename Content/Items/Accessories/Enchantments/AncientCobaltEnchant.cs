@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class AncientCobaltEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        public override bool HasToggle => true;
+        
 
         public override void PostUpdateEquips(Player player)
         {

@@ -236,16 +236,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (SnowEnchantActive)
-            {
-                target.AddBuff(BuffID.Frostburn, 120);
-            }
-
-            if (RainEnchantItem != null)
-            {
-                target.AddBuff(BuffID.Wet, 180);
-            }
-
             if (GodEaterImbue)
             {
                 /*if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)
@@ -618,12 +608,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 NekomiMeter -= meterLost;
                 if (NekomiMeter < 0)
                     NekomiMeter = 0;
-            }
-
-
-            if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
-            {
-                CrimsonEnchant.CrimsonHurt(Player, this, ref info);
             }
 
             if (ShellHide)

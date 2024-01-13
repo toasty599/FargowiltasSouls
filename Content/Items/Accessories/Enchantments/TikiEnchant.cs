@@ -65,7 +65,7 @@ Whip your summons to make them work harder
     }
     public class TikiEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
     }
 }

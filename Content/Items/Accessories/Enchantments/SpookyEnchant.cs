@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class SpookyEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
     }
 }

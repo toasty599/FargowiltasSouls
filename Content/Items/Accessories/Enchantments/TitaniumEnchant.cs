@@ -60,7 +60,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
     public class TitaniumEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        public override bool HasToggle => true;
+        
         public override float ContactDamageDR(Player player, NPC npc, ref Player.HurtModifiers modifiers)
         {
             return base.ContactDamageDR(player, npc, ref modifiers);

@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class MonkDashEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
     }
     public class MonkFields : EffectFields

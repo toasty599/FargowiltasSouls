@@ -58,7 +58,6 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
     public class MythrilEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        public override bool HasToggle => true;
 
         public static void CalcMythrilAttackSpeed(FargoSoulsPlayer modPlayer, Item item)
         {

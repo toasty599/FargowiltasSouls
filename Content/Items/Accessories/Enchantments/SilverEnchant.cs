@@ -52,7 +52,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class SilverEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
     }
 }

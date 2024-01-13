@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Player.Center);
                 }
-                else if (SnowEnchantActive && !Player.HasBuff(ModContent.BuffType<SnowstormCDBuff>()))
+                else if (Player.HasEffect<SnowEffect>() && !Player.HasBuff(ModContent.BuffType<SnowstormCDBuff>()))
                 {
                     Player.AddBuff(ModContent.BuffType<SnowstormCDBuff>(), 60 * 60);
 

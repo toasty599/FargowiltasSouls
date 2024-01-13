@@ -273,12 +273,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class SquireMountSpeed : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
     }
     public class SquireMountJump : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
     }
     public class SquireFields : EffectFields

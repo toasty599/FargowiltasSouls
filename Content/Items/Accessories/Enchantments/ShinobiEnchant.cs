@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class ShinobiDashEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
         public static void ShinobiDash(Player player, int direction)
         {
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class ShinobiThroughWalls : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
     }
 }

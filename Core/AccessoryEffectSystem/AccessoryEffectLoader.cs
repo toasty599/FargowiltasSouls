@@ -19,11 +19,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             AccessoryEffects.Add(effect);
             
             if (effect.HasToggle)
-            {
-                if (effect.ToggleHeader == null)
-                    throw new Exception($"Accessory effect {effect.Name} tried to register a toggle without a valid header");
                 ToggleLoader.RegisterToggle(new Toggle(effect, effect.Mod.Name, effect.ToggleHeader.SortCategory, effect.ToggleHeader));
-            }
         }
         internal static void Register(EffectFields effect)
         {

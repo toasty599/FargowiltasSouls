@@ -20,13 +20,17 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
     /// </summary>
     public abstract class AccessoryEffect : ModType
     {
-        /// <summary>
-        /// Whether the effect has a toggle. <para\>
-        /// ToggleHeader is unused if this is false.
-        /// </summary>
-        public abstract bool HasToggle { get; }
         public string ToggleDescription => Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
+        /// <summary>
+        /// The toggle's header in the display. <para/>
+        /// If the effect shouldn't have a toggle, set this to null.
+        /// </summary>
         public abstract Header ToggleHeader { get; }
+        /// <summary>
+        /// Whether the effect has a toggle. <para/>
+        /// Will be false if ToggleHeader is null.
+        /// </summary>
+        public bool HasToggle => ToggleHeader != null;
 
         public virtual bool MinionEffect => false;
         public virtual bool ExtraAttackEffect => false;

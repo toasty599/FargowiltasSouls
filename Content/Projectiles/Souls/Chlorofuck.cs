@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -37,9 +39,8 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.ChloroEnchantActive || modPlayer.TerrariaSoul) || !player.GetToggleValue("Chlorophyte")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !player.HasEffect<ChloroMinion>()))
             {
-                modPlayer.ChloroEnchantActive = false;
                 Projectile.Kill();
                 Projectile.netUpdate = true;
                 return;

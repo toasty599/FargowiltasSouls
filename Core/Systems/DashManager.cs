@@ -60,7 +60,7 @@ namespace FargowiltasSouls.Core.Systems
                             break;
                         case DashType.Jungle:
                             {
-                                JungleEnchant.JungleDash(Player, dir);
+                                JungleDashEffect.JungleDash(Player, dir);
                             }
                             break;
                         case DashType.DeerSinew:

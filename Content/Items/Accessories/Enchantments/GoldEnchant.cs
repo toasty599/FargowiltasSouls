@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class GoldEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class GoldToPiggy : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)

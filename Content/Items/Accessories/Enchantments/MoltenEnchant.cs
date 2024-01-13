@@ -1,3 +1,6 @@
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -7,16 +10,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
 	public class MoltenEnchant : BaseEnchant
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-
-            // DisplayName.SetDefault("Molten Enchantment");
-            /* Tooltip.SetDefault(
-@"Nearby enemies are ignited
-Enemies take 25% increased damage while inside the inferno ring
-'They shall know the fury of hell' "); */
-        }
 
         protected override Color nameColor => new(193, 43, 43);
         
@@ -31,17 +24,29 @@ Enemies take 25% increased damage while inside the inferno ring
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            MoltenEffect(player);
+            player.AddEffect<MoltenEffect>(Item);
         }
 
-        public static void MoltenEffect(Player player)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Molten");
+            CreateRecipe()
+            .AddIngredient(ItemID.MoltenHelmet)
+            .AddIngredient(ItemID.MoltenBreastplate)
+            .AddIngredient(ItemID.MoltenGreaves)
+            //ashwood ench
+            .AddIngredient(ItemID.Sunfury)
+            .AddIngredient(ItemID.DemonsEye)
 
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.MoltenEnchantActive = true;
-
-            if (player.GetToggleValue("Molten") && player.whoAmI == Main.myPlayer)
+            .AddTile(TileID.DemonAltar)
+            .Register();
+        }
+    }
+    public class MoltenEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer)
             {
                 player.inferno = true;
                 Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), 0.65f, 0.4f, 0.1f);
@@ -49,7 +54,7 @@ Enemies take 25% increased damage while inside the inferno ring
                 float distance = 200f;
                 int baseDamage = 40;
 
-                if (modPlayer.ForceEffect<MoltenEnchant>())
+                if (player.FargoSouls().ForceEffect<MoltenEnchant>())
                 {
                     distance *= 1.5f;
                     baseDamage *= 2;
@@ -104,20 +109,6 @@ Enemies take 25% increased damage while inside the inferno ring
                     }
                 }
             }
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.MoltenHelmet)
-            .AddIngredient(ItemID.MoltenBreastplate)
-            .AddIngredient(ItemID.MoltenGreaves)
-            //ashwood ench
-            .AddIngredient(ItemID.Sunfury)
-            .AddIngredient(ItemID.DemonsEye)
-
-            .AddTile(TileID.DemonAltar)
-            .Register();
         }
     }
 }

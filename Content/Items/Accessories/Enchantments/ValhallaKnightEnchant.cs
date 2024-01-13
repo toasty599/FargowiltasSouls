@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class ValhallaDash : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
     }
 }

@@ -63,7 +63,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
     }
     public class EbonwoodEffect : AccessoryEffect
     {
-        public override bool HasToggle => true;
+        
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
 
         public override void PostUpdateEquips(Player player)
