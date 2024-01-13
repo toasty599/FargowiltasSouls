@@ -81,7 +81,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 fields.CanCobaltJump = false;
             }
 
-            if (player.controlJump && player.releaseJump && player.GetToggleValue(this) && fields.CanCobaltJump && !fields.JustCobaltJumped && fields.CobaltCooldownTimer <= 0)
+            if (player.controlJump && player.releaseJump && fields.CanCobaltJump && !fields.JustCobaltJumped && fields.CobaltCooldownTimer <= 0)
             {
                 int projType = ModContent.ProjectileType<CobaltExplosion>();
                 int damage = 100;

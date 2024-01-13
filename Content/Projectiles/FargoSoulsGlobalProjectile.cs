@@ -349,7 +349,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 TungstenEffect.TungstenIncreaseProjSize(projectile, modPlayer, source);
             }
 
-            if (modPlayer.HuntressEnchantActive && player.GetToggleValue("Huntress")
+            if (player.HasEffect<HuntressEffect>()
                 && FargoSoulsUtil.IsProjSourceItemUseReal(projectile, source)
                 && projectile.damage > 0 && projectile.friendly && !projectile.hostile && !projectile.trap
                 && projectile.DamageType != DamageClass.Default
@@ -909,7 +909,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 #region pets
 
                 case ProjectileID.StardustGuardian:
-                    KillPet(projectile, player, BuffID.StardustGuardianMinion, player.GetToggleValue("Stardust"), true);
+                    KillPet(projectile, player, BuffID.StardustGuardianMinion, player.HasEffect<StardustMinionEffect>(), true);
                     //if (modPlayer.FreezeTime && modPlayer.freezeLength > 60) //throw knives in stopped time
                     //{
                     //    if (projectile.owner == Main.myPlayer && counter % 20 == 0)
@@ -1045,7 +1045,7 @@ namespace FargowiltasSouls.Content.Projectiles
             }
 
             if (ProjectileID.Sets.IsAWhip[projectile.type] && projectile.owner == Main.myPlayer
-                && Main.player[projectile.owner].FargoSouls().TikiEnchantActive)
+                && Main.player[projectile.owner].HasEffect<TikiEffect>())
             {
                 foreach (Projectile p in Main.projectile.Where(p => p.active && !p.hostile && p.owner == Main.myPlayer
                     && FargoSoulsUtil.IsSummonDamage(p, true, false)

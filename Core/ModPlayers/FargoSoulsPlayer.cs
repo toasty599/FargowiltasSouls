@@ -257,7 +257,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 			WoodEnchantDiscount = false;
             fireNoDamage = false;
 
-            HuntressEnchantActive = false;
             SnowVisual = false;
 
 

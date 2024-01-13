@@ -59,7 +59,7 @@ When you are hurt, you violently explode to damage nearby enemies
 
         public override void OnHurt(Player player, Player.HurtInfo info)
         {
-            if (player.GetToggleValue(this) && player.whoAmI == Main.myPlayer)
+            if (player.whoAmI == Main.myPlayer)
             {
                 FargoSoulsPlayer modPlayer = player.FargoSouls();
 
