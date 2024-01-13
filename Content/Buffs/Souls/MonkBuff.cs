@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -45,10 +47,8 @@ namespace FargowiltasSouls.Content.Buffs.Souls
                 player.immuneTime = Math.Max(player.immuneTime, invul);
                 player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
                 player.hurtCooldowns[1] = Math.Max(player.hurtCooldowns[1], invul);
-                bool monkForce = modPlayer.ShinobiEnchantActive;
-                if (modPlayer.MonkEnchantItem != null && modPlayer.ForceEffect(modPlayer.MonkEnchantItem.type))
-                    monkForce = true;
-                bool shinobiForce = modPlayer.ShinobiEnchantItem != null && modPlayer.ForceEffect(modPlayer.ShinobiEnchantItem?.type);
+                bool monkForce = player.GetEffectFields<MonkFields>().ShinobiEnchantActive || modPlayer.ForceEffect<MonkEnchant>();
+                bool shinobiForce = modPlayer.ForceEffect<ShinobiEnchant>();
 
                 Vector2 pos = player.Center;
 

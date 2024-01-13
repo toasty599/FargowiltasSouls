@@ -74,17 +74,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool TinCritBuffered;
         public int TungstenCD;
         public int AshwoodCD;
-        //force of earth
         //force of nature
         public Item CrimsonEnchantItem;
-        //force of life
-
-        //force of spirit
-
-        //force of shadow
-        public Item MonkEnchantItem;
-        public Item ShinobiEnchantItem;
-        //force of will
 
         //force of cosmos
         public Item MeteorEnchantItem;
@@ -108,7 +99,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
         public bool AncientHallowEnchantActive;
-        public bool AncientShadowEnchantActive;
         public int ApprenticeCD;
 
         public Item CactusEnchantItem;
@@ -146,15 +136,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
         public bool MoltenEnchantActive;
-        public bool MonkEnchantActive;
         public int MonkDashing;
-        private int monkTimer;
 
-
-
-        public bool NecroEnchantActive;
         public int NecroCD;
-        public bool CrystalEnchantActive;
         public Projectile CrystalSmokeBombProj = null;
         public bool FirstStrike;
         public int SmokeBombCD;
@@ -167,8 +151,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int RedRidingArrowCD;
 
-        public bool ShadowEnchantActive;
-        public bool ShinobiEnchantActive;
         public int dashCD;
         public bool ShroomEnchantActive;
 
@@ -178,7 +160,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool SpectreEnchantActive;
         public int SpectreCD;
         public bool SpiderEnchantActive;
-        public bool SpookyEnchantActive;
         //public bool squireReduceIframes;
         public bool StardustEnchantActive;
         public bool FreezeTime;

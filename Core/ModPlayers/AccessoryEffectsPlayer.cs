@@ -25,6 +25,7 @@ using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
 using Fargowiltas.Common.Configs;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -616,125 +617,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        
 
-        public void ShadowEffect(bool hideVisual)
-        {
-            ShadowEnchantActive = true;
-        }
-        private int ShadowOrbRespawnTimer;
-        public void ShadowEffectPostEquips()
-        {
-            Player.DisplayToggle("Shadow");
-            if (Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Shadow"))
-            {
-                int currentOrbs = Player.ownedProjectileCounts[ModContent.ProjectileType<ShadowEnchantOrb>()];
-
-                int max = 2;
-                
-                bool forceEffect = ForceEffect<ShadowEnchant>() || ForceEffect<AncientShadowEnchant>();
-
-                if (TerrariaSoul)
-                {
-                    max = 5;
-                }
-                else if (forceEffect && AncientShadowEnchantActive) //ancient shadow force
-                {
-                    max = 4;
-                }
-                else if (AncientShadowEnchantActive || (forceEffect)) //ancient shadow or normal shadow force
-                {
-                    max = 3;
-                }
-
-                //spawn for first time
-                if (currentOrbs == 0)
-                {
-                    float rotation = 2f * (float)Math.PI / max;
-
-                    for (int i = 0; i < max; i++)
-                    {
-                        Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                        int p = Projectile.NewProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, Player.whoAmI, 0, rotation * i);
-                        Main.projectile[p].FargoSouls().CanSplit = false;
-                    }
-                }
-                //equipped somwthing that allows for more or less, respawn, only once every 10 seconds to prevent exploit
-                else if ((currentOrbs < max && ShadowOrbRespawnTimer <= 0) || currentOrbs > max)
-                {
-                    ShadowOrbRespawnTimer = 60 * 10;
-
-                    for (int i = 0; i < Main.maxProjectiles; i++)
-                    {
-                        Projectile proj = Main.projectile[i];
-
-                        if (proj.active && proj.type == ModContent.ProjectileType<ShadowEnchantOrb>() && proj.owner == Player.whoAmI)
-                        {
-                            proj.Kill();
-                        }
-                    }
-
-                    float rotation = 2f * (float)Math.PI / max;
-
-                    for (int i = 0; i < max; i++)
-                    {
-                        Vector2 spawnPos = Player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
-                        int p = Projectile.NewProjectile(Player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, Player.whoAmI, 0, rotation * i);
-                        Main.projectile[p].FargoSouls().CanSplit = false;
-                    }
-                }
-                ShadowOrbRespawnTimer--;
-            }
-        }
-
-
-        private void ShinobiDashChecks()
-        {
-        }
-
-        public void ShinobiEffect(bool hideVisual, Item item)
-        {
-            Player.DisplayToggle("Shinobi");
-            Player.DisplayToggle("ShinobiDash");
-            //tele through wall until open space on dash into wall
-            /*if (Player.GetToggleValue("Shinobi") && Player.whoAmI == Main.myPlayer && Player.dashDelay == -1 && Player.mount.Type == -1 && Player.velocity.X == 0)
-            {
-                var teleportPos = new Vector2();
-                int direction = Player.direction;
-
-                teleportPos.X = Player.position.X + direction;
-                teleportPos.Y = Player.position.Y;
-
-                while (Collision.SolidCollision(teleportPos, Player.width, Player.height))
-                {
-                    if (direction == 1)
-                    {
-                        teleportPos.X++;
-                    }
-                    else
-                    {
-                        teleportPos.X--;
-                    }
-                }
-                if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-                {
-                    Player.Teleport(teleportPos, 1);
-                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, teleportPos.X, teleportPos.Y, 1);
-                }
-            }*/
-
-            ShinobiEnchantActive = true;
-            bool dashCheck = !HasDash;
-            if (FargoDash == DashManager.DashType.Monk && !Player.HasBuff<MonkBuff>())
-                dashCheck = true;
-            if (dashCheck && Player.GetToggleValue("ShinobiDash"))
-            {
-                HasDash = true;
-                FargoDash = DashManager.DashType.Shinobi;
-            }
-            ShinobiEnchantItem = item;
-            MonkEnchantActive = true;
-        }
 
         public void ShroomiteEffect(bool hideVisual)
         {
@@ -985,14 +868,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             Projectile.NewProjectile(proj.GetSource_FromThis(), proj.position.X, proj.position.Y, num8, num9, ProjectileID.SpectreWrath, num, 0f, proj.owner, (float)num6, 0);
         }
 
-        public void SpookyEffect(bool hideVisual)
-        {
-            Player.DisplayToggle("Spooky");
-            //scythe doom
-            SpookyEnchantActive = true;
-
-        }
-
         public void StardustEffect(Item item)
         {
             Player.DisplayToggle("Stardust");
@@ -1170,40 +1045,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         //public float baseMountRunSpeed;
         //public int baseMountJumpHeight;
 
-
-        public void MonkEffect(Item item)
-        {
-            Player.DisplayToggle("Monk");
-            MonkEnchantItem = item;
-            MonkEnchantActive = true;
-
-            if (Player.GetToggleValue("Monk") && !Player.HasBuff(ModContent.BuffType<MonkBuff>()))
-            {
-                if (FargoDash != DashManager.DashType.Shinobi)
-                    FargoDash = DashManager.DashType.Monk;
-                HasDash = true;
-
-                monkTimer++;
-
-                if (monkTimer >= 120)
-                {
-                    Player.AddBuff(ModContent.BuffType<MonkBuff>(), 2);
-                    monkTimer = 0;
-
-                    //dust
-                    double spread = 2 * Math.PI / 36;
-                    for (int i = 0; i < 36; i++)
-                    {
-                        Vector2 velocity = new Vector2(2, 2).RotatedBy(spread * i);
-
-                        int index2 = Dust.NewDust(Player.Center, 0, 0, DustID.GoldCoin, velocity.X, velocity.Y, 100);
-                        Main.dust[index2].noGravity = true;
-                        Main.dust[index2].noLight = true;
-                    }
-                }
-            }
-        }
-
         public void SnowEffect(bool hideVisual)
         {
             SnowEnchantActive = true;
@@ -1255,13 +1096,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
             }
-        }
-
-        public void AncientShadowEffect()
-        {
-            Player.DisplayToggle("AncientShadow");
-            //darkness
-            AncientShadowEnchantActive = true;
         }
 
         //        #endregion

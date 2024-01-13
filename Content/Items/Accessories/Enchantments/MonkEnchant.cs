@@ -1,32 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
     public class MonkEnchant : BaseEnchant
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-
-            // DisplayName.SetDefault("Monk Enchantment");
-            /* Tooltip.SetDefault(
-@"Allows the ability to dash
-Double tap a direction
-You are immune to damage and debuffs for half a second after dashing
-Dash cooldown is twice as long as normal dashes
-Lightning Aura can now crit and strikes faster
-'Return to Monk'"); */
-            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "武僧魔石");
-            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, 
-            // @"使你获得冲刺能力
-            // 双击'左'或'右'键进行冲刺
-            // 在冲刺后的0.5秒内使你免疫伤害和减益
-            // 冲刺冷却是普通冲刺的二倍
-            // 闪电光环现在可以暴击且攻击速度更快
-            // '返本还僧'");
-        }
 
         protected override Color nameColor => new(146, 5, 32);
 
@@ -40,7 +25,39 @@ Lightning Aura can now crit and strikes faster
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().MonkEffect(Item);
+            AddEffects(player, Item);
+        }
+        public static void AddEffects(Player player, Item item)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            MonkFields monkFields = player.GetEffectFields<MonkFields>();
+            monkFields.MonkEnchantActive = true;
+
+            if (!player.HasBuff(ModContent.BuffType<MonkBuff>()) && player.AddEffect<MonkDashEffect>(item))
+            {
+                if (modPlayer.FargoDash != DashManager.DashType.Shinobi)
+                    modPlayer.FargoDash = DashManager.DashType.Monk;
+                modPlayer.HasDash = true;
+
+                monkFields.monkTimer++;
+
+                if (monkFields.monkTimer >= 120)
+                {
+                    player.AddBuff(ModContent.BuffType<MonkBuff>(), 2);
+                    monkFields.monkTimer = 0;
+
+                    //dust
+                    double spread = 2 * Math.PI / 36;
+                    for (int i = 0; i< 36; i++)
+                    {
+                        Vector2 velocity = new Vector2(2, 2).RotatedBy(spread * i);
+
+                        int index2 = Dust.NewDust(player.Center, 0, 0, DustID.GoldCoin, velocity.X, velocity.Y, 100);
+                        Main.dust[index2].noGravity = true;
+                        Main.dust[index2].noLight = true;
+                    }
+}
+            }
         }
 
         public override void AddRecipes()
@@ -60,6 +77,24 @@ Lightning Aura can now crit and strikes faster
 
             .AddTile(TileID.CrystalBall)
             .Register();
+        }
+    }
+    public class MonkDashEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+    }
+    public class MonkFields : EffectFields
+    {
+        public bool MonkEnchantActive = false;
+        public bool ShinobiEnchantActive = false;
+        public int monkTimer = 0;
+        public override void ResetEffects()
+        {
+            if (!MonkEnchantActive)
+                Player.ClearBuff(ModContent.BuffType<MonkBuff>());
+            MonkEnchantActive = false;
+            ShinobiEnchantActive = false;
         }
     }
 }

@@ -4,6 +4,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -43,55 +46,7 @@ Effects of Bone Glove
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            NecroEffect(player, Item);
-        }
-
-        public static void NecroEffect(Player player, Item item)
-        {
-            player.DisplayToggle("NecroGlove");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            modPlayer.NecroEnchantActive = true;
-            /*
-            //whack way of doing it but ok vanilla
-            if (player.GetToggleValue("NecroGlove"))
-                player.boneGloveItem = item;
-            */
-            if (modPlayer.NecroCD != 0)
-                modPlayer.NecroCD--;
-        }
-
-        public static void NecroSpawnGraveEnemy(NPC npc, Player player, FargoSoulsPlayer modPlayer)
-        {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 15)
-            {
-                int damage = npc.lifeMax / 3;
-                if (damage > 0)
-                    Projectile.NewProjectile(player.GetSource_Misc(""), npc.Bottom, new Vector2(0, -4), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, damage);
-
-                //if (modPlayer.ShadowForce || modPlayer.WizardEnchantActive)
-                //{
-                //    modPlayer.NecroCD = 15;
-                //}
-                //else
-                //{
-                //    modPlayer.NecroCD = 30;
-                //}
-            }
-        }
-
-        public static void NecroSpawnGraveBoss(FargoSoulsGlobalNPC globalNPC, NPC npc, Player player, int damage)
-        {
-            globalNPC.NecroDamage += damage;
-
-            if (globalNPC.NecroDamage > npc.lifeMax / 10 && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 45)
-            {
-                globalNPC.NecroDamage = 0;
-
-                int dam = npc.lifeMax / 25;
-                if (dam > 0)
-                    Projectile.NewProjectile(player.GetSource_Misc(""), npc.Bottom, new Vector2(0, -4), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, dam);
-            }
+            player.AddEffect<NecroEffect>(Item);
         }
 
 
@@ -107,6 +62,48 @@ Effects of Bone Glove
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class NecroEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.NecroCD != 0)
+                modPlayer.NecroCD--;
+        }
+        public static void NecroSpawnGraveEnemy(NPC npc, Player player, FargoSoulsPlayer modPlayer)
+        {
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 15)
+            {
+                int damage = npc.lifeMax / 3;
+                if (damage > 0)
+                    Projectile.NewProjectile(player.GetSource_Accessory(player.EffectItem<NecroEffect>()), npc.Bottom, new Vector2(0, -4), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, damage);
+
+                //if (modPlayer.ShadowForce || modPlayer.WizardEnchantActive)
+                //{
+                //    modPlayer.NecroCD = 15;
+                //}
+                //else
+                //{
+                //    modPlayer.NecroCD = 30;
+                //}
+            }
+        }
+        public static void NecroSpawnGraveBoss(FargoSoulsGlobalNPC globalNPC, NPC npc, Player player, int damage)
+        {
+            globalNPC.NecroDamage += damage;
+
+            if (globalNPC.NecroDamage > npc.lifeMax / 10 && player.ownedProjectileCounts[ModContent.ProjectileType<NecroGrave>()] < 45)
+            {
+                globalNPC.NecroDamage = 0;
+
+                int dam = npc.lifeMax / 25;
+                if (dam > 0)
+                    Projectile.NewProjectile(player.GetSource_Accessory(player.EffectItem<NecroEffect>()), npc.Bottom, new Vector2(0, -4), ModContent.ProjectileType<NecroGrave>(), 0, 0, player.whoAmI, dam);
+            }
         }
     }
 }

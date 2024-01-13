@@ -1,6 +1,12 @@
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -29,7 +35,7 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().ShadowEffect(hideVisual);
+            player.AddEffect<ShadowBalls>(Item);
         }
 
         public override void AddRecipes()
@@ -44,6 +50,84 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class ShadowBalls : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override void PostUpdateEquips(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                int currentOrbs = player.ownedProjectileCounts[ModContent.ProjectileType<ShadowEnchantOrb>()];
+
+                int max = 2;
+                ShadowFields shadowFields = player.GetEffectFields<ShadowFields>();
+                bool ancientShadow = shadowFields.AncientShadowEnchantActive;
+                bool forceEffect = modPlayer.ForceEffect<ShadowEnchant>();
+
+                if (modPlayer.TerrariaSoul)
+                {
+                    max = 5;
+                }
+                else if (forceEffect && ancientShadow) //ancient shadow force
+                {
+                    max = 4;
+                }
+                else if (ancientShadow || (forceEffect)) //ancient shadow or normal shadow force
+                {
+                    max = 3;
+                }
+
+                //spawn for first time
+                if (currentOrbs == 0)
+                {
+                    float rotation = 2f * (float)Math.PI / max;
+
+                    for (int i = 0; i < max; i++)
+                    {
+                        Vector2 spawnPos = player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
+                        int p = Projectile.NewProjectile(player.GetSource_Misc(""), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, player.whoAmI, 0, rotation * i);
+                        Main.projectile[p].FargoSouls().CanSplit = false;
+                    }
+                }
+                //equipped somwthing that allows for more or less, respawn, only once every 10 seconds to prevent exploit
+                else if ((currentOrbs < max && shadowFields.ShadowOrbRespawnTimer <= 0) || currentOrbs > max)
+                {
+                    shadowFields.ShadowOrbRespawnTimer = 60 * 10;
+
+                    for (int i = 0; i < Main.maxProjectiles; i++)
+                    {
+                        Projectile proj = Main.projectile[i];
+
+                        if (proj.active && proj.type == ModContent.ProjectileType<ShadowEnchantOrb>() && proj.owner == player.whoAmI)
+                        {
+                            proj.Kill();
+                        }
+                    }
+
+                    float rotation = 2f * (float)Math.PI / max;
+
+                    for (int i = 0; i < max; i++)
+                    {
+                        Vector2 spawnPos = player.Center + new Vector2(60, 0f).RotatedBy(rotation * i);
+                        int p = Projectile.NewProjectile(player.GetSource_Accessory(EffectItem(player)), spawnPos, Vector2.Zero, ModContent.ProjectileType<ShadowEnchantOrb>(), 0, 10f, player.whoAmI, 0, rotation * i);
+                        Main.projectile[p].FargoSouls().CanSplit = false;
+                    }
+                }
+                shadowFields.ShadowOrbRespawnTimer--;
+            }
+        }
+    }
+    public class ShadowFields : EffectFields
+    {
+        public bool AncientShadowEnchantActive = false;
+        public int ShadowOrbRespawnTimer;
+        public override void ResetEffects()
+        {
+            AncientShadowEnchantActive = false;
         }
     }
 }

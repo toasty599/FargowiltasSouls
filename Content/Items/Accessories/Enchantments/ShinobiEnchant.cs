@@ -1,4 +1,8 @@
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -29,13 +33,24 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            //tele thru wall
-            modPlayer.ShinobiEffect(hideVisual, Item);
-            //monk dash mayhem
-            modPlayer.MonkEffect(Item);
+            AddEffects(player, Item);
         }
-
+        public static void AddEffects(Player player, Item item)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            player.AddEffect<ShinobiThroughWalls>(item);
+            player.GetEffectFields<MonkFields>().ShinobiEnchantActive = true;
+            bool dashCheck = !modPlayer.HasDash;
+            if (modPlayer.FargoDash == DashManager.DashType.Monk && !player.HasBuff<MonkBuff>())
+                dashCheck = true;
+            bool effectCheck = player.AddEffect<ShinobiDashEffect>(item);
+            if (dashCheck && effectCheck)
+            {
+                modPlayer.HasDash = true;
+                modPlayer.FargoDash = DashManager.DashType.Shinobi;
+            }
+            MonkEnchant.AddEffects(player, item);
+        }
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -52,7 +67,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddTile(TileID.CrystalBall)
             .Register();
         }
-
+    }
+    public class ShinobiDashEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
         public static void ShinobiDash(Player player, int direction)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
@@ -64,7 +83,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             const int length = 400; //make sure this is divisible by 16 btw
 
-            if (player.GetToggleValue("Shinobi")) //go through walls
+            if (player.HasEffect<ShinobiThroughWalls>()) //go through walls
             {
                 teleportPos.X += length * direction;
 
@@ -114,5 +133,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
             }
         }
+    }
+    public class ShinobiThroughWalls : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
     }
 }

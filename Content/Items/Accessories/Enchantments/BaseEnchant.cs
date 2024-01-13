@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         /// </summary>
         public static int[] CraftsInto;
         /// <summary>
-        /// IDs for the corresponding Force of the enchant.
+        /// IDs for the corresponding Force of each enchant.
         /// </summary>
         public static int[] Force;
 

@@ -291,7 +291,7 @@ namespace FargowiltasSouls.Content.Items
             {
                 player.ClearBuff(ModContent.BuffType<GoldenStasisBuff>());
 
-                if (player.FargoSouls().CrystalEnchantActive)
+                if (player.GetEffectFields<CrystalFields>().CrystalEnchantActive)
                     player.AddBuff(ModContent.BuffType<FirstStrikeBuff>(), 60);
             }
             return base.UseItem(item, player);

@@ -4,6 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -34,14 +36,13 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            CrystalAssassinEffect(player, Item);
+            AddEffects(player, Item);
         }
 
-        public static void CrystalAssassinEffect(Player player, Item item)
+        public static void AddEffects(Player player, Item item)
         {
-            player.DisplayToggle("CrystalDash");
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.CrystalEnchantActive = true;
+            player.GetEffectFields<CrystalFields>().CrystalEnchantActive = true;
 
             //cooldown
             if (modPlayer.SmokeBombCD != 0)
@@ -49,7 +50,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
                 modPlayer.SmokeBombCD--;
             }
 
-            if (player.GetToggleValue("CrystalDash", false))
+            if (!modPlayer.HasDash && player.AddEffect<CrystalAssassinDash>(item))
                 player.dashType = 5;
         }
 
@@ -137,6 +138,20 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
 
                 .AddTile(TileID.CrystalBall)
                 .Register();
+        }
+    }
+    public class CrystalAssassinDash : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override bool IgnoresMutantPresence => true;
+    }
+    public class CrystalFields : EffectFields
+    {
+        public bool CrystalEnchantActive = false;
+        public override void ResetEffects()
+        {
+            CrystalEnchantActive = false;
         }
     }
 }

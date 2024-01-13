@@ -223,9 +223,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             UpdateShield();
 
-            if (ShadowEnchantActive)
-                ShadowEffectPostEquips();
-
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
 
             if (MutantAntibodies && Player.wet)
@@ -336,9 +333,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (SolarEnchantActive)
                 SolarEffect();
-
-            if (ShinobiEnchantActive)
-                ShinobiDashChecks();
 
             if (JungleEnchantActive)
                 JungleEffect();
@@ -504,10 +498,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (apprenticeFields.DarkArtistEnchantActive)
                 Player.setApprenticeT3 = true;
 
-            if (MonkEnchantActive)
+            if (Player.GetEffectFields<MonkFields>().MonkEnchantActive)
                 Player.setMonkT2 = true;
 
-            if (ShinobiEnchantActive)
+            if (Player.GetEffectFields<MonkFields>().ShinobiEnchantActive)
                 Player.setMonkT3 = true;
 
 

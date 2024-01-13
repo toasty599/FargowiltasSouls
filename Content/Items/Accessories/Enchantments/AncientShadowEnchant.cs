@@ -1,6 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -36,9 +40,9 @@ Three Shadow Orbs will orbit around you
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.AncientShadowEffect();
-            modPlayer.ShadowEffect(hideVisual);
+            player.GetEffectFields<ShadowFields>().AncientShadowEnchantActive = true;
+            player.AddEffect<AncientShadowDarkness>(Item);
+            player.AddEffect<ShadowBalls>(Item);
         }
 
         public override void AddRecipes()
@@ -58,6 +62,19 @@ Three Shadow Orbs will orbit around you
 
             .AddTile(TileID.CrystalBall)
             .Register();
+        }
+    }
+    public class AncientShadowDarkness : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            if (!player.FargoSouls().TerrariaSoul)
+            {
+                if ((projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
+                    target.AddBuff(BuffID.Darkness, 600, true);
+            }
         }
     }
 }

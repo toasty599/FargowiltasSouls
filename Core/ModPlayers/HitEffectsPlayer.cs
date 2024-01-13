@@ -319,12 +319,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     target.AddBuff(BuffID.Ichor, 360);
             }
 
-            if (!TerrariaSoul)
-            {
-                if (AncientShadowEnchantActive && Player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
-                    target.AddBuff(BuffID.Darkness, 600, true);
-            }
-
             if (Supercharged)
             {
                 target.AddBuff(BuffID.Electrified, 240);

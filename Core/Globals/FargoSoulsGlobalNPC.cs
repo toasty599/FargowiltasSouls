@@ -935,9 +935,9 @@ namespace FargowiltasSouls.Core.Globals
             Player player = Main.player[npc.lastInteraction];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && !npc.boss)
+            if (player.HasEffect<NecroEffect>() && !npc.boss)
             {
-                NecroEnchant.NecroSpawnGraveEnemy(npc, player, modPlayer);
+                NecroEffect.NecroSpawnGraveEnemy(npc, player, modPlayer);
             }
 
             return true;
@@ -1141,12 +1141,10 @@ namespace FargowiltasSouls.Core.Globals
                     Projectile.NewProjectile(npc.GetSource_OnHurt(player), npc.Center, Main.rand.NextVector2Circular(speed, speed), type, 0, 0f, Main.myPlayer, 1f);
                 }
             }
-            
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (damageDone > 0 && modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && npc.boss)
+            if (damageDone > 0 && player.HasEffect<NecroEffect>() && npc.boss)
             {
-                NecroEnchant.NecroSpawnGraveBoss(this, npc, player, damageDone);
+                NecroEffect.NecroSpawnGraveBoss(this, npc, player, damageDone);
             }
         }
 

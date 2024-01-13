@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -70,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
 
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.Hitbox.Intersects(Projectile.Hitbox)
-                && player.FargoSouls().NecroEnchantActive && player.GetToggleValue("Necro"))
+                && player.HasEffect<NecroEffect>())
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, -12), ModContent.ProjectileType<DungeonGuardianNecro>(), (int)Projectile.ai[0], 1, Projectile.owner);
 

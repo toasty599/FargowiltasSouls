@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -33,7 +35,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().SpookyEffect(hideVisual);
+            player.AddEffect<SpookyEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -55,5 +57,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddTile(TileID.CrystalBall)
             .Register();
         }
+    }
+    public class SpookyEffect : AccessoryEffect
+    {
+        public override bool HasToggle => true;
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
     }
 }

@@ -240,7 +240,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //            #region enchantments 
             PetsActive = true;
-            ShadowEnchantActive = false;
             CrimsonEnchantActive = false;
             //CrimsonRegen = false;
             SpectreEnchantActive = false;
@@ -249,7 +248,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             FossilEnchantItem = null;
             JungleEnchantActive = false;
             ShroomEnchantActive = false;
-            SpookyEnchantActive = false;
             NebulaEnchantActive = false;
             HallowEnchantItem = null;
             AncientHallowEnchantActive = false;
@@ -260,18 +258,15 @@ namespace FargowiltasSouls.Core.ModPlayers
             FrostEnchantActive = false;
             MeteorEnchantItem = null;
             MoltenEnchantActive = false;
-            CrystalEnchantActive = false;
             FirstStrike = false;
             TurtleEnchantActive = false;
             ShellHide = false;
             GoldShell = false;
             CactusEnchantItem = null;
             ForbiddenEnchantActive = false;
-            NecroEnchantActive = false;
             LavaWet = false;
             TikiEnchantActive = false;
             SolarEnchantActive = false;
-            ShinobiEnchantActive = false;
             DarkArtistEnchantItem = null;
 
             WoodEnchantItem = null;
@@ -279,13 +274,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             fireNoDamage = false;
 
             RainEnchantItem = null;
-            AncientShadowEnchantActive = false;
             HuntressEnchantActive = false;
-            if (!MonkEnchantActive)
-            {
-                Player.ClearBuff(ModContent.BuffType<MonkBuff>());
-            }
-            MonkEnchantActive = false;
             SnowEnchantActive = false;
             SnowVisual = false;
 

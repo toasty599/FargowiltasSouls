@@ -28,8 +28,11 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         {
             EffectFields.Add(effect);
         }
-        
-        public static void AddEffect<T>(this Player player, Item item) where T : AccessoryEffect
+        /// <summary>
+        /// Adds the effect to the player. Lasts one frame. 
+        /// Returns whether the effect was successfully added or not (it's not added if it's blocked by, for example, the toggle)
+        /// </summary>
+        public static bool AddEffect<T>(this Player player, Item item) where T : AccessoryEffect
         {
             AccessoryEffect effect = ModContent.GetInstance<T>();
             
@@ -40,20 +43,24 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
                 {
                     if (!player.HasEffect(effect)) // Don't stack per item
                         primeSoulFields.PrimeSoulItemCount++;
-                    return;
+                    return false;
                 }
             }
             
             if (player.FargoSouls().MutantPresence) // todo: implement system for mutant presence
                 if (!effect.IgnoresMutantPresence)
-                    return;
+                    return false;
 
             if (!effect.HasToggle || player.GetToggleValue<T>())
             {
                 AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
-                effectPlayer.ActiveEffects.Add(effect);
-                effectPlayer.EffectItems[effect] = item;
+                if (effectPlayer.ActiveEffects.Add(effect))
+                {
+                    effectPlayer.EffectItems[effect] = item;
+                    return true;
+                }
             }
+            return false;
         }
         public static bool HasEffect<T>(this Player player) where T : AccessoryEffect => player.HasEffect(ModContent.GetInstance<AccessoryEffect>());
         public static bool HasEffect(this Player player, AccessoryEffect accessoryEffect) => player.AccessoryEffects().ActiveEffects.Contains(accessoryEffect);

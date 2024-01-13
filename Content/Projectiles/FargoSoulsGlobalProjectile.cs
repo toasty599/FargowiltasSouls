@@ -498,7 +498,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         shroomiteStorePosition = projectile.Center;
                     }
 
-                    if (modPlayer.SpookyEnchantActive && player.GetToggleValue("Spooky")
+                    if (player.HasEffect<SpookyEffect>()
                         && projectile.minionSlots > 0 && spookyCD == 0)
                     {
                         float minDistance = 500f;

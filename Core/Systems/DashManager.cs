@@ -55,7 +55,7 @@ namespace FargowiltasSouls.Core.Systems
                             break;
                         case DashType.Shinobi:
                             {
-                                ShinobiEnchant.ShinobiDash(Player, dir);
+                                ShinobiDashEffect.ShinobiDash(Player, dir);
                             }
                             break;
                         case DashType.Jungle:

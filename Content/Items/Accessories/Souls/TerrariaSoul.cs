@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -53,24 +54,24 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             //includes revive, both spectres, adamantite, and star heal
             modPlayer.TerrariaSoul = true;
 
-            //WOOD
-            ModContent.Find<ModItem>(Mod.Name, "TimberForce").UpdateAccessory(player, hideVisual);
+            //TIMBER
+            ModContent.GetInstance<TimberForce>().UpdateAccessory(player, hideVisual);
             //TERRA
-            ModContent.Find<ModItem>(Mod.Name, "TerraForce").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<TerraForce>().UpdateAccessory(player, hideVisual);
             //EARTH
-            ModContent.Find<ModItem>(Mod.Name, "EarthForce").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<EarthForce>().UpdateAccessory(player, hideVisual);
             //NATURE
-            ModContent.Find<ModItem>(Mod.Name, "NatureForce").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<NatureForce>().UpdateAccessory(player, hideVisual);
             //LIFE
-            ModContent.Find<ModItem>(Mod.Name, "LifeForce").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<LifeForce>().UpdateAccessory(player, hideVisual);
             //SPIRIT
-            ModContent.Find<ModItem>(Mod.Name, "SpiritForce").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<SpiritForce>().UpdateAccessory(player, hideVisual);
             //SHADOW
-            ModContent.Find<ModItem>(Mod.Name, "ShadowForce").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<ShadowForce>().UpdateAccessory(player, hideVisual);
             //WILL
-            ModContent.Find<ModItem>(Mod.Name, "WillForce").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<WillForce>().UpdateAccessory(player, hideVisual);
             //COSMOS
-            ModContent.Find<ModItem>(Mod.Name, "CosmoForce").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<CosmoForce>().UpdateAccessory(player, hideVisual);
         }
 
         public override void UpdateVanity(Player player)
