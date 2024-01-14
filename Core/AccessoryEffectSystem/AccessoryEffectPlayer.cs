@@ -99,7 +99,6 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         private static List<AccessoryEffect> HookPostUpdateEquips = AddHook<Action<Player>>(p => p.PostUpdateEquips);
         public override void PostUpdateEquips()
         {
-            Main.NewText($"{ModContent.GetInstance<CobaltEffect>().Index}  {Active(ModContent.GetInstance<CobaltEffect>())}");
             foreach (AccessoryEffect effect in HookPostUpdateEquips)
             {
                 if (Active(effect))

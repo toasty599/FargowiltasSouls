@@ -70,7 +70,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //modPlayer.AdamantiteEnchantItem = item;
 
             int adaCap = 60; //ada cap in DEGREES
-            Main.NewText("hi");
 
             const float incSeconds = 10;
             const float decSeconds = 1.5f;
