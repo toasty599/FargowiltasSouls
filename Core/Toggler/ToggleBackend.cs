@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Core.Toggler
         public readonly static string ConfigPath = Path.Combine(Main.SavePath, "ModConfigs", "FargowiltasSouls_Toggles.json");
         public Preferences Config;
 
-        public Dictionary<AccessoryEffect, Toggle> Toggles;
+        public Dictionary<AccessoryEffect, Toggle> Toggles = new Dictionary<AccessoryEffect, Toggle>();
         //public Point TogglerPosition;
         public bool CanPlayMaso;
 

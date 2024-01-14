@@ -20,11 +20,18 @@ namespace FargowiltasSouls.Core.Toggler
         public abstract int Priority { get; }
         public abstract int Item { get; }
         public string HeaderDescription => Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
-
-        protected override void Register()
+        public override void Load() // Must do this here so headers are registered before Toggles
         {
             ToggleLoader.RegisterHeader(this);
             ModTypeLookup<Header>.Register(this);
+        }
+
+        protected override void Register()
+        {
+            /*
+            ToggleLoader.RegisterHeader(this);
+            ModTypeLookup<Header>.Register(this);
+            */
         }
 
         public override string ToString() => $"Mod: {Mod}, Item: {Item}, Category: {SortCategory}, Priority: {Priority}";

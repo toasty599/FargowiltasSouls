@@ -44,6 +44,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
     public class AccessoryEffectPlayer : ModPlayer
     {
         public HashSet<AccessoryEffect> ActiveEffects = new();
+        public HashSet<AccessoryEffect> ActiveEffectBuffer = new();
         
         public Dictionary<AccessoryEffect, Item> EffectItems = new();
         private static readonly Dictionary<MethodInfo, List<AccessoryEffect>> Hooks = new();
@@ -64,6 +65,23 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             var effectSet = new List<AccessoryEffect>();
             Hooks.Add(expr.ToMethodInfo(), effectSet);
             return effectSet;
+        }
+        public override void ResetEffects()
+        {
+            foreach (AccessoryEffect effect in ActiveEffects)
+            {
+                if (!ActiveEffectBuffer.Contains(effect))
+                {
+                    //ActiveEffects.Remove(effect);
+                    //EffectItems.Remove(effect);
+                }
+                    
+            }
+            ActiveEffectBuffer.Clear();
+        }
+        public override void UpdateDead()
+        {
+            ResetEffects();
         }
         private static List<AccessoryEffect> HookPreUpdate = AddHook<Action<Player>>(p => p.PreUpdate);
         public override void PreUpdate()

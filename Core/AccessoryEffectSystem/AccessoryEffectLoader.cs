@@ -16,9 +16,9 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         internal static void Register(AccessoryEffect effect)
         {
             AccessoryEffects.Add(effect);
-            
-            if (effect.HasToggle)
-                ToggleLoader.RegisterToggle(new Toggle(effect, effect.Mod.Name, effect.ToggleHeader.SortCategory, effect.ToggleHeader));
+
+            ToggleLoader.RegisterToggle(new Toggle(effect, effect.Mod.Name));
+
         }
         /// <summary>
         /// Adds the effect to the player. Lasts one frame. 
@@ -28,9 +28,9 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         {
             AccessoryEffect effect = ModContent.GetInstance<T>();
 
-            if (effect.HasToggle)
-                player.DisplayToggle<T>();
-            
+            //if (effect.HasToggle)
+                //player.DisplayToggle<T>();
+
             if (effect.MinionEffect || effect.ExtraAttackEffect)
             {
                 FargoSoulsPlayer modPlayer = player.FargoSouls();
@@ -49,8 +49,9 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             if (!effect.HasToggle || player.GetToggleValue(effect, true))
             {
                 AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
-                if (effectPlayer.ActiveEffects.Add(effect))
+                if (effectPlayer.ActiveEffectBuffer.Add(effect))
                 {
+                    effectPlayer.ActiveEffects.Add(effect);
                     effectPlayer.EffectItems[effect] = item;
                     return true;
                 }

@@ -46,6 +46,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             player.AddEffect<LeadEffect>(Item);
             player.AddEffect<SilverEffect>(Item);
             player.AddEffect<TungstenEffect>(Item);
+            player.FargoSouls().TungstenEnchantItem = Item;
             ObsidianEnchant.AddEffects(player, Item);
         }
 

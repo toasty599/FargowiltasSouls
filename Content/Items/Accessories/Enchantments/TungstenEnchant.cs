@@ -43,6 +43,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<TungstenEffect>(Item);
+            player.FargoSouls().TungstenEnchantItem = Item;
         }
 
         public override void AddRecipes()

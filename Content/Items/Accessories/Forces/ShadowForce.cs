@@ -24,6 +24,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             SetActive(player);
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             player.AddEffect<NinjaEffect>(Item);
+            modPlayer.NinjaEnchantItem = Item;
             modPlayer.ApprenticeEnchantActive = true;
             modPlayer.DarkArtistEnchantActive = true;
             player.AddEffect<ApprenticeSupport>(Item);

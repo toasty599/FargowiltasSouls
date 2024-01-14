@@ -226,8 +226,8 @@ namespace FargowiltasSouls.Content.Projectiles
                     tikiTimer = sourceProj.FargoSouls().tikiTimer;
                 }
             }
-
-            if (player.HasEffect<NinjaEffect>()
+            // For some reason, HasEffect<>() ALWAYS returns False in a projectile OnSpawn, unlike ModPlayer fields. Should be investigated eventually, but modPlayer placeholder fields work for now.
+            if (modPlayer.NinjaEnchantItem != null && player.GetToggleValue<NinjaEffect>()
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
                 && projectile.type != ProjectileID.WireKite
                 && projectile.whoAmI != player.heldProj
@@ -242,8 +242,9 @@ namespace FargowiltasSouls.Content.Projectiles
 
             switch (projectile.type)
             {
+                // For some reason, HasEffect<>() ALWAYS returns False in a projectile OnSpawn, unlike ModPlayer fields. Should be investigated eventually, but modPlayer placeholder fields work for now.
                 case ProjectileID.SpiritHeal:
-                    if (player.HasEffect<SpectreEffect>() && !modPlayer.TerrariaSoul)
+                    if (modPlayer.SpectreEnchantItem != null && player.GetToggleValue<SpectreEffect>() && !modPlayer.TerrariaSoul)
                     {
                         projectile.extraUpdates = 1;
                         projectile.timeLeft = 180 * projectile.MaxUpdates;
@@ -344,12 +345,14 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
             }
 
-            if (player.HasEffect<TungstenEffect>())
+            // For some reason, HasEffect<>() ALWAYS returns False in a projectile OnSpawn, unlike ModPlayer fields. Should be investigated eventually, but modPlayer placeholder fields work for now.
+
+            if (modPlayer.TungstenEnchantItem != null && player.GetToggleValue<TungstenEffect>())
             {
                 TungstenEffect.TungstenIncreaseProjSize(projectile, modPlayer, source);
             }
 
-            if (player.HasEffect<HuntressEffect>()
+            if (modPlayer.HuntressEnchantItem != null && player.GetToggleValue<HuntressEffect>()
                 && FargoSoulsUtil.IsProjSourceItemUseReal(projectile, source)
                 && projectile.damage > 0 && projectile.friendly && !projectile.hostile && !projectile.trap
                 && projectile.DamageType != DamageClass.Default
@@ -358,8 +361,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 HuntressProj = 1;
             }
-
-            if (player.HasEffect<AdamantiteEffect>()
+            if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue<AdamantiteEffect>()
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, false)
                 && CanSplit && Array.IndexOf(NoSplit, projectile.type) <= -1
                 && projectile.aiStyle != ProjAIStyleID.Spear)
@@ -375,7 +377,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     AdamantiteEffect.AdamantiteSplit(projectile, modPlayer, 1 + (int)modPlayer.AdamantiteSpread);
                     
                 }
-                AdamModifier = modPlayer.ForceEffect(player.EffectItem<AdamantiteEffect>().ModItem) ? 3 : 2;
+                AdamModifier = modPlayer.ForceEffect<AdamantiteEnchant>() ? 3 : 2;
             }
 
             if (projectile.bobber && CanSplit && source is EntitySource_ItemUse)
@@ -1108,6 +1110,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     modPlayer.WeaponUseTimer = Math.Max(modPlayer.WeaponUseTimer, 2);
 
                     modPlayer.TryAdditionalAttacks(projectile.damage, projectile.DamageType);
+                    player.AccessoryEffects().TryAdditionalAttacks(projectile.damage, projectile.DamageType);
 
                     //because the bow refuses to acknowledge changes in attack speed after initial spawning
                     if (projectile.type == ProjectileID.DD2PhoenixBow && player.HasEffect<MythrilEffect>() && modPlayer.Player.FargoSouls().MythrilTimer > -60 && counter > 60)

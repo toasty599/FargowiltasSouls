@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             AncientHallowEnchant.AddEffects(player, Item);
             TikiEnchant.AddEffects(player, Item);
             player.AddEffect<SpectreEffect>(Item);
+            player.FargoSouls().SpectreEnchantItem = Item;
         }
 
         public override void AddRecipes()

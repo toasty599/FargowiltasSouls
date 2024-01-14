@@ -64,6 +64,7 @@ $"[i:{ModContent.ItemType<TitaniumEnchant>()}] Attacks generate titanium shards,
             player.AddEffect<MythrilEffect>(Item);
             player.AddEffect<OrichalcumEffect>(Item);
             player.AddEffect<AdamantiteEffect>(Item);
+            player.FargoSouls().AdamantiteEnchantItem = Item;
             player.AddEffect<TitaniumEffect>(Item);
         }
 

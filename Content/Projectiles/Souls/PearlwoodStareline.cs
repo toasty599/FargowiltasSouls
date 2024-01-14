@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
@@ -25,9 +27,11 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             Player player = Main.player[projectile.owner];
-            if (player == null || !player.active || player.dead || !player.HasEffect<PearlwoodEffect>())
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (player == null || !player.active || player.dead || !(modPlayer.PearlwoodEnchantItem != null && player.GetToggleValue<PearlwoodEffect>()))
                 return;
-            if (source is EntitySource_ItemUse itemSource && itemSource.Item.type == player.EffectItem<PearlwoodEffect>().type)
+            int[] pearlwoodItems = new int[] { ModContent.ItemType<PearlwoodEnchant>(), ModContent.ItemType<TimberForce>(), ModContent.ItemType<TerrariaSoul>() };
+            if (source is EntitySource_ItemUse itemSource && pearlwoodItems.Contains(itemSource.Item.type))
             {
                 SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
                 Pearlwood = true;

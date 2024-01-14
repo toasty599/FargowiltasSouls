@@ -38,6 +38,7 @@ Missing any attack will reset these bonuses
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<HuntressEffect>(Item);
+            player.FargoSouls().HuntressEnchantItem = Item;
         }
 
         public static void HuntressBonus(FargoSoulsPlayer modPlayer, Projectile proj, NPC target, ref NPC.HitModifiers modifiers)

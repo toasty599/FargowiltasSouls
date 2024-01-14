@@ -4,6 +4,7 @@ using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.CodeAnalysis;
 //using FargowiltasSouls.Content.Buffs.Souls;
 //using FargowiltasSouls.Content.Projectiles.Critters;
 using Microsoft.Xna.Framework;
@@ -212,6 +213,7 @@ namespace FargowiltasSouls.Content.Items
                 && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
             {
                 modPlayer.TryAdditionalAttacks(item.damage, item.DamageType);
+                player.AccessoryEffects().TryAdditionalAttacks(item.damage, item.DamageType);
             }
 
             //            //critter attack timer

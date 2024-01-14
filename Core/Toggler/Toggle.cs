@@ -9,18 +9,16 @@ namespace FargowiltasSouls.Core.Toggler
     public class Toggle
     {
         public string Mod;
-        public string Category;
         public AccessoryEffect Effect;
-        public Header Header;
+        public Header Header => Effect.ToggleHeader;
+        public string Category => Effect.ToggleHeader.SortCategory;
         public bool ToggleBool;
         public bool DisplayToggle;
 
-        public Toggle(AccessoryEffect effect, string mod, string category, Header header)
+        public Toggle(AccessoryEffect effect, string mod)
         {
             Effect = effect;
             Mod = mod;
-            Category = category;
-            Header = header;
 
             ToggleBool = true;
             DisplayToggle = true;

@@ -41,6 +41,7 @@ Missing any attack will reset these bonuses
         {
             player.AddEffect<RedRidingEffect>(Item);
             player.AddEffect<HuntressEffect>(Item);
+            player.FargoSouls().HuntressEnchantItem = Item;
         }
 
         public override void AddRecipes()
