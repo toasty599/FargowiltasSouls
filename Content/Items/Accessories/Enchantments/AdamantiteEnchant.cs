@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void AdamantiteSplit(Projectile projectile, FargoSoulsPlayer modPlayer, int splitDegreeAngle)
         {
-            bool adaForce = modPlayer.ForceEffect(modPlayer.Player.EffectItem<AdamantiteEffect>().ModItem);
+            bool adaForce = modPlayer.ForceEffect<AdamantiteEnchant>();
             bool isProjHoming = ProjectileID.Sets.CultistIsResistantTo[projectile.type];
 
             if (AdamIgnoreItems.Contains(modPlayer.Player.HeldItem.type))

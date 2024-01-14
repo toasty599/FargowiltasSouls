@@ -72,8 +72,8 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             {
                 if (!ActiveEffectBuffer.Contains(effect))
                 {
-                    //ActiveEffects.Remove(effect);
-                    //EffectItems.Remove(effect);
+                    ActiveEffects.Remove(effect);
+                    EffectItems.Remove(effect);
                 }
                     
             }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
@@ -19,7 +20,25 @@ namespace FargowiltasSouls.Core.Toggler
         public abstract string SortCategory { get; }
         public abstract int Priority { get; }
         public abstract int Item { get; }
-        public string HeaderDescription => Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
+        public string HeaderDescription
+        {
+            get
+            {
+                string desc = Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
+                if (Item <= 0) return desc;
+                string itemIcon;
+                ModItem modItem = ModContent.GetModItem(Item);
+                if (modItem == null)
+                {
+                    itemIcon = $"[i:{Item}]";
+                }
+                else
+                {
+                    itemIcon = $"[i:{modItem.Mod}/{modItem.Name}]";
+                }
+                return $"{itemIcon}{desc}";
+            }
+        }
         public override void Load() // Must do this here so headers are registered before Toggles
         {
             ToggleLoader.RegisterHeader(this);

@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 {
                     if (modPlayer.PearlwoodGrace == 120) //spawn after 2 seconds 
                     {
-                        Projectile.NewProjectile(player.GetSource_Accessory(item), modPlayer.PStarelinePos, Vector2.Zero, ProjectileID.FairyQueenMagicItemShot, 1000, 0f);
+                        Projectile.NewProjectile(player.GetSource_ItemUse(modPlayer.PearlwoodEnchantItem), modPlayer.PStarelinePos, Vector2.Zero, ProjectileID.FairyQueenMagicItemShot, 1000, 0f);
                         //modPlayer.PStarelineActive = true;
                         modPlayer.PearlwoodGrace = 0;
                     }
