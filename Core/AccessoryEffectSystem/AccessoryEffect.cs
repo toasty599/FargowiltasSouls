@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
     /// </summary>
     public abstract class AccessoryEffect : ModType
     {
+        public int Index;
         public string ToggleDescription => Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
         /// <summary>
         /// The toggle's header in the display. <para/>
@@ -44,7 +45,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         /// <summary>
         /// The item associated with this effect. Null if none is found.
         /// </summary>
-        public Item EffectItem(Player player) => player.AccessoryEffects().EffectItems.TryGetValue(this, out Item value) ? value : null;
+        public Item EffectItem(Player player) => player.AccessoryEffects().EffectItems[Index];
         public IEntitySource GetSource_EffectItem(Player player) => player.GetSource_Accessory(EffectItem(player));
 
         #region Overridables

@@ -38,18 +38,18 @@ using Microsoft.CodeAnalysis;
 using Terraria.ModLoader.Core;
 using System.Linq.Expressions;
 using System.Reflection;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
     public class AccessoryEffectPlayer : ModPlayer
     {
-        public HashSet<AccessoryEffect> ActiveEffects = new();
-        public HashSet<AccessoryEffect> ActiveEffectBuffer = new();
-        
-        public Dictionary<AccessoryEffect, Item> EffectItems = new();
+        public bool[] ActiveEffects = Array.Empty<bool>();
+        public Item[] EffectItems = Array.Empty<Item>();
+
         private static readonly Dictionary<MethodInfo, List<AccessoryEffect>> Hooks = new();
 
-        public bool Active(AccessoryEffect effect) => ActiveEffects.Contains(effect);
+        public bool Active(AccessoryEffect effect) => ActiveEffects[effect.Index];
 
         public override void SetStaticDefaults()
         {
@@ -57,6 +57,12 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             {
                 hook.Value.AddRange(AccessoryEffectLoader.AccessoryEffects.WhereMethodIsOverridden(hook.Key));
             }
+        }
+        public override void Initialize()
+        {
+            int effectCount = AccessoryEffectLoader.AccessoryEffects.Count;
+            ActiveEffects = new bool[effectCount];
+            EffectItems = new Item[effectCount];
         }
         #region Overrides
 
@@ -68,16 +74,14 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         }
         public override void ResetEffects()
         {
-            foreach (AccessoryEffect effect in ActiveEffects)
+            for (int i = 0; i < ActiveEffects.Length; i++)
             {
-                if (!ActiveEffectBuffer.Contains(effect))
-                {
-                    ActiveEffects.Remove(effect);
-                    EffectItems.Remove(effect);
-                }
-                    
+                ActiveEffects[i] = false;
             }
-            ActiveEffectBuffer.Clear();
+            for (int i = 0; i < EffectItems.Length; i++)
+            {
+                EffectItems[i] = null;
+            }
         }
         public override void UpdateDead()
         {
@@ -95,10 +99,12 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         private static List<AccessoryEffect> HookPostUpdateEquips = AddHook<Action<Player>>(p => p.PostUpdateEquips);
         public override void PostUpdateEquips()
         {
+            Main.NewText($"{ModContent.GetInstance<CobaltEffect>().Index}  {Active(ModContent.GetInstance<CobaltEffect>())}");
             foreach (AccessoryEffect effect in HookPostUpdateEquips)
             {
                 if (Active(effect))
                     effect.PostUpdateEquips(Player);
+                
             }
         }
         private static List<AccessoryEffect> HookUpdateBadLifeRegen = AddHook<Action<Player>>(p => p.UpdateBadLifeRegen);

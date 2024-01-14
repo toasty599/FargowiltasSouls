@@ -12,9 +12,10 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
     public static class AccessoryEffectLoader
     {
-        public static HashSet<AccessoryEffect> AccessoryEffects = new();
+        public static List<AccessoryEffect> AccessoryEffects = new List<AccessoryEffect>();
         internal static void Register(AccessoryEffect effect)
         {
+            effect.Index = AccessoryEffects.Count;
             AccessoryEffects.Add(effect);
 
             ToggleLoader.RegisterToggle(new Toggle(effect, effect.Mod.Name));
@@ -49,18 +50,18 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             if (!effect.HasToggle || player.GetToggleValue(effect, true))
             {
                 AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
-                if (effectPlayer.ActiveEffectBuffer.Add(effect))
+                if (!effectPlayer.ActiveEffects[effect.Index])
                 {
-                    effectPlayer.ActiveEffects.Add(effect);
-                    effectPlayer.EffectItems[effect] = item;
+                    effectPlayer.ActiveEffects[effect.Index] = true;
+                    effectPlayer.EffectItems[effect.Index] = item;
                     return true;
                 }
             }
             return false;
         }
-        public static bool HasEffect<T>(this Player player) where T : AccessoryEffect => player.HasEffect(ModContent.GetInstance<AccessoryEffect>());
-        public static bool HasEffect(this Player player, AccessoryEffect accessoryEffect) => player.AccessoryEffects().ActiveEffects.Contains(accessoryEffect);
-        public static Item EffectItem<T>(this Player player) where T : AccessoryEffect => player.AccessoryEffects().EffectItems.TryGetValue(ModContent.GetInstance<T>(), out Item item) ? item : null;
+        public static bool HasEffect<T>(this Player player) where T : AccessoryEffect => player.HasEffect(ModContent.GetInstance<T>());
+        public static bool HasEffect(this Player player, AccessoryEffect accessoryEffect) => player.AccessoryEffects().ActiveEffects[accessoryEffect.Index];
+        public static Item EffectItem<T>(this Player player) where T : AccessoryEffect => player.AccessoryEffects().EffectItems[ModContent.GetInstance<T>().Index];
         public static IEntitySource GetSource_EffectItem<T>(this Player player) where T : AccessoryEffect => ModContent.GetInstance<T>().GetSource_EffectItem(player);
         public static T EffectType<T>() where T : AccessoryEffect => ModContent.GetInstance<T>();
         public static AccessoryEffect EffectType(string internalName)  => ModContent.Find<AccessoryEffect>(internalName);
