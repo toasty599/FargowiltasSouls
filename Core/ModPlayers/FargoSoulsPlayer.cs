@@ -255,13 +255,9 @@ namespace FargowiltasSouls.Core.ModPlayers
             SnowVisual = false;
             ApprenticeEnchantActive = false;
             DarkArtistEnchantActive = false;
-            BeetleEnchantDefenseTimer = 0;
             CrystalEnchantActive = false;
             IronRecipes = false;
             ChlorophyteEnchantActive = false;
-            TungstenEnchantItem = null;
-            SpectreEnchantItem = null;
-            NinjaEnchantItem = null;
             PearlwoodEnchantItem = null;
 
             if (!MonkEnchantActive)
@@ -510,6 +506,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             MutantEyeCD = 60;
 
             MythrilTimer = MythrilMaxTime;
+            BeetleEnchantDefenseTimer = 0;
 
             Mash = false;
             WizardEnchantActive = false;
@@ -886,7 +883,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (ConcentratedRainbowMatter
                 && Player.statLife < Player.statLifeMax2
                 && Player.potionDelay <= 0
-                && Player.HasEffect<RainbowHealEffect>())
+                && Player.GetToggleValue<RainbowHealEffect>())
             {
                 Item potion = Player.QuickHeal_GetItemToUse();
                 if (potion != null)
@@ -1377,7 +1374,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
             bool CheckWizard(int type)
             {
-                if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == modItem.Item.type)
+                if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == type)
                     return true;
                 return (BaseEnchant.CraftsInto[type] > 0 && CheckWizard(BaseEnchant.CraftsInto[type]));
             }

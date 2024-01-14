@@ -113,7 +113,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.maxFallSpeed *= 10;
                     Player.gravity = 8;
                     //deactivate hover or those mounts refuse to dash down
-                    Player.mount._data.usesHover = false;
+                    //Player.mount._data.usesHover = false;
                 }
 
                 if (MonkDashing == 0 && Player.mount.Active)
@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.velocity *= 0.5f;
 
                     //add hover back
-                    Player.mount._data.usesHover = BaseSquireMountData.usesHover;
+                   // Player.mount._data.usesHover = BaseSquireMountData.usesHover;
                 }
             }
         }
@@ -294,11 +294,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.dashType != 0)
                 HasDash = true;
 
-            if (LihzahrdTreasureBoxItem != null)
-                LihzahrdTreasureBoxUpdate();
-
-            #endregion dashes
-
             if (PrecisionSealNoDashNoJump)
             {
                 Player.dashType = 0;
@@ -310,7 +305,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.GetJumpState(ExtraJump.UnicornMount).Disable();
                 JungleJumping = false;
                 CanJungleJump = false;
-                dashCD = 2;
+                DashCD = 2;
                 IsDashingTimer = 0;
                 HasDash = false;
                 Player.dashDelay = 10;
@@ -318,11 +313,19 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (lihzahrdFallCD < 2)
                     lihzahrdFallCD = 2;
             }
+            if (Player.dashDelay > 0 && DashCD > 0)
+                Player.dashDelay = Math.Max(DashCD, Player.dashDelay);
+
+            DashManager.AddDashes(Player);
 
             DashManager.ManageDashes(Player);
 
+            if (LihzahrdTreasureBoxItem != null)
+                LihzahrdTreasureBoxUpdate();
             if (Player.HasEffect<DeerclawpsEffect>() && IsInADashState)
                 DeerclawpsEffect.DeerclawpsAttack(Player, Player.Bottom);
+
+            #endregion dashes
 
             if (NecromanticBrewItem != null && IsInADashState && Player.HasEffect<NecroBrewSpin>())
             {
@@ -518,8 +521,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.waterWalk2 = false;
             }
 
-            if (dashCD > 0)
-                dashCD--;
+            if (DashCD > 0)
+                DashCD--;
 
             if (ReallyAwfulDebuffCooldown > 0)
                 ReallyAwfulDebuffCooldown--;

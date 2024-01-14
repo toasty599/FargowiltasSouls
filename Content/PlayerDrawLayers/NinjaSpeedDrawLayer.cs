@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer == null)
                 return false;
-            if (player.HasEffect<NinjaEffect>())
+            if (!player.HasEffect<NinjaEffect>())
                 return false;
 
             float maxSpeed = modPlayer.ForceEffect<NinjaEnchant>() ? 7 : 4;

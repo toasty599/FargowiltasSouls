@@ -2953,7 +2953,7 @@ Mods: {
 					[i:FargowiltasSouls/ConcentratedRainbowMatter] Summons a friendly rainbow slime
 					[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 					[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
-					[c/00FFFF:Following effects are currently disabled (right click to enable in inventory):]
+					[c/00FFFF:Following effects are currently disabled in inventory (right click to enable):]
 					    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
 					    [i:FargowiltasSouls/WyvernFeather] Stabilizes gravity in space and in liquid, [i:FargowiltasSouls/OrdinaryCarrot] improves your nightvision, [i:FargowiltasSouls/SecurityWallet] and drastically improves reforges
 					    [i:FargowiltasSouls/ConcentratedRainbowMatter] Automatically uses healing & [i:FargowiltasSouls/MysticSkull] mana potions when needed and increases pickup range for mana stars

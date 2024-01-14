@@ -39,7 +39,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<AdamantiteEffect>(Item);
-            player.FargoSouls().AdamantiteEnchantItem = Item;
         }
 
 

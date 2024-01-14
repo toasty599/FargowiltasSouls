@@ -26,6 +26,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.FargoSouls().ValhallaEnchantActive = true;
+            player.AddEffect<ValhallaDash>(Item);
             SquireEnchant.SquireEffect(player, Item);
         }
 

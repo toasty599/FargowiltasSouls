@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             Player player = Main.player[Projectile.owner];
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || player.FargoSouls().DarkArtistEnchantActive || !player.HasEffect<DarkArtistMinion>()))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !player.FargoSouls().DarkArtistEnchantActive || !player.HasEffect<DarkArtistMinion>()))
             {
                 Projectile.Kill();
                 return;

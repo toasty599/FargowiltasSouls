@@ -54,7 +54,7 @@ Three Shadow Orbs will orbit around you
             .AddIngredient(ItemID.AncientShadowGreaves)
             //.AddIngredient(ItemID.AncientNecroHelmet);
             //.AddIngredient(ItemID.AncientGoldHelmet);
-            .AddIngredient(null, "ShadowEnchant")
+            .AddIngredient<ShadowEnchant>()
             .AddIngredient(ItemID.ShadowFlameKnife)
             .AddIngredient(ItemID.ShadowFlameHexDoll)
             //dart rifle

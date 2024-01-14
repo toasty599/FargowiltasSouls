@@ -74,11 +74,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int TinProcCD;
         public bool TinCritBuffered;
         public int TungstenCD;
-        public Item TungstenEnchantItem;
-        public Item HuntressEnchantItem;
-        public Item AdamantiteEnchantItem;
-        public Item NinjaEnchantItem;
-        public Item SpectreEnchantItem;
         public Item PearlwoodEnchantItem;
         public int AshwoodCD;
 
@@ -153,7 +148,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int RedRidingArrowCD;
 
-        public int dashCD;
+        public int DashCD;
 
         public bool SnowVisual;
         public int SpectreCD;
@@ -368,7 +363,17 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int NoUsingItems;
 
         public bool HasDash;
-        public DashType FargoDash;
+        private DashType fargoDash;
+        public DashType FargoDash {
+            get => fargoDash;
+            set 
+            { 
+                fargoDash = value;
+                if (value != DashType.None)
+                    HasDash = true; 
+            }
+        }
+        public bool CanShinobiTeleport;
 
         public int WeaponUseTimer;
 

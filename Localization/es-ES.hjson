@@ -2274,7 +2274,7 @@ Mods: {
 					Double tap a direction
 					You are immune to damage and debuffs for half a second after dashing
 					Dash through an enemy to deal massive damage
-					Dash cooldown is longer than normal dashes
+					Dash cooldown is much longer than normal dashes
 					Lightning Aura can now crit and strikes faster
 					'Return to Monk'
 					''' */
@@ -2454,9 +2454,13 @@ Mods: {
 				// DisplayName: Shinobi Infiltrator Enchantment
 				/* Tooltip:
 					'''
-					Dash into any walls, to teleport through them to the next opening
 					Allows the ability to dash
 					Double tap a direction
+					You are immune to damage and debuffs for half a second after dashing
+					Dash through an enemy to deal massive damage
+					Dash cooldown is longer than normal dashes
+					Dash is longer and deals more damage
+					Dash into any walls to teleport through them to the next opening
 					Greatly enhances Lightning Aura effectiveness
 					'Village Hidden in the Wall'
 					''' */
@@ -2934,7 +2938,7 @@ Mods: {
 					[i:FargowiltasSouls/ConcentratedRainbowMatter] Summons a friendly rainbow slime
 					[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 					[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
-					[c/00FFFF:Following effects work passively from inventory or vanity slots (right click to disable in inventory):]
+					[c/00FFFF:Following effects also work passively from inventory or vanity slots (right click to disable in inventory):]
 					    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
 					    [i:FargowiltasSouls/WyvernFeather] Stabilizes gravity in space and in liquid, [i:FargowiltasSouls/OrdinaryCarrot] improves your nightvision, [i:FargowiltasSouls/SecurityWallet] and drastically improves reforges
 					    [i:FargowiltasSouls/ConcentratedRainbowMatter] Automatically uses healing & [i:FargowiltasSouls/MysticSkull] mana potions when needed and increases pickup range for mana stars
@@ -2958,7 +2962,7 @@ Mods: {
 					[i:FargowiltasSouls/ConcentratedRainbowMatter] Summons a friendly rainbow slime
 					[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 					[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
-					[c/00FFFF:Following effects are currently disabled (right click to enable in inventory):]
+					[c/00FFFF:Following effects are currently disabled in inventory (right click to enable):]
 					    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
 					    [i:FargowiltasSouls/WyvernFeather] Stabilizes gravity in space and in liquid, [i:FargowiltasSouls/OrdinaryCarrot] improves your nightvision, [i:FargowiltasSouls/SecurityWallet] and drastically improves reforges
 					    [i:FargowiltasSouls/ConcentratedRainbowMatter] Automatically uses healing & [i:FargowiltasSouls/MysticSkull] mana potions when needed and increases pickup range for mana stars

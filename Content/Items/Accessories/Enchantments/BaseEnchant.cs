@@ -112,11 +112,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
     public class EnchantSystem : ModSystem
     {
-        public override void PostSetupContent()
+        public override void PostSetupRecipes()
         {
             SetFactory factory = new(ContentSamples.ItemsByType.Count);
             BaseEnchant.CraftsInto = factory.CreateIntSet();
-
             foreach (BaseEnchant modItem in ModContent.GetContent<BaseEnchant>())
             {
                 Recipe recipe = Main.recipe.FirstOrDefault(r => r.ContainsIngredient(modItem.Type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant, null);

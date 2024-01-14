@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
+using FargowiltasSouls.Content.Projectiles.Souls;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -85,7 +86,7 @@ When you are hurt, you violently explode to damage nearby enemies
                 if (explosionDamage > cap)
                     explosionDamage = cap;
 
-                Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_Accessory(player.EffectItem<CobaltEffect>()), player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(explosionDamage * player.ActualClassDamage(DamageClass.Melee)), 0f, Main.myPlayer);
+                Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(player.GetSource_Accessory(player.EffectItem<CobaltEffect>()), player.Center, Vector2.Zero, ModContent.ProjectileType<CobaltExplosion>(), (int)(explosionDamage * player.ActualClassDamage(DamageClass.Melee)), 0f, Main.myPlayer);
                 if (p != null)
                     p.FargoSouls().CanSplit = false;
             }

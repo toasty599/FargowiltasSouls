@@ -3,6 +3,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Consumables
 {
@@ -60,8 +61,11 @@ All effects negated if toggled off or another dash is already in use
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.DeerSinewFreezeCD > 0)
                 modPlayer.DeerSinewFreezeCD--;
-
-            if (modPlayer.HasDash || player.mount.Active || player.whoAmI != Main.myPlayer)
+        }
+        public static void AddDash(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.HasDash || player.mount.Active)
                 return;
 
             modPlayer.HasDash = true;

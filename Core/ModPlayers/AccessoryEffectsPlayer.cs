@@ -719,8 +719,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public void DeerSinewDash(int dir)
         {
             float dashSpeed = 12f;
-            dashCD = 60;
-            Player.dashDelay = dashCD;
+            DashCD = 60;
+            Player.dashDelay = DashCD;
             if (IsDashingTimer < 15)
                 IsDashingTimer = 15;
             Player.velocity.X = dir * dashSpeed;

@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -68,7 +69,8 @@ Attacks may inflict the Solar Flare debuff
     public class SolarEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
-        public override void PostUpdateEquips(Player player)
+
+        public static void AddDash(Player player)
         {
             Player Player = player;
             if (!Player.setSolar && !player.FargoSouls().TerrariaSoul) //nerf DR
@@ -130,7 +132,9 @@ Attacks may inflict the Solar Flare debuff
             if (Player.solarShields > 0 || flag)
             {
                 Player.dashType = 3;
-                player.FargoSouls().HasDash = true; //doesnt check this itself, so overrides most other dashes(?)
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                modPlayer.FargoDash = DashManager.DashType.None;
+                modPlayer.HasDash = true; //doesnt check this itself, so overrides most other dashes(?)
             }
         }
     }

@@ -226,8 +226,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     tikiTimer = sourceProj.FargoSouls().tikiTimer;
                 }
             }
-            // For some reason, HasEffect<>() ALWAYS returns False in a projectile OnSpawn, unlike ModPlayer fields. Should be investigated eventually, but modPlayer placeholder fields work for now.
-            if (modPlayer.NinjaEnchantItem != null && player.GetToggleValue<NinjaEffect>()
+            if (player.HasEffect<NinjaEffect>()
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, true)
                 && projectile.type != ProjectileID.WireKite
                 && projectile.whoAmI != player.heldProj
@@ -244,7 +243,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 // For some reason, HasEffect<>() ALWAYS returns False in a projectile OnSpawn, unlike ModPlayer fields. Should be investigated eventually, but modPlayer placeholder fields work for now.
                 case ProjectileID.SpiritHeal:
-                    if (modPlayer.SpectreEnchantItem != null && player.GetToggleValue<SpectreEffect>() && !modPlayer.TerrariaSoul)
+                    if (player.HasEffect<SpectreEffect>() && !modPlayer.TerrariaSoul)
                     {
                         projectile.extraUpdates = 1;
                         projectile.timeLeft = 180 * projectile.MaxUpdates;
@@ -347,12 +346,12 @@ namespace FargowiltasSouls.Content.Projectiles
 
             // For some reason, HasEffect<>() ALWAYS returns False in a projectile OnSpawn, unlike ModPlayer fields. Should be investigated eventually, but modPlayer placeholder fields work for now.
 
-            if (modPlayer.TungstenEnchantItem != null && player.GetToggleValue<TungstenEffect>())
+            if (player.HasEffect<TungstenEffect>())
             {
                 TungstenEffect.TungstenIncreaseProjSize(projectile, modPlayer, source);
             }
 
-            if (modPlayer.HuntressEnchantItem != null && player.GetToggleValue<HuntressEffect>()
+            if (player.HasEffect<HuntressEffect>()
                 && FargoSoulsUtil.IsProjSourceItemUseReal(projectile, source)
                 && projectile.damage > 0 && projectile.friendly && !projectile.hostile && !projectile.trap
                 && projectile.DamageType != DamageClass.Default
@@ -361,7 +360,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 HuntressProj = 1;
             }
-            if (modPlayer.AdamantiteEnchantItem != null && player.GetToggleValue<AdamantiteEffect>()
+            if (player.HasEffect<AdamantiteEffect>()
                 && FargoSoulsUtil.OnSpawnEnchCanAffectProjectile(projectile, false)
                 && CanSplit && Array.IndexOf(NoSplit, projectile.type) <= -1
                 && projectile.aiStyle != ProjAIStyleID.Spear)

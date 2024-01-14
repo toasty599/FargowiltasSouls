@@ -55,13 +55,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                     Mount.MountData original = Mount.mounts[mount.Type];
                     //copy over ANYTHING that will be changed
-                    modPlayer.BaseSquireMountData = new Mount.MountData();
-                    modPlayer.BaseSquireMountData.acceleration = original.acceleration;
-                    modPlayer.BaseSquireMountData.dashSpeed = original.dashSpeed;
-                    modPlayer.BaseSquireMountData.fallDamage = original.fallDamage;
+                    modPlayer.BaseSquireMountData = new Mount.MountData
+                    {
+                        acceleration = original.acceleration,
+                        dashSpeed = original.dashSpeed,
+                        fallDamage = original.fallDamage,
 
-                    modPlayer.BaseSquireMountData.jumpSpeed = original.jumpSpeed;
-                    modPlayer.BaseSquireMountData.usesHover = original.usesHover;
+                        jumpSpeed = original.jumpSpeed,
+                        //usesHover = original.usesHover
+                    };
 
                     modPlayer.BaseMountType = mount.Type;
                 }
@@ -175,10 +177,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 mount._data.fallDamage = 0;
                 player.noFallDmg = true;
 
+                Main.NewText(modPlayer.IsDashingTimer);
+
+                /*
                 if (modPlayer.IsDashingTimer == 0)
                 {
-                    mount._data.usesHover = modPlayer.BaseSquireMountData.usesHover;
+                    //mount._data.usesHover = modPlayer.BaseSquireMountData.usesHover;
                 }
+                */
                 
 
                 //Main.NewText(mount.DashSpeed);
@@ -254,6 +260,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Mount.mounts[modPlayer.BaseMountType].fallDamage = modPlayer.BaseSquireMountData.fallDamage;
 
             Mount.mounts[modPlayer.BaseMountType].jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed;
+            //Mount.mounts[modPlayer.BaseMountType].usesHover = modPlayer.BaseSquireMountData.usesHover;
             modPlayer.BaseMountType = -1;
         }
 

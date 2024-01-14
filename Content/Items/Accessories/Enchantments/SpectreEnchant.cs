@@ -42,7 +42,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<SpectreEffect>(Item);
-            player.FargoSouls().SpectreEnchantItem = Item;
         }
 
         public override void AddRecipes()

@@ -217,10 +217,31 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public static void PassiveEffect(Player player, Item item)
         {
+            player.buffImmune[BuffID.WindPushed] = true;
+            player.buffImmune[BuffID.Suffocation] = true;
+            player.buffImmune[BuffID.Chilled] = true;
+            player.buffImmune[ModContent.BuffType<GuiltyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<LoosePocketsBuff>()] = true;
+
+            player.nightVision = true;
+
+            player.manaMagnet = true;
+            player.manaFlower = true;
+            player.AddEffect<MasoCarrotEffect>(item);
+
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
+            fargoPlayer.SandsofTime = true;
+            fargoPlayer.SecurityWallet = true;
+            fargoPlayer.TribalCharm = true;
+            fargoPlayer.NymphsPerfumeRespawn = true;
+            fargoPlayer.ConcentratedRainbowMatter = true;
+            player.AddEffect<RainbowHealEffect>(item);
+            fargoPlayer.FrigidGemstoneItem = item;
+            player.AddEffect<StabilizedGravity>(item);
         }
 
-        public override void UpdateInventory(Player player) => PassiveEffect(player, Item);
-        public override void UpdateVanity(Player player) => PassiveEffect(player, Item);
+        public override void UpdateInventory(Player player) { return; }//PassiveEffect(player, Item);
+        public override void UpdateVanity(Player player) { return; }//PassiveEffect(player, Item);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

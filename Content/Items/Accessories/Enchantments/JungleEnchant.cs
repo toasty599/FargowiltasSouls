@@ -49,17 +49,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
         public override bool IgnoresMutantPresence => true;
-        public override void PostUpdateEquips(Player player)
+        public static void AddDash(Player player)
         {
-            if (player.whoAmI != Main.myPlayer)
-                return;
-
-            if (player.mount.Active)
-                return;
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.HasDash)
                 return;
-
             modPlayer.HasDash = true;
             modPlayer.FargoDash = DashManager.DashType.Jungle;
         }
