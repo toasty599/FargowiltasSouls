@@ -30,7 +30,7 @@ Attacks may inflict the Solar Flare debuff
             // '烫手魔石'");
         }
 
-        protected override Color nameColor => new(254, 158, 35);
+        public override Color nameColor => new(254, 158, 35);
         
 
         public override void SetDefaults()
@@ -69,7 +69,7 @@ Attacks may inflict the Solar Flare debuff
     public class SolarEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
-
+        public override int ToggleItemType => ModContent.ItemType<SolarEnchant>();
         public static void AddDash(Player player)
         {
             Player Player = player;
@@ -141,6 +141,7 @@ Attacks may inflict the Solar Flare debuff
     public class SolarFlareEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SolarEnchant>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
             if (Main.rand.NextBool(4))

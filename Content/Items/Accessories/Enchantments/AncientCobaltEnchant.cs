@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'Ancient Kobold'"); */
         }
 
-        protected override Color nameColor => new(53, 76, 116);
+        public override Color nameColor => new(53, 76, 116);
 
         public override void SetDefaults()
         {
@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class AncientCobaltEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<AncientCobaltEnchant>();
 
         public override void PostUpdateEquips(Player player)
         {

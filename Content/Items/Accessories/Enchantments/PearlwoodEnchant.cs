@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'Too little, too late…'"); */
         }
 
-        protected override Color nameColor => new(173, 154, 95);
+        public override Color nameColor => new(173, 154, 95);
 
         
         public override void SetDefaults()
@@ -59,6 +59,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<PearlwoodEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             PearlwoodStar(player, EffectItem(player));

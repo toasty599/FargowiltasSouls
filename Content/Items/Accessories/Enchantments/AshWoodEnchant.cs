@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(139, 116, 100);
+        public override Color nameColor => new(139, 116, 100);
 
 
         public override void SetDefaults()
@@ -57,9 +57,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class AshWoodEffect : AccessoryEffect
     {
-        
         public override Header ToggleHeader => null;
-        
+
         public override void PostUpdateEquips(Player player)
         {
             AshWoodEnchant.PassiveEffect(player);
@@ -69,8 +68,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class AshWoodFireballs : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<AshWoodEnchant>();
         public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {

@@ -28,9 +28,8 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         public static bool AddEffect<T>(this Player player, Item item) where T : AccessoryEffect
         {
             AccessoryEffect effect = ModContent.GetInstance<T>();
-
-            //if (effect.HasToggle)
-                //player.DisplayToggle<T>();
+            AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
+            effectPlayer.EquippedEffects[effect.Index] = true;
 
             if (effect.MinionEffect || effect.ExtraAttackEffect)
             {
@@ -49,7 +48,6 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 
             if (!effect.HasToggle || player.GetToggleValue(effect, true))
             {
-                AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
                 if (!effectPlayer.ActiveEffects[effect.Index])
                 {
                     effectPlayer.ActiveEffects[effect.Index] = true;

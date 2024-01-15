@@ -33,7 +33,6 @@ namespace FargowiltasSouls.Core.Toggler
                     if (!effect.IgnoresMutantPresence)
                         return false;
             }
-            toggle.DisplayToggle = true;
             return toggle.ToggleBool;
         }
 
@@ -52,27 +51,6 @@ namespace FargowiltasSouls.Core.Toggler
             else
                 FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {effect.Name}");
         }
-        public static void DisplayToggle<T>(this Player player) where T : AccessoryEffect => player.DisplayToggle(ModContent.GetInstance<T>());
-        public static void DisplayToggle(this Player player, AccessoryEffect effect)
-        {
-            if (player.FargoSouls().Toggler.Toggles.ContainsKey(effect))
-                player.FargoSouls().Toggler.Toggles[effect].DisplayToggle = true;
-            else
-                FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {effect.Name}");
-        }
 
-        public static void ReloadToggles(this Player player)
-        {
-            //disable toggles that should be disabled
-            foreach (Toggle toggle in player.FargoSouls().Toggler.Toggles.Values)//.Where(t => t.Category == "Enchantments" || t.Category == "Maso"))
-            {
-                //force them enabled if the config is on, otherwise force them disabled
-                toggle.DisplayToggle = SoulConfig.Instance.DisplayTogglesRegardless;
-            }
-        }
-        /*public static void SetPlayerBoolValue(this Player player, string name, bool value)
-        {
-            player.FargoSouls().Toggler.Toggles[name].PlayerBool = value;
-        }*/
     }
 }

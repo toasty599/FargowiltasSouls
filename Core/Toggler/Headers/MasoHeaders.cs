@@ -8,51 +8,60 @@ namespace FargowiltasSouls.Core.Toggler.Content
 {
     public abstract class MasoHeader : Header
     {
-        public override int Priority => 2;
+        public override float Priority => 1;
         public override string SortCategory => "Maso";
     }
     public class DeviEnergyHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<DeviatingEnergy>();
+        public override float Priority => 1.1f;
     }
-    public class SupremeFairyHeader : EnchantHeader
+    public class SupremeFairyHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<SupremeDeathbringerFairy>();
+        public override float Priority => 1.2f;
     }
-    public class BionomicHeader : EnchantHeader
+    public class BionomicHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<BionomicCluster>();
+        public override float Priority => 1.3f;
     }
-    public class DubiousHeader : EnchantHeader
+    public class DubiousHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<DubiousCircuitry>();
+        public override float Priority => 1.4f;
     }
-    public class PureHeartHeader : EnchantHeader
+    public class PureHeartHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<PureHeart>();
+        public override float Priority => 1.5f;
     }
-    public class LumpofFleshHeader : EnchantHeader
+    public class LumpofFleshHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<LumpOfFlesh>();
+        public override float Priority => 1.6f;
     }
-    public class ChaliceHeader : EnchantHeader
+    public class ChaliceHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<ChaliceoftheMoon>();
+        public override float Priority => 1.7f;
     }
-    public class HeartHeader : EnchantHeader
+    public class HeartHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<HeartoftheMasochist>();
+        public override float Priority => 1.8f;
     }
-    public class MutantArmorHeader : EnchantHeader
+    public class MutantArmorHeader : MasoHeader
     {
         public override int Item => ModContent.ItemType<MutantBody>();
+        public override float Priority => 4f;
     }
     /*
     public class MasoToggles : ToggleCollection
     {
         public override string Mod => "FargowiltasSouls";
         public override string SortCategory => "Maso";
-        public override int Priority => 2;
+        public override float Priority => 2;
         public override bool Active => true;
 
         public int MasoHeader2 = ModContent.ItemType<DeviatingEnergy>();

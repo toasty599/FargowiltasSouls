@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class MonkEnchant : BaseEnchant
     {
 
-        protected override Color nameColor => new(146, 5, 32);
+        public override Color nameColor => new(146, 5, 32);
 
         public override void SetDefaults()
         {
@@ -32,6 +32,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         }
         public static void AddEffects(Player player, Item item)
         {
+            
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.MonkEnchantActive = true;
             player.AddEffect<MonkDashEffect>(item);
@@ -59,7 +60,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class MonkDashEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
-
+        public override int ToggleItemType => ModContent.ItemType<MonkEnchant>();
         public static void AddDash(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

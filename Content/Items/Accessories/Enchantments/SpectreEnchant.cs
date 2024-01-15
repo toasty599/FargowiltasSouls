@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         }
 
-        protected override Color nameColor => new(172, 205, 252);
+        public override Color nameColor => new(172, 205, 252);
         
 
         public override void SetDefaults()
@@ -68,6 +68,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SpectreEnchant>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

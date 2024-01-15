@@ -7,6 +7,7 @@ using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -21,7 +22,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             // Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new(147, 91, 24);
+        public override Color nameColor => new(147, 91, 24);
         
 
         public override void SetDefaults()
@@ -64,9 +65,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class ShinobiDashEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ShinobiEnchant>();
     }
     public class ShinobiThroughWalls : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ShinobiEnchant>();
     }
 }

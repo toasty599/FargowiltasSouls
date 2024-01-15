@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             // Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new(231, 178, 28);
+        public override Color nameColor => new(231, 178, 28);
         
 
         public override void SetDefaults()
@@ -68,6 +68,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => null;
+        public override int ToggleItemType => ModContent.ItemType<ForbiddenEnchant>();
         public static void ActivateForbiddenStorm(Player player)
         {
             if (player.HasEffect<ForbiddenEffect>())

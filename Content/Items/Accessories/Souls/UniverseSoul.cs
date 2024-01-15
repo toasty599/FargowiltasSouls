@@ -101,6 +101,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class UniverseSpeedEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override int ToggleItemType => ModContent.ItemType<UniverseSoul>();
         public override void PostUpdateEquips(Player player)
         {
             float speed = player.FargoSouls().Eternity ? 2.5f : 0.5f;

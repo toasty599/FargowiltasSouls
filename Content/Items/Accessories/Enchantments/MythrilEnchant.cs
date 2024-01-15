@@ -23,7 +23,7 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
 'You feel the knowledge of your weapons seep into your mind'"); */
         }
 
-        protected override Color nameColor => new(157, 210, 144);
+        public override Color nameColor => new(157, 210, 144);
         
 
         public override void SetDefaults()
@@ -58,6 +58,7 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
     public class MythrilEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MythrilEnchant>();
 
         public static void CalcMythrilAttackSpeed(FargoSoulsPlayer modPlayer, Item item)
         {

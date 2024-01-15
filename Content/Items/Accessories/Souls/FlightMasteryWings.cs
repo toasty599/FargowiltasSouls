@@ -2,6 +2,7 @@ using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Souls
 {
@@ -34,12 +35,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             speed = 18f;
             acceleration = 0.75f;
 
-            if (HasSupersonicSpeed && player.GetToggleValue<SupersonicSpeedEffect>())
+            if (HasSupersonicSpeed && player.HasEffect<SupersonicSpeedEffect>())
                 speed = 25f;
         }
     }
     public class SupersonicSpeedEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SupersonicSoul>();
     }
 }

@@ -32,7 +32,7 @@ Collect the bones to heal for 20 HP each
             // '被遗忘已久的记忆'");
         }
 
-        protected override Color nameColor => new(140, 92, 59);
+        public override Color nameColor => new(140, 92, 59);
         
 
         public override void SetDefaults()
@@ -124,6 +124,7 @@ Collect the bones to heal for 20 HP each
     {
         
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
+        public override int ToggleItemType => ModContent.ItemType<FossilEnchant>();
         public override void OnHurt(Player player, Player.HurtInfo info)
         {
             //spawn bones

@@ -23,7 +23,7 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
 'You feel your body slip into the deepest of shadows'"); */
         }
 
-        protected override Color nameColor => new(66, 53, 111);
+        public override Color nameColor => new(66, 53, 111);
 
         public override void SetDefaults()
         {
@@ -56,6 +56,8 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
     {
         
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ShadowEnchant>();
+        public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
             if (player.whoAmI == Main.myPlayer)

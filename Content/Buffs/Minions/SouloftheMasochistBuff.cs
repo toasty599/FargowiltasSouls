@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
             {
                 FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
-                if (player.GetToggleValue<SkeleMinionEffect>())
+                if (player.HasEffect<SkeleMinionEffect>())
                 {
                     fargoPlayer.SkeletronArms = true;
                     const int damage = 64;
@@ -36,7 +36,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmR>(), damage, 8f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue<PungentMinion>())
+                if (player.HasEffect<PungentMinion>())
                 {
                     fargoPlayer.PungentEyeballMinion = true;
                     const int damage = 150;
@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<RainbowSlime>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue<ProbeMinionEffect>())
+                if (player.HasEffect<ProbeMinionEffect>())
                 {
                     fargoPlayer.Probes = true;
                     const int damage = 105;
@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe2>(), damage, 9f, player.whoAmI, 0f, -1f);
                 }
 
-                if (player.GetToggleValue<PlantMinionEffect>())
+                if (player.HasEffect<PlantMinionEffect>())
                 {
                     fargoPlayer.PlanterasChild = true;
                     const int damage = 120;
@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, -Vector2.UnitY, ModContent.ProjectileType<PlanterasChild>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue<UfoMinionEffect>())
+                if (player.HasEffect<UfoMinionEffect>())
                 {
                     fargoPlayer.MiniSaucer = true;
                     const int damage = 100;
@@ -79,7 +79,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<MiniSaucer>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue<CultistMinionEffect>())
+                if (player.HasEffect<CultistMinionEffect>())
                 {
                     fargoPlayer.LunarCultist = true;
                     const int damage = 160;
@@ -87,7 +87,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<LunarCultist>(), damage, 2f, player.whoAmI, -1f);
                 }
 
-                if (player.GetToggleValue<TrueEyeMinion>())
+                if (player.HasEffect<MasoTrueEyeMinion>())
                 {
                     fargoPlayer.TrueEyes = true;
 
@@ -104,10 +104,5 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                 }
             }
         }
-    }
-    public class TrueEyeMinion : AccessoryEffect
-    {
-        public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
-        public override bool MinionEffect => true;
     }
 }

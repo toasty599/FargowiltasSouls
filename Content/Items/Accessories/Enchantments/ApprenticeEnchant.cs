@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(93, 134, 166);
+        public override Color nameColor => new(93, 134, 166);
 
         public override void SetDefaults()
         {
@@ -70,8 +70,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class ApprenticeSupport : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ApprenticeEnchant>();
+        public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

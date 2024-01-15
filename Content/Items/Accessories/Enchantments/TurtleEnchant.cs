@@ -34,7 +34,7 @@ Enemies will explode into needles on death if they are struck with your needles
             // '你突然有一种想躲进壳里的冲动'");
         }
 
-        protected override Color nameColor => new(248, 156, 92);
+        public override Color nameColor => new(248, 156, 92);
         
 
         public override void SetDefaults()
@@ -110,6 +110,7 @@ Enemies will explode into needles on death if they are struck with your needles
     public class TurtleEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<TurtleEnchant>();
+
     }
 }

@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
     public class PetHeader : Header
     {
         public override int Item => ItemID.ZephyrFish;
-        public override int Priority => 3;
+        public override float Priority => 3;
         public override string SortCategory => "Pets";
     }
     /*
@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
 
         public override string SortCategory => "Pets";
 
-        public override int Priority => 3;
+        public override float Priority => 3;
 
         public override bool Active => ModLoader.TryGetMod("FargowiltasSoulsDLC", out _);
 

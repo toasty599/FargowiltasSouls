@@ -45,12 +45,13 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
     public class AccessoryEffectPlayer : ModPlayer
     {
         public bool[] ActiveEffects = Array.Empty<bool>();
+        public bool[] EquippedEffects = Array.Empty<bool>();
         public Item[] EffectItems = Array.Empty<Item>();
 
         private static readonly Dictionary<MethodInfo, List<AccessoryEffect>> Hooks = new();
 
         public bool Active(AccessoryEffect effect) => ActiveEffects[effect.Index];
-
+        public bool Equipped(AccessoryEffect effect) => EquippedEffects[effect.Index];
         public override void SetStaticDefaults()
         {
             foreach (var hook in Hooks)
@@ -62,6 +63,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         {
             int effectCount = AccessoryEffectLoader.AccessoryEffects.Count;
             ActiveEffects = new bool[effectCount];
+            EquippedEffects = new bool[effectCount];
             EffectItems = new Item[effectCount];
         }
         #region Overrides
@@ -77,6 +79,10 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             for (int i = 0; i < ActiveEffects.Length; i++)
             {
                 ActiveEffects[i] = false;
+            }
+            for (int i = 0; i < EquippedEffects.Length; i++)
+            {
+                EquippedEffects[i] = false;
             }
             for (int i = 0; i < EffectItems.Length; i++)
             {

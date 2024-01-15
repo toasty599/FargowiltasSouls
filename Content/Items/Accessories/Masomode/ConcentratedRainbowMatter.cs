@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+﻿using FargowiltasSouls.Content.Buffs.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
@@ -45,15 +46,18 @@ Summons a baby rainbow slime to fight for you
     public class RainbowHealEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ConcentratedRainbowMatter>();
         public override bool IgnoresMutantPresence => true;
     }
     public class RainbowSlimeMinion : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ConcentratedRainbowMatter>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
-            player.AddBuff(ModContent.BuffType<Buffs.Minions.RainbowSlimeBuff>(), 2);
+            if (!player.HasBuff<SouloftheMasochistBuff>())
+                player.AddBuff(ModContent.BuffType<Buffs.Minions.RainbowSlimeBuff>(), 2);
         }
     }
 }

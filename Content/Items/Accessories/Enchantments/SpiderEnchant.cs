@@ -30,7 +30,7 @@ Summon crits do x1.5 damage instead of x2
 
         }
 
-        protected override Color nameColor => new(109, 78, 69);
+        public override Color nameColor => new(109, 78, 69);
         
 
         public override void SetDefaults()
@@ -68,7 +68,7 @@ Summon crits do x1.5 damage instead of x2
     public class SpiderEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<SpiderEnchant>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {

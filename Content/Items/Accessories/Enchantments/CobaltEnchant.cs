@@ -22,7 +22,7 @@ When you are hurt, you violently explode to damage nearby enemies
 'I can't believe it's not Palladium'"); */
         }
 
-        protected override Color nameColor => new(61, 164, 196);
+        public override Color nameColor => new(61, 164, 196);
 
         public override void SetDefaults()
         {
@@ -56,7 +56,7 @@ When you are hurt, you violently explode to damage nearby enemies
     public class CobaltEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<CobaltEnchant>();
 
         public override void OnHurt(Player player, Player.HurtInfo info)
         {

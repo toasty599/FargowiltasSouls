@@ -66,10 +66,13 @@ When you land after a jump, slime spikes shoot out to your sides
     public class GelicWingSpikes : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<PureHeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GelicWings>();
+        public override bool ExtraAttackEffect => true;
     }
     public class GelicWingJump : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<PureHeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GelicWings>();
         public override void PostUpdateEquips(Player player)
         {
             player.GetJumpState(ExtraJump.UnicornMount).Enable();

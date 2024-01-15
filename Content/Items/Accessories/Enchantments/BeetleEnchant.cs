@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 	public class BeetleEnchant : BaseEnchant
     {
 
-        protected override Color nameColor => new(109, 92, 133);
+        public override Color nameColor => new(109, 92, 133);
 
         public override void SetDefaults()
         {
@@ -213,7 +213,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
     public class BeetleEffect : AccessoryEffect
     {
-        public override Header ToggleHeader => null;
+        public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
+        public override int ToggleItemType => ModContent.ItemType<BeetleEnchant>();
 
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {

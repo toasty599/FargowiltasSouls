@@ -50,9 +50,11 @@ Non-boss enemies will drop doubled loot
     public class SinisterIconEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SinisterIcon>();
     }
     public class SinisterIconDropsEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SinisterIcon>();
     }
 }

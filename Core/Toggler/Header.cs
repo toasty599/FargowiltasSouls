@@ -17,16 +17,22 @@ namespace FargowiltasSouls.Core.Toggler
 {
     public abstract class Header : ModType
     {
+
         public abstract string SortCategory { get; }
-        public abstract int Priority { get; }
+        /// <summary>
+        /// Dictates ordering of Headers in the toggle display. <para/>
+        /// Lower number -> header appears higher up.
+        /// </summary>
+        public abstract float Priority { get; }
         public abstract int Item { get; }
         public string HeaderDescription
         {
             get
             {
-                string desc = Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
+                string desc = Language.GetTextValue($"Mods.{Mod.Name}.Toggler.{Name}");
                 if (Item <= 0) return desc;
-                string itemIcon;
+                string itemIcon = $"[i:{Item}]";
+                /*
                 ModItem modItem = ModContent.GetModItem(Item);
                 if (modItem == null)
                 {
@@ -34,9 +40,10 @@ namespace FargowiltasSouls.Core.Toggler
                 }
                 else
                 {
-                    itemIcon = $"[i:{modItem.Mod}/{modItem.Name}]";
+                    itemIcon = $"[i:{modItem.Mod.Name}/{modItem.Name}]";
                 }
-                return $"{itemIcon}{desc}";
+                */
+                return $"{itemIcon} {desc}";
             }
         }
         public override void Load() // Must do this here so headers are registered before Toggles

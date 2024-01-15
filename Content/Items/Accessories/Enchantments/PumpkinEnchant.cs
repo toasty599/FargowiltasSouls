@@ -29,7 +29,7 @@ Enemies that touch them will destroy them and take damage
             // '你对南瓜的突发渴望永远不会得到满足'");
         }
 
-        protected override Color nameColor => new(227, 101, 28);
+        public override Color nameColor => new(227, 101, 28);
         
 
         public override void SetDefaults()
@@ -63,7 +63,7 @@ Enemies that touch them will destroy them and take damage
     public class PumpkinEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<PumpkinEnchant>();
 
         public override void PostUpdateEquips(Player player)
         {

@@ -25,7 +25,7 @@ Buff booster stacking capped at 2
             // '创生之柱照耀着你'");
         }
 
-        protected override Color nameColor => new(254, 126, 229);
+        public override Color nameColor => new(254, 126, 229);
         
 
         public override void SetDefaults()
@@ -62,6 +62,7 @@ Buff booster stacking capped at 2
     public class NebulaEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<NebulaEnchant>();
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateMiscEffects(Player player)
         {

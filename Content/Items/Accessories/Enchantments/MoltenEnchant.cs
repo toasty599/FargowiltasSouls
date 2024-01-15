@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 	public class MoltenEnchant : BaseEnchant
     {
 
-        protected override Color nameColor => new(193, 43, 43);
+        public override Color nameColor => new(193, 43, 43);
         
 
         public override void SetDefaults()
@@ -44,6 +44,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class MoltenEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MoltenEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             if (player.whoAmI == Main.myPlayer)

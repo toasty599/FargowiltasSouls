@@ -27,7 +27,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
             // '大地随着你的每一次挥镐而颤动'");
         }
 
-        protected override Color nameColor => new(95, 117, 151);
+        public override Color nameColor => new(95, 117, 151);
         
 
         public override void SetDefaults()
@@ -72,6 +72,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
     public class MiningSpelunk : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MinerEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             player.findTreasure = true;
@@ -80,6 +81,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
     public class MiningHunt : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MinerEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             player.detectCreature = true;
@@ -88,6 +90,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
     public class MiningDanger : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MinerEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             player.dangerSense = true;
@@ -96,6 +99,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
     public class MiningShine : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MinerEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             Lighting.AddLight(player.Center, 0.8f, 0.8f, 0);

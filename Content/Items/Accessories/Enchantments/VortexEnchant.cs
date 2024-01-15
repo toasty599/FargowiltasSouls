@@ -28,7 +28,7 @@ While in stealth, your own projectiles will not be sucked in
             // '撕裂现实'");
         }
 
-        protected override Color nameColor => new(0, 242, 170);
+        public override Color nameColor => new(0, 242, 170);
         
 
         public override void SetDefaults()
@@ -111,9 +111,11 @@ While in stealth, your own projectiles will not be sucked in
     public class VortexVortexEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<VortexEnchant>();
     }
     public class VortexStealthEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<VortexEnchant>();
     }
 }

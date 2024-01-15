@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
     public class JungleEnchant : BaseEnchant
     {
-        protected override Color nameColor => new(113, 151, 31);
+        public override Color nameColor => new(113, 151, 31);
 
         public override void SetDefaults()
         {
@@ -48,6 +48,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class JungleDashEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<JungleEnchant>();
         public override bool IgnoresMutantPresence => true;
         public static void AddDash(Player player)
         {
@@ -72,6 +73,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class JungleJump : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<JungleEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             if (player.whoAmI != Main.myPlayer)

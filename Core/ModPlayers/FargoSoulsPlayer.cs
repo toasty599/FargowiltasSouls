@@ -94,16 +94,16 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
-            var togglesOff = new List<AccessoryEffect>();
+            var togglesOff = new List<string>();
             if (Toggler != null && Toggler.Toggles != null)
             {
                 foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggler.Toggles)
                 {
                     if (!Toggler.Toggles[entry.Key].ToggleBool)
-                        togglesOff.Add(entry.Key);
+                        togglesOff.Add(entry.Key.Name);
                 }
             }
-            //tag.Add($"{Mod.Name}.{Player.name}.TogglesOff", togglesOff);
+            tag.Add($"{Mod.Name}.{Player.name}.TogglesOff", togglesOff);
             Toggler.Save();
         }
 
@@ -130,8 +130,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
             }
-
-            //disabledToggles = tag.GetList<AccessoryEffect>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
+            List<string> disabledToggleNames = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
+            disabledToggles = ToggleLoader.LoadedToggles.Keys.Where(x => disabledToggleNames.Contains(x.Name)).ToList();
         }
 
         public override void OnEnterWorld()
@@ -194,7 +194,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            Main.LocalPlayer.ReloadToggles();
         }
         
         public override void ResetEffects()
@@ -883,7 +882,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (ConcentratedRainbowMatter
                 && Player.statLife < Player.statLifeMax2
                 && Player.potionDelay <= 0
-                && Player.GetToggleValue<RainbowHealEffect>())
+                && Player.HasEffect<RainbowHealEffect>())
             {
                 Item potion = Player.QuickHeal_GetItemToUse();
                 if (potion != null)

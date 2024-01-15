@@ -24,7 +24,7 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
 'Now you see me, now you don’t'"); */
         }
 
-        protected override Color nameColor => new(36, 157, 207);
+        public override Color nameColor => new(36, 157, 207);
 
         public override void SetDefaults()
         {
@@ -142,8 +142,8 @@ First Strike ensures your next attack hits a vital spot dealing 3x damage and re
     }
     public class CrystalAssassinDash : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<CrystalAssassinEnchant>();
         public override bool IgnoresMutantPresence => true;
     }
 }

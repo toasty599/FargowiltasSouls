@@ -33,7 +33,7 @@ There is a 60 second cooldown for this effect
             // '替身之力归你所有'");
         }
 
-        protected override Color nameColor => new(0, 174, 238);
+        public override Color nameColor => new(0, 174, 238);
         
 
         public override void SetDefaults()
@@ -71,6 +71,7 @@ There is a 60 second cooldown for this effect
     public class StardustMinionEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<StardustEnchant>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {

@@ -102,10 +102,12 @@ Summons a friendly Cultist and plant to fight at your side
     public class CultistMinionEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ChaliceHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ChaliceoftheMoon>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
-            player.AddBuff(ModContent.BuffType<LunarCultistBuff>(), 2);
+            if (!player.HasBuff<SouloftheMasochistBuff>())
+                player.AddBuff(ModContent.BuffType<LunarCultistBuff>(), 2);
         }
     }
 }

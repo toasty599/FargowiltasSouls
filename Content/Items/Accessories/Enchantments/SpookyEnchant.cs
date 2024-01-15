@@ -3,6 +3,7 @@ using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -22,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             // '自1902年以来融化的灵魂'");
         }
 
-        protected override Color nameColor => new(100, 78, 116);
+        public override Color nameColor => new(100, 78, 116);
         
 
         public override void SetDefaults()
@@ -60,7 +61,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class SpookyEffect : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SpookyEnchant>();
+        public override bool ExtraAttackEffect => true;
     }
 }

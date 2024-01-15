@@ -50,6 +50,7 @@ Slime inflicts Slimed and Oiled
     public class SlimeFallEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SlimyShield>();
 
         public override void PostUpdateEquips(Player player)
         {
@@ -59,5 +60,7 @@ Slime inflicts Slimed and Oiled
     public class SlimyShieldEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SlimyShield>();
+        public override bool ExtraAttackEffect => true;
     }
 }

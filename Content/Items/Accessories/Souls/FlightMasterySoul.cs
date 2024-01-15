@@ -27,6 +27,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             player.AddEffect<FlightMasteryInsignia>(item);
             player.AddEffect<FlightMasteryGravity>(item);
+            player.AddEffect<SupersonicSpeedEffect>(item);
 
             //hover
             if (Player.controlDown && Player.controlJump && !Player.mount.Active)
@@ -72,6 +73,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class FlightMasteryInsignia : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<FlightMasteryHeader>();
+        public override int ToggleItemType => ItemID.EmpressFlightBooster;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -81,6 +83,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class FlightMasteryGravity : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<FlightMasteryHeader>();
+        public override int ToggleItemType => ModContent.ItemType<FlightMasterySoul>();
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {

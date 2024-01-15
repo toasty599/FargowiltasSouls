@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(139, 116, 100);
+        public override Color nameColor => new(139, 116, 100);
 
         public override void SetDefaults()
         {
@@ -50,6 +50,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<BorealWoodEnchant>();
         public override bool ExtraAttackEffect => true;
 
         public override void PostUpdateEquips(Player player)

@@ -26,7 +26,7 @@ Effects of Inner Tube
 'Come again some other day'"); */
         }
 
-        protected override Color nameColor => new(255, 236, 0);
+        public override Color nameColor => new(255, 236, 0);
         
 
         public override void SetDefaults()
@@ -66,7 +66,9 @@ Effects of Inner Tube
     }
     public class RainUmbrellaEffect : AccessoryEffect
     {
+        public override int ToggleItemType => ModContent.ItemType<RainEnchant>();
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
             if (!player.HasBuff(ModContent.BuffType<RainCDBuff>()))
@@ -91,6 +93,7 @@ Effects of Inner Tube
     public class RainInnerTubeEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<RainEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             player.hasFloatingTube = true;

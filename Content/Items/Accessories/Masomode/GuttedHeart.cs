@@ -53,6 +53,7 @@ Creeper respawn speed increases when not moving
     public class GuttedHeartEffect : AccessoryEffect
     {
         public override Header ToggleHeader => null;
+        public override int ToggleItemType => ModContent.ItemType<GuttedHeart>();
         public override void PostUpdateEquips(Player player)
         {
             Player Player = player;
@@ -137,6 +138,7 @@ Creeper respawn speed increases when not moving
     public class GuttedHeartMinions : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<PureHeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GuttedHeart>();
         public override bool MinionEffect => true;
 
         public static void NurseHeal(Player player)

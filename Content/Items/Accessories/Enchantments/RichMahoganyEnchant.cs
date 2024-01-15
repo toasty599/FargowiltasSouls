@@ -4,6 +4,7 @@ using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -22,7 +23,7 @@ While grappling you gain 10% damage resistance for one hit and a 50% thorns effe
             //in force multiplier is 2.5x pull speed, DR increases to 50% and thorns to 500%
         }
 
-        protected override Color nameColor => new(181, 108, 100);
+        public override Color nameColor => new(181, 108, 100);
         
 
         public override void SetDefaults()
@@ -57,6 +58,7 @@ While grappling you gain 10% damage resistance for one hit and a 50% thorns effe
     {
         
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<RichMahoganyEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

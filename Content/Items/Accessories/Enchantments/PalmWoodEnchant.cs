@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //attack rate and damage increased, you can spawn 2 additional trees
         }
 
-        protected override Color nameColor => new(183, 141, 86);
+        public override Color nameColor => new(183, 141, 86);
         
 
         public override void SetDefaults()
@@ -58,6 +58,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<PalmWoodEnchant>();
         public override bool MinionEffect => true;
 
         public static void ActivatePalmwoodSentry(Player player)

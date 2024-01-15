@@ -46,6 +46,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
     public class DeerclawpsEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LumpofFleshHeader>();
+        public override int ToggleItemType => ModContent.ItemType<Deerclawps>();
         public static void DeerclawpsAttack(Player player, Vector2 pos)
         {
             if (player.whoAmI == Main.myPlayer)

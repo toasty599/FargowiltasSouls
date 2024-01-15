@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(155, 92, 176);
+        public override Color nameColor => new(155, 92, 176);
         
 
         public override void SetDefaults()
@@ -56,8 +56,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class DarkArtistMinion : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<DarkArtistEnchant>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {

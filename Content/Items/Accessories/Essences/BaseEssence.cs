@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
 {
     public abstract class BaseEssence : SoulsItem
     {
-        protected abstract Color nameColor { get; }
+        public abstract Color nameColor { get; }
 
         public override void SetStaticDefaults()
         {

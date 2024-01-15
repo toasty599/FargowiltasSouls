@@ -53,6 +53,7 @@ Your hurtbox size is reduced even when not shown
     public class PrecisionSealHurtbox : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<PrecisionSeal>();
         public override bool IgnoresMutantPresence => true;
     }
 }

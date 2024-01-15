@@ -11,18 +11,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
 	public class PalladiumEnchant : BaseEnchant
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
 
-            // DisplayName.SetDefault("Palladium Enchantment");
-            /* Tooltip.SetDefault(
-@"Briefly increases life regeneration after striking an enemy
-You spawn an orb of damaging life energy every 80 life regenerated
-'You feel your wounds slowly healing'"); */
-        }
-
-        protected override Color nameColor => new(245, 172, 40);
+        public override Color nameColor => new(245, 172, 40);
         
 
         public override void SetDefaults()
@@ -36,6 +26,7 @@ You spawn an orb of damaging life energy every 80 life regenerated
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<PalladiumEffect>(Item);
+            player.AddEffect<PaladiumHealing>(Item);
         }
 
         public override void AddRecipes()
@@ -52,11 +43,21 @@ You spawn an orb of damaging life energy every 80 life regenerated
             .Register();
         }
     }
-
+    public class PaladiumHealing : AccessoryEffect
+    {
+        public override Header ToggleHeader => null;
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            if (!player.onHitRegen)
+            {
+                player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
+            }
+        } 
+    }
     public class PalladiumEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-
+        public override int ToggleItemType => ModContent.ItemType<PalladiumEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
@@ -79,14 +80,6 @@ You spawn an orb of damaging life energy every 80 life regenerated
 
             if (player.ForceEffect<PalladiumEffect>() || modPlayer.TerrariaSoul)
                 player.onHitRegen = true;
-        }
-
-        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
-        {
-            if (!player.onHitRegen)
-            {
-                player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
-            }
         }
     }
 }

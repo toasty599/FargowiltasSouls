@@ -38,6 +38,7 @@
     <None Remove="Assets\ExtraTextures\Resprites\NPC_Head_Boss_5B.png" />
     <None Remove="Assets\ExtraTextures\Resprites\NPC_Head_Boss_5G.png" />
     <None Remove="Assets\ExtraTextures\Resprites\NPC_Head_Boss_5P.png" />
+    <None Remove="Assets\UI\DisplayAllButton.png" />
     <None Remove="Content\Bosses\Magmaw\Magmaw.png" />
     <None Remove="Content\Bosses\Magmaw\MagmawHand.png" />
     <None Remove="Content\Bosses\Magmaw\MagmawJaw.png" />

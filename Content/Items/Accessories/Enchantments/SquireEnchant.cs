@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(148, 143, 140);
+        public override Color nameColor => new(148, 143, 140);
 
         public override void SetDefaults()
         {
@@ -282,10 +282,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+
+        public override int ToggleItemType => ModContent.ItemType<SquireEnchant>();
     }
     public class SquireMountJump : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SquireEnchant>();
     }
 }

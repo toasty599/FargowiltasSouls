@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.CreativeWings];
         }
 
-        protected override Color nameColor => new(254, 246, 37);
+        public override Color nameColor => new(254, 246, 37);
 
         public override void SetDefaults()
         {
@@ -57,7 +57,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class BeeEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<BeeEnchant>();
+
         public override void PostUpdateEquips(Player player)
         {
             player.strongBees = true;

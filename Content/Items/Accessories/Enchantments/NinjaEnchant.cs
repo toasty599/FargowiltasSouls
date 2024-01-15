@@ -4,6 +4,7 @@ using Terraria.ID;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -21,7 +22,7 @@ Increases armor pen by 15
 'Attack faster than the eye can see'"); */
         }
 
-        protected override Color nameColor => new(48, 49, 52);
+        public override Color nameColor => new(48, 49, 52);
         
 
         public override void SetDefaults()
@@ -64,7 +65,7 @@ Increases armor pen by 15
     }
     public class NinjaEffect : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<NinjaEnchant>();
     }
 }

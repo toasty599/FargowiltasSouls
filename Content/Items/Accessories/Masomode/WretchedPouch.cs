@@ -54,6 +54,7 @@ Attack speed bonuses are half as effective
     public class WretchedPouchEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<WretchedPouch>();
         public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {

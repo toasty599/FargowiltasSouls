@@ -29,7 +29,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             // Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new(176, 210, 178);
+        public override Color nameColor => new(176, 210, 178);
         
 
         public override void SetDefaults()
@@ -64,6 +64,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
     {
         
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TungstenEnchant>();
         public override void ModifyHitNPCWithItem(Player player, Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
             if ((player.FargoSouls().ForceEffect<TungstenEnchant>() || item.shoot == ProjectileID.None))

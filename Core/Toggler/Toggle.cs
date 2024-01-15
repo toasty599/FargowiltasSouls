@@ -6,14 +6,18 @@ using Terraria.UI.Chat;
 
 namespace FargowiltasSouls.Core.Toggler
 {
+    /// <summary>
+    /// The toggle's header in the display. <para/>
+    /// If the effect shouldn't have a toggle, set this to null.
+    /// </summary>
     public class Toggle
     {
         public string Mod;
         public AccessoryEffect Effect;
         public Header Header => Effect.ToggleHeader;
+
         public string Category => Effect.ToggleHeader.SortCategory;
         public bool ToggleBool;
-        public bool DisplayToggle;
 
         public Toggle(AccessoryEffect effect, string mod)
         {
@@ -21,7 +25,6 @@ namespace FargowiltasSouls.Core.Toggler
             Mod = mod;
 
             ToggleBool = true;
-            DisplayToggle = true;
         }
 
         public override string ToString() => $"Mod: {Mod}, Category: {Category}, Effect: {Effect.Name}, Toggled: {ToggleBool}";

@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(150, 133, 100);
+        public override Color nameColor => new(150, 133, 100);
         
 
         public override void SetDefaults()
@@ -52,6 +52,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
+        public override int ToggleItemType => ModContent.ItemType<HallowEnchant>();
 
         public const int RepelRadius = 350;
         public static void HealRepel(Player player)

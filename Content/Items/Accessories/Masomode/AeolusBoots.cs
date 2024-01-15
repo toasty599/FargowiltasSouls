@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
@@ -85,6 +86,7 @@ Increases jump height and negates fall damage
     public class MasoAeolusFrog : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<AeolusBoots>();
         public override void PostUpdateEquips(Player player)
         {
             player.frogLegJumpBoost = true;
@@ -94,6 +96,7 @@ Increases jump height and negates fall damage
     public class MasoAeolusFlower : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<AeolusBoots>();
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {

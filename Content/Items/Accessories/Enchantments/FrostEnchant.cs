@@ -37,7 +37,7 @@ There is a 60 second cooldown for this effect
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new(122, 189, 185);
+        public override Color nameColor => new(122, 189, 185);
         
 
         public override void SetDefaults()
@@ -76,6 +76,7 @@ There is a 60 second cooldown for this effect
     public class FrostEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<FrostEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             if (player.whoAmI == Main.myPlayer)

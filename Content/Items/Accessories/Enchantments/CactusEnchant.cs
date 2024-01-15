@@ -29,7 +29,7 @@ Enemies will explode into needles on death if they are struck with your needles
             // '太解渴了！'");
         }
 
-        protected override Color nameColor => new(121, 158, 29);
+        public override Color nameColor => new(121, 158, 29);
 
         public override void SetDefaults()
         {
@@ -61,7 +61,8 @@ Enemies will explode into needles on death if they are struck with your needles
     public class CactusEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<CactusEnchant>();
+
         public override bool ExtraAttackEffect => true; 
 
         public override void PostUpdateEquips(Player player)

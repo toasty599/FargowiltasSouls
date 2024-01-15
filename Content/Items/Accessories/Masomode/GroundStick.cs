@@ -54,6 +54,7 @@ Two friendly probes fight by your side and will supercharge with you
     public class GroundStickDR : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<DubiousHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GroundStick>();
         private static readonly int[] ElectricAttacks = new int[]
 {
             ProjectileID.DeathLaser,
@@ -157,10 +158,12 @@ Two friendly probes fight by your side and will supercharge with you
     public class ProbeMinionEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<DubiousHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GroundStick>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
-            player.AddBuff(ModContent.BuffType<ProbesBuff>(), 2);
+            if (!player.HasBuff<SouloftheMasochistBuff>())
+                player.AddBuff(ModContent.BuffType<ProbesBuff>(), 2);
         }
     }
 }

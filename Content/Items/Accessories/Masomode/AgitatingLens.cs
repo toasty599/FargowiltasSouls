@@ -53,6 +53,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
     public class AgitatingLensEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<AgitatingLens>();
         public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -76,5 +77,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
     public class AgitatingLensInstall : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<AgitatingLens>();
     }
 }

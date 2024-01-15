@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(231, 178, 28);
+        public override Color nameColor => new(231, 178, 28);
         
 
         public override void SetDefaults()
@@ -48,6 +48,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GoldEnchant>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
             target.AddBuff(BuffID.Midas, 120, true);
@@ -57,6 +58,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GoldEnchant>();
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {

@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
 'This is only the beginning..'"); */
         }
 
-        protected override Color nameColor => new(188, 253, 68);
+        public override Color nameColor => new(188, 253, 68);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

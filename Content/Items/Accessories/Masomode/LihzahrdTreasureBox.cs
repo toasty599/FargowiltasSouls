@@ -52,9 +52,12 @@ Fastfall will create a fiery eruption on impact after falling a certain distance
     public class LihzahrdGroundPound : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ChaliceHeader>();
+        public override int ToggleItemType => ModContent.ItemType<LihzahrdTreasureBox>();
     }
     public class LihzahrdBoulders : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ChaliceHeader>();
+        public override int ToggleItemType => ModContent.ItemType<LihzahrdTreasureBox>();
+        public override bool ExtraAttackEffect => true;
     }
 }

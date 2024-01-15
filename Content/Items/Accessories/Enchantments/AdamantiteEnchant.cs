@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 "\n'Chaos'"); */
         }
 
-        protected override Color nameColor => new(221, 85, 125);
+        public override Color nameColor => new(221, 85, 125);
 
         public override void SetDefaults()
         {
@@ -59,12 +59,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class AdamantiteEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<AdamantiteEnchant>();
+
         public override bool ExtraAttackEffect => true;
 
         public override void PostUpdateEquips(Player player)
         {
-            //player.DisplayToggle("Adamantite");
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             //modPlayer.AdamantiteEnchantItem = item;
 

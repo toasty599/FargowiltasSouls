@@ -26,7 +26,7 @@ Missing any attack will reset these bonuses
 'Big Bad Red Riding Hood'"); */
         }
 
-        protected override Color nameColor => new(192, 27, 60);
+        public override Color nameColor => new(192, 27, 60);
         
 
         public override void SetDefaults()
@@ -61,6 +61,8 @@ Missing any attack will reset these bonuses
     {
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override bool ExtraAttackEffect => true;
+        public override int ToggleItemType => ModContent.ItemType<RedRidingEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'Behold'"); */
         }
 
-        protected override Color nameColor => new(213, 102, 23);
+        public override Color nameColor => new(213, 102, 23);
         
 
         public override void SetDefaults()
@@ -57,6 +57,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<CopperEnchant>();
         public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {

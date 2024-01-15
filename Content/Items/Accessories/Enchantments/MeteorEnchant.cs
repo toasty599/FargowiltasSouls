@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 	public class MeteorEnchant : BaseEnchant
     {
 
-        protected override Color nameColor => new(95, 71, 82);
+        public override Color nameColor => new(95, 71, 82);
         
 
         public override void SetDefaults()
@@ -37,7 +37,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void AddEffects(Player player, Item item)
         {
             player.AddEffect<MeteorMomentumEffect>(item);
-            player.AddEffect<MeteorEffect>(item);
+            if (player.FargoSouls().ForceEffect<MeteorEnchant>())
+                player.AddEffect<MeteorEffect>(item);
         }
 
         public override void AddRecipes()
@@ -58,6 +59,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class MeteorMomentumEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MeteorEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             if (player.whoAmI == Main.myPlayer)
@@ -100,11 +102,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class MeteorEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MeteorEnchant>();
         public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (player.whoAmI == Main.myPlayer && modPlayer.ForceEffect<MeteorEnchant>())
+            if (player.whoAmI == Main.myPlayer)
             {
                 bool forceEffect = true;
                 int damage = forceEffect ? 50 : 20;

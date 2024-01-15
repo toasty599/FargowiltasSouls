@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             // Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new(67, 69, 88);
+        public override Color nameColor => new(67, 69, 88);
         
 
         public override void SetDefaults()
@@ -33,6 +33,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<LeadEffect>(Item);
+            player.AddEffect<LeadPoisonEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -51,12 +52,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class LeadEffect : AccessoryEffect
     {
-        
-        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
-        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
-        {
-            target.AddBuff(ModContent.BuffType<LeadPoisonBuff>(), 30);
-        }
+
+        public override Header ToggleHeader => null;
+
         public static void ProcessLeadEffectLifeRegen(Player player)
         {
             if (player.HasEffect<LeadEffect>())
@@ -71,6 +69,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 }
             }
             
+        }
+    }
+    public class LeadPoisonEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<LeadEnchant>();
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            target.AddBuff(ModContent.BuffType<LeadPoisonBuff>(), 30);
         }
     }
 }

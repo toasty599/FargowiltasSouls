@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Essences;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -51,8 +53,31 @@ namespace FargowiltasSouls.Content.UI.Elements
             position += new Vector2(Width.Pixels * Main.UIScale, 0);
             position += new Vector2(CheckboxTextSpace, 0);
             position += new Vector2(0, Font.MeasureString(text).Y * 0.175f);
-
-            Utils.DrawBorderString(spriteBatch, text, position, Color.White);
+            Color color = Color.White;
+            if (Effect.ToggleItemType > 0)
+            {
+                Item item = ContentSamples.ItemsByType[Effect.ToggleItemType];
+                if (item.ModItem != null)
+                {
+                    if (item.ModItem is BaseEnchant enchant)
+                        color = enchant.nameColor;
+                    else if (item.ModItem is BaseEssence essence)
+                        color = essence.nameColor;
+                    else
+                    {
+                        ModRarity rare = RarityLoader.GetRarity(item.rare);
+                        if (rare != null)
+                            color = rare.RarityColor;
+                    }
+                }
+                else
+                {
+                    ModRarity rare = RarityLoader.GetRarity(item.rare);
+                    if (rare != null)
+                        color = rare.RarityColor;
+                }
+            }
+            Utils.DrawBorderString(spriteBatch, text, position, color);
         }
     }
 }

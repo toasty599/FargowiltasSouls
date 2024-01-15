@@ -50,6 +50,7 @@ Effect intensifies the longer you track them
     public class PungentEyeballCursor : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LumpofFleshHeader>();
+        public override int ToggleItemType => ModContent.ItemType<PungentEyeball>();
         public override void PostUpdateEquips(Player player)
         {
             if (player.whoAmI == Main.myPlayer)

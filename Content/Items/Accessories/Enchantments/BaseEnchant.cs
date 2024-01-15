@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
 	public abstract class BaseEnchant : SoulsItem
     {
-        protected abstract Color nameColor { get; }
+        public abstract Color nameColor { get; }
         public string wizardEffect()
         {
             string text = Language.GetTextValue($"Mods.FargowiltasSouls.WizardEffect.{Name.Replace("Enchantment", "").Replace("Enchant", "")}");

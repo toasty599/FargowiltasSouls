@@ -1,4 +1,5 @@
 ﻿using Fargowiltas.Items.Tiles;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
@@ -84,6 +85,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class ShimmerImmunityEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ColossusHeader>();
+        public override int ToggleItemType => ItemID.ShimmerCloak;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -93,6 +95,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class PaladinShieldEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ColossusHeader>();
+        public override int ToggleItemType => ItemID.PaladinsShield;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -111,6 +114,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class FrozenTurtleEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ColossusHeader>();
+        public override int ToggleItemType => ItemID.FrozenTurtleShell;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -121,6 +125,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class FleshKnuckleEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ColossusHeader>();
+        public override int ToggleItemType => ItemID.FleshKnuckles;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -130,6 +135,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class DefenseBeeEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ColossusHeader>();
+        public override int ToggleItemType => ItemID.BeeCloak;
         public override void PostUpdateEquips(Player player)
         {
             player.honeyCombItem = EffectItem(player);
@@ -138,6 +144,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class DefenseStarEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ColossusHeader>();
+        public override int ToggleItemType => ItemID.StarVeil;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -147,6 +154,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class DefenseBrainEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ColossusHeader>();
+        public override int ToggleItemType => ItemID.BrainOfConfusion;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {

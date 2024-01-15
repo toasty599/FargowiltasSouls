@@ -225,6 +225,7 @@ This stacks up to 950 times until you get hit"); */
     public class EternityTin : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EternityHeader>();
+        public override int ToggleItemType => ModContent.ItemType<EternitySoul>();
     }
 
 }

@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         }
 
-        protected override Color nameColor => new(69, 62, 115);
+        public override Color nameColor => new(69, 62, 115);
 
         public override void SetDefaults()
         {
@@ -88,8 +88,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     }
     public class ObsidianProcEffect : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ObsidianEnchant>();
         public override bool ExtraAttackEffect => true;
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {

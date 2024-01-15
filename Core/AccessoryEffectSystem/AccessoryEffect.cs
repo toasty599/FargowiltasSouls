@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
@@ -15,18 +16,45 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 
     /// <summary>
     /// Contains the behavior for an accessory effect. <para/>
-    /// Each accessory effect needs a localized toggle description as Mods.YourMod.Toggler.YourAccessoryEffectName.<para/>
+    /// All Toggles have a corresponding accessory effect. <para/>
+    /// Each accessory effect with a toggle needs a localized toggle description as Mods.YourMod.Toggler.YourAccessoryEffectName.<para/>
     /// This type is not instanced per player. Put instanced things (such as fields) in an EffectFields.
     /// </summary>
     public abstract class AccessoryEffect : ModType
     {
         public int Index;
-        public string ToggleDescription => Language.GetTextValue($"Mods.{Mod}.Toggler.{Name}");
+        
+        public string ToggleDescription
+        {
+            get
+            {
+                string desc = Language.GetTextValue($"Mods.{Mod.Name}.Toggler.{Name}");
+                if (ToggleItemType <= 0) return desc;
+                string itemIcon = $"[i:{ToggleItemType}]";
+                /*
+                ModItem modItem = ModContent.GetModItem(ToggleItemType);
+                if (modItem == null)
+                {
+                    itemIcon = $"[i:{ToggleItemType}]";
+                }
+                else
+                {
+                    itemIcon = $"[i:{modItem.Mod.Name}/{modItem.Name}]";
+                }
+                */
+                return $"{itemIcon} {desc}";
+            }
+        }
         /// <summary>
         /// The toggle's header in the display. <para/>
         /// If the effect shouldn't have a toggle, set this to null.
         /// </summary>
         public abstract Header ToggleHeader { get; }
+        /// <summary>
+        /// The toggle's item icon in the display. <para/>
+        /// If the effect shouldn't have a toggle, you don't need to set this.
+        /// </summary>
+        public virtual int ToggleItemType => -1;
         /// <summary>
         /// Whether the effect has a toggle. <para/>
         /// Will be false if ToggleHeader is null.

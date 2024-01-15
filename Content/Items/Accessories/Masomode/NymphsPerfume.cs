@@ -56,6 +56,8 @@ Your attacks occasionally produce hearts
     public class NymphPerfumeEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<NymphsPerfume>();
+        public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

@@ -186,6 +186,7 @@ Summons a pet Magic Lantern
     public class BuilderEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<WorldShaperSoul>();
         public override void PostUpdateEquips(Player player)
         {
             if (player.whoAmI != Main.myPlayer)

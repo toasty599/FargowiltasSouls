@@ -3,6 +3,7 @@ using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -23,7 +24,7 @@ Whip your summons to make them work harder
             // 'Aku Aku!'");
         }
 
-        protected override Color nameColor => new(86, 165, 43);
+        public override Color nameColor => new(86, 165, 43);
         
 
         public override void SetDefaults()
@@ -66,5 +67,6 @@ Whip your summons to make them work harder
     public class TikiEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TikiEnchant>();
     }
 }

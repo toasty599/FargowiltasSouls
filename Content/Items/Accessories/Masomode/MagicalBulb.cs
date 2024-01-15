@@ -70,10 +70,12 @@ Attracts a legendary plant's offspring which flourishes in combat
     public class PlantMinionEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<ChaliceHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MagicalBulb>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
-            player.AddBuff(ModContent.BuffType<PlanterasChildBuff>(), 2);
+            if (!player.HasBuff<SouloftheMasochistBuff>())
+                player.AddBuff(ModContent.BuffType<PlanterasChildBuff>(), 2);
         }
     }
 }

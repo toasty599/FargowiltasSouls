@@ -1,7 +1,9 @@
-﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+﻿using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Consumables
 {
@@ -60,6 +62,7 @@ Right click to increase view range while in inventory
     public class MasoCarrotEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<OrdinaryCarrot>();
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {

@@ -59,7 +59,8 @@ Press the Bomb key to use your freeze bomb
                 fargoPlayer.Graze = true;
                 fargoPlayer.CirnoGraze = true;
             }
-            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue<MasoGrazeRing>() && player.ownedProjectileCounts[ModContent.ProjectileType<GrazeRing>()] < 1)
+            player.AddEffect<MasoGrazeRing>(item);
+            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.HasEffect<MasoGrazeRing>() && player.ownedProjectileCounts[ModContent.ProjectileType<GrazeRing>()] < 1)
                 Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<GrazeRing>(), 0, 0f, Main.myPlayer);
         }
 
@@ -100,6 +101,7 @@ Press the Bomb key to use your freeze bomb
     public class IceQueenGraze : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<IceQueensCrown>();
 
     }
 }

@@ -30,7 +30,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         }
 
-        protected override Color nameColor => new(0, 140, 244);
+        public override Color nameColor => new(0, 140, 244);
         
 
         public override void SetDefaults()
@@ -68,6 +68,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class ShroomiteStealthEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ShroomiteEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             if (!player.FargoSouls().TerrariaSoul)
@@ -77,6 +78,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class ShroomiteShroomEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ShroomiteEnchant>();
+        public override bool ExtraAttackEffect => true;
         public override void MeleeEffects(Player player, Item item, Rectangle hitbox)
         {
             Player Player = player; //too lazy

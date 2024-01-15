@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -98,6 +99,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class MeleeSpeedEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override int ToggleItemType => ModContent.ItemType<BerserkerSoul>();
         public override void PostUpdateEquips(Player player)
         {
             player.GetAttackSpeed(DamageClass.Melee) += .2f;
@@ -106,6 +108,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class MagmaStoneEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override int ToggleItemType => ItemID.MagmaStone;
         public override void PostUpdateEquips(Player player)
         {
             player.magmaStone = true;

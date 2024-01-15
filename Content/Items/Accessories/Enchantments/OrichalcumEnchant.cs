@@ -21,7 +21,7 @@ Damaging debuffs deal 2.5x damage
 'Nature blesses you'"); */
         }
 
-        protected override Color nameColor => new(235, 50, 145);
+        public override Color nameColor => new(235, 50, 145);
         
 
         public override void SetDefaults()
@@ -56,7 +56,8 @@ Damaging debuffs deal 2.5x damage
     public class OrichalcumEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
-        
+        public override int ToggleItemType => ModContent.ItemType<OrichalcumEnchant>();
+
         public override bool ExtraAttackEffect => true;
 
         public static void OriDotModifier(NPC npc, FargoSoulsPlayer modPlayer, ref int damage)

@@ -30,7 +30,7 @@ Grants knockback immunity when you are facing the attack
             // '难道你不高兴吗？'");
         }
 
-        protected override Color nameColor => new(156, 146, 78);
+        public override Color nameColor => new(156, 146, 78);
         
 
         public override void SetDefaults()
@@ -65,6 +65,7 @@ Grants knockback immunity when you are facing the attack
     {
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GladiatorEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
@@ -91,6 +92,9 @@ Grants knockback immunity when you are facing the attack
     {
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GladiatorEnchant>();
+
+        public override bool ExtraAttackEffect => true;
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

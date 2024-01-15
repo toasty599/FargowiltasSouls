@@ -44,6 +44,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             player.AddEffect<TinEffect>(Item);
             IronEnchant.AddEffects(player, Item);
             player.AddEffect<LeadEffect>(Item);
+            player.AddEffect<LeadPoisonEffect>(Item);
             player.AddEffect<SilverEffect>(Item);
             player.AddEffect<TungstenEffect>(Item);
             ObsidianEnchant.AddEffects(player, Item);

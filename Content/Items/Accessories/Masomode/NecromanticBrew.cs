@@ -63,14 +63,17 @@ Summons 2 Skeletron arms to whack enemies
     public class NecroBrewSpin : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<NecromanticBrew>();
     }
     public class SkeleMinionEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<NecromanticBrew>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
-            player.AddBuff(ModContent.BuffType<SkeletronArmsBuff>(), 2);
+            if (!player.HasBuff<SouloftheMasochistBuff>())
+                player.AddBuff(ModContent.BuffType<SkeletronArmsBuff>(), 2);
         }
     }
 }

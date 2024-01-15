@@ -72,7 +72,7 @@ Enemies are less likely to target you
             }*/
             player.AddEffect<PungentEyeballCursor>(Item);
             player.FargoSouls().PungentEyeball = true;
-            if (player.GetToggleValue<PungentMinion>())
+            if (player.AddEffect<PungentMinion>(Item))
             {
                 player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkullBuff>()] = true;
                 player.AddBuff(ModContent.BuffType<Buffs.Minions.PungentEyeballBuff>(), 5);

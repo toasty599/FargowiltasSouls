@@ -38,6 +38,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
     public class StabilizedGravity : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<WyvernFeather>();
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateMiscEffects(Player player)
         {
@@ -47,6 +48,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
     public class ClippedEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<WyvernFeather>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
             if (!target.boss && !target.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] && Main.rand.NextBool(10))

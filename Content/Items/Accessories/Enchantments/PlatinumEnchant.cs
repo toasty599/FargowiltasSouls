@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new(83, 103, 143);
+        public override Color nameColor => new(83, 103, 143);
         
 
         public override void SetDefaults()

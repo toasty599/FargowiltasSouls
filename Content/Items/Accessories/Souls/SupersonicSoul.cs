@@ -174,45 +174,58 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
         public override bool IgnoresMutantPresence => true;
+        public override int ToggleItemType => ModContent.ItemType<SupersonicSoul>();
     }
     public class NoMomentum : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SupersonicSoul>();
         public override bool IgnoresMutantPresence => true;
     }
     public class SupersonicRocketBoots : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+        public override int ToggleItemType => ItemID.RocketBoots;
         public override bool IgnoresMutantPresence => true;
     }
     public class SupersonicJumps : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SupersonicSoul>();
     }
     public class SupersonicCarpet : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+        public override int ToggleItemType => ItemID.FlyingCarpet;
         public override bool IgnoresMutantPresence => true;
     }
     public class CthulhuShield : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+        public override int ToggleItemType => ItemID.EoCShield;
     }
     public class SupersonicTabi : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+        public override int ToggleItemType => ItemID.Tabi;
         public override bool IgnoresMutantPresence => true;
     }
     public class BlackBelt : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+
+        public override int ToggleItemType => ItemID.BlackBelt;
     }
     public class SupersonicClimbing : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+
+        public override int ToggleItemType => ItemID.TigerClimbingGear;
     }
     public class SupersonicPanic : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<SupersonicHeader>();
+
+        public override int ToggleItemType => ItemID.PanicNecklace;
     }
 }

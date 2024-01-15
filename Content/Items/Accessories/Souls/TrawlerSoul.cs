@@ -94,6 +94,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class TrawlerGel : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<TrawlerHeader>();
+        public override int ToggleItemType => ItemID.VolatileGelatin;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -135,6 +136,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class TrawlerSporeSac : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<TrawlerHeader>();
+        public override int ToggleItemType => ItemID.SporeSac;
+        public override bool ExtraAttackEffect => true;
         public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
@@ -148,6 +151,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class TrawlerJump : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<TrawlerHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TrawlerSoul>();
         public override void PostUpdateEquips(Player player)
         {
             if (player.wingTime == 0)

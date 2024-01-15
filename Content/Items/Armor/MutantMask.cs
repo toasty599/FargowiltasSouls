@@ -1,5 +1,6 @@
 ﻿using Fargowiltas;
 using FargowiltasSouls.Content.Buffs.Minions;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
@@ -104,6 +105,8 @@ Increases max number of minions and sentries by 10
     public class MasoAbom : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<MutantArmorHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MutantMask>();
+        //public override bool MinionEffect => true; no, abom is stronger than minos
         public override void PostUpdateEquips(Player player)
         {
             player.FargoSouls().AbomMinion = true;
@@ -114,6 +117,7 @@ Increases max number of minions and sentries by 10
     public class MasoRing : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<MutantArmorHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MutantMask>();
         public override void PostUpdateEquips(Player player)
         {
             player.FargoSouls().PhantasmalRing = true;

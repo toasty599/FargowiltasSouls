@@ -54,6 +54,7 @@ Grants autofire to all weapons (this effect also works in your inventory)
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.PurifiedBuff>()] = true;
             player.FargoSouls().TribalCharm = true;
             player.FargoSouls().TribalCharmEquipped = true;
+            player.AddEffect<TribalCharmClickBonus>(Item);
         }
 
         public static void Effects(FargoSoulsPlayer modPlayer)
@@ -67,7 +68,7 @@ Grants autofire to all weapons (this effect also works in your inventory)
                     player.GetDamage(DamageClass.Generic) += 0.30f;
                 }
             }
-            else if (player.ItemTimeIsZero && player.GetToggleValue<TribalCharmClickBonus>())
+            else if (player.ItemTimeIsZero && player.HasEffect<TribalCharmClickBonus>())
             {
                 modPlayer.TribalCharmClickBonus = true;
             }
@@ -84,5 +85,6 @@ Grants autofire to all weapons (this effect also works in your inventory)
     public class TribalCharmClickBonus : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TribalCharm>();
     }
 }

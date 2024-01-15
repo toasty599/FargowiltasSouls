@@ -23,7 +23,7 @@ There is a 60 second cooldown for this effect
 'It's Burning Cold Outside'"); */
         }
 
-        protected override Color nameColor => new(37, 195, 242);
+        public override Color nameColor => new(37, 195, 242);
 
         public override void SetDefaults()
         {
@@ -58,6 +58,7 @@ There is a 60 second cooldown for this effect
     public class SnowEffect : AccessoryEffect
     {
         public override Header ToggleHeader => null;
+        public override int ToggleItemType => ModContent.ItemType<SnowEnchant>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
             target.AddBuff(BuffID.Frostburn, 120);

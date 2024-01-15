@@ -23,7 +23,7 @@ This does not affect hits dealing less than 10 damage
 'The blood of your enemy is your rebirth'"); */
         }
 
-        protected override Color nameColor => new(200, 54, 75);
+        public override Color nameColor => new(200, 54, 75);
         
 
         public override void SetDefaults()
@@ -56,6 +56,7 @@ This does not affect hits dealing less than 10 damage
     public class CrimsonEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<CrimsonEnchant>();
         public override void OnHurt(Player player, Player.HurtInfo info)
         {
             //if was already healing, stop the heal and do nothing

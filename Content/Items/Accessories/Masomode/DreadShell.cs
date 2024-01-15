@@ -56,5 +56,6 @@ Absorb Anticoagulation blood clots to gain 30% increased damage
     public class DreadShellEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<LumpofFleshHeader>();
+        public override int ToggleItemType => ModContent.ItemType<DreadShell>();
     }
 }

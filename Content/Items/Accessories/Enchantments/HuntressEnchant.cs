@@ -25,7 +25,7 @@ Missing any attack will reset these bonuses
 'Accuracy brings power'"); */
         }
 
-        protected override Color nameColor => new(122, 192, 76);
+        public override Color nameColor => new(122, 192, 76);
 
         public override void SetDefaults()
         {
@@ -64,6 +64,7 @@ Missing any attack will reset these bonuses
     {
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<HuntressEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

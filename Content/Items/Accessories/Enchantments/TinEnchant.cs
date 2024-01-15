@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(162, 139, 78);
+        public override Color nameColor => new(162, 139, 78);
         
 
         public override void SetDefaults()
@@ -52,6 +52,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     {
         
         public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TinEnchant>();
 
         public override void PostUpdateEquips(Player player)
         {

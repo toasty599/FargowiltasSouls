@@ -54,5 +54,6 @@ Counter an attack to gain life based on the blocked damage
     public class PumpkingsCapeEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<PumpkingsCape>();
     }
 }

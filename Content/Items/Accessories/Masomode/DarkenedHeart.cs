@@ -54,6 +54,7 @@ You spawn mini eaters to seek out enemies every few attacks
     public class DarkenedHeartEaters : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<PureHeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<DarkenedHeart>();
         public override bool ExtraAttackEffect => true;
         
     }

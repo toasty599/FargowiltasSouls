@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Core.Toggler
     {
         public abstract string Mod { get; }
         public abstract string SortCategory { get; }
-        public abstract int Priority { get; }
+        public abstract float Priority { get; }
 
         public abstract bool Active
         {

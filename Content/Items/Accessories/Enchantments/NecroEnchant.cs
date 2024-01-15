@@ -33,7 +33,7 @@ Effects of Bone Glove
             // '欢迎来到骸骨领域'");
         }
 
-        protected override Color nameColor => new(86, 86, 67);
+        public override Color nameColor => new(86, 86, 67);
         
 
         public override void SetDefaults()
@@ -68,6 +68,8 @@ Effects of Bone Glove
     {
         
         public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<NecroEnchant>();
+        public override bool ExtraAttackEffect => true;
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

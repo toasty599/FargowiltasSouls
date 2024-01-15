@@ -53,6 +53,7 @@ Press the Debuff Install key to inflict yourself with Cursed Inferno and Ichor f
     public class FusedLensInstall : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<DubiousHeader>();
+        public override int ToggleItemType => ModContent.ItemType<FusedLens>();
         public override bool IgnoresMutantPresence => true;
     }
 }

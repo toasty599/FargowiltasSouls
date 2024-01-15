@@ -24,7 +24,7 @@ Enemies struck while Bleeding spew damaging blood
 'Surprisingly clean'"); */
         }
 
-        protected override Color nameColor => new(88, 104, 118);
+        public override Color nameColor => new(88, 104, 118);
         
 
         public override void SetDefaults()
@@ -58,6 +58,7 @@ Enemies struck while Bleeding spew damaging blood
     {
         
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ShadewoodEnchant>();
         public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();

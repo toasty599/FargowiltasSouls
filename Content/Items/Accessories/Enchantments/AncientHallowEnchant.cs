@@ -24,7 +24,7 @@ Summons a Terraprisma familiar that scales with minion damage
 'Have you power enough to wield me?'"); */
         }
 
-        protected override Color nameColor => new(150, 133, 100);
+        public override Color nameColor => new(150, 133, 100);
 
         public override void SetDefaults()
         {
@@ -81,7 +81,7 @@ Summons a Terraprisma familiar that scales with minion damage
     }
     public class AncientHallowMinion : AccessoryEffect
     {
-        
+        public override int ToggleItemType => ModContent.ItemType<AncientHallowEnchant>();
         public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
         public override bool MinionEffect => true;
     }

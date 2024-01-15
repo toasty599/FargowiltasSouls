@@ -28,7 +28,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
             //in force damage theshold increased to 25 AND any npc that has less than 200 HP is instantly killed in the aura
         }
 
-        protected override Color nameColor => new(100, 90, 141);
+        public override Color nameColor => new(100, 90, 141);
         
 
         public override void SetDefaults()
@@ -63,8 +63,8 @@ Any projectiles that would deal less than 10 damage to you are destroyed
     }
     public class EbonwoodEffect : AccessoryEffect
     {
-        
         public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<EbonwoodEnchant>();
 
         public override void PostUpdateEquips(Player player)
         {

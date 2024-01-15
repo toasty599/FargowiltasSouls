@@ -59,6 +59,7 @@ Increases flight time by 100%
     public class MasoGravEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GalacticGlobe>();
         public override void PostUpdateEquips(Player player)
         {
             player.gravControl = true;
@@ -67,10 +68,12 @@ Increases flight time by 100%
     public class MasoTrueEyeMinion : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GalacticGlobe>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
-            player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
+            if (!player.HasBuff<SouloftheMasochistBuff>())
+                player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
         }
     }
 }

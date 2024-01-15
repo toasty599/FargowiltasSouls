@@ -36,7 +36,7 @@ Double tap a direction
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new(36, 137, 0);
+        public override Color nameColor => new(36, 137, 0);
 
         public override void SetDefaults()
         {
@@ -78,6 +78,7 @@ Double tap a direction
     public class ChloroMinion : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ChlorophyteEnchant>();
         public override bool MinionEffect => true;
         public override void PostUpdateEquips(Player player)
         {
