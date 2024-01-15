@@ -18,10 +18,6 @@ namespace FargowiltasSouls.Core
         [DefaultValue(true)]
         public bool HideTogglerWhenInventoryIsClosed;
 
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool DisplayTogglesRegardless;
-
         [Label($"$Mods.{ModName}.Config.DeviChatter")]
         [DefaultValue(true)]
         public bool DeviChatter;

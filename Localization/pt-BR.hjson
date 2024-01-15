@@ -6255,10 +6255,6 @@ Mods: {
 					// Tooltip: ""
 				}
 
-				DisplayTogglesRegardless: {
-					// Label: Display Soul Toggles Always
-					// Tooltip: Disable to only show soul toggles when you have the effect's accessory equipped. Enable to always show them.
-				}
 
 				PreBossNightGlow: {
 					// Label: "{$Mods.FargowiltasSouls.Config.PreBossNightGlow}"
