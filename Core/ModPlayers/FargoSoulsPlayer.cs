@@ -133,12 +133,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             List<string> disabledToggleNames = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
             disabledToggles = ToggleLoader.LoadedToggles.Keys.Where(x => disabledToggleNames.Contains(x.Name)).ToList();
         }
-
         public override void OnEnterWorld()
         {
             Toggler.TryLoad();
             Toggler.LoadPlayerToggles(this);
             disabledToggles.Clear();
+
 
             if (!ModLoader.TryGetMod("FargowiltasMusic", out Mod _))
             {
@@ -433,8 +433,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 MashCounter--;
             Mash = false;
 
-            PrimeSoulItem = null;
-            PrimeSoulEffects = 0;
         }
         public override void OnRespawn()
         {

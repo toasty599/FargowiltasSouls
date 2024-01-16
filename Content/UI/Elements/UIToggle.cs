@@ -4,6 +4,7 @@ using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;

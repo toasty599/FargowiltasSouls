@@ -5128,6 +5128,11 @@ Mods: {
 				DisplayName: Test Accessory
 				Tooltip: ""
 			}
+
+			PrimeSoul: {
+				DisplayName: Prime Soul
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -6046,6 +6051,7 @@ Mods: {
 			MagmawJaw.DisplayName: Magmaw Jaw
 			MagmawHand.DisplayName: Magmaw Hand
 			PungentEyeballMinion.DisplayName: Pungent Eyeball Minion
+			MinosPrime.DisplayName: Minos Prime
 		}
 
 		MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"
@@ -6273,7 +6279,6 @@ Mods: {
 					Label: "{$Mods.FargowiltasSouls.PatreonROB}"
 					Tooltip: ""
 				}
-
 
 				PreBossNightGlow: {
 					Label: "{$Mods.FargowiltasSouls.Config.PreBossNightGlow}"

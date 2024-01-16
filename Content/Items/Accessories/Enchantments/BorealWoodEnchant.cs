@@ -62,7 +62,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void TryAdditionalAttacks(Player player, int damage, DamageClass damageType)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.BorealCD <= 0)
+            if (modPlayer.BorealCD <= 0 && player.whoAmI == Main.myPlayer)
             {
                 Item item = EffectItem(player);
                 bool forceEffect = modPlayer.ForceEffect(item.type);
