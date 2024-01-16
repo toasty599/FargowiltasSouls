@@ -121,7 +121,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 ModContent.BuffType<LethargicBuff>(),
                 ModContent.BuffType<ClippedWingsBuff>()
             });
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Rotation = MathHelper.Pi,
                 Position = Vector2.UnitX * 60
@@ -386,7 +386,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //TODO: Add loot
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BanishedBaronBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BaronTrophy>(), 10));
 
@@ -1242,7 +1241,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 SoundEngine.PlaySound(BaronRoar, NPC.Center);
                 Trail = 8;
                 NPC.velocity = NPC.rotation.ToRotationVector2() * PredictStr;
-                Vector2 uv = Vector2.Normalize(LockVector1);
+                Vector2 uv = Vector2.Normalize(NPC.velocity);
                 Vector2 lp = player.Center - NPC.Center;
                 float lambda = Vector2.Dot(uv, lp);
                 LockVector2 = NPC.Center + (uv * lambda);
@@ -1273,7 +1272,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
             }
 
-            if (NPC.Distance(LockVector2) <= NPC.velocity.Length())
+            if (NPC.Distance(LockVector2) <= NPC.velocity.Length() || Timer > ReactTime + 45)
             {
                 AI3 = 1;
             }
@@ -1894,8 +1893,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 RandomizeState();
             else
                 State = (int)StateEnum.Swim;
-            bool expertP2 = NPC.life < NPC.lifeMax / 2 && Phase == 1 && Main.expertMode;
-            bool nonexpertP2 = NPC.life < NPC.lifeMax / 3 && Phase == 1 && !Main.expertMode;
+            bool expertP2 = NPC.GetLifePercent() < (2f/3) && Phase == 1 && Main.expertMode;
+            bool nonexpertP2 = NPC.GetLifePercent() < 0.5f && Phase == 1 && !Main.expertMode;
             if (expertP2 || nonexpertP2)
             {
                 State = (float)StateEnum.Phase2Transition;

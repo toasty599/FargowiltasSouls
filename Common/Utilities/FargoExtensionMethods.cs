@@ -1,5 +1,8 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Globals;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -119,6 +122,16 @@ namespace FargowiltasSouls //lets everything access it without using
             => player.GetModPlayer<FargoSoulsPlayer>();
         public static EModePlayer Eternity(this Player player)
             => player.GetModPlayer<EModePlayer>();
+        public static AccessoryEffectPlayer AccessoryEffects(this Player player) 
+            => player.GetModPlayer<AccessoryEffectPlayer>();
+        public static bool ForceEffect<T>(this Player player) where T : AccessoryEffect
+        {
+            Item item = player.EffectItem<T>();
+            if (item == null || item.ModItem == null)
+                return false;
+            return player.FargoSouls().ForceEffect(item.ModItem);
+        }
+            
 
         public static T As<T>(this NPC npc) where T : ModNPC => npc.ModNPC as T;
         public static T As<T>(this Projectile projectile) where T : ModProjectile => projectile.ModProjectile as T;
@@ -144,6 +157,10 @@ namespace FargowiltasSouls //lets everything access it without using
             }
             return false;
         }
+        /// <summary>
+        /// Sets the magnitude of the vector. Does not modify the original vector. Defaults to Vector2.UnitY if vector length is 0.
+        /// </summary>
+        public static Vector2 SetMagnitude(this Vector2 vector, float magnitude) => vector.SafeNormalize(Vector2.UnitY) * magnitude;
 
         /// <summary>
         /// Returns total crit chance, including class-specific and generic boosts.
@@ -155,7 +172,7 @@ namespace FargowiltasSouls //lets everything access it without using
         /// <returns></returns>
         public static float ActualClassCrit(this Player player, DamageClass damageClass)
             => damageClass == DamageClass.Summon
-            && !(player.FargoSouls().SpiderEnchantActive && player.GetToggleValue("Spider", false))
+            && !(player.HasEffect<SpiderEffect>())
             ? 0
             : player.GetTotalCritChance(damageClass);
 

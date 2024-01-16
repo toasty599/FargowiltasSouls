@@ -8,6 +8,8 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using System.Collections.Generic;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -27,7 +29,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             // Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new(176, 210, 178);
+        public override Color nameColor => new(176, 210, 178);
         
 
         public override void SetDefaults()
@@ -40,36 +42,52 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            TungstenEffect(player, Item);
+            player.AddEffect<TungstenEffect>(Item);
         }
 
-        public static void TungstenEffect(Player player, Item item)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Tungsten");
-            player.DisplayToggle("TungstenProj");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            CreateRecipe()
+                .AddIngredient(ItemID.TungstenHelmet)
+                .AddIngredient(ItemID.TungstenChainmail)
+                .AddIngredient(ItemID.TungstenGreaves)
+                .AddIngredient(ItemID.TungstenBroadsword)
+                .AddIngredient(ItemID.Ruler)
+                .AddIngredient(ItemID.Katana)
 
-            modPlayer.TungstenEnchantItem = item;
-
-            /*if (player.GetToggleValue("Tungsten") 
-                && !modPlayer.TerrariaSoul 
-                && !modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type)
-                && player.HeldItem.damage > 0 
-                && player.HeldItem.CountsAsClass(DamageClass.Melee) 
-                && (!player.HeldItem.noMelee || FargoGlobalItem.TungstenAlwaysAffects.Contains(player.HeldItem.type)) 
-                && player.HeldItem.pick == 0 
-                && player.HeldItem.axe == 0 
-                && player.HeldItem.hammer == 0
-                )
-            {
-                float penalty = 0.5f;
-                modPlayer.Player.GetAttackSpeed(DamageClass.Melee) -= penalty;
-            } */
+                .AddTile(TileID.DemonAltar)
+                .Register();
         }
+    }
 
+    public class TungstenEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TungstenEnchant>();
+        public override void ModifyHitNPCWithItem(Player player, Item item, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if ((player.FargoSouls().ForceEffect<TungstenEnchant>() || item.shoot == ProjectileID.None))
+            {
+                TungstenModifyDamage(player, ref modifiers);
+            }
+        }
+        public override void ModifyHitNPCWithProj(Player player, Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (proj.FargoSouls().TungstenScale != 1)
+            {
+                TungstenModifyDamage(player, ref modifiers);
+            }
+        }
+        public override void PostUpdateMiscEffects(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.TungstenCD > 0)
+                modPlayer.TungstenCD--;
+        }
         public static float TungstenIncreaseWeaponSize(FargoSoulsPlayer modPlayer)
         {
-            return 1f + (modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type) ? 2f : 1f);
+            return 1f + (modPlayer.ForceEffect<TungstenEnchant>() ? 2f : 1f);
         }
 
         public static List<int> TungstenAlwaysAffectProjType = new List<int>
@@ -146,7 +164,8 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
             if (canAffect)
             {
-                float scale = modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type) ? 3f : 2f;
+                bool forceEffect = modPlayer.ForceEffect<TungstenEnchant>();
+                float scale = forceEffect ? 3f : 2f;
 
                 projectile.position = projectile.Center;
                 projectile.scale *= scale;
@@ -165,7 +184,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
 
                     if (modPlayer.Eternity)
                         modPlayer.TungstenCD = 0;
-                    else if (modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type))
+                    else if (forceEffect)
                         modPlayer.TungstenCD /= 2;
                 }
             }
@@ -175,7 +194,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            bool forceBuff = modPlayer.ForceEffect(modPlayer.TungstenEnchantItem.type);
+            bool forceBuff = modPlayer.ForceEffect<TungstenEnchant>();
 
             modifiers.FinalDamage *= forceBuff ? 1.14f : 1.07f;
 
@@ -192,20 +211,6 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                     modifiers.SetCrit();
                 }
             } */
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ItemID.TungstenHelmet)
-                .AddIngredient(ItemID.TungstenChainmail)
-                .AddIngredient(ItemID.TungstenGreaves)
-                .AddIngredient(ItemID.TungstenBroadsword)
-                .AddIngredient(ItemID.Ruler)
-                .AddIngredient(ItemID.Katana)
-
-                .AddTile(TileID.DemonAltar)
-                .Register();
         }
     }
 }

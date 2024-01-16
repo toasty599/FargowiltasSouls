@@ -1,6 +1,9 @@
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -11,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(152, 142, 131);
+        public override Color nameColor => new(152, 142, 131);
         
 
         public override void SetDefaults()
@@ -21,15 +24,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Item.rare = ItemRarityID.Green;
             Item.value = 40000;
         }
-        public void Effect(Player player)
+        public override void UpdateInventory(Player player) => AddEffects(player, Item);
+        public override void UpdateVanity(Player player) => AddEffects(player, Item);
+        public override void UpdateAccessory(Player player, bool hideVisual) => AddEffects(player, Item);
+        public static void AddEffects(Player player, Item item)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.IronEnchantItem = Item;
-            player.DisplayToggle("IronM");
+            player.AddEffect<IronEffect>(item);
+            player.FargoSouls().IronRecipes = true;
         }
-        public override void UpdateInventory(Player player) => Effect(player);
-        public override void UpdateVanity(Player player) => Effect(player);
-        public override void UpdateAccessory(Player player, bool hideVisual) => Effect(player);
 
         public override void AddRecipes()
         {
@@ -44,5 +46,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddTile(TileID.DemonAltar)
             .Register();
         }
+    }
+    public class IronEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<IronEnchant>();
     }
 }

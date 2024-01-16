@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,14 +54,14 @@ Reduces damage taken by 5%
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.LightningRodBuff>()] = true;
 
             player.FargoSouls().FusedLens = true;
+            player.AddEffect<FusedLensInstall>(Item);
             if (player.onFire2)
                 player.FargoSouls().AttackSpeed += 0.15f;
             if (player.ichor)
                 player.GetCritChance(DamageClass.Generic) += 15;
 
-            player.FargoSouls().GroundStick = true;
-            if (player.GetToggleValue("MasoProbe"))
-                player.AddBuff(ModContent.BuffType<Buffs.Minions.ProbesBuff>(), 2);
+            player.AddEffect<ProbeMinionEffect>(Item);
+            player.AddEffect<GroundStickDR>(Item);
 
             player.endurance += 0.05f;
             player.noKnockback = true;

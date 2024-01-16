@@ -1,4 +1,7 @@
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +10,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
     public abstract class BaseForce : SoulsItem
     {
+        public static int[] EnchantsIn<T>() where T : BaseForce => Enchants[ModContent.ItemType<T>()];
+        public void SetActive(Player player) => player.FargoSouls().ForceEffects.Add(Type);
+        /// <summary>
+        /// IDs for the Enchants contained of each Force type. <para/>
+        /// Set in SetStaticDefaults.
+        /// </summary>
+        public static Dictionary<int, int[]> Enchants = new();
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -24,25 +34,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             Item.accessory = true;
             Item.rare = ItemRarityID.Purple;
             Item.value = 600000;
-        }
-
-        
-    }
-
-    public class ForceSystem : ModSystem
-    {
-        public override void PostSetupContent()
-        {
-            SetFactory factory = new(ContentSamples.ItemsByType.Count);
-            CosmoForce.ContainsEnchant = factory.CreateBoolSet(CosmoForce.Enchants);
-            EarthForce.ContainsEnchant = factory.CreateBoolSet(EarthForce.Enchants);
-            LifeForce.ContainsEnchant = factory.CreateBoolSet(LifeForce.Enchants);
-            NatureForce.ContainsEnchant = factory.CreateBoolSet(NatureForce.Enchants);
-            ShadowForce.ContainsEnchant = factory.CreateBoolSet(ShadowForce.Enchants);
-            SpiritForce.ContainsEnchant = factory.CreateBoolSet(SpiritForce.Enchants);
-            TerraForce.ContainsEnchant = factory.CreateBoolSet(TerraForce.Enchants);
-            TimberForce.ContainsEnchant = factory.CreateBoolSet(TimberForce.Enchants);
-            WillForce.ContainsEnchant = factory.CreateBoolSet(WillForce.Enchants);
         }
     }
 }

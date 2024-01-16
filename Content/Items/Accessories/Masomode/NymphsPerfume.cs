@@ -1,4 +1,7 @@
-﻿using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using Fargowiltas;
+using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -47,9 +50,20 @@ Your attacks occasionally produce hearts
             player.buffImmune[BuffID.Stinky] = true;
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.NymphsPerfumeRespawn = true;
-            fargoPlayer.NymphsPerfume = true;
-            if (fargoPlayer.NymphsPerfumeCD > 0)
-                fargoPlayer.NymphsPerfumeCD--;
+            player.AddEffect<NymphPerfumeEffect>(Item);
+        }
+    }
+    public class NymphPerfumeEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<NymphsPerfume>();
+        public override bool ExtraAttackEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            modPlayer.NymphsPerfume = true;
+            if (modPlayer.NymphsPerfumeCD > 0)
+                modPlayer.NymphsPerfumeCD -= 10;
         }
     }
 }

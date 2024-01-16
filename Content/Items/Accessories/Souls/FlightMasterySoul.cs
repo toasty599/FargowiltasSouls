@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,37 +12,36 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class FlightMasterySoul : FlightMasteryWings
     {
         protected override bool HasSupersonicSpeed => false;
-
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-
-            // DisplayName.SetDefault("Flight Mastery Soul");
-            /* Tooltip.SetDefault(
-@"Allows for infinite flight
-Hold DOWN and JUMP to hover
-Hold UP to boost faster
-Increases gravity
-Allows the control of gravity
-'Ascend'"); */
-            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "飞行大师之魂");
-            //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese,
-            //@"使你获得无限飞行能力
-            //按住'下'和'跳跃'键悬停
-            //允许你控制重力
-            //'飞升'");
-            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "飞行大师之魂");
-
-        }
-
         protected override Color? nameColor => new Color(56, 134, 255);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.FlightMasterySoul();
+            AddEffects(player, Item);
         }
+        public static void AddEffects(Player player, Item item)
+        {
+            Player Player = player;
+            Player.wingTimeMax = 999999;
+            Player.wingTime = Player.wingTimeMax;
+            Player.ignoreWater = true;
 
+            player.AddEffect<FlightMasteryInsignia>(item);
+            player.AddEffect<FlightMasteryGravity>(item);
+            player.AddEffect<SupersonicSpeedEffect>(item);
+
+            //hover
+            if (Player.controlDown && Player.controlJump && !Player.mount.Active)
+            {
+                Player.position.Y -= Player.velocity.Y;
+                if (Player.velocity.Y > 0.1f)
+                    Player.velocity.Y = 0.1f;
+                else if (Player.velocity.Y < -0.1f)
+                    Player.velocity.Y = -0.1f;
+            }
+
+            //grav
+            player.AddEffect<MasoGravEffect>(item);
+        }
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -66,6 +68,26 @@ Allows the control of gravity
 
 
             .Register();
+        }
+    }
+    public class FlightMasteryInsignia : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<FlightMasteryHeader>();
+        public override int ToggleItemType => ItemID.EmpressFlightBooster;
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.empressBrooch = true;
+        }
+    }
+    public class FlightMasteryGravity : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<FlightMasteryHeader>();
+        public override int ToggleItemType => ModContent.ItemType<FlightMasterySoul>();
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.gravity = Player.defaultGravity * 1.5f;
         }
     }
 }

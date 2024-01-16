@@ -1,9 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Essences;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace FargowiltasSouls.Content.UI.Elements
@@ -14,12 +19,12 @@ namespace FargowiltasSouls.Content.UI.Elements
 
         public static DynamicSpriteFont Font => Terraria.GameContent.FontAssets.ItemStack.Value;
 
-        public string Key;
+        public AccessoryEffect Effect;
         public string Mod;
 
-        public UIToggle(string key, string mod)
+        public UIToggle(AccessoryEffect effect, string mod)
         {
-            Key = key;
+            Effect = effect;
             Mod = mod;
 
             Width.Set(19, 0);
@@ -35,22 +40,45 @@ namespace FargowiltasSouls.Content.UI.Elements
             {
                 Player player = Main.LocalPlayer;
                 FargoSoulsPlayer modPlayer = player.FargoSouls();
-                modPlayer.Toggler.Toggles[Key].ToggleBool = !modPlayer.Toggler.Toggles[Key].ToggleBool;
+                modPlayer.Toggler.Toggles[Effect].ToggleBool = !modPlayer.Toggler.Toggles[Effect].ToggleBool;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
-                    modPlayer.SyncToggle(Key);
+                    modPlayer.SyncToggle(Effect);
             }
 
             spriteBatch.Draw(FargoUIManager.CheckBox.Value, position, Color.White);
-            if (Main.LocalPlayer.GetToggleValue(Key, false))
+            if (Main.LocalPlayer.GetToggleValue(Effect, true))
                 spriteBatch.Draw(FargoUIManager.CheckMark.Value, position, Color.White);
 
-            string text = Language.GetTextValue($"Mods.{Mod}.{Key}Config");
+            string text = Effect.ToggleDescription;
             position += new Vector2(Width.Pixels * Main.UIScale, 0);
             position += new Vector2(CheckboxTextSpace, 0);
             position += new Vector2(0, Font.MeasureString(text).Y * 0.175f);
-
-            Utils.DrawBorderString(spriteBatch, text, position, Color.White);
+            Color color = Color.White;
+            if (Effect.ToggleItemType > 0)
+            {
+                Item item = ContentSamples.ItemsByType[Effect.ToggleItemType];
+                if (item.ModItem != null)
+                {
+                    if (item.ModItem is BaseEnchant enchant)
+                        color = enchant.nameColor;
+                    else if (item.ModItem is BaseEssence essence)
+                        color = essence.nameColor;
+                    else
+                    {
+                        ModRarity rare = RarityLoader.GetRarity(item.rare);
+                        if (rare != null)
+                            color = rare.RarityColor;
+                    }
+                }
+                else
+                {
+                    ModRarity rare = RarityLoader.GetRarity(item.rare);
+                    if (rare != null)
+                        color = rare.RarityColor;
+                }
+            }
+            Utils.DrawBorderString(spriteBatch, text, position, color);
         }
     }
 }

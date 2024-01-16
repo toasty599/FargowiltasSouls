@@ -1,55 +1,56 @@
-﻿using System.Linq;
+﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using System.Linq;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler
 {
     public static class SoulCheck
     {
-        public static Toggle GetToggle(this Player player, string name)
+        public static Toggle GetToggle<T>(this Player player) where T : AccessoryEffect => player.GetToggle(ModContent.GetInstance<T>());
+        public static Toggle GetToggle(this Player player, AccessoryEffect effect)
         {
-            return player.FargoSouls().Toggler.Toggles[name];
+            return player.FargoSouls().Toggler.Toggles[effect];
         }
-
-        public static bool GetToggleValue(this Player player, string name, bool checkForMutantPresence = true)
+        public static bool GetToggleValue<T>(this Player player) where T : AccessoryEffect => player.GetToggleValue(ModContent.GetInstance<T>());
+        public static bool GetToggleValue(this Player player, AccessoryEffect effect, bool skipChecks = false)
         {
-            Toggle toggle = player.GetToggle(name);
-            toggle.DisplayToggle = true;
-            return (!checkForMutantPresence || !Main.player[Main.myPlayer].FargoSouls().MutantPresence) && toggle.ToggleBool;
-        }
-
-        public static bool GetPlayerBoolValue(this Player player, string name)
-        {
-            Toggle toggle = player.GetToggle(name);
+            Toggle toggle = player.GetToggle(effect);
+            if (!skipChecks)
+            {
+                if (effect.MinionEffect || effect.ExtraAttackEffect)
+                {
+                    FargoSoulsPlayer modPlayer = player.FargoSouls();
+                    if (modPlayer.PrimeSoulActive)
+                    {
+                        if (!player.HasEffect(effect)) // Don't stack per item
+                            modPlayer.PrimeSoulItemCount++;
+                        return false;
+                    }
+                }
+                if (player.FargoSouls().MutantPresence)
+                    if (!effect.IgnoresMutantPresence)
+                        return false;
+            }
             return toggle.ToggleBool;
         }
 
-        public static void SetToggleValue(this Player player, string name, bool value)
+        public static bool GetPlayerBoolValue(this Player player, AccessoryEffect effect)
         {
-            if (player.FargoSouls().Toggler.Toggles.ContainsKey(name))
-                player.FargoSouls().Toggler.Toggles[name].ToggleBool = value;
-            else
-                FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {name}");
-        }
-        public static void DisplayToggle(this Player player, string name)
-        {
-            if (player.FargoSouls().Toggler.Toggles.ContainsKey(name))
-                player.FargoSouls().Toggler.Toggles[name].DisplayToggle = true;
-            else
-                FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {name}");
+            Toggle toggle = player.GetToggle(effect);
+            return toggle.ToggleBool;
         }
 
-        public static void ReloadToggles(this Player player)
+        public static void SetToggleValue<T>(this Player player, bool value) where T : AccessoryEffect => player.SetToggleValue(ModContent.GetInstance<T>(), value);
+
+        public static void SetToggleValue(this Player player, AccessoryEffect effect, bool value)
         {
-            //disable toggles that should be disabled
-            foreach (Toggle toggle in player.FargoSouls().Toggler.Toggles.Values)//.Where(t => t.Category == "Enchantments" || t.Category == "Maso"))
-            {
-                //force them enabled if the config is on, otherwise force them disabled
-                toggle.DisplayToggle = SoulConfig.Instance.DisplayTogglesRegardless;
-            }
+            if (player.FargoSouls().Toggler.Toggles.ContainsKey(effect))
+                player.FargoSouls().Toggler.Toggles[effect].ToggleBool = value;
+            else
+                FargowiltasSouls.Instance.Logger.Warn($"Expected toggle not found: {effect.Name}");
         }
-        /*public static void SetPlayerBoolValue(this Player player, string name, bool value)
-        {
-            player.FargoSouls().Toggler.Toggles[name].PlayerBool = value;
-        }*/
+
     }
 }

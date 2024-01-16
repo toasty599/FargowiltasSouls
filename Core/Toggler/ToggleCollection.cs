@@ -3,11 +3,14 @@ using System.Reflection;
 
 namespace FargowiltasSouls.Core.Toggler
 {
+    /// <summary>
+    /// Deprecated.
+    /// </summary>
     public abstract class ToggleCollection
     {
         public abstract string Mod { get; }
         public abstract string SortCategory { get; }
-        public abstract int Priority { get; }
+        public abstract float Priority { get; }
 
         public abstract bool Active
         {
@@ -17,6 +20,8 @@ namespace FargowiltasSouls.Core.Toggler
 
         public List<Toggle> Load()
         {
+            return new List<Toggle>();
+            /*
             // All string (toggles) and int (header) fields
             FieldInfo[] fields = GetType().GetFields();
             // The amount of int fields, ie toggles
@@ -34,6 +39,7 @@ namespace FargowiltasSouls.Core.Toggler
 
             // Return the toggles (strings)
             return ret;
+            */
         }
     }
 }

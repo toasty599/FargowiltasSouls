@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -81,18 +82,16 @@ Summons a friendly Mini Saucer and true eyes of Cthulhu
 
             //pumpking's cape
             player.buffImmune[ModContent.BuffType<LivingWastelandBuff>()] = true;
-            if (player.GetToggleValue("MasoPump"))
-                fargoPlayer.PumpkingsCapeItem = Item;
+            player.AddEffect<PumpkingsCapeEffect>(Item);
 
             //ice queen's crown
             player.buffImmune[ModContent.BuffType<HypothermiaBuff>()] = true;
-            IceQueensCrown.Effects(player, Item);
+            IceQueensCrown.AddEffects(player, Item);
 
             //saucer control console
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.VortexDebuff] = true;
-            if (player.GetToggleValue("MasoUfo"))
-                player.AddBuff(ModContent.BuffType<SaucerMinionBuff>(), 2);
+            player.AddEffect<UfoMinionEffect>(Item);
 
             //betsy's heart
             player.buffImmune[BuffID.OgreSpit] = true;
@@ -115,18 +114,15 @@ Summons a friendly Mini Saucer and true eyes of Cthulhu
             player.buffImmune[ModContent.BuffType<UnstableBuff>()] = true;
             player.buffImmune[ModContent.BuffType<CurseoftheMoonBuff>()] = true;
             //player.buffImmune[BuffID.ChaosState] = true;
-            if (player.GetToggleValue("MasoGrav"))
-                player.gravControl = true;
-            if (player.GetToggleValue("MasoTrueEye"))
-                player.AddBuff(ModContent.BuffType<TrueEyesBuff>(), 2);
+            player.AddEffect<MasoGravEffect>(Item);
+            player.AddEffect<MasoTrueEyeMinion>(Item);
             fargoPlayer.GravityGlobeEXItem = Item;
             fargoPlayer.WingTimeModifier += 1f;
 
             //precision seal
             player.buffImmune[ModContent.BuffType<SmiteBuff>()] = true;
             fargoPlayer.PrecisionSeal = true;
-            if (player.GetToggleValue("PrecisionSealHurtbox", false))
-                fargoPlayer.PrecisionSealHurtbox = true;
+            player.AddEffect<PrecisionSealHurtbox>(Item);
 
             //heart of maso
             player.buffImmune[BuffID.MoonLeech] = true;

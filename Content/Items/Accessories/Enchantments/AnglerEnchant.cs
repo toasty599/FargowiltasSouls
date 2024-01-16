@@ -24,7 +24,7 @@ Effects of Lavaproof Tackle Bag
             // '只要不全是鞋子, 你就可以高高兴兴地回家'");
         }
 
-        protected override Color nameColor => new(113, 125, 109);
+        public override Color nameColor => new(113, 125, 109);
 
         public override void SetDefaults()
         {

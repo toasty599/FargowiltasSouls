@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'I'm a what?'"); */
         }
 
-        protected override Color nameColor => new(50, 80, 193);
+        public override Color nameColor => new(50, 80, 193);
 
         public override void SetDefaults()
         {

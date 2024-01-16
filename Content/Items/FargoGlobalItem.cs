@@ -3,6 +3,8 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.CodeAnalysis;
 //using FargowiltasSouls.Content.Buffs.Souls;
 //using FargowiltasSouls.Content.Projectiles.Critters;
 using Microsoft.Xna.Framework;
@@ -39,11 +41,11 @@ namespace FargowiltasSouls.Content.Items
         {
             FargoSoulsPlayer p = player.FargoSouls();
             //ignore money, hearts, mana stars
-            if (player.whoAmI == Main.myPlayer && p.IronEnchantItem != null && player.GetToggleValue("IronM", false) && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
+            if (player.whoAmI == Main.myPlayer && player.HasEffect<IronEffect>() && item.type != ItemID.CopperCoin && item.type != ItemID.SilverCoin && item.type != ItemID.GoldCoin && item.type != ItemID.PlatinumCoin && item.type != ItemID.CandyApple && item.type != ItemID.SoulCake &&
                 item.type != ItemID.Star && item.type != ItemID.CandyCane && item.type != ItemID.SugarPlum && item.type != ItemID.Heart)
             {
                 int rangeBonus = 160;
-                if (p.ForceEffect(p.IronEnchantItem.type))
+                if (p.ForceEffect<IronEnchant>())
                     rangeBonus = 320;
                 if (p.TerrariaSoul)
                     rangeBonus = 640;
@@ -56,7 +58,7 @@ namespace FargowiltasSouls.Content.Items
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.GoldEnchantActive && player.whoAmI == Main.myPlayer && player.GetToggleValue("GoldToPiggy", false))
+            if (player.whoAmI == Main.myPlayer && player.HasEffect<GoldToPiggy>())
                 modPlayer.GoldEnchMoveCoins = true;
 
             return base.OnPickup(item, player);
@@ -95,10 +97,10 @@ namespace FargowiltasSouls.Content.Items
 
             if (item.healLife > 0)
             {
-                if (modPlayer.HallowEnchantItem != null)
+                if (player.HasEffect<HallowEffect>())
                 {
                     modPlayer.HallowHealTime = 6 * modPlayer.GetHealMultiplier(item.healLife);
-                    HallowEnchant.HealRepel(player, modPlayer.HallowEnchantItem);
+                    HallowEffect.HealRepel(player);
                 }
                 modPlayer.StatLifePrevious += modPlayer.GetHealMultiplier(item.healLife);
             }
@@ -134,10 +136,10 @@ namespace FargowiltasSouls.Content.Items
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.TungstenEnchantItem != null && player.GetToggleValue("Tungsten")
+            if (player.HasEffect<TungstenEffect>()
                 && !item.IsAir && item.damage > 0 && (!item.noMelee || TungstenAlwaysAffects.Contains(item.type)) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
             {
-                scale *= TungstenEnchant.TungstenIncreaseWeaponSize(modPlayer);
+                scale *= TungstenEffect.TungstenIncreaseWeaponSize(modPlayer);
             }
         }
 
@@ -211,6 +213,7 @@ namespace FargowiltasSouls.Content.Items
                 && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
             {
                 modPlayer.TryAdditionalAttacks(item.damage, item.DamageType);
+                player.AccessoryEffects().TryAdditionalAttacks(item.damage, item.DamageType);
             }
 
             //            //critter attack timer
@@ -429,30 +432,29 @@ namespace FargowiltasSouls.Content.Items
         public override bool WingUpdate(int wings, Player player, bool inUse)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if ((modPlayer.ChloroEnchantActive || modPlayer.ForceEffect(ModContent.ItemType<JungleEnchant>())) && player.GetToggleValue("Jungle") && inUse)
+            if (player.HasEffect<JungleJump>() && inUse)
             {
                 modPlayer.CanJungleJump = false;
 
                 //spwn cloud
-                if (modPlayer.JungleCD == 0 && modPlayer.JungleEnchantItem != null)
+                if (modPlayer.JungleCD == 0)
                 {
-                    bool jungleForceEffect = modPlayer.ForceEffect(ModContent.ItemType<JungleEnchant>());
-                    if (modPlayer.JungleEnchantItem != null && modPlayer.ForceEffect(modPlayer.JungleEnchantItem.type))
-                         jungleForceEffect = true;
+                    bool jungleForceEffect = modPlayer.ChlorophyteEnchantActive || modPlayer.ForceEffect<JungleEnchant>();
+
                     int dmg = jungleForceEffect ? 150 : 75;
                     SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, player.Center);
-                    FargoSoulsUtil.XWay(10, player.GetSource_Accessory(modPlayer.JungleEnchantItem), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
+                    FargoSoulsUtil.XWay(10, player.GetSource_EffectItem<JungleJump>(), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
 
                     modPlayer.JungleCD = 8;
                 }
             }
 
-            if (modPlayer.BeeEnchantItem != null && player.GetToggleValue("Bee") && inUse)
+            if (player.HasEffect<BeeEffect>() && inUse)
             {
                 if (modPlayer.BeeCD == 0)
                 {
-                    int damage = modPlayer.ForceEffect(modPlayer.BeeEnchantItem.type) ? 88 : 22; //22
-                    Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.BeeEnchantItem), player.Center, Vector2.Zero, ModContent.ProjectileType<BeeFlower>(), damage, 0.5f, player.whoAmI);
+                    int damage = player.ForceEffect<BeeEffect>() ? 88 : 22; //22
+                    Projectile.NewProjectile(player.GetSource_Accessory(player.EffectItem<BeeEffect>()), player.Center, Vector2.Zero, ModContent.ProjectileType<BeeFlower>(), damage, 0.5f, player.whoAmI);
                     modPlayer.BeeCD = 50;
                 }
                 if (modPlayer.BeeCD > 0)

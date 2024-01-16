@@ -1,33 +1,37 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.Localization;
 using Terraria.UI.Chat;
 
 namespace FargowiltasSouls.Core.Toggler
 {
+    /// <summary>
+    /// The toggle's header in the display. <para/>
+    /// If the effect shouldn't have a toggle, set this to null.
+    /// </summary>
     public class Toggle
     {
         public string Mod;
-        public string Category;
-        public string InternalName;
-        public bool ToggleBool;
-        public bool DisplayToggle;
+        public AccessoryEffect Effect;
+        public Header Header => Effect.ToggleHeader;
 
-        public Toggle(string internalName, string mod, string category)
+        public string Category => Effect.ToggleHeader.SortCategory;
+        public bool ToggleBool;
+
+        public Toggle(AccessoryEffect effect, string mod)
         {
-            InternalName = internalName;
+            Effect = effect;
             Mod = mod;
-            Category = category;
 
             ToggleBool = true;
-            DisplayToggle = true;
         }
 
-        public override string ToString() => $"Mod: {Mod}, Category: {Category}, InternalName: {InternalName}, Toggled: {ToggleBool}";
+        public override string ToString() => $"Mod: {Mod}, Category: {Category}, Effect: {Effect.Name}, Toggled: {ToggleBool}";
 
         public string GetRawToggleName()
         {
-            string baseText = Language.GetTextValue($"Mods.{Mod}.{InternalName}Config");
+            string baseText = Effect.ToggleDescription;
             List<TextSnippet> parsedText = ChatManager.ParseMessage(baseText, Color.White);
             string rawText = "";
 

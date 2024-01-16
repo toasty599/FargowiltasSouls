@@ -1,4 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,16 +15,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Wyvern Feather");
-            /* Tooltip.SetDefault(@"Grants immunity to Clipped Wings and Crippled
-Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
-Stabilizes gravity in space and in liquids
-'Warm to the touch'"); */
-            //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "龙牙");
-            //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, @"'触感温暖'
-            // 免疫剪除羽翼和残疾
-            // 攻击有10%概率对非Boss单位造成剪除羽翼效果");
-
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -38,9 +31,33 @@ Stabilizes gravity in space and in liquids
         {
             player.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             player.buffImmune[ModContent.BuffType<CrippledBuff>()] = true;
-            if (player.GetToggleValue("MasoClipped"))
-                player.FargoSouls().DragonFang = true;
-            player.FargoSouls().StabilizedGravity = true;
+            player.AddEffect<ClippedEffect>(Item);
+            player.AddEffect<StabilizedGravity>(Item);
+        }
+    }
+    public class StabilizedGravity : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<WyvernFeather>();
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateMiscEffects(Player player)
+        {
+            player.gravity = Math.Max(player.gravity, Player.defaultGravity);
+        }
+    }
+    public class ClippedEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<WyvernFeather>();
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            if (!target.boss && !target.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] && Main.rand.NextBool(10))
+            {
+                target.velocity.X = 0f;
+                target.velocity.Y = 10f;
+                target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 240);
+                target.netUpdate = true;
+            }
         }
     }
 }

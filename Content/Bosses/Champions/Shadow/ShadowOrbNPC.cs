@@ -14,9 +14,6 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Shadow Orb");
-            // TODO: localization
-            // DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "暗影珠");
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
 

@@ -1,4 +1,8 @@
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -19,7 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'Behold'"); */
         }
 
-        protected override Color nameColor => new(213, 102, 23);
+        public override Color nameColor => new(213, 102, 23);
         
 
         public override void SetDefaults()
@@ -32,30 +36,57 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            CopperEffect(player, Item);
+            player.AddEffect<CopperEffect>(Item);
         }
 
-        public static void CopperEffect(Player player, Item item)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Copper");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.CopperEnchantItem = item;
+            CreateRecipe()
+                .AddIngredient(ItemID.CopperHelmet)
+                .AddIngredient(ItemID.CopperChainmail)
+                .AddIngredient(ItemID.CopperGreaves)
+                .AddIngredient(ItemID.CopperShortsword)
+                .AddIngredient(ItemID.WandofSparking)
+                .AddIngredient(ItemID.ThunderStaff)
 
+            .AddTile(TileID.DemonAltar)
+            .Register();
+        }
+    }
+    public class CopperEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<CopperEnchant>();
+        public override bool ExtraAttackEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.CopperProcCD > 0)
                 modPlayer.CopperProcCD--;
         }
-
-        public static void CopperProc(FargoSoulsPlayer modPlayer, NPC target)
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
-            if (modPlayer.Player.GetToggleValue("Copper") && modPlayer.CopperProcCD == 0)
+            bool wetCheck = target.HasBuff(BuffID.Wet) && Main.rand.NextBool(4);
+            if ((hitInfo.Crit || wetCheck))
             {
+                CopperProc(player, target);
+            }
+        }
+
+        public static void CopperProc(Player player, NPC target)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.CopperProcCD == 0)
+            {
+                bool forceEffect = modPlayer.ForceEffect<CopperEnchant>();
                 target.AddBuff(BuffID.Electrified, 180);
 
                 int dmg = 50;
                 int maxTargets = 1;
                 int cdLength = 300;
 
-                if (modPlayer.ForceEffect(modPlayer.CopperEnchantItem.type))
+                if (forceEffect)
                 {
                     dmg = 200;
                     maxTargets = 5;
@@ -104,20 +135,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                 modPlayer.CopperProcCD = cdLength;
             }
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ItemID.CopperHelmet)
-                .AddIngredient(ItemID.CopperChainmail)
-                .AddIngredient(ItemID.CopperGreaves)
-                .AddIngredient(ItemID.CopperShortsword)
-                .AddIngredient(ItemID.WandofSparking)
-                .AddIngredient(ItemID.ThunderStaff)
-
-            .AddTile(TileID.DemonAltar)
-            .Register();
         }
     }
 }

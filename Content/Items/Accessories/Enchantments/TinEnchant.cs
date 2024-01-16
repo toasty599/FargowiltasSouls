@@ -1,3 +1,8 @@
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -12,18 +17,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-
-            // DisplayName.SetDefault("Tin Enchantment");
-
-            string tooltip =
-@"Sets your critical strike chance to 5%
-Every crit will increase it by 5% up to double your critical strike chance or 15%
-Getting hit resets your crit to 5%
-'Return of the Crit'";
-            // Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new(162, 139, 78);
+        public override Color nameColor => new(162, 139, 78);
         
 
         public override void SetDefaults()
@@ -36,25 +32,37 @@ Getting hit resets your crit to 5%
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            TinEffect(player, Item);
+            player.AddEffect<TinEffect>(Item);
         }
 
-        public static void TinEffect(Player player, Item item)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Tin");
+            CreateRecipe()
+                .AddIngredient(ItemID.TinHelmet)
+                .AddIngredient(ItemID.TinChainmail)
+                .AddIngredient(ItemID.TinGreaves)
+                .AddIngredient(ItemID.TinBow)
+                .AddIngredient(ItemID.Revolver)
+                .AddIngredient(ItemID.TopazStaff)
+                .AddTile(TileID.DemonAltar)
+                .Register();
+        }
+    }
+    public class TinEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TinEnchant>();
 
-            if (!player.GetToggleValue("Tin", false)) 
-                return;
-
+        public override void PostUpdateEquips(Player player)
+        {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.TinEnchantItem = item;
-
             if (modPlayer.Eternity)
             {
                 if (modPlayer.TinEternityDamage > 47.5f)
                     modPlayer.TinEternityDamage = 47.5f;
 
-                if (player.GetToggleValue("Eternity", false))
+                if (player.HasEffect<EternityTin>())
                 {
                     player.GetDamage(DamageClass.Generic) += modPlayer.TinEternityDamage;
                     player.statDefense += (int)(modPlayer.TinEternityDamage * 100); //10 defense per .1 damage
@@ -64,21 +72,14 @@ Getting hit resets your crit to 5%
             if (modPlayer.TinProcCD > 0)
                 modPlayer.TinProcCD--;
         }
-
-        //set max crit and current crit with no interference from accessory order
-        public static void TinPostUpdate(FargoSoulsPlayer modPlayer)
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
-            modPlayer.TinCritMax = Math.Max(FargoSoulsUtil.HighestCritChance(modPlayer.Player) * 2, modPlayer.ForceEffect(modPlayer.TinEnchantItem.type) ? 50 : 15);
-
-            if (modPlayer.TinCritMax > 100)
-                modPlayer.TinCritMax = 100;
-
-            FargoSoulsUtil.AllCritEquals(modPlayer.Player, modPlayer.TinCrit);
+            TinOnHitEnemy(player, hitInfo);
         }
-
-        //increase crit
-        public static void TinOnHitEnemy(FargoSoulsPlayer modPlayer, NPC.HitInfo hitInfo)
+        // increase crit
+        public static void TinOnHitEnemy(Player player, NPC.HitInfo hitInfo)
         {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (hitInfo.Crit)
                 modPlayer.TinCritBuffered = true;
 
@@ -114,7 +115,7 @@ Getting hit resets your crit to 5%
                     modPlayer.TinProcCD = 15;
                     TryHeal(25, 10);
                 }
-                else if (modPlayer.ForceEffect(modPlayer.TinEnchantItem.type))
+                else if (modPlayer.ForceEffect<TinEnchant>())
                 {
                     modPlayer.TinProcCD = 30;
                 }
@@ -124,10 +125,14 @@ Getting hit resets your crit to 5%
                 }
             }
         }
-
-        //reset crit
-        public static void TinHurt(FargoSoulsPlayer modPlayer)
+        public override void OnHurt(Player player, Player.HurtInfo info)
         {
+            TinHurt(player);
+        }
+        //reset crit
+        public static void TinHurt(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             float oldCrit = modPlayer.TinCrit;
             if (modPlayer.Eternity)
             {
@@ -138,7 +143,7 @@ Getting hit resets your crit to 5%
             {
                 modPlayer.TinCrit = 20;
             }
-            else if (modPlayer.ForceEffect(modPlayer.TinEnchantItem.type))
+            else if (modPlayer.ForceEffect<TinEnchant>())
             {
                 modPlayer.TinCrit = 10;
             }
@@ -151,18 +156,20 @@ Getting hit resets your crit to 5%
             if (diff > 0)
                 CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.TinCritReset", diff), true);
         }
-
-        public override void AddRecipes()
+        public override void PostUpdateMiscEffects(Player player)
         {
-            CreateRecipe()
-                .AddIngredient(ItemID.TinHelmet)
-                .AddIngredient(ItemID.TinChainmail)
-                .AddIngredient(ItemID.TinGreaves)
-                .AddIngredient(ItemID.TinBow)
-                .AddIngredient(ItemID.Revolver)
-                .AddIngredient(ItemID.TopazStaff)
-                .AddTile(TileID.DemonAltar)
-                .Register();
+            TinPostUpdate(player);
+        }
+        //set max crit and current crit with no interference from accessory order
+        public static void TinPostUpdate(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            modPlayer.TinCritMax = Math.Max(FargoSoulsUtil.HighestCritChance(modPlayer.Player) * 2, modPlayer.ForceEffect<TinEnchant>() ? 50 : 15);
+
+            if (modPlayer.TinCritMax > 100)
+                modPlayer.TinCritMax = 100;
+
+            FargoSoulsUtil.AllCritEquals(modPlayer.Player, modPlayer.TinCrit);
         }
     }
 }

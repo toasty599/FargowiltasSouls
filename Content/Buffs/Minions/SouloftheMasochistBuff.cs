@@ -1,4 +1,7 @@
-﻿using FargowiltasSouls.Content.Projectiles.Minions;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -19,11 +22,12 @@ namespace FargowiltasSouls.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             if (player.whoAmI == Main.myPlayer)
             {
-                FargoSoulsPlayer fargoPlayer = player.FargoSouls();
+                Item item = null;
 
-                if (player.GetToggleValue("MasoSkele"))
+                if (player.AddEffect<SkeleMinionEffect>(item))
                 {
                     fargoPlayer.SkeletronArms = true;
                     const int damage = 64;
@@ -33,15 +37,16 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmR>(), damage, 8f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue("MasoPugent"))
+                if (player.AddEffect<PungentMinion>(item))
                 {
                     fargoPlayer.PungentEyeballMinion = true;
                     const int damage = 150;
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<PungentEyeball>()] < 1)
-                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<PungentEyeball>(), damage, 0f, player.whoAmI);
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<PungentEyeballMinion>()] < 1)
+                        FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<PungentEyeballMinion>(), damage, 0f, player.whoAmI);
                 }
 
-                if (player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoRainbow"))
+                
+                if (player.AddEffect<RainbowSlimeMinion>(item))
                 {
                     fargoPlayer.RainbowSlime = true;
                     const int damage = 105;
@@ -49,7 +54,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<RainbowSlime>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue("MasoProbe"))
+                if (player.AddEffect<ProbeMinionEffect>(item))
                 {
                     fargoPlayer.Probes = true;
                     const int damage = 105;
@@ -59,7 +64,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe2>(), damage, 9f, player.whoAmI, 0f, -1f);
                 }
 
-                if (player.GetToggleValue("MasoPlant"))
+                if (player.AddEffect<PlantMinionEffect>(item))
                 {
                     fargoPlayer.PlanterasChild = true;
                     const int damage = 120;
@@ -67,7 +72,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, -Vector2.UnitY, ModContent.ProjectileType<PlanterasChild>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue("MasoUfo"))
+                if (player.AddEffect<UfoMinionEffect>(item))
                 {
                     fargoPlayer.MiniSaucer = true;
                     const int damage = 100;
@@ -75,7 +80,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<MiniSaucer>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.GetToggleValue("MasoCultist"))
+                if (player.AddEffect<CultistMinionEffect>(item))
                 {
                     fargoPlayer.LunarCultist = true;
                     const int damage = 160;
@@ -83,7 +88,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<LunarCultist>(), damage, 2f, player.whoAmI, -1f);
                 }
 
-                if (player.GetToggleValue("MasoTrueEye"))
+                if (player.AddEffect<MasoTrueEyeMinion>(item))
                 {
                     fargoPlayer.TrueEyes = true;
 

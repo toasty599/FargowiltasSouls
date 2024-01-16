@@ -1,5 +1,9 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
@@ -24,7 +28,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
             //in force damage theshold increased to 25 AND any npc that has less than 200 HP is instantly killed in the aura
         }
 
-        protected override Color nameColor => new(100, 90, 141);
+        public override Color nameColor => new(100, 90, 141);
         
 
         public override void SetDefaults()
@@ -37,19 +41,39 @@ Any projectiles that would deal less than 10 damage to you are destroyed
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().EbonwoodEnchantItem = Item;
-            EbonwoodEffect(player);
+            player.AddEffect<EbonwoodEffect>(Item);
+
         }
 
-        public static void EbonwoodEffect(Player player)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Ebon");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            CreateRecipe()
 
-            if (!player.GetToggleValue("Ebon") || player.whoAmI != Main.myPlayer)
+            .AddIngredient(ItemID.EbonwoodHelmet)
+            .AddIngredient(ItemID.EbonwoodBreastplate)
+            .AddIngredient(ItemID.EbonwoodGreaves)
+            .AddIngredient(ItemID.VileMushroom)
+            .AddIngredient(ItemID.BlackCurrant)
+            .AddIngredient(ItemID.LightlessChasms)
+
+
+            .AddTile(TileID.DemonAltar)
+            .Register();
+        }
+    }
+    public class EbonwoodEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<EbonwoodEnchant>();
+
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (player.whoAmI != Main.myPlayer)
                 return;
-            bool forceEffect = modPlayer.ForceEffect(modPlayer.EbonwoodEnchantItem.type);
-            int dist = forceEffect ? 500 : 200;
+
+            bool forceEffect = modPlayer.ForceEffect<EbonwoodEnchant>();
+            int dist = forceEffect ? 400 : 200;
             foreach (NPC npc in Main.npc.Where(n => n.active && !n.friendly && n.lifeMax > 5 && !n.dontTakeDamage))
             {
                 Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
@@ -85,9 +109,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                     dust.noGravity = true;
                 }
             }
-            
         }
-
         public static void EbonwoodProc(Player player, NPC npc, int AoE, bool force, int limit)
         {
             //corrupt all in vicinity
@@ -112,7 +134,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                 offset.X += (float)(Math.Sin(angle) * AoE);
                 offset.Y += (float)(Math.Cos(angle) * AoE);
                 Vector2 spawnPos = npc.Center + offset - new Vector2(4, 4);
-                Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0,DustID.Shadowflame, 0, 0, 100, Color.White, 1f)];
+                Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, DustID.Shadowflame, 0, 0, 100, Color.White, 1f)];
                 dust.velocity = npc.velocity;
                 if (Main.rand.NextBool(3))
                     dust.velocity += Vector2.Normalize(offset) * -5f;
@@ -131,21 +153,6 @@ Any projectiles that would deal less than 10 damage to you are destroyed
                 return;
             }
             npc.AddBuff(ModContent.BuffType<CorruptedBuff>(), 60 * 4);
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-
-            .AddIngredient(ItemID.EbonwoodHelmet)
-            .AddIngredient(ItemID.EbonwoodBreastplate)
-            .AddIngredient(ItemID.EbonwoodGreaves)
-            .AddIngredient(ItemID.VileMushroom)
-            .AddIngredient(ItemID.BlackCurrant)
-            .AddIngredient(ItemID.LightlessChasms)
-
-
-            .AddTile(TileID.DemonAltar)
-            .Register();
         }
     }
 }

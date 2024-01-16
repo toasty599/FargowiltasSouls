@@ -153,7 +153,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<TimberChampion>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TimberChampion],
                     () => true,
-                    new List<int>(TimberForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<TimberForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false
                 );
@@ -162,7 +162,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<TerraChampion>(), ModContent.NPCType<TerraChampionBody>(), ModContent.NPCType<TerraChampionTail>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TerraChampion],
                     () => true,
-                    new List<int>(TerraForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<TerraForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
                     "Content/Bosses/Champions/Terra/TerraChampion_Still"
@@ -172,7 +172,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<EarthChampion>(), ModContent.NPCType<EarthChampionHand>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.EarthChampion],
                     () => true,
-                    new List<int>(EarthForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<EarthForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
                     "Content/Bosses/Champions/Earth/EarthChampion_Still"
@@ -182,7 +182,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<NatureChampion>(), ModContent.NPCType<NatureChampionHead>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.NatureChampion],
                     () => true,
-                    new List<int>(NatureForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<NatureForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
                     "Content/Bosses/Champions/Nature/NatureChampion_Still"
@@ -192,7 +192,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<LifeChampion>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.LifeChampion],
                     () => true,
-                    new List<int>(LifeForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<LifeForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
                     "Content/Bosses/Champions/Life/LifeChampion_Still"
@@ -202,7 +202,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<ShadowChampion>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.ShadowChampion],
                     () => true,
-                    new List<int>(ShadowForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<ShadowForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false
                 );
@@ -211,7 +211,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<SpiritChampion>(), ModContent.NPCType<SpiritChampionHand>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.SpiritChampion],
                     () => true,
-                    new List<int>(SpiritForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<SpiritForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false,
                     "Content/Bosses/Champions/Spirit/SpiritChampion_Still"
@@ -221,7 +221,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<WillChampion>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.WillChampion],
                     () => true,
-                    new List<int>(WillForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<WillForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     false
                 );
@@ -231,7 +231,7 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<CosmosChampion>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.CosmosChampion],
                     () => true,
-                    new List<int>(CosmoForce.Enchants).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
+                    new List<int>(BaseForce.EnchantsIn<CosmoForce>()).Append(ModContent.ItemType<ChampionMusicBox>()).ToList(),
                     new List<int> { ModContent.ItemType<SigilOfChampions>() },
                     true
                 );

@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -40,12 +42,25 @@ Slime inflicts Slimed and Oiled
         {
             player.buffImmune[BuffID.Slimed] = true;
 
-            if (player.GetToggleValue("SlimeFalling"))
-            {
-                player.maxFallSpeed *= 1.5f;
-            }
+            player.AddEffect<SlimeFallEffect>(Item);
 
             player.FargoSouls().SlimyShieldItem = Item;
         }
+    }
+    public class SlimeFallEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SlimyShield>();
+
+        public override void PostUpdateEquips(Player player)
+        {
+            player.maxFallSpeed *= 1.5f;
+        }
+    }
+    public class SlimyShieldEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SlimyShield>();
+        public override bool ExtraAttackEffect => true;
     }
 }

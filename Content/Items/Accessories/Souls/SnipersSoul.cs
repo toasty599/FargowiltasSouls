@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,12 +18,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "神枪手之魂");
 
-            string tooltip =
-@"30% increased ranged damage
-20% chance to not consume ammo
-15% increased ranged critical chance
-Effects of Sniper Scope
-'Ready, aim, fire'";
             // Tooltip.SetDefault(tooltip);
 
             //string tooltip_ch =
@@ -46,10 +42,7 @@ Effects of Sniper Scope
 
             //add new effects
 
-            if (player.GetToggleValue("Sniper"))
-            {
-                player.scope = true;
-            }
+            player.AddEffect<SniperScopeEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -79,6 +72,15 @@ hive pack*/
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
 
+        }
+    }
+    public class SniperScopeEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override int ToggleItemType => ItemID.SniperScope;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.scope = true;
         }
     }
 }

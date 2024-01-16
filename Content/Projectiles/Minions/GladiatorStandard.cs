@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -43,10 +44,10 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             FargoSoulsPlayer localModPlayer = Main.LocalPlayer.FargoSouls();
 
-            int AuraSize = modPlayer.ForceEffect(ModContent.ItemType<GladiatorEnchant>()) ? 800 : 400;
+            int AuraSize = modPlayer.ForceEffect<GladiatorEnchant>() ? 800 : 400;
 
             FargoSoulsUtil.AuraDust(Projectile, AuraSize, DustID.GoldCoin);
-            if (FargoSoulsUtil.ClosestPointInHitbox(Main.LocalPlayer.Hitbox, Projectile.Center).Distance(Projectile.Center) < AuraSize && modPlayer.GladiatorEnchantActive && !localModPlayer.Purified)
+            if (FargoSoulsUtil.ClosestPointInHitbox(Main.LocalPlayer.Hitbox, Projectile.Center).Distance(Projectile.Center) < AuraSize && player.HasEffect<GladiatorBanner>() && !localModPlayer.Purified)
             {
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<GladiatorBuff>(), 2);
             }

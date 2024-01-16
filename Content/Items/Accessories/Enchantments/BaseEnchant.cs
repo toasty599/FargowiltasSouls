@@ -1,4 +1,5 @@
 using FargowiltasSouls.Common.Utilities;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
 	public abstract class BaseEnchant : SoulsItem
     {
-        protected abstract Color nameColor { get; }
+        public abstract Color nameColor { get; }
         public string wizardEffect()
         {
             string text = Language.GetTextValue($"Mods.FargowiltasSouls.WizardEffect.{Name.Replace("Enchantment", "").Replace("Enchant", "")}");
@@ -67,6 +68,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         /// IDs for enchants that craft into other enchants. Index is material, value is result. Default value is -1.
         /// </summary>
         public static int[] CraftsInto;
+        /// <summary>
+        /// IDs for the corresponding Force of each enchant.
+        /// </summary>
+        public static int[] Force;
 
         public override void SetDefaults()
         {
@@ -107,16 +112,22 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
     public class EnchantSystem : ModSystem
     {
-        public override void PostSetupContent()
+        public override void PostSetupRecipes()
         {
             SetFactory factory = new(ContentSamples.ItemsByType.Count);
             BaseEnchant.CraftsInto = factory.CreateIntSet();
-
-            foreach (var item in ContentSamples.ItemsByType.Values.Where(i => i.ModItem != null && i.ModItem is BaseEnchant))
+            foreach (BaseEnchant modItem in ModContent.GetContent<BaseEnchant>())
             {
-                Recipe recipe = Main.recipe.FirstOrDefault(r => r.ContainsIngredient(item.type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant, null);
+                Recipe recipe = Main.recipe.FirstOrDefault(r => r.ContainsIngredient(modItem.Type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant, null);
                 if (recipe != null)
-                    BaseEnchant.CraftsInto[item.type] = recipe.createItem.type;
+                    BaseEnchant.CraftsInto[modItem.Type] = recipe.createItem.type;
+            }
+
+            BaseEnchant.Force = factory.CreateIntSet();
+            foreach (var enchantsPerForceDict in BaseForce.Enchants)
+            {
+                foreach (int enchant in enchantsPerForceDict.Value)
+                    BaseEnchant.Force[enchant] = enchantsPerForceDict.Key;
             }
         }
     }

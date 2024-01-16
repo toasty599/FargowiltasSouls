@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,7 +38,7 @@ Attacks have a chance to squeak and deal 1 damage to you
         {
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.GuiltyBuff>()] = true;
-            player.FargoSouls().SqueakyAcc = true;
+            player.AddEffect<SqueakEffect>(Item);
         }
         private bool lastLMouse = false;
         public override void HoldItem(Player player) //doing this instead of making an item use animation lo
@@ -47,5 +49,10 @@ Attacks have a chance to squeak and deal 1 damage to you
             }
             lastLMouse = Main.mouseLeft;
         }
+    }
+    public class SqueakEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SqueakyToy>();
     }
 }

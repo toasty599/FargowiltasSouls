@@ -12,6 +12,8 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using Terraria.WorldBuilding;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -150,7 +152,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (Player.ZoneUnderworldHeight)
                 {
-                    bool anyAshwoodEffect = fargoSoulsPlayer.AshWoodEnchantItem != null || fargoSoulsPlayer.ObsidianEnchantItem != null;
+                    bool anyAshwoodEffect = Player.HasEffect<AshWoodEffect>() || Player.HasEffect<ObsidianEffect>();
                     if (anyAshwoodEffect || !(Player.fireWalk || fargoSoulsPlayer.PureHeart || Player.lavaMax > 0))
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.OnFire, 2);
                 }

@@ -1,4 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Items.Consumables;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,12 +19,12 @@ namespace FargowiltasSouls.Core.Toggler
         public readonly static string ConfigPath = Path.Combine(Main.SavePath, "ModConfigs", "FargowiltasSouls_Toggles.json");
         public Preferences Config;
 
-        public Dictionary<string, Toggle> Toggles;
+        public Dictionary<AccessoryEffect, Toggle> Toggles = new Dictionary<AccessoryEffect, Toggle>();
         //public Point TogglerPosition;
         public bool CanPlayMaso;
 
         public const int CustomPresetCount = 3;
-        public List<string>[] CustomPresets = new List<string>[CustomPresetCount];
+        public List<AccessoryEffect>[] CustomPresets = new List<AccessoryEffect>[CustomPresetCount];
 
         public bool Initialized;
 
@@ -55,7 +61,15 @@ namespace FargowiltasSouls.Core.Toggler
             {
                 var toggleUnpack = Config.Get<Dictionary<string, bool>>($"CustomPresetsOff{i + 1}", null);
                 if (toggleUnpack != null)
-                    CustomPresets[i] = toggleUnpack.Keys.ToList();
+                {
+                    List<AccessoryEffect> disabledEffects = new();
+                    foreach (AccessoryEffect effect in ToggleLoader.LoadedToggles.Keys.ToList())
+                    {
+                        if (toggleUnpack.ContainsKey(effect.Name))
+                            disabledEffects.Add(effect);
+                    }
+                    CustomPresets[i] = disabledEffects;
+                }
             }
         }
 
@@ -79,8 +93,8 @@ namespace FargowiltasSouls.Core.Toggler
                         continue;
 
                     Dictionary<string, bool> togglesOff = new(CustomPresets.Length);
-                    foreach (string toggle in CustomPresets[i])
-                        togglesOff[toggle] = false;
+                    foreach (AccessoryEffect toggle in CustomPresets[i])
+                        togglesOff[toggle.Name] = false;
                     Config.Put($"CustomPresetsOff{i + 1}", togglesOff);
                 }
 
@@ -96,10 +110,10 @@ namespace FargowiltasSouls.Core.Toggler
             Toggles = ToggleLoader.LoadedToggles;
             SetAll(true);
 
-            foreach (string entry in modPlayer.disabledToggles)
+            foreach (AccessoryEffect entry in modPlayer.disabledToggles)
                 Main.LocalPlayer.SetToggleValue(entry, false);
 
-            foreach (KeyValuePair<string, Toggle> entry in Toggles)
+            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles)
                 modPlayer.TogglesToSync[entry.Key] = entry.Value.ToggleBool;
         }
 
@@ -112,7 +126,7 @@ namespace FargowiltasSouls.Core.Toggler
         {
             foreach (Toggle toggle in Toggles.Values)
             {
-                Main.LocalPlayer.SetToggleValue(toggle.InternalName, value);
+                Main.LocalPlayer.SetToggleValue(toggle.Effect, value);
             }
         }
 
@@ -121,84 +135,83 @@ namespace FargowiltasSouls.Core.Toggler
             Player player = Main.LocalPlayer;
 
             SetAll(true);
+            
+            player.SetToggleValue<BorealEffect>(false);
+            player.SetToggleValue<EbonwoodEffect>(false);
+            player.SetToggleValue<ShadewoodEffect>(false);
+            player.SetToggleValue<PearlwoodEffect>(false);
 
-            player.SetToggleValue("Boreal", false);
-            player.SetToggleValue("Ebon", false);
-            player.SetToggleValue("Shade", false);
-            player.SetToggleValue("ShadeOnHit", false);
-            player.SetToggleValue("Pearl", false);
+            player.SetToggleValue<CobaltEffect>(false);
+            player.SetToggleValue<AncientCobaltEffect>(false);
+            player.SetToggleValue<ObsidianProcEffect>(false);
+            player.SetToggleValue<CopperEffect>(false);
+            player.SetToggleValue<AshWoodFireballs>(false);
 
-            player.SetToggleValue("Orichalcum", false);
-            player.SetToggleValue("PalladiumOrb", false);
+            player.SetToggleValue<GladiatorSpears>(false);
+            player.SetToggleValue<RedRidingEffect>(false);
 
-            player.SetToggleValue("CopperConfig", false);
-            player.SetToggleValue("AshWood", false);
+            player.SetToggleValue<BeeEffect>(false);
+            player.SetToggleValue<CactusEffect>(false);
+            player.SetToggleValue<PumpkinEffect>(false);
+            player.SetToggleValue<ChloroMinion>(false);
+            player.SetToggleValue<RainUmbrellaEffect>(false);
+            player.SetToggleValue<RainInnerTubeEffect>(false);
+            player.SetToggleValue<JungleJump>(false);
+            player.SetToggleValue<MoltenEffect>(false);
+            player.SetToggleValue<ShroomiteShroomEffect>(false);
+            player.SetToggleValue<DarkArtistMinion>(false);
+            player.SetToggleValue<NecroEffect>(false);
+            player.SetToggleValue<ShadowBalls>(false);
+            player.SetToggleValue<SpookyEffect>(false);
+            player.SetToggleValue<FossilBones>(false);
+            player.SetToggleValue<FossilBones>(false);
+            player.SetToggleValue<AncientHallowMinion>(false);
+            player.SetToggleValue<SpectreEffect>(false);
+            player.SetToggleValue<MeteorEffect>(false);
+            player.SetToggleValue<ZephyrJump>(false);
+            player.SetToggleValue<DevianttHearts>(false); 
+            player.SetToggleValue<MasoAeolusFlower>(false);
+            player.SetToggleValue<SlimyShieldEffect>(false);
+            player.SetToggleValue<AgitatingLensEffect>(false);
+            player.SetToggleValue<SkeleMinionEffect>(false);
+            player.SetToggleValue<MasoCarrotEffect>(false);
+            player.SetToggleValue<RainbowSlimeMinion>(false);
+            player.SetToggleValue<NymphPerfumeEffect>(false);
+            player.SetToggleValue<WretchedPouchEffect>(false);
+            player.SetToggleValue<ProbeMinionEffect>(false);
+            player.SetToggleValue<GelicWingSpikes>(false);
+            player.SetToggleValue<PungentEyeballCursor>(false);
+            player.SetToggleValue<PungentMinion>(false);
+            player.SetToggleValue<DeerclawpsEffect>(false);
+            player.SetToggleValue<CultistMinionEffect>(false);
+            player.SetToggleValue<LihzahrdBoulders>(false);
+            player.SetToggleValue<PlantMinionEffect>(false);
+            player.SetToggleValue<CelestialRuneAttacks>(false);
 
-            player.SetToggleValue("Gladiator", false);
-            player.SetToggleValue("RedRidingRain", false);
+            player.SetToggleValue<UfoMinionEffect>(false);
+            player.SetToggleValue<MasoTrueEyeMinion>(false);
 
-            player.SetToggleValue("Pumpkin", false);
-            player.SetToggleValue("Cactus", false);
+            player.SetToggleValue<MasoAbom>(false);
 
-            player.SetToggleValue("Jungle", false);
-            player.SetToggleValue("Rain", false);
-            player.SetToggleValue("Molten", false);
-            player.SetToggleValue("ShroomiteShroom", false);
+            player.SetToggleValue<MasoRing>(false);
 
-            player.SetToggleValue("DarkArt", false);
-            player.SetToggleValue("Necro", false);
-            player.SetToggleValue("Shadow", false);
-            player.SetToggleValue("Spooky", false);
+            player.SetToggleValue<MagmaStoneEffect>(false);
+            player.SetToggleValue<SniperScopeEffect>(false);
 
-            player.SetToggleValue("Meteor", false);
+            player.SetToggleValue<BuilderEffect>(false);
 
-            player.SetToggleValue("MasoDevianttHearts", false);
+            player.SetToggleValue<DefenseStarEffect>(false);
+            player.SetToggleValue<DefenseBeeEffect>(false);
 
-            player.SetToggleValue("MasoSlime", false);
-            player.SetToggleValue("MasoSkele", false);
+            player.SetToggleValue<SupersonicClimbing>(false);
+            player.SetToggleValue<SupersonicSpeedEffect>(false);
+            
+            player.SetToggleValue<TrawlerSporeSac>(false);
+            
 
-            player.SetToggleValue("MasoCarrot", false);
-            player.SetToggleValue("MasoRainbow", false);
-            player.SetToggleValue("MasoPouch", false);
-
-            player.SetToggleValue("MasoLightning", false);
-
-            player.SetToggleValue("MasoPungentCursor", false);
-            player.SetToggleValue("MasoPugent", false);
-            player.SetToggleValue("Deerclawps", false);
-
-            player.SetToggleValue("MasoCultist", false);
-            player.SetToggleValue("MasoBoulder", false);
-            player.SetToggleValue("MasoCelest", false);
-            player.SetToggleValue("MasoVision", false);
-
-            player.SetToggleValue("MasoPump", false);
-            player.SetToggleValue("IceQueensCrown", false);
-            player.SetToggleValue("MasoUfo", false);
-            player.SetToggleValue("MasoGrav", false);
-            player.SetToggleValue("MasoTrueEye", false);
-
-            player.SetToggleValue("MasoFishron", false);
-
-            player.SetToggleValue("MasoAbom", false);
-            player.SetToggleValue("MasoRing", false);
-
-            player.SetToggleValue("MagmaStone", false);
-            player.SetToggleValue("Sniper", false);
-
-            player.SetToggleValue("Builder", false);
-
-            player.SetToggleValue("DefenseStar", false);
-            player.SetToggleValue("DefenseBee", false);
-
-            player.SetToggleValue("SupersonicClimbing", false);
-            player.SetToggleValue("Supersonic", false);
-
-            player.SetToggleValue("TrawlerSpore", false);
-
-            foreach (Toggle toggle in Toggles.Values.Where(toggle => toggle.InternalName.Contains("Pet")))
+            foreach (Toggle toggle in Toggles.Values.Where(toggle => toggle.Effect.Name.Contains("Pet")))
             {
-                player.SetToggleValue(toggle.InternalName, false);
+                player.SetToggleValue(toggle.Effect, false);
             }
         }
 
@@ -207,66 +220,61 @@ namespace FargowiltasSouls.Core.Toggler
             Player player = Main.LocalPlayer;
 
             SetAll(false);
-            player.SetToggleValue("Mythril", true);
-            player.SetToggleValue("Palladium", true);
-            player.SetToggleValue("IronM", true);
-            player.SetToggleValue("CthulhuShield", true);
-            //player.SetToggleValue("Tin", true);
-            player.SetToggleValue("Beetle", true);
-            player.SetToggleValue("Spider", true);
-            player.SetToggleValue("GoldToPiggy", true);
-            player.SetToggleValue("JungleDash", true);
-            player.SetToggleValue("SupersonicTabi", true);
-            player.SetToggleValue("Valhalla", true);
-            player.SetToggleValue("SquireMountJump", true);
-            player.SetToggleValue("SquireMountSpeed", true);
-            player.SetToggleValue("Nebula", true);
-            player.SetToggleValue("Solar", true);
-            player.SetToggleValue("Mythril", true);
-            player.SetToggleValue("Huntress", true);
-            player.SetToggleValue("CrystalDash", true);
-            player.SetToggleValue("GladiatorBanner", true);
+            
+            player.SetToggleValue<MythrilEffect>(true);
+            player.SetToggleValue<PalladiumEffect>(true);
+            player.SetToggleValue<IronEffect>(true);
+            player.SetToggleValue<CthulhuShield>(true);
+            //player.SetToggleValue<Tin>(true);
+            player.SetToggleValue<BeetleEffect>(true);
+            player.SetToggleValue<SpiderEffect>(true);
+            player.SetToggleValue<GoldToPiggy>(true);
+            player.SetToggleValue<JungleDashEffect>(true);
+            player.SetToggleValue<SupersonicTabi>(true);
+            player.SetToggleValue<ValhallaDash>(true);
+            player.SetToggleValue<SquireMountJump>(true);
+            player.SetToggleValue<SquireMountSpeed>(true);
+            player.SetToggleValue<NebulaEffect>(true);
+            player.SetToggleValue<SolarEffect>(true);
+            player.SetToggleValue<HuntressEffect>(true);
+            player.SetToggleValue<CrystalAssassinDash>(true);
+            player.SetToggleValue<GladiatorBanner>(true);
 
-            player.SetToggleValue("Eternity", true);
+            player.SetToggleValue<EternityTin>(true);
 
-            player.SetToggleValue("DeerSinewDash", true);
-            player.SetToggleValue("MasoGraze", true);
-            //player.SetToggleValue("MasoGrazeRing", true);
-            player.SetToggleValue("MasoIconDrops", true);
-            player.SetToggleValue("MasoNymph", true);
-            player.SetToggleValue("MasoHealingPotion", true);
-            //player.SetToggleValue("TribalCharmClickBonus", true);
-            player.SetToggleValue("MasoGrav2", true);
-            player.SetToggleValue("PrecisionSealHurtbox", true);
+            player.SetToggleValue<DeerSinewEffect>(true);
+            player.SetToggleValue<MasoGraze>(true);
+            player.SetToggleValue<SinisterIconDropsEffect>(true);
+            player.SetToggleValue<RainbowHealEffect>(true);
+            player.SetToggleValue<TribalCharmClickBonus>(true);
+            player.SetToggleValue<StabilizedGravity>(true);
+            player.SetToggleValue<PrecisionSealHurtbox>(true);
 
-            player.SetToggleValue("MasoEyeInstall", true);
-            player.SetToggleValue("FusedLensInstall", true);
+            player.SetToggleValue<AgitatingLensInstall>(true);
+            player.SetToggleValue<FusedLensInstall>(true);
 
-            player.SetToggleValue("YoyoBag", true);
-            player.SetToggleValue("MiningHunt", true);
-            player.SetToggleValue("MiningDanger", true);
-            player.SetToggleValue("MiningSpelunk", true);
-            player.SetToggleValue("MiningShine", true);
-            player.SetToggleValue("Trawler", true);
-            player.SetToggleValue("RunSpeed", true);
-            player.SetToggleValue("SupersonicRocketBoots", true);
-            player.SetToggleValue("Momentum", true);
-            player.SetToggleValue("MeteorMomentum", true);
-            player.SetToggleValue("FlightMasteryInsignia", true);
-            player.SetToggleValue("FlightMasteryGravity", true);
-            player.SetToggleValue("Universe", true);
-            player.SetToggleValue("DefensePaladin", true);
-            player.SetToggleValue("ShimmerImmunity", true);
-            player.SetToggleValue("MasoAeolus", true);
-            player.SetToggleValue("MasoAeolusFrog", true);
-            player.SetToggleValue("MasoConcoction", true);
-            player.SetToggleValue("ManaFlower", true);
+            player.SetToggleValue<MiningHunt>(true);
+            player.SetToggleValue<MiningDanger>(true);
+            player.SetToggleValue<MiningSpelunk>(true);
+            player.SetToggleValue<MiningShine>(true);
+            player.SetToggleValue<RunSpeed>(true);
+            player.SetToggleValue<SupersonicRocketBoots>(true);
+            player.SetToggleValue<NoMomentum>(true);
+            player.SetToggleValue<MeteorMomentumEffect>(true);
+            player.SetToggleValue<FlightMasteryInsignia>(true);
+            player.SetToggleValue<FlightMasteryGravity>(true);
+            player.SetToggleValue<UniverseSpeedEffect>(true);
+            player.SetToggleValue<PaladinShieldEffect>(true);
+            player.SetToggleValue<ShimmerImmunityEffect>(true);
+            player.SetToggleValue<MasoAeolusFrog>(true);
+            player.SetToggleValue<TimsConcoctionEffect>(true);
+            
         }
 
         public void SaveCustomPreset(int slot)
         {
-            var togglesOff = new List<string>();
-            foreach (KeyValuePair<string, Toggle> entry in Toggles)
+            var togglesOff = new List<AccessoryEffect>();
+            foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggles)
             {
                 if (!Toggles[entry.Key].ToggleBool)
                     togglesOff.Add(entry.Key);
@@ -282,7 +290,7 @@ namespace FargowiltasSouls.Core.Toggler
 
         public void LoadCustomPreset(int slot)
         {
-            List<string> togglesOff = CustomPresets[slot - 1];
+            List<AccessoryEffect> togglesOff = CustomPresets[slot - 1];
             if (togglesOff == null)
             {
                 Main.NewText($"{Language.GetTextValue("Mods.FargowiltasSouls.UI.NoTogglesFound")} {slot}.", Color.Yellow);
@@ -290,7 +298,7 @@ namespace FargowiltasSouls.Core.Toggler
             }
 
             FargoSoulsPlayer modPlayer = Main.LocalPlayer.FargoSouls();
-            modPlayer.disabledToggles = new List<string>(togglesOff);
+            modPlayer.disabledToggles = new List<AccessoryEffect>(togglesOff);
 
             LoadPlayerToggles(modPlayer);
             modPlayer.disabledToggles.Clear();

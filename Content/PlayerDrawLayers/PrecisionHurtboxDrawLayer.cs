@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,7 +19,7 @@ namespace FargowiltasSouls.Content.PlayerDrawLayers
             && !drawInfo.drawPlayer.ghost
             && drawInfo.shadow == 0
             && drawInfo.drawPlayer.FargoSouls().PrecisionSealNoDashNoJump
-            && drawInfo.drawPlayer.FargoSouls().PrecisionSealHurtbox;
+            && drawInfo.drawPlayer.HasEffect<PrecisionSealHurtbox>();
 
         public override Position GetDefaultPosition() => new Between();
 
