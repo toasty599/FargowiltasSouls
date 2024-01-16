@@ -6295,6 +6295,9 @@ Mods: {
 			EModeNotMaster: This is a Master/Eternity Mode drop rate
 			NotEMode: "[i:FargowiltasSouls/Masochist] Non-Eternity Mode drop rate"
 			TimsConcoction: "[i:FargowiltasSouls/TimsConcoction] Tim's Concoction drop rate"
+			Patreon: "[i:FargowiltasSouls/RoombaPet] Patreon Drop"
+			PatreonEMode: "[i:FargowiltasSouls/RoombaPet] Patreon Drop in Eternity Mode"
+			PatreonPlant: "[i:FargowiltasSouls/RoombaPet] Patreon Drop in Jungle on Blood Moon"
 		}
 
 		MutantGFB: {
