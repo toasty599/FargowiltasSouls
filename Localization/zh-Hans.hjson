@@ -6300,17 +6300,17 @@ Mods: {
 		// PatreonROB: "[i:FargowiltasSouls/ROBGyro][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonROB}]"
 
 		Keybinds: {
-			// Freeze.DisplayName: Freeze
-			// "Turn Gold.DisplayName": Turn  Gold
-			// "Throw Smoke Bomb.DisplayName": Throw  Smoke  Bomb
-			// "Special Dash.DisplayName": Special  Dash
-			// Bomb.DisplayName: Bomb
-			// "Open Soul Toggler.DisplayName": Open  Soul  Toggler
-			// "Precision Movement.DisplayName": Precision  Movement
-			// "Magical Cleanse.DisplayName": Magical  Cleanse
-			// "Frigid Spell.DisplayName": Frigid  Spell
-			// "Debuff Install.DisplayName": Debuff  Install
-			// "Ammo Cycle.DisplayName": Ammo  Cycle
+			Freeze.DisplayName: 冻结
+			Gold.DisplayName: 金身
+			SmokeBomb.DisplayName: 投掷烟雾弹
+			SpecialDash.DisplayName: 特殊冲刺
+			Bomb.DisplayName: 炸弹
+			SoulToggle.DisplayName: 打开魂石效果设置
+			PrecisionSeal.DisplayName: 玲珑圣印精确模式
+			MagicalBulb.DisplayName: 魔法净化
+			FrigidSpell.DisplayName: 寒霜咒语
+			DebuffInstall.DisplayName: 减益负载
+			AmmoCycle.DisplayName: 弹药切换
 		}
 
 		Configs: {
@@ -6442,6 +6442,16 @@ Mods: {
 					// Tooltip: "{$Mods.FargowiltasSouls.Config.PreBossNightGlowTooltip}"
 				}
 			}
+		}
+
+		DropRuleConditions: {
+			// DownedEvilBoss: After any Evil Boss has been defeated
+			// EMode: "[i:FargowiltasSouls/Masochist] Eternity Mode drop rate"
+			// EModeEarlyBirdHM: "[i:FargowiltasSouls/Masochist] Hardmode Eternity Mode drop rate"
+			// EModeEarlyBirdPHM: "[i:FargowiltasSouls/Masochist] Pre-Hardmode Eternity Mode drop rate"
+			// EModeNotMaster: This is a Master/Eternity Mode drop rate
+			// NotEMode: "[i:FargowiltasSouls/Masochist] Non-Eternity Mode drop rate"
+			// TimsConcoction: "[i:FargowiltasSouls/TimsConcoction] Tim's Concoction drop rate"
 		}
 
 		MutantGFB: {
