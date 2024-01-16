@@ -25,6 +25,7 @@ using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Content.Items.Placables.Relics;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
@@ -750,7 +751,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (tile.LiquidType == LiquidID.Water)
                     {
                         tile.LiquidAmount = 0;
-                        CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
+                        CombatText.NewText(NPC.Hitbox, Color.Blue, Language.GetTextValue("Mods.FargowiltasSouls.Message.BaronSlurp"));
                         if (Main.netMode == NetmodeID.Server)
                         {
                             NetMessage.sendWater(x, y);
