@@ -22,11 +22,12 @@ namespace FargowiltasSouls.Content.Buffs.Minions
 
         public override void Update(Player player, ref int buffIndex)
         {
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             if (player.whoAmI == Main.myPlayer)
             {
-                FargoSoulsPlayer fargoPlayer = player.FargoSouls();
+                Item item = null;
 
-                if (player.HasEffect<SkeleMinionEffect>())
+                if (player.AddEffect<SkeleMinionEffect>(item))
                 {
                     fargoPlayer.SkeletronArms = true;
                     const int damage = 64;
@@ -36,7 +37,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<SkeletronArmR>(), damage, 8f, player.whoAmI);
                 }
 
-                if (player.HasEffect<PungentMinion>())
+                if (player.AddEffect<PungentMinion>(item))
                 {
                     fargoPlayer.PungentEyeballMinion = true;
                     const int damage = 150;
@@ -45,7 +46,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                 }
 
                 
-                if (player.whoAmI == Main.myPlayer && player.GetToggleValue<RainbowSlimeMinion>())
+                if (player.AddEffect<RainbowSlimeMinion>(item))
                 {
                     fargoPlayer.RainbowSlime = true;
                     const int damage = 105;
@@ -53,7 +54,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<RainbowSlime>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.HasEffect<ProbeMinionEffect>())
+                if (player.AddEffect<ProbeMinionEffect>(item))
                 {
                     fargoPlayer.Probes = true;
                     const int damage = 105;
@@ -63,7 +64,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<Probe2>(), damage, 9f, player.whoAmI, 0f, -1f);
                 }
 
-                if (player.HasEffect<PlantMinionEffect>())
+                if (player.AddEffect<PlantMinionEffect>(item))
                 {
                     fargoPlayer.PlanterasChild = true;
                     const int damage = 120;
@@ -71,7 +72,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, -Vector2.UnitY, ModContent.ProjectileType<PlanterasChild>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.HasEffect<UfoMinionEffect>())
+                if (player.AddEffect<UfoMinionEffect>(item))
                 {
                     fargoPlayer.MiniSaucer = true;
                     const int damage = 100;
@@ -79,7 +80,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<MiniSaucer>(), damage, 3f, player.whoAmI);
                 }
 
-                if (player.HasEffect<CultistMinionEffect>())
+                if (player.AddEffect<CultistMinionEffect>(item))
                 {
                     fargoPlayer.LunarCultist = true;
                     const int damage = 160;
@@ -87,7 +88,7 @@ namespace FargowiltasSouls.Content.Buffs.Minions
                         FargoSoulsUtil.NewSummonProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ModContent.ProjectileType<LunarCultist>(), damage, 2f, player.whoAmI, -1f);
                 }
 
-                if (player.HasEffect<MasoTrueEyeMinion>())
+                if (player.AddEffect<MasoTrueEyeMinion>(item))
                 {
                     fargoPlayer.TrueEyes = true;
 

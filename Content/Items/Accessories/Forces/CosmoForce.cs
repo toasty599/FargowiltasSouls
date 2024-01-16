@@ -9,15 +9,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class CosmoForce : BaseForce
     {
-        public override int[] Enchants => new int[]
+        public override void SetStaticDefaults()
         {
-            ModContent.ItemType<MeteorEnchant>(),
-            ModContent.ItemType<WizardEnchant>(),
-            ModContent.ItemType<SolarEnchant>(),
-            ModContent.ItemType<VortexEnchant>(),
-            ModContent.ItemType<NebulaEnchant>(),
-            ModContent.ItemType<StardustEnchant>()
-        };
+            Enchants[Type] = new int[]
+            {
+                ModContent.ItemType<MeteorEnchant>(),
+                ModContent.ItemType<WizardEnchant>(),
+                ModContent.ItemType<SolarEnchant>(),
+                ModContent.ItemType<VortexEnchant>(),
+                ModContent.ItemType<NebulaEnchant>(),
+                ModContent.ItemType<StardustEnchant>()
+            };
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -42,7 +45,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            foreach (int ench in Enchants)
+            foreach (int ench in Enchants[Type])
                 recipe.AddIngredient(ench);
 
             recipe.AddIngredient(ModContent.ItemType<Eridanium>(), 5);

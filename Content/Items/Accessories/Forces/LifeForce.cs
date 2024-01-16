@@ -8,14 +8,17 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class LifeForce : BaseForce
     {
-        public override int[] Enchants => new int[]
+        public override void SetStaticDefaults()
         {
-            ModContent.ItemType<PumpkinEnchant>(),
-            ModContent.ItemType<BeeEnchant>(),
-            ModContent.ItemType<SpiderEnchant>(),
-            ModContent.ItemType<TurtleEnchant>(),
-            ModContent.ItemType<BeetleEnchant>()
-        };
+            Enchants[Type] = new int[]
+            {
+                ModContent.ItemType<PumpkinEnchant>(),
+                ModContent.ItemType<BeeEnchant>(),
+                ModContent.ItemType<SpiderEnchant>(),
+                ModContent.ItemType<TurtleEnchant>(),
+                ModContent.ItemType<BeetleEnchant>()
+            };
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
@@ -31,7 +34,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            foreach (int ench in Enchants)
+            foreach (int ench in Enchants[Type])
                 recipe.AddIngredient(ench);
             recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
             recipe.Register();

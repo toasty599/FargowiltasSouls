@@ -92,16 +92,8 @@ Summons the aid of all Eternity Mode bosses to your side
 
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.MasochistSoul = true;
+            fargoPlayer.MasochistSoulItem = Item;
 
-            // sigh
-            player.AddEffect<CultistMinionEffect>(Item);
-            player.AddEffect<MasoTrueEyeMinion>(Item);
-            player.AddEffect<PlantMinionEffect>(Item);
-            player.AddEffect<ProbeMinionEffect>(Item);
-            player.AddEffect<PungentMinion>(Item);
-            player.AddEffect<SkeleMinionEffect>(Item);
-            player.AddEffect<UfoMinionEffect>(Item);
-            player.AddEffect<RainbowSlimeMinion>(Item);
             player.AddBuff(ModContent.BuffType<SouloftheMasochistBuff>(), 2);
 
             //stat modifiers

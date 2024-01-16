@@ -230,6 +230,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public Item AbomWandItem;
         public int AbomWandCD;
         public bool MasochistSoul;
+        public Item MasochistSoulItem;
         public bool MasochistHeart;
         public bool MutantsPactSlot;
         public bool HasClickedWrench;

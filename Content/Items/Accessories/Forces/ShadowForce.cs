@@ -8,16 +8,19 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class ShadowForce : BaseForce
     {
-        public override int[] Enchants => new int[]
+        public override void SetStaticDefaults()
         {
-            ModContent.ItemType<NinjaEnchant>(),
-            ModContent.ItemType<AncientShadowEnchant>(),
-            ModContent.ItemType<CrystalAssassinEnchant>(),
-            ModContent.ItemType<SpookyEnchant>(),
-            ModContent.ItemType<ShinobiEnchant>(),
-            ModContent.ItemType<DarkArtistEnchant>(),
-            ModContent.ItemType<NecroEnchant>()
-        };
+            Enchants[Type] = new int[]
+            {
+                ModContent.ItemType<NinjaEnchant>(),
+                ModContent.ItemType<AncientShadowEnchant>(),
+                ModContent.ItemType<CrystalAssassinEnchant>(),
+                ModContent.ItemType<SpookyEnchant>(),
+                ModContent.ItemType<ShinobiEnchant>(),
+                ModContent.ItemType<DarkArtistEnchant>(),
+                ModContent.ItemType<NecroEnchant>()
+            };
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -45,7 +48,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            foreach (int ench in Enchants)
+            foreach (int ench in Enchants[Type])
                 recipe.AddIngredient(ench);
             recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
             recipe.Register();

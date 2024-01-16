@@ -30,8 +30,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             Toggler.TryLoad();
 
-            if (DeerSinew)
-                Player.AddEffect<DeerSinewEffect>(ModContent.GetInstance<DeerSinew>().Item);
 
             if (Player.CCed)
             {
@@ -167,6 +165,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateEquips()
         {
+            if (DeerSinew)
+                Player.AddEffect<DeerSinewEffect>(ModContent.GetInstance<DeerSinew>().Item);
 
             if (NoMomentum && !Player.mount.Active)
             {

@@ -10,20 +10,19 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 	[AutoloadEquip(EquipType.Shield)]
     public class TerraForce : BaseForce
     {
-        public override int[] Enchants => new int[]
-        {
-            ModContent.ItemType<CopperEnchant>(),
-            ModContent.ItemType<TinEnchant>(),
-            ModContent.ItemType<IronEnchant>(),
-            ModContent.ItemType<LeadEnchant>(),
-            ModContent.ItemType<SilverEnchant>(),
-            ModContent.ItemType<TungstenEnchant>(),
-            ModContent.ItemType<ObsidianEnchant>()
-        };
 
         public override void SetStaticDefaults()
         {
-            base.SetStaticDefaults();
+            Enchants[Type] = new int[]
+            {
+                ModContent.ItemType<CopperEnchant>(),
+                ModContent.ItemType<TinEnchant>(),
+                ModContent.ItemType<IronEnchant>(),
+                ModContent.ItemType<LeadEnchant>(),
+                ModContent.ItemType<SilverEnchant>(),
+                ModContent.ItemType<TungstenEnchant>(),
+                ModContent.ItemType<ObsidianEnchant>()
+            };
         }
 
         public override void UpdateInventory(Player player)
@@ -53,7 +52,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            foreach (int ench in Enchants)
+            foreach (int ench in Enchants[Type])
                 recipe.AddIngredient(ench);
             recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
             recipe.Register();

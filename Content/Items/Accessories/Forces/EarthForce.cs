@@ -8,15 +8,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class EarthForce : BaseForce
     {
-        public override int[] Enchants => new int[]
+        public override void SetStaticDefaults()
         {
-            ModContent.ItemType<CobaltEnchant>(),
-            ModContent.ItemType<PalladiumEnchant>(),
-            ModContent.ItemType<MythrilEnchant>(),
-            ModContent.ItemType<OrichalcumEnchant>(),
-            ModContent.ItemType<AdamantiteEnchant>(),
-            ModContent.ItemType<TitaniumEnchant>()
-        };
+            Enchants[Type] = new int[]
+            {
+                ModContent.ItemType<CobaltEnchant>(),
+                ModContent.ItemType<PalladiumEnchant>(),
+                ModContent.ItemType<MythrilEnchant>(),
+                ModContent.ItemType<OrichalcumEnchant>(),
+                ModContent.ItemType<AdamantiteEnchant>(),
+                ModContent.ItemType<TitaniumEnchant>()
+            };
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -35,7 +38,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            foreach (int ench in Enchants)
+            foreach (int ench in Enchants[Type])
                 recipe.AddIngredient(ench);
             recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
             recipe.Register();

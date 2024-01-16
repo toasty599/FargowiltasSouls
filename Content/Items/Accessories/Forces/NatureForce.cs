@@ -9,15 +9,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class NatureForce : BaseForce
     {
-        public override int[] Enchants => new int[]
+        public override void SetStaticDefaults()
         {
-            ModContent.ItemType<CrimsonEnchant>(),
-            ModContent.ItemType<MoltenEnchant>(),
-            ModContent.ItemType<RainEnchant>(),
-            ModContent.ItemType<FrostEnchant>(),
-            ModContent.ItemType<ChlorophyteEnchant>(),
-            ModContent.ItemType<ShroomiteEnchant>()
-        };
+            Enchants[Type] = new int[]
+            {
+                ModContent.ItemType<CrimsonEnchant>(),
+                ModContent.ItemType<MoltenEnchant>(),
+                ModContent.ItemType<RainEnchant>(),
+                ModContent.ItemType<FrostEnchant>(),
+                ModContent.ItemType<ChlorophyteEnchant>(),
+                ModContent.ItemType<ShroomiteEnchant>()
+            };
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -36,7 +39,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            foreach (int ench in Enchants)
+            foreach (int ench in Enchants[Type])
                 recipe.AddIngredient(ench);
             recipe.AddTile<CrucibleCosmosSheet>();
             recipe.Register();

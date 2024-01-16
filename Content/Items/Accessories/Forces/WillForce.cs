@@ -8,15 +8,17 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
 	public class WillForce : BaseForce
     {
-        public override int[] Enchants => new int[]
+        public override void SetStaticDefaults()
         {
-            ModContent.ItemType<GoldEnchant>(),
-            ModContent.ItemType<PlatinumEnchant>(),
-            ModContent.ItemType<GladiatorEnchant>(),
-            ModContent.ItemType<RedRidingEnchant>(),
-            ModContent.ItemType<ValhallaKnightEnchant>()
-        };
-
+            Enchants[Type] = new int[]
+            {
+                ModContent.ItemType<GoldEnchant>(),
+                ModContent.ItemType<PlatinumEnchant>(),
+                ModContent.ItemType<GladiatorEnchant>(),
+                ModContent.ItemType<RedRidingEnchant>(),
+                ModContent.ItemType<ValhallaKnightEnchant>()
+            };
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             SetActive(player);
@@ -36,7 +38,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            foreach (int ench in Enchants)
+            foreach (int ench in Enchants[Type])
                 recipe.AddIngredient(ench);
             recipe.AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"));
             recipe.Register();

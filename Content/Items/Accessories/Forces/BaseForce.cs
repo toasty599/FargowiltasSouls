@@ -1,6 +1,7 @@
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,10 +10,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
 {
     public abstract class BaseForce : SoulsItem
     {
-        public static Dictionary<BaseForce, int[]> ForceEnchants;
-        public static int[] EnchantsIn<T>() where T : BaseForce => ModContent.GetInstance<T>().Enchants;
+        public static int[] EnchantsIn<T>() where T : BaseForce => Enchants[ModContent.ItemType<T>()];
         public void SetActive(Player player) => player.FargoSouls().ForceEffects.Add(Type);
-        public virtual int[] Enchants { get; }
+        /// <summary>
+        /// IDs for the Enchants contained of each Force type. <para/>
+        /// Set in SetStaticDefaults.
+        /// </summary>
+        public static Dictionary<int, int[]> Enchants = new();
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -31,21 +35,5 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             Item.rare = ItemRarityID.Purple;
             Item.value = 600000;
         }
-        public static void SetupForces()
-        {
-            SetFactory factory = new(ContentSamples.ItemsByType.Count);
-            BaseEnchant.Force = factory.CreateIntSet();
-            foreach (BaseForce force in ModContent.GetContent<BaseForce>())
-            {
-                force.Load();
-                force.SetupContent();
-                ForceEnchants[force] = force.Enchants;
-                foreach (int enchant in force.Enchants)
-                {
-                    BaseEnchant.Force[enchant] = force.Type;
-                }
-            }
-        }
     }
-
 }

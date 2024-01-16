@@ -122,6 +122,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 if (recipe != null)
                     BaseEnchant.CraftsInto[modItem.Type] = recipe.createItem.type;
             }
+
+            BaseEnchant.Force = factory.CreateIntSet();
+            foreach (var enchantsPerForceDict in BaseForce.Enchants)
+            {
+                foreach (int enchant in enchantsPerForceDict.Value)
+                    BaseEnchant.Force[enchant] = enchantsPerForceDict.Key;
+            }
         }
     }
 }

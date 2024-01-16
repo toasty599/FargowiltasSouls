@@ -139,7 +139,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             Toggler.LoadPlayerToggles(this);
             disabledToggles.Clear();
 
-
             if (!ModLoader.TryGetMod("FargowiltasMusic", out Mod _))
             {
                 Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoMusic1"), Color.LimeGreen);
@@ -323,6 +322,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             TrueEyes = false;
             AbomWandItem = null;
             MasochistSoul = false;
+            MasochistSoulItem = null;
             MasochistHeart = false;
             SandsofTime = false;
             SecurityWallet = false;
