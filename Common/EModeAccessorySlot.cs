@@ -6,6 +6,7 @@ using FargowiltasSouls.Core.Systems;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Common
@@ -26,6 +27,8 @@ namespace FargowiltasSouls.Common
         public abstract int Loadout { get; }
         public override bool CanAcceptItem(Item checkItem, AccessorySlotType context)
         {
+            Main.NewText(AllowedItemExceptions[0]);
+            Main.NewText(checkItem.type);
             if ((context == AccessorySlotType.FunctionalSlot || context == AccessorySlotType.VanitySlot) && (base.CanAcceptItem(checkItem, context) || AllowedItemExceptions.Contains(checkItem.type)))
             {
                 if ((checkItem.ModItem != null && (checkItem.ModItem is BaseEnchant || checkItem.ModItem is BaseForce || checkItem.ModItem is BaseSoul)) || AllowedItemExceptions.Contains(checkItem.type))
@@ -71,10 +74,10 @@ namespace FargowiltasSouls.Common
             switch (context)
             {
                 case AccessorySlotType.FunctionalSlot:
-                    Main.hoverItemName = "Enchantment, Force or Soul";
+                    Main.hoverItemName = Language.GetTextValue("Mods.FargowiltasSouls.AccessorySlot.EModeSlotFunctional");
                     break;
                 case AccessorySlotType.VanitySlot:
-                    Main.hoverItemName = "Social Enchantment, Force or Soul";
+                    Main.hoverItemName = Language.GetTextValue("Mods.FargowiltasSouls.AccessorySlot.EModeSlotVanity");
                     break;
             }
         }

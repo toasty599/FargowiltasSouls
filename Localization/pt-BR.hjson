@@ -6268,6 +6268,11 @@ Mods: {
 			}
 		}
 
+		AccessorySlot: {
+			// EModeSlotFunctional: Enchantment, Force or Soul
+			// EModeSlotVanity: Social Enchantment, Force or Soul
+		}
+
 		DropRuleConditions: {
 			// DownedEvilBoss: After any Evil Boss has been defeated
 			// EMode: "[i:FargowiltasSouls/Masochist] Eternity Mode drop rate"

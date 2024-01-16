@@ -6251,6 +6251,11 @@ Mods: {
 			}
 		}
 
+		AccessorySlot: {
+			EModeSlotFunctional: 魔石，力或魂
+			EModeSlotVanity: 装饰魔石，力或魂
+		}
+
 		DropRuleConditions: {
 			DownedEvilBoss: 在任意邪恶Boss被击败后
 			EMode: "[i:FargowiltasSouls/Masochist] 在永恒模式下的掉落率"
