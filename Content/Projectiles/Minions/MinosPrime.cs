@@ -15,6 +15,7 @@ using Terraria;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
@@ -45,12 +46,14 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
 
+
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
         }
         public ref float Timer => ref Projectile.ai[0];
         public float Wobble = 0;
 
+        public override bool? CanHitNPC(NPC target) => false; //no contact damage
         public override void AI()
         {
             Main.projFrames[Type] = 1;
@@ -60,7 +63,6 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Wobble = 20f * (float)Math.Sin(MathHelper.TwoPi * (Timer / 60f));
             Movement(player);
-            Main.NewText(player.FargoSouls().PrimeSoulItemCount);
         }
         public void Movement(Player player)
         {
@@ -100,21 +102,82 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Color color26 = lightColor;
-            color26 = Projectile.GetAlpha(color26);
+            Color color = lightColor;
+            Player player = Main.player[Projectile.owner];
+            if (player.Alive())
+            {
+                Color? soulColor = GetColor(player);
+                if (soulColor.HasValue)
+                    color = soulColor.Value;
+            }
+                 
+
+            //Color color26 = lightColor;
+            //color26 = Projectile.GetAlpha(color26);
 
             //Texture2D texture2D14 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/Minions/LunarCultistTrail", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 3)
             {
-                Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Color color2 = color;
+                color2 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
-                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color2, num165, origin2, Projectile.scale, Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             }
 
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color, Projectile.rotation, origin2, Projectile.scale, Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             return false;
+        }
+        public int ColorTimer = 0;
+        public Color? GetColor(Player player)
+        {
+            ColorTimer++;
+            List<Color> colors = new();
+
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+
+            if (modPlayer.MeleeSoul)
+                colors.Add(BerserkerSoul.ItemColor);
+            if (modPlayer.RangedSoul)
+                colors.Add(SnipersSoul.ItemColor);
+            if (modPlayer.MagicSoul)
+                colors.Add(ArchWizardsSoul.ItemColor);
+            if (modPlayer.SummonSoul)
+                colors.Add(ConjuristsSoul.ItemColor);
+            if (modPlayer.WorldShaperSoul)
+                colors.Add(WorldShaperSoul.ItemColor);
+            if (modPlayer.MasochistSoul)
+                colors.Add(MasochistSoul.ItemColor);
+            if (modPlayer.SupersonicSoul)
+                colors.Add(SupersonicSoul.ItemColor);
+            if (modPlayer.ColossusSoul)
+                colors.Add(ColossusSoul.ItemColor);
+            if (modPlayer.FlightMasterySoul)
+                colors.Add(FlightMasterySoul.ItemColor);
+            if (modPlayer.FishSoul2)
+                colors.Add(TrawlerSoul.ItemColor);
+
+            int colorAmt = colors.Count;
+            if (colorAmt == 0)
+                return null;
+
+            const float ColorTime = 300f;
+
+            if (ColorTimer >= ColorTime * colorAmt)
+                ColorTimer = 1;
+
+           float lerp = (ColorTimer % ColorTime)  / ColorTime; // Current lerp progress between colors
+
+            int i = (int)Math.Floor(ColorTimer / ColorTime); // Current soul color being lerped from
+            if (colorAmt <= 1)
+                return colors[i];
+            int j = i + 1; // Current soul color being lerped to
+            if (j >= colorAmt)
+                j = 0;
+
+            Color color = Color.Lerp(colors[i], colors[j], lerp);
+
+            return color;
         }
     }
 }

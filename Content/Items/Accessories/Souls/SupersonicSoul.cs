@@ -11,27 +11,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     //[AutoloadEquip(EquipType.Shoes)]
     public class SupersonicSoul : BaseSoul
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-
-            // DisplayName.SetDefault("Supersonic Soul");
-
-            //string tooltip_ch =
-            //@"'我就是速度'
-            //获得超音速奔跑,飞行,以及额外的冰上移动力
-            //在没有装备翅膀时,允许使用者进行五段跳
-            //增加跳跃高度,跳跃速度,允许自动跳跃
-            //获得游泳能力以及极长的水下呼吸时间
-            //获得水/岩浆上行走能力
-            //免疫岩浆和坠落伤害
-            //拥有飞毯效果";
-
-            // Tooltip.SetDefault(tooltip);
-            //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "超音速之魂");
-            //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
-
-        }
 
         public override void SetDefaults()
         {
@@ -39,8 +18,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             Item.value = 750000;
         }
-
-        protected override Color? nameColor => new Color(238, 0, 69);
+        public static readonly Color ItemColor = new(238, 0, 69);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -56,7 +35,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             player.AddEffect<MasoAeolusFlower>(item);
             player.AddEffect<ZephyrJump>(item);
 
-            if (Player.AddEffect<SupersonicSpeedEffect>(item) && !Player.FargoSouls().noSupersonic && !FargoSoulsUtil.AnyBossAlive())
+            modPlayer.SupersonicSoul = true;
+
+            if (Player.AddEffect<SupersonicSpeedEffect>(item) && !modPlayer.noSupersonic && !FargoSoulsUtil.AnyBossAlive())
             {
                 // 5 is the default value, I removed the config for it because the new toggler doesn't have sliders
                 Player.runAcceleration += 5f * .1f;

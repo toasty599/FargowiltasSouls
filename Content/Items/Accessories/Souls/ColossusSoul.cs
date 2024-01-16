@@ -20,8 +20,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             Item.defense = 10;
             Item.shieldSlot = 4;
         }
-
-        protected override Color? nameColor => new Color(252, 59, 0);
+        public static readonly Color ItemColor = new(252, 59, 0);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -30,6 +30,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         public static void AddEffects(Player player, Item item, int maxHP, float damageResist, int lifeRegen)
         {
             Player Player = player;
+            player.FargoSouls().ColossusSoul = true;
             Player.statLifeMax2 += maxHP;
             Player.endurance += damageResist;
             Player.lifeRegen += lifeRegen;
@@ -145,7 +146,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     {
         public override Header ToggleHeader => Header.GetHeader<ColossusHeader>();
         public override int ToggleItemType => ItemID.StarVeil;
-        public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
             player.starCloakItem = EffectItem(player);
