@@ -14,6 +14,8 @@ using FargowiltasSouls.Core.Globals;
 using Terraria.WorldBuilding;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using System.Collections.Generic;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -35,6 +37,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int MythrilHalberdTimer;
         public int CobaltHitCounter;
+
+        public int LightningCounter;
         private int WeaponUseTimer => Player.FargoSouls().WeaponUseTimer;
 
         public override void ResetEffects()
@@ -101,6 +105,21 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
         }
+
+        public static List<int> IronTiles = new List<int> // Tiles that lightning can lock onto
+        {
+            TileID.Iron,
+            TileID.IronBrick,
+            TileID.Lead,
+            TileID.LeadBrick,
+            TileID.MetalBars
+        };
+        public static List<int> IronWalls = new List<int>
+        {
+            WallID.IronFence,
+            WallID.WroughtIronFence,
+            WallID.MetalFence,
+        };
         public override void PreUpdate()
         {
             if (!WorldSavingSystem.EternityMode)
@@ -261,26 +280,57 @@ namespace FargowiltasSouls.Core.ModPlayers
                             Player.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 2);
                         else
                             Player.AddBuff(BuffID.Wet, 2);
-                        /*if (Main.hardMode)
-                        {
-                            lightningCounter++;
 
-                            if (lightningCounter >= 600)
+
+                        LightningCounter++;
+
+                        if (LightningCounter >= 60 * 20)
+                        {
+                            Point tileCoordinates = Player.Top.ToTileCoordinates();
+
+                            tileCoordinates.X += Main.rand.Next(-25, 25);
+                            tileCoordinates.Y -= Main.rand.Next(4, 8);
+
+
+                            bool foundMetal = false;
+                            
+                            /* TODO: make this work
+                            for (int x = -5; x < 5; x++)
+                            {
+                                for (int y = -5; y < 5; y++)
+                                {
+                                    int testX = tileCoordinates.X + x;
+                                    int testY = tileCoordinates.Y + y;
+                                    Tile tile = Main.tile[testX, testY];
+                                    if (IronTiles.Contains(tile.TileType) ||IronTiles.Contains(tile.WallType))
+                                    {
+                                        foundMetal = true;
+                                        tileCoordinates.X = testX;
+                                        tileCoordinates.Y = testY;
+                                        Main.NewText("found metal");
+                                        break;
+                                    }
+                                }
+                            }
+                            */
+                            
+                            if (Main.rand.NextBool(300) || foundMetal)
                             {
                                 //tends to spawn in ceilings if the Player goes indoors/underground
-                                Point tileCoordinates = Player.Top.ToTileCoordinates();
 
-                                tileCoordinates.X += Main.rand.Next(-25, 25);
-                                tileCoordinates.Y -= 15 + Main.rand.Next(-5, 5);
 
-                                for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) tileCoordinates.Y -= 1;
+                                //for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) 
+                                //    tileCoordinates.Y -= 1;
 
-                                Projectile.NewProjectile(tileCoordinates.X * 16 + 8, tileCoordinates.Y * 16 + 17, 0f, 0f, ProjectileID.VortexVortexLightning, 0, 2f, Main.myPlayer,
-                                    0f, 0);
 
-                                lightningCounter = 0;
+                                float ai1 = Player.Center.Y;
+
+                                Projectile.NewProjectile(Player.GetSource_Misc(""), tileCoordinates.X * 16 + 8, (tileCoordinates.Y * 16 + 17) - 900, 0f, 0f, ModContent.ProjectileType<RainLightning>(), 60, 2f, Main.myPlayer,
+                                    Vector2.UnitY.ToRotation(), ai1);
+
+                                LightningCounter = 0;
                             }
-                        }*/
+                        }
                     }
                 }
 

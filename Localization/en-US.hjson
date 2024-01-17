@@ -6057,6 +6057,7 @@ Mods: {
 			MagmawHand.DisplayName: Magmaw Hand
 			PungentEyeballMinion.DisplayName: Pungent Eyeball Minion
 			MinosPrime.DisplayName: Minos Prime
+			RainLightning.DisplayName: Rain Lightning
 		}
 
 		MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"
