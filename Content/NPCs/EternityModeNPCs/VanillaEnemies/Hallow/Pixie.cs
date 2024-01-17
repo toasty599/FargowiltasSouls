@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
             base.SetDefaults(npc);
 
             npc.noTileCollide = true;
+            npc.lifeMax = (int)(npc.lifeMax * 1.5f);
         }
 
         public override void AI(NPC npc)
@@ -28,8 +29,18 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
 
             if (npc.HasPlayerTarget)
             {
-                if (npc.velocity.Y < 0f && npc.position.Y < Main.player[npc.target].position.Y)
-                    npc.velocity.Y = 0f;
+                //if (npc.velocity.Y < 0f && npc.position.Y < Main.player[npc.target].position.Y)
+                //npc.velocity.Y = 0f;
+
+                float yToPlayer = Main.player[npc.target].Center.Y - npc.Center.Y;
+                if (yToPlayer < 0)
+                {
+                    if (yToPlayer < -300)
+                        yToPlayer = -300;
+                    npc.velocity += Vector2.UnitY * yToPlayer / 1250;
+                }
+                    
+
                 if (Vector2.Distance(Main.player[npc.target].Center, npc.Center) < 200)
                     Counter++;
             }
