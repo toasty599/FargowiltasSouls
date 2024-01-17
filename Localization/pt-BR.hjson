@@ -280,8 +280,8 @@ Mods: {
 			SkeletronPrimeRegrow: "{$NPCName.SkeletronPrime} renasceu seus braços!"
 			SkeletronGuardian: "{$NPCName.SkeletronHead} entrou na forma de Guardião do Calabouço!"
 			SkeletronPrimeGuardian: "{$NPCName.SkeletronPrime} entrou na forma de Guardião do Calabouço!"
-			TwinsEndure: aguentou o golpe fatal para lutar junto de seu gêmeo!
-			// TwinsRevive: has been revived!
+			TwinsEndure: "{0} aguentou o golpe fatal para lutar junto de seu gêmeo!"
+			// TwinsRevive: "{0} has been revived!"
 			GelatinSubjects: Sujeitos Gelatinosos acordaram!
 			RoyalSubject: Sujeito Real acordou!
 			QueenBeeEnrage: "{$NPCName.QueenBee} se enfureceu fora da Selva Subterrânea!"

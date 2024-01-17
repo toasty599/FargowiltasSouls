@@ -280,8 +280,8 @@ Mods: {
 			SkeletronPrimeRegrow: "{$NPCName.SkeletronPrime} has regrown its arms!"
 			SkeletronGuardian: "{$NPCName.SkeletronHead} has entered Dungeon Guardian form!"
 			SkeletronPrimeGuardian: "{$NPCName.SkeletronPrime} has entered Dungeon Guardian form!"
-			TwinsEndure: endured the fatal blow to fight alongside its twin!
-			TwinsRevive: has been revived!
+			TwinsEndure: "{0} endured the fatal blow to fight alongside its twin!"
+			TwinsRevive: "{0} has been revived!"
 			GelatinSubjects: Gelatin Subjects have awoken!
 			RoyalSubject: Royal Subject has awoken!
 			QueenBeeEnrage: "{$NPCName.QueenBee} has enraged outside the underground jungle!"
