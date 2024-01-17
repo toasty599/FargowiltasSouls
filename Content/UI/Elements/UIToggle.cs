@@ -75,18 +75,6 @@ namespace FargowiltasSouls.Content.UI.Elements
                         color = enchant.nameColor;
                     else if (item.ModItem is BaseEssence essence)
                         color = essence.nameColor;
-                    else
-                    {
-                        ModRarity rare = RarityLoader.GetRarity(item.rare);
-                        if (rare != null)
-                            color = rare.RarityColor;
-                    }
-                }
-                else
-                {
-                    ModRarity rare = RarityLoader.GetRarity(item.rare);
-                    if (rare != null)
-                        color = rare.RarityColor;
                 }
 
             }
