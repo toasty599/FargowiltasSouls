@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Core.NPCMatching;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -66,7 +67,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (EModeGlobalNPC.spawnFishronEX)
             {
                 IsEX = true;
-                npc.GivenName = "Duke Fishron EX";
+                npc.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DukeFishronEX.DisplayName");
                 npc.damage *= 3;// 1.5);
                 npc.defense *= 30;
             }

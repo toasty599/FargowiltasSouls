@@ -5296,6 +5296,8 @@ Mods: {
 			// StardustMinion.DisplayName: Stardust Minion
 			// SlimeSwarm.DisplayName: Slime Swarm
 			// Magmaw.DisplayName: Magmaw
+			// currently not exist in game
+			// DukeFishronEX.DisplayName: Duke Fishron EX
 		}
 
 		Tiles: {
