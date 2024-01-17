@@ -20,6 +20,7 @@
     <None Remove="Assets\ExtraTextures\Resprites\GolemLights1.png" />
     <None Remove="Assets\ExtraTextures\Resprites\GolemLights2.png" />
     <None Remove="Assets\ExtraTextures\Resprites\GolemLights3.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gores\Gore_577.png" />
     <None Remove="Assets\ExtraTextures\Resprites\NPC_245B.png" />
     <None Remove="Assets\ExtraTextures\Resprites\NPC_245G.png" />
     <None Remove="Assets\ExtraTextures\Resprites\NPC_245P.png" />
@@ -38,6 +39,7 @@
     <None Remove="Assets\ExtraTextures\Resprites\NPC_Head_Boss_5B.png" />
     <None Remove="Assets\ExtraTextures\Resprites\NPC_Head_Boss_5G.png" />
     <None Remove="Assets\ExtraTextures\Resprites\NPC_Head_Boss_5P.png" />
+    <None Remove="Assets\UI\Cross.png" />
     <None Remove="Assets\UI\DisplayAllButton.png" />
     <None Remove="Content\Bosses\Magmaw\Magmaw.png" />
     <None Remove="Content\Bosses\Magmaw\MagmawHand.png" />

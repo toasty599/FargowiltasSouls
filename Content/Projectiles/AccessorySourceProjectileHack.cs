@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if (source is EntitySource_ItemUse itemSource && itemSource.Item.type != Main.player[projectile.owner].HeldItem.type)
+            if (source is EntitySource_ItemUse itemSource && itemSource.Item != null && itemSource.Item.type != Main.player[projectile.owner].HeldItem.type)
                 needsStatUpdate = true;
         }
 

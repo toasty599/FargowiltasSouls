@@ -37,8 +37,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             base.SetDefaults();
             Item.defense = 4;
         }
-
-        protected override Color? nameColor => new Color(255, 111, 6);
+        public static readonly Color ItemColor = new(255, 111, 6);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -47,6 +47,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             player.AddEffect<MeleeSpeedEffect>(Item);
 
+            player.FargoSouls().MeleeSoul = true;
 
             //gauntlet
             player.AddEffect<MagmaStoneEffect>(Item);

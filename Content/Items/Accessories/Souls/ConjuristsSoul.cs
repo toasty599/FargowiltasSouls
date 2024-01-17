@@ -7,10 +7,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 {
     public class ConjuristsSoul : BaseSoul
     {
-        protected override Color? nameColor => new Color(0, 255, 255);
+        public static readonly Color ItemColor = new(0, 255, 255);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.FargoSouls().SummonSoul = true;
             player.GetDamage(DamageClass.Summon) += 0.3f;
             player.maxMinions += 5;
             player.maxTurrets += 5;

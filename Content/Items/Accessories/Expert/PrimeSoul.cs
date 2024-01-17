@@ -13,6 +13,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
     public class PrimeSoul : SoulsItem
     {
+        public override bool IsLoadingEnabled(Mod mod) => false;
         public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";
         public override void SetStaticDefaults()
         {

@@ -226,6 +226,7 @@ This stacks up to 950 times until you get hit"); */
     {
         public override Header ToggleHeader => Header.GetHeader<EternityHeader>();
         public override int ToggleItemType => ModContent.ItemType<EternitySoul>();
+        public override bool IgnoresMutantPresence => true;
     }
 
 }

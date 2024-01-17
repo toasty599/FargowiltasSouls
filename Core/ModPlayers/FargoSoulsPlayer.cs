@@ -273,8 +273,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             //            #endregion
 
             //souls
+            MeleeSoul = false;
             MagicSoul = false;
             RangedSoul = false;
+            SummonSoul = false;
+            ColossusSoul = false;
+            SupersonicSoul = false;
+            WorldShaperSoul = false;
+            FlightMasterySoul = false;
             RangedEssence = false;
             BuilderMode = false;
             UniverseSoul = false;

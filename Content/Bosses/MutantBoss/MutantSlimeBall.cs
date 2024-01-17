@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.scale = 1.5f;
             Projectile.alpha = 50;
 
-            Projectile.extraUpdates = 1;
+            Projectile.extraUpdates = 0;
             Projectile.timeLeft = 90 * (Projectile.extraUpdates + 1);
         }
 
