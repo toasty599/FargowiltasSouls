@@ -5153,6 +5153,11 @@ Mods: {
 				// DisplayName: Prime Soul
 				// Tooltip: ""
 			}
+
+			OncomingMutantItem: {
+				// DisplayName: Oncoming Mutant Icon
+				// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant's Presence
+			}
 		}
 
 		NPCs: {

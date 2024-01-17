@@ -667,7 +667,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
             else
             {
-                if (npc.HasValidTarget && !Main.dayTime)
+                if (npc.HasValidTarget && (!Main.dayTime || Main.remixWorld))
                 {
                     npc.timeLeft = 600; //don't despawn
 

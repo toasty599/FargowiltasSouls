@@ -137,7 +137,6 @@ namespace FargowiltasSouls.Core.Toggler
             SetAll(true);
             
             player.SetToggleValue<BorealEffect>(false);
-            player.SetToggleValue<EbonwoodEffect>(false);
             player.SetToggleValue<ShadewoodEffect>(false);
             player.SetToggleValue<PearlwoodEffect>(false);
 
@@ -180,7 +179,7 @@ namespace FargowiltasSouls.Core.Toggler
             player.SetToggleValue<WretchedPouchEffect>(false);
             player.SetToggleValue<ProbeMinionEffect>(false);
             player.SetToggleValue<GelicWingSpikes>(false);
-            player.SetToggleValue<PungentEyeballCursor>(false);
+            //player.SetToggleValue<PungentEyeballCursor>(false);
             player.SetToggleValue<PungentMinion>(false);
             player.SetToggleValue<DeerclawpsEffect>(false);
             player.SetToggleValue<CultistMinionEffect>(false);

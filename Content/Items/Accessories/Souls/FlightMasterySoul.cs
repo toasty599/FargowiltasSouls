@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     public class FlightMasterySoul : FlightMasteryWings
     {
         protected override bool HasSupersonicSpeed => false;
-        protected override Color? nameColor => new Color(56, 134, 255);
+
+        public static readonly Color ItemColor = new(56, 134, 255);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -21,6 +23,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         public static void AddEffects(Player player, Item item)
         {
             Player Player = player;
+            player.FargoSouls().FlightMasterySoul = true;
             Player.wingTimeMax = 999999;
             Player.wingTime = Player.wingTimeMax;
             Player.ignoreWater = true;

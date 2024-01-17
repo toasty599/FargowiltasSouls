@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.dontTakeDamage = false;
             }
 
-            if (Main.dayTime)
+            if (Main.dayTime && !Main.remixWorld)
             {
                 if (npc.velocity.Y > 0)
                     npc.velocity.Y = 0;
@@ -545,7 +545,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.dontTakeDamage = false;
             }
 
-            if (Main.dayTime)
+            if (Main.dayTime && !Main.remixWorld)
             {
                 if (npc.velocity.Y > 0)
                     npc.velocity.Y = 0;

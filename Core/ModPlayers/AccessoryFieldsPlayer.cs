@@ -177,8 +177,14 @@ namespace FargowiltasSouls.Core.ModPlayers
         #endregion
 
         //        //soul effects
+        public bool MeleeSoul;
         public bool MagicSoul;
         public bool RangedSoul;
+        public bool SummonSoul;
+        public bool ColossusSoul;
+        public bool SupersonicSoul;
+        public bool WorldShaperSoul;
+        public bool FlightMasterySoul;
         public bool RangedEssence;
         public bool BuilderMode;
         public bool UniverseSoul;

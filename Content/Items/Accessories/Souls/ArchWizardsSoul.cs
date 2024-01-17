@@ -27,8 +27,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
-
-        protected override Color? nameColor => new Color(255, 83, 255);
+        public static readonly Color ItemColor = new Color(255, 83, 255);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

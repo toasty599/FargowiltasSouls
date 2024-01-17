@@ -309,7 +309,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     }
                 }
 
-                if (Main.dayTime)
+                if (Main.dayTime && !Main.remixWorld)
                 {
                     npc.Transform(NPCID.DungeonGuardian);
                     //DGDaytime = true;

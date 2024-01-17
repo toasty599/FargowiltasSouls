@@ -30,7 +30,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             player.AddEffect<GladiatorSpears>(Item);
             player.AddEffect<RedRidingEffect>(Item);
             player.AddEffect<HuntressEffect>(Item);
-            modPlayer.ValhallaEnchantActive = true;
+            player.FargoSouls().ValhallaEnchantActive = true;
+            player.AddEffect<ValhallaDash>(Item);
             SquireEnchant.SquireEffect(player, Item);
             
         }

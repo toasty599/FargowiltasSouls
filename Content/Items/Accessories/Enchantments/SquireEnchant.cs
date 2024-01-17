@@ -107,60 +107,62 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                     if (modPlayer.ValhallaDashCD == 0)
                     {
-                        if (Fargowiltas.Fargowiltas.DashKey.Current)
+                        if (Main.myPlayer == player.whoAmI)
                         {
-                            if (player.controlDown)
+                            if (Fargowiltas.Fargowiltas.DashKey.Current)
                             {
-                                ValhallaDash(player, true, 1);
-                            }
-                            //up
-                            else if (player.controlUp)
-                            {
-                                ValhallaDash(player, true, -1);
-                            }
-                            if (player.controlRight)
-                            {
-                                ValhallaDash(player, false, 1);
-                            }
-                            else if (player.controlLeft)
-                            {
-                                ValhallaDash(player, false, -1);
-                            }
-                        }
-                        else if (!ModContent.GetInstance<FargoClientConfig>().DoubleTapDashDisabled)
-                        {
-                            //mount dash
-                            if ((player.controlDown && (player.releaseDown)))
-                            {
-                                if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                                if (player.controlDown)
                                 {
                                     ValhallaDash(player, true, 1);
                                 }
-                            }
-                            //up
-                            else if ((player.controlUp && player.releaseUp))
-                            {
-                                if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
+                                //up
+                                else if (player.controlUp)
                                 {
                                     ValhallaDash(player, true, -1);
                                 }
-                            }
-                            if (player.controlRight && player.releaseRight)
-                            {
-                                if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
+                                if (player.controlRight)
                                 {
                                     ValhallaDash(player, false, 1);
                                 }
-                            }
-                            else if (player.controlLeft && player.releaseLeft)
-                            {
-                                if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
+                                else if (player.controlLeft)
                                 {
                                     ValhallaDash(player, false, -1);
                                 }
                             }
+                            else if (!ModContent.GetInstance<FargoClientConfig>().DoubleTapDashDisabled)
+                            {
+                                //mount dash
+                                if ((player.controlDown && (player.releaseDown)))
+                                {
+                                    if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                                    {
+                                        ValhallaDash(player, true, 1);
+                                    }
+                                }
+                                //up
+                                else if ((player.controlUp && player.releaseUp))
+                                {
+                                    if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
+                                    {
+                                        ValhallaDash(player, true, -1);
+                                    }
+                                }
+                                if (player.controlRight && player.releaseRight)
+                                {
+                                    if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
+                                    {
+                                        ValhallaDash(player, false, 1);
+                                    }
+                                }
+                                else if (player.controlLeft && player.releaseLeft)
+                                {
+                                    if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
+                                    {
+                                        ValhallaDash(player, false, -1);
+                                    }
+                                }
+                            }
                         }
-                        
                     }
                 }
                 
@@ -176,8 +178,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 mount._data.jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed * speedBoost;
                 mount._data.fallDamage = 0;
                 player.noFallDmg = true;
-
-                Main.NewText(modPlayer.IsDashingTimer);
 
                 /*
                 if (modPlayer.IsDashingTimer == 0)

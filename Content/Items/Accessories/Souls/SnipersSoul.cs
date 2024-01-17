@@ -30,8 +30,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
         }
 
 
-
-        protected override Color? nameColor => new Color(188, 253, 68);
+        public static readonly Color ItemColor = new(188, 253, 68);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
