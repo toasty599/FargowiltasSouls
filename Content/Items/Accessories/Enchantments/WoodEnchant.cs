@@ -1,6 +1,4 @@
-﻿
-using FargowiltasSouls.Core.AccessoryEffectSystem;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -14,6 +12,17 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
     public class WoodEnchant : BaseEnchant
     {
         public override Color nameColor => new(151, 107, 75);
+        
+        public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+        {
+            base.SafeModifyTooltips(tooltips);
+
+            double discount = Main.GetBestiaryProgressReport().CompletionPercent / 2;
+            discount *= 100;
+            discount = Math.Round(discount, 2);
+            int i = tooltips.FindIndex(line => line.Name == "Tooltip2");
+            tooltips[i].Text = string.Format(tooltips[i].Text, discount);
+        }
 
         public override void SetStaticDefaults()
         {
@@ -24,17 +33,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 @"Bestiary and banner entries complete twice as fast
 You gain a shop discount based on bestiary completion
 Discount effect works in vanity slots"); */
-        }
-
-        public override void SafeModifyTooltips(List<TooltipLine> list)
-        {
-            base.SafeModifyTooltips(list);
-
-            double discount = Main.GetBestiaryProgressReport().CompletionPercent / 2;
-            discount *= 100;
-            discount = Math.Round(discount, 2);
-            list.Add(new TooltipLine(Mod, "Discount", Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.WoodenDiscount", discount)));
-            list.Add(new TooltipLine(Mod, "Flavor", Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.WoodenTooltip")));
         }
 
         public override void SetDefaults()
@@ -100,7 +98,7 @@ Discount effect works in vanity slots"); */
             float discount = 1f - bestiaryProgressReport.CompletionPercent / 2f; //50% discount at 100% bestiary
             foreach (Item item in items)
             {
-                if(item == null) continue;
+                if (item == null) continue;
                 int? originalPrice = item.shopCustomPrice == null ? item.value : item.shopCustomPrice;
 
                 item.shopCustomPrice = (int)((float)originalPrice * discount);

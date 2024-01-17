@@ -74,6 +74,7 @@ Mods: {
 			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
 			// AshWood: Fires balls of fire more often
+			// NoUpgrade: No upgrade
 		}
 
 		SetBonus: {
@@ -690,8 +691,6 @@ Mods: {
 		}
 
 		ItemExtra: {
-			// WoodenDiscount: Current discount: {0}%
-			// WoodenTooltip: Humble beginnings…
 			// TinCritUp: +5% crit
 			// TinCritReset: -{0}% crit
 			// ROBPatreon: The friend you've never left since Brawl
@@ -2646,8 +2645,10 @@ Mods: {
 					'''
 					Bestiary and banner entries complete twice as fast
 					You gain a shop discount based on bestiary completion
+					Current discount: {0}%
 					Discount effect works in vanity slots and inventory
 					'Shopkeepers hate this trick'
+					Humble beginnings…
 					''' */
 			}
 

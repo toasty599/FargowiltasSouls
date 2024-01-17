@@ -74,6 +74,7 @@ Mods: {
 			// Vortex: No upgrade
 			// Wood: Bestiary and banner multiplier increased to 5
 			// AshWood: Fires balls of fire more often
+			// NoUpgrade: No upgrade
 		}
 
 		SetBonus: {
@@ -690,8 +691,6 @@ Mods: {
 		}
 
 		ItemExtra: {
-			WoodenDiscount: Desconto atual: {0}%
-			WoodenTooltip: "'Origens humildes…'"
 			TinCritUp: +5% crítico
 			TinCritReset: -{0}% crítico
 			// ROBPatreon: The friend you've never left since Brawl
@@ -2641,6 +2640,8 @@ Mods: {
 					'''
 					As entradas no bestiário e das bandeiras são completadas duas vezes mais rápido
 					Você recebe um disconto nas lojas com base na conclusão do bestiário
+					Desconto atual: {0}%
+					'Origens humildes…'
 					'''
 			}
 

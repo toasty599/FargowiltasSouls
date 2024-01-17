@@ -74,6 +74,7 @@ Mods: {
 			// Vortex: No upgrade
 			Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
 			// AshWood: Fires balls of fire more often
+			// NoUpgrade: No upgrade
 		}
 
 		SetBonus: {
@@ -690,8 +691,6 @@ Mods: {
 		}
 
 		ItemExtra: {
-			WoodenDiscount: 当前折扣：{0}%
-			WoodenTooltip: “卑微的开始……”
 			TinCritUp: +5%暴击率
 			TinCritReset: -{0}%暴击率
 			// ROBPatreon: The friend you've never left since Brawl
@@ -2629,6 +2628,10 @@ Mods: {
 					'''
 					怪物图鉴和旗帜解锁速度翻倍
 					商店价格会依据你的图鉴解锁度降低
+					当前折扣：{0}%
+					在物品栏中，商店价格折扣效果同样生效
+					“被店主们讨厌的诡计”
+					“卑微的开始……”
 					'''
 			}
 
