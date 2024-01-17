@@ -74,7 +74,6 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         }
         public override void ModifyHitNPCWithProj(Player player, Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            Main.NewText(proj.FargoSouls().TungstenScale);
             if (proj.FargoSouls().TungstenScale != 1)
             {
                 TungstenModifyDamage(player, ref modifiers);
@@ -82,7 +81,6 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
         }
         public override void PostUpdateMiscEffects(Player player)
         {
-            //Main.NewText("e");
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.TungstenCD > 0)
                 modPlayer.TungstenCD--;

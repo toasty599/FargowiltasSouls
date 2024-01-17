@@ -1469,7 +1469,7 @@ Mods: {
 
 			HypothermiaBuff: {
 				DisplayName: Hypothermia
-				Description: Increased damage taken from cold attacks
+				Description: Friendly projectiles are slowed down and you take increased damage from cold attacks
 			}
 
 			InfestedBuff: {
