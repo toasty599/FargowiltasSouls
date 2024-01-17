@@ -287,6 +287,7 @@ Mods: {
 			QueenBeeEnrage: "{$NPCName.QueenBee}在地下丛林之外变得异常愤怒！"
 			MoonsDeathPenalty: 事件回溯，波数倒退！
 			// FatherOfLies: It was a mistake to come here.
+			// BaronSlurp: slurp
 			// MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] {$Mods.FargowiltasSouls.Message.MasochistPreTooltip}"
 		}
 
@@ -1082,9 +1083,8 @@ Mods: {
 			Betsy23: xdm这汉化怎么装啊
 			Betsy24: 观前提示，请点赞，投币，转发
 			Betsy25: *本消息已被管理员删除*
-			Betsy26: <玩家
-			Betsy27: 被踢出了世界>
-			Betsy28: 被禁言29天23小时59分钟>
+			Betsy26: <玩家{0}被踢出了世界>
+			Betsy27: <玩家{0}被禁言29天23小时59分钟>
 		}
 
 		Buffs: {

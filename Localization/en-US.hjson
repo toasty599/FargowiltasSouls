@@ -287,7 +287,7 @@ Mods: {
 			QueenBeeEnrage: "{$NPCName.QueenBee} has enraged outside the underground jungle!"
 			MoonsDeathPenalty: The wave progress has regressed!
 			FatherOfLies: It was a mistake to come here.
-			BaronSlurp: "slurp"
+			BaronSlurp: slurp
 			MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] {$Mods.FargowiltasSouls.Message.MasochistPreTooltip}"
 		}
 
@@ -1080,9 +1080,8 @@ Mods: {
 			Betsy23: how do i install this update
 			Betsy24: Hi YouTube!
 			Betsy25: <Message was deleted by staff>
-			Betsy26: "<User "
-			Betsy27: " was banned>"
-			Betsy28: " was muted>"
+			Betsy26: <User {0} was banned>
+			Betsy27: <User {0} was muted>
 		}
 
 		Buffs: {

@@ -287,6 +287,7 @@ Mods: {
 			QueenBeeEnrage: "{$NPCName.QueenBee} se enfureceu fora da Selva Subterrânea!"
 			MoonsDeathPenalty: O progresso da onda regrediu!
 			// FatherOfLies: It was a mistake to come here.
+			// BaronSlurp: slurp
 			// MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] {$Mods.FargowiltasSouls.Message.MasochistPreTooltip}"
 		}
 
@@ -1082,9 +1083,8 @@ Mods: {
 			Betsy23: como q eu baixo essa atualização
 			Betsy24: Oi Youtube!
 			Betsy25: <Mensagem excluída por um moderador>
-			Betsy26: "<Usuário "
-			Betsy27: " foi banido>"
-			Betsy28: " foi silenciado>"
+			Betsy26: <Usuário {0} foi banido>
+			Betsy27: <Usuário {0} foi silenciado>
 		}
 
 		Buffs: {
