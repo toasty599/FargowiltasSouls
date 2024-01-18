@@ -1033,7 +1033,7 @@ Mods: {
 			FrozenTurtleShell: 冰盾会略微降低你的攻击伤害
 			BrainOfConfusion: 成功躲避后，你的伤害会降低
 			ZenithNone: 无削弱
-			ZenithHitRate: "造成伤害的频率大幅降低，通过击败下列Boss可提高其输出能力: "
+			ZenithHitRate: 造成伤害的频率大幅降低，通过击败下列Boss可提高其输出能力：
 			VampireKnives: 生命值高于33%时削弱吸血能力
 			Zapinator: 无法堆叠弹幕伤害
 			// CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased

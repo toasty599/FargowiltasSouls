@@ -1018,9 +1018,9 @@ Mods: {
 		}
 
 		EModeBalance: {
-			Nerf: "[c/ff0000:Modo Eternidade:]"
-			Buff: "[c/00ff00:Modo Eternidade:]"
-			Neutral: "[c/ffff00:Modo Eternidade:]"
+			Nerf: "[c/ff0000:Modo Eternidade: ]"
+			Buff: "[c/00ff00:Modo Eternidade: ]"
+			Neutral: "[c/ffff00:Modo Eternidade: ]"
 			Damage: Dano reduzido em {0}%
 			// DamagePositive: Increased damage by {0}%
 			Speed: Velocidade reduzida em {0}%
@@ -1033,7 +1033,7 @@ Mods: {
 			FrozenTurtleShell: A barreira congelada reduz levemente o seu dano causado
 			BrainOfConfusion: Reduz o seu dano ao efetuar uma esquiva
 			ZenithNone: Nenhum enfraquecimento em vigor
-			ZenithHitRate: Taxa de acerto consideravelmente reduzida, melhora ao derrotar:
+			ZenithHitRate: "Taxa de acerto consideravelmente reduzida, melhora ao derrotar: "
 			VampireKnives: Reduz a taxa de roubo de vida quando acima de 33% de vida
 			Zapinator: Não pode acumular multiplicadores de dano
 			// CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased

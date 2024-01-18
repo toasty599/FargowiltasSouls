@@ -1015,9 +1015,9 @@ Mods: {
 		}
 
 		EModeBalance: {
-			Nerf: "[c/ff0000:Eternity Mode:]"
-			Buff: "[c/00ff00:Eternity Mode:]"
-			Neutral: "[c/ffff00:Eternity Mode:]"
+			Nerf: "[c/ff0000:Eternity Mode: ]"
+			Buff: "[c/00ff00:Eternity Mode: ]"
+			Neutral: "[c/ffff00:Eternity Mode: ]"
 			Damage: Reduced damage by {0}%
 			DamagePositive: Increased damage by {0}%
 			Speed: Reduced speed by {0}%
@@ -1030,7 +1030,7 @@ Mods: {
 			FrozenTurtleShell: Frozen barrier slightly reduces your damage dealt
 			BrainOfConfusion: Lowers your damage output on successful dodge
 			ZenithNone: No nerfs in effect
-			ZenithHitRate: Vastly reduced hit rate, improves by defeating:
+			ZenithHitRate: "Vastly reduced hit rate, improves by defeating: "
 			VampireKnives: Reduced lifesteal rate when above 50% life
 			Zapinator: Cannot stack damage multipliers
 			CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased
