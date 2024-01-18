@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -84,7 +85,7 @@ This stacks up to 950 times until you get hit"); */
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (Item.vanity)
+            if (Item.social)
             {
                 return;
             }

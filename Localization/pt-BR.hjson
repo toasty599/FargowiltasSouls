@@ -235,7 +235,6 @@ Mods: {
 			MasochistWrongDifficulty: O mundo deve ser de dificuldade Perito ou mais difícil!
 			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist} surge com novos poderes...!"
 			MasochistPreTooltip: Ativa o Modo Masoquista quando usado no Modo Mestre
-			ForgottenGift: "mundo atualmente maso: "
 
 			WorldUpdatingSystem: {
 				// EternityOn: Eternity Mode activated!
@@ -4724,6 +4723,9 @@ Mods: {
 					Clique com o botão esquerdo: Alterna a capacidade da sessão de jogar no modo Maso
 					Clique com o botão direito: Alterna a capacidade do mundo de jogar no modo Maso
 					'''
+				// WorldState: "world is currently maso: "
+				// VarWorld: "world: "
+				// VarMod: "mod: "
 			}
 
 			MedallionoftheFallenKing: {

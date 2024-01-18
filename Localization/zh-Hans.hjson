@@ -235,7 +235,6 @@ Mods: {
 			MasochistWrongDifficulty: 世界必须是专家模式或更高难度！
 			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist}随着新涌现的能量而波动……！"
 			MasochistPreTooltip: 使用以在大师模式下开启受虐模式
-			ForgottenGift: 目前世界的受虐模式开关状态：
 
 			WorldUpdatingSystem: {
 				// EternityOn: Eternity Mode activated!
@@ -4707,6 +4706,9 @@ Mods: {
 					左键：给予剥夺个人角色开启受虐模式的权力
 					右键：给予剥夺世界开启受虐模式的权力
 					'''
+				// WorldState: "world is currently maso: "
+				// VarWorld: "world: "
+				// VarMod: "mod: "
 			}
 
 			MedallionoftheFallenKing: {
