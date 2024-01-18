@@ -241,7 +241,6 @@ namespace FargowiltasSouls.Content.Projectiles
 
             switch (projectile.type)
             {
-                // For some reason, HasEffect<>() ALWAYS returns False in a projectile OnSpawn, unlike ModPlayer fields. Should be investigated eventually, but modPlayer placeholder fields work for now.
                 case ProjectileID.SpiritHeal:
                     if (player.HasEffect<SpectreEffect>() && !modPlayer.TerrariaSoul)
                     {
@@ -344,8 +343,6 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
             }
 
-            // For some reason, HasEffect<>() ALWAYS returns False in a projectile OnSpawn, unlike ModPlayer fields. Should be investigated eventually, but modPlayer placeholder fields work for now.
-
             if (player.HasEffect<TungstenEffect>())
             {
                 TungstenEffect.TungstenIncreaseProjSize(projectile, modPlayer, source);
@@ -415,7 +412,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (projectile.owner == Main.myPlayer)
             {
                 //reset tungsten size
-                if (TungstenScale != 1 && player.HasEffect<TungstenEffect>())
+                if (TungstenScale != 1 && !player.HasEffect<TungstenEffect>())
                 {
                     projectile.position = projectile.Center;
                     projectile.scale /= TungstenScale;
@@ -760,7 +757,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                     if (!Main.rand.NextBool(6))
                                     {
                                         num13 *= 1.2f;
-                                        Dust dust3 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 226, 0f, 0f, 100);
+                                        Dust dust3 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Electric, 0f, 0f, 100);
                                         dust3.velocity = vector6 * (4f + 4f * Main.rand.NextFloat()) * num13 * num12;
                                         dust3.noGravity = true;
                                         dust3.noLight = true;

@@ -2,6 +2,7 @@
 using Terraria.ID;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SkyAndRain
 {
@@ -15,8 +16,16 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SkyAndRa
         {
             base.OnFirstTick(npc);
 
+
             if (Main.rand.NextBool(4) && npc.FargoSouls().CanHordeSplit)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(1, 5));
+
+        }
+        public override bool SafePreAI(NPC npc)
+        {
+            if (!WorldSavingSystem.DownedAnyBoss) // no shooting preboss
+                AttackTimer = 0;
+            return base.SafePreAI(npc);
         }
     }
 }

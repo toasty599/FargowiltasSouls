@@ -1468,7 +1468,7 @@ Mods: {
 
 			HypothermiaBuff: {
 				// DisplayName: Hypothermia
-				// Description: Increased damage taken from cold attacks
+				// Description: Friendly projectiles are slowed down and you take increased damage from cold attacks
 			}
 
 			InfestedBuff: {
@@ -6084,6 +6084,7 @@ Mods: {
 			// MagmawHand.DisplayName: Magmaw Hand
 			// PungentEyeballMinion.DisplayName: Pungent Eyeball Minion
 			// MinosPrime.DisplayName: Minos Prime
+			// RainLightning.DisplayName: Rain Lightning
 		}
 
 		// MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"

@@ -135,6 +135,7 @@ namespace FargowiltasSouls.Content.Items
         public override void ModifyItemScale(Item item, Player player, ref float scale)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
+            
 
             if (player.HasEffect<TungstenEffect>()
                 && !item.IsAir && item.damage > 0 && (!item.noMelee || TungstenAlwaysAffects.Contains(item.type)) && item.pick == 0 && item.axe == 0 && item.hammer == 0)

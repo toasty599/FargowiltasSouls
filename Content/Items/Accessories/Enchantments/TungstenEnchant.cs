@@ -166,7 +166,6 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             {
                 bool forceEffect = modPlayer.ForceEffect<TungstenEnchant>();
                 float scale = forceEffect ? 3f : 2f;
-
                 projectile.position = projectile.Center;
                 projectile.scale *= scale;
                 projectile.width = (int)(projectile.width * scale);

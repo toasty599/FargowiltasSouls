@@ -322,6 +322,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     NPC.rotation = 0;
                     NPC.velocity *= 0.9f;
 
+                    player.wingTime = player.wingTimeMax;
+
                     if (NPC.ai[1] == 0)
                     {
                         NPC.ai[1] = 1;
