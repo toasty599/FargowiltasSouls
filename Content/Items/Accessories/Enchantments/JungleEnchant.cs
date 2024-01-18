@@ -126,8 +126,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     if (jungleForceEffect)
                         tier++;
 
-                    modPlayer.JungleCD = 17 - tier * tier;
-                    int dmg = 12 * tier * tier;
+                    modPlayer.JungleCD = 18 - tier * tier;
+                    int dmg = 12 * tier * tier - 5;
 
                     SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, player.Center);
 
@@ -138,6 +138,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         p.usesIDStaticNPCImmunity = true;
                         p.idStaticNPCHitCooldown = 10;
                         p.FargoSouls().noInteractionWithNPCImmunityFrames = true;
+                        p.extraUpdates += 1;
                     }
                 }
 
