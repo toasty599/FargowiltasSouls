@@ -1,0 +1,4 @@
+en-US, 2621/2621, 100%, missing 0
+es-ES, 2/2621, 0%, missing 2619
+zh-Hans, 1578/2621, 60%, missing 1043
+pt-BR, 1496/2621, 57%, missing 1125

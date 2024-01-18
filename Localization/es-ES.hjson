@@ -305,6 +305,8 @@ Mods: {
 			// Parrots: "{0} was killed by the Trans-Affirming Misogynist Parrot."
 			// RodOfHarmony: "{0} didn't materialize."
 			// ReverseManaFlow: "{0} was destroyed by their own magic."
+			// GiantTortoise: "{0} was impaled by a Giant Tortoise."
+			// FakeHeart: "{0} was deceived by Fake Heart."
 		}
 
 		DeviChatter: {
@@ -5362,6 +5364,7 @@ Mods: {
 
 			// DetonatingBubbleNPC.DisplayName: Detonating Bubble
 			// StardustMinion.DisplayName: Stardust Minion
+			// StardustDragon.DisplayName: Stardust Dragon
 			// SlimeSwarm.DisplayName: Slime Swarm
 			// Magmaw.DisplayName: Magmaw
 			// currently not exist in game
