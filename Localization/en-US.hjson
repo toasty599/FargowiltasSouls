@@ -4086,6 +4086,10 @@ Mods: {
 			EternityAdvisor: {
 				DisplayName: Eternity Advisor
 				Tooltip: Suggests loadouts for Eternity Mode based on progression
+				General: General: {0}
+				ClassSpecific: Class-Specific: {0}
+				Other: Other: {0}
+				Summon: Summon Item: {0}
 			}
 
 			GalacticReformer: {

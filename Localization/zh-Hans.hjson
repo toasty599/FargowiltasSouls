@@ -4059,6 +4059,10 @@ Mods: {
 			EternityAdvisor: {
 				DisplayName: 永恒顾问
 				Tooltip: 基于当前进度，为你提供永恒模式的配装建议
+				// General: General: {0}
+				// ClassSpecific: Class-Specific: {0}
+				// Other: Other: {0}
+				// Summon: Summon Item: {0}
 			}
 
 			GalacticReformer: {
