@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using System.Collections.Generic;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using FargowiltasSouls.Content.Items;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -609,6 +610,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
+
+            EmodeItemBalance.BalanceWeaponStats(Player, item, ref damage);
 
             //if (item.DamageType == DamageClass.Ranged) //changes all of these to additive
             //{
