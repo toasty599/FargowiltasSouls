@@ -90,7 +90,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
             return 1f + (modPlayer.ForceEffect<TungstenEnchant>() ? 2f : 1f);
         }
 
-        public static List<int> TungstenAlwaysAffectProjType = new List<int>
+        public static List<int> TungstenAlwaysAffectProjType = new()
         {
                 ProjectileID.MonkStaffT2,
                 ProjectileID.Arkhalis,
@@ -101,7 +101,7 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 ModContent.ProjectileType<PrismaRegaliaProj>(),
                 ModContent.ProjectileType<BaronTuskShrapnel>(),
         };
-        public static List<int> TungstenAlwaysAffectProjStyle = new List<int>
+        public static List<int> TungstenAlwaysAffectProjStyle = new()
         {
             ProjAIStyleID.Spear,
             ProjAIStyleID.Yoyo,
@@ -114,11 +114,12 @@ Enlarged projectiles and non-projectile swords deal 10% more damage and have an 
                 TungstenAlwaysAffectProjType.Contains(projectile.type) ||
                 TungstenAlwaysAffectProjStyle.Contains(projectile.aiStyle);
         }
-        public static List<int> TungstenNeverAffectProjType = new List<int>
+        public static List<int> TungstenNeverAffectProjType = new()
         {
-            ModContent.ProjectileType<FishStickProjTornado>()
+            ModContent.ProjectileType<FishStickProjTornado>(),
+            ProjectileID.PiercingStarlight
         };
-        public static List<int> TungstenNeverAffectProjStyle = new List<int>
+        public static List<int> TungstenNeverAffectProjStyle = new()
         {
         };
         public static bool TungstenNeverAffectsProj(Projectile projectile)

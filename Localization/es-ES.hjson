@@ -695,6 +695,7 @@ Mods: {
 			// TinCritReset: -{0}% crit
 			// ROBPatreon: The friend you've never left since Brawl
 			// ROBNonPatreon: He's finally a top tier!
+			// StarlightTungsten: Unaffected by Tungsten Enchant
 
 			EternitySoul: {
 				// Additional: Additionally grants:
@@ -1024,7 +1025,7 @@ Mods: {
 			// Split: Reduced split frequency
 			// ChlorophyteBullet: Reduced speed and duration
 			// WaterBolt: Cannot be used until Skeletron is defeated
-			// DemonScythe: Reduced damage by 60% until an evil boss is defeated
+			// DemonScythe: Reduced damage and speed by 40% until an evil boss is defeated
 			// HolyDodge: Holy Dodge activation will temporarily reduce your attack speed
 			// FrozenTurtleShell: Frozen barrier slightly reduces your damage dealt
 			// BrainOfConfusion: Lowers your damage output on successful dodge

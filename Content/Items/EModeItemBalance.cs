@@ -151,11 +151,12 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 1.1f;
                     return EModeChange.Buff;
 
+                    /*
                 case ItemID.PiercingStarlight:
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 0.6f;
                     return EModeChange.Nerf;
-
+                    */
                 
                 case ItemID.PumpkinMoonMedallion:
                 case ItemID.NaughtyPresent:

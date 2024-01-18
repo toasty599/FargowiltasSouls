@@ -14,6 +14,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items
@@ -128,7 +129,7 @@ namespace FargowiltasSouls.Content.Items
             ItemID.TrueNightsEdge,
             ItemID.Excalibur,
             ItemID.TrueExcalibur,
-            ItemID.PiercingStarlight,
+            //ItemID.PiercingStarlight,
             ItemID.TheHorsemansBlade,
             ModContent.ItemType<TheBaronsTusk>()
         };
@@ -492,6 +493,8 @@ namespace FargowiltasSouls.Content.Items
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (item.type == ItemID.PiercingStarlight)
+                tooltips.Add(new TooltipLine(Mod, "StarlightTungsten", Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.StarlightTungsten")));
             /*if (Array.IndexOf(Summon, item.type) > -1)
             {
                 TooltipLine helperLine = new TooltipLine(mod, "help", "Right click to convert");

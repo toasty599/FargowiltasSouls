@@ -695,6 +695,7 @@ Mods: {
 			TinCritReset: -{0}%暴击率
 			// ROBPatreon: The friend you've never left since Brawl
 			// ROBNonPatreon: He's finally a top tier!
+			// StarlightTungsten: Unaffected by Tungsten Enchant
 
 			EternitySoul: {
 				Additional: 额外加成：
@@ -1027,7 +1028,7 @@ Mods: {
 			Split: 降低分裂频率
 			ChlorophyteBullet: 速度减慢，存在时间降低
 			WaterBolt: 在骷髅王被击败前无法使用
-			// DemonScythe: Reduced damage by 60% until an evil boss is defeated
+			// DemonScythe: Reduced damage and speed by 40% until an evil boss is defeated
 			HolyDodge: 神圣防护激活后，一段时间内你的攻击速度会降低
 			FrozenTurtleShell: 冰盾会略微降低你的攻击伤害
 			BrainOfConfusion: 成功躲避后，你的伤害会降低
