@@ -304,6 +304,7 @@ Mods: {
 			Derpling: "{0}被吸干了。"
 			Snatchers: "{0}被食人怪咬成了“被吃掉”的男人。"
 			// Parrots: "{0} was killed by the Trans-Affirming Misogynist Parrot."
+			// RodOfHarmony: "{0} didn't materialize."
 		}
 
 		DeviChatter: {
@@ -695,6 +696,7 @@ Mods: {
 			TinCritReset: -{0}%暴击率
 			// ROBPatreon: The friend you've never left since Brawl
 			// ROBNonPatreon: He's finally a top tier!
+			// DefensePrefixMaxLife: +{0} max life
 
 			EternitySoul: {
 				Additional: 额外加成：
@@ -2628,8 +2630,8 @@ Mods: {
 					'''
 					怪物图鉴和旗帜解锁速度翻倍
 					商店价格会依据你的图鉴解锁度降低
+					在装饰栏和物品栏中，商店价格折扣效果同样生效
 					当前折扣：{0}%
-					在物品栏中，商店价格折扣效果同样生效
 					“被店主们讨厌的诡计”
 					“卑微的开始……”
 					'''
@@ -4969,6 +4971,7 @@ Mods: {
 			MechLure: {
 				// DisplayName: Mechanical Lure
 				// Tooltip: Throw while underwater at the Ocean to lure out a shrouded creature
+				// TooltipTravelingMerchant: Can be sold by the Travelling Merchant
 			}
 
 			TheBaronsTusk: {

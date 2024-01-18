@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
     public class WoodEnchant : BaseEnchant
     {
         public override Color nameColor => new(151, 107, 75);
-        
+
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
             base.SafeModifyTooltips(tooltips);
@@ -20,8 +20,22 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             double discount = Main.GetBestiaryProgressReport().CompletionPercent / 2;
             discount *= 100;
             discount = Math.Round(discount, 2);
-            int i = tooltips.FindIndex(line => line.Name == "Tooltip2");
-            tooltips[i].Text = string.Format(tooltips[i].Text, discount);
+
+            int i = tooltips.FindIndex(line => line.Name == "Tooltip3");
+            if (i != -1)
+                tooltips[i].Text = string.Format(tooltips[i].Text, discount);
+            else
+            {
+                i = tooltips.FindIndex(line => line.Name == "SocialDesc");
+                if (i != -1)
+                {
+                    tooltips.RemoveAt(i);
+                    ItemTooltip tooltip = ItemTooltip.FromLocalization(Tooltip);
+                    tooltips.Insert(i, new TooltipLine(Mod, "WoodEnchantVanity0", tooltip.GetLine(1)));
+                    tooltips.Insert(i + 1, new TooltipLine(Mod, "WoodEnchantVanity1", tooltip.GetLine(2)));
+                    tooltips.Insert(i + 2, new TooltipLine(Mod, "WoodEnchantVanity2", string.Format(tooltip.GetLine(3), discount)));
+                }
+            }
         }
 
         public override void SetStaticDefaults()

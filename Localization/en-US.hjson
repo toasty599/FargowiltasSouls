@@ -304,6 +304,7 @@ Mods: {
 			Derpling: "{0} was sucked dry."
 			Snatchers: "{0} became a man eaten by Man Eater."
 			Parrots: "{0} was killed by the Trans-Affirming Misogynist Parrot."
+			RodOfHarmony: "{0} didn't materialize."
 		}
 
 		DeviChatter: {
@@ -695,6 +696,7 @@ Mods: {
 			TinCritReset: -{0}% crit
 			ROBPatreon: The friend you've never left since Brawl
 			ROBNonPatreon: He's finally a top tier!
+			DefensePrefixMaxLife: +{0} max life
 
 			EternitySoul: {
 				Additional: Additionally grants:
@@ -2645,8 +2647,8 @@ Mods: {
 					'''
 					Bestiary and banner entries complete twice as fast
 					You gain a shop discount based on bestiary completion
-					Current discount: {0}%
 					Discount effect works in vanity slots and inventory
+					Current discount: {0}%
 					'Shopkeepers hate this trick'
 					Humble beginnings…
 					'''
@@ -5003,6 +5005,7 @@ Mods: {
 			MechLure: {
 				DisplayName: Mechanical Lure
 				Tooltip: Throw while underwater at the Ocean to lure out a shrouded creature
+				TooltipTravelingMerchant: Can be sold by the Travelling Merchant
 			}
 
 			TheBaronsTusk: {
