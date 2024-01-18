@@ -1027,6 +1027,7 @@ Mods: {
 			Split: Frequência de divisão reduzida
 			ChlorophyteBullet: Velocidade e duração reduzidos
 			WaterBolt: Não pode ser usado até que Esqueletron seja derrotado
+			// DemonScythe: Reduced damage by 60% until an evil boss is defeated
 			HolyDodge: A ativação da Esquiva Divina reduzirá temporariamente a sua velocidade do ataque
 			FrozenTurtleShell: A barreira congelada reduz levemente o seu dano causado
 			BrainOfConfusion: Reduz o seu dano ao efetuar uma esquiva
@@ -3256,7 +3257,6 @@ Mods: {
 					'''
 					Currently inactive, Right click to activate
 					Grants immunity to Suffocation
-					10% reduced magic damage
 					Automatically use mana potions when needed
 					Increases pickup range for mana stars
 					'The quietly muttering head of a defeated foe'

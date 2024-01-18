@@ -1027,6 +1027,7 @@ Mods: {
 			Split: 降低分裂频率
 			ChlorophyteBullet: 速度减慢，存在时间降低
 			WaterBolt: 在骷髅王被击败前无法使用
+			// DemonScythe: Reduced damage by 60% until an evil boss is defeated
 			HolyDodge: 神圣防护激活后，一段时间内你的攻击速度会降低
 			FrozenTurtleShell: 冰盾会略微降低你的攻击伤害
 			BrainOfConfusion: 成功躲避后，你的伤害会降低
@@ -3240,7 +3241,6 @@ Mods: {
 					'''
 					Currently inactive, Right click to activate
 					Grants immunity to Suffocation
-					10% reduced magic damage
 					Automatically use mana potions when needed
 					Increases pickup range for mana stars
 					'The quietly muttering head of a defeated foe'

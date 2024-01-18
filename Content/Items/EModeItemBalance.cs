@@ -123,8 +123,8 @@ namespace FargowiltasSouls.Content.Items
                     {
                         if (!NPC.downedBoss2)
                         {
-                            balanceTextKeys = new string[] { "DemonScythe", "DamageNoTooltip" };
-                            balanceNumber = 0.4f;
+                            balanceTextKeys = new string[] { "DemonScythe", "DamageNoTooltip", "SpeedNoTooltip" };
+                            balanceNumber = 0.6f;
                             return EModeChange.Nerf;
                         }
                         return EModeChange.None;
