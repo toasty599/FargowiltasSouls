@@ -43,7 +43,7 @@ namespace FargowiltasSouls
 
 
             #region boss spawn info
-
+            
             if (FargoSoulsUtil.IsChinese())
             {
                 AddBossSpawnInfo("DeviBoss", $"使用[i:{"DevisCurse"}]召唤");

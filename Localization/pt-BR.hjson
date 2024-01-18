@@ -188,21 +188,6 @@ Mods: {
 			// LifeChallengerDespawn: Lifelight fades away...
 			// CursedCoffinDespawn: The Cursed Coffin returns to its slumber...
 			// BanishedBaronDespawn: The Banished Baron dives deeper into the ocean...
-			// DeviBossSpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
-			// AbomBossSpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCurse]
-			// MutantBossSpawnInfo: Throw [i:FargowiltasSouls/AbominationnVoodooDoll] into a pool of lava while Abominationn is alive in Mutant's presence.
-			// TimberChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] on the surface during day.
-			// TerraChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] underground.
-			// EarthChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underworld.
-			// NatureChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in underground snow.
-			// LifeChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
-			// ShadowChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Corruption or Crimson at night.
-			// SpiritChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
-			// WillChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
-			// CosmosChampionSpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
-			// TrojanSquirrelSpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
-			// LifeChallengerSpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
-			// BanishedBaronSpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		}
 
 		Message: {
@@ -292,12 +277,12 @@ Mods: {
 		}
 
 		DeathMessage: {
-			Rotting: apodreceu.
-			Infested: não conseguiu lidar com a infecção.
-			Anticoagulation: sangrou demais.
-			DivineWrath: foi aniquilado pela ira divina.
-			Shadowflame: queimou em chamas sombrias.
-			NanoInjection: foi consumido de dentro por nanobôs.
+			Rotting: "{0} apodreceu."
+			Infested: "{0} não conseguiu lidar com a infecção."
+			Anticoagulation: "{0} sangrou demais."
+			DivineWrath: "{0} foi aniquilado pela ira divina."
+			Shadowflame: "{0} queimou em chamas sombrias."
+			NanoInjection: "{0} foi consumido de dentro por nanobôs."
 			// Fused: "{0} was blown to bits."
 			// Nutcracker: "{0} had his nuts cracked."
 			// Derpling: "{0} was sucked dry."
@@ -307,6 +292,7 @@ Mods: {
 			// ReverseManaFlow: "{0} was destroyed by their own magic."
 			// GiantTortoise: "{0} was impaled by a Giant Tortoise."
 			// FakeHeart: "{0} was deceived by Fake Heart."
+			// Cactus: "{0} was pricked by a Cactus."
 		}
 
 		DeviChatter: {
@@ -680,8 +666,8 @@ Mods: {
 			SoulTogglerButton: Configurar Efeitos de Acessórios
 			EternityEnabled: Modo Eternidade está ativado
 			MasochistEnabled: Modo Masoquista está ativado
-			// SavedToSlot: Toggles saved to custom set
-			// NoTogglesFound: No toggles found in custom set
+			// SavedToSlot: Toggles saved to custom set {0}!
+			// NoTogglesFound: No toggles found in custom set {0}.
 			// TurnAllTogglesOff: Turn all toggles off
 			// TurnAllTogglesOn: Turn all toggles on
 			// SomeEffectsPreset: Some effects preset
@@ -1612,6 +1598,7 @@ Mods: {
 			RushJobBuff: {
 				// DisplayName: Rush Job
 				// Description: The Nurse cannot heal you again yet
+				// NurseChat: I've done all I can in the time I have!
 			}
 
 			SadismBuff: {
@@ -5144,7 +5131,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.AbomBossSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCurse]
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5156,7 +5143,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelDespawn
 				}
 			}
@@ -5169,7 +5156,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.CosmosChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5179,7 +5166,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.EarthChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.EarthChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underworld.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.EarthChampionDespawn
 				}
 			}
@@ -5193,7 +5180,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChampionDespawn
 				}
 			}
@@ -5203,7 +5190,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.NatureChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in underground snow.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.NatureChampionDespawn
 				}
 			}
@@ -5215,7 +5202,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.ShadowChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Corruption or Crimson at night.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.ShadowChampionDespawn
 				}
 			}
@@ -5227,7 +5214,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.SpiritChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.SpiritChampionDespawn
 				}
 			}
@@ -5239,7 +5226,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TerraChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] underground.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TerraChampionDespawn
 				}
 			}
@@ -5252,7 +5239,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.TimberChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] on the surface during day.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TimberChampionDespawn
 				}
 			}
@@ -5264,7 +5251,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.WillChampionSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.WillChampionDespawn
 				}
 			}
@@ -5287,7 +5274,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.MutantBossSpawnInfo}"
+					// SpawnInfo: Throw [i:FargowiltasSouls/AbominationnVoodooDoll] into a pool of lava while Abominationn is alive in Mutant's presence.
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5299,7 +5286,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.DeviBossSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5311,7 +5298,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.LifeChallengerSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChallengerDespawn
 				}
 			}
@@ -5321,7 +5308,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
-					// SpawnInfo: "{$Mods.FargowiltasSouls.BossChecklist.BanishedBaronSpawnInfo}"
+					// SpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.BanishedBaronDespawn
 				}
 			}

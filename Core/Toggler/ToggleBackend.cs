@@ -283,7 +283,7 @@ namespace FargowiltasSouls.Core.Toggler
             {
                 CustomPresets[slot - 1] = togglesOff;
                 //Save(); 
-                Main.NewText($"{Language.GetTextValue("Mods.FargowiltasSouls.UI.SavedToSlot")} {slot}!", Color.Yellow);
+                Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.UI.SavedToSlot", slot), Color.Yellow);
             }
         }
 
@@ -292,7 +292,7 @@ namespace FargowiltasSouls.Core.Toggler
             List<AccessoryEffect> togglesOff = CustomPresets[slot - 1];
             if (togglesOff == null)
             {
-                Main.NewText($"{Language.GetTextValue("Mods.FargowiltasSouls.UI.NoTogglesFound")} {slot}.", Color.Yellow);
+                Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.UI.NoTogglesFound", slot), Color.Yellow);
                 return;
             }
 
