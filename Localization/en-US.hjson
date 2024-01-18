@@ -691,6 +691,7 @@ Mods: {
 			DisplayAll: Display All
 			DisplayEquipped: Display Equipped
 			SearchText: Search...
+			MainMenu: Fargo's
 		}
 
 		ItemExtra: {
