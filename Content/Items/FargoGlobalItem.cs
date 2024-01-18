@@ -14,6 +14,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items
@@ -198,7 +199,7 @@ namespace FargowiltasSouls.Content.Items
             if (item.CountsAsClass(DamageClass.Magic) && player.FargoSouls().ReverseManaFlow)
             {
                 int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
-                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was destroyed by their own magic."), damage, 0);
+                player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.ReverseManaFlow", player.name)), damage, 0);
                 player.immune = false;
                 player.immuneTime = 0;
             }

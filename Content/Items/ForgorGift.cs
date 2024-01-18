@@ -1,4 +1,5 @@
 using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -40,7 +41,7 @@ i forgor"); */
 
             WorldSavingSystem.SkipMutantP1 = 0;
 
-            FargoSoulsUtil.PrintText("forgor");
+            FargoSoulsUtil.PrintLocalization("Mods.FargowiltasSouls.Items.ForgorGift.Message", Color.White);
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData);
         }

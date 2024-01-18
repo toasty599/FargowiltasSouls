@@ -305,6 +305,7 @@ Mods: {
 			Snatchers: "{0}被食人怪咬成了“被吃掉”的男人。"
 			// Parrots: "{0} was killed by the Trans-Affirming Misogynist Parrot."
 			// RodOfHarmony: "{0} didn't materialize."
+			// ReverseManaFlow: "{0} was destroyed by their own magic."
 		}
 
 		DeviChatter: {
@@ -4681,6 +4682,7 @@ Mods: {
 					在物品栏内对物品右键来重置突变体的一阶段跳过机制
 					我忘啦！
 					'''
+				// Message: forgor
 			}
 
 			Masochist: {

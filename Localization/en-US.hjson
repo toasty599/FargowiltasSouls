@@ -235,7 +235,6 @@ Mods: {
 			MasochistWrongDifficulty: World must be Expert difficulty or harder!
 			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.Items.Masochist.DisplayName} surges with new power...!"
 			MasochistPreTooltip: Enables Masochist Mode when used in Master Mode
-			ForgottenGift: "world is currently maso: "
 
 			WorldUpdatingSystem: {
 				EternityOn: Eternity Mode activated!
@@ -305,6 +304,7 @@ Mods: {
 			Snatchers: "{0} became a man eaten by Man Eater."
 			Parrots: "{0} was killed by the Trans-Affirming Misogynist Parrot."
 			RodOfHarmony: "{0} didn't materialize."
+			ReverseManaFlow: "{0} was destroyed by their own magic."
 		}
 
 		DeviChatter: {
@@ -4712,6 +4712,7 @@ Mods: {
 					Right click on the item in inventory to reset Mutant phase 1 skip
 					i forgor
 					'''
+				Message: forgor
 			}
 
 			Masochist: {
@@ -4739,6 +4740,9 @@ Mods: {
 					Left click: Toggles session ability to play Maso
 					Right click: Toggles world ability to play Maso
 					'''
+				WorldState: "world is currently maso: "
+				VarWorld: "world: "
+				VarMod: "mod: "
 			}
 
 			MedallionoftheFallenKing: {

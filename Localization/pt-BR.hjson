@@ -305,6 +305,7 @@ Mods: {
 			// Snatchers: "{0} became a man eaten by Man Eater."
 			// Parrots: "{0} was killed by the Trans-Affirming Misogynist Parrot."
 			// RodOfHarmony: "{0} didn't materialize."
+			// ReverseManaFlow: "{0} was destroyed by their own magic."
 		}
 
 		DeviChatter: {
@@ -4697,6 +4698,7 @@ Mods: {
 					Clique com o botão direito no item no inventário para redefinir o pulo da fase 1 do Mutant
 					i forgor
 					'''
+				// Message: forgor
 			}
 
 			Masochist: {
