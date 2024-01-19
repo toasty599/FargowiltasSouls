@@ -48,9 +48,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Plantera);
 
+        // aiStyle = 51
+
         public int DicerTimer;
         public int RingTossTimer;
         public int TentacleTimer = 480; //line up first tentacles with ring toss lmao, 600
+
+        public int CrystalRedirectTimer = 0;
         //public int TentacleTimerMaso;
 
         public float TentacleAttackAngleOffset;
@@ -69,6 +73,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             binaryWriter.Write7BitEncodedInt(DicerTimer);
             binaryWriter.Write7BitEncodedInt(RingTossTimer);
             binaryWriter.Write7BitEncodedInt(TentacleTimer);
+            binaryWriter.Write7BitEncodedInt(CrystalRedirectTimer);
             //binaryWriter.Write7BitEncodedInt(TentacleTimerMaso);
             bitWriter.WriteBit(IsVenomEnraged);
             bitWriter.WriteBit(InPhase2);
@@ -82,6 +87,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             DicerTimer = binaryReader.Read7BitEncodedInt();
             RingTossTimer = binaryReader.Read7BitEncodedInt();
             TentacleTimer = binaryReader.Read7BitEncodedInt();
+            CrystalRedirectTimer = binaryReader.Read7BitEncodedInt();
             //TentacleTimerMaso = binaryReader.Read7BitEncodedInt();
             IsVenomEnraged = bitReader.ReadBit();
             InPhase2 = bitReader.ReadBit();
@@ -110,6 +116,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (!npc.HasValidTarget)
                 npc.velocity.Y++;
 
+            Player player = Main.player[npc.target];
+
             const float innerRingDistance = 130f;
             const int delayForRingToss = 360 + 120;
 
@@ -129,16 +137,27 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
             else if (RingTossTimer == 120)
             {
+
                 if (WorldSavingSystem.MasochistModeReal)
                     RingTossTimer = 0; //instantly spawn next set of crystals
 
                 npc.netUpdate = true;
                 NetSync(npc);
 
-                if (FargoSoulsUtil.HostCheck)
+                if (FargoSoulsUtil.HostCheck) // do ring toss
                 {
                     float speed = 8f;
-                    int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed * npc.DirectionTo(Main.player[npc.target].Center), ModContent.ProjectileType<MutantMark2>(), npc.defDamage / 4, 0f, Main.myPlayer);
+                    Vector2 direction;
+                    if (WorldSavingSystem.MasochistModeReal)
+                    {
+                        direction = FargoSoulsUtil.PredictiveAim(npc.Center, player.Center, player.velocity, speed);
+                        direction.Normalize();
+                    }
+                    else
+                    {
+                        direction = npc.DirectionTo(player.Center);
+                    }
+                    int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed * direction, ModContent.ProjectileType<MutantMark2>(), npc.defDamage / 4, 0f, Main.myPlayer);
                     if (p != Main.maxProjectiles)
                     {
                         Main.projectile[p].timeLeft -= 300;
@@ -157,6 +176,29 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         }
                     }
                 }
+                
+            }
+            else if (RingTossTimer == 360 + 60)
+            {
+                if (CrystalRedirectTimer >= 2) // every 3 throws, redirect instead of throwing
+                {
+                    Main.NewText("redirect");
+                    foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == ModContent.ProjectileType<CrystalLeafShot>() && p.ai[0] == npc.whoAmI)) //my crystal leaves
+                    {
+                        Main.NewText("leaf" + p.whoAmI);
+                        p.ai[1] = 1;
+                        p.ai[2] = player.whoAmI;
+                        p.netUpdate = true;
+                    }
+                    CrystalRedirectTimer = 0;
+                    npc.netUpdate = true;
+                }
+                else
+                {
+                    CrystalRedirectTimer++;
+                    npc.netUpdate = true;
+                }
+                    
             }
 
             if (npc.life > npc.lifeMax / 2)
@@ -376,6 +418,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override Color? GetAlpha(NPC npc, Color drawColor)
         {
             return IsVenomEnraged ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);
+        }
+
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+        {
+            if (npc.GetLifePercent() < 0.5f)
+                modifiers.FinalDamage *= 0.75f;
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
