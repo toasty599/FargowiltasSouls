@@ -262,6 +262,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeRegrow", new Color(175, 75, 255));
 
+                        foreach (NPC l in Main.npc.Where(l => l.active && l.ai[1] == npc.whoAmI)) // 2 seconds of no contact damage on phase transition
+                        {
+                            PrimeLimb limb = l.GetGlobalNPC<PrimeLimb>();
+                            if (limb.NoContactDamageTimer < 60 * 3)
+                                limb.NoContactDamageTimer = 60 * 3;
+                        }
                     }
 
                     limbTimer++;
