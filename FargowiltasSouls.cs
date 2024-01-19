@@ -108,8 +108,6 @@ namespace FargowiltasSouls
 
             FargoUIManager.LoadUI();
 
-            AddLocalizations();
-
             if (Main.netMode != NetmodeID.Server)
             {
                 #region shaders

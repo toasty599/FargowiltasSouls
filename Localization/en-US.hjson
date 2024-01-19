@@ -5120,7 +5120,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
-					SpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
+					SpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatofArms]
 					DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelDespawn
 				}
 			}

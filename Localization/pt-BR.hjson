@@ -447,9 +447,6 @@ Mods: {
 			// StardustMinionEffect: Stardust Guardian
 			// VortexStealthEffect: Vortex Stealth
 			// VortexVortexEffect: Vortex Voids
-			MasoHeader: Modo Eternidade
-			MasoBossRecolors: Recolorações de Chefes
-			MasoCanPlay: Modo Masoquista Disponível
 			// DeviEnergyHeader: Eternity Mode Accessories
 			// DeerSinewEffect: Deer Sinew Dash
 			// ZephyrJump: Fart Jump
@@ -549,7 +546,7 @@ Mods: {
 			// TrawlerGel: Volatile Gelatin
 			// EternityHeader: "{$Mods.FargowiltasSouls.Items.EternitySoul.DisplayName}"
 			// EternityTin: Eternity Crit Effect Stacking
-			// no longer exist in game
+			// the pets are no longer existing in game
 			PetHeader: Animais de Estimação
 			PetDinoConfig: Dinossauro de Estimação
 			PetEaterConfig: Devorador de Estimação
@@ -623,10 +620,6 @@ Mods: {
 			// PetMartianConfig: Martian Pet
 			// PetLCConfig: Phantasmal Dragon Pet
 			// PetMLConfig: Moonling Pet
-			SilverS: Prata: Bloqueio
-			CrystalGelatinConfig: Assassino Cristal: Gelatina Volátil
-			SilverConfig: Prata: Familiar da Espada de Prata
-			MasoHoneyConfig: Mel ao Atingir Inimigos
 		}
 
 		UI: {
@@ -5099,7 +5092,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCurse]
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/AbomsCurse]
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5111,7 +5104,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SquirrelCoatofArms]
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelDespawn
 				}
 			}
@@ -5124,7 +5117,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no espaço.
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5134,7 +5127,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.EarthChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underworld.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no submundo.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.EarthChampionDespawn
 				}
 			}
@@ -5148,7 +5141,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no Sagrado de dia.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChampionDespawn
 				}
 			}
@@ -5158,7 +5151,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in underground snow.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] na neve subterrânea.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.NatureChampionDespawn
 				}
 			}
@@ -5170,7 +5163,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Corruption or Crimson at night.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] na Corrupção ou Carmim de noite.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.ShadowChampionDespawn
 				}
 			}
@@ -5182,7 +5175,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no deserto subterrâneo.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.SpiritChampionDespawn
 				}
 			}
@@ -5194,7 +5187,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] underground.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no subterrâneo.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TerraChampionDespawn
 				}
 			}
@@ -5207,7 +5200,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] on the surface during day.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] na superfície durante o dia.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TimberChampionDespawn
 				}
 			}
@@ -5219,7 +5212,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no oceano.
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.WillChampionDespawn
 				}
 			}
@@ -5242,7 +5235,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
-					// SpawnInfo: Throw [i:FargowiltasSouls/AbominationnVoodooDoll] into a pool of lava while Abominationn is alive in Mutant's presence.
+					SpawnInfo: Arremesse [i:FargowiltasSouls/AbominationnVoodooDoll] em uma poça de lava enquanto Abominationn está vivo na presença de Mutant.
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5254,7 +5247,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
+					SpawnInfo: Invoque usando [i:FargowiltasSouls/DevisCurse]
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -6016,9 +6009,6 @@ Mods: {
 			// RainLightning.DisplayName: Rain Lightning
 		}
 
-		// MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"
-		// MasoBossRecolors: "[i:FargowiltasSouls/Masochist][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBossRecolors}]"
-		// MasoCanPlay: "[i:FargowiltasSouls/Masochist][c/ff0000:{$Mods.FargowiltasSouls.Toggler.MasoCanPlay}]"
 		// PetHeader: "[i:2420][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetHeader}]"
 		// PetDinoConfig: "[i:1242][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetDinoConfig}]"
 		// PetEaterConfig: "[i:994][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetEaterConfig}]"

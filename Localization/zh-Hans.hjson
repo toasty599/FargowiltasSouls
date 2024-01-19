@@ -447,9 +447,6 @@ Mods: {
 			// StardustMinionEffect: Stardust Guardian
 			// VortexStealthEffect: Vortex Stealth
 			// VortexVortexEffect: Vortex Voids
-			MasoHeader: 永恒模式
-			MasoBossRecolors: Boss重绘
-			MasoCanPlay: 是否能激活受虐模式
 			// DeviEnergyHeader: Eternity Mode Accessories
 			// DeerSinewEffect: Deer Sinew Dash
 			// ZephyrJump: Fart Jump
@@ -623,10 +620,6 @@ Mods: {
 			// PetMartianConfig: Martian Pet
 			// PetLCConfig: Phantasmal Dragon Pet
 			// PetMLConfig: Moonling Pet
-			// SilverS: Mods.FargowiltasSouls.Toggler.SilverS
-			CrystalGelatinConfig: 挥发明胶效果
-			// SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
-			// MasoHoneyConfig: Mods.FargowiltasSouls.Toggler.MasoHoneyConfig
 		}
 
 		UI: {
@@ -5082,7 +5075,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCurse]
+					SpawnInfo: 使用 [i:FargowiltasSouls/AbomsCurse] 召唤。
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5094,7 +5087,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatOfArms]
+					SpawnInfo: 使用 [i:FargowiltasSouls/SquirrelCoatofArms] 召唤。
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TrojanSquirrelDespawn
 				}
 			}
@@ -5107,7 +5100,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
+					SpawnInfo: 在太空使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5131,7 +5124,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
+					SpawnInfo: 白天时在神圣之地使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.LifeChampionDespawn
 				}
 			}
@@ -5141,7 +5134,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in underground snow.
+					SpawnInfo: 在地下雪原使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.NatureChampionDespawn
 				}
 			}
@@ -5153,7 +5146,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Corruption or Crimson at night.
+					SpawnInfo: 夜晚时在腐化之地或猩红之地使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.ShadowChampionDespawn
 				}
 			}
@@ -5165,7 +5158,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
+					SpawnInfo: 在地下沙漠使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.SpiritChampionDespawn
 				}
 			}
@@ -5177,7 +5170,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] underground.
+					SpawnInfo: 在地下使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TerraChampionDespawn
 				}
 			}
@@ -5190,7 +5183,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] on the surface during day.
+					SpawnInfo: 白天时在地表使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.TimberChampionDespawn
 				}
 			}
@@ -5202,7 +5195,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
+					SpawnInfo: 在海洋使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 					// DespawnMessage: Mods.FargowiltasSouls.BossChecklist.WillChampionDespawn
 				}
 			}
@@ -5225,7 +5218,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
-					// SpawnInfo: Throw [i:FargowiltasSouls/AbominationnVoodooDoll] into a pool of lava while Abominationn is alive in Mutant's presence.
+					SpawnInfo: 在突变体和憎恶存活时将 [i:FargowiltasSouls/AbominationnVoodooDoll] 投入岩浆池中。
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5237,7 +5230,7 @@ Mods: {
 
 				BossChecklistIntegration: {
 					// EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
-					// SpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
+					SpawnInfo: 使用 [i:FargowiltasSouls/DevisCurse] 召唤。
 					// DespawnMessage: "{0} is no longer after you..."
 				}
 			}
@@ -5999,9 +5992,6 @@ Mods: {
 			// RainLightning.DisplayName: Rain Lightning
 		}
 
-		// MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"
-		// MasoBossRecolors: "[i:FargowiltasSouls/Masochist][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBossRecolors}]"
-		// MasoCanPlay: "[i:FargowiltasSouls/Masochist][c/ff0000:{$Mods.FargowiltasSouls.Toggler.MasoCanPlay}]"
 		// PetHeader: "[i:2420][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetHeader}]"
 		// PetDinoConfig: "[i:1242][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetDinoConfig}]"
 		// PetEaterConfig: "[i:994][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetEaterConfig}]"
