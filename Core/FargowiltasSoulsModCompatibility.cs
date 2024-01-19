@@ -28,6 +28,7 @@ using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.BanishedBaron;
+using Terraria.Localization;
 
 namespace FargowiltasSouls
 {
@@ -71,7 +72,9 @@ namespace FargowiltasSouls
                             { "spawnItems", spawnItems },
                             // { "collectibles", collectibles }, // it's fetched from npc loot? TODO: refactor method calls below
                             { "availability", available },
-                            { "despawnMessage", hasKilledAllMessage ? new Func<NPC, string>(npc => AllPlayersAreDead() ? $"Mods.{Name}.BossChecklist.{bossName}KilledAll" : $"Mods.{Name}.BossChecklist.{bossName}Despawn") : $"Mods.{Name}.BossChecklist.{bossName}Despawn" },
+                            { "despawnMessage", hasKilledAllMessage ? new Func<NPC, LocalizedText>(npc => 
+                                        AllPlayersAreDead() ? Language.GetText($"Mods.{Name}.BossChecklist.{bossName}KilledAll") : Language.GetText($"Mods.{Name}.BossChecklist.{bossName}Despawn")) :
+                                    Language.GetText($"Mods.{Name}.BossChecklist.{bossName}Despawn") },
                             {
                                 "customPortrait",
                                 portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) =>
@@ -102,13 +105,13 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<DeviBoss>() },
                     () => WorldSavingSystem.DownedDevi,
                     () => true,
-                    new List<int>(new int[] {
+                    new List<int> {
                         ModContent.ItemType<DeviMusicBox>(),
                         ModContent.ItemType<DeviatingEnergy>(),
                         ModContent.ItemType<DeviTrophy>(),
                         ModContent.ItemType<ChibiHat>(),
                         ModContent.ItemType<BrokenBlade>()
-                    }),
+                    },
                     new List<int> { ModContent.ItemType<DevisCurse>() },
                     true
                 );
@@ -118,13 +121,13 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<AbomBoss>() },
                     () => WorldSavingSystem.DownedAbom,
                     () => true,
-                    new List<int>(new int[] {
+                    new List<int> {
                         ModContent.ItemType<AbomMusicBox>(),
                         ModContent.ItemType<AbomEnergy>(),
                         ModContent.ItemType<AbomTrophy>(),
                         ModContent.ItemType<BabyScythe>(),
                         ModContent.ItemType<BrokenHilt>()
-                    }),
+                    },
                     new List<int> { ModContent.ItemType<AbomsCurse>() },
                     true
                 );
@@ -134,13 +137,13 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<MutantBoss>() },
                     () => WorldSavingSystem.DownedMutant,
                     () => true,
-                    new List<int>(new int[] {
+                    new List<int> {
                         ModContent.ItemType<MutantMusicBox>(),
                         ModContent.ItemType<EternalEnergy>(),
                         ModContent.ItemType<MutantTrophy>(),
                         ModContent.ItemType<SpawnSack>(),
                         ModContent.ItemType<PhantasmalEnergy>()
-                    }),
+                    },
                     new List<int> { ModContent.ItemType<AbominationnVoodooDoll>() },
                     true
                 );
@@ -246,14 +249,13 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<TrojanSquirrel>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel],
                     () => true,
-                    new List<int>(new int[]
-                    {
+                    new List<int> {
                         ModContent.ItemType<TrojanSquirrelTrophy>(),
                         ModContent.ItemType<TreeSword>(),
                         ModContent.ItemType<MountedAcornGun>(),
                         ModContent.ItemType<SnowballStaff>(),
                         ModContent.ItemType<KamikazeSquirrelStaff>()
-                    }),
+                    },
                     new List<int> { ModContent.ItemType<SquirrelCoatofArms>() },
                     false,
                     "Content/Bosses/TrojanSquirrel/TrojanSquirrel_Still"
@@ -263,15 +265,14 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<LifeChallenger>() },
                     () => WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.Lifelight],
                     () => true,
-                    new List<int>(new int[]
-                    {
+                    new List<int> {
                         ModContent.ItemType<LifelightTrophy>(),
                         ModContent.ItemType<EnchantedLifeblade>(),
                         ModContent.ItemType<Lightslinger>(),
                         ModContent.ItemType<CrystallineCongregation>(),
                         ModContent.ItemType<KamikazePixieStaff>(),
                         ModContent.ItemType<LifelightMasterPet>()
-                    }),
+                    },
                     new List<int> { ModContent.ItemType<FragilePixieLamp>() },
                     false,
                     "Content/Bosses/Lifelight/LifeChallenger"
@@ -282,14 +283,13 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.NPCType<BanishedBaron>() },
                     () => WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.BanishedBaron],
                     () => true,
-                    new List<int>(new int[]
-                    {
+                    new List<int> {
                         ModContent.ItemType<BaronTrophy>(),
                         ModContent.ItemType<TheBaronsTusk>(),
                         ModContent.ItemType<RoseTintedVisor>(),
                         ModContent.ItemType<NavalRustrifle>(),
                         ModContent.ItemType<DecrepitAirstrikeRemote>(),
-                    }),
+                    },
                     new List<int> { ModContent.ItemType<MechLure>() },
                     true
                 );
