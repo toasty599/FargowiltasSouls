@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.Items
             ItemID.TrueNightsEdge,
             ItemID.Excalibur,
             ItemID.TrueExcalibur,
-            ItemID.PiercingStarlight,
+            //ItemID.PiercingStarlight,
             ItemID.TheHorsemansBlade,
             ModContent.ItemType<TheBaronsTusk>()
         };
@@ -441,13 +441,24 @@ namespace FargowiltasSouls.Content.Items
                 //spwn cloud
                 if (modPlayer.JungleCD == 0)
                 {
-                    bool jungleForceEffect = modPlayer.ChlorophyteEnchantActive || modPlayer.ForceEffect<JungleEnchant>();
 
-                    int dmg = jungleForceEffect ? 150 : 75;
+                    int tier = 1;
+                    if (modPlayer.ChlorophyteEnchantActive)
+                        tier++;
+                    bool jungleForceEffect = modPlayer.ForceEffect<JungleEnchant>();
+                    if (jungleForceEffect)
+                        tier++;
+
+                    modPlayer.JungleCD = 18 - tier * tier;
+                    int dmg = 12 * tier * tier - 5;
+
                     SoundEngine.PlaySound(SoundID.Item62 with { Volume = 0.5f }, player.Center);
-                    FargoSoulsUtil.XWay(10, player.GetSource_EffectItem<JungleJump>(), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0);
+                    foreach (Projectile p in FargoSoulsUtil.XWay(10, player.GetSource_EffectItem<JungleJump>(), new Vector2(player.Center.X, player.Center.Y + player.height / 2), ProjectileID.SporeCloud, 3f, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0))
+                    {
+                        p.extraUpdates += 1;
+                    }
 
-                    modPlayer.JungleCD = 8;
+                    modPlayer.JungleCD = 24;
                 }
             }
 
@@ -482,6 +493,8 @@ namespace FargowiltasSouls.Content.Items
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (item.type == ItemID.PiercingStarlight)
+                tooltips.Add(new TooltipLine(Mod, "StarlightTungsten", Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.StarlightTungsten")));
             /*if (Array.IndexOf(Summon, item.type) > -1)
             {
                 TooltipLine helperLine = new TooltipLine(mod, "help", "Right click to convert");

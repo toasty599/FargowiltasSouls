@@ -685,6 +685,7 @@ Mods: {
 			TinCritReset: -{0}% crítico
 			// ROBPatreon: The friend you've never left since Brawl
 			// ROBNonPatreon: He's finally a top tier!
+			// StarlightTungsten: Unaffected by Tungsten Enchant
 			// DefensePrefixMaxLife: +{0} max life
 
 			EternitySoul: {
@@ -1018,6 +1019,7 @@ Mods: {
 			Split: Frequência de divisão reduzida
 			ChlorophyteBullet: Velocidade e duração reduzidos
 			WaterBolt: Não pode ser usado até que Esqueletron seja derrotado
+			// DemonScythe: Reduced damage and speed by 40% until an evil boss is defeated
 			HolyDodge: A ativação da Esquiva Divina reduzirá temporariamente a sua velocidade do ataque
 			FrozenTurtleShell: A barreira congelada reduz levemente o seu dano causado
 			BrainOfConfusion: Reduz o seu dano ao efetuar uma esquiva
@@ -3251,7 +3253,6 @@ Mods: {
 					'''
 					Currently inactive, Right click to activate
 					Grants immunity to Suffocation
-					10% reduced magic damage
 					Automatically use mana potions when needed
 					Increases pickup range for mana stars
 					'The quietly muttering head of a defeated foe'

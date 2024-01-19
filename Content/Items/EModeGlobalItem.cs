@@ -25,6 +25,7 @@ namespace FargowiltasSouls.Content.Items
             {
                 return;
             }
+            EmodeItemBalance.BalanceTooltips(item, ref tooltips);
             if (item.prefix >= PrefixID.Hard && item.prefix <= PrefixID.Warding)
             {
                 int life = 5;
