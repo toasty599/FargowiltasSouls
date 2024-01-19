@@ -367,23 +367,6 @@ Mods: {
 			// Count1: Psst... can you hear me? This is a secret message! Hi!
 		}
 
-		Config: {
-			// HideToggler: Only show effect toggler when inventory is open
-			// HideTogglerDescription: If true, the effect toggler is automatically hidden when your inventory is closed.
-			// DeviChatter: Chibi Devi can talk
-			// ToggleSearchReset: Accessory Effects menu resets search bar when closed
-			// BigTossMode: Big Toss Mode
-			// MasoHeader: Eternity Mode
-			// MasoBossRecolors: Bosses use alternative sprites
-			// OncomingMutantX: Eternity Mode inventory icon X position
-			// OncomingMutantY: Eternity Mode inventory icon Y position
-			// Precision: Precision Seal Key must be held
-			// PrecisionTooltip: If false, precision mode is instead toggled with the key.
-			// PreBossNightGlow: Pre-Boss Enemy Glow
-			// PreBossNightGlowTooltip: In Eternity Mode, enemies glow at night before any boss has been killed
-			// HideTogglerTooltip: Mods.FargowiltasSouls.Config.HideTogglerTooltip
-		}
-
 		Toggler: {
 			// TimberHeader: "{$Mods.FargowiltasSouls.Items.TimberForce.DisplayName}"
 			// BorealEffect: Boreal Snowballs
@@ -640,22 +623,6 @@ Mods: {
 			// PetMartianConfig: Martian Pet
 			// PetLCConfig: Phantasmal Dragon Pet
 			// PetMLConfig: Moonling Pet
-			// PatreonHeader: Patreon Items
-			// PatreonRoomba: Roomba
-			// PatreonOrb: Computation Orb
-			// PatreonFishingRod: Miss Drakovi's Fishing Pole
-			// PatreonDoor: Squidward Door
-			// PatreonWolf: Paradox Wolf Soul
-			// PatreonDove: Fig Branch
-			// PatreonKingSlime: Medallion of the Fallen King
-			// PatreonFishron: Staff Of Unleashed Ocean
-			// PatreonPlant: Piranha Plant Voodoo Doll
-			// PatreonDevious: Devious Aestheticus
-			// PatreonVortex: Vortex Ritual
-			// PatreonPrime: Prime Staff
-			// PatreonCrimetroid: Crimetroid
-			// PatreonNanoCore: Nano Core
-			// PatreonROB: R.O.B
 			// SilverS: Mods.FargowiltasSouls.Toggler.SilverS
 			// CrystalGelatinConfig: Mods.FargowiltasSouls.Toggler.CrystalGelatinConfig
 			// SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
@@ -685,7 +652,7 @@ Mods: {
 			// TinCritReset: -{0}% crit
 			// ROBPatreon: The friend you've never left since Brawl
 			// ROBNonPatreon: He's finally a top tier!
-			// StarlightTungsten: Unaffected by Tungsten Enchant
+			// StarlightTungsten: Unaffected by Tungsten Enchantment
 			// DefensePrefixMaxLife: +{0} max life
 
 			EternitySoul: {
@@ -6161,22 +6128,6 @@ Mods: {
 		// PetMartianConfig: "[i:4815][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetMartianConfig}]"
 		// PetLCConfig: "[i:4809][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetLCConfig}]"
 		// PetMLConfig: "[i:4810][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetMLConfig}]"
-		// PatreonHeader: "[i:FargowiltasSouls/RoombaPet][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonHeader}]"
-		// PatreonRoomba: "[i:FargowiltasSouls/RoombaPet][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonRoomba}]"
-		// PatreonOrb: "[i:FargowiltasSouls/ComputationOrb][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonOrb}]"
-		// PatreonFishingRod: "[i:FargowiltasSouls/MissDrakovisFishingPole][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonFishingRod}]"
-		// PatreonDoor: "[i:FargowiltasSouls/SquidwardDoor][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonDoor}]"
-		// PatreonWolf: "[i:FargowiltasSouls/ParadoxWolfSoul][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonWolf}]"
-		// PatreonDove: "[i:FargowiltasSouls/FigBranch][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonDove}]"
-		// PatreonKingSlime: "[i:FargowiltasSouls/MedallionoftheFallenKing][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonKingSlime}]"
-		// PatreonFishron: "[i:FargowiltasSouls/StaffOfUnleashedOcean][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonFishron}]"
-		// PatreonPlant: "[i:FargowiltasSouls/PiranhaPlantVoodooDoll][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonPlant}]"
-		// PatreonDevious: "[i:FargowiltasSouls/DeviousAestheticus][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonDevious}]"
-		// PatreonVortex: "[i:FargowiltasSouls/VortexMagnetRitual][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonVortex}]"
-		// PatreonPrime: "[i:FargowiltasSouls/PrimeStaff][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonPrime}]"
-		// PatreonCrimetroid: "[i:FargowiltasSouls/CrimetroidEgg][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonCrimetroid}]"
-		// PatreonNanoCore: "[i:FargowiltasSouls/NanoCore][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonNanoCore}]"
-		// PatreonROB: "[i:FargowiltasSouls/ROBGyro][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PatreonROB}]"
 
 		Keybinds: {
 			// Freeze.DisplayName: Freeze
@@ -6196,124 +6147,129 @@ Mods: {
 			SoulConfig: {
 				// DisplayName: Soul Config
 
+				Headers: {
+					// Maso: Eternity Mode
+					// Patreon: "[i:FargowiltasSouls/RoombaPet] [c/ffffff:Patreon Items]"
+				}
+
 				HideTogglerWhenInventoryIsClosed: {
-					// Label: "{$Mods.FargowiltasSouls.Config.HideToggler}"
-					// Tooltip: "{$Mods.FargowiltasSouls.Config.HideTogglerDescription}"
+					// Label: Only show effect toggler when inventory is open
+					// Tooltip: If true, the effect toggler is automatically hidden when your inventory is closed.
 				}
 
 				DeviChatter: {
-					// Label: "{$Mods.FargowiltasSouls.Config.DeviChatter}"
+					// Label: Chibi Devi can talk
 					// Tooltip: ""
 				}
 
 				ToggleSearchReset: {
-					// Label: "{$Mods.FargowiltasSouls.Config.ToggleSearchReset}"
+					// Label: Accessory Effects menu resets search bar when closed
 					// Tooltip: ""
 				}
 
 				BigTossMode: {
-					// Label: "{$Mods.FargowiltasSouls.Config.BigTossMode}"
+					// Label: Big Toss Mode
 					// Tooltip: ""
 				}
 
 				BossRecolors: {
-					// Label: "{$Mods.FargowiltasSouls.Config.MasoBossRecolors}"
+					// Label: Bosses use alternative sprites
 					// Tooltip: ""
 				}
 
 				PrecisionSealIsHold: {
-					// Label: "{$Mods.FargowiltasSouls.Config.Precision}"
-					// Tooltip: "{$Mods.FargowiltasSouls.Config.PrecisionTooltip}"
+					// Label: Precision Seal Key must be held
+					// Tooltip: If false, precision mode is instead toggled with the key.
+				}
+
+				PreBossNightGlow: {
+					// Label: Pre-Boss Enemy Glow
+					// Tooltip: In Eternity Mode, enemies glow at night before any boss has been killed
 				}
 
 				OncomingMutantX: {
-					// Label: "{$Mods.FargowiltasSouls.Config.OncomingMutantX}"
+					// Label: Eternity Mode inventory icon X position
 					// Tooltip: ""
 				}
 
 				OncomingMutantY: {
-					// Label: "{$Mods.FargowiltasSouls.Config.OncomingMutantY}"
+					// Label: Eternity Mode inventory icon Y position
 					// Tooltip: ""
 				}
 
 				PatreonRoomba: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonRoomba}"
+					// Label: "[i:FargowiltasSouls/RoombaPet] [c/ffffff:{$Mods.FargowiltasSouls.Items.RoombaPet.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonOrb: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonOrb}"
+					// Label: "[i:FargowiltasSouls/ComputationOrb] [c/ffffff:{$Mods.FargowiltasSouls.Items.ComputationOrb.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonFishingRod: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonFishingRod}"
+					// Label: "[i:FargowiltasSouls/MissDrakovisFishingPole] [c/ffffff:{$Mods.FargowiltasSouls.Items.MissDrakovisFishingPole.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonDoor: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonDoor}"
+					// Label: "[i:FargowiltasSouls/SquidwardDoor] [c/ffffff:{$Mods.FargowiltasSouls.Items.SquidwardDoor.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonWolf: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonWolf}"
+					// Label: "[i:FargowiltasSouls/ParadoxWolfSoul] [c/ffffff:{$Mods.FargowiltasSouls.Items.ParadoxWolfSoul.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonDove: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonDove}"
+					// Label: "[i:FargowiltasSouls/FigBranch] [c/ffffff:{$Mods.FargowiltasSouls.Items.FigBranch.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonKingSlime: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonKingSlime}"
+					// Label: "[i:FargowiltasSouls/MedallionoftheFallenKing] [c/ffffff:{$Mods.FargowiltasSouls.Items.MedallionoftheFallenKing.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonFishron: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonFishron}"
+					// Label: "[i:FargowiltasSouls/StaffOfUnleashedOcean] [c/ffffff:{$Mods.FargowiltasSouls.Items.StaffOfUnleashedOcean.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonPlant: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonPlant}"
+					// Label: "[i:FargowiltasSouls/PiranhaPlantVoodooDoll] [c/ffffff:{$Mods.FargowiltasSouls.Items.PiranhaPlantVoodooDoll.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonDevious: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonDevious}"
+					// Label: "[i:FargowiltasSouls/DeviousAestheticus] [c/ffffff:{$Mods.FargowiltasSouls.Items.DeviousAestheticus.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonVortex: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonVortex}"
+					// Label: "[i:FargowiltasSouls/VortexMagnetRitual] [c/ffffff:{$Mods.FargowiltasSouls.Items.VortexMagnetRitual.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonPrime: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonPrime}"
+					// Label: "[i:FargowiltasSouls/PrimeStaff] [c/ffffff:{$Mods.FargowiltasSouls.Items.PrimeStaff.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonCrimetroid: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonCrimetroid}"
+					// Label: "[i:FargowiltasSouls/CrimetroidEgg] [c/ffffff:{$Mods.FargowiltasSouls.Items.CrimetroidEgg.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonNanoCore: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonNanoCore}"
+					// Label: "[i:FargowiltasSouls/NanoCore] [c/ffffff:{$Mods.FargowiltasSouls.Items.NanoCore.DisplayName}]"
 					// Tooltip: ""
 				}
 
 				PatreonROB: {
-					// Label: "{$Mods.FargowiltasSouls.PatreonROB}"
+					// Label: "[i:FargowiltasSouls/ROBGyro] [c/ffffff:{$Mods.FargowiltasSouls.Items.ROBGyro.DisplayName}]"
 					// Tooltip: ""
-				}
-
-				PreBossNightGlow: {
-					// Label: "{$Mods.FargowiltasSouls.Config.PreBossNightGlow}"
-					// Tooltip: "{$Mods.FargowiltasSouls.Config.PreBossNightGlowTooltip}"
 				}
 			}
 		}

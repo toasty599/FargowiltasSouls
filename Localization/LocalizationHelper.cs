@@ -439,24 +439,7 @@ namespace FargowiltasSouls
 
 
         #endregion pet toggles
-
-        #region patreon toggles
-        AddToggle("PatreonHeader", "RoombaPet");
-            AddToggle("PatreonRoomba", "RoombaPet");
-            AddToggle("PatreonOrb", "ComputationOrb");
-            AddToggle("PatreonFishingRod", "MissDrakovisFishingPole");
-            AddToggle("PatreonDoor", "SquidwardDoor");
-            AddToggle("PatreonWolf", "ParadoxWolfSoul");
-            AddToggle("PatreonDove", "FigBranch");
-            AddToggle("PatreonKingSlime", "MedallionoftheFallenKing");
-            AddToggle("PatreonFishron", "StaffOfUnleashedOcean");
-            AddToggle("PatreonPlant", "PiranhaPlantVoodooDoll");
-            AddToggle("PatreonDevious", "DeviousAestheticus");
-            AddToggle("PatreonVortex", "VortexMagnetRitual");
-            AddToggle("PatreonPrime", "PrimeStaff");
-            AddToggle("PatreonCrimetroid", "CrimetroidEgg");
-            AddToggle("PatreonNanoCore", "NanoCore");
-            #endregion patreon toggles
+        
 
             #endregion Toggles
 
