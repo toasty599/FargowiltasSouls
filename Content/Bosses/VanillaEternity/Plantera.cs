@@ -16,6 +16,7 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -98,7 +99,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.75);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2f);
 
             if (!Main.masterMode)
                 npc.lifeMax = (int)(npc.lifeMax * 1.2f);
@@ -182,10 +183,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 if (CrystalRedirectTimer >= 2) // every 3 throws, redirect instead of throwing
                 {
-                    Main.NewText("redirect");
+                    SoundEngine.PlaySound(SoundID.Zombie21 with { Pitch = -0.3f }, npc.Center);
+                    Particle particle = new ExpandingBloomParticle(npc.Center, Vector2.Zero, Color.LimeGreen, Vector2.Zero, Vector2.One * 100f, 20, true, Color.ForestGreen);
+                    particle.Spawn();
+
                     foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == ModContent.ProjectileType<CrystalLeafShot>() && p.ai[0] == npc.whoAmI)) //my crystal leaves
                     {
-                        Main.NewText("leaf" + p.whoAmI);
                         p.ai[1] = 1;
                         p.ai[2] = player.whoAmI;
                         p.netUpdate = true;
@@ -199,6 +202,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.netUpdate = true;
                 }
                     
+            }
+            if (RingTossTimer.IsWithinBounds(360 - 60, 360 + 60) && CrystalRedirectTimer == 0) // For 2 seconds after doing redirect
+            {
+                npc.velocity *= 0.96f;
+                npc.localAI[1] = 0; // Don't fire vanilla projectiles
             }
 
             if (npc.life > npc.lifeMax / 2)

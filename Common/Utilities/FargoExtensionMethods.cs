@@ -148,15 +148,14 @@ namespace FargowiltasSouls //lets everything access it without using
 
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
             => player.GetTotalDamage(damageClass).Additive * player.GetTotalDamage(damageClass).Multiplicative;
-
-        public static bool IsWithinBounds(this int index, int cap)
-        {
-            if (index >= 0)
-            {
-                return index < cap;
-            }
-            return false;
-        }
+        /// <summary>
+        /// Lower bound is 0 and inclusive, cap is exclusive
+        /// </summary>
+        public static bool IsWithinBounds(this int index, int cap) => index >= 0 && index < cap;
+        /// <summary>
+        /// Lower bound is inclusive, higher bound is exclusive
+        /// </summary>
+        public static bool IsWithinBounds(this int index, int lowerBound, int higherBound) => index >= lowerBound && index < higherBound;
         /// <summary>
         /// Sets the magnitude of the vector. Does not modify the original vector. Defaults to Vector2.UnitY if vector length is 0.
         /// </summary>
