@@ -411,7 +411,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 //}
             }
 
-            EModeUtils.DropSummon(npc, "PlanterasFruit", NPC.downedPlantBoss, ref DroppedSummon, NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3);
+            EModeUtils.DropSummon(npc, "PlanterasFruit", NPC.downedPlantBoss, ref DroppedSummon);
 
             return result;
         }
