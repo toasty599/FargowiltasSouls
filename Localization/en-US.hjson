@@ -219,7 +219,6 @@ Mods: {
 			MasochistSpawnDevi: Deviantt has awoken!
 			MasochistWrongDifficulty: World must be Expert difficulty or harder!
 			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.Items.Masochist.DisplayName} surges with new power...!"
-			MasochistPreTooltip: Enables Masochist Mode when used in Master Mode
 
 			WorldUpdatingSystem: {
 				EternityOn: Eternity Mode activated!
@@ -273,7 +272,7 @@ Mods: {
 			MoonsDeathPenalty: The wave progress has regressed!
 			FatherOfLies: It was a mistake to come here.
 			BaronSlurp: slurp
-			MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] {$Mods.FargowiltasSouls.Message.MasochistPreTooltip}"
+			MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] Enables Masochist Mode when used in Master Mode"
 		}
 
 		DeathMessage: {
@@ -448,9 +447,6 @@ Mods: {
 			StardustMinionEffect: Stardust Guardian
 			VortexStealthEffect: Vortex Stealth
 			VortexVortexEffect: Vortex Voids
-			MasoHeader: Eternity Mode
-			MasoBossRecolors: Boss Recolors
-			MasoCanPlay: Masochist Mode Available
 			DeviEnergyHeader: Eternity Mode Accessories
 			DeerSinewEffect: Deer Sinew Dash
 			ZephyrJump: Fart Jump
@@ -550,6 +546,7 @@ Mods: {
 			TrawlerGel: Volatile Gelatin
 			EternityHeader: "{$Mods.FargowiltasSouls.Items.EternitySoul.DisplayName}"
 			EternityTin: Eternity Crit Effect Stacking
+			// the pets are no longer existing in game
 			PetHeader: Pets
 			PetDinoConfig: Dino Pet
 			PetEaterConfig: Eater Pet
@@ -623,10 +620,6 @@ Mods: {
 			PetMartianConfig: Martian Pet
 			PetLCConfig: Phantasmal Dragon Pet
 			PetMLConfig: Moonling Pet
-			SilverS: Mods.FargowiltasSouls.Toggler.SilverS
-			CrystalGelatinConfig: Mods.FargowiltasSouls.Toggler.CrystalGelatinConfig
-			SilverConfig: Mods.FargowiltasSouls.Toggler.SilverConfig
-			MasoHoneyConfig: Mods.FargowiltasSouls.Toggler.MasoHoneyConfig
 		}
 
 		UI: {
@@ -6032,9 +6025,6 @@ Mods: {
 			RainLightning.DisplayName: Rain Lightning
 		}
 
-		MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"
-		MasoBossRecolors: "[i:FargowiltasSouls/Masochist][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoBossRecolors}]"
-		MasoCanPlay: "[i:FargowiltasSouls/Masochist][c/ff0000:{$Mods.FargowiltasSouls.Toggler.MasoCanPlay}]"
 		PetHeader: "[i:2420][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetHeader}]"
 		PetDinoConfig: "[i:1242][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetDinoConfig}]"
 		PetEaterConfig: "[i:994][c/ffffff:{$Mods.FargowiltasSouls.Toggler.PetEaterConfig}]"

@@ -550,6 +550,7 @@ Mods: {
 			// TrawlerGel: Volatile Gelatin
 			// EternityHeader: "{$Mods.FargowiltasSouls.Items.EternitySoul.DisplayName}"
 			// EternityTin: Eternity Crit Effect Stacking
+			// no longer exist in game
 			// PetHeader: Pets
 			// PetDinoConfig: Dino Pet
 			// PetEaterConfig: Eater Pet

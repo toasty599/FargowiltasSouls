@@ -219,7 +219,6 @@ Mods: {
 			MasochistSpawnDevi: 戴薇安已苏醒！
 			MasochistWrongDifficulty: 世界必须是专家模式或更高难度！
 			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist}随着新涌现的能量而波动……！"
-			MasochistPreTooltip: 使用以在大师模式下开启受虐模式
 
 			WorldUpdatingSystem: {
 				// EternityOn: Eternity Mode activated!
@@ -273,7 +272,7 @@ Mods: {
 			MoonsDeathPenalty: 事件回溯，波数倒退！
 			// FatherOfLies: It was a mistake to come here.
 			// BaronSlurp: slurp
-			// MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] {$Mods.FargowiltasSouls.Message.MasochistPreTooltip}"
+			MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] 使用以在大师模式下开启受虐模式"
 		}
 
 		DeathMessage: {
@@ -550,6 +549,7 @@ Mods: {
 			// TrawlerGel: Volatile Gelatin
 			// EternityHeader: "{$Mods.FargowiltasSouls.Items.EternitySoul.DisplayName}"
 			// EternityTin: Eternity Crit Effect Stacking
+			// the pets are no longer existing in game
 			PetHeader: 宠物
 			PetDinoConfig: 恐龙宝宝
 			PetEaterConfig: 吞噬怪宝宝

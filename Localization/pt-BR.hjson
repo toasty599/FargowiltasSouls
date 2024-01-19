@@ -219,7 +219,6 @@ Mods: {
 			MasochistSpawnDevi: Deviantt acordou!
 			MasochistWrongDifficulty: O mundo deve ser de dificuldade Perito ou mais difícil!
 			MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist} surge com novos poderes...!"
-			MasochistPreTooltip: Ativa o Modo Masoquista quando usado no Modo Mestre
 
 			WorldUpdatingSystem: {
 				// EternityOn: Eternity Mode activated!
@@ -273,7 +272,7 @@ Mods: {
 			MoonsDeathPenalty: O progresso da onda regrediu!
 			// FatherOfLies: It was a mistake to come here.
 			// BaronSlurp: slurp
-			// MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] {$Mods.FargowiltasSouls.Message.MasochistPreTooltip}"
+			MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] Ativa o Modo Masoquista quando usado no Modo Mestre"
 		}
 
 		DeathMessage: {
@@ -550,6 +549,7 @@ Mods: {
 			// TrawlerGel: Volatile Gelatin
 			// EternityHeader: "{$Mods.FargowiltasSouls.Items.EternitySoul.DisplayName}"
 			// EternityTin: Eternity Crit Effect Stacking
+			// no longer exist in game
 			PetHeader: Animais de Estimação
 			PetDinoConfig: Dinossauro de Estimação
 			PetEaterConfig: Devorador de Estimação
