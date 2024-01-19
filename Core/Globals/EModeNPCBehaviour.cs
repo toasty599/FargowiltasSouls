@@ -40,9 +40,9 @@ namespace FargowiltasSouls.Core.Globals
             TryLoadSprites(target);
             if (!WorldSavingSystem.EternityVanillaBehaviour && target.ModNPC == null)
             {
-                return target.GetGlobalNPC<SillyLittleQuestionMark>();
+                return null;
             }
-            return WorldSavingSystem.EternityMode ? base.NewInstance(target) : target.GetGlobalNPC<SillyLittleQuestionMark>();
+            return WorldSavingSystem.EternityMode && Matcher.Satisfies(target.type) ? base.NewInstance(target) : null;
         }
 
         public bool FirstTick = true; //trying to set this false on spawn before it triggers results in a null instance error and other issues, assumedly because of the NewInstance method, so don't do that
