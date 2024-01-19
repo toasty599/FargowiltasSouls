@@ -1,0 +1,39 @@
+Nerf: "[c/ff0000:Modo Eternidade: ]"
+Buff: "[c/00ff00:Modo Eternidade: ]"
+Neutral: "[c/ffff00:Modo Eternidade: ]"
+Damage: Dano reduzido em {0}%
+// DamagePositive: Increased damage by {0}%
+Speed: Velocidade reduzida em {0}%
+// SpeedPositive: Increased speed by {0}%
+RodofDiscord: Durante batalhas contra chefes, cada uso leva vida
+Split: Frequência de divisão reduzida
+ChlorophyteBullet: Velocidade e duração reduzidos
+WaterBolt: Não pode ser usado até que Esqueletron seja derrotado
+// DemonScythe: Reduced damage and speed by 40% until an evil boss is defeated
+HolyDodge: A ativação da Esquiva Divina reduzirá temporariamente a sua velocidade do ataque
+FrozenTurtleShell: A barreira congelada reduz levemente o seu dano causado
+BrainOfConfusion: Reduz o seu dano ao efetuar uma esquiva
+ZenithNone: Nenhum enfraquecimento em vigor
+ZenithHitRate: "Taxa de acerto consideravelmente reduzida, melhora ao derrotar: "
+VampireKnives: Reduz a taxa de roubo de vida quando acima de 33% de vida
+Zapinator: Não pode acumular multiplicadores de dano
+// CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased
+OOASet: O bônus de conjunto aumenta o dano de invocação mínimo quando você ataca usando outras classes
+MiningHelmet: Aumenta a taxa de criação do Minerador Zumbi
+MoonsDrops: Os chefes e minichefes não deixam cair itens até ondas tardias
+MoonsWaves: Morrer diminui o progresso da onda
+WhipSpeed: Não se beneficia de bônus de velocidade do ataque físico
+WhipStack: Efeitos e efeitos negativos de chicote não podem acumular
+// DefensePrefix: Adjusted prefix stats: reduced defense before Hardmode, +5 max life
+// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
+MinionStack: O dano dos lacaios diminui ao invocar mais de 3 cópias (o limite do efeito é 12)
+SummonMulticlass: O dano por lacaios diminui quando você ataca usando outras classes (exceto no EdA)
+ShadowDodge: Modo Eternidade: Esquivar reduzirá sua velocidade de ataque
+IceBarrier: Modo Eternidade: 10% de redução nos danos
+// SpearRework: Reworked spear swing animation
+// PalladiumPikeRework: Greatly increases life regeneration after striking an enemy
+// CobaltNaginataRework: Causes a small explosion on striking enemies
+// MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
+// OrichalcumHalberdRework: Releases flower petals on swing
+// SuperStarCannon: Decreased maximum pierce to 7
+// WarmthPotionNerf: Halved damage reduction effect

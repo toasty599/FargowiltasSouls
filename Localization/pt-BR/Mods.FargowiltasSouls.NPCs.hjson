@@ -1,0 +1,198 @@
+AbomBoss: {
+	// DisplayName: Abominationn
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/AbomsCurse]
+		DespawnMessage: Abominationn não vê nenhum oponente digno...
+		KilledAllMessage: Abominationn destruiu todo mundo.
+	}
+}
+
+AbomSaucer.DisplayName: Mini Disco Voador
+
+TrojanSquirrel: {
+	DisplayName: Esquilo de Tróia
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SquirrelCoatofArms]
+		DespawnMessage: O Campeão de Madeira retorna a seu clã esquilo.
+	}
+}
+
+TrojanSquirrelArms.DisplayName: Esquilo de Tróia
+TrojanSquirrelHead.DisplayName: Esquilo de Tróia
+
+CosmosChampion: {
+	DisplayName: Campeão do Cosmos
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no espaço.
+		DespawnMessage: Eridanus, Campeão do Cosmos retorna às estrelas...
+		KilledAllMessage: Eridanus, Campeão do Cosmos matou todos os inimigos.
+	}
+}
+
+EarthChampion: {
+	DisplayName: Campeão da Terra
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.EarthChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no submundo.
+		DespawnMessage: O Campeão da Terra desaparece abaixo do magma...
+	}
+}
+
+EarthChampionHand.DisplayName: Campeão da Terra
+LesserFairy.DisplayName: Fada Menor
+LesserSquirrel.DisplayName: Esquilo Menor
+
+LifeChampion: {
+	DisplayName: Campeão da Vida
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no Sagrado de dia.
+		DespawnMessage: O Campeão da Vida desvanece...
+	}
+}
+
+NatureChampion: {
+	DisplayName: Campeão da Natureza
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] na neve subterrânea.
+		DespawnMessage: O Campeão da Natureza retorna ao seu sono...
+	}
+}
+
+NatureChampionHead.DisplayName: Campeão da Natureza
+
+ShadowChampion: {
+	DisplayName: Campeão das Sombras
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] na Corrupção ou Carmim de noite.
+		DespawnMessage: O Campeão das Sombras desvanece...
+	}
+}
+
+ShadowOrb.DisplayName: Esfera das Sombras
+
+SpiritChampion: {
+	DisplayName: Campeão do Espírito
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no deserto subterrâneo.
+		DespawnMessage: O Campeão do Espírito desaparece no deserto...
+	}
+}
+
+SpiritChampionHand.DisplayName: Campeão do Espírito
+
+TerraChampion: {
+	DisplayName: Campeão do Solo
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no subterrâneo.
+		DespawnMessage: O Campeão do Solo some nas cavernas...
+	}
+}
+
+TerraChampionBody.DisplayName: Campeão do Solo
+TerraChampionTail.DisplayName: Campeão do Solo
+
+TimberChampion: {
+	DisplayName: Campeão da Madeira
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] na superfície durante o dia.
+		DespawnMessage: O Campeão de Madeira retorna a seu clã esquilo.
+	}
+}
+
+TimberChampionHead.DisplayName: Campeão da Madeira
+
+WillChampion: {
+	DisplayName: Campeão da Vontade
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/SigilOfChampions] no oceano.
+		DespawnMessage: O Campeão da Vontade retorna às profundezas...
+	}
+}
+
+TophatSquirrelCritter.DisplayName: Esquilo com Cartola
+BrainClone.DisplayName: Cérebro de Cthulhu
+BrainIllusion.DisplayName: Cérebro de Cthulhu
+BrainIllusion2.DisplayName: Cérebro de Cthulhu
+BrainIllusionAttack.DisplayName: Cérebro de Cthulhu
+CreeperGutted.DisplayName: Creeper Eviscerado
+CrystalLeaf.DisplayName: Folha de Cristal
+DetonatingBubble.DisplayName: Bolha Explosiva
+DetonatingBubbleEX.DisplayName: Bolha Explosiva
+GelatinSlime.DisplayName: Geleia de Cristal
+GelatinSubject.DisplayName: Sujeito Gelatinoso
+RoyalSubject.DisplayName: Sujeito Real
+
+MutantBoss: {
+	// DisplayName: Mutant
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
+		SpawnInfo: Arremesse [i:FargowiltasSouls/AbominationnVoodooDoll] em uma poça de lava enquanto Abominationn está vivo na presença de Mutant.
+		DespawnMessage: Mutant sela seu poder mais uma vez...
+		KilledAllMessage: Mutant eviscerou todo mundo sob suas mãos.
+	}
+}
+
+MutantIllusion.DisplayName: Ilusão do Mutant
+
+DeviBoss: {
+	// DisplayName: Deviantt
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
+		SpawnInfo: Invoque usando [i:FargowiltasSouls/DevisCurse]
+		DespawnMessage: Deviantt se cansa da batalha...
+		KilledAllMessage: Deviantt está satisfeita com a sua mostra de amor.
+	}
+}
+
+// ShadowOrbNPC.DisplayName: Shadow Orb
+
+LifeChallenger: {
+	// DisplayName: Lifelight
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
+		// SpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+		// DespawnMessage: Lifelight fades away...
+	}
+}
+
+BanishedBaron: {
+	// DisplayName: Banished Baron
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
+		// SpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
+		// DespawnMessage: The Banished Baron dives deeper into the ocean...
+	}
+}
+
+// DetonatingBubbleNPC.DisplayName: Detonating Bubble
+// StardustMinion.DisplayName: Stardust Minion
+// StardustDragon.DisplayName: Stardust Dragon
+// SlimeSwarm.DisplayName: Slime Swarm
+// Magmaw.DisplayName: Magmaw
+// currently not exist in game
+// DukeFishronEX.DisplayName: Duke Fishron EX

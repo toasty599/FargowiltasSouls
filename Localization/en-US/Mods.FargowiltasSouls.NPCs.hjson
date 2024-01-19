@@ -1,0 +1,198 @@
+AbomBoss: {
+	DisplayName: Abominationn
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/AbomsCurse]
+		DespawnMessage: Abominationn sees no worthy opponent...
+		KilledAllMessage: Abominationn has destroyed everyone.
+	}
+}
+
+AbomSaucer.DisplayName: Mini Saucer
+
+TrojanSquirrel: {
+	DisplayName: Trojan Squirrel
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SquirrelCoatofArms]
+		DespawnMessage: Trojan Squirrel returns to its squirrel clan...
+	}
+}
+
+TrojanSquirrelArms.DisplayName: Trojan Squirrel
+TrojanSquirrelHead.DisplayName: Trojan Squirrel
+
+CosmosChampion: {
+	DisplayName: Eridanus, Champion of Cosmos
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in space.
+		DespawnMessage: Eridanus, Champion of Cosmos returns to the stars...
+		KilledAllMessage: Eridanus, Champion of Cosmos has slain every foe.
+	}
+}
+
+EarthChampion: {
+	DisplayName: Champion of Earth
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.EarthChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underworld.
+		DespawnMessage: Champion of Earth disappears beneath the magma...
+	}
+}
+
+EarthChampionHand.DisplayName: Champion of Earth
+LesserFairy.DisplayName: Lesser Fairy
+LesserSquirrel.DisplayName: Lesser Squirrel
+
+LifeChampion: {
+	DisplayName: Champion of Life
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Hallow at day.
+		DespawnMessage: Champion of Life fades away...
+	}
+}
+
+NatureChampion: {
+	DisplayName: Champion of Nature
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in underground snow.
+		DespawnMessage: Champion of Nature returns to its slumber...
+	}
+}
+
+NatureChampionHead.DisplayName: Champion of Nature
+
+ShadowChampion: {
+	DisplayName: Champion of Shadow
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the Corruption or Crimson at night.
+		DespawnMessage: Champion of Shadow fades away...
+	}
+}
+
+ShadowOrb.DisplayName: Mods.FargowiltasSouls.NPCs.ShadowOrb.DisplayName
+
+SpiritChampion: {
+	DisplayName: Champion of Spirit
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underground desert.
+		DespawnMessage: Champion of Spirit vanishes into the desert...
+	}
+}
+
+SpiritChampionHand.DisplayName: Champion of Spirit
+
+TerraChampion: {
+	DisplayName: Champion of Terra
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] underground.
+		DespawnMessage: Champion of Terra vanishes into the caverns...
+	}
+}
+
+TerraChampionBody.DisplayName: Champion of Terra
+TerraChampionTail.DisplayName: Champion of Terra
+
+TimberChampion: {
+	DisplayName: Champion of Timber
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] on the surface during day.
+		DespawnMessage: Champion of Timber returns to its squirrel clan...
+	}
+}
+
+TimberChampionHead.DisplayName: Champion of Timber
+
+WillChampion: {
+	DisplayName: Champion of Will
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] at the ocean.
+		DespawnMessage: Champion of Will returns to the depths...
+	}
+}
+
+TophatSquirrelCritter.DisplayName: Top Hat Squirrel
+BrainClone.DisplayName: Brain of Cthulhu
+BrainIllusion.DisplayName: Brain of Cthulhu
+BrainIllusion2.DisplayName: Brain of Cthulhu
+BrainIllusionAttack.DisplayName: Brain of Cthulhu
+CreeperGutted.DisplayName: Gutted Creeper
+CrystalLeaf.DisplayName: Crystal Leaf
+DetonatingBubble.DisplayName: Mods.FargowiltasSouls.NPCs.DetonatingBubble.DisplayName
+DetonatingBubbleEX.DisplayName: Detonating Bubble
+GelatinSlime.DisplayName: Crystal Slime
+GelatinSubject.DisplayName: Gelatin Subject
+RoyalSubject.DisplayName: Royal Subject
+
+MutantBoss: {
+	DisplayName: Mutant
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
+		SpawnInfo: Throw [i:FargowiltasSouls/AbominationnVoodooDoll] into a pool of lava while Abominationn is alive in Mutant's presence.
+		DespawnMessage: Mutant seals its power once more...
+		KilledAllMessage: Mutant has eviscerated everyone under its hands.
+	}
+}
+
+MutantIllusion.DisplayName: Mutant
+
+DeviBoss: {
+	DisplayName: Deviantt
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/DevisCurse]
+		DespawnMessage: Deviantt bores of the battle...
+		KilledAllMessage: Deviantt is satisfied with its show of love.
+	}
+}
+
+ShadowOrbNPC.DisplayName: Shadow Orb
+
+LifeChallenger: {
+	DisplayName: Lifelight
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
+		DespawnMessage: Lifelight fades away...
+	}
+}
+
+BanishedBaron: {
+	DisplayName: Banished Baron
+
+	BossChecklistIntegration: {
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
+		SpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
+		DespawnMessage: The Banished Baron dives deeper into the ocean...
+	}
+}
+
+DetonatingBubbleNPC.DisplayName: Detonating Bubble
+StardustMinion.DisplayName: Stardust Minion
+StardustDragon.DisplayName: Stardust Dragon
+SlimeSwarm.DisplayName: Slime Swarm
+Magmaw.DisplayName: Magmaw
+// currently not exist in game
+DukeFishronEX.DisplayName: Duke Fishron EX

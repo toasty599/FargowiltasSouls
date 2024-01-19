@@ -1,0 +1,39 @@
+Nerf: "[c/ff0000:永恒模式：]"
+Buff: "[c/00ff00:永恒模式：]"
+Neutral: "[c/ffff00:永恒模式：]"
+Damage: 伤害降低{0}%
+// DamagePositive: Increased damage by {0}%
+Speed: 攻击速度降低{0}%
+// SpeedPositive: Increased speed by {0}%
+RodofDiscord: 在Boss战中，每次使用都会消耗生命
+Split: 降低分裂频率
+ChlorophyteBullet: 速度减慢，存在时间降低
+WaterBolt: 在骷髅王被击败前无法使用
+// DemonScythe: Reduced damage and speed by 40% until an evil boss is defeated
+HolyDodge: 神圣防护激活后，一段时间内你的攻击速度会降低
+FrozenTurtleShell: 冰盾会略微降低你的攻击伤害
+BrainOfConfusion: 成功躲避后，你的伤害会降低
+ZenithNone: 无削弱
+ZenithHitRate: 造成伤害的频率大幅降低，通过击败下列Boss可提高其输出能力：
+VampireKnives: 生命值高于33%时削弱吸血能力
+Zapinator: 无法堆叠弹幕伤害
+// CoinGun: Damage of Platinum and Gold Coins heavily reduced, damage of Silver Coins slightly reduced, and damage of Copper Coins increased
+OOASet: 当你使用其他职业的武器攻击时，抵消部分召唤伤害降低惩罚
+MiningHelmet: 提高不死矿工的刷新率
+MoonsDrops: Boss和迷你Boss在{0}波前不会掉落物品
+MoonsWaves: 死亡会降低当前波数
+WhipSpeed: 不接受近战攻速加成
+WhipStack: 鞭子的增益/减益不能堆叠
+// DefensePrefix: Adjusted prefix stats: reduced defense before Hardmode, +5 max life
+// ManaPots: Cannot be used during Mana Sickness, but 50% increased restoration
+MinionStack: 同时召唤超过3个相同召唤物时，它们的伤害会降低（超过12个后不再降低）
+SummonMulticlass: 当你使用其他职业的武器攻击时，召唤伤害降低（在撒旦军队中除外）
+ShadowDodge: 永恒模式：闪避会降低你的攻击速度
+IceBarrier: 永恒模式：你造成的伤害减少10%
+// SpearRework: Reworked spear swing animation
+// PalladiumPikeRework: Greatly increases life regeneration after striking an enemy
+// CobaltNaginataRework: Causes a small explosion on striking enemies
+// MythrilHalberdRework: After not attacking for 2 seconds, your next attack deals triple damage
+// OrichalcumHalberdRework: Releases flower petals on swing
+// SuperStarCannon: Decreased maximum pierce to 7
+// WarmthPotionNerf: Halved damage reduction effect

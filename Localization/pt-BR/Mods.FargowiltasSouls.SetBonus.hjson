@@ -1,0 +1,53 @@
+Nekomi:
+	'''
+	7% de aumento nos danos e na chance de acerto crítico da sua classe de armas atual
+	Aumenta o raio de aproximação de ataques da Adoração Cintilante
+	Aproxime-se de ataques para carregar energia temporariamente
+	Aumenta a regeneração de vida ao sofrer danos ao custo de alguma energia
+	Aperte {0} duas vezes para liberar energia como corações que drenam vida
+	Empunhe um machado demoníaco de amor e justiça quando estiver totalmente carregado, fica mais forte no modo díficil
+	'''
+Gaia:
+	'''
+	10% de aumento na velocidade do ataque físico
+	Reduz o custo de uso de mana em 10%
+	10% de chance de não consumir munição
+	Aumenta o número máximo de lacaios e sentinelas em 4
+	Aperte {0} duas vezes para alternar o modo ofensivo, que tem os seguintes efeitos:
+	30% de aumento nos danos e 15% de aumento na chance de acerto crítico da sua classe de armas atual
+	Aumenta a perfuração de blindagem em 20
+	Reduz a defesa em 20, vida máxima em 10%, e redução de danos em 15%
+	'''
+EridanusOff:
+	'''
+	20% de aumento nos danos para sua classe de armas atual
+	10% de aumento na chance de acerto crítico para sua classe de armas atual
+	10% de aumento na velocidade do ataque pra sua classe de armas atual
+	Aperte {0} duas vezes para ativar a bênção de Eridanus 
+	'''
+EridanusOn:
+	'''
+	A bênção de Eridanus fortalece uma classe de armas
+	A classe fortalecida muda a cada 10 segundos
+	Eridanus luta ao seu lado quando você usa a classe fortalecida
+	80% de aumento nos danos para a classe fortalecida
+	30% de aumento na chance de acerto crítico para a classe fortalecida
+	30% de aumento na velocidade do ataque para a classe fortalecida
+	Aperte {0} duas vezes para desativar a bênção de Eridanus
+	'''
+Styx:
+	'''
+	20% de aumento nos danos da sua classe de armas atual
+	Ataque inimigos para carregar energia
+	Reduz o dano sofrido ao custo de um pouco de energia
+	Aperte {0} duas vezes para liberar energia como tiros teleguiados
+	Brande uma lâmina de magia infernal quando totalmente carregada
+	'''
+Mutant:
+	'''
+	Esferas Fantasmagóricas disparam raios da morte em inimigos próximos
+	Uma visão do Abominationn luta ao seu lado
+	Seus ataques infligem Comedor de Deus e Fogo do Inferno
+	Você irrompe em um raio da morte gigante ao ser revivido 
+	20% de aumento na velocidade do uso de armas
+	'''

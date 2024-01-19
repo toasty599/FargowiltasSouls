@@ -72,10 +72,10 @@ namespace FargowiltasSouls.Common
             switch (context)
             {
                 case AccessorySlotType.FunctionalSlot:
-                    Main.hoverItemName = Language.GetTextValue("Mods.FargowiltasSouls.AccessorySlot.EModeSlotFunctional");
+                    Main.hoverItemName = Language.GetTextValue("Mods.FargowiltasSouls.Common.AccessorySlot.EModeSlotFunctional");
                     break;
                 case AccessorySlotType.VanitySlot:
-                    Main.hoverItemName = Language.GetTextValue("Mods.FargowiltasSouls.AccessorySlot.EModeSlotVanity");
+                    Main.hoverItemName = Language.GetTextValue("Mods.FargowiltasSouls.Common.AccessorySlot.EModeSlotVanity");
                     break;
             }
         }

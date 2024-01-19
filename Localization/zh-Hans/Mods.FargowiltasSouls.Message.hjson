@@ -1,0 +1,82 @@
+HasAwoken: 已苏醒！
+SquirrelCoatofArms: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}{$Mods.FargowiltasSouls.Message.HasAwoken}"
+DevisCurse: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}{$Mods.FargowiltasSouls.Message.HasAwoken}"
+AbomsCurse: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}{$Mods.FargowiltasSouls.Message.HasAwoken}"
+MutantsCurse: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}{$Mods.FargowiltasSouls.Message.HasAwoken}"
+AbominationnVoodooDoll: 突变体的兄弟死了，突变体被激怒了！
+AbominationnVoodooDollFail: 娃娃传送回了你的手中。也许不应该在地下使用它...
+
+SigilOfChampions: {
+	Timber: 林叶沙沙，环绕四周……
+	Terra: 磐石震动，四野颤抖……
+	Spirit: 瞿烁精神，振奋人心……
+	Life: 温温生命，透体而过……
+	Shadow: 黑夜之暗，愈深愈沉……
+	Nature: 葱茏之风，骤然吹起……
+	Will: 金铁呜咽，回荡深渊……
+	Earth: 星球之核，隆隆作响……
+	Cosmos: 群星连珠，命定此刻……
+	Nothing: 八方默然，万籁俱寂……看来没有英灵回应你的召唤……
+}
+
+MutantsFuryOn: 突变体被激怒了！
+MutantsFuryOff: 突变体冷静下来了。
+PiranhaPlantVoodooDollOn: 苦难开始了……
+PiranhaPlantVoodooDollOff: 苦难结束了……
+MasochistSpawnDevi: 戴薇安已苏醒！
+MasochistWrongDifficulty: 世界必须是专家模式或更高难度！
+MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist}随着新涌现的能量而波动……！"
+
+WorldUpdatingSystem: {
+	// EternityOn: Eternity Mode activated!
+	// EternityOff: Eternity Mode deactivated.
+	// EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
+	// MasochistOn: Master and Eternity combined: Masochist Mode activated!!
+	// MasochistOnZenith: Master and Zenith seed combined: Masochist Mode activated!!
+	// MasochistOff: Masochist Mode deactivated.
+	// BloodMoonCancel: The Blood Moon changed its mind and left...
+}
+
+MutantSkipP1: 突变体不想再伪装下去了……
+// MutantSpawnMutantBoss: "{$Mods.FargowiltasSouls.Message.MutantsCurse}"
+MutantSpawnNotSafe: 你以为你安全了？
+OceanicMaulLifeUp: +5最大生命值
+OceanicMaulLifeDown: -5最大生命值
+ItemStolen: 你有东西被偷了！
+Revived: 你复活了！
+NoMusic1: 未加载Fargo的音乐Mod（Fargo's Music Mod）！
+NoMusic2: 请加载Fargo的音乐Mod以获得完整的游戏体验！！
+// NoDLC1: We detected that you're playing Fargo's Souls Mod together with {0}.
+// NoDLC2: It's recommended to use the "Fargo's Souls DLC" mod for compatibility and content between these mods!
+// Wiki: Check out the official Fargo's Wiki at [c/3989FF:terrariamods.wiki.gg/wiki/Fargo's Mod]!
+
+DeviBribe: {
+	Line1: 等一下……
+	Line2: 你在朝我丢钱！
+	Line3: 嚯，你居然敢贿赂我，胆子可真大！
+	Accept1: 再说一次，这是一“大”笔钱……
+	Accept2: 但我大哥说不应该这么做！怎么办，怎么办……？
+	Accept3: 啊，什么鬼！不管了！但这是我们的小秘密，好吗？
+	Reject1: 如果你证明过你足够强，那我不会介意收下它们……但你根本没有！
+	Reject2: 这，拿着你的钱走。
+	Reject3: 让我们回到战斗中吧！
+}
+
+IvyVenomTransform: 你身上的常春藤毒素转变为了神经毒素！！
+LihzahrdBlessing: 丛林蜥蜴祭坛发出的光芒照耀在你身上！
+EternityItem: 永恒
+PatreonItem: >> 捐赠者物品 <<
+PatreonNameEffect: 你的特殊捐赠者效果已激活！
+SkeletronRegrow: "{$NPCName.SkeletronHead}的手臂又长出来了！"
+SkeletronPrimeRegrow: "{$NPCName.SkeletronPrime}的手臂又长出来了！"
+SkeletronGuardian: "{$NPCName.SkeletronHead}进入了地牢守卫阶段！"
+SkeletronPrimeGuardian: "{$NPCName.SkeletronPrime}进入了地牢守卫阶段！"
+TwinsEndure: "{0}挺住了致命攻击，它还能帮着它的兄弟打三百回合！"
+TwinsRevive: "{0}复活了！"
+GelatinSubjects: 圣凝史莱姆已苏醒！
+RoyalSubject: 皇家工蜂已苏醒！
+QueenBeeEnrage: "{$NPCName.QueenBee}在地下丛林之外变得异常愤怒！"
+MoonsDeathPenalty: 事件回溯，波数倒退！
+// FatherOfLies: It was a mistake to come here.
+// BaronSlurp: slurp
+MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] 使用以在大师模式下开启受虐模式"

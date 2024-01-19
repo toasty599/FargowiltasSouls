@@ -1,0 +1,82 @@
+HasAwoken: acordou!
+// SquirrelCoatofArms: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+// DevisCurse: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+// AbomsCurse: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+// MutantsCurse: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName} {$Mods.FargowiltasSouls.Message.HasAwoken}"
+AbominationnVoodooDoll: Mutant foi enfurecido pela morte de seu irmão!
+// AbominationnVoodooDollFail: The doll teleports back into your hands. Maybe it shouldn't be used underground...
+
+SigilOfChampions: {
+	Timber: Você é cercado pelo farfalhar das árvores...
+	Terra: As pedras tremem ao seu redor...
+	Spirit: Um espírito forte se agita...
+	Life: Uma onda de calor passa por você...
+	Shadow: A escuridão da noite parece mais profunda...
+	Nature: Um vento verde está soprando...
+	Will: Gritos metálicos ecoam das profundezas...
+	Earth: O núcleo do planeta ronca...
+	Cosmos: As estrelas estão se alinhando...
+	Nothing: Nada parece atender ao chamado...
+}
+
+MutantsFuryOn: Mutant está enfurecido!
+MutantsFuryOff: Mutant está calmo.
+PiranhaPlantVoodooDollOn: O sofrimento continua...
+PiranhaPlantVoodooDollOff: O sofrimento desvanece...
+MasochistSpawnDevi: Deviantt acordou!
+MasochistWrongDifficulty: O mundo deve ser de dificuldade Perito ou mais difícil!
+MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist} surge com novos poderes...!"
+
+WorldUpdatingSystem: {
+	// EternityOn: Eternity Mode activated!
+	// EternityOff: Eternity Mode deactivated.
+	// EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
+	// MasochistOn: Master and Eternity combined: Masochist Mode activated!!
+	// MasochistOnZenith: Master and Zenith seed combined: Masochist Mode activated!!
+	// MasochistOff: Masochist Mode deactivated.
+	// BloodMoonCancel: The Blood Moon changed its mind and left...
+}
+
+MutantSkipP1: Mutant se cansa da charada...
+// MutantSpawnMutantBoss: "{$Mods.FargowiltasSouls.Message.MutantsCurse}"
+MutantSpawnNotSafe: Você acha que está seguro?
+OceanicMaulLifeUp: +5 vida máxima
+OceanicMaulLifeDown: -5 vida máxima
+ItemStolen: Um item foi roubado de você!
+Revived: Você foi revivido!
+NoMusic1: Fargo's Music Mod não encontrado!
+NoMusic2: Instale Fargo's Music Mod para ter a experiência completa!!
+// NoDLC1: We detected that you're playing Fargo's Souls Mod together with {0}.
+// NoDLC2: It's recommended to use the "Fargo's Souls DLC" mod for compatibility and content between these mods!
+// Wiki: Check out the official Fargo's Wiki at [c/3989FF:terrariamods.wiki.gg/wiki/Fargo's Mod]!
+
+DeviBribe: {
+	Line1: Espere um segundo...
+	Line2: Você está jogando dinheiro em mim!
+	Line3: Tentar me subornar é algo muito corajoso, sabia?
+	Accept1: Pensando bem, isto é BASTANTE dinheiro...
+	Accept2: Mas meu irmãozão me disse pra não fazer isso! O que eu faço, o que eu faço...?
+	Accept3: Ah, quer saber? Mas isto é nosso segredinho, okay?
+	Reject1: Mostre que você é forte o suficiente e eu não vou me importar, mas nem um segundo antes!
+	Reject2: Aqui, você pode pegar isto de volta.
+	Reject3: Vamos colocar este show de volta na estrada!
+}
+
+IvyVenomTransform: A sua Peçonha de Hera se tornou Neurotoxina!!
+LihzahrdBlessing: A luz do altar brilha em você!
+EternityItem: Eternidade
+PatreonItem: >> Item do Patreon <<
+PatreonNameEffect: Seus efeitos especiais do patreon estão ativos
+SkeletronRegrow: "{$NPCName.SkeletronHead} renasceu seus braços!"
+SkeletronPrimeRegrow: "{$NPCName.SkeletronPrime} renasceu seus braços!"
+SkeletronGuardian: "{$NPCName.SkeletronHead} entrou na forma de Guardião do Calabouço!"
+SkeletronPrimeGuardian: "{$NPCName.SkeletronPrime} entrou na forma de Guardião do Calabouço!"
+TwinsEndure: "{0} aguentou o golpe fatal para lutar junto de seu gêmeo!"
+// TwinsRevive: "{0} has been revived!"
+GelatinSubjects: Sujeitos Gelatinosos acordaram!
+RoyalSubject: Sujeito Real acordou!
+QueenBeeEnrage: "{$NPCName.QueenBee} se enfureceu fora da Selva Subterrânea!"
+MoonsDeathPenalty: O progresso da onda regrediu!
+// FatherOfLies: It was a mistake to come here.
+// BaronSlurp: slurp
+MasochistExtraTooltip: "[i:FargowiltasSouls/MutantsPact] Ativa o Modo Masoquista quando usado no Modo Mestre"

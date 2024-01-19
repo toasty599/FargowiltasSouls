@@ -73,8 +73,8 @@ namespace FargowiltasSouls
                             // { "collectibles", collectibles }, // it's fetched from npc loot? TODO: refactor method calls below
                             { "availability", available },
                             { "despawnMessage", hasKilledAllMessage ? new Func<NPC, LocalizedText>(npc => 
-                                        AllPlayersAreDead() ? Language.GetText($"Mods.{Name}.BossChecklist.{bossName}KilledAll") : Language.GetText($"Mods.{Name}.BossChecklist.{bossName}Despawn")) :
-                                    Language.GetText($"Mods.{Name}.BossChecklist.{bossName}Despawn") },
+                                        AllPlayersAreDead() ? Language.GetText($"Mods.{Name}.NPCs.{bossName}.BossChecklistIntegration.KilledAllMessage") : Language.GetText($"Mods.{Name}.NPCs.{bossName}.BossChecklistIntegration.DespawnMessage")) :
+                                    Language.GetText($"Mods.{Name}.NPCs.{bossName}.BossChecklistIntegration.DespawnMessage") },
                             {
                                 "customPortrait",
                                 portrait == null ? null : new Action<SpriteBatch, Rectangle, Color>((spriteBatch, rect, color) =>
@@ -291,7 +291,7 @@ namespace FargowiltasSouls
                         ModContent.ItemType<DecrepitAirstrikeRemote>(),
                     },
                     new List<int> { ModContent.ItemType<MechLure>() },
-                    true
+                    false
                 );
                 
                 //Add("Boss",

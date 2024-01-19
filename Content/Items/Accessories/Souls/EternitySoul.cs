@@ -89,13 +89,13 @@ This stacks up to 950 times until you get hit"); */
             {
                 return;
             }
-            string text = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EternitySoul.Vanilla");
+            string text = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.Vanilla");
             string[] lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             const int linesToShow = 7;
             int section = lines.Length / linesToShow;
 
-            string description = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EternitySoul.Additional");
+            string description = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.Additional");
             ulong seed = Main.GameUpdateCount / 5;
             for (int i = 0; i < linesToShow; i++)
             {
