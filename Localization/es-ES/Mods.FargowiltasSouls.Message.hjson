@@ -10,12 +10,6 @@ WorldUpdatingSystem: {
 	// BloodMoonCancel: The Blood Moon changed its mind and left...
 }
 
-// MutantSkipP1: Mutant tires of the charade...
-// MutantSpawnMutantBoss: "{$Mods.FargowiltasSouls.Message.MutantsCurse}"
-// MutantSpawnNotSafe: You think you're safe?
-// OceanicMaulLifeUp: +5 max life
-// OceanicMaulLifeDown: -5 max life
-// ItemStolen: An item was stolen from you!
 // Revived: You've been revived!
 // NoMusic1: Fargo's Music Mod not found!
 // NoMusic2: Please install Fargo's Music Mod for the full experience!!
@@ -24,17 +18,5 @@ WorldUpdatingSystem: {
 // Wiki: Check out the official Fargo's Wiki at [c/3989FF:terrariamods.wiki.gg/wiki/Fargo's Mod]!
 // IvyVenomTransform: Your Ivy Venom has become Neurotoxin!!
 // LihzahrdBlessing: The altar's light shines on you!
-// EternityItem: Eternity
-// PatreonItem: >> Patreon Item <<
 // PatreonNameEffect: Your special patreon effects are active
-// SkeletronRegrow: "{$NPCName.SkeletronHead} has regrown its arms!"
-// SkeletronPrimeRegrow: "{$NPCName.SkeletronPrime} has regrown its arms!"
-// SkeletronGuardian: "{$NPCName.SkeletronHead} has entered Dungeon Guardian form!"
-// SkeletronPrimeGuardian: "{$NPCName.SkeletronPrime} has entered Dungeon Guardian form!"
-// TwinsEndure: "{0} endured the fatal blow to fight alongside its twin!"
-// TwinsRevive: "{0} has been revived!"
-// GelatinSubjects: Gelatin Subjects have awoken!
-// QueenBeeEnrage: "{$NPCName.QueenBee} has enraged outside the underground jungle!"
 // MoonsDeathPenalty: The wave progress has regressed!
-// FatherOfLies: It was a mistake to come here.
-// BaronSlurp: slurp

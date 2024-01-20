@@ -393,6 +393,7 @@ InfestedBuff: {
 IvyVenomBuff: {
 	// DisplayName: Ivy Venom
 	// Description: Losing life, will become Neurotoxin at 20 seconds
+	Transform: A sua Peçonha de Hera se tornou Neurotoxina!!
 }
 
 JammedBuff: {
@@ -413,6 +414,7 @@ LightningRodBuff: {
 LihzahrdBlessingBuff: {
 	// DisplayName: Lihzahrd Blessing
 	// Description: Wires enabled and reduced spawn rates in Jungle Temple
+	Message: A luz do altar brilha em você!
 }
 
 LihzahrdCurseBuff: {
@@ -473,6 +475,8 @@ NullificationCurseBuff: {
 OceanicMaulBuff: {
 	// DisplayName: Oceanic Maul
 	// Description: Defensive stats and max life are savaged
+	LifeUp: +5 vida máxima
+	LifeDown: -5 vida máxima
 }
 
 OceanicSealBuff: {

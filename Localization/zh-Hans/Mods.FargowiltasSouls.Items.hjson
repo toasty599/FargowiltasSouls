@@ -2631,6 +2631,7 @@ SpawnSack: {
 		召唤突变体的卵
 		“你以为你安全了？”
 		'''
+	NotSafe: 你以为你安全了？
 }
 
 HokeyBall: {
@@ -3613,4 +3614,8 @@ OncomingMutantItem: {
 Extra: {
 	// StarlightTungsten: Unaffected by Tungsten Enchantment
 	// DefensePrefixMaxLife: +{0} max life
+	EternityItem: 永恒
+	PatreonItem: >> 捐赠者物品 <<
+	// steal items: removed
+	ItemStolen: 你有东西被偷了！
 }

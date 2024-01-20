@@ -535,7 +535,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         if (CurrentLifeReduction < newLifeReduction)
                         {
                             CurrentLifeReduction = newLifeReduction;
-                            CombatText.NewText(Player.Hitbox, Color.DarkRed, Language.GetTextValue($"Mods.{Mod.Name}.Message.OceanicMaulLifeDown"));
+                            CombatText.NewText(Player.Hitbox, Color.DarkRed, Language.GetTextValue($"Mods.{Mod.Name}.Buffs.OceanicMaulBuff.LifeDown"));
                         }
                     }
                     else //after maul wears off, real max life gradually recovers to normal value
@@ -543,7 +543,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         CurrentLifeReduction -= 5;
                         if (MaxLifeReduction > CurrentLifeReduction)
                             MaxLifeReduction = CurrentLifeReduction;
-                        CombatText.NewText(Player.Hitbox, Color.DarkGreen, Language.GetTextValue($"Mods.{Mod.Name}.Message.OceanicMaulLifeUp"));
+                        CombatText.NewText(Player.Hitbox, Color.DarkGreen, Language.GetTextValue($"Mods.{Mod.Name}.Buffs.OceanicMaulBuff.LifeUp"));
                     }
                 }
             }

@@ -473,6 +473,8 @@ NullificationCurseBuff: {
 OceanicMaulBuff: {
 	// DisplayName: Oceanic Maul
 	// Description: Defensive stats and max life are savaged
+	// LifeUp: +5 max life
+	// LifeDown: -5 max life
 }
 
 OceanicSealBuff: {

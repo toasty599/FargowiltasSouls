@@ -153,6 +153,8 @@ MutantBoss: {
 		KilledAllMessage: 突变体肃清了他周围的每一个生灵。
 	}
 
+	SkipP1: 突变体不想再伪装下去了……
+
 	GFBText: {
 		// Random0: Hehehehehe...
 		// Random1: Do you enjoy this pain?
@@ -297,6 +299,8 @@ LifeChallenger: {
 		// SpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
 		// DespawnMessage: Lifelight fades away...
 	}
+
+	// FatherOfLies: It was a mistake to come here.
 }
 
 BanishedBaron: {
@@ -307,6 +311,8 @@ BanishedBaron: {
 		// SpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		// DespawnMessage: The Banished Baron dives deeper into the ocean...
 	}
+
+	// Slurp: slurp
 }
 
 // DetonatingBubbleNPC.DisplayName: Detonating Bubble
@@ -317,7 +323,7 @@ BanishedBaron: {
 // currently not exist in game
 // DukeFishronEX.DisplayName: Duke Fishron EX
 
-EternityMode: {
+EMode: {
 	Betsy1: 你怕了？
 	Betsy2: 乐不起来
 	Betsy3: 这就是Fargo开荒吗？
@@ -345,4 +351,10 @@ EternityMode: {
 	Betsy25: *本消息已被管理员删除*
 	Betsy26: <玩家{0}被踢出了世界>
 	Betsy27: <玩家{0}被禁言29天23小时59分钟>
+	RegrowArms: "{0}的手臂又长出来了！"
+	GuardianForm: "{0}进入了地牢守卫阶段！"
+	TwinsEndure: "{0}挺住了致命攻击，它还能帮着它的兄弟打三百回合！"
+	TwinsRevive: "{0}复活了！"
+	GelatinSubjects: 圣凝史莱姆已苏醒！
+	QueenBeeEnrage: "{$NPCName.QueenBee}在地下丛林之外变得异常愤怒！"
 }

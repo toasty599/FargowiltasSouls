@@ -97,7 +97,7 @@ Cannot be used while a boss is alive
                         }
                             
 
-                        FargoSoulsUtil.PrintText(Language.GetTextValue("Announcement.HasAwoken", Language.GetTextValue("Mods.Fargowiltas.NPCs.Deviantt.DisplayName")), new Color(175, 75, 255));
+                        FargoSoulsUtil.PrintLocalization("Announcement.HasAwoken", new Color(175, 75, 255), Language.GetTextValue("Mods.Fargowiltas.NPCs.Deviantt.DisplayName"));
                     }
 
                     SoundEngine.PlaySound(SoundID.Roar, player.Center);

@@ -10,31 +10,11 @@ WorldUpdatingSystem: {
 	// BloodMoonCancel: The Blood Moon changed its mind and left...
 }
 
-MutantSkipP1: 突变体不想再伪装下去了……
-// MutantSpawnMutantBoss: "{$Mods.FargowiltasSouls.Message.MutantsCurse}"
-MutantSpawnNotSafe: 你以为你安全了？
-OceanicMaulLifeUp: +5最大生命值
-OceanicMaulLifeDown: -5最大生命值
-ItemStolen: 你有东西被偷了！
 Revived: 你复活了！
 NoMusic1: 未加载Fargo的音乐Mod（Fargo's Music Mod）！
 NoMusic2: 请加载Fargo的音乐Mod以获得完整的游戏体验！！
 // NoDLC1: We detected that you're playing Fargo's Souls Mod together with {0}.
 // NoDLC2: It's recommended to use the "Fargo's Souls DLC" mod for compatibility and content between these mods!
 // Wiki: Check out the official Fargo's Wiki at [c/3989FF:terrariamods.wiki.gg/wiki/Fargo's Mod]!
-IvyVenomTransform: 你身上的常春藤毒素转变为了神经毒素！！
-LihzahrdBlessing: 丛林蜥蜴祭坛发出的光芒照耀在你身上！
-EternityItem: 永恒
-PatreonItem: >> 捐赠者物品 <<
 PatreonNameEffect: 你的特殊捐赠者效果已激活！
-SkeletronRegrow: "{$NPCName.SkeletronHead}的手臂又长出来了！"
-SkeletronPrimeRegrow: "{$NPCName.SkeletronPrime}的手臂又长出来了！"
-SkeletronGuardian: "{$NPCName.SkeletronHead}进入了地牢守卫阶段！"
-SkeletronPrimeGuardian: "{$NPCName.SkeletronPrime}进入了地牢守卫阶段！"
-TwinsEndure: "{0}挺住了致命攻击，它还能帮着它的兄弟打三百回合！"
-TwinsRevive: "{0}复活了！"
-GelatinSubjects: 圣凝史莱姆已苏醒！
-QueenBeeEnrage: "{$NPCName.QueenBee}在地下丛林之外变得异常愤怒！"
 MoonsDeathPenalty: 事件回溯，波数倒退！
-// FatherOfLies: It was a mistake to come here.
-// BaronSlurp: slurp

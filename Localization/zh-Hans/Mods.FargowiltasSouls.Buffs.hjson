@@ -393,6 +393,7 @@ InfestedBuff: {
 IvyVenomBuff: {
 	// DisplayName: Ivy Venom
 	// Description: Losing life, will become Neurotoxin at 20 seconds
+	Transform: 你身上的常春藤毒素转变为了神经毒素！！
 }
 
 JammedBuff: {
@@ -413,6 +414,7 @@ LightningRodBuff: {
 LihzahrdBlessingBuff: {
 	// DisplayName: Lihzahrd Blessing
 	// Description: Wires enabled and reduced spawn rates in Jungle Temple
+	Message: 丛林蜥蜴祭坛发出的光芒照耀在你身上！
 }
 
 LihzahrdCurseBuff: {
@@ -473,6 +475,8 @@ NullificationCurseBuff: {
 OceanicMaulBuff: {
 	// DisplayName: Oceanic Maul
 	// Description: Defensive stats and max life are savaged
+	LifeUp: +5最大生命值
+	LifeDown: -5最大生命值
 }
 
 OceanicSealBuff: {

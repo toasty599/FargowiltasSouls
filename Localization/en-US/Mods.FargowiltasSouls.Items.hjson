@@ -2657,6 +2657,7 @@ SpawnSack: {
 		Summons the spawn of Mutant
 		'You think you're safe?'
 		'''
+	NotSafe: You think you're safe?
 }
 
 HokeyBall: {
@@ -3646,4 +3647,8 @@ OncomingMutantItem: {
 Extra: {
 	StarlightTungsten: Unaffected by Tungsten Enchantment
 	DefensePrefixMaxLife: +{0} max life
+	EternityItem: Eternity
+	PatreonItem: >> Patreon Item <<
+	// steal items: removed
+	ItemStolen: An item was stolen from you!
 }

@@ -153,6 +153,8 @@ MutantBoss: {
 		KilledAllMessage: Mutant has eviscerated everyone under its hands.
 	}
 
+	SkipP1: Mutant tires of the charade...
+
 	GFBText: {
 		Random0: Hehehehehe...
 		Random1: Do you enjoy this pain?
@@ -297,6 +299,8 @@ LifeChallenger: {
 		SpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
 		DespawnMessage: Lifelight fades away...
 	}
+
+	FatherOfLies: It was a mistake to come here.
 }
 
 BanishedBaron: {
@@ -307,6 +311,8 @@ BanishedBaron: {
 		SpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
 		DespawnMessage: The Banished Baron dives deeper into the ocean...
 	}
+
+	Slurp: slurp
 }
 
 DetonatingBubbleNPC.DisplayName: Detonating Bubble
@@ -317,7 +323,7 @@ Magmaw.DisplayName: Magmaw
 // currently not exist in game
 DukeFishronEX.DisplayName: Duke Fishron EX
 
-EternityMode: {
+EMode: {
 	Betsy1: CRINGE
 	Betsy2: NOT POGGERS
 	Betsy3: MONKAS
@@ -345,4 +351,10 @@ EternityMode: {
 	Betsy25: <Message was deleted by staff>
 	Betsy26: <User {0} was banned>
 	Betsy27: <User {0} was muted>
+	RegrowArms: "{0} has regrown its arms!"
+	GuardianForm: "{0} has entered Dungeon Guardian form!"
+	TwinsEndure: "{0} endured the fatal blow to fight alongside its twin!"
+	TwinsRevive: "{0} has been revived!"
+	GelatinSubjects: Gelatin Subjects have awoken!
+	QueenBeeEnrage: "{$NPCName.QueenBee} has enraged outside the underground jungle!"
 }

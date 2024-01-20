@@ -90,7 +90,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 if (++EnrageFactor == 300)
                 {
-                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.QueenBeeEnrage", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.QueenBeeEnrage", new Color(175, 75, 255));
                 }
 
                 if (EnrageFactor > 300)
@@ -117,7 +117,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (n != Main.maxNPCs)
                     Main.npc[n].localAI[0] = 60f;
 
-                FargoSoulsUtil.PrintText(Language.GetTextValue("Announcement.HasAwoken", Language.GetTextValue($"Mods.{Mod.Name}.NPCs.RoyalSubject.DisplayName")), new Color(175, 75, 255));
+                FargoSoulsUtil.PrintLocalization("Announcement.HasAwoken", new Color(175, 75, 255), Language.GetTextValue($"Mods.{Mod.Name}.NPCs.RoyalSubject.DisplayName"));
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -137,7 +137,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (n != Main.maxNPCs)
                     Main.npc[n].localAI[0] = 60f;
 
-                FargoSoulsUtil.PrintText(Language.GetTextValue("Announcement.HasAwoken", Language.GetTextValue($"Mods.{Mod.Name}.NPCs.RoyalSubject.DisplayName")), new Color(175, 75, 255));
+                FargoSoulsUtil.PrintLocalization("Announcement.HasAwoken", new Color(175, 75, 255), Language.GetTextValue($"Mods.{Mod.Name}.NPCs.RoyalSubject.DisplayName"));
 
                 NPC.SpawnOnPlayer(npc.target, ModContent.NPCType<RoyalSubject>()); //so that both dont stack for being spawned from qb
 

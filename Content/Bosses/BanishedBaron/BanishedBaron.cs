@@ -751,7 +751,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (tile.LiquidType == LiquidID.Water)
                     {
                         tile.LiquidAmount = 0;
-                        CombatText.NewText(NPC.Hitbox, Color.Blue, Language.GetTextValue("Mods.FargowiltasSouls.Message.BaronSlurp"));
+                        CombatText.NewText(NPC.Hitbox, Color.Blue, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.BanishedBaron.Slurp"));
                         if (Main.netMode == NetmodeID.Server)
                         {
                             NetMessage.sendWater(x, y);

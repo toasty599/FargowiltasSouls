@@ -600,7 +600,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             {
                 if (UseTrueOriginAI)
                 {
-                    string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.FatherOfLies");
+                    string text = Language.GetTextValue($"Mods.{Mod.Name}.NPCs.LifeChallenger.FatherOfLies");
                     Color color = Color.Goldenrod;
                     FargoSoulsUtil.PrintText(text, color);
                     CombatText.NewText(Player.Hitbox, color, text, true);

@@ -393,6 +393,7 @@ InfestedBuff: {
 IvyVenomBuff: {
 	DisplayName: Ivy Venom
 	Description: Losing life, will become Neurotoxin at 20 seconds
+	Transform: Your Ivy Venom has become Neurotoxin!!
 }
 
 JammedBuff: {
@@ -413,6 +414,7 @@ LightningRodBuff: {
 LihzahrdBlessingBuff: {
 	DisplayName: Lihzahrd Blessing
 	Description: Wires enabled and reduced spawn rates in Jungle Temple
+	Message: The altar's light shines on you!
 }
 
 LihzahrdCurseBuff: {
@@ -473,6 +475,8 @@ NullificationCurseBuff: {
 OceanicMaulBuff: {
 	DisplayName: Oceanic Maul
 	Description: Defensive stats and max life are savaged
+	LifeUp: +5 max life
+	LifeDown: -5 max life
 }
 
 OceanicSealBuff: {

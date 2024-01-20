@@ -10,31 +10,11 @@ WorldUpdatingSystem: {
 	// BloodMoonCancel: The Blood Moon changed its mind and left...
 }
 
-MutantSkipP1: Mutant se cansa da charada...
-// MutantSpawnMutantBoss: "{$Mods.FargowiltasSouls.Message.MutantsCurse}"
-MutantSpawnNotSafe: Você acha que está seguro?
-OceanicMaulLifeUp: +5 vida máxima
-OceanicMaulLifeDown: -5 vida máxima
-ItemStolen: Um item foi roubado de você!
 Revived: Você foi revivido!
 NoMusic1: Fargo's Music Mod não encontrado!
 NoMusic2: Instale Fargo's Music Mod para ter a experiência completa!!
 // NoDLC1: We detected that you're playing Fargo's Souls Mod together with {0}.
 // NoDLC2: It's recommended to use the "Fargo's Souls DLC" mod for compatibility and content between these mods!
 // Wiki: Check out the official Fargo's Wiki at [c/3989FF:terrariamods.wiki.gg/wiki/Fargo's Mod]!
-IvyVenomTransform: A sua Peçonha de Hera se tornou Neurotoxina!!
-LihzahrdBlessing: A luz do altar brilha em você!
-EternityItem: Eternidade
-PatreonItem: >> Item do Patreon <<
 PatreonNameEffect: Seus efeitos especiais do patreon estão ativos
-SkeletronRegrow: "{$NPCName.SkeletronHead} renasceu seus braços!"
-SkeletronPrimeRegrow: "{$NPCName.SkeletronPrime} renasceu seus braços!"
-SkeletronGuardian: "{$NPCName.SkeletronHead} entrou na forma de Guardião do Calabouço!"
-SkeletronPrimeGuardian: "{$NPCName.SkeletronPrime} entrou na forma de Guardião do Calabouço!"
-TwinsEndure: "{0} aguentou o golpe fatal para lutar junto de seu gêmeo!"
-// TwinsRevive: "{0} has been revived!"
-GelatinSubjects: Sujeitos Gelatinosos acordaram!
-QueenBeeEnrage: "{$NPCName.QueenBee} se enfureceu fora da Selva Subterrânea!"
 MoonsDeathPenalty: O progresso da onda regrediu!
-// FatherOfLies: It was a mistake to come here.
-// BaronSlurp: slurp
