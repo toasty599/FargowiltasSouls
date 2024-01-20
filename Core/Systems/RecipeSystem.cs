@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Core.Systems
             if (!player.HasEffect<IronEffect>())
                 return;
 
-            if (!modPlayer.IronUsedList.Contains(type))
+            if (!WorldSavingSystem.IronUsedList.Contains(type))
             {
                 int chance = 3;
 
@@ -31,7 +31,7 @@ namespace FargowiltasSouls.Core.Systems
                     chance = 2;
                 }
 
-                modPlayer.IronUsedList.Add(type);
+                WorldSavingSystem.IronUsedList.Add(type);
                 
                 int amountUsed = 0;
                 for (int i = 0; i < amount; i++)

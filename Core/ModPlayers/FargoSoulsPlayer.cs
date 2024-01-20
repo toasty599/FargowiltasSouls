@@ -59,7 +59,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
-        public List<int> IronUsedList = new();
 
         public bool IsStillHoldingInSameDirectionAsMovement
             => (Player.velocity.X > 0 && Player.controlRight)
@@ -82,15 +81,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (DeerSinew) playerData.Add("DeerSinew");
             if (HasClickedWrench) playerData.Add("HasClickedWrench");
             
-            if (IronUsedList.Count > 0)
-            {
-                string ironData = "IronUsedList";
-                foreach (int type in IronUsedList)
-                {
-                    ironData += $"_{type}";
-                }
-                playerData.Add(ironData);
-            }
 
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
@@ -118,18 +108,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             DeerSinew = playerData.Contains("DeerSinew");
             HasClickedWrench = playerData.Contains("HasClickedWrench");
 
-            if (playerData.Contains("IronUsedList_"))
-            {
-                string ironData = playerData.First(i => i.Contains("IronUsedList"));
-                string[] ironEntries = ironData.Split("_");
-                foreach (string entry in ironEntries)
-                {
-                    if (entry != "IronUsedList")
-                    {
-                        IronUsedList.Add(int.Parse(entry));
-                    }
-                }
-            }
             List<string> disabledToggleNames = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
             disabledToggles = ToggleLoader.LoadedToggles.Keys.Where(x => disabledToggleNames.Contains(x.Name)).ToList();
         }

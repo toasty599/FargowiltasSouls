@@ -4,6 +4,7 @@ using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
     public class PrimeSoul : SoulsItem
     {
-        public override bool IsLoadingEnabled(Mod mod) => false;
+        public override bool IsLoadingEnabled(Mod mod) => true;
         public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";
         public override void SetStaticDefaults()
         {
@@ -37,6 +38,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (player.AddEffect<PrimeSoulEffect>(Item))
                 modPlayer.PrimeSoulActive = modPlayer.PrimeSoulActiveBuffer = true;
+            string e = "";
+            foreach (int b in WorldSavingSystem.IronUsedList)
+            {
+                e += b + " ";
+            }
+            Main.NewText(e);
         }
 
         public override void UpdateInventory(Player player) => PrimeSoulEffect(player);

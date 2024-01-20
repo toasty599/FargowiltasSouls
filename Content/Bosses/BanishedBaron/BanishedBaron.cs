@@ -35,8 +35,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         Player player => Main.player[NPC.target];
         //TODO: re-enable boss checklist compat, localizationhelper addSpawnInfo
 
-        SoundStyle BaronRoar = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronRoar");
-        SoundStyle BaronYell = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronYell");
+        public SoundStyle BaronRoar = new("FargowiltasSouls/Assets/Sounds/BaronRoar");
+        public SoundStyle BaronYell = new("FargowiltasSouls/Assets/Sounds/BaronYell");
 
         #region Variables
         public enum StateEnum //ALL states

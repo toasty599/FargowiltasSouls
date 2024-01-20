@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -88,6 +90,8 @@ namespace FargowiltasSouls.Core.Systems
         public static bool SwarmActive { get => swarmActive; set => swarmActive = value; }
 
         public static bool PlacedMutantStatue;
+
+        public static List<int> IronUsedList = new();
 
         public override void Unload() => DownedBoss = null;
 
@@ -177,6 +181,23 @@ namespace FargowiltasSouls.Core.Systems
             if (PlacedMutantStatue)
                 downed.Add("PlacedMutantStatue");
 
+            if (IronUsedList.Count > 0)
+            {
+                string ironData = "IronUsedList";
+                foreach (int type in IronUsedList)
+                {
+                    if (type >= ItemID.Count) // modded item, variable type, add name instead
+                    {
+                        ironData += $"_{ItemLoader.GetItem(type).FullName}";
+                    }
+                    else // vanilla item
+                    {
+                        ironData += $"_{type}";
+                    }
+                }
+                downed.Add(ironData);
+            }
+
             for (int i = 0; i < DownedBoss.Length; i++)
             {
                 if (DownedBoss[i])
@@ -207,6 +228,28 @@ namespace FargowiltasSouls.Core.Systems
             DownedAnyBoss = downed.Contains("downedAnyBoss");
             WOFDroppedDeviGift2 = downed.Contains("WOFDroppedDeviGift2");
             PlacedMutantStatue = downed.Contains("PlacedMutantStatue");
+
+            if (downed.Contains("IronUsedList_"))
+            {
+                string ironData = downed.First(i => i.Contains("IronUsedList"));
+                string[] ironEntries = ironData.Split("_");
+                foreach (string entry in ironEntries)
+                {
+                    if (entry != "IronUsedList")
+                    {
+                        if (int.TryParse(entry, out int type))
+                        {
+                            IronUsedList.Add(type);
+                        }
+                        else
+                        {
+                            ModItem item = ModContent.Find<ModItem>(entry);
+                            IronUsedList.Add(item.Type);
+                        }
+                        
+                    }
+                }
+            }
 
             for (int i = 0; i < DownedBoss.Length; i++)
                 DownedBoss[i] = downed.Contains($"downedBoss{i}") || downed.Contains($"downedChampion{i}");
