@@ -6041,6 +6041,11 @@ Mods: {
 			// PungentEyeballMinion.DisplayName: Pungent Eyeball Minion
 			// MinosPrime.DisplayName: Minos Prime
 			// RainLightning.DisplayName: Rain Lightning
+			// PlanteraThornChakram.DisplayName: Plantera Thorn Chakram
+			// PlanteraRitual.DisplayName: Plantera Ritual
+			// PlanteraManEater.DisplayName: Plantera Man Eater
+			// PlanteraSnatcher.DisplayName: Plantera Snatcher
+			// PlanteraTrapper.DisplayName: Plantera Trapper
 		}
 
 		// MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"

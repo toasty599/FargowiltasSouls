@@ -17,14 +17,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.SkyAndRa
             base.OnFirstTick(npc);
 
 
-            if (Main.rand.NextBool(4) && npc.FargoSouls().CanHordeSplit)
+            if (Main.rand.NextBool(4) && npc.FargoSouls().CanHordeSplit && WorldSavingSystem.DownedAnyBoss)
                 EModeGlobalNPC.Horde(npc, Main.rand.Next(1, 5));
 
         }
         public override bool SafePreAI(NPC npc)
         {
-            if (!WorldSavingSystem.DownedAnyBoss) // no shooting preboss
-                AttackTimer = 0;
             return base.SafePreAI(npc);
         }
     }
