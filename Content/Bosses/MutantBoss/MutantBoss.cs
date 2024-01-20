@@ -857,7 +857,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
         const int ObnoxiousQuoteCount = 71;
-        const string GFBLocPath = $"Mods.FargowiltasSouls.MutantGFB.";
+        const string GFBLocPath = $"Mods.FargowiltasSouls.NPCs.MutantBoss.GFBText.";
         private string RandomObnoxiousQuote() => Language.GetTextValue($"{GFBLocPath}Random{Main.rand.Next(ObnoxiousQuoteCount)}"); 
         private string GFBQuote(int num) => Language.GetTextValue($"{GFBLocPath}Quote{num}");
 

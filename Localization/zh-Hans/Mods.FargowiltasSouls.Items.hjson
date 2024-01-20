@@ -641,6 +641,8 @@ TinEnchant: {
 		被击中会使暴击率恢复为5%
 		“暴击回归”
 		'''
+	CritUp: +5%暴击率
+	CritReset: -{0}%暴击率
 }
 
 TitaniumEnchant: {
@@ -2475,6 +2477,8 @@ GalacticReformer: {
 MutantsFury: {
 	DisplayName: 突变之狂怒
 	Tooltip: “真 正 激怒突变体...也许并不”
+	On: 突变体被激怒了！
+	Off: 突变体冷静下来了。
 }
 
 TopHatSquirrelCaught: {
@@ -2759,6 +2763,9 @@ AbominationnVoodooDoll: {
 		召唤憎恶到你的城镇
 		“你可真是个坏东西”
 		'''
+	// the custom spawn message is unused
+	Summon: 突变体的兄弟死了，突变体被激怒了！
+	Fail: 娃娃传送回了你的手中。也许不应该在地下使用它...
 }
 
 AbomsCurse: {
@@ -2794,6 +2801,19 @@ SigilOfChampions: {
 		右键使用以查看可能召唤出的英灵
 		不消耗
 		'''
+
+	Message: {
+		Timber: 林叶沙沙，环绕四周……
+		Terra: 磐石震动，四野颤抖……
+		Spirit: 瞿烁精神，振奋人心……
+		Life: 温温生命，透体而过……
+		Shadow: 黑夜之暗，愈深愈沉……
+		Nature: 葱茏之风，骤然吹起……
+		Will: 金铁呜咽，回荡深渊……
+		Earth: 星球之核，隆隆作响……
+		Cosmos: 群星连珠，命定此刻……
+		Nothing: 八方默然，万籁俱寂……看来没有英灵回应你的召唤……
+	}
 }
 
 SquirrelCoatofArms: {
@@ -3164,6 +3184,8 @@ Masochist: {
 		[i:1612][c/00ff00:推荐与Fargo突变模组的减益显示一起使用（在config里打开）]
 		[c/ff0000:不被预期可以和其他内容型模组以及其他模组难度一起使用！！！]
 		'''
+	WrongDifficulty: 世界必须是专家模式或更高难度！
+	ExtraTooltip: "[i:FargowiltasSouls/MutantsPact] 使用以在大师模式下开启受虐模式"
 }
 
 MasochistReal: {
@@ -3237,9 +3259,11 @@ PiranhaPlantVoodooDoll: {
 	DisplayName: 食人花巫毒娃娃
 	Tooltip:
 		'''
-		开关使所有敌怪可以造成随机减益
+		开关使所有敌怪可以造成随机减益的效果
 		“在受虐EX的爱之回忆中，我一直讨厌你。”
 		'''
+	On: 苦难开始了……
+	Off: 苦难结束了……
 }
 
 FigBranch: {
@@ -3583,4 +3607,9 @@ PrimeSoul: {
 OncomingMutantItem: {
 	// DisplayName: Oncoming Mutant Icon
 	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant's Presence
+}
+
+Extra: {
+	// StarlightTungsten: Unaffected by Tungsten Enchantment
+	// DefensePrefixMaxLife: +{0} max life
 }

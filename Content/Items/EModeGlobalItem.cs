@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Items
                             tooltip.Text = new string(text.ToArray());
                         }
                         
-                        tooltip.Text += "\n" + Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.DefensePrefixMaxLife", life);
+                        tooltip.Text += "\n" + Language.GetTextValue("Mods.FargowiltasSouls.Items.Extra.DefensePrefixMaxLife", life);
                     }
                 }
             }

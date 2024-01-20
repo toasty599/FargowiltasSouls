@@ -42,7 +42,7 @@ Cannot be used while a boss is alive
 
             if (CanPlayMaso)
             {
-                TooltipLine line = new(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Message.{Name}ExtraTooltip"));
+                TooltipLine line = new(Mod, "tooltip", Language.GetTextValue($"Mods.{Mod.Name}.Items.{Name}.ExtraTooltip"));
                 tooltips.Add(line);
             }
         }
@@ -97,7 +97,7 @@ Cannot be used while a boss is alive
                         }
                             
 
-                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}SpawnDevi", new Color(175, 75, 255));
+                        FargoSoulsUtil.PrintText(Language.GetTextValue("Announcement.HasAwoken", Language.GetTextValue("Mods.Fargowiltas.NPCs.Deviantt.DisplayName")), new Color(175, 75, 255));
                     }
 
                     SoundEngine.PlaySound(SoundID.Roar, player.Center);
@@ -108,7 +108,7 @@ Cannot be used while a boss is alive
             }
             else
             {
-                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}WrongDifficulty", new Color(175, 75, 255));
+                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Items.{Name}.WrongDifficulty", new Color(175, 75, 255));
             }
             return true;
         }

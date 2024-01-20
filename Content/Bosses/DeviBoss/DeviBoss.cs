@@ -1885,36 +1885,36 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                         }
                         else if (NPC.ai[1] == 60)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Line1"));
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Line1"));
                         }
                         else if (NPC.ai[1] == 150)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Line2"), true);
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Line2"), true);
                         }
                         else if (NPC.ai[1] == 300)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Line3"), true);
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Line3"), true);
                         }
                         else if (NPC.ai[1] == 450)
                         {
                             if (WorldSavingSystem.DownedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept1"));
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Accept1"));
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Reject1"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Reject1"), true);
                             }
                         }
                         else if (NPC.ai[1] == 600)
                         {
                             if (WorldSavingSystem.DownedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept2"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Accept2"), true);
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Reject2"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Reject2"), true);
 
                                 SoundEngine.PlaySound(SoundID.Item28, player.Center);
                                 Vector2 spawnPos = NPC.Center + Vector2.UnitX * NPC.width * 2 * (player.Center.X < NPC.Center.X ? -1 : 1);
@@ -1938,11 +1938,11 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                         {
                             if (WorldSavingSystem.DownedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept3"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Accept3"), true);
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Reject3"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Reject3"), true);
                             }
                         }
 

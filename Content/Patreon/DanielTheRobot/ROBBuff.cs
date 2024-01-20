@@ -28,11 +28,11 @@ namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
         {
             if (Main.LocalPlayer.name.Contains("Daniel"))
             {
-                tip = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.ROBPatreon");
+                tip = Language.GetTextValue("Mods.FargowiltasSouls.Buffs.ROBBuff.DescPatreon");
             }
             else
             {
-                tip = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.ROBNonPatreon");
+                tip = Language.GetTextValue("Mods.FargowiltasSouls.Buffs.ROBBuff.DescNonPatreon");
             }
         }
     }

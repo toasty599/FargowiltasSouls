@@ -661,6 +661,8 @@ TinEnchant: {
 		Getting hit resets your crit to 5%
 		'Return of the Crit'
 		'''
+	CritUp: +5% crit
+	CritReset: -{0}% crit
 }
 
 TitaniumEnchant: {
@@ -2501,6 +2503,8 @@ GalacticReformer: {
 MutantsFury: {
 	DisplayName: Mutant's Fury
 	Tooltip: "'REALLY enrages Mutant... or doesn't'"
+	On: Mutant is angered!
+	Off: Mutant is calm.
 }
 
 TopHatSquirrelCaught: {
@@ -2785,6 +2789,9 @@ AbominationnVoodooDoll: {
 		Summons Abominationn to your town
 		'You are a terrible person'
 		'''
+	// the custom spawn message is unused
+	Summon: Mutant has been enraged by the death of his brother!
+	Fail: The doll teleports back into your hands. Maybe it shouldn't be used underground...
 }
 
 AbomsCurse: {
@@ -2820,6 +2827,19 @@ SigilOfChampions: {
 		Right click to check for possible summons
 		Not consumed on use
 		'''
+
+	Message: {
+		Timber: You are surrounded by the rustling of trees...
+		Terra: The stones tremble around you...
+		Spirit: A strong spirit stirs...
+		Life: A wave of warmth passes over you...
+		Shadow: The darkness of the night feels deeper...
+		Nature: A verdant wind is blowing...
+		Will: Metallic groans echo from the depths...
+		Earth: The core of the planet rumbles...
+		Cosmos: The stars are aligning...
+		Nothing: Nothing seems to answer the call...
+	}
 }
 
 SquirrelCoatofArms: {
@@ -3197,6 +3217,8 @@ Masochist: {
 		[i:1612][c/00ff00:Recommended to use Fargo's Mutant Mod Debuff Display (in config)]
 		[c/ff0000:NOT INTENDED FOR USE WITH OTHER CONTENT MODS OR MODDED DIFFICULTIES]
 		'''
+	WrongDifficulty: World must be Expert difficulty or harder!
+	ExtraTooltip: "[i:FargowiltasSouls/MutantsPact] Enables Masochist Mode when used in Master Mode"
 }
 
 MasochistReal: {
@@ -3273,6 +3295,8 @@ PiranhaPlantVoodooDoll: {
 		Toggle that will grant all enemies the ability to...
 		'In loving memory of Masochist mode EX. I always hated you.'
 		'''
+	On: The suffering continues...
+	Off: The suffering wanes...
 }
 
 FigBranch: {
@@ -3616,4 +3640,9 @@ PrimeSoul: {
 OncomingMutantItem: {
 	DisplayName: Oncoming Mutant Icon
 	Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant's Presence
+}
+
+Extra: {
+	StarlightTungsten: Unaffected by Tungsten Enchantment
+	DefensePrefixMaxLife: +{0} max life
 }

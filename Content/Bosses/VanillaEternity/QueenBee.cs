@@ -16,6 +16,7 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Content.Bosses.Champions.Will;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -116,7 +117,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (n != Main.maxNPCs)
                     Main.npc[n].localAI[0] = 60f;
 
-                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.RoyalSubject", new Color(175, 75, 255));
+                FargoSoulsUtil.PrintText(Language.GetTextValue("Announcement.HasAwoken", Language.GetTextValue($"Mods.{Mod.Name}.NPCs.RoyalSubject.DisplayName")), new Color(175, 75, 255));
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -136,7 +137,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (n != Main.maxNPCs)
                     Main.npc[n].localAI[0] = 60f;
 
-                FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.RoyalSubject", new Color(175, 75, 255));
+                FargoSoulsUtil.PrintText(Language.GetTextValue("Announcement.HasAwoken", Language.GetTextValue($"Mods.{Mod.Name}.NPCs.RoyalSubject.DisplayName")), new Color(175, 75, 255));
 
                 NPC.SpawnOnPlayer(npc.target, ModContent.NPCType<RoyalSubject>()); //so that both dont stack for being spawned from qb
 

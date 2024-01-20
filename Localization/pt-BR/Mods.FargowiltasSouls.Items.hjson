@@ -653,6 +653,8 @@ TinEnchant: {
 		Ser atingido redefine seu crítico para 5%
 		'Retorno do Crítico'
 		'''
+	CritUp: +5% crítico
+	CritReset: -{0}% crítico
 }
 
 TitaniumEnchant: {
@@ -2495,6 +2497,8 @@ GalacticReformer: {
 MutantsFury: {
 	DisplayName: Fúria do Mutant
 	Tooltip: "'REALMENTE enfurece o Mutant... ou não'"
+	On: Mutant está enfurecido!
+	Off: Mutant está calmo.
 }
 
 TopHatSquirrelCaught: {
@@ -2779,6 +2783,9 @@ AbominationnVoodooDoll: {
 		Invoca o Abominationn para a sua cidade
 		'Você é uma pessoa muito má.'
 		'''
+	// the custom spawn message is unused
+	Summon: Mutant foi enfurecido pela morte de seu irmão!
+	// Fail: The doll teleports back into your hands. Maybe it shouldn't be used underground...
 }
 
 AbomsCurse: {
@@ -2810,6 +2817,19 @@ SigilOfChampions: {
 		Clique com o botão direito para verificar possíveis invocações
 		Não é consumido ao utilizar
 		'''
+
+	Message: {
+		Timber: Você é cercado pelo farfalhar das árvores...
+		Terra: As pedras tremem ao seu redor...
+		Spirit: Um espírito forte se agita...
+		Life: Uma onda de calor passa por você...
+		Shadow: A escuridão da noite parece mais profunda...
+		Nature: Um vento verde está soprando...
+		Will: Gritos metálicos ecoam das profundezas...
+		Earth: O núcleo do planeta ronca...
+		Cosmos: As estrelas estão se alinhando...
+		Nothing: Nada parece atender ao chamado...
+	}
 }
 
 SquirrelCoatofArms: {
@@ -3181,6 +3201,8 @@ Masochist: {
 		[i:1612][c/00ff00:É recomendado o uso da Exibição de Efeitos Negativos do Fargo's Mutant Mod (nas configurações)]
 		[c/ff0000:NÃO FOI FEITO PARA SER USADO COM OUTROS MODS DE CONTEÚDO OU DIFICULDADES DE OUTROS MODS]
 		'''
+	WrongDifficulty: O mundo deve ser de dificuldade Perito ou mais difícil!
+	ExtraTooltip: "[i:FargowiltasSouls/MutantsPact] Ativa o Modo Masoquista quando usado no Modo Mestre"
 }
 
 MasochistReal: {
@@ -3257,6 +3279,8 @@ PiranhaPlantVoodooDoll: {
 		Alternação que concederá a todos os inimigos a capacidade de infligir efeitos negativos
 		'Em memória amorosa do Modo Masoquista X. Eu sempre te odiei.'
 		'''
+	On: O sofrimento continua...
+	Off: O sofrimento desvanece...
 }
 
 FigBranch: {
@@ -3600,4 +3624,9 @@ PrimeSoul: {
 OncomingMutantItem: {
 	// DisplayName: Oncoming Mutant Icon
 	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant's Presence
+}
+
+Extra: {
+	// StarlightTungsten: Unaffected by Tungsten Enchantment
+	// DefensePrefixMaxLife: +{0} max life
 }

@@ -8,6 +8,7 @@ MasochistEnabled: Modo Masoquista está ativado
 // SomeEffectsPreset: Some effects preset
 // MinimalEffectsPreset: Minimal effects preset
 // CustomPreset: Custom preset {0} (right click to save)
+// Reload button is currently removed
 // ReloadToggles: Reload Toggles (right click to reset)
 // DisplayAll: Display All
 // DisplayEquipped: Display Equipped

@@ -73,7 +73,7 @@ Not consumed on use"); */
         private void PrintChampMessage(string key)
         {
             //using the raw name SigilOfChampions here because ChampionySigil runs this code too, can't use "Name"
-            Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.SigilOfChampions.{key}"), new Color(175, 75, 255));
+            Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Items.SigilOfChampions.Message.{key}"), new Color(175, 75, 255));
         }
 
         public override bool? UseItem(Player player)

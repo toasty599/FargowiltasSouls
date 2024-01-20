@@ -802,8 +802,10 @@ GladiatorBuff: {
 }
 
 ROBBuff: {
-	// Description: ""
 	// DisplayName: R.O.B
+	// DescPatreon: The friend you've never left since Brawl
+	// DescNonPatreon: He's finally a top tier!
+	// Description: Mods.FargowiltasSouls.Buffs.ROBBuff.Description
 }
 
 RainCDBuff: {

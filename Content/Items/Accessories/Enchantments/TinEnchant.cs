@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 if (modPlayer.TinCrit > modPlayer.TinCritMax)
                     modPlayer.TinCrit = modPlayer.TinCritMax;
                 else
-                    CombatText.NewText(modPlayer.Player.Hitbox, Color.Yellow, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.TinCritUp"));
+                    CombatText.NewText(modPlayer.Player.Hitbox, Color.Yellow, Language.GetTextValue("Mods.FargowiltasSouls.Items.TinEnchant.CritUp"));
 
 
                 void TryHeal(int healDenominator, int healCooldown)
@@ -155,7 +155,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             double diff = Math.Round(oldCrit - modPlayer.TinCrit, 1);
             if (diff > 0)
-                CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.TinCritReset", diff), true);
+                CombatText.NewText(modPlayer.Player.Hitbox, Color.OrangeRed, Language.GetTextValue("Mods.FargowiltasSouls.Items.TinEnchant.CritReset", diff), true);
         }
         public override void PostUpdateMiscEffects(Player player)
         {

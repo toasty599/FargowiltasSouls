@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Items.Misc
         public override bool? UseItem(Player player)
         {
             WorldSavingSystem.AngryMutant = !WorldSavingSystem.AngryMutant;
-            string text = WorldSavingSystem.AngryMutant ? $"Mods.{Mod.Name}.Message.{Name}On" : $"Mods.{Mod.Name}.Message.{Name}Off";
+            string text = WorldSavingSystem.AngryMutant ? $"Mods.{Mod.Name}.Items.{Name}.On" : $"Mods.{Mod.Name}.Items.{Name}.Off";
             FargoSoulsUtil.PrintLocalization(text, 175, 75, 255);
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
