@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 ModContent.BuffType<LightningRodBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = false,
                 Position = new Vector2(8, 16),
@@ -321,6 +321,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                     NPC.rotation = 0;
                     NPC.velocity *= 0.9f;
+
+                    player.wingTime = player.wingTimeMax;
 
                     if (NPC.ai[1] == 0)
                     {
@@ -1820,7 +1822,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(CosmoForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<CosmoForce>()));
 
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CosmosBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EridanusTrophy>(), 10));

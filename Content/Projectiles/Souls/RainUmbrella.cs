@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
@@ -39,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             int hp = 200;
 
-            if (modPlayer.ForceEffect(modPlayer.RainEnchantItem.type))
+            if (modPlayer.ForceEffect<RainEnchant>())
             {
                 hp = 400;
             }
@@ -51,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Player player = Main.player[Projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || modPlayer.RainEnchantItem == null || !player.GetToggleValue("Rain")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !player.HasEffect<RainUmbrellaEffect>()))
             {
                 Projectile.Kill();
                 return;
@@ -159,7 +161,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
                     x.damage *= 2;
 
-                    if (modPlayer.ForceEffect(modPlayer.RainEnchantItem.type))
+                    if (modPlayer.ForceEffect<RainEnchant>())
                     {
                         x.damage *= 3;
                     }

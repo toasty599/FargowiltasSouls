@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Misc;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System;
 using System.Linq;
 using Terraria;
@@ -18,19 +19,19 @@ namespace FargowiltasSouls.Core.Systems
             Player player = Main.LocalPlayer;
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.IronEnchantItem == null)
+            if (!player.HasEffect<IronEffect>())
                 return;
 
-            if (!modPlayer.IronUsedList.Contains(type))
+            if (!WorldSavingSystem.IronUsedList.Contains(type))
             {
                 int chance = 3;
 
-                if (modPlayer.ForceEffect(modPlayer.IronEnchantItem.type))
+                if (modPlayer.ForceEffect<IronEnchant>())
                 {
                     chance = 2;
                 }
 
-                modPlayer.IronUsedList.Add(type);
+                WorldSavingSystem.IronUsedList.Add(type);
                 
                 int amountUsed = 0;
                 for (int i = 0; i < amount; i++)

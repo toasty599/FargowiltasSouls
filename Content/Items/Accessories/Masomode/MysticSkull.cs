@@ -46,11 +46,7 @@ Increases pickup range for mana stars
         {
             player.buffImmune[BuffID.Suffocation] = true;
             player.manaMagnet = true;
-            if (!player.manaFlower && player.GetToggleValue("ManaFlower", false))
-            {
-                player.GetDamage(DamageClass.Magic) -= 0.1f;
-                player.manaFlower = true;
-            }
+            player.manaFlower = true;
         }
 
         public override void UpdateInventory(Player player) => Effects(player);
@@ -88,11 +84,7 @@ Increases pickup range for mana stars
         {
             player.buffImmune[BuffID.Suffocation] = true;
             player.manaMagnet = true;
-            if (!player.manaFlower && player.GetToggleValue("ManaFlower", false))
-            {
-                player.GetDamage(DamageClass.Magic) -= 0.1f;
-                player.manaFlower = true;
-            }
+            player.manaFlower = true;
         }
 
         //public override void UpdateInventory(Player player) => Effects(player);

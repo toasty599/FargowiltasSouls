@@ -34,6 +34,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             IconHighlight.Left.Set(0, 0);
             IconHighlight.Top.Set(0, 0);
             IconHighlight.SetVisibility(1f, 0);
+            IconHighlight.OnMouseOver += IconHighlight_MouseOver;
             IconHighlight.OnLeftClick += IconHighlight_OnClick;
             Icon.Append(IconHighlight);
 
@@ -44,7 +45,10 @@ namespace FargowiltasSouls.Content.UI.Elements
 
             base.OnActivate();
         }
-
+        private void IconHighlight_MouseOver(UIMouseEvent evt, UIElement listeningElement)
+        {
+            FargoUIManager.SoulToggler.NeedsToggleListBuilding = true;
+        }
         private void IconHighlight_OnClick(UIMouseEvent evt, UIElement listeningElement)
         {
             if (!Main.playerInventory)

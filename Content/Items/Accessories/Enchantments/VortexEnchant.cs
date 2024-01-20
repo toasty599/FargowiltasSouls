@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -26,7 +28,7 @@ While in stealth, your own projectiles will not be sucked in
             // '撕裂现实'");
         }
 
-        protected override Color nameColor => new(0, 242, 170);
+        public override Color nameColor => new(0, 242, 170);
         
 
         public override void SetDefaults()
@@ -39,7 +41,25 @@ While in stealth, your own projectiles will not be sucked in
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().VortexEffect(hideVisual);
+            AddEffects(player, Item);
+        }
+        public static void AddEffects(Player player, Item item)
+        {
+            //portal spawn
+            player.AddEffect<VortexStealthEffect>(item);
+            player.AddEffect<VortexVortexEffect>(item);
+
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (player.mount.Active)
+                modPlayer.VortexStealth = false;
+
+            if (modPlayer.VortexStealth)
+            {
+                player.moveSpeed *= 0.3f;
+                player.aggro -= 1200;
+                player.setVortex = true;
+                player.stealth = 0f;
+            }
         }
         public static void ActivateVortex(Player player)
         {
@@ -48,20 +68,22 @@ While in stealth, your own projectiles will not be sucked in
                 return;
             }
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.VortexEnchantActive)
+            bool stealthEffect = player.HasEffect<VortexStealthEffect>();
+            bool vortexEffect = player.HasEffect<VortexVortexEffect>();
+            if (stealthEffect || vortexEffect)
             {
                 //stealth memes
                 modPlayer.VortexStealth = !modPlayer.VortexStealth;
 
-                if (!player.GetToggleValue("VortexS"))
+                if (!stealthEffect)
                     modPlayer.VortexStealth = false;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                     NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
 
-                if (modPlayer.VortexStealth && player.GetToggleValue("VortexV") && !player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
+                if (modPlayer.VortexStealth && vortexEffect && !player.HasBuff(ModContent.BuffType<VortexCDBuff>()))
                 {
-                    int p = Projectile.NewProjectile(player.GetSource_Misc(""), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 60), 5f, player.whoAmI);
+                    int p = Projectile.NewProjectile(player.GetSource_EffectItem<VortexVortexEffect>(), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<Content.Projectiles.Souls.Void>(), FargoSoulsUtil.HighestDamageTypeScaling(player, 60), 5f, player.whoAmI);
                     Main.projectile[p].FargoSouls().CanSplit = false;
                     Main.projectile[p].netUpdate = true;
 
@@ -85,5 +107,15 @@ While in stealth, your own projectiles will not be sucked in
             .AddTile(TileID.LunarCraftingStation)
             .Register();
         }
+    }
+    public class VortexVortexEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<VortexEnchant>();
+    }
+    public class VortexStealthEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<VortexEnchant>();
     }
 }

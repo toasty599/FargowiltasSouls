@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 return;
             }
 
-            player.FargoSouls().dashCD = 5;
+            player.dashDelay = 5;
             player.FargoSouls().IsDashingTimer = 0;
 
             player.Center = Projectile.Center;

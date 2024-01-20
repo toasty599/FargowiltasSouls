@@ -6,6 +6,9 @@ using System;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -17,7 +20,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         }
 
-        protected override Color nameColor => new(69, 62, 115);
+        public override Color nameColor => new(69, 62, 115);
 
         public override void SetDefaults()
         {
@@ -33,15 +36,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ObsidianEffect(player, Item);
-            
+            AddEffects(player, Item);
         }
-
-        public static void ObsidianEffect(Player player, Item item)
+        public static void AddEffects(Player player, Item item)
         {
-            player.DisplayToggle("Obsidian");
-            AshWoodEnchant.AshwoodEffect(player, item);
             FargoSoulsPlayer modPlayer = player.FargoSouls();
+            player.AddEffect<AshWoodEffect>(item);
+            player.AddEffect<AshWoodFireballs>(item);
+            player.AddEffect<ObsidianEffect>(item);
 
             player.lavaImmune = true;
             player.fireWalk = true;
@@ -54,38 +56,17 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 player.ignoreWater = true;
                 player.accFlipper = true;
 
-                if (player.GetToggleValue("Obsidian"))
-                {
-                    player.AddBuff(ModContent.BuffType<ObsidianLavaWetBuff>(), 600);
-                }
+                player.AddBuff(ModContent.BuffType<ObsidianLavaWetBuff>(), 600);
             }
 
             if (modPlayer.ObsidianCD > 0)
                 modPlayer.ObsidianCD--;
 
-            if (modPlayer.ForceEffect(ModContent.ItemType<ObsidianEnchant>()) || player.lavaWet || modPlayer.LavaWet)
+            if (modPlayer.ForceEffect<ObsidianEnchant>() || player.lavaWet || modPlayer.LavaWet)
             {
-                modPlayer.ObsidianEnchantItem = item;
+                player.AddEffect<ObsidianProcEffect>(item);
             }
         }
-
-        public static void ObsidianProc(FargoSoulsPlayer modPlayer, NPC target, int damage)
-        {
-            damage = Math.Min(damage, FargoSoulsUtil.HighestDamageTypeScaling(modPlayer.Player, 300));
-
-            Player player = modPlayer.Player;
-            Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.ObsidianEnchantItem), target.Center, Vector2.Zero, ModContent.ProjectileType<ObsidianExplosion>(), damage, 0, player.whoAmI);
-
-            if (modPlayer.ForceEffect(modPlayer.ObsidianEnchantItem.type))
-            {
-                modPlayer.ObsidianCD = 20;
-            }
-            else
-            {
-                modPlayer.ObsidianCD = 40;
-            }
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -98,6 +79,37 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class ObsidianEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => null;
+    }
+    public class ObsidianProcEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ObsidianEnchant>();
+        public override bool ExtraAttackEffect => true;
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            if (player.FargoSouls().ObsidianCD == 0)
+            {
+                int damage = baseDamage;
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                damage = Math.Min(damage, FargoSoulsUtil.HighestDamageTypeScaling(player, 300));
+
+                Projectile.NewProjectile(GetSource_EffectItem(player), target.Center, Vector2.Zero, ModContent.ProjectileType<ObsidianExplosion>(), damage, 0, player.whoAmI);
+
+                if (modPlayer.ForceEffect<ObsidianEnchant>())
+                {
+                    modPlayer.ObsidianCD = 20;
+                }
+                else
+                {
+                    modPlayer.ObsidianCD = 40;
+                }
+            }
         }
     }
 }

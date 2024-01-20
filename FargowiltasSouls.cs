@@ -33,6 +33,9 @@ using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Content.Patreon.Volknet;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls
 {
@@ -386,7 +389,7 @@ namespace FargowiltasSouls
                         return Main.LocalPlayer.FargoSouls().MutantAntibodies;
 
                     case "SinisterIcon":
-                        return Main.LocalPlayer.FargoSouls().SinisterIcon;
+                        return Main.LocalPlayer.HasEffect<SinisterIconEffect>();
 
                     case "AbomAlive":
                         return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
@@ -662,7 +665,6 @@ namespace FargowiltasSouls
 
                     ModContent.BuffType<TimeFrozenBuff>()
                 };
-
                 BossChecklistCompatibility();
 
                 //Mod bossHealthBar = ModLoader.GetMod("FKBossHealthBar");
@@ -899,7 +901,7 @@ namespace FargowiltasSouls
                             Player player = Main.player[reader.ReadByte()];
                             FargoSoulsPlayer modPlayer = player.FargoSouls();
                             byte count = reader.ReadByte();
-                            List<string> keys = ToggleLoader.LoadedToggles.Keys.ToList();
+                            List<AccessoryEffect> keys = ToggleLoader.LoadedToggles.Keys.ToList();
 
                             for (int i = 0; i < count; i++)
                             {
@@ -911,7 +913,7 @@ namespace FargowiltasSouls
                     case PacketID.SyncOneToggle: //sync single toggle
                         {
                             Player player = Main.player[reader.ReadByte()];
-                            player.SetToggleValue(reader.ReadString(), reader.ReadBoolean());
+                            player.SetToggleValue(AccessoryEffectLoader.EffectType(reader.ReadString()), reader.ReadBoolean());
                         }
                         break;
 

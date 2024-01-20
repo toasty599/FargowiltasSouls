@@ -2584,7 +2584,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         int flip = WorldSavingSystem.MasochistModeReal && NPC.ai[2] < 180 * 2 && Main.rand.NextBool() ? -1 : 1;
                         Vector2 spawnPos = pos + off * Vector2.UnitY * flip;
                         float ai0 = FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null ? 0f : NPC.Distance(Main.projectile[ritualProj].Center);
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, vel * flip, ModContent.ProjectileType<MutantSlimeBall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, vel * flip * 2 /* x2 to compensate for removed extraUpdates */, ModContent.ProjectileType<MutantSlimeBall>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0);
                     }
 
                     Vector2 basePos = NPC.Center;
@@ -3352,10 +3352,15 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 float newRotation = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
                 float difference = MathHelper.WrapAngle(newRotation - NPC.ai[3]);
                 float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
-                rotationDirection *= useMasoSpeed ? 0.525f : 1f;
-                NPC.ai[3] += Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
+                rotationDirection *= useMasoSpeed ? 1.1f : 1f;
+                float change = Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
                 if (useMasoSpeed)
-                    NPC.ai[3] = NPC.ai[3].AngleLerp(newRotation, 0.015f);
+                {
+                    float angleLerp = NPC.ai[3].AngleLerp(newRotation, 0.015f) - NPC.ai[3];
+                    if (Math.Abs(MathHelper.WrapAngle(angleLerp)) > Math.Abs(MathHelper.WrapAngle(change)))
+                        change = angleLerp;
+                }
+                NPC.ai[3] += change;
 
                 EdgyBossText(GFBQuote(31));
             }

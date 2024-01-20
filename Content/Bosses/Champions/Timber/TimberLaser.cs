@@ -22,7 +22,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.timeLeft = 600;
-            Projectile.extraUpdates = 4;
+            Projectile.extraUpdates = 2;
             Projectile.ignoreWater = true;
             Projectile.alpha = 255;
             CooldownSlot = 1;

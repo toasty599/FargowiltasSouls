@@ -1,5 +1,8 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
@@ -27,8 +30,16 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (player.GetToggleValue("MasoConcoction"))
-                player.FargoSouls().TimsConcoction = true;
+            player.AddEffect<TimsConcoctionEffect>(Item);
+        }
+    }
+    public class TimsConcoctionEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TimsConcoction>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.FargoSouls().TimsConcoction = true;
         }
     }
 }

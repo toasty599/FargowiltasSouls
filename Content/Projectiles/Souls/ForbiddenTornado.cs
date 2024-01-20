@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
@@ -36,9 +38,10 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void AI()
         {
-            FargoSoulsPlayer modPlayer = Main.player[Projectile.owner].FargoSouls();
+            Player player = Main.player[Projectile.owner];
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.ForbiddenEnchantActive)
+            if (player.HasEffect<ForbiddenEffect>())
             {
                 foreach (Projectile p in Main.projectile.Where(p => p.active && p.friendly && !p.hostile && p.owner == Projectile.owner && p.type != Projectile.type && p.Colliding(p.Hitbox, Projectile.Hitbox)))
                 {

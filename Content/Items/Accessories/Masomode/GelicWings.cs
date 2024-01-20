@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -42,10 +44,8 @@ When you land after a jump, slime spikes shoot out to your sides
         {
             player.buffImmune[ModContent.BuffType<FlippedHallowBuff>()] = true;
             player.FargoSouls().GelicWingsItem = Item;
-
-            if (player.GetToggleValue("MasoQueenJump")) {
-                player.GetJumpState(ExtraJump.UnicornMount).Enable();
-            }
+            player.AddEffect<GelicWingJump>(Item);
+            player.AddEffect<GelicWingSpikes>(Item);
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
@@ -63,4 +63,20 @@ When you land after a jump, slime spikes shoot out to your sides
             acceleration = 0.185f;
         }
     }
+    public class GelicWingSpikes : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<PureHeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GelicWings>();
+        public override bool ExtraAttackEffect => true;
+    }
+    public class GelicWingJump : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<PureHeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<GelicWings>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.GetJumpState(ExtraJump.UnicornMount).Enable();
+        }
+    }
+
 }

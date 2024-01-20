@@ -6,10 +6,12 @@ namespace FargowiltasSouls
 	public partial class FargowiltasSouls
     {
         /// <summary>
+        /// DEPRECATED <para/>
         /// Input item as string (item class name) for FargoSouls items, and as int for vanilla items.
         /// </summary>
         public void AddToggle(string toggle, object item, string color = "ffffff") 
         {
+            /*
             if (item.GetType() == typeof(int))
             {
                 Language.GetOrRegister(toggle, () => $"[i:{item}] [c/{color}:{{$Mods.{Name}.Toggler.{toggle}}}]");
@@ -18,7 +20,7 @@ namespace FargowiltasSouls
             {
                 Language.GetOrRegister(toggle, () => $"[i:FargowiltasSouls/{item}] [c/{color}:{{$Mods.{Name}.Toggler.{toggle}}}]");
             }
-
+            */
         }
         private void AddLocalizations()
         {
@@ -99,7 +101,7 @@ namespace FargowiltasSouls
 
                 AddBossSpawnInfo("TrojanSquirrel", $"Spawn by using [i:{"SquirrelCoatofArms"}]");
                 AddBossSpawnInfo("Lifelight", $"Spawn by using [i:{"FragilePixieLamp"}] in the Hallow at day.");
-                //JAVYZ TODO: Cursed Coffin and Banished Baron
+                //JAVYZ TODO: Cursed Coffin
                 //AddBossSpawnInfo("CursedCoffin", $"Spawn by using [i:{"CoffinSummon"}] in the Underground Desert.");
                 AddBossSpawnInfo("BanishedBaron", $"Spawn by using [i:{"BaronSummon"}] underwater at the ocean.");
             }

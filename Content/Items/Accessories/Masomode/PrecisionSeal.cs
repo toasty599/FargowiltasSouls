@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -45,8 +47,13 @@ Your hurtbox size is reduced even when not shown
 
             player.buffImmune[ModContent.BuffType<SmiteBuff>()] = true;
             modPlayer.PrecisionSeal = true;
-            if (player.GetToggleValue("PrecisionSealHurtbox", false))
-                modPlayer.PrecisionSealHurtbox = true;
+            player.AddEffect<PrecisionSealHurtbox>(Item);
         }
+    }
+    public class PrecisionSealHurtbox : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<PrecisionSeal>();
+        public override bool IgnoresMutantPresence => true;
     }
 }

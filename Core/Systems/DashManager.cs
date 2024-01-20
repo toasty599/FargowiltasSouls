@@ -11,6 +11,8 @@ using Terraria.ModLoader;
 using Terraria;
 using System.Reflection;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Consumables;
 
 namespace FargowiltasSouls.Core.Systems
 {
@@ -20,9 +22,34 @@ namespace FargowiltasSouls.Core.Systems
         {
             None,
             Monk,
-            Shinobi,
             Jungle,
             DeerSinew
+        }
+        public static void AddDashes(Player player)
+        {
+            if (player.whoAmI != Main.myPlayer)
+                return;
+
+            // Furthest down = highest priority
+            // Vanilla dashes are processed before this method
+            // Other mods depends on their ordering
+
+            if (player.HasEffect<JungleDashEffect>())
+            {
+                JungleDashEffect.AddDash(player);
+            }
+            if (player.HasEffect<MonkDashEffect>())
+            {
+                MonkDashEffect.AddDash(player);
+            }
+            if (player.HasEffect<SolarEffect>())
+            {
+                SolarEffect.AddDash(player);
+            }
+            if (player.HasEffect<DeerSinewEffect>()) // Takes effect last, but doesn't do anything if you have another dash
+            {
+                DeerSinewEffect.AddDash(player);
+            }
         }
         public static void ManageDashes(Player Player)
         {
@@ -35,7 +62,6 @@ namespace FargowiltasSouls.Core.Systems
 
             Player.dashType = 22;
 
-
             if (Player.dashDelay == 0 && !Player.mount.Active)
             {
                 HandleDash(out bool dashing, out int dir);
@@ -45,22 +71,12 @@ namespace FargowiltasSouls.Core.Systems
                     {
                         case DashType.Monk:
                             {
-                                int monkBuff = ModContent.BuffType<MonkBuff>();
-                                if (Player.HasBuff(monkBuff))
-                                {
-                                    MonkBuff.MonkDash(Player, false, dir);
-                                    Player.ClearBuff(monkBuff);
-                                }
-                            }
-                            break;
-                        case DashType.Shinobi:
-                            {
-                                ShinobiEnchant.ShinobiDash(Player, dir);
+                                MonkDashEffect.MonkDash(Player, dir);
                             }
                             break;
                         case DashType.Jungle:
                             {
-                                JungleEnchant.JungleDash(Player, dir);
+                                JungleDashEffect.JungleDash(Player, dir);
                             }
                             break;
                         case DashType.DeerSinew:

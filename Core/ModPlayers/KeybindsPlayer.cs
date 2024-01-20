@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.UI;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
@@ -63,10 +64,10 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (FargowiltasSouls.FreezeKey.JustPressed)
             {
-                if (StardustEnchantActive && !Player.HasBuff(ModContent.BuffType<TimeStopCDBuff>()))
+                if (Player.HasEffect<StardustEffect>() && !Player.HasBuff(ModContent.BuffType<TimeStopCDBuff>()))
                 {
                     int cooldownInSeconds = 60;
-                    if (ForceEffect(ModContent.ItemType<StardustEnchant>()))
+                    if (ForceEffect<StardustEnchant>())
                         cooldownInSeconds = 50;
                     if (TerrariaSoul)
                         cooldownInSeconds = 40;
@@ -76,11 +77,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.AddBuff(ModContent.BuffType<TimeStopCDBuff>(), cooldownInSeconds * 60);
 
                     FreezeTime = true;
-                    freezeLength = TIMESTOP_DURATION;
+                    freezeLength = StardustEffect.TIMESTOP_DURATION;
 
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Player.Center);
                 }
-                else if (SnowEnchantActive && !Player.HasBuff(ModContent.BuffType<SnowstormCDBuff>()))
+                else if (Player.HasEffect<SnowEffect>() && !Player.HasBuff(ModContent.BuffType<SnowstormCDBuff>()))
                 {
                     Player.AddBuff(ModContent.BuffType<SnowstormCDBuff>(), 60 * 60);
 
@@ -123,7 +124,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (FargowiltasSouls.SoulToggleKey.JustPressed)
                 FargoUIManager.ToggleSoulToggler();
 
-            if (FargowiltasSouls.GoldKey.JustPressed && GoldEnchantActive)
+            if (FargowiltasSouls.GoldKey.JustPressed && Player.HasEffect<GoldEffect>())
             {
                 GoldKey();
             }

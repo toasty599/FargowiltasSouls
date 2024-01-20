@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
@@ -34,21 +35,18 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             Projectile.timeLeft++;
 
-            if (player.dead || !player.active || !modPlayer.SnowEnchantActive)
+            if (player.dead || !player.active || !player.HasEffect<SnowEffect>())
                 Projectile.Kill();
 
             if (player == Main.LocalPlayer)
             {
                 Projectile.Center = Main.MouseWorld;
-
-                if (!player.GetToggleValue("Snow"))
-                    Projectile.Kill();
             }
 
             //dust
             int dist = 50;
 
-            bool forceEffect = modPlayer.ForceEffect(ModContent.ItemType<SnowEnchant>()) || modPlayer.ForceEffect(ModContent.ItemType<FrostEnchant>());
+            bool forceEffect = modPlayer.ForceEffect<SnowEnchant>() || modPlayer.ForceEffect<FrostEnchant>();
             if (forceEffect)
             {
                 dist = 100;

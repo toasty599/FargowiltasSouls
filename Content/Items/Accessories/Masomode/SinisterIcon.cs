@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,19 +38,23 @@ Non-boss enemies will drop doubled loot
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.DisplayToggle("MasoIcon");
-            player.DisplayToggle("MasoIconDrops");
-
             player.buffImmune[ModContent.BuffType<UnluckyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<StunnedBuff>()] = true;
 
-            if (player.GetToggleValue("MasoIcon"))
-                player.FargoSouls().SinisterIcon = true;
-
-            if (player.GetToggleValue("MasoIconDrops"))
-                player.FargoSouls().SinisterIconDrops = true;
+            player.AddEffect<SinisterIconEffect>(Item);
+            player.AddEffect<SinisterIconDropsEffect>(Item);
 
             //player.FargoSouls().Graze = true;
         }
+    }
+    public class SinisterIconEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SinisterIcon>();
+    }
+    public class SinisterIconDropsEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<DeviEnergyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SinisterIcon>();
     }
 }

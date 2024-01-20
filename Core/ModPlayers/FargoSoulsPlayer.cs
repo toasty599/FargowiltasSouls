@@ -26,15 +26,18 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using static FargowiltasSouls.Core.Systems.DashManager;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+
 namespace FargowiltasSouls.Core.ModPlayers
 {
 	public partial class FargoSoulsPlayer : ModPlayer
     {
         public ToggleBackend Toggler = new();
 
-        public Dictionary<string, bool> TogglesToSync = new();
+        public Dictionary<AccessoryEffect, bool> TogglesToSync = new();
 
-        public List<string> disabledToggles = new();
+        public List<AccessoryEffect> disabledToggles = new();
 
         public List<BaseEnchant> EquippedEnchants = new();
 
@@ -56,7 +59,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
-        public List<int> IronUsedList = new();
 
         public bool IsStillHoldingInSameDirectionAsMovement
             => (Player.velocity.X > 0 && Player.controlRight)
@@ -79,25 +81,16 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (DeerSinew) playerData.Add("DeerSinew");
             if (HasClickedWrench) playerData.Add("HasClickedWrench");
             
-            if (IronUsedList.Count > 0)
-            {
-                string ironData = "IronUsedList";
-                foreach (int type in IronUsedList)
-                {
-                    ironData += $"_{type}";
-                }
-                playerData.Add(ironData);
-            }
 
             tag.Add($"{Mod.Name}.{Player.name}.Data", playerData);
 
             var togglesOff = new List<string>();
             if (Toggler != null && Toggler.Toggles != null)
             {
-                foreach (KeyValuePair<string, Toggle> entry in Toggler.Toggles)
+                foreach (KeyValuePair<AccessoryEffect, Toggle> entry in Toggler.Toggles)
                 {
                     if (!Toggler.Toggles[entry.Key].ToggleBool)
-                        togglesOff.Add(entry.Key);
+                        togglesOff.Add(entry.Key.Name);
                 }
             }
             tag.Add($"{Mod.Name}.{Player.name}.TogglesOff", togglesOff);
@@ -115,22 +108,9 @@ namespace FargowiltasSouls.Core.ModPlayers
             DeerSinew = playerData.Contains("DeerSinew");
             HasClickedWrench = playerData.Contains("HasClickedWrench");
 
-            if (playerData.Contains("IronUsedList_"))
-            {
-                string ironData = playerData.First(i => i.Contains("IronUsedList"));
-                string[] ironEntries = ironData.Split("_");
-                foreach (string entry in ironEntries)
-                {
-                    if (entry != "IronUsedList")
-                    {
-                        IronUsedList.Add(int.Parse(entry));
-                    }
-                }
-            }
-
-            disabledToggles = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
+            List<string> disabledToggleNames = tag.GetList<string>($"{Mod.Name}.{Player.name}.TogglesOff").ToList();
+            disabledToggles = ToggleLoader.LoadedToggles.Keys.Where(x => disabledToggleNames.Contains(x.Name)).ToList();
         }
-
         public override void OnEnterWorld()
         {
             Toggler.TryLoad();
@@ -153,21 +133,24 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     supportedMods.Add(WotG.DisplayName);
                 }
-                string modsString = "";
-                for (int i = 0; i < supportedMods.Count; i++)
+                if (supportedMods.Count > 0)
                 {
-                    modsString += supportedMods[i];
-                    if (i + 2 < supportedMods.Count)
+                    string modsString = "";
+                    for (int i = 0; i < supportedMods.Count; i++)
                     {
-                        modsString += ", ";
+                        modsString += supportedMods[i];
+                        if (i + 2 < supportedMods.Count)
+                        {
+                            modsString += ", ";
+                        }
+                        else if (i + 1 < supportedMods.Count)
+                        {
+                            modsString += " and ";
+                        }
                     }
-                    else if (i + 1 < supportedMods.Count)
-                    {
-                        modsString += " and ";
-                    }
+                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC1", modsString), Color.Green);
+                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC2"), Color.Green);
                 }
-                Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC1", modsString), Color.Green);
-                Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.NoDLC2"), Color.Green);
             }
 
             Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.Wiki"), Color.Lime);
@@ -188,7 +171,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            Main.LocalPlayer.ReloadToggles();
         }
         
         public override void ResetEffects()
@@ -207,7 +189,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             WingTimeModifier = 1f;
 
-            NinjaEnchantItem = null;
 
             QueenStingerItem = null;
             EridanusSet = false;
@@ -236,100 +217,48 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             //            #region enchantments 
             PetsActive = true;
-            ShadowEnchantActive = false;
-            CrimsonEnchantActive = false;
             //CrimsonRegen = false;
-            SpectreEnchantActive = false;
-            BeeEnchantItem = null;
-            SpiderEnchantActive = false;
-            StardustEnchantActive = false;
-            MythrilEnchantItem = null;
-            FossilEnchantItem = null;
-            JungleEnchantActive = false;
-            ShroomEnchantActive = false;
-            CobaltEnchantItem = null;
-            SpookyEnchantActive = false;
-            NebulaEnchantActive = false;
-            BeetleEnchantActive = false;
-            HallowEnchantItem = null;
-            AncientHallowEnchantActive = false;
-            ChloroEnchantActive = false;
-            ChloroEnchantItem = null;
-            JungleEnchantItem = null;
-            VortexEnchantActive = false;
-            AdamantiteEnchantItem = null;
-            FrostEnchantActive = false;
-            PalladEnchantItem = null;
-            OriEnchantItem = null;
-            MeteorEnchantItem = null;
-            MoltenEnchantActive = false;
-            CopperEnchantItem = null;
-            PlatinumEnchantActive = false;
-            CrystalEnchantActive = false;
+            MinionCrits = false;
             FirstStrike = false;
-            IronEnchantItem = null;
-            TurtleEnchantActive = false;
             ShellHide = false;
-            LeadEnchantItem = null;
-            GladiatorEnchantActive = false;
-            GoldEnchantActive = false;
             GoldShell = false;
-            CactusEnchantItem = null;
-            ForbiddenEnchantActive = false;
-            NecroEnchantActive = false;
-            ObsidianEnchantItem = null;
             LavaWet = false;
-            TinEnchantItem = null;
-            TikiEnchantActive = false;
-            SolarEnchantActive = false;
-            ShinobiEnchantActive = false;
-            ValhallaEnchantItem = null;
-            DarkArtistEnchantItem = null;
-            RedRidingEnchantItem = null;
-            TungstenEnchantItem = null;
 
-            MahoganyEnchantItem = null;
-            BorealEnchantItem = null;
             WoodEnchantItem = null;
 			WoodEnchantDiscount = false;
-            PalmEnchantItem = null;
-            EbonwoodEnchantItem = null;
-            ShadewoodEnchantItem = null;
-            PearlwoodEnchantItem = null;
-            AshWoodEnchantItem = null;
             fireNoDamage = false;
 
-            RainEnchantItem = null;
-            AncientShadowEnchantActive = false;
-            SquireEnchantItem = null;
-            ApprenticeEnchantItem = null;
-            HuntressEnchantActive = false;
-            if (!MonkEnchantActive)
-            {
-                Player.ClearBuff(ModContent.BuffType<MonkBuff>());
-            }
-            MonkEnchantActive = false;
-            SnowEnchantActive = false;
             SnowVisual = false;
-            TitaniumEnchantItem = null;
+            ApprenticeEnchantActive = false;
+            DarkArtistEnchantActive = false;
+            CrystalEnchantActive = false;
+            IronRecipes = false;
+            ChlorophyteEnchantActive = false;
+            PearlwoodEnchantItem = null;
+
+            if (!MonkEnchantActive)
+                Player.ClearBuff(ModContent.BuffType<MonkBuff>());
+            MonkEnchantActive = false;
+            ShinobiEnchantActive = false;
+            PlatinumEffectActive = false;
+            AncientShadowEnchantActive = false;
+            SquireEnchantActive = false;
+            ValhallaEnchantActive = false;
             TitaniumDRBuff = false;
             TitaniumCD = false;
 
-            cosmoForce = false;
-            earthForce = false;
-            lifeForce = false;
-            natureForce = false;
-            spiritForce = false;
-            terraForce = false;
-            shadowForce = false;
-            willForce = false;
-            timberForce = false;
 
             //            #endregion
 
             //souls
+            MeleeSoul = false;
             MagicSoul = false;
             RangedSoul = false;
+            SummonSoul = false;
+            ColossusSoul = false;
+            SupersonicSoul = false;
+            WorldShaperSoul = false;
+            FlightMasterySoul = false;
             RangedEssence = false;
             BuilderMode = false;
             UniverseSoul = false;
@@ -340,20 +269,26 @@ namespace FargowiltasSouls.Core.ModPlayers
             VoidSoul = false;
             Eternity = false;
 
+            PrimeSoulItemCount = 0;
+            if (!PrimeSoulActiveBuffer)
+            {
+                PrimeSoulActive = false;
+            }
+            PrimeSoulActiveBuffer = false;
+
+            if (ForceEffects != null)
+                ForceEffects.Clear();
+
             //maso
             SlimyShieldItem = null;
-            AgitatingLensItem = null;
             DarkenedHeartItem = null;
-            GuttedHeart = false;
             NecromanticBrewItem = null;
-            DeerclawpsItem = null;
             DeerSinewNerf = false;
             PureHeart = false;
             PungentEyeballMinion = false;
             CrystalSkullMinion = false;
             FusedLens = false;
             FusedLensCanDebuff = false;
-            GroundStick = false;
             Supercharged = false;
             Probes = false;
             MagicalBulb = false;
@@ -361,29 +296,23 @@ namespace FargowiltasSouls.Core.ModPlayers
             SkullCharm = false;
             PungentEyeball = false;
             LumpOfFlesh = false;
-            PumpkingsCapeItem = null;
             LihzahrdTreasureBoxItem = null;
             BetsysHeartItem = null;
             BetsyDashing = false;
             MutantAntibodies = false;
             GravityGlobeEXItem = null;
-            CelestialRuneItem = null;
-            AdditionalAttacks = false;
             MoonChalice = false;
             LunarCultist = false;
             TrueEyes = false;
             AbomWandItem = null;
             MasochistSoul = false;
+            MasochistSoulItem = null;
             MasochistHeart = false;
             SandsofTime = false;
-            DragonFang = false;
-			StabilizedGravity = false;
             SecurityWallet = false;
             FrigidGemstoneItem = null;
-            WretchedPouchItem = null;
             NymphsPerfume = false;
             NymphsPerfumeRespawn = false;
-            SqueakyAcc = false;
             RainbowSlime = false;
             SkeletronArms = false;
             IceQueensCrown = false;
@@ -408,7 +337,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             AbomRebirth = false;
             WasHurtBySomething = false;
             PrecisionSeal = false;
-            PrecisionSealHurtbox = false;
             GelicWingsItem = null;
             ConcentratedRainbowMatter = false;
 
@@ -422,11 +350,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             noDodge = false;
             noSupersonic = false;
             NoMomentum = false;
-            MeteorMomentum = false;
             Bloodthirsty = false;
             DisruptedFocus = false;
-            SinisterIcon = false;
-            SinisterIconDrops = false;
 
             Smite = false;
             Anticoagulation = false;
@@ -464,8 +389,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             BoxofGizmos = false;
             OxygenTank = false;
             //IronEnchantShield = false;
-            SilverEnchantItem = null;
-            DreadShellItem = null;
             WizardedItem = null;
 
             EquippedEnchants.Clear();
@@ -494,8 +417,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 MashCounter--;
             Mash = false;
 
-            PrimeSoulItem = null;
-            PrimeSoulEffects = 0;
         }
         public override void OnRespawn()
         {
@@ -523,8 +444,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (Main.netMode == NetmodeID.MultiplayerClient && Main.npc[FargoSoulsGlobalNPC.boss].HasValidTarget && Main.npc[FargoSoulsGlobalNPC.boss].HasPlayerTarget)
                     Player.Center = Main.player[Main.npc[FargoSoulsGlobalNPC.boss].target].Center;
             }
-
-            BeetleEnchantDefenseTimer = 0;
 
             ReallyAwfulDebuffCooldown = 0;
             ParryDebuffImmuneTime = 0;
@@ -563,8 +482,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             NymphsPerfumeCD = 30;
             WretchedPouchCD = 0;
 
+
             DeviGrazeBonus = 0;
             MutantEyeCD = 60;
+
+            MythrilTimer = MythrilMaxTime;
+            BeetleEnchantDefenseTimer = 0;
 
             Mash = false;
             WizardEnchantActive = false;
@@ -572,8 +495,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             MaxLifeReduction = 0;
             CurrentLifeReduction = 0;
-
-            MythrilTimer = MythrilMaxTime;
         }
 
         
@@ -586,7 +507,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Unlucky = false;
         }
 
-        List<int> prevDyes = null;
+        internal List<int> prevDyes = null;
 
         public void ManageLifeReduction()
         {
@@ -654,6 +575,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 HaveCheckedAttackSpeed = true;
 
+                AttackSpeed += Player.AccessoryEffects().ModifyUseSpeed(item);
+
                 if (Berserked)
                 {
                     AttackSpeed += .1f;
@@ -664,21 +587,16 @@ namespace FargowiltasSouls.Core.ModPlayers
                     AttackSpeed += .2f;
                 }
 
-                if (MythrilEnchantItem != null)
+                if (Player.HasEffect<MythrilEffect>())
                 {
-                    MythrilEnchant.CalcMythrilAttackSpeed(this, item);
+                    MythrilEffect.CalcMythrilAttackSpeed(this, item);
                 }
 
-                if (WretchedPouchItem != null && !MasochistSoul && AttackSpeed > 1f)
+                if (Player.HasEffect<WretchedPouchEffect>() && !MasochistSoul && AttackSpeed > 1f)
                 {
                     float diff = AttackSpeed - 1f;
                     diff /= 2;
                     AttackSpeed -= diff;
-                }
-
-                if (NinjaEnchantItem != null && Player.GetToggleValue("NinjaSpeed"))
-                {
-                    //AttackSpeed *= 2;
                 }
 
                 //modify attack speed so it rounds up
@@ -939,58 +857,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (ForbiddenEnchantActive && drawInfo.shadow == 0f)
-            {
-                Color color12 = Player.GetImmuneAlphaPure(Lighting.GetColor((int)(drawInfo.Position.X + Player.width * 0.5) / 16, (int)(drawInfo.Position.Y + Player.height * 0.5) / 16, Color.White), drawInfo.shadow);
-                Color color21 = Color.Lerp(color12, value2: Color.White, 0.7f);
-
-                Texture2D texture2D2 = TextureAssets.Extra[74].Value;
-                Texture2D texture = TextureAssets.GlowMask[217].Value;
-                bool flag8 = !Player.setForbiddenCooldownLocked;
-                int num52 = (int)((Player.miscCounter / 300f * 6.28318548f).ToRotationVector2().Y * 6f);
-                float num53 = (Player.miscCounter / 75f * 6.28318548f).ToRotationVector2().X * 4f;
-                Color color22 = new Color(80, 70, 40, 0) * (num53 / 8f + 0.5f) * 0.8f;
-                if (!flag8)
-                {
-                    num52 = 0;
-                    num53 = 2f;
-                    color22 = new Color(80, 70, 40, 0) * 0.3f;
-                    color21 = color21.MultiplyRGB(new Color(0.5f, 0.5f, 1f));
-                }
-                Vector2 vector4 = new Vector2((int)(drawInfo.Position.X - Main.screenPosition.X - (Player.bodyFrame.Width / 2) + (Player.width / 2)), (int)(drawInfo.Position.Y - Main.screenPosition.Y + Player.height - Player.bodyFrame.Height + 4f)) + Player.bodyPosition + new Vector2(Player.bodyFrame.Width / 2, Player.bodyFrame.Height / 2);
-                vector4 += new Vector2((float)(-(float)Player.direction * 10), (float)(-20 + num52));
-                DrawData value = new(texture2D2, vector4, null, color21, Player.bodyRotation, texture2D2.Size() / 2f, 1f, drawInfo.playerEffect, 0);
-
-                int num6 = 0;
-                if (Player.dye[1] != null)
-                {
-                    num6 = Player.dye[1].dye;
-                }
-                value.shader = num6;
-                drawInfo.DrawDataCache.Add(value);
-                for (float num54 = 0f; num54 < 4f; num54 += 1f)
-                {
-                    value = new DrawData(texture, vector4 + (num54 * 1.57079637f).ToRotationVector2() * num53, null, color22, Player.bodyRotation, texture2D2.Size() / 2f, 1f, drawInfo.playerEffect, 0);
-                    drawInfo.DrawDataCache.Add(value);
-                }
-            }
+            
         }
-
-        
-
-        public override void MeleeEffects(Item item, Rectangle hitbox)
-        {
-            if (ShroomEnchantActive && Player.GetToggleValue("ShroomiteShroom"))
-                ShroomiteMeleeEffect(item, hitbox);
-        }
-
-
         public void ConcentratedRainbowMatterTryAutoHeal()
         {
             if (ConcentratedRainbowMatter
                 && Player.statLife < Player.statLifeMax2
                 && Player.potionDelay <= 0
-                && Player.GetToggleValue("MasoHealingPotion", false))
+                && Player.HasEffect<RainbowHealEffect>())
             {
                 Item potion = Player.QuickHeal_GetItemToUse();
                 if (potion != null)
@@ -1050,12 +924,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     retVal = false;
 
                     Projectile.NewProjectile(Player.GetSource_Accessory(MutantSetBonusItem), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.ActualClassDamage(DamageClass.Magic)), 10f, Player.whoAmI);
-                }
-
-                if (Player.whoAmI == Main.myPlayer && retVal && FossilEnchantItem != null && Player.FindBuffIndex(ModContent.BuffType<FossilReviveCDBuff>()) == -1)
-                {
-                    FossilEnchant.FossilRevive(this);
-                    retVal = false;
                 }
 
                 if (Player.whoAmI == Main.myPlayer && retVal && AbomWandItem != null && !AbominableWandRevived)
@@ -1137,9 +1005,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                     {
                         GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye)
                     };
-                    if (DreadShellItem != null)
+                    if (Player.HasEffect<DreadShellEffect>())
                         shaders.Add(GameShaders.Armor.GetShaderIdFromItemId(ItemID.BloodbathDye));
-                    if (PumpkingsCapeItem != null)
+                    if (Player.HasEffect<PumpkingsCapeEffect>())
                         shaders.Add(GameShaders.Armor.GetShaderIdFromItemId(ItemID.PixieDye));
 
                     int shader = shaders[(int)(Main.GameUpdateCount / 4 % shaders.Count)];
@@ -1302,8 +1170,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostNurseHeal(NPC nurse, int health, bool removeDebuffs, int price)
         {
-            if (GuttedHeart)
-                GuttedHeartNurseHeal();
+            if (Player.HasEffect<GuttedHeartMinions>())
+                GuttedHeartMinions.NurseHeal(Player);
         }
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
@@ -1354,23 +1222,21 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         }
 
-
-      
-
         public int GetHealMultiplier(int heal)
         {
             float multiplier = 1f;
-
-            if ((SquireEnchantItem != null || ValhallaEnchantItem != null))
+            bool squire = SquireEnchantActive;
+            bool valhalla = ValhallaEnchantActive;
+            if ((squire || valhalla))
             {
-                bool forceEffect = ForceEffect(ModContent.ItemType<SquireEnchant>()) || ForceEffect(ModContent.ItemType<ValhallaKnightEnchant>());
+                bool forceEffect = ForceEffect<SquireEnchant>() || ForceEffect<ValhallaKnightEnchant>();
                 if (Eternity)
                     multiplier = 5f;
-                else if (forceEffect && ValhallaEnchantItem != null)
+                else if (forceEffect && valhalla)
                     multiplier = 1.2f;
-                else if (ValhallaEnchantItem != null || (forceEffect && SquireEnchantItem != null))
+                else if (valhalla || (forceEffect && squire))
                     multiplier = 1.15f;
-                else if (SquireEnchantItem != null)
+                else if (squire)
                     multiplier = 1.10f;
             }
 
@@ -1382,7 +1248,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
         {
             healValue = GetHealMultiplier(healValue);
-            if (HallowEnchantItem != null)
+            if (Player.HasEffect<HallowEffect>())
             {
                 healValue = 0;
             }
@@ -1409,21 +1275,21 @@ namespace FargowiltasSouls.Core.ModPlayers
             modPlayer.Toggler = Toggler;
         }
 
-        public void SyncToggle(string key)
+        public void SyncToggle(AccessoryEffect effect)
         {
-            if (!TogglesToSync.ContainsKey(key))
-                TogglesToSync.Add(key, Player.GetToggle(key).ToggleBool);
+            if (!TogglesToSync.ContainsKey(effect))
+                TogglesToSync.Add(effect, Player.GetToggle(effect).ToggleBool);
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            foreach (KeyValuePair<string, bool> toggle in TogglesToSync)
+            foreach (KeyValuePair<AccessoryEffect, bool> toggle in TogglesToSync)
             {
                 ModPacket packet = Mod.GetPacket();
 
                 packet.Write((byte)FargowiltasSouls.PacketID.SyncOneToggle);
                 packet.Write((byte)Player.whoAmI);
-                packet.Write(toggle.Key);
+                packet.Write(toggle.Key.FullName);
                 packet.Write(toggle.Value);
 
                 packet.Send(toWho, fromWho);
@@ -1463,36 +1329,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public void TryAdditionalAttacks(int damage, DamageClass damageType)
         {
-            if (Player.whoAmI != Main.myPlayer)
-                return;
-            if (CactusEnchantItem != null)
-            {
-                CactusEnchant.CactusSelfProc(this);
-            }
-            if (BorealEnchantItem != null && Player.GetToggleValue("Boreal") && BorealCD <= 0)
-            {
-                BorealCD = ForceEffect(BorealEnchantItem.type) ? 30 : 60;
-
-
-                BorealWoodEnchant.BorealSnowballs(this, damage);
-            }
-
-            bool ashBurning = AshWoodEnchantItem != null && (Player.onFire || Player.onFire2 || Player.onFire3);
-            if ((ashBurning || ObsidianEnchantItem != null) && Player.GetToggleValue("AshWood") && AshwoodCD <= 0)
-            {
-                AshwoodCD = ForceEffect(AshWoodEnchantItem.type) ? 15 : ObsidianEnchantItem != null ? 20 : 30;
-                AshWoodEnchant.AshwoodFireball(this, damage);
-            }
-
-            if (AdditionalAttacks && AdditionalAttacksTimer <= 0)
-            {
-                AdditionalAttacksTimer = 60;
-
-                if (CelestialRuneItem != null && Player.GetToggleValue("MasoCelest"))
-                {
-                    CelestialRuneSupportAttack(damage, damageType);
-                }
-            }
+            // :)
         }
 
         public Rectangle GetPrecisionHurtbox()
@@ -1506,89 +1343,47 @@ namespace FargowiltasSouls.Core.ModPlayers
             hurtbox.Y -= hurtbox.Height / 2;
             return hurtbox;
         }
-
-        public bool ForceEffect(int? enchType)
+        public bool ForceEffect(ModItem modItem)
         {
+            //This will probably be made less ugly in a future refactor update.
             bool CheckForces(int type)
             {
-                if (CosmoForce.Enchants.Contains(type) && cosmoForce)
-                {
-                    return true;
-                }
-                if (EarthForce.Enchants.Contains(type) && earthForce)
-                {
-                    return true;
-                }
-                if (LifeForce.Enchants.Contains(type) && lifeForce)
-                {
-                    return true;
-                }
-                if (NatureForce.Enchants.Contains(type) && natureForce)
-                {
-                    return true;
-                }
-                if (ShadowForce.Enchants.Contains(type) && shadowForce)
-                {
-                    return true;
-                }
-                if (SpiritForce.Enchants.Contains(type) && spiritForce)
-                {
-                    return true;
-                }
-                if (TerraForce.Enchants.Contains(type) && terraForce)
-                {
-                    return true;
-                }
-                if (TimberForce.Enchants.Contains(type) && timberForce)
-                {
-                    return true;
-                }
-                if (WillForce.Enchants.Contains(type) && willForce)
-                {
-                    return true;
-                }
-                return false;
+                int force = BaseEnchant.Force[type];
+                if (force <= 0)
+                    return BaseEnchant.CraftsInto[type] > 0 && CheckForces(BaseEnchant.CraftsInto[type]); //check force of enchant it crafts into, recursively
+                return ForceEffects.Contains(force); 
             }
-            if (Main.gamePaused)
+            bool CheckWizard(int type)
             {
-                return false;
+                if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == type)
+                    return true;
+                return (BaseEnchant.CraftsInto[type] > 0 && CheckWizard(BaseEnchant.CraftsInto[type]));
             }
-            if (enchType == null)
-            {
-                Main.NewText("you shouldn't be seeing this. tall javyz");
-                return false;
-            }
-            int type = (int)enchType;
-            ModItem item = ModContent.GetModItem(type);
-            if (item == null || item.Item.IsAir)
-            {
-                Main.NewText("you shouldn't be seeing this. tall javyz");
-                return false;
-            }
-            if (WizardedItem != null && !WizardedItem.IsAir && WizardedItem.type == item.Item.type)
-            {
+            if (TerrariaSoul)
                 return true;
-            }
-            if (item != null && item is BaseSoul || item is BaseForce)
+
+            if (Main.gamePaused || modItem == null || modItem.Item == null || modItem.Item.IsAir)
+                return false;
+
+            if (modItem is BaseEnchant)
             {
-                return true;
-            }
-            if (item != null && item is BaseEnchant)
-            {
-                if (CheckForces(type))
-                {
+                if (CheckWizard(modItem.Item.type) || CheckForces(modItem.Item.type))
                     return true;
-                }
-                else //check force of enchant it crafts into
-                {
-                    if (Main.recipe.Any(r => r.ContainsIngredient(type) && r.createItem.ModItem != null && r.createItem.ModItem is BaseEnchant && CheckForces(r.createItem.type)))
-                    {
-                        return true;
-                    }
-                }
-                
             }
+
+            if (modItem is BaseSoul || modItem is BaseForce)
+                return true;
+
             return false;
+        }
+        public bool ForceEffect<T>() where T : BaseEnchant => ForceEffect(ModContent.GetInstance<T>());
+        public bool ForceEffect(int? enchType)
+        {
+            if (enchType == null || enchType <= 0)
+                return false;
+
+            ModItem item = ModContent.GetModItem((int)enchType);
+            return item != null && ForceEffect(item);
         }
         public override void PreSavePlayer()
         {

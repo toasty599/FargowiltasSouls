@@ -1,5 +1,8 @@
 ﻿using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -21,7 +24,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //attack rate and damage increased, you can spawn 2 additional trees
         }
 
-        protected override Color nameColor => new(183, 141, 86);
+        public override Color nameColor => new(183, 141, 86);
         
 
         public override void SetDefaults()
@@ -34,15 +37,39 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            PalmEffect(player, Item);
+            player.AddEffect<PalmwoodEffect>(Item);
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.PalmWoodHelmet)
+                .AddIngredient(ItemID.PalmWoodBreastplate)
+                .AddIngredient(ItemID.PalmWoodGreaves)
+                .AddIngredient(ItemID.Coral)
+                .AddIngredient(ItemID.Banana)
+                .AddIngredient(ItemID.Coconut)
+
+            .AddTile(TileID.DemonAltar)
+            .Register();
+        }
+    }
+    public class PalmwoodEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<PalmWoodEnchant>();
+        public override bool MinionEffect => true;
+
         public static void ActivatePalmwoodSentry(Player player)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.PalmEnchantItem != null)
+            if (player.HasEffect<PalmwoodEffect>())
             {
-                if (player.GetToggleValue("Palm") && player.whoAmI == Main.myPlayer)
+                if (player.whoAmI == Main.myPlayer)
                 {
+                    FargoSoulsPlayer modPlayer = player.FargoSouls();
+                    bool forceEffect = modPlayer.ForceEffect<PalmWoodEnchant>();
+
                     Vector2 mouse = Main.MouseWorld;
 
                     int maxSpawn = 1;
@@ -61,33 +88,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         }
                     }
 
-                    Vector2 offset = modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? (-40 * Vector2.UnitX) + (-120 * Vector2.UnitY) : (-41 * Vector2.UnitY);
-                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse + offset, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), modPlayer.ForceEffect(modPlayer.PalmEnchantItem.type) ? 100 : 15, 0f, player.whoAmI);
+                    Vector2 offset = forceEffect ? (-40 * Vector2.UnitX) + (-120 * Vector2.UnitY) : (-41 * Vector2.UnitY);
+                    FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), mouse + offset, Vector2.Zero, ModContent.ProjectileType<PalmTreeSentry>(), forceEffect ? 100 : 15, 0f, player.whoAmI);
                 }
             }
-        }
-        public static void PalmEffect(Player player, Item item)
-        {
-            player.DisplayToggle("Palm");
-
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.PalmEnchantItem = item;
-            
-            
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ItemID.PalmWoodHelmet)
-                .AddIngredient(ItemID.PalmWoodBreastplate)
-                .AddIngredient(ItemID.PalmWoodGreaves)
-                .AddIngredient(ItemID.Coral)
-                .AddIngredient(ItemID.Banana)
-                .AddIngredient(ItemID.Coconut)
-
-            .AddTile(TileID.DemonAltar)
-            .Register();
         }
     }
 }

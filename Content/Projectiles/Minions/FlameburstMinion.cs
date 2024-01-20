@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Content.Projectiles.Souls;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -32,7 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             Player player = Main.player[Projectile.owner];
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || player.FargoSouls().DarkArtistEnchantItem == null || !player.GetToggleValue("DarkArt")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !player.FargoSouls().DarkArtistEnchantActive || !player.HasEffect<DarkArtistMinion>()))
             {
                 Projectile.Kill();
                 return;

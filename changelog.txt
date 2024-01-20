@@ -1,38 +1,20 @@
 NEW UPDATE - V {ModVersion}
+Completely revamped the code for accessories and the toggle system, making them more intertwined, allowing for several new and improved features
+Added, removed and changed some toggles, and made some changes to the Some Effects and Minimal Effects presets
+The toggle menu now dynamically displays the toggles of things you have equipped
+New button to switch to/from displaying all toggles or equipped toggles
+Added a visual in the toggle menu for when you have Mutant's Presence that shows the disabled effects
+The code rework also results in some optimization
 
-New Eternity icon on world load screen
-Added a config for enemies glowing during the night in Eternity Mode before any boss is killed
-Added chat disclaimer messages on world join for Fargo's Souls DLC and the wiki
-
-Added new Eridanus theme: Platinum Star
-Changed Eridanus sphere telegraph
-
-Deviantt changes: 
--Rotates in a random direction while performing the Wyvern orb spiral attack
--Does less teleports before repeated hammer spirals in Phase 2
--New telegraph for Guardians attack
--Increased her movement speed at the start of the mimics attack
--Rune wizard outer aura pulls you in instead of inflicting debuffs
--Sparkling Love now has proper physics accelerating rotation
-
-Eternity Skeletron deals no contact damage for 3 seconds after spawning
-
-Improved visuals for Eternity Wall of Flesh
-
-Adamantite Enchant: Spread increases more slowly
-
-Baron's Tusk:
--Benefits less from melee speed
--Damage 95 -> 70
-(Compensation for previous Tungsten Enchant changes)
-
-Eternity Mode item balance: 
--Titanium/Adamantite Sword +40->35% damage and speed
--Excalibur/Gungnir: +25% damage and speed
--Halved damage reduction of Warmth Potion
-
-New Tim's Concoction drops: 
--Gender Change Potions from Man Eaters, Nutcrackers and Parrots
--Biome Sight Potions from Corrupt/Vicious Bunnies, Goldfishes and Penguins
-
-Parrots now instakill women on Masochist Mode
+Reduced lag of Mutant's slime rain attack
+Banished Baron:
+-Phase 2 now starts at 66% HP in Expert+ Mode, and 50% HP in Normal Mode
+-Fixed bug where Banished Baron could despawn when dashing in Phase 2
+Reworked Shinobi Infiltrator/Monk Enchant a bit:
+-Combined their dashes
+-Shinobi Infiltrator now upgrades the dash and allows it to teleport through walls, with a toggle
+-Changed the wall teleport to be smoother and can now teleport mid-dash
+Prevented several bosses from despawning when they shouldn't in remix worlds
+Fixed some Eternity gore sprite issues and gave Dungeon Guardian the Eternity sprite
+Fixed Vineslinger projectile passing through the ground
+Fixed Apprentice Enchant interaction with Rainbow Gun that allowed duplicating rainbows

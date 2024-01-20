@@ -142,7 +142,7 @@ Increases your max number of sentries by 4"); */
                     player.GetDamage(damageClass) += 0.80f;
 
                     if (damageClass == DamageClass.Summon)
-                        fargoPlayer.SpiderEnchantActive = true;
+                        fargoPlayer.MinionCrits = true;
 
                     player.GetCritChance(damageClass) += 30;
 

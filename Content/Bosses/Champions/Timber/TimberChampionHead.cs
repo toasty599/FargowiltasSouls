@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                     ModContent.BuffType<ClippedWingsBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true
             });
@@ -200,12 +200,13 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                             if (NPC.ai[1] % 3 == 0)
                                 SoundEngine.PlaySound(SoundID.Item157, NPC.Center);
 
-                            for (int i = 0; i < 5; i++)
+                            for (int i = 0; i < 2; i++)
                             {
                                 Vector2 spawnPos = player.Center;
                                 spawnPos.X += Main.rand.NextFloat(-1000, 1000);
                                 spawnPos.Y -= Main.rand.NextFloat(600, 800);
                                 Vector2 speed = Main.rand.NextFloat(7.5f, 12.5f) * Vector2.UnitY;
+                                speed *= (5 / 3); //compensation for extraUpdates decrease
 
                                 if (FargoSoulsUtil.HostCheck)
                                 {
@@ -685,7 +686,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(TimberForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<TimberForce>()));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<TimberChampionRelic>()));
         }
