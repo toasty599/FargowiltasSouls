@@ -1,4 +1,4 @@
-﻿en-US, 2576/2576, 100%, missing 0
-es-ES, 2/2576, 0%, missing 2574
-zh-Hans, 1567/2576, 61%, missing 1009
-pt-BR, 1480/2576, 57%, missing 1096
+en-US, 2581/2581, 100%, missing 0
+es-ES, 2/2581, 0%, missing 2579
+zh-Hans, 1567/2581, 61%, missing 1014
+pt-BR, 1480/2581, 57%, missing 1101

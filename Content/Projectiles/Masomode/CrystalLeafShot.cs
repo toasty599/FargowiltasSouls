@@ -60,8 +60,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                         Projectile.velocity = Projectile.rotation.ToRotationVector2() * Projectile.velocity
                         */
                     }
-                    Projectile.position -= Projectile.velocity * (Projectile.ai[1] / redirectTime);
+                    
                 }
+                Projectile.position -= Projectile.velocity * 0.9f;
                 Projectile.ai[1]++;
                 if (Projectile.ai[1] > redirectTime)
                 {
