@@ -29,16 +29,16 @@ BigSting22.DisplayName: 大螯刺工蜂
 BigStinger.DisplayName: 大螯刺
 BeeDash.DisplayName: 冲刺
 BlenderOrbital.DisplayName: 绞肉机
-BlenderPetal.DisplayName: 绞肉机
+BlenderPetal.DisplayName: 绞肉机花瓣
 BlenderProj3.DisplayName: 绞肉机
-// BlenderSpray.DisplayName: Blender Spray
+BlenderSpray.DisplayName: 绞肉机尖刺
 BlenderYoyoProj.DisplayName: 绞肉机
 Bonez.DisplayName: 骸骨
 DarkStarFriendly.DisplayName: 暗星
-// Dash.DisplayName: Dash
-// Dash2.DisplayName: Dash2
-// DicerMine.DisplayName: Dicer Mine
-// DicerSpray.DisplayName: Dicer Spray
+Dash.DisplayName: 洞察者冲刺
+Dash2.DisplayName: 洞察者冲刺
+DicerMine.DisplayName: 切肉机空雷
+DicerSpray.DisplayName: 切肉机空雷尖刺
 DicerYoyo.DisplayName: 切肉机
 DragonBreathProj.DisplayName: 巨龙之息
 DragonFireball.DisplayName: 火球
@@ -293,7 +293,7 @@ DarkStarTwins.DisplayName: 暗星
 DeathSkull.DisplayName: 死亡标记头骨
 DeerclopsHand.DisplayName: 暗影之手
 DestroyerLaser.DisplayName: 死亡激光
-// DicerPlantera.DisplayName: Dicer Plantera
+DicerPlantera.DisplayName: 切肉机空雷
 DrakanianDaybreak.DisplayName: 破晓之光
 ElfArcherArrow.DisplayName: 霜冻箭
 ElfCopterBullet.DisplayName: 爆炸子弹
@@ -564,10 +564,10 @@ DukeFishronMinion.DisplayName: 猪龙鱼公爵
 RazorbladeTyphoonFriendly2.DisplayName: 利刃台风
 DevRocket.DisplayName: 艳岚火箭
 RailgunBlast.DisplayName: 电磁炮爆炸
-// RoombaPetProj.DisplayName: Roomba Pet Proj
+RoombaPetProj.DisplayName: 扫地机器人
 VortexBolt.DisplayName: 闪电弧
 VortexRitualProj.DisplayName: 星旋圣仪
-// DoveProj.DisplayName: Dove Proj
+DoveProj.DisplayName: 鸽子
 WolfDashProj.DisplayName: 狼魂冲刺
 ChibiiRemii.DisplayName: 小蕾米
 PrimeMinionCannon.DisplayName: 机械炮
@@ -581,7 +581,7 @@ PufferRang.DisplayName: 气泡环
 PufferSpray.DisplayName: 气泡泉
 SpikyLure.DisplayName: 尖刺鱼饵
 WaterStream.DisplayName: 水流
-// Crimetroid.DisplayName: Crimetroid
+Crimetroid.DisplayName: 血水母
 NanoBase.DisplayName: 纳米基核
 NanoBlade.DisplayName: 等离子能量刃
 NanoProbe.DisplayName: 纳米探针
@@ -613,19 +613,19 @@ VenomSpit.DisplayName: 毒唾沫
 RainbowSlimeSpikeFriendly.DisplayName: 彩虹史莱姆尖刺
 PlasmaDeathRay.DisplayName: 等离子死亡射线
 AbomBossProjectile.DisplayName: 憎恶
-// BaronMine.DisplayName: Banished Baron's Mine
-// BaronNuke.DisplayName: Banished Baron's Spicy Beeping Nuclear Torpedo of Death and Destruction
-// BaronRocket.DisplayName: Banished Baron's Rocket
-// BaronScrap.DisplayName: Banished Baron Scrap
-// BaronShrapnel.DisplayName: Banished Baron Mine Shrapnel
-// ShadowOrbProjectile.DisplayName: Shadow Orb
+BaronMine.DisplayName: 遗爵空雷
+BaronNuke.DisplayName: 放逐遗爵的满荷爆鸣死亡毁灭之核子鱼雷
+BaronRocket.DisplayName: 遗爵火箭
+BaronScrap.DisplayName: 遗爵废料
+BaronShrapnel.DisplayName: 遗爵空雷弹片
+ShadowOrbProjectile.DisplayName: 暗影珠
 WillDeathrayBig.DisplayName: 意志死亡射线
-// DeviBossProjectile.DisplayName: Deviantt
+DeviBossProjectile.DisplayName: 戴薇安
 JevilScar.DisplayName: 附魔光之剑
 LifeBlaster.DisplayName: 生命湮灭炮
-LifeBomb.DisplayName: 生命雷
-// LifeTransitionBomb.DisplayName: Life Mine
-LifeBombExplosion.DisplayName: 生命雷
+LifeBomb.DisplayName: 生命空雷
+LifeTransitionBomb.DisplayName: 生命空雷
+LifeBombExplosion.DisplayName: 生命空雷
 LifeCageExplosion.DisplayName: 囚笼爆炸
 LifeCageProjectile.DisplayName: 生命囚笼
 LifeCageTelegraph.DisplayName: 生命囚笼预警
@@ -701,13 +701,13 @@ SpectralEoC.DisplayName: 克苏鲁幽灵眼
 MonkDashSlash.DisplayName: 武僧冲刺斩
 ObsidianExplosion.DisplayName: 黑曜石爆炸
 DeviGuardianHarmless.DisplayName: 戴薇安守护
-MagmawJaw.DisplayName: Magmaw Jaw（这是什么？）//for patch
-MagmawHand.DisplayName: Magmaw Hand（这是什么？）//for patch
-PungentEyeballMinion.DisplayName: Pungent Eyeball Minion（这是什么？）//for patch
-MinosPrime.DisplayName: Minos Prime（这是什么？）//for patch
+// MagmawJaw.DisplayName: Magmaw Jaw
+// MagmawHand.DisplayName: Magmaw Hand
+PungentEyeballMinion.DisplayName: 尖刻眼球
+// MinosPrime.DisplayName: Minos Prime
 RainLightning.DisplayName: 雷暴雨
-// PlanteraThornChakram.DisplayName: Plantera Thorn Chakram
-// PlanteraRitual.DisplayName: Plantera Ritual
-// PlanteraManEater.DisplayName: Plantera Man Eater
-// PlanteraSnatcher.DisplayName: Plantera Snatcher
-// PlanteraTrapper.DisplayName: Plantera Trapper
+PlanteraThornChakram.DisplayName: 荆棘旋刃
+PlanteraRitual.DisplayName: 世纪之花结界
+PlanteraManEater.DisplayName: 食人怪
+PlanteraSnatcher.DisplayName: 抓人草
+PlanteraTrapper.DisplayName: 愤怒捕手

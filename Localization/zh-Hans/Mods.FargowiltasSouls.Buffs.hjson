@@ -58,11 +58,6 @@ TitaniumDRBuff: {
 	Description: 你获得了额外的伤害减免
 }
 
-VortexCD: {
-	DisplayName: 星旋冷却
-	Description: 你现在不能生成另一个星旋旋涡
-}
-
 KingSlimeMinionBuff: {
 	DisplayName: 迷你史莱姆王
 	Description: 迷你史莱姆王将会保护你
@@ -96,36 +91,6 @@ PrimeMinionBuff: {
 FishMinionBuff: {
 	DisplayName: 鱼
 	Description: 这些鱼将为你而战
-}
-
-BetsyDash: {
-	DisplayName: 冲刺
-	Description: 你正在高速移动！
-}
-
-HellFire.DisplayName: 狱火
-
-MutantRebirth: {
-	DisplayName: 突变重生
-	Description: 复活死亡射线蓄力中
-}
-
-FlippedHallow: {
-	DisplayName: 翻转
-	Description: 你的重力被颠倒了
-}
-
-SuperFlocko.DisplayName: 超级雪花怪
-HuntressBleed.DisplayName: 女猎人流血
-
-SnowstormCD: {
-	DisplayName: 暴雪冷却
-	Description: 你现在不能冻结一切
-}
-
-TimeStopCD: {
-	DisplayName: 时停冷却
-	Description: 你现在不能停止时间
 }
 
 CrimetroidBuff: {

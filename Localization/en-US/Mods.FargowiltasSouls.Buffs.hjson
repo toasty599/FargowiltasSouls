@@ -58,11 +58,6 @@ TitaniumDRBuff: {
 	Description: You have extra damage resistance in close range and resist most debuffs
 }
 
-VortexCD: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.VortexCD
-	Description: Mods.FargowiltasSouls.BuffDescription.VortexCD
-}
-
 KingSlimeMinionBuff: {
 	DisplayName: Mini King Slime
 	Description: This Mini King Slime will protect you
@@ -96,36 +91,6 @@ PrimeMinionBuff: {
 FishMinionBuff: {
 	DisplayName: Fish
 	Description: This fish will fight for you
-}
-
-BetsyDash: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.BetsyDash
-	Description: Mods.FargowiltasSouls.BuffDescription.BetsyDash
-}
-
-HellFire.DisplayName: Mods.FargowiltasSouls.BuffName.HellFire
-
-MutantRebirth: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.MutantRebirth
-	Description: Mods.FargowiltasSouls.BuffDescription.MutantRebirth
-}
-
-FlippedHallow: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.FlippedHallow
-	Description: Mods.FargowiltasSouls.BuffDescription.FlippedHallow
-}
-
-SuperFlocko.DisplayName: Mods.FargowiltasSouls.BuffName.SuperFlocko
-HuntressBleed.DisplayName: Mods.FargowiltasSouls.BuffName.HuntressBleed
-
-SnowstormCD: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.SnowstormCD
-	Description: Mods.FargowiltasSouls.BuffDescription.SnowstormCD
-}
-
-TimeStopCD: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.TimeStopCD
-	Description: Mods.FargowiltasSouls.BuffDescription.TimeStopCD
 }
 
 CrimetroidBuff: {
