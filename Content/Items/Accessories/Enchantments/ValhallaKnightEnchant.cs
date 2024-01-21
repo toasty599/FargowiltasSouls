@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -11,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(147, 101, 30);
+        public override Color nameColor => new(147, 101, 30);
         
         public override void SetDefaults()
         {
@@ -23,7 +26,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().ValhallaEnchantItem = Item;
+            player.FargoSouls().ValhallaEnchantActive = true;
+            player.AddEffect<ValhallaDash>(Item);
             SquireEnchant.SquireEffect(player, Item);
         }
 
@@ -40,5 +44,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddTile(TileID.CrystalBall)
             .Register();
         }
+    }
+    public class ValhallaDash : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ValhallaKnightEnchant>();
     }
 }

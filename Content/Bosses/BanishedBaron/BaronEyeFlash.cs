@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.scale -= 0.05f;
             }
             NPC npc = Main.npc[(int)Projectile.ai[0]];
-            if (npc != null && npc.active && npc.type == ModContent.NPCType<BanishedBaron>())
+            if (npc.TypeAlive(ModContent.NPCType<BanishedBaron>()))
             {
                 Projectile.Center = npc.Center + npc.rotation.ToRotationVector2() * npc.width * 0.35f;
             }

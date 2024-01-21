@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
@@ -43,9 +45,8 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             Projectile.netUpdate = true;
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || !(modPlayer.ShadowEnchantActive || modPlayer.TerrariaSoul) || !player.GetToggleValue("Shadow")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !player.HasEffect<ShadowBalls>()))
             {
-                modPlayer.ShadowEnchantActive = false;
                 Projectile.Kill();
                 return;
             }

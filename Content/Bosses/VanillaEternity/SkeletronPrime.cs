@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -166,11 +167,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (npc.ai[0] != 2f) //in phase 1
             {
-                if (npc.life < npc.lifeMax * .8) //enter phase 2
+                float threshold = WorldSavingSystem.MasochistModeReal ? 0.8f : 1f;  //instant in emode, 80% in maso
+                if (npc.life < npc.lifeMax * threshold /*.8*/)
                 {
                     npc.ai[0] = 2f;
 
-                    SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+                    //SoundEngine.PlaySound(SoundID.Roar, npc.Center);
                     return result;
                 }
             }
@@ -220,7 +222,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     }
                     if (!Main.dayTime)
                     {
-                        npc.rotation += MathHelper.Pi / 12;
+                        npc.rotation += MathHelper.Pi / 6;
                     }
                     
                     if (!Main.dayTime && !WorldSavingSystem.MasochistModeReal)
@@ -238,7 +240,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
 
                 //spawn 4 more limbs
-                if (!FullySpawnedLimbs && (npc.life < npc.lifeMax * 0.6 || WorldSavingSystem.MasochistModeReal) && npc.ai[3] >= 0f)
+                if (!FullySpawnedLimbs && (npc.life < npc.lifeMax * 0.6 || WorldSavingSystem.MasochistModeReal) && npc.ai[1] == 0f && npc.ai[3] >= 0f) // cannot go p3 while spinning
                 {
                     if (limbTimer == 0)
                     {
@@ -259,7 +261,14 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (!NPC.AnyNPCs(NPCID.PrimeVice))
                             FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.PrimeVice, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
 
-                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeRegrow", new Color(175, 75, 255));
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.RegrowArms", new Color(175, 75, 255), npc.FullName);
+
+                        foreach (NPC l in Main.npc.Where(l => l.active && l.ai[1] == npc.whoAmI)) // 2 seconds of no contact damage on phase transition
+                        {
+                            PrimeLimb limb = l.GetGlobalNPC<PrimeLimb>();
+                            if (limb.NoContactDamageTimer < 60 * 3)
+                                limb.NoContactDamageTimer = 60 * 3;
+                        }
                     }
 
                     limbTimer++;
@@ -359,7 +368,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (!HasSaidEndure)
                 {
                     HasSaidEndure = true;
-                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeGuardian", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.GuardianForm", new Color(175, 75, 255), npc.FullName);
                 }
 
                 if (!WorldSavingSystem.MasochistModeReal)
@@ -566,6 +575,93 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             bool useNormalAi = false;
 
+            bool SwipeLimbAI() // returns false if it should cancel AI
+            {
+                npc.damage = (int)(head.defDamage * 1.25);
+
+                //only selfdestruct once prime is done spawning limbs
+                if (npc.life == 1 && head.GetGlobalNPC<SkeletronPrime>().FullySpawnedLimbs)
+                {
+                    npc.dontTakeDamage = false; //for client side so you can hit the limb and update this
+                    if (FargoSoulsUtil.HostCheck)
+                    {
+                        npc.life = 0;
+                        npc.HitEffect();
+                        npc.active = false;
+                        if (Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                        return false;
+                    }
+                }
+
+                if (!ModeReset)
+                {
+                    ModeReset = true;
+                    switch (npc.type)
+                    {
+                        case NPCID.PrimeCannon: IdleOffsetX = -1; IdleOffsetY = -1; break;
+                        case NPCID.PrimeLaser: IdleOffsetX = 1; IdleOffsetY = -1; break;
+                        case NPCID.PrimeSaw: IdleOffsetX = -1; IdleOffsetY = 1; break;
+                        case NPCID.PrimeVice: IdleOffsetX = 1; IdleOffsetY = 1; break;
+                        default: break;
+                    }
+                    npc.netUpdate = true;
+                }
+
+                if (++npc.ai[2] < 180)
+                {
+                    Vector2 offset = new(400 * IdleOffsetX, 400 * IdleOffsetY);
+                    if (CardinalSwipe)
+                        offset = offset.RotatedBy(MathHelper.PiOver4);
+
+                    Vector2 target = Main.player[npc.target].Center + offset;
+                    npc.velocity = (target - npc.Center) / 30;
+
+                    if (npc.ai[2] == 140)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item15 with { Volume = 1.5f }, npc.Center);
+
+                        if (FargoSoulsUtil.HostCheck)
+                        {
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 0);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    //npc.damage = 0;
+                    if (NoContactDamageTimer < 2)
+                        NoContactDamageTimer = 2;
+                }
+                else if (npc.ai[2] == 180)
+                {
+                    SoundEngine.PlaySound(SoundID.Item18 with { Volume = 1.25f }, npc.Center);
+                    npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * 20f;
+                    IdleOffsetX *= -1;
+                    IdleOffsetY *= -1;
+
+                    CardinalSwipe = !CardinalSwipe;
+
+                    npc.netUpdate = true;
+                }
+                else if (npc.ai[2] < 210)
+                {
+
+                }
+                else
+                {
+                    npc.ai[2] = head.ai[1] == 1 || head.ai[1] == 2 ? 0 : -90;
+
+                    if (WorldSavingSystem.MasochistModeReal)
+                        npc.ai[2] += 60;
+
+                    npc.netUpdate = true;
+                }
+
+                npc.rotation = head.DirectionTo(npc.Center).ToRotation() - (float)Math.PI / 2;
+
+                return true;
+            }
+
             if (head.ai[0] == 2f) //phase 2
             {
                 npc.target = head.target;
@@ -574,87 +670,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 if (IsSwipeLimb) //swipe AI
                 {
-                    npc.damage = (int)(head.defDamage * 1.25);
-
-                    //only selfdestruct once prime is done spawning limbs
-                    if (npc.life == 1 && head.GetGlobalNPC<SkeletronPrime>().FullySpawnedLimbs)
-                    {
-                        npc.dontTakeDamage = false; //for client side so you can hit the limb and update this
-                        if (FargoSoulsUtil.HostCheck)
-                        {
-                            npc.life = 0;
-                            npc.HitEffect();
-                            npc.active = false;
-                            if (Main.netMode == NetmodeID.Server)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
-                            return false;
-                        }
-                    }
-
-                    if (!ModeReset)
-                    {
-                        ModeReset = true;
-                        switch (npc.type)
-                        {
-                            case NPCID.PrimeCannon: IdleOffsetX = -1; IdleOffsetY = -1; break;
-                            case NPCID.PrimeLaser: IdleOffsetX = 1; IdleOffsetY = -1; break;
-                            case NPCID.PrimeSaw: IdleOffsetX = -1; IdleOffsetY = 1; break;
-                            case NPCID.PrimeVice: IdleOffsetX = 1; IdleOffsetY = 1; break;
-                            default: break;
-                        }
-                        npc.netUpdate = true;
-                    }
-
-                    if (++npc.ai[2] < 180)
-                    {
-                        Vector2 offset = new(400 * IdleOffsetX, 400 * IdleOffsetY);
-                        if (CardinalSwipe)
-                            offset = offset.RotatedBy(MathHelper.PiOver4);
-
-                        Vector2 target = Main.player[npc.target].Center + offset;
-                        npc.velocity = (target - npc.Center) / 30;
-
-                        if (npc.ai[2] == 140)
-                        {
-                            SoundEngine.PlaySound(SoundID.Item15 with { Volume = 1.5f }, npc.Center);
-
-                            if (FargoSoulsUtil.HostCheck)
-                            {
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 0);
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
-                            }
-                        }
-
-                        //npc.damage = 0;
-                        if (NoContactDamageTimer < 2)
-                            NoContactDamageTimer = 2;
-                    }
-                    else if (npc.ai[2] == 180)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item18 with { Volume = 1.25f }, npc.Center);
-                        npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * 20f;
-                        IdleOffsetX *= -1;
-                        IdleOffsetY *= -1;
-
-                        CardinalSwipe = !CardinalSwipe;
-
-                        npc.netUpdate = true;
-                    }
-                    else if (npc.ai[2] < 210)
-                    {
-
-                    }
-                    else
-                    {
-                        npc.ai[2] = head.ai[1] == 1 || head.ai[1] == 2 ? 0 : -90;
-
-                        if (WorldSavingSystem.MasochistModeReal)
-                            npc.ai[2] += 60;
-
-                        npc.netUpdate = true;
-                    }
-
-                    npc.rotation = head.DirectionTo(npc.Center).ToRotation() - (float)Math.PI / 2;
+                    if (!SwipeLimbAI())
+                        return false;
                 }
                 else if (head.ai[1] == 1 || head.ai[1] == 2) //other limbs while prime spinning
                 {

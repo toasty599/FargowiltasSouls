@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
-
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -23,7 +25,7 @@ Missing any attack will reset these bonuses
 'Accuracy brings power'"); */
         }
 
-        protected override Color nameColor => new(122, 192, 76);
+        public override Color nameColor => new(122, 192, 76);
 
         public override void SetDefaults()
         {
@@ -35,44 +37,12 @@ Missing any attack will reset these bonuses
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            HuntressEffect(player);
-        }
-
-        public static void HuntressEffect(Player player)
-        {
-            player.DisplayToggle("Huntress");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.HuntressEnchantActive = true;
-
-            if (modPlayer.HuntressCD > 0)
-            {
-                modPlayer.HuntressCD--;
-            }
+            player.AddEffect<HuntressEffect>(Item);
         }
 
         public static void HuntressBonus(FargoSoulsPlayer modPlayer, Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            proj.FargoSouls().HuntressProj = 2;
-
-            if (modPlayer.HuntressCD == 0)
-            {
-                modPlayer.HuntressStage++;
-
-                if (modPlayer.HuntressStage >= 10)
-                {
-                    modPlayer.HuntressStage = 10;
-
-                    if (modPlayer.RedRidingEnchantItem != null && modPlayer.RedRidingArrowCD == 0)
-                    {
-                        RedRidingEnchant.SpawnArrowRain(modPlayer.Player, target);
-                    }
-                }
-
-                modPlayer.HuntressCD = 30;
-            }
-            int bonus = modPlayer.ForceEffect(ModContent.ItemType<HuntressEnchant>()) || modPlayer.RedRidingEnchantItem != null ? 5 : 3;
-            proj.ArmorPenetration = bonus * 2 * modPlayer.HuntressStage;
-            modifiers.SourceDamage.Flat += bonus * modPlayer.HuntressStage;
+            
         }
 
         public override void AddRecipes()
@@ -88,6 +58,51 @@ Missing any attack will reset these bonuses
 
             .AddTile(TileID.CrystalBall)
             .Register();
+        }
+    }
+    public class HuntressEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<HuntressEnchant>();
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.HuntressCD > 0)
+            {
+                modPlayer.HuntressCD--;
+            }
+        }
+        public override void ModifyHitNPCWithProj(Player player, Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            FargoSoulsGlobalProjectile soulsProj = proj.FargoSouls();
+            
+            if (soulsProj.HuntressProj == 1 && target.type != NPCID.TargetDummy)
+            {
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                soulsProj.HuntressProj = 2;
+                bool redRiding = player.HasEffect<RedRidingEffect>();
+
+                if (modPlayer.HuntressCD == 0)
+                {
+                    modPlayer.HuntressStage++;
+
+                    if (modPlayer.HuntressStage >= 10)
+                    {
+                        modPlayer.HuntressStage = 10;
+
+                        if (redRiding && modPlayer.RedRidingArrowCD == 0)
+                        {
+                            RedRidingEffect.SpawnArrowRain(modPlayer.Player, target);
+                        }
+                    }
+
+                    modPlayer.HuntressCD = 30;
+                }
+                int bonus = modPlayer.ForceEffect<HuntressEnchant>() || redRiding ? 5 : 3;
+                proj.ArmorPenetration = bonus * 2 * modPlayer.HuntressStage;
+                modifiers.SourceDamage.Flat += bonus * modPlayer.HuntressStage;
+            }
         }
     }
 }

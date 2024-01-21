@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
                     }
                 }
             }
-
+            /* ew ew ew ew ew
             for (int k = 0; k < 5; k++)
             {
                 int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.IceTorch, 0, 0f, 50, default, 4f);
@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
                 Main.dust[d].velocity += Projectile.velocity * 2f;
                 Main.dust[d].velocity *= Main.rand.NextFloat(2f);
             }
-
+            */
             if (Collision.SolidTiles(tip + Projectile.velocity * 16f, 0, 0))
             {
                 for (int i = 0; i < 2; i++)

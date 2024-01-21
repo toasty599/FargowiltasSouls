@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (Attack == (int)Attacks.VortexVortex)
                 {
                     EndAttack(npc);
-                    foreach (Projectile projectile in Main.projectile.Where(p => p != null && p.active && p.type == ModContent.ProjectileType<VortexVortex>()))
+                    foreach (Projectile projectile in Main.projectile.Where(p => p.TypeAlive(ModContent.ProjectileType<VortexVortex>())))
                     {
                         projectile.Kill();
                     }

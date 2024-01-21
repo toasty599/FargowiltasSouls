@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -35,7 +36,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             //destroy duplicates if they somehow spawn
             if (player.ownedProjectileCounts[Projectile.type] > 1
-                || Projectile.owner == Main.myPlayer && (!player.GetToggleValue("Rain") || modPlayer.RainEnchantItem == null))
+                || Projectile.owner == Main.myPlayer && (!player.HasEffect<RainUmbrellaEffect>()))
             {
                 Projectile.Kill();
             }
@@ -53,7 +54,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
 
             //always max size in force
-            if (modPlayer.ForceEffect(ModContent.ItemType<RainEnchant>()))
+            if (modPlayer.ForceEffect<RainEnchant>())
             {
                 Projectile.scale = 3f;
                 //shrinkTimer = 1;

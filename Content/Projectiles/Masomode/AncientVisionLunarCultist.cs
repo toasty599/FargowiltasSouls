@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
                 NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPCPrioritizingMinionFocus(Projectile, 1000));
-                if (n != null)
+                if (n.Alive())
                 {
                     Vector2 desiredVelocity = Projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);

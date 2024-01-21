@@ -5,6 +5,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using FargowiltasSouls.Core.Toggler;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -21,7 +24,7 @@ Enemies struck while Bleeding spew damaging blood
 'Surprisingly clean'"); */
         }
 
-        protected override Color nameColor => new(88, 104, 118);
+        public override Color nameColor => new(88, 104, 118);
         
 
         public override void SetDefaults()
@@ -34,20 +37,36 @@ Enemies struck while Bleeding spew damaging blood
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ShadewoodEffect(player, Item);
+            player.AddEffect<ShadewoodEffect>(Item);
         }
 
-        public static void ShadewoodEffect(Player player, Item item)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Shade");
+            CreateRecipe()
+                .AddIngredient(ItemID.ShadewoodHelmet)
+                .AddIngredient(ItemID.ShadewoodBreastplate)
+                .AddIngredient(ItemID.ShadewoodGreaves)
+                .AddIngredient(ItemID.ViciousMushroom)
+                .AddIngredient(ItemID.BloodOrange)
+                .AddIngredient(ItemID.DeadlandComesAlive)
+
+            .AddTile(TileID.DemonAltar)
+            .Register();
+        }
+    }
+    public class ShadewoodEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ShadewoodEnchant>();
+        public override void PostUpdateEquips(Player player)
+        {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (!player.GetToggleValue("Shade") || player.whoAmI != Main.myPlayer)
+            if (player.whoAmI != Main.myPlayer)
                 return;
-
-            modPlayer.ShadewoodEnchantItem = item;
-
-            int dist = modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) ? 400 : 200;
+            bool forceEffect = modPlayer.ForceEffect<ShadewoodEnchant>();
+            int dist = forceEffect ? 400 : 200;
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -55,7 +74,7 @@ Enemies struck while Bleeding spew damaging blood
                 if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage)
                 {
                     Vector2 npcComparePoint = FargoSoulsUtil.ClosestPointInHitbox(npc, player.Center);
-                    if (player.Distance(npcComparePoint) < dist && (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
+                    if (player.Distance(npcComparePoint) < dist && (forceEffect || Collision.CanHitLine(player.Center, 0, 0, npcComparePoint, 0, 0)))
                         npc.AddBuff(ModContent.BuffType<SuperBleedBuff>(), 120);
                 }
             }
@@ -67,7 +86,7 @@ Enemies struck while Bleeding spew damaging blood
                 offset.X += (float)(Math.Sin(angle) * dist);
                 offset.Y += (float)(Math.Cos(angle) * dist);
                 Vector2 spawnPos = player.Center + offset - new Vector2(4, 4);
-                if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type) || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
+                if (forceEffect || Collision.CanHitLine(player.Left, 0, 0, spawnPos, 0, 0) || Collision.CanHitLine(player.Right, 0, 0, spawnPos, 0, 0))
                 {
                     Dust dust = Main.dust[Dust.NewDust(
                         spawnPos, 0, 0,
@@ -85,14 +104,18 @@ Enemies struck while Bleeding spew damaging blood
                 modPlayer.ShadewoodCD--;
             }
         }
-
-        public static void ShadewoodProc(FargoSoulsPlayer modPlayer, NPC target, Projectile projectile)
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
-            Player player = modPlayer.Player;
-            bool trueMelee = projectile == null || projectile.aiStyle == 19;
+            ShadewoodProc(player, target, projectile);
+        }
+        public static void ShadewoodProc(Player player, NPC target, Projectile projectile)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            bool forceEffect = modPlayer.ForceEffect<ShadewoodEnchant>();
+            bool trueMelee = projectile == null || projectile.aiStyle == ProjAIStyleID.Spear;
             int dmg = 20;
 
-            if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type))
+            if (forceEffect)
             {
                 dmg *= 3;
             }
@@ -104,7 +127,7 @@ Enemies struck while Bleeding spew damaging blood
                     Projectile.NewProjectile(player.GetSource_Misc(""), target.Center.X, target.Center.Y - 20, 0f + Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<SuperBlood>(), FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 0f, Main.myPlayer);
                 }
 
-                if (modPlayer.ForceEffect(modPlayer.ShadewoodEnchantItem.type))
+                if (forceEffect)
                 {
                     target.AddBuff(BuffID.Ichor, 30);
                 }
@@ -115,20 +138,6 @@ Enemies struck while Bleeding spew damaging blood
                     modPlayer.ShadewoodCD = 30;
                 }
             }
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ItemID.ShadewoodHelmet)
-                .AddIngredient(ItemID.ShadewoodBreastplate)
-                .AddIngredient(ItemID.ShadewoodGreaves)
-                .AddIngredient(ItemID.ViciousMushroom)
-                .AddIngredient(ItemID.BloodOrange)
-                .AddIngredient(ItemID.DeadlandComesAlive)
-
-            .AddTile(TileID.DemonAltar)
-            .Register();
         }
     }
 }

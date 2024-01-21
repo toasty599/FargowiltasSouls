@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -68,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             if (++Projectile.localAI[0] > 20)
             {
                 Projectile.localAI[0] = 0;
-                if (Projectile.owner == Main.myPlayer && Main.player[Projectile.owner].GetToggleValue("MasoRing"))
+                if (Projectile.owner == Main.myPlayer && Main.player[Projectile.owner].HasEffect<MasoRing>())
                 {
                     if (++Projectile.localAI[1] >= 7)
                         Projectile.localAI[1] = 0;

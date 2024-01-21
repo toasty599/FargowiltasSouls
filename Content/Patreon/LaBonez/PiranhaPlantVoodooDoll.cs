@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Patreon.LaBonez
             PatreonPlayer patreonPlayer = player.GetModPlayer<PatreonPlayer>();
             patreonPlayer.PiranhaPlantMode = !patreonPlayer.PiranhaPlantMode;
 
-            FargoSoulsUtil.PrintLocalization(patreonPlayer.PiranhaPlantMode ? $"Mods.{Mod.Name}.Message.{Name}On" : $"Mods.{Mod.Name}.Message.{Name}Off", 175, 75, 255);
+            FargoSoulsUtil.PrintLocalization(patreonPlayer.PiranhaPlantMode ? $"Mods.{Mod.Name}.Items.{Name}.On" : $"Mods.{Mod.Name}.Items.{Name}.Off", 175, 75, 255);
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); //sync world
 

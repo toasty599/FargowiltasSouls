@@ -1,6 +1,8 @@
 ﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Placables;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -100,7 +102,7 @@ namespace FargowiltasSouls.Core.Globals
                 return base.PreAI(npc);
 
             //in pre-hm, enemies glow slightly at night
-            if (!Main.dayTime && !Main.hardMode)
+            if (!Main.dayTime && !Main.hardMode && SoulConfig.Instance.PreBossNightGlow)
             {
                 int x = (int)npc.Center.X / 16;
                 int y = (int)npc.Center.Y / 16;
@@ -240,7 +242,7 @@ namespace FargowiltasSouls.Core.Globals
             bool noInvasion = FargowiltasSouls.NoInvasion(spawnInfo);
             bool normalSpawn = !spawnInfo.PlayerInTown && noInvasion && !oldOnesArmy && noEvent;
 
-            bool bossCanSpawn = WorldSavingSystem.MasochistModeReal && !spawnInfo.Player.FargoSouls().SinisterIcon && !FargoSoulsUtil.AnyBossAlive();
+            bool bossCanSpawn = WorldSavingSystem.MasochistModeReal && !spawnInfo.Player.HasEffect<SinisterIconEffect>() && !FargoSoulsUtil.AnyBossAlive();
 
             //MASOCHIST MODE
             if (WorldSavingSystem.EternityMode)
@@ -284,10 +286,10 @@ namespace FargowiltasSouls.Core.Globals
                         if (normalSpawn && WorldSavingSystem.DownedAnyBoss)
                         {
                             if (snow)
-                                pool[NPCID.IceGolem] = .001f;
+                                pool[NPCID.IceGolem] = .005f;
 
                             if (desert)
-                                pool[NPCID.SandElemental] = .001f;
+                                pool[NPCID.SandElemental] = .005f;
                         }
 
                         if (Main.slimeRain && NPC.downedBoss2 && bossCanSpawn)
@@ -338,7 +340,7 @@ namespace FargowiltasSouls.Core.Globals
                             pool[NPCID.AngryNimbus] = .02f;
 
                             if (WorldSavingSystem.DownedAnyBoss)
-                                pool[NPCID.WyvernHead] = .001f;
+                                pool[NPCID.WyvernHead] = .005f;
                         }
                     }
 
@@ -1101,10 +1103,22 @@ namespace FargowiltasSouls.Core.Globals
                     TimsConcoctionDrop(ItemDropRule.Common(ItemID.LifeforcePotion, 1, 1, 12));
                     break;
 
+                case NPCID.ManEater:
+                case NPCID.Nutcracker:
+                case NPCID.Parrot:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.GenderChangePotion, 1, 1, 3));
+                    break;
+                case NPCID.CorruptBunny:
+                case NPCID.CrimsonBunny:
+                case NPCID.CorruptGoldfish:
+                case NPCID.CrimsonGoldfish:
+                case NPCID.CorruptPenguin:
+                case NPCID.CrimsonPenguin:
+                    TimsConcoctionDrop(ItemDropRule.Common(ItemID.BiomeSightPotion, 1, 1, 3));
+                    break;
                 default: break;
             }
             #endregion
-
             //if (npc.ModNPC == null || npc.ModNPC.Mod is FargowiltasSouls) //not for other mods
             //{
             int allowedRecursionDepth = 10;

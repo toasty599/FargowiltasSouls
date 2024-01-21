@@ -27,6 +27,8 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             Projectile.timeLeft = 60 * 40;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
+
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public NPC EmbeddedNPC = null;

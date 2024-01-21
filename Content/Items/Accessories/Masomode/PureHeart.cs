@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -50,17 +51,21 @@ Creeper respawn speed increases when not moving
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.RottingBuff>()] = true;
             player.moveSpeed += 0.1f;
             fargoPlayer.DarkenedHeartItem = Item;
+            player.AddEffect<DarkenedHeartEaters>(Item);
             if (fargoPlayer.DarkenedHeartCD > 0)
                 fargoPlayer.DarkenedHeartCD--;
 
             //gutted effect
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.BloodthirstyBuff>()] = true;
             player.statLifeMax2 += player.statLifeMax / 10;
-            fargoPlayer.GuttedHeart = true;
+            player.AddEffect<GuttedHeartEffect>(Item);
+            player.AddEffect<GuttedHeartMinions>(Item);
 
             //gelic effect
             player.FargoSouls().GelicWingsItem = Item;
-            player.GetJumpState(ExtraJump.UnicornMount).Enable();
+
+            player.AddEffect<GelicWingJump>(Item);
+            player.AddEffect<GelicWingSpikes>(Item);
         }
 
         public override void AddRecipes()

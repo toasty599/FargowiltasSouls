@@ -45,7 +45,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
                 NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 2000));
-                if (n != null)
+                if (n.Alive())
                 {
                     if (Projectile.Distance(n.Center) > Math.Max(n.width, n.height))
                     {

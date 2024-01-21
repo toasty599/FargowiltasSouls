@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,13 +19,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "狂战士之魂");
 
-            string tooltip =
-@"30% increased melee damage
-20% increased melee speed
-15% increased melee crit chance
-Increased melee knockback
-Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
-'None shall live to tell the tale'";
             // Tooltip.SetDefault(tooltip);
             //string tooltip_ch =
             //@"增加30%近战伤害
@@ -41,43 +37,31 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
             base.SetDefaults();
             Item.defense = 4;
         }
-
-        protected override Color? nameColor => new Color(255, 111, 6);
+        public static readonly Color ItemColor = new(255, 111, 6);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage(DamageClass.Melee) += 0.3f;
             player.GetCritChance(DamageClass.Melee) += 15;
 
-            if (player.GetToggleValue("Melee"))
-                player.GetAttackSpeed(DamageClass.Melee) += .2f;
+            player.AddEffect<MeleeSpeedEffect>(Item);
+
+            player.FargoSouls().MeleeSoul = true;
 
             //gauntlet
-            if (player.GetToggleValue("MagmaStone"))
-            {
-                player.magmaStone = true;
-            }
+            player.AddEffect<MagmaStoneEffect>(Item);
             player.kbGlove = true;
             player.autoReuseGlove = true;
             player.meleeScaleGlove = true;
 
-            if (player.GetToggleValue("YoyoBag", false))
-            {
-                player.counterWeight = 556 + Main.rand.Next(6);
-                player.yoyoGlove = true;
-                player.yoyoString = true;
-            }
+            player.counterWeight = 556 + Main.rand.Next(6);
+            player.yoyoGlove = true;
+            player.yoyoString = true;
 
             //celestial shell
-            if (player.GetToggleValue("MoonCharm"))
-            {
-                player.wolfAcc = true;
-            }
-
-            if (player.GetToggleValue("NeptuneShell"))
-            {
-                player.accMerman = true;
-            }
+            player.wolfAcc = true;
+            player.accMerman = true;
 
             if (hideVisual)
             {
@@ -111,6 +95,24 @@ Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
             .Register();
+        }
+    }
+    public class MeleeSpeedEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override int ToggleItemType => ModContent.ItemType<BerserkerSoul>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.GetAttackSpeed(DamageClass.Melee) += .2f;
+        }
+    }
+    public class MagmaStoneEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<UniverseHeader>();
+        public override int ToggleItemType => ItemID.MagmaStone;
+        public override void PostUpdateEquips(Player player)
+        {
+            player.magmaStone = true;
         }
     }
 }

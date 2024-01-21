@@ -6,6 +6,7 @@ using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using FargowiltasSouls.Content.Bosses.BanishedBaron;
 using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {
@@ -83,9 +84,9 @@ namespace FargowiltasSouls.Content.Items.Summons
         }
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
-            string text = "Can be sold by the Travelling Merchant";
+            string text = Language.GetTextValue("Mods.FargowiltasSouls.Items.MechLure.TooltipTravelingMerchant");
             tooltips.Add(new TooltipLine(Mod, "TooltipTravelingMerchant",
-                $"[i:{Find<ModItem>("Fargowiltas", "TravellingMerchant").Type}] [c/AAAAAA:{text}]"));
+                $"[i:Fargowiltas/TravellingMerchant] [c/AAAAAA:{text}]"));
         }
     }
 }

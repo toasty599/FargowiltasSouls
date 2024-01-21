@@ -22,6 +22,7 @@ using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 {
@@ -57,7 +58,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 ModContent.BuffType<LightningRodBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = false,
                 Position = new Vector2(8, 16),
@@ -102,7 +103,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             NPC.boss = true;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Champions") : MusicID.OtherworldlyLunarBoss;
+                ? MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Silent") : MusicID.OtherworldlyLunarBoss;
             SceneEffectPriority = SceneEffectPriority.BossLow;
 
             NPC.scale *= 1.5f;
@@ -127,11 +128,11 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         /*public override bool? CanBeHitByProjectile(Projectile projectile)
         {
-            if (NPC.ai[0] == 15 && NPC.ai[1] > 90 && NPC.ai[1] < 210) //intangible during timestop
+            if (Animation == 15 && NPC.ai[1] > 90 && NPC.ai[1] < 210) //intangible during timestop
                 return false;
             return null;
         }*/
-
+        ref float Animation => ref NPC.ai[0];
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(NPC.localAI[0]);
@@ -173,6 +174,9 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     NPC.localAI[3] = 1;
 
                     NPC.velocity = NPC.DirectionFrom(Main.player[NPC.target].Center).RotatedByRandom(MathHelper.PiOver2) * 20f;
+
+                    Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
+                            ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/PlatinumStar") : MusicID.OtherworldlyLunarBoss;
                 }
                 return;
             }
@@ -187,16 +191,16 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
             NPC.direction = NPC.spriteDirection = NPC.Center.X < player.Center.X ? 1 : -1;
 
-            if (NPC.localAI[2] == 0 && NPC.ai[0] != -1 && NPC.life < NPC.lifeMax * (WorldSavingSystem.EternityMode ? .8 : 5))
+            if (NPC.localAI[2] == 0 && Animation != -1 && NPC.life < NPC.lifeMax * (WorldSavingSystem.EternityMode ? .8 : 5))
             {
-                if (NPC.ai[0] == 15 && NPC.ai[1] < 210 + 60) //dont phase transition during timestop
+                if (Animation == 15 && NPC.ai[1] < 210 + 60) //dont phase transition during timestop
                 {
                     NPC.life = (int)(NPC.lifeMax * (WorldSavingSystem.EternityMode ? .8 : 5));
                 }
                 else
                 {
-                    float buffer = NPC.ai[0];
-                    NPC.ai[0] = -1;
+                    float buffer = Animation;
+                    Animation = -1;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 0;
                     NPC.ai[3] = buffer;
@@ -206,15 +210,15 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 }
             }
 
-            if (WorldSavingSystem.EternityMode && NPC.localAI[2] < 2 && NPC.ai[0] != -2 && NPC.life < NPC.lifeMax * .2)
+            if (WorldSavingSystem.EternityMode && NPC.localAI[2] < 2 && Animation != -2 && NPC.life < NPC.lifeMax * .2)
             {
-                if (NPC.ai[0] == 15 && NPC.ai[1] < 210 + 60) //dont phase transition during timestop
+                if (Animation == 15 && NPC.ai[1] < 210 + 60) //dont phase transition during timestop
                 {
                     NPC.life = (int)(NPC.lifeMax * .2);
                 }
                 else
                 {
-                    NPC.ai[0] = -2;
+                    Animation = -2;
                     NPC.ai[1] = 0;
                     NPC.ai[2] = 0;
                     NPC.ai[3] = 0;
@@ -234,7 +238,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     && (ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && Main.npc[n].type == modNPC.Type || Main.npc[n].type == ModContent.NPCType<DeviBoss.DeviBoss>());
             }
 
-            switch ((int)NPC.ai[0])
+            switch ((int)Animation)
             {
                 case -4: //hit children
                     {
@@ -293,7 +297,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                             if (NPC.ai[3] >= 420) //if couldn't kill deviantt in 6 seconds, just stop trying
                                 hitChildren = true;
 
-                            NPC.ai[0] = NPC.ai[1];
+                            Animation = NPC.ai[1];
                             NPC.ai[1] = 0;
                             NPC.ai[2] = 0;
                             NPC.ai[3] = 0;
@@ -317,6 +321,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                     NPC.rotation = 0;
                     NPC.velocity *= 0.9f;
+
+                    player.wingTime = player.wingTimeMax;
 
                     if (NPC.ai[1] == 0)
                     {
@@ -681,7 +687,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         }*/
 
                         NPC.TargetClosest();
-                        NPC.ai[0]--;
+                        Animation--;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -702,11 +708,12 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                         //if (FargoSoulsUtil.HostCheck) Projectile.NewProjectile(npc.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
                         epicMe = 1f;
+
                     }
                     else if (NPC.ai[1] > 180) //LAUGH
                     {
                         NPC.TargetClosest();
-                        NPC.ai[0] = NPC.ai[3];
+                        Animation = NPC.ai[3];
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -734,16 +741,17 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                     if (NPC.ai[1] == 0 && !(NPC.localAI[2] == 0 || !Main.expertMode))
                     {
-                        if (NPC.ai[0] != 5 && FargoSoulsUtil.HostCheck)
+                        if (Animation != 5 && FargoSoulsUtil.HostCheck)
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI, -23);
+                        
                     }
 
                     if (++NPC.ai[1] > 60)
                     {
-                        float oldAi0 = NPC.ai[0];
+                        float oldAi0 = Animation;
 
                         NPC.TargetClosest();
-                        NPC.ai[0] += NPC.localAI[2] == 0 || !Main.expertMode ? 2 : 1;
+                        Animation += NPC.localAI[2] == 0 || !Main.expertMode ? 2 : 1;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -755,7 +763,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                             {
                                 if (Main.npc[i].active && NPC.Distance(Main.npc[i].Center) < 2000 && player.Distance(Main.npc[i].Center) < 2000 && IsDeviantt(i))
                                 {
-                                    NPC.ai[0] = -4;
+                                    Animation = -4;
                                     NPC.ai[1] = oldAi0;
                                     NPC.ai[2] = i; //store target npc
                                     break;
@@ -822,7 +830,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     if (++NPC.ai[1] > 240)
                     {
                         NPC.TargetClosest();
-                        NPC.ai[0]++;
+                        Animation++;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -831,7 +839,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     break;
 
                 case 2: //float near player, proceed to next attack always
-                    if (NPC.ai[0] != 10)
+                    if (Animation != 10)
                     {
                         NPC.rotation = 0;
                         targetPos = player.Center + NPC.DirectionFrom(player.Center) * 500;
@@ -852,10 +860,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
                     if (++NPC.ai[1] > 60)
                     {
-                        float oldAi0 = NPC.ai[0];
+                        float oldAi0 = Animation;
 
                         NPC.TargetClosest();
-                        NPC.ai[0]++;
+                        Animation++;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -867,7 +875,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                             {
                                 if (Main.npc[i].active && IsDeviantt(i) && NPC.Distance(Main.npc[i].Center) < 1200 && player.Distance(Main.npc[i].Center) < 1200)
                                 {
-                                    NPC.ai[0] = -4;
+                                    Animation = -4;
                                     NPC.ai[1] = oldAi0;
                                     NPC.ai[2] = i; //store target npc
                                     break;
@@ -947,7 +955,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         if (++NPC.ai[1] > 330) //(WorldSavingSystem.MasochistMode && NPC.localAI[2] != 0f ? 360 : 330))
                         {
                             NPC.TargetClosest();
-                            NPC.ai[0]++;
+                            Animation++;
                             NPC.ai[1] = 0;
                             NPC.ai[2] = 0;
                             NPC.ai[3] = 0;
@@ -1028,7 +1036,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         }
 
                         NPC.TargetClosest();
-                        NPC.ai[0]++;
+                        Animation++;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -1080,7 +1088,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     if (++NPC.ai[1] > 450)
                     {
                         NPC.TargetClosest();
-                        NPC.ai[0]++;
+                        Animation++;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -1162,7 +1170,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         NPC.velocity.X = 0f;
 
                         NPC.TargetClosest();
-                        NPC.ai[0]++;
+                        Animation++;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -1270,7 +1278,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     if (++NPC.ai[1] > 390)
                     {
                         NPC.TargetClosest();
-                        NPC.ai[0]++;
+                        Animation++;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -1410,7 +1418,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                                 NPC.velocity.Y = 0f;
 
                                 NPC.TargetClosest();
-                                NPC.ai[0]++;
+                                Animation++;
                                 NPC.ai[1] = WorldSavingSystem.EternityMode && NPC.localAI[2] != 0 ? 0 : -120;
                                 NPC.ai[2] = 0;
                                 NPC.ai[3] = 0;
@@ -1576,7 +1584,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     if (++NPC.ai[1] > 480)
                     {
                         NPC.TargetClosest();
-                        NPC.ai[0]++;
+                        Animation++;
                         NPC.ai[1] = 0;
                         NPC.ai[2] = 0;
                         NPC.ai[3] = 0;
@@ -1586,7 +1594,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     break;
 
                 default:
-                    NPC.ai[0] = 0;
+                    Animation = 0;
                     goto case 0;
             }
 
@@ -1621,130 +1629,143 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 if (NPC.velocity.Y > 0)
                     NPC.velocity.Y -= speedModifier * 2;
             }
-            if (Math.Abs(NPC.velocity.X) > cap)
-                NPC.velocity.X = cap * Math.Sign(NPC.velocity.X);
-            if (Math.Abs(NPC.velocity.Y) > cap)
-                NPC.velocity.Y = cap * Math.Sign(NPC.velocity.Y);
+            float dist = NPC.Distance(targetPos);
+            if (dist == 0)
+                dist = 0.1f;
+            if (NPC.velocity.Length() > dist)
+                NPC.velocity = Vector2.Normalize(NPC.velocity) * dist;
+            MathHelper.Clamp(NPC.velocity.X, -cap, cap);
+            MathHelper.Clamp(NPC.velocity.Y, -cap, cap);
         }
 
         public override void FindFrame(int frameHeight)
         {
+            const int HandsBackFrame = 5;
+            const int PunchFrame = 6;
+            const int HandsUpFrame1 = 7;
+            const int HandsUpFrame2 = 8;
+
             if (++NPC.frameCounter > 6)
             {
                 NPC.frameCounter = 0;
                 NPC.frame.Y += frameHeight;
             }
 
-            if (NPC.frame.Y > frameHeight * 4)
+            if (NPC.frame.Y > frameHeight * HandsBackFrame-1)
             {
                 NPC.frame.Y = 0;
             }
 
-            switch ((int)NPC.ai[0])
+            switch ((int)Animation)
             {
                 case -4:
-                    NPC.frame.Y = frameHeight * 5;
+                    NPC.frame.Y = frameHeight * HandsBackFrame;
                     if (NPC.localAI[0] >= 5)
-                        NPC.frame.Y = frameHeight * 6;
+                        NPC.frame.Y = frameHeight * PunchFrame;
                     break;
 
                 case -3:
                     if (NPC.ai[2] < 30 || NPC.ai[2] > 100 && NPC.ai[2] < 130)
-                        NPC.frame.Y = frameHeight * 8;
+                        NPC.frame.Y = frameHeight * HandsUpFrame2;
                     else if (NPC.ai[2] > 70 && NPC.ai[2] < 100 || NPC.ai[2] > 170)
-                        NPC.frame.Y = frameHeight * 7;
+                        NPC.frame.Y = frameHeight * HandsUpFrame1;
                     break;
 
                 case -2:
-                    NPC.frame.Y = frameHeight * 5;
+                    NPC.frame.Y = frameHeight * HandsBackFrame;
                     break;
 
                 case -1:
                     if (NPC.ai[1] > 120)
-                        NPC.frame.Y = frameHeight * 8;
+                        NPC.frame.Y = frameHeight * HandsUpFrame2;
                     else if (NPC.ai[1] > 100)
-                        NPC.frame.Y = frameHeight * 7;
+                        NPC.frame.Y = frameHeight * HandsUpFrame1;
                     break;
 
                 case 1:
                     if (NPC.ai[2] <= 6)
-                        NPC.frame.Y = frameHeight * 5;
+                        NPC.frame.Y = frameHeight * HandsBackFrame;
                     else
-                        NPC.frame.Y = frameHeight * 6;
+                        NPC.frame.Y = frameHeight * PunchFrame;
                     break;
 
                 case 3:
                     {
                         int threshold = 70; //NPC.localAI[2] == 0 ? 70 : 50;
                         if (NPC.ai[2] <= threshold)
-                            NPC.frame.Y = frameHeight * 5;
+                            NPC.frame.Y = frameHeight * HandsBackFrame;
                         else
-                            NPC.frame.Y = frameHeight * 6;
+                            NPC.frame.Y = frameHeight * PunchFrame;
                     }
                     break;
 
                 case 5:
                     if (NPC.ai[2] <= 75)
-                        NPC.frame.Y = frameHeight * 5;
+                        NPC.frame.Y = frameHeight * HandsBackFrame;
                     else
-                        NPC.frame.Y = frameHeight * 6;
+                        NPC.frame.Y = frameHeight * PunchFrame;
                     break;
 
                 case 7:
                     if (NPC.ai[1] < 30)
-                        NPC.frame.Y = frameHeight * 7;
+                        NPC.frame.Y = frameHeight * HandsUpFrame1;
                     else if (NPC.ai[1] < 60)
-                        NPC.frame.Y = frameHeight * 8;
+                        NPC.frame.Y = frameHeight * HandsUpFrame2;
                     break;
 
                 case 9:
                     if (NPC.ai[2] <= 200)
-                        NPC.frame.Y = frameHeight * 5;
+                        NPC.frame.Y = frameHeight * HandsBackFrame;
                     else
-                        NPC.frame.Y = frameHeight * 6;
+                        NPC.frame.Y = frameHeight * PunchFrame;
                     break;
 
                 case 10:
-                    NPC.frame.Y = frameHeight * 5;
+                    NPC.frame.Y = frameHeight * HandsBackFrame;
                     break;
 
                 case 11:
                     if (NPC.ai[1] > 60)
-                        NPC.frame.Y = frameHeight * 6;
+                        NPC.frame.Y = frameHeight * PunchFrame;
                     else
-                        NPC.frame.Y = frameHeight * 5;
+                        NPC.frame.Y = frameHeight * HandsBackFrame;
                     break;
 
                 case 13:
                     if (NPC.ai[1] < 110)
                     {
                         if (NPC.ai[2] <= 6)
-                            NPC.frame.Y = frameHeight * 5;
+                            NPC.frame.Y = frameHeight * HandsBackFrame;
                         else
-                            NPC.frame.Y = frameHeight * 6;
+                            NPC.frame.Y = frameHeight * PunchFrame;
                     }
                     else //uppercut time
                     {
                         if (NPC.ai[1] <= 110 + 45)
-                            NPC.frame.Y = frameHeight * 5;
+                            NPC.frame.Y = frameHeight * HandsBackFrame;
                         else
-                            NPC.frame.Y = frameHeight * 6;
+                            NPC.frame.Y = frameHeight * PunchFrame;
                     }
                     break;
 
                 case 14:
-                    NPC.frame.Y = frameHeight * 7;
+                    NPC.frame.Y = frameHeight * HandsUpFrame1;
                     break;
 
                 case 15: //ZA WARUDO
                     if (NPC.ai[1] < 10)
-                        NPC.frame.Y = frameHeight * 7;
+                        NPC.frame.Y = frameHeight * HandsUpFrame1;
                     else if (NPC.ai[1] < 130)
-                        NPC.frame.Y = frameHeight * 8;
+                        NPC.frame.Y = frameHeight * HandsUpFrame2;
                     break;
 
                 default:
                     break;
+            }
+
+            if (Main.projectile.Any(p => p.TypeAlive(ModContent.ProjectileType<GlowRing>()) && p.ai[0] == NPC.whoAmI && (p.ai[1] == -23 || p.ai[1] == -20)))
+            {
+                NPC.frame.Y = frameHeight * HandsBackFrame;
             }
         }
 
@@ -1801,7 +1822,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(CosmoForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<CosmoForce>()));
 
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CosmosBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EridanusTrophy>(), 10));
@@ -1844,7 +1865,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 glowColor.G = (byte)MathHelper.Lerp(color.G, glowColor.G, modifier);
                 glowColor.B = (byte)MathHelper.Lerp(color.B, glowColor.B, modifier);
             }
-            switch (NPC.ai[0])
+            switch (Animation)
             {
                 /*case -4:
                     {
@@ -1893,7 +1914,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             }
 
-            if (NPC.localAI[2] != 0 || NPC.ai[0] == -4f)
+            if (NPC.localAI[2] != 0 || Animation == -4f)
             {
                 for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
                 {

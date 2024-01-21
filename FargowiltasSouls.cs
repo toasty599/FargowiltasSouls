@@ -33,6 +33,9 @@ using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Content.Patreon.Volknet;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
 
 namespace FargowiltasSouls
 {
@@ -88,24 +91,22 @@ namespace FargowiltasSouls
 
             SkyManager.Instance["FargowiltasSouls:MoonLordSky"] = new MoonLordSky();
 
-            FreezeKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "冻结" : "Freeze", "P");
-            GoldKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "金身" : "Turn Gold", "O");
-            SmokeBombKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "投掷烟雾弹" : "Throw Smoke Bomb", "I");
-            SpecialDashKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "特殊冲刺" : "Special Dash", "C");
-            BombKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "突变炸弹" : "Bomb", "Z");
-            SoulToggleKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "打开魂石效果设置" : "Open Soul Toggler", ".");
-            PrecisionSealKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "玲珑圣印精确模式" : "Precision Movement", "LeftShift");
-            MagicalBulbKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "魔法净化" : "Magical Cleanse", "N");
-            FrigidSpellKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "寒霜咒语" : "Frigid Spell", "U");
-            DebuffInstallKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "减益负载" : "Debuff Install", "Y");
-            AmmoCycleKey = KeybindLoader.RegisterKeybind(this, FargoSoulsUtil.IsChinese() ? "弹药切换" : "Ammo Cycle", "L");
+            FreezeKey = KeybindLoader.RegisterKeybind(this, "Freeze", "P");
+            GoldKey = KeybindLoader.RegisterKeybind(this, "Gold", "O");
+            SmokeBombKey = KeybindLoader.RegisterKeybind(this, "SmokeBomb", "I");
+            SpecialDashKey = KeybindLoader.RegisterKeybind(this, "SpecialDash", "C");
+            BombKey = KeybindLoader.RegisterKeybind(this, "Bomb", "Z");
+            SoulToggleKey = KeybindLoader.RegisterKeybind(this, "SoulToggle", ".");
+            PrecisionSealKey = KeybindLoader.RegisterKeybind(this, "PrecisionSeal", "LeftShift");
+            MagicalBulbKey = KeybindLoader.RegisterKeybind(this, "MagicalBulb", "N");
+            FrigidSpellKey = KeybindLoader.RegisterKeybind(this, "FrigidSpell", "U");
+            DebuffInstallKey = KeybindLoader.RegisterKeybind(this, "DebuffInstall", "Y");
+            AmmoCycleKey = KeybindLoader.RegisterKeybind(this, "AmmoCycle", "L");
 
 
             ToggleLoader.Load();
 
             FargoUIManager.LoadUI();
-
-            AddLocalizations();
 
             if (Main.netMode != NetmodeID.Server)
             {
@@ -386,7 +387,7 @@ namespace FargowiltasSouls
                         return Main.LocalPlayer.FargoSouls().MutantAntibodies;
 
                     case "SinisterIcon":
-                        return Main.LocalPlayer.FargoSouls().SinisterIcon;
+                        return Main.LocalPlayer.HasEffect<SinisterIconEffect>();
 
                     case "AbomAlive":
                         return FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.abomBoss, ModContent.NPCType<AbomBoss>());
@@ -442,7 +443,7 @@ namespace FargowiltasSouls
                             netMessage.Write((byte)Main.LocalPlayer.whoAmI);
                             netMessage.Send();
                         }
-                        Main.npcChatText = FargoSoulsUtil.IsChinese() ? "这个世界看起来比平时更艰难，所以我免费给你提供这些，仅此一次！如果你需要任何提示，请告诉我，好吗？" : "This world looks tougher than usual, so you can have these on the house just this once! Talk to me if you need any tips, yeah?";
+                        Main.npcChatText = Language.GetTextValue("Mods.Fargowiltas.NPCs.Deviantt.Chat.GiveGifts"); // mutant mod entry
                         break;
 
                     case "SummonCrit":
@@ -662,7 +663,6 @@ namespace FargowiltasSouls
 
                     ModContent.BuffType<TimeFrozenBuff>()
                 };
-
                 BossChecklistCompatibility();
 
                 //Mod bossHealthBar = ModLoader.GetMod("FKBossHealthBar");
@@ -883,7 +883,7 @@ namespace FargowiltasSouls
                             EModeGlobalNPC.spawnFishronEX = true;
                             NPC.NewNPC(NPC.GetBossSpawnSource(target), x, y, NPCID.DukeFishron, 0, 0f, 0f, 0f, 0f, target);
                             EModeGlobalNPC.spawnFishronEX = false;
-                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(FargoSoulsUtil.IsChinese() ? "猪龙鱼公爵EX已苏醒！" : "Duke Fishron EX has awoken!"), new Color(50, 100, 255));
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DukeFishronEX.DisplayName")), new Color(50, 100, 255));
                         }
                         break;
 
@@ -899,7 +899,7 @@ namespace FargowiltasSouls
                             Player player = Main.player[reader.ReadByte()];
                             FargoSoulsPlayer modPlayer = player.FargoSouls();
                             byte count = reader.ReadByte();
-                            List<string> keys = ToggleLoader.LoadedToggles.Keys.ToList();
+                            List<AccessoryEffect> keys = ToggleLoader.LoadedToggles.Keys.ToList();
 
                             for (int i = 0; i < count; i++)
                             {
@@ -911,7 +911,7 @@ namespace FargowiltasSouls
                     case PacketID.SyncOneToggle: //sync single toggle
                         {
                             Player player = Main.player[reader.ReadByte()];
-                            player.SetToggleValue(reader.ReadString(), reader.ReadBoolean());
+                            player.SetToggleValue(AccessoryEffectLoader.EffectType(reader.ReadString()), reader.ReadBoolean());
                         }
                         break;
 

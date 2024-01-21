@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +27,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
             // '大地随着你的每一次挥镐而颤动'");
         }
 
-        protected override Color nameColor => new(95, 117, 151);
+        public override Color nameColor => new(95, 117, 151);
         
 
         public override void SetDefaults()
@@ -39,34 +41,19 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            float speed = modPlayer.ForceEffect(ModContent.ItemType<MinerEnchant>()) ? .75f : .5f;
-            MinerEffect(player, speed);
+            float speed = modPlayer.ForceEffect<MinerEnchant>() ? .75f : .5f;
+            AddEffects(player, speed, Item);
         }
 
-        public static void MinerEffect(Player player, float pickSpeed)
+        public static void AddEffects(Player player, float pickSpeed, Item item)
         {
             player.pickSpeed -= pickSpeed;
             player.nightVision = true;
 
-            if (player.GetToggleValue("MiningSpelunk"))
-            {
-                player.findTreasure = true;
-            }
-
-            if (player.GetToggleValue("MiningHunt"))
-            {
-                player.detectCreature = true;
-            }
-
-            if (player.GetToggleValue("MiningDanger"))
-            {
-                player.dangerSense = true;
-            }
-
-            if (player.GetToggleValue("MiningShine"))
-            {
-                Lighting.AddLight(player.Center, 0.8f, 0.8f, 0);
-            }
+            player.AddEffect<MiningSpelunk>(item);
+            player.AddEffect<MiningHunt>(item);
+            player.AddEffect<MiningDanger>(item);
+            player.AddEffect<MiningShine>(item);
         }
 
         public override void AddRecipes()
@@ -80,6 +67,42 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
                 .AddIngredient(ItemID.GravediggerShovel)
                 .AddTile(TileID.DemonAltar)
                 .Register();
+        }
+    }
+    public class MiningSpelunk : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MinerEnchant>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.findTreasure = true;
+        }
+    }
+    public class MiningHunt : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MinerEnchant>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.detectCreature = true;
+        }
+    }
+    public class MiningDanger : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MinerEnchant>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.dangerSense = true;
+        }
+    }
+    public class MiningShine : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<WorldShaperHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MinerEnchant>();
+        public override void PostUpdateEquips(Player player)
+        {
+            Lighting.AddLight(player.Center, 0.8f, 0.8f, 0);
         }
     }
 }

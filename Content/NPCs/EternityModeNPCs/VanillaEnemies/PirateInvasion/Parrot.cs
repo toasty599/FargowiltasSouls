@@ -1,7 +1,10 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.NPCMatching;
+using FargowiltasSouls.Core.Systems;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateInvasion
@@ -24,6 +27,11 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateIn
             target.AddBuff(ModContent.BuffType<SqueakyToyBuff>(), 120);
             target.AddBuff(ModContent.BuffType<MidasBuff>(), 600);
             //target.AddBuff(ModContent.BuffType<LivingWasteland>(), 600);
+
+            if (WorldSavingSystem.MasochistModeReal && npc.type == NPCID.Parrot && !target.Male)
+            {
+                target.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.Parrots", target.name)), 999999, 0);
+            }
         }
     }
 }

@@ -16,6 +16,9 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Common.Graphics.Particles;
+using System.Drawing;
+using Color = Microsoft.Xna.Framework.Color;
+using FargowiltasSouls.Content.Patreon.DanielTheRobot;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -329,6 +332,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 else if (velX < -maxSpeed)
                     velX = -maxSpeed;
 
+
                 for (int i = 0; i < 10; i++) //dust
                 {
                     Vector2 dustPos = new Vector2(2000 * npc.direction, 0f).RotatedBy(Math.PI / 3 * (-0.5 + Main.rand.NextDouble()));
@@ -406,6 +410,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool RepeatingAI;
         public bool HasTelegraphedNormalLasers;
 
+        public bool TelegraphingLasers;
+        public int TelegraphTimer;
+
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -414,6 +421,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             binaryWriter.Write7BitEncodedInt(PreventAttacks);
             bitWriter.WriteBit(RepeatingAI);
             bitWriter.WriteBit(HasTelegraphedNormalLasers);
+            bitWriter.WriteBit(TelegraphingLasers);
+            binaryWriter.Write7BitEncodedInt(TelegraphTimer);
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
@@ -423,6 +432,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             PreventAttacks = binaryReader.Read7BitEncodedInt();
             RepeatingAI = bitReader.ReadBit();
             HasTelegraphedNormalLasers = bitReader.ReadBit();
+            TelegraphingLasers = bitReader.ReadBit();
+            TelegraphTimer = binaryReader.Read7BitEncodedInt();
+
         }
 
         public override void SetDefaults(NPC npc)
@@ -444,6 +456,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override bool SafePreAI(NPC npc)
         {
+            ref float ai_Timer = ref npc.ai[1];
+            ref float ai_State = ref npc.ai[2];
+
             NPC mouth = FargoSoulsUtil.NPCExists(npc.realLife, NPCID.WallofFlesh);
             if (WorldSavingSystem.SwarmActive || RepeatingAI || mouth == null)
                 return true;
@@ -451,11 +466,53 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (PreventAttacks > 0)
                 PreventAttacks--;
 
+
             float maxTime = 540f;
+
+            if (TelegraphingLasers) //Telegraph imminent lasers with converging sparks
+            {
+                if (!(HasTelegraphedNormalLasers || Main.netMode == NetmodeID.MultiplayerClient))
+                {
+                    TelegraphTimer = 0;
+                }
+                
+                const float TelegraphTime = 645;
+
+                float rot = npc.rotation + (npc.direction > 0 ? 0 : MathHelper.Pi);
+                Vector2 direction = rot.ToRotationVector2();
+                Vector2 eyeCenter = npc.Center + (npc.width - 52) * Vector2.UnitX.RotatedBy(rot);
+
+                if (TelegraphTimer < npc.localAI[1])
+                    TelegraphTimer = (int)npc.localAI[1];
+
+                float progress = (float)Math.Cos(Math.PI / 2f / TelegraphTime * TelegraphTimer);
+
+                Color color = new Color(255, 0, 255, 100) * ((1f - progress) / 4 + 0.75f);
+                //float alpha = (int)(255f * progress);
+                int frequency = 2 + (int)Math.Ceiling(progress * 6);
+                float coneHalfWidth = MathHelper.PiOver2 * 0.8f * progress;
+                float speed = 6 + (1-progress) * 6;
+                Vector2 vel = direction.RotatedByRandom(coneHalfWidth);
+                float offsetAmt = 25 + (30 * progress);
+                Vector2 offset = vel * Main.rand.NextFloat(offsetAmt, offsetAmt * 2);
+                vel *= Main.rand.NextFloat(speed, speed + 4);
+
+                if (TelegraphTimer % frequency == 0)
+                {
+                    Particle p = new SparkParticle(eyeCenter + offset, vel, color, Main.rand.NextFloat(1.25f, 2f), 20);
+                    p.Spawn();
+                }
+
+                if (--TelegraphTimer <= 0)
+                {
+                    TelegraphTimer = 0;
+                    TelegraphingLasers = false;
+                }
+            }
 
             if (mouth.GetGlobalNPC<WallofFlesh>().InDesperationPhase)
             {
-                if (npc.ai[1] < maxTime - 180) //dont lower this if it's already telegraphing laser
+                if (ai_Timer < maxTime - 180) //dont lower this if it's already telegraphing laser
                     maxTime = 240f;
 
                 if (!WorldSavingSystem.MasochistModeReal)
@@ -465,36 +522,39 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
-            if (++npc.ai[1] >= maxTime)
+            if (++ai_Timer >= maxTime)
             {
-                npc.ai[1] = 0f;
-                if (npc.ai[2] == 0f)
-                    npc.ai[2] = 1f;
+                ai_Timer = 0f;
+                if (ai_State == 0f)
+                    ai_State = 1f;
                 else
-                    npc.ai[2] *= -1f;
+                    ai_State *= -1f;
 
-                if (npc.ai[2] > 0) //FIRE LASER
+                if (ai_State > 0) //FIRE LASER
                 {
                     Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
                     if (FargoSoulsUtil.HostCheck && PreventAttacks <= 0)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0, npc.whoAmI);
+                    Main.LocalPlayer.FargoSouls().Screenshake = 90;
                 }
+                /*
                 else //ring dust to denote i am vulnerable now
                 {
                     if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
                 }
+                */
 
                 npc.netUpdate = true;
                 NetSync(npc);
             }
 
-            if (npc.ai[2] >= 0f)
+            if (ai_State >= 0f)
             {
-                npc.alpha = 175;
+                npc.alpha = (int)MathHelper.Lerp(npc.alpha, 175, 0.1f);
                 npc.dontTakeDamage = true;
 
-                if (npc.ai[1] <= 90) //still firing laser rn
+                if (ai_Timer <= 90) //still firing laser rn
                 {
                     RepeatingAI = true;
                     npc.AI();
@@ -508,15 +568,15 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
                 else
                 {
-                    npc.ai[2] = 1;
+                    ai_State = 1;
                 }
             }
             else
             {
-                npc.alpha = 0;
+                npc.alpha = (int)MathHelper.Lerp(npc.alpha, 0, 0.1f);
                 npc.dontTakeDamage = false;
 
-                if (npc.ai[1] == maxTime - 3 * 5 && FargoSoulsUtil.HostCheck)
+                if (ai_Timer == maxTime - 3 * 5 && FargoSoulsUtil.HostCheck)
                 {
                     if (FargoSoulsUtil.HostCheck && PreventAttacks <= 0)
                     {
@@ -525,8 +585,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     }
                 }
 
-                if (npc.ai[1] > maxTime - 180f)
+                if (ai_Timer > maxTime - 180f)
                 {
+                    /*
                     if (Main.rand.Next(4) < 3) //dust telegraphs switch
                     {
                         int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.GemSapphire, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 114, default, 3.5f);
@@ -539,16 +600,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             Main.dust[dust].scale *= 0.5f;
                         }
                     }
-
+                    */
                     float stopTime = maxTime - 90f;
-                    if (npc.ai[1] == stopTime) //shoot warning dust in phase 2
+                    if (ai_Timer == stopTime) //shoot warning dust in phase 2
                     {
                         int t = npc.HasPlayerTarget ? npc.target : npc.FindClosestPlayer();
                         if (t != -1)
                         {
                             if (npc.Distance(Main.player[t].Center) < 3000)
                                 SoundEngine.PlaySound(SoundID.Roar, Main.player[t].Center);
-                            npc.ai[2] = -2f;
+                            ai_State = -2f;
                             npc.ai[3] = (npc.Center - Main.player[t].Center).ToRotation();
                             if (npc.realLife != -1 && Main.npc[npc.realLife].velocity.X > 0)
                                 npc.ai[3] += (float)Math.PI;
@@ -561,7 +622,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         npc.netUpdate = true;
                         NetSync(npc);
                     }
-                    else if (npc.ai[1] > stopTime)
+                    else if (ai_Timer > stopTime)
                     {
                         HasTelegraphedNormalLasers = false;
 
@@ -594,8 +655,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             else if (npc.localAI[1] >= 0f && !HasTelegraphedNormalLasers && npc.HasValidTarget) //telegraph for imminent laser
             {
                 HasTelegraphedNormalLasers = true;
-                if (FargoSoulsUtil.HostCheck)
-                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
+                TelegraphingLasers = true;
+                //if (FargoSoulsUtil.HostCheck)
+                    //Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, -22);
+                //Projectile.scale = 18f * progress;
+
             }
 
             //if (NPC.FindFirstNPC(npc.type) == npc.whoAmI) FargoSoulsUtil.PrintAI(npc);

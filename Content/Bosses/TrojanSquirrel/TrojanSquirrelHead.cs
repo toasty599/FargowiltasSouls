@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                         int stallPoint = threshold - 30;
                         if (NPC.ai[1] > stallPoint)
                         {
-                            TrojanSquirrel squirrel = body.ModNPC as TrojanSquirrel;
+                            TrojanSquirrel squirrel = body.As<TrojanSquirrel>();
                             if (squirrel.arms != null && squirrel.arms.ai[0] != 0f) //wait if other part is attacking
                                 NPC.ai[1] = stallPoint;
                         }

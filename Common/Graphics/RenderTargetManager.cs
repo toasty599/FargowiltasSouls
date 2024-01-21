@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Common.Graphics
         }
 
         public static RenderTarget2D CreateScreenSizedTarget(int screenWidth, int screenHeight) =>
-            new(Main.instance.GraphicsDevice, screenWidth, screenHeight, true, SurfaceFormat.Color, DepthFormat.Depth24, 2, RenderTargetUsage.DiscardContents);
+            new(Main.instance.GraphicsDevice, screenWidth, screenHeight); //, true, SurfaceFormat.Color, DepthFormat.Depth24, 2, RenderTargetUsage.DiscardContents);
 
         public override void OnModLoad()
         {

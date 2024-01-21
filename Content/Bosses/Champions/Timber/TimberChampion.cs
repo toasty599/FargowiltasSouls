@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
                 ModContent.BuffType<ClippedWingsBuff>()
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Position = new Vector2(16 * 4, 16 * 9),
                 PortraitPositionXOverride = 16,
@@ -739,7 +739,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(TimberForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<TimberForce>()));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<TimberChampionRelic>()));
         }

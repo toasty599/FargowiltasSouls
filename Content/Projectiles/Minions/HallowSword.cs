@@ -1,11 +1,13 @@
 ﻿using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using Terraria;
@@ -38,11 +40,14 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.DamageType = DamageClass.Summon;
             Projectile.minion = true;
             Projectile.timeLeft = 18000;
-            Projectile.minionSlots = 0;
+            //Projectile.minionSlots = 0;
             Projectile.hide = false;
 
             Projectile.scale = 1;
         }
+        public float MousePosX;
+        public float MousePosY;
+        public Vector2 mousePos => Vector2.UnitX * MousePosX + Vector2.UnitY * MousePosY;
 
         public Vector2 handlePos = Vector2.Zero;
         private int HitsLeft = 0;
@@ -55,6 +60,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         ref float SlashRotation => ref Projectile.localAI[0];
         ref float SlashArc => ref Projectile.localAI[1];
 
+
         //actions:
         //0: idle
         //1: slashing
@@ -66,9 +72,8 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 handlePos = Projectile.position + Vector2.UnitY * Projectile.height;
             }
             Player player = Main.player[Projectile.owner];
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (player.whoAmI == Main.myPlayer && (player.dead || !modPlayer.AncientHallowEnchantActive || !player.GetToggleValue("AHallowed")))
+            if (player.whoAmI == Main.myPlayer && (player.dead || !player.HasEffect<AncientHallowMinion>()))
             {
                 Projectile.Kill();
                 return;
@@ -104,13 +109,22 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             const int offsetX = 50;
             Vector2 offset = Vector2.UnitX * offsetX * Projectile.scale * GetSide(player) + Vector2.UnitY * 0;
-            Vector2 desiredPos = MousePos(player) + offset;
+            if (player.whoAmI == Main.myPlayer)
+            {
+                Vector2 mousePos = MousePos(player);
+                MousePosX = mousePos.X;
+                MousePosY = mousePos.Y;
+
+                NetMessage.SendData(MessageID.SyncProjectile, number2: MousePosX, number3: MousePosY);
+            }
+            
+
+            Vector2 desiredPos = mousePos + offset;
             handlePos = Vector2.Lerp(handlePos, desiredPos, 0.5f);
 
             Vector2 desiredCenter = handlePos;// + (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2() * TextureAssets.Projectile[Projectile.type].Value.Width * Projectile.scale / 2;
             Projectile.velocity = (desiredCenter - Projectile.Center) / 3;
 
-            
             if (Action == 0)
             {
                 Projectile.rotation = Wobble();
@@ -215,7 +229,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             {
                 return;
             }
-            int damageCap = player.FargoSouls().ForceEffect(ModContent.ItemType<AncientHallowEnchant>()) ? 200 : 150;
+            int damageCap = player.FargoSouls().ForceEffect<AncientHallowEnchant>() ? 200 : 150;
 
             foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(p) && p.damage <= damageCap && sword.Colliding(sword.Hitbox, p.Hitbox)))
             {
@@ -307,7 +321,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     Main.EntitySpriteDraw(value, vector + value3, null, fairyQueenWeaponsColor * num2, num, origin, scale, SpriteEffects.None, 0);
                 }
             }
-            HallowSword sword = proj.ModProjectile != null && proj.ModProjectile is HallowSword ? proj.ModProjectile as HallowSword : null;
+            HallowSword sword = proj.ModProjectile != null && proj.ModProjectile is HallowSword ? proj.As<HallowSword>() : null;
             const float slashTime = 5;
             float fade = (float)(sword.SlashCD + slashTime - sword.SlashCDMax) / slashTime;
             Color fadeColor = Color.Lerp(Color.Transparent, Color.LightGoldenrodYellow with { A = 0 }, fade);

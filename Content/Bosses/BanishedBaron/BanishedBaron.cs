@@ -25,6 +25,7 @@ using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Content.Items.Placables.Relics;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 {
@@ -34,8 +35,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         Player player => Main.player[NPC.target];
         //TODO: re-enable boss checklist compat, localizationhelper addSpawnInfo
 
-        SoundStyle BaronRoar = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronRoar");
-        SoundStyle BaronYell = new SoundStyle("FargowiltasSouls/Assets/Sounds/BaronYell");
+        public SoundStyle BaronRoar = new("FargowiltasSouls/Assets/Sounds/BaronRoar");
+        public SoundStyle BaronYell = new("FargowiltasSouls/Assets/Sounds/BaronYell");
 
         #region Variables
         public enum StateEnum //ALL states
@@ -121,7 +122,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 ModContent.BuffType<LethargicBuff>(),
                 ModContent.BuffType<ClippedWingsBuff>()
             });
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Rotation = MathHelper.Pi,
                 Position = Vector2.UnitX * 60
@@ -386,7 +387,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            //TODO: Add loot
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<BanishedBaronBag>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BaronTrophy>(), 10));
 
@@ -587,7 +587,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile p = Main.projectile[i];
-                    if (p != null && p.active && p.type == ModContent.ProjectileType<MechLureProjectile>())
+                    if (p.TypeAlive(ModContent.ProjectileType<MechLureProjectile>()))
                     {
                         LockVector1 = p.Center;
                         break;
@@ -751,7 +751,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (tile.LiquidType == LiquidID.Water)
                     {
                         tile.LiquidAmount = 0;
-                        CombatText.NewText(NPC.Hitbox, Color.Blue, "slurp");
+                        CombatText.NewText(NPC.Hitbox, Color.Blue, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.BanishedBaron.Slurp"));
                         if (Main.netMode == NetmodeID.Server)
                         {
                             NetMessage.sendWater(x, y);
@@ -1230,17 +1230,19 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     NPC.velocity = (target - NPC.Center) / 10;
                 }
 
-                LockVector1 = NPC.DirectionTo(player.Center + (player.velocity * PredictStr)) * PredictStr;
+                LockVector1 = FargoSoulsUtil.PredictiveAim(NPC.Center, player.Center, player.velocity, PredictStr);
+                Vector2 dir = Vector2.Lerp(NPC.rotation.ToRotationVector2(), Vector2.Normalize(LockVector1), 0.2f);
+                NPC.rotation = dir.ToRotation();
 
-                RotateTowards(NPC.Center + LockVector1, 4);
+                //LockVector1 = NPC.DirectionTo(player.Center + (player.velocity * PredictStr)) * PredictStr;
+                //RotateTowards(NPC.Center + LockVector1, 4);
             }
             if (Timer == ReactTime)
             {
                 SoundEngine.PlaySound(BaronRoar, NPC.Center);
                 Trail = 8;
-                NPC.velocity = LockVector1;
-                NPC.rotation = NPC.velocity.ToRotation();
-                Vector2 uv = Vector2.Normalize(LockVector1);
+                NPC.velocity = NPC.rotation.ToRotationVector2() * PredictStr;
+                Vector2 uv = Vector2.Normalize(NPC.velocity);
                 Vector2 lp = player.Center - NPC.Center;
                 float lambda = Vector2.Dot(uv, lp);
                 LockVector2 = NPC.Center + (uv * lambda);
@@ -1271,7 +1273,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
             }
 
-            if (NPC.Distance(LockVector2) <= NPC.velocity.Length())
+            if (NPC.Distance(LockVector2) <= NPC.velocity.Length() || Timer > ReactTime + 45)
             {
                 AI3 = 1;
             }
@@ -1541,7 +1543,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             }
             const int end = -110;
-            const int bulletStart = -36;
+            const int bulletStart = -42;
             if (AI3 < 0) //spin after dash
             {
                 if (AI3 == -1)
@@ -1892,8 +1894,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 RandomizeState();
             else
                 State = (int)StateEnum.Swim;
-            bool expertP2 = NPC.life < NPC.lifeMax / 2 && Phase == 1 && Main.expertMode;
-            bool nonexpertP2 = NPC.life < NPC.lifeMax / 3 && Phase == 1 && !Main.expertMode;
+            bool expertP2 = NPC.GetLifePercent() < (2f/3) && Phase == 1 && Main.expertMode;
+            bool nonexpertP2 = NPC.GetLifePercent() < 0.5f && Phase == 1 && !Main.expertMode;
             if (expertP2 || nonexpertP2)
             {
                 State = (float)StateEnum.Phase2Transition;

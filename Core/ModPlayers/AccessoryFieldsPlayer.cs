@@ -1,6 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles.Souls;
+using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using static FargowiltasSouls.Core.Systems.DashManager;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -45,219 +52,139 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         #region enchantments
         //force of timber
-        public Item BorealEnchantItem;
-        public int BorealCD;
-        public Item MahoganyEnchantItem;
         public bool MahoganyCanUseDR;
-        public Item PalmEnchantItem;
-        public Item PearlwoodEnchantItem;
         public Vector2[] PearlwoodTrail = new Vector2[30]; //store a second of trail 
         public int PearlwoodIndex = 0;
         public int PearlwoodGrace = 0;
         public Vector2 PStarelinePos;
-        public bool PStarelineActive;
 
-        public Item EbonwoodEnchantItem;
-        public Item ShadewoodEnchantItem;
+        public bool PStarelineActive => Main.projectile.Any(p => p.active && p.owner == Player.whoAmI && p.type == ProjectileID.FairyQueenMagicItemShot &&p.TryGetGlobalProjectile(out PearlwoodStareline gp) &&  gp.Pearlwood);
+
         public int ShadewoodCD;
         public Item WoodEnchantItem;
         public bool WoodEnchantDiscount;
         //force of terra
-        public Item CopperEnchantItem;
         public int CopperProcCD;
-        public Item IronEnchantItem;
         public bool GuardRaised;
         public int ParryDebuffImmuneTime;
-        public Item LeadEnchantItem;
-        public Item ObsidianEnchantItem;
         public int ObsidianCD;
         public bool LavaWet;
-        public Item SilverEnchantItem;
-        public Item TinEnchantItem;
         public float TinCritMax;
         public float TinCrit = 5;
         public int TinProcCD;
         public bool TinCritBuffered;
-        public Item TungstenEnchantItem;
         public int TungstenCD;
-        public Item AshWoodEnchantItem;
+        public Item PearlwoodEnchantItem;
         public int AshwoodCD;
-        //force of earth
-        public Item AdamantiteEnchantItem;
-        public bool AdamantiteCanSplit;
-        public double AdamantiteSpread;
-        public Item CobaltEnchantItem;
-        public bool CanCobaltJump;
-        public bool JustCobaltJumped;
-        public int CobaltCooldownTimer;
-        public int CobaltImmuneTimer;
-        public Item MythrilEnchantItem;
-        public int MythrilTimer;
-        public int MythrilMaxTime => MythrilEnchantItem != null ? ForceEffect(MythrilEnchantItem.type) ? 300 : 180 : 180;
-        public float MythrilMaxSpeedBonus => MythrilEnchantItem != null ? ForceEffect(MythrilEnchantItem.type) ? 1.75f : 1.5f : 1.5f;
-        public Item OriEnchantItem;
-        public Item PalladEnchantItem;
-        public int PalladCounter;
-        public Item TitaniumEnchantItem;
-        public bool TitaniumDRBuff;
-        public bool TitaniumCD;
-        //force of nature
-        public Item CrimsonEnchantItem;
-        //force of life
-
-        //force of spirit
-
-        //force of shadow
-        public Item MonkEnchantItem;
-        public Item ShinobiEnchantItem;
-        //force of will
 
         //force of cosmos
-        public Item MeteorEnchantItem;
         public int MeteorTimer;
         public int MeteorCD = 60;
         public bool MeteorShower;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public bool AncientHallowEnchantActive;
-        public bool AncientShadowEnchantActive;
-        public Item ApprenticeEnchantItem;
         public int ApprenticeCD;
-        public Item BeeEnchantItem;
-        public int BeeCD;
-
-        public Item CactusEnchantItem;
+        public bool IronRecipes = false;
         public int CactusProcCD;
-        public bool ChloroEnchantActive;
-        public Item ChloroEnchantItem;
+        public bool ChlorophyteEnchantActive = false;
+        public bool MonkEnchantActive = false;
+        public bool ShinobiEnchantActive = false;
+        public int monkTimer = 0;
 
-        public bool CrimsonEnchantActive;
+        public int PumpkinSpawnCD;
+
+        public bool TitaniumDRBuff;
+        public bool TitaniumCD;
+        public bool SquireEnchantActive = false;
+        public bool ValhallaEnchantActive = false;
+
+        public bool AncientShadowEnchantActive = false;
+        public int ShadowOrbRespawnTimer;
+
+        public bool PlatinumEffectActive = false;
+        public int PalladCounter;
+        public int MythrilTimer;
+        public int MythrilMaxTime => Player.HasEffect<MythrilEffect>() ? Player.ForceEffect<MythrilEffect>() ? 300 : 180 : 180;
+        public float MythrilMaxSpeedBonus => Player.HasEffect<MythrilEffect>() ? Player.ForceEffect<MythrilEffect>() ? 1.75f : 1.5f : 1.5f;
+
+        public bool PrimeSoulActive = false;
+        public bool PrimeSoulActiveBuffer = false; // Needed to make sure the item effect is applied during the entirety of the update cycle, so it doesn't miss anything
+        public int PrimeSoulItemCount = 0;
+
         public int CrimsonRegenAmount;
         public int CrimsonRegenTime;
 
-
-        public Item DarkArtistEnchantItem;
-        public bool ForbiddenEnchantActive;
         public bool CanSummonForbiddenStorm = false;
-        public Item FossilEnchantItem;
-        public bool FrostEnchantActive;
         public int IcicleCount;
-        private int icicleCD;
-        public bool GladiatorEnchantActive;
+        public int icicleCD;
         public int GladiatorCD;
-        public bool GoldEnchantActive;
         public bool GoldEnchMoveCoins;
         public bool GoldShell;
         private int goldHP;
-        public Item HallowEnchantItem;
         public int HallowHealTime;
-        public bool HuntressEnchantActive;
         public int HuntressStage;
         public int HuntressCD;
+        public double AdamantiteSpread;
 
-        public bool JungleEnchantActive;
+        public bool CanCobaltJump;
+        public bool JustCobaltJumped;
+        public int CobaltCooldownTimer;
+        public int CobaltImmuneTimer;
+        public bool ApprenticeEnchantActive;
+        public bool DarkArtistEnchantActive;
+        public int BeeCD;
         public int JungleCD;
+        public int BeetleEnchantDefenseTimer;
+        public int BorealCD;
+        public bool CrystalEnchantActive = false;
 
-
-
-
-        public bool MoltenEnchantActive;
-        public bool MonkEnchantActive;
         public int MonkDashing;
-        private int monkTimer;
 
-
-
-        public bool NecroEnchantActive;
         public int NecroCD;
-        public Item NinjaEnchantItem;
-        public bool CrystalEnchantActive;
         public Projectile CrystalSmokeBombProj = null;
         public bool FirstStrike;
         public int SmokeBombCD;
 
-
-
-
-        public int PumpkinSpawnCD;
-        public Item RainEnchantItem;
         //public int RainCD;
 
-        public Item RedRidingEnchantItem;
         public int RedRidingArrowCD;
 
-        public bool ShadowEnchantActive;
-        public bool ShinobiEnchantActive;
-        public int dashCD;
-        public bool ShroomEnchantActive;
+        public int DashCD;
 
-        public bool PlatinumEnchantActive;
-        public bool SnowEnchantActive;
         public bool SnowVisual;
-        public bool SolarEnchantActive;
-        public bool SpectreEnchantActive;
         public int SpectreCD;
-        public bool SpiderEnchantActive;
-        public bool SpookyEnchantActive;
-        public Item SquireEnchantItem;
+        public bool MinionCrits;
         //public bool squireReduceIframes;
-        public bool StardustEnchantActive;
         public bool FreezeTime;
         public int freezeLength;
-        public const int TIMESTOP_DURATION = 540; //300
         public bool ChillSnowstorm;
         public int chillLength;
-        public int CHILL_DURATION => FrostEnchantActive ? 60 * 20 : 60 * 15;
-        public bool TikiEnchantActive;
+        public int CHILL_DURATION => Player.HasEffect<FrostEffect>() ? 60 * 20 : 60 * 15;
 
-        public bool TurtleEnchantActive;
         public int TurtleCounter;
         public int TurtleShellHP = 25;
-        private int turtleRecoverCD = 240;
+        public int turtleRecoverCD = 240;
         public bool ShellHide;
-        public Item ValhallaEnchantItem;
         public int ValhallaDashCD;
-        public bool VortexEnchantActive;
         public bool VortexStealth;
         public bool WizardEnchantActive;
         public bool WizardTooltips;
         public Item WizardedItem;
 
-        public bool NebulaEnchantActive;
-        public bool BeetleEnchantActive;
-        public int BeetleEnchantDefenseTimer;
-
         public int CritterAttackTimer;
 
-        public bool cosmoForce;
-        public bool earthForce;
-        public bool lifeForce;
-        public bool natureForce;
-        public bool spiritForce;
-        public bool shadowForce;
-        public bool terraForce;
-        public bool willForce;
-        public bool timberForce;
+        public HashSet<int> ForceEffects = new();
 
         #endregion
 
         //        //soul effects
+        public bool MeleeSoul;
         public bool MagicSoul;
         public bool RangedSoul;
+        public bool SummonSoul;
+        public bool ColossusSoul;
+        public bool SupersonicSoul;
+        public bool WorldShaperSoul;
+        public bool FlightMasterySoul;
         public bool RangedEssence;
         public bool BuilderMode;
         public bool UniverseSoul;
@@ -274,15 +201,12 @@ namespace FargowiltasSouls.Core.ModPlayers
         //maso items
         public Item SlimyShieldItem;
         public bool SlimyShieldFalling;
-        public Item AgitatingLensItem;
         public int AgitatingLensCD;
         public Item DarkenedHeartItem;
         public int DarkenedHeartCD;
-        public bool GuttedHeart;
         public int GuttedHeartCD = 60; //should prevent spawning despite disabled toggle when loading into world
         public Item NecromanticBrewItem;
         public float NecromanticBrewRotation;
-        public Item DeerclawpsItem;
         public int IsDashingTimer;
         public bool DeerSinewNerf;
         public int DeerSinewFreezeCD;
@@ -291,7 +215,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool CrystalSkullMinion;
         public bool FusedLens;
         public bool FusedLensCanDebuff;
-        public bool GroundStick;
         public bool Supercharged;
         public bool Probes;
         public bool MagicalBulb;
@@ -299,7 +222,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool SkullCharm;
         public bool PungentEyeball;
         public bool LumpOfFlesh;
-        public Item PumpkingsCapeItem;
         public Item LihzahrdTreasureBoxItem;
         public int GroundPound;
         public Item BetsysHeartItem;
@@ -307,8 +229,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int SpecialDashCD;
         public bool MutantAntibodies;
         public Item GravityGlobeEXItem;
-        public Item CelestialRuneItem;
-        public bool AdditionalAttacks;
         public int AdditionalAttacksTimer;
         public bool MoonChalice;
         public bool LunarCultist;
@@ -316,22 +236,19 @@ namespace FargowiltasSouls.Core.ModPlayers
         public Item AbomWandItem;
         public int AbomWandCD;
         public bool MasochistSoul;
+        public Item MasochistSoulItem;
         public bool MasochistHeart;
         public bool MutantsPactSlot;
         public bool HasClickedWrench;
         public bool SandsofTime;
-        public bool DragonFang;
-        public bool StabilizedGravity;
         public bool SecurityWallet;
         public Item FrigidGemstoneItem;
         public int FrigidGemstoneCD;
-        public Item WretchedPouchItem;
         public int WretchedPouchCD;
         public bool NymphsPerfume;
         public bool NymphsPerfumeRespawn;
         public int NymphsPerfumeRestoreLife;
         public int NymphsPerfumeCD = 30;
-        public bool SqueakyAcc;
         public bool RainbowSlime;
         public bool SkeletronArms;
         public bool IceQueensCrown;
@@ -368,7 +285,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool AbomRebirth;
         public bool WasHurtBySomething;
         public bool PrecisionSeal;
-        public bool PrecisionSealHurtbox;
         public bool PrecisionSealNoDashNoJump;
         public Item GelicWingsItem;
         public bool ConcentratedRainbowMatter;
@@ -386,12 +302,9 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool noDodge;
         public bool noSupersonic;
         public bool NoMomentum;
-        public bool MeteorMomentum;
         public bool Bloodthirsty;
         public bool Unlucky;
         public bool DisruptedFocus;
-        public bool SinisterIcon;
-        public bool SinisterIconDrops;
 
         public bool Smite;
         public bool Anticoagulation;
@@ -448,9 +361,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool BoxofGizmos;
         public bool OxygenTank;
 
-
-
-        public Item DreadShellItem;
         public int DreadShellVulnerabilityTimer;
         public int shieldTimer;
         public int shieldCD;
@@ -460,11 +370,19 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int NoUsingItems;
 
         public bool HasDash;
-        public DashType FargoDash;
+        private DashType fargoDash;
+        public DashType FargoDash {
+            get => fargoDash;
+            set 
+            { 
+                fargoDash = value;
+                if (value != DashType.None)
+                    HasDash = true; 
+            }
+        }
+        public bool CanShinobiTeleport;
 
         public int WeaponUseTimer;
 
-        public Item PrimeSoulItem;
-        public int PrimeSoulEffects;
     }
 }

@@ -1,4 +1,9 @@
-﻿using FargowiltasSouls.Content.Buffs.Minions;
+﻿using Fargowiltas;
+using FargowiltasSouls.Content.Buffs.Minions;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -66,6 +71,8 @@ Increases max number of minions and sentries by 10
 
         public static void MutantSetBonus(Player player, Item item)
         {
+            player.AddEffect<MasoAbom>(item);
+            player.AddEffect<MasoRing>(item);
             player.AddBuff(ModContent.BuffType<MutantPowerBuff>(), 2);
 
             player.FargoSouls().MutantSetBonusItem = item;
@@ -94,5 +101,29 @@ Increases max number of minions and sentries by 10
 
             .Register();
         }
+    }
+    public class MasoAbom : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<MutantArmorHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MutantMask>();
+        //public override bool MinionEffect => true; no, abom is stronger than minos
+        public override void PostUpdateEquips(Player player)
+        {
+            player.FargoSouls().AbomMinion = true;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<AbomMinion>()] < 1)
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), player.Center, Vector2.Zero, ModContent.ProjectileType<AbomMinion>(), 900, 10f, player.whoAmI, -1);
+        }
+    }
+    public class MasoRing : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<MutantArmorHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MutantMask>();
+        public override void PostUpdateEquips(Player player)
+        {
+            player.FargoSouls().PhantasmalRing = true;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<PhantasmalRing>()] < 1)
+                FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), player.Center, Vector2.Zero, ModContent.ProjectileType<PhantasmalRing>(), 1700, 0f, player.whoAmI);
+        }
+        
     }
 }

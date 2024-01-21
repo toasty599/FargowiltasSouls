@@ -15,11 +15,13 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         {
 
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.25f;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 95;
+            Item.damage = 70;
             Item.DamageType = DamageClass.Melee;
             Item.width = 66;
             Item.height = 64;
@@ -85,7 +87,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 Projectile proj = Main.projectile[i];
                 if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == player.whoAmI)
                 {
-                    if ((proj.ModProjectile as BaronTuskShrapnel).EmbeddedNPC == target)
+                    if (proj.As<BaronTuskShrapnel>().EmbeddedNPC == target)
                     {
                         shrapnel++;
                     }
@@ -101,7 +103,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                     Projectile proj = Main.projectile[i];
                     if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == player.whoAmI)
                     {
-                        if ((proj.ModProjectile as BaronTuskShrapnel).EmbeddedNPC == target)
+                        if (proj.As<BaronTuskShrapnel>().EmbeddedNPC == target)
                         {
                             proj.ai[1] = 2;
                         }

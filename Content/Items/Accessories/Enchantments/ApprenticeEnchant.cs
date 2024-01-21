@@ -1,5 +1,9 @@
-﻿using FargowiltasSouls.Core.ModPlayers;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.ID;
@@ -14,7 +18,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(93, 134, 166);
+        public override Color nameColor => new(93, 134, 166);
 
         public override void SetDefaults()
         {
@@ -26,19 +30,54 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ApprenticeEffect(player, Item);
+            player.FargoSouls().ApprenticeEnchantActive = true;
+            player.AddEffect<ApprenticeSupport>(Item);
         }
 
-        public static void ApprenticeEffect(Player player, Item enchant)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Apprentice");
-            player.FargoSouls().ApprenticeEnchantItem = enchant;
-            
+            CreateRecipe()
+            .AddIngredient(ItemID.ApprenticeHat)
+            .AddIngredient(ItemID.ApprenticeRobe)
+            .AddIngredient(ItemID.ApprenticeTrousers)
+            .AddIngredient(ItemID.DD2FlameburstTowerT2Popper)
+            //magic missile
+            //ice rod
+            //golden shower
+            .AddIngredient(ItemID.BookStaff)
+            .AddIngredient(ItemID.ClingerStaff)
+
+            .AddTile(TileID.CrystalBall)
+            .Register();
         }
-        public static void ApprenticeSupport(Player player)
+
+        /*
+        public static MethodInfo ApprenticeShootMethod
+        {
+            get;
+            set;
+        }
+        public override void Load()
+        {
+            ApprenticeShootMethod = typeof(Player).GetMethod("ItemCheck_Shoot", FargoSoulsUtil.UniversalBindingFlags);
+        }
+        public static void ApprenticeShoot(Player player, int playerWhoAmI, Item item, int weaponDamage)
+        {
+            object[] args = new object[] { playerWhoAmI, item, weaponDamage };
+            ApprenticeShootMethod.Invoke(player, args);
+;
+        }
+        */
+    }
+    public class ApprenticeSupport : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ApprenticeEnchant>();
+        public override bool ExtraAttackEffect => true;
+        public override void PostUpdateEquips(Player player)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            bool forceEffect = modPlayer.ForceEffect(modPlayer.ApprenticeEnchantItem.type);
+            bool forceEffect = modPlayer.ForceEffect<ApprenticeEnchant>();
             //update item cds
             for (int i = 0; i < 10; i++)
             {
@@ -50,15 +89,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     modPlayer.ApprenticeItemCDs[i] = itemCD;
                 }
             }
-            if (player.GetToggleValue("Apprentice") && player.controlUseItem)
+            if (player.controlUseItem)
             {
                 int numExtraSlotsToUse = 1;
-
-                if (modPlayer.DarkArtistEnchantItem != null && forceEffect)
+                if (modPlayer.DarkArtistEnchantActive && forceEffect)
                 {
                     numExtraSlotsToUse = 3;
                 }
-                else if (modPlayer.DarkArtistEnchantItem != null || forceEffect)
+                else if (modPlayer.DarkArtistEnchantActive || forceEffect)
                 {
                     numExtraSlotsToUse = 2;
                 }
@@ -93,7 +131,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     {
                         Item item2 = player.inventory[j];
 
-                        if (item2 != null && item2.damage > 0 && item2.shoot > 0 && item2.ammo <= 0 && item.type != item2.type && !item2.channel)
+                        if (item2 != null && item2.damage > 0 && item2.shoot > ProjectileID.None && item2.ammo <= 0 && item.type != item2.type && !item2.channel)
                         {
                             if (!player.HasAmmo(item2) || (item2.mana > 0 && player.statMana < item2.mana) || item2.sentry || ContentSamples.ProjectilesByType[item2.shoot].minion)
                             {
@@ -140,6 +178,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                                 item2.stack--;
                             }
                             modPlayer.ApprenticeItemCDs[j] = item2.useAnimation * 4;
+
+                            if (projToShoot == ProjectileID.RainbowFront || projToShoot == ProjectileID.RainbowBack) // prevent fucked up op interaction
+                            {
+                                foreach (Projectile rainbow in Main.projectile.Where(p => (p.TypeAlive(ProjectileID.RainbowFront) || p.TypeAlive(ProjectileID.RainbowBack)) && p.owner == player.whoAmI))
+                                    rainbow.Kill(); 
+                            }
+
                             int p = Projectile.NewProjectile(player.GetSource_ItemUse(item), pos, Vector2.Normalize(velocity) * speed, projToShoot, damage, KnockBack, player.whoAmI);
                             Projectile proj = Main.projectile[p];
 
@@ -166,39 +211,5 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 }
             }
         }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.ApprenticeHat)
-            .AddIngredient(ItemID.ApprenticeRobe)
-            .AddIngredient(ItemID.ApprenticeTrousers)
-            .AddIngredient(ItemID.DD2FlameburstTowerT2Popper)
-            //magic missile
-            //ice rod
-            //golden shower
-            .AddIngredient(ItemID.BookStaff)
-            .AddIngredient(ItemID.ClingerStaff)
-
-            .AddTile(TileID.CrystalBall)
-            .Register();
-        }
-
-        /*
-        public static MethodInfo ApprenticeShootMethod
-        {
-            get;
-            set;
-        }
-        public override void Load()
-        {
-            ApprenticeShootMethod = typeof(Player).GetMethod("ItemCheck_Shoot", FargoSoulsUtil.UniversalBindingFlags);
-        }
-        public static void ApprenticeShoot(Player player, int playerWhoAmI, Item item, int weaponDamage)
-        {
-            object[] args = new object[] { playerWhoAmI, item, weaponDamage };
-            ApprenticeShootMethod.Invoke(player, args);
-;
-        }
-        */
     }
 }

@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                     ModContent.BuffType<ClippedWingsBuff>(),
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Scale = 0.5f,
                 PortraitScale = 0.5f
@@ -747,7 +747,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(new ChampionEnchDropRule(LifeForce.Enchants));
+            npcLoot.Add(new ChampionEnchDropRule(BaseForce.EnchantsIn<LifeForce>()));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<LifeChampionRelic>()));
 

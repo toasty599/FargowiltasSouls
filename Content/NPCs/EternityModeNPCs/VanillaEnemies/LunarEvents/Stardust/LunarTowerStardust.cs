@@ -10,6 +10,7 @@ using FargowiltasSouls.Content.BossBars;
 using static FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust.StardustMinion;
 using Terraria.Audio;
 using FargowiltasSouls.Core.Systems;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {
@@ -37,6 +38,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     NPCID.CultistDragonBody4,
                     NPCID.CultistDragonTail
                 };
+
+        private string DragonName => Language.GetTextValue("Mods.FargowiltasSouls.NPCs.StardustDragon.DisplayName");
+
         public override bool CheckDead(NPC npc)
         {
             foreach (NPC n in Main.npc.Where(n => n.active && DragonParts.Contains(n.type)))
@@ -82,9 +86,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 }
                 cells++;
             }
-            foreach (NPC n in Main.npc.Where(n => n.active && DragonParts.Contains(n.type) && n.GivenName != "Stardust Dragon"))
+            foreach (NPC n in Main.npc.Where(n => n.active && DragonParts.Contains(n.type) && n.GivenName != DragonName))
             {
-                n.GivenName = "Stardust Dragon";
+                n.GivenName = DragonName;
             }
             //cells are sorted by a unique key, stored in their NPC.ai[3], that determines their behavior during attacks, for example spot in a circle. 
             //here it only spawns new cells if there's missing keys, and missing cells.
@@ -115,7 +119,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     int n = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)(npc.Center.Y - npc.height * 0.45f), NPCID.CultistDragonHead);
                     if (Main.npc[n].active)
                     {
-                        Main.npc[n].GivenName = "Stardust Dragon";
+                        Main.npc[n].GivenName = DragonName;
 
                     }
                 }
@@ -146,7 +150,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         int n = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)(npc.Center.Y - npc.height * 0.45f), NPCID.CultistDragonHead);
                         if (Main.npc[n].active)
                         {
-                            Main.npc[n].GivenName = "Stardust Dragon";
+                            Main.npc[n].GivenName = DragonName;
                             Main.npc[n].dontTakeDamage = true;
 
                         }

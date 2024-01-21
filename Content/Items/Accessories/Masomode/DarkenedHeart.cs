@@ -1,4 +1,7 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+﻿using FargowiltasSouls.Content.Buffs;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -43,9 +46,17 @@ You spawn mini eaters to seek out enemies every few attacks
             player.buffImmune[ModContent.BuffType<Buffs.Masomode.RottingBuff>()] = true;
             player.moveSpeed += 0.1f;
             modPlayer.DarkenedHeartItem = Item;
+            player.AddEffect<DarkenedHeartEaters>(Item);
             if (modPlayer.DarkenedHeartCD > 0)
                 modPlayer.DarkenedHeartCD--;
         }
+    }
+    public class DarkenedHeartEaters : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<PureHeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<DarkenedHeart>();
+        public override bool ExtraAttackEffect => true;
+        
     }
     public class TinyEaterGlobalProjectile : GlobalProjectile
     {
@@ -86,7 +97,15 @@ You spawn mini eaters to seek out enemies every few attacks
         {
             if (fromEnch)
             {
-                target.AddBuff(BuffID.CursedInferno, 60 * 2);
+                if (HeartItemType != ModContent.ItemType<DarkenedHeart>())
+                {
+                    target.AddBuff(ModContent.BuffType<SublimationBuff>(), 60 * 2);
+                }
+                else {
+                    target.AddBuff(BuffID.CursedInferno, 60 * 2);
+                }
+
+                
             }
         }
     }

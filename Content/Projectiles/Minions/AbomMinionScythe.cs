@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 Projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
                 NPC n = FargoSoulsUtil.NPCExists(Projectile.ai[0]);
-                if (n != null)
+                if (n.Alive())
                 {
                     Vector2 desiredVelocity = Projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);

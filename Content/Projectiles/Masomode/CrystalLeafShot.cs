@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,6 +35,41 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Lighting.AddLight(Projectile.Center + Projectile.velocity, 0.1f, 0.4f, 0.2f);
             if (Projectile.timeLeft < 900 - 120)
                 Projectile.tileCollide = true;
+
+            const int netWindow = 10; // extra leniency time to let variables net sync
+            const float redirectTime = 60f + netWindow;
+            if (Projectile.ai[1] > 0) // redirect
+            {
+                if (Projectile.ai[1] > netWindow)
+                {
+
+                    Player player = Main.player[(int)Projectile.ai[2]];
+                    if (player.Alive())
+                    {
+                        Vector2 LV = Projectile.velocity;
+                        Vector2 PV = Projectile.DirectionTo(player.Center);
+                        float anglediff = FargoSoulsUtil.RotationDifference(LV, PV);
+                        //change rotation towards target
+                        Projectile.velocity = Projectile.velocity.RotatedBy(Math.Sign(anglediff) * Math.Min(Math.Abs(anglediff),  MathHelper.Pi / redirectTime));
+                        Projectile.rotation = Projectile.velocity.ToRotation();
+
+                        /*
+                        float angledif = FargoSoulsUtil.RotationDifference(Projectile.rotation.ToRotationVector2(), Projectile.DirectionTo(player.Center));
+                        float amt = MathHelper.Min(Math.Abs(angledif), MathHelper.Pi / redirectTime);
+                        Projectile.rotation += amt * Math.Sign(angledif);
+                        Projectile.velocity = Projectile.rotation.ToRotationVector2() * Projectile.velocity
+                        */
+                    }
+                    
+                }
+                Projectile.position -= Projectile.velocity * 0.9f;
+                Projectile.ai[1]++;
+                if (Projectile.ai[1] > redirectTime)
+                {
+                    Projectile.ai[1] = 0;
+                    Projectile.netUpdate = true;
+                }
+            }
         }
 
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)

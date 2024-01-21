@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
@@ -69,14 +70,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     float endurance = target.endurance;
                     target.statDefense.FinalMultiplier *= 0;
                     target.endurance = 0;
-                    if (FargoSoulsUtil.IsChinese())
-                    {
-                        target.Hurt(PlayerDeathReason.ByCustomReason(target.name + "感到了心碎。"), Projectile.damage, 0, false, false, 0, false);
-                    }
-                    else
-                    {
-                        target.Hurt(PlayerDeathReason.ByCustomReason(target.name + " was deceived by Fake Heart."), Projectile.damage, 0, false, false, 0, false);
-                    }
+                    target.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.FakeHeart", target.name)), Projectile.damage, 0, false, false, 0, false);
                     target.statDefense = defense;
                     target.endurance = endurance;
 

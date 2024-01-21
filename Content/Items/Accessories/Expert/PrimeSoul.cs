@@ -1,6 +1,11 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+﻿using Fargowiltas.Items.Tiles;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Placables;
+using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,8 +14,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
     public class PrimeSoul : SoulsItem
     {
-        //yet to be added
-        public override bool IsLoadingEnabled(Mod mod) => false;
+        public override bool IsLoadingEnabled(Mod mod) => true;
+        public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";
         public override void SetStaticDefaults()
         {
 
@@ -30,11 +35,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 
         void PrimeSoulEffect(Player player)
         {
-            if (Item.favorited)
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (player.AddEffect<PrimeSoulEffect>(Item))
+                modPlayer.PrimeSoulActive = modPlayer.PrimeSoulActiveBuffer = true;
+            string e = "";
+            foreach (int b in WorldSavingSystem.IronUsedList)
             {
-                FargoSoulsPlayer modPlayer = player.FargoSouls();
-                modPlayer.PrimeSoulItem = Item;
+                e += b + " ";
             }
+            Main.NewText(e);
         }
 
         public override void UpdateInventory(Player player) => PrimeSoulEffect(player);
@@ -56,9 +65,20 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
             .AddIngredient(ItemID.SoulofSight, 3)
             //add each other challenger expert drop when they're made
 
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            .AddTile<CrucibleCosmosSheet>()
 
             .Register();
+        }
+    }
+    public class PrimeSoulEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => null;
+        public override void PostUpdateEquips(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<MinosPrime>()] < 1)
+            {
+                FargoSoulsUtil.NewSummonProjectile(GetSource_EffectItem(player), player.Center, Vector2.Zero, ModContent.ProjectileType<MinosPrime>(), 30, 10f, Main.myPlayer);
+            }
         }
     }
 }

@@ -1,4 +1,9 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -41,7 +46,38 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
         {
             player.buffImmune[ModContent.BuffType<BerserkedBuff>()] = true;
 
-            player.FargoSouls().AgitatingLensItem = Item;
+            player.AddEffect<AgitatingLensEffect>(Item);
+            player.AddEffect<AgitatingLensInstall>(Item);
         }
+    }
+    public class AgitatingLensEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<AgitatingLens>();
+        public override bool ExtraAttackEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.AgitatingLensCD++ > 15)
+            {
+                modPlayer.AgitatingLensCD = 0;
+                if ((Math.Abs(player.velocity.X) >= 5 || Math.Abs(player.velocity.Y) >= 5) && player.whoAmI == Main.myPlayer)
+                {
+                    int damage = 18;
+                    if (modPlayer.SupremeDeathbringerFairy)
+                        damage *= 2;
+                    if (modPlayer.MasochistSoul)
+                        damage *= 2;
+                    damage = (int)(damage * player.ActualClassDamage(DamageClass.Magic));
+                    Projectile.NewProjectile(GetSource_EffectItem(player), player.Center, player.velocity * 0.1f, ModContent.ProjectileType<BloodScytheFriendly>(), damage, 5f, player.whoAmI);
+                }
+            }
+        }
+    }
+    public class AgitatingLensInstall : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<SupremeFairyHeader>();
+        public override int ToggleItemType => ModContent.ItemType<AgitatingLens>();
+        public override bool IgnoresMutantPresence => true;
     }
 }

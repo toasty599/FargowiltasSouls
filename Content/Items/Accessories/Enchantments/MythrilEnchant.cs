@@ -5,6 +5,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -21,7 +23,7 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
 'You feel the knowledge of your weapons seep into your mind'"); */
         }
 
-        protected override Color nameColor => new(157, 210, 144);
+        public override Color nameColor => new(157, 210, 144);
         
 
         public override void SetDefaults()
@@ -34,19 +36,44 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            MythrilEffect(player, Item);
+            player.AddEffect<MythrilEffect>(Item);
         }
 
-        public static void MythrilEffect(Player player, Item item)
+
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Mythril");
+            CreateRecipe()
+            .AddRecipeGroup("FargowiltasSouls:AnyMythrilHead")
+            .AddIngredient(ItemID.MythrilChainmail)
+            .AddIngredient(ItemID.MythrilGreaves)
+            .AddIngredient(ItemID.ClockworkAssaultRifle)
+            .AddIngredient(ItemID.Gatligator)
+            .AddIngredient(ItemID.OnyxBlaster)
 
+            .AddTile(TileID.CrystalBall)
+            .Register();
+        }
+    }
+
+    public class MythrilEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MythrilEnchant>();
+
+        public static void CalcMythrilAttackSpeed(FargoSoulsPlayer modPlayer, Item item)
+        {
+
+
+            if (item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0 && item.type != ModContent.ItemType<PrismaRegalia>())
+            {
+                float ratio = Math.Max((float)modPlayer.MythrilTimer / modPlayer.MythrilMaxTime, 0);
+                modPlayer.AttackSpeed += modPlayer.MythrilMaxSpeedBonus * ratio;
+            }
+        }
+
+        public override void PostUpdateEquips(Player player)
+        {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            if (!player.GetToggleValue("Mythril"))
-                return;
-
-            modPlayer.MythrilEnchantItem = item;
 
             const int cooldown = 60 * 5;
             int mythrilEndTime = modPlayer.MythrilMaxTime - cooldown;
@@ -67,28 +94,6 @@ Bonus ends after attacking for 3 seconds and rebuilds over 5 seconds
             if (modPlayer.MythrilTimer < mythrilEndTime)
                 modPlayer.MythrilTimer = mythrilEndTime;
         }
-
-        public static void CalcMythrilAttackSpeed(FargoSoulsPlayer modPlayer, Item item)
-        {
-            if (item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0 && item.type != ModContent.ItemType<PrismaRegalia>())
-            {
-                float ratio = Math.Max((float)modPlayer.MythrilTimer / modPlayer.MythrilMaxTime, 0);
-                modPlayer.AttackSpeed += modPlayer.MythrilMaxSpeedBonus * ratio;
-            }
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddRecipeGroup("FargowiltasSouls:AnyMythrilHead")
-            .AddIngredient(ItemID.MythrilChainmail)
-            .AddIngredient(ItemID.MythrilGreaves)
-            .AddIngredient(ItemID.ClockworkAssaultRifle)
-            .AddIngredient(ItemID.Gatligator)
-            .AddIngredient(ItemID.OnyxBlaster)
-
-            .AddTile(TileID.CrystalBall)
-            .Register();
-        }
     }
+
 }
