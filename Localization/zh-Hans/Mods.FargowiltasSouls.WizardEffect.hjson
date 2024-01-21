@@ -1,68 +1,68 @@
 // Maybe move into entries of each enchant
-// Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/40%
-// Apprentice: The next 2 weapons are used instead of 1
-// AncientHallow: Sword damage increased, projectile damage cap increased to 200
-// AncientShadow: Number of Shadow Orbs increased
-// AncientCobalt: No upgrade
-// Angler: No upgrade
-// Bee: Increased wing strength and bee swarm damage
-// Beetle: No upgrade
-// BorealWood: Fires more snowballs more often
-// Cactus: Number of needles and damage increased
-// Chlorophyte: Damage of ring and spores increased, cooldown of spores reduced
-Cobalt: 增加爆炸伤害
-Copper: 增加闪电伤害，冷却时间减少
-// Crimson: Timer doubled, but the heal triggers twice. Once in the middle, and once at the end
-CrystalAssassin: ""
-DarkArtist: ""
-Ebonwood: 伤害判定门槛从10提高至25，并且会杀死光环内任何小于200血量的生物
-// Forbidden: Damage boost increased from 30 to 60%
-// Fossil: Revive heal increased to 200 and revive bone count doubled
-// Frost: Icicle damage doubled
-// Gladiator: Increased banner aura size, decreased spear rain cooldown
-// Gold: No upgrade
-// Hallow: Potion heal bonus increased from 40 to 70%
-// Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
-Iron: 物品拾取距离提升到四倍，合成加成现在也对任何秘银砧生效
-// Jungle: Spore damage increased, cooldown decreased
+Adamantite: 弹幕现在会分裂成三个，伤害从70%/60%降低为50%/40%
+Apprentice: 辅助武器的数量从1把提升至2把
+AncientHallow: 剑的伤害增加，可反射的弹幕伤害上限提升至200
+AncientShadow: 暗影珠数量增加
+AncientCobalt: 无增强
+Angler: 无增强
+Bee: 增强翅膀的各项数据与蜜蜂的伤害
+Beetle: 无增强
+BorealWood: 更频繁的释放更多雪球
+Cactus: 增加针刺的数量和伤害
+Chlorophyte: 叶绿水晶和孢子的伤害增加，冷却时间缩短
+Cobalt: 增加受击爆炸伤害
+Copper: 闪电伤害增加至200，冷却时间减少
+Crimson: 恢复生命后若接下来7秒内不受击，则再恢复此次受击的一半生命值
+CrystalAssassin: 无增强
+DarkArtist: 辅助武器的数量从2把提升至3把
+Ebonwood: 光环范围扩大，减少的防御从10增加至40
+Forbidden: 伤害提升从30%增加至60%
+Fossil: 复活时的治疗量增加至200，产生的骨头数量翻倍
+Frost: 冰锥伤害翻倍
+Gladiator: 增加旗子生效范围，缩短长矛雨的冷却时间
+Gold: 无增强
+Hallow: 药水治疗量加成从40%提升至70%
+Huntress: 护甲穿透增加量提升至10，伤害增加量提升至5
+Iron: 不消耗物品的概率增加至50%
+Jungle: 孢子伤害增加，冷却时间缩短
 Lead: 增加铅中毒伤害，持续伤害减免提升到60%
-// Meteor: A meteor shower initiates every few seconds while attacking
-// Miner: Increased mining speed
-Molten: ""
-// Monk: Increased dash damage
-Mythril: 增加最大攻速加成，持续时间更长
-// Nebula: Buff booster stack cap increased to 3
-// Necro: Graves float
-Ninja: 弹幕速度增加3倍而非2倍，护甲穿透再增加20点
-Obsidian: 你不再需要岩浆来引发爆炸，冷却时间减少
+Meteor: 攻击时每过几秒便会召唤一次流星雨
+Miner: 挖掘速度提升
+Molten: 狱火圈伤害和易伤生效范围增加
+Monk: 增加冲刺造成的伤害
+Mythril: 增加最大攻速加成，延长持续时间
+Nebula: 增益堆叠上限增加至3层
+Necro: 骨堆可漂浮在空中
+Ninja: 最大伤害加成增加至30%，当效果激活时玩家的最大速度增加
+Obsidian: 不再需要岩浆来引发爆炸或火球，减少冷却时间
 Orichalcum: 倍数提高到4
 Palladium: 快速治疗总是持续5秒，增加钯金珠伤害
-PalmWood: 增加攻击速度和伤害，可以额外召唤两个棕榈树哨兵
-Pearlwood: 增加伤害，冷却时间减少
-// Platinum: No upgrade
-// Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
-// Rain: Umbrella can block up to 400 damage and reflected damage is tripled
-// RedRiding: Arrow rain has less cooldown and deals more damage
+PalmWood: 增加哨兵的攻击速度、伤害以及大小
+Pearlwood: 星星可对敌怪造成伤害，你的攻击会额外有两次暴击机会
+Platinum: 无增强
+Pumpkin: 南瓜在飞行时也可生长，治疗量翻倍，火焰伤害增加至45
+Rain: 雨伞可抵挡伤害从200增加至400，反射伤害增加三倍
+RedRiding: 箭雨冷却时间更短并造成更高伤害
 RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
-Shadewood: 增加光环大小和血液伤害，并且会附加灵液效果
-// Shinobi: Increased dash damage
-// Shroomite: Mushrooms are spawned more often
-Silver: 格挡会给予惊人一刻增益
-// Solar: No upgrade
-// Spectre: Decreased cooldown and always spawns healing orb
-// Spider: No upgrade
-// Spooky: Decreased cooldown
-// Stardust: Timestop cooldown decreased from 60 to 50
-// Snow: No upgrade
-// Shadow: Number of Shadow Orbs increased
-// Squire: Mount defense increased from 10 to 15, speed and acceleration from 1.25x to 1.5x, heal bonus from 10% to 15%
-// Tiki: Increases whip range by 20%
-Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少了增加暴击过程的冷却时间
-Titanium: 碎片伤害增加，钛金护盾持续时间提高到5秒，伤害减免提高至75%
-// Tungsten: Weapon size tripled instead of doubled, damage bonus increased from 7% to 14%, and cooldown reduced
-// Turtle: Occasionally recover a projectile block point, number of needles and damage increased
-// ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
-// Vortex: No upgrade
-Wood: 怪物图鉴和旗帜解锁速度从2倍变为5倍
-// AshWood: Fires balls of fire more often
+Shadewood: 增加光环大小和血液伤害，并附加灵液效果
+Shinobi: 增加冲刺造成的伤害
+Shroomite: 蘑菇生成的频率加快
+Silver: 格挡可以抵消至多200伤害，且会给予惊人一刻增益
+Solar: 无增强
+Spectre: 冷却时间减少且必定生成治疗珠
+Spider: 无增强
+Spooky: 冷却时间减少
+Stardust: 时停冷却时间从60秒减少至50秒
+Snow: 无增强
+Shadow: 暗影珠数量增加
+Squire: 使用坐骑时增加15点防御，坐骑速度和加速度从1.25倍提升至1.5倍，治疗增加量从10%提升至15%
+Tiki: 鞭子攻击距离增加20%
+Tin: 最小暴击率提高到10%，最大暴击率至少有50%，减少增加暴击过程的冷却时间
+Titanium: 碎片伤害增加，持续时间增加至5秒，伤害减免提高至35%
+Tungsten: 武器大小增大200%，伤害增加14%，减少冷却时间
+Turtle: 抵挡弹幕次数可缓慢恢复，针刺的伤害和数量增加
+ValhallaKnight: 使用坐骑时增加20点防御，坐骑加速度从1.5倍提升至2倍，治疗增加量从15%提升至20%
+Vortex: 无增强
+Wood: 怪物图鉴和旗帜解锁速度增加到5倍
+AshWood: 火球发射更加频繁
 // NoUpgrade: No upgrade

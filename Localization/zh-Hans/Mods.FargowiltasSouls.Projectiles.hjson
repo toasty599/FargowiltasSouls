@@ -73,7 +73,7 @@ HentaiSpearSpinBoundary.DisplayName: 洞察者
 HentaiSpearSpinThrown.DisplayName: 洞察者
 HentaiSpearThrown.DisplayName: 洞察者
 HentaiSpearWand.DisplayName: 洞察者
-// HentaiSphereRing.DisplayName: Phantasmal Sphere
+HentaiSphereRing.DisplayName: 幻影球
 Hungry.DisplayName: 饿鬼
 Hungry2.DisplayName: 饿鬼
 LeashFlail.DisplayName: 克苏鲁连枷
@@ -151,7 +151,7 @@ CrystalBombShard.DisplayName: 水晶碎块
 EarthChainBlast.DisplayName: 连锁爆炸
 EarthChainBlast2.DisplayName: 连锁爆炸
 EarthGeyser.DisplayName: 喷泉
-// EarthPalladOrb.DisplayName: Palladium Life Orb
+EarthPalladOrb.DisplayName: 钯金治疗珠
 FlowerPetal.DisplayName: 花瓣
 LifeDeathray.DisplayName: 神圣死亡射线
 LifeDeathray2.DisplayName: 神圣死亡射线
@@ -162,7 +162,7 @@ LifeRitual.DisplayName: 生命结界
 NatureBullet.DisplayName: 自然子弹
 NatureCloudMoving.DisplayName: 自然雨云
 NatureCloudRaining.DisplayName: 自然雨云
-NatureCrystalLeaf.DisplayName: 叶状水晶
+NatureCrystalLeaf.DisplayName: 叶绿水晶
 NatureDeathray.DisplayName: 自然死亡射线
 NatureDeathraySmall.DisplayName: 自然死亡射线
 NatureExplosion.DisplayName: 自然爆炸
@@ -190,7 +190,7 @@ TimberHook2.DisplayName: 松鼠钩
 TimberJumpMark.DisplayName: 森林爆炸
 TimberLaser.DisplayName: 激光
 TimberLightningOrb.DisplayName: 闪电珠
-// TimberPalmTree.DisplayName: Palm Tree
+TimberPalmTree.DisplayName: 棕榈树
 TimberSnowball.DisplayName: 雪球
 TimberSnowball2.DisplayName: 雪球
 // TimberSquirrel.DisplayName: Timber Squirrel
@@ -201,7 +201,7 @@ WillDeathray.DisplayName: 意志死亡射线
 WillDeathray2.DisplayName: 意志死亡射线
 WillDeathraySmall.DisplayName: 意志死亡射线
 WillFireball.DisplayName: 火球
-// WillFireball2.DisplayName: Fireball
+WillFireball2.DisplayName: 火球
 WillJavelin.DisplayName: 标枪
 WillJavelin2.DisplayName: 标枪
 WillJavelin3.DisplayName: 标枪
@@ -278,7 +278,7 @@ CelestialRuneIceSpike.DisplayName: 冰刺
 CelestialRuneLightningArc.DisplayName: 闪电弧
 ClingerFlame.DisplayName: 诅咒焰
 ClownBomb.DisplayName: 小丑炸弹
-CrystalLeafShot.DisplayName: 叶状水晶
+CrystalLeafShot.DisplayName: 叶绿水晶
 CultistArrow.DisplayName: 教徒之箭
 CultistFireball.DisplayName: 火球
 CultistRitual.DisplayName: 教徒仪式
@@ -347,7 +347,7 @@ MothronZenith.DisplayName: 天顶剑
 PhantasmalBolt2.DisplayName: 幻影矢
 PhantasmalSphereDeathray.DisplayName: 幻影死亡射线
 PhantasmalSphereRing.DisplayName: 幻影球
-PlanteraCrystalLeafRing.DisplayName: 叶状水晶
+PlanteraCrystalLeafRing.DisplayName: 叶绿水晶
 PlanteraTentacle.DisplayName: 植物触手
 PrimeGuardian.DisplayName: 机械地牢守卫
 PrimeTrail.DisplayName: 轨迹
@@ -396,7 +396,7 @@ EridanusDeathray.DisplayName: 厄里达诺斯之死亡射线
 EridanusFist.DisplayName: 厄里达诺斯之拳
 EridanusMinion.DisplayName: 厄里达诺斯
 EridanusRitual.DisplayName: 月之仪式
-FlameburstMinion.DisplayName: 爆炸烈焰仆从
+FlameburstMinion.DisplayName: 爆炸烈焰召唤物
 FriendRay.DisplayName: 爱心射线
 HallowSword.DisplayName: 泰拉棱镜
 KamikazeSquirrel.DisplayName: 神风松鼠
@@ -446,7 +446,7 @@ BossRush.DisplayName: 突变结界
 MutantBomb.DisplayName: 幻象爆炸
 MutantBombSmall.DisplayName: 幻象爆炸
 MutantBoss.DisplayName: 突变体
-MutantCrystalLeaf.DisplayName: 叶状水晶
+MutantCrystalLeaf.DisplayName: 叶绿水晶
 MutantDeathray1.DisplayName: 幻影死亡射线
 MutantDeathray2.DisplayName: 幻影死亡射线
 MutantDeathray3.DisplayName: 烈焰死亡射线
@@ -467,7 +467,7 @@ MutantGlowything.DisplayName: 魔眼激光预警
 MutantGuardian.DisplayName: 机械骷髅王
 MutantHeal.DisplayName: 突变治疗
 MutantMark1.DisplayName: 幻影球
-MutantMark2.DisplayName: 叶状水晶
+MutantMark2.DisplayName: 叶绿水晶
 MutantNuke.DisplayName: 猪鲨核弹
 MutantPillar.DisplayName: 天界柱
 MutantReticle.DisplayName: 突变瞄准点
@@ -544,7 +544,7 @@ GeyserFriendly.DisplayName: 喷泉
 GiantDeathray.DisplayName: 幻影死亡射线
 GlowLine.DisplayName: 预警光线
 GlowRing.DisplayName: 预警光环
-// GlowRingHollow.DisplayName: Glow Ring
+GlowRingHollow.DisplayName: 预警光环
 GrazeRing.DisplayName: 擦弹光环
 HostileLightning.DisplayName: 闪电弧
 LightningArc.DisplayName: 闪电弧
@@ -557,15 +557,15 @@ StyxArmorScythe.DisplayName: 冥河镰刀
 StyxArmorScythe2.DisplayName: 冥河镰刀
 StyxGazerArmor.DisplayName: 冥河凝视
 UniversalCollapseProj.DisplayName: 核弹
-// KingSlimeBallPiercing.DisplayName: Slime Ball
+KingSlimeBallPiercing.DisplayName: 粘液球
 KingSlimeMinion.DisplayName: 史莱姆王
-// KingSlimeSpike.DisplayName: Slime Spike
+KingSlimeSpike.DisplayName: 史莱姆尖刺
 DukeFishronMinion.DisplayName: 猪龙鱼公爵
-// RazorbladeTyphoonFriendly2.DisplayName: Razorblade Typhoon
+RazorbladeTyphoonFriendly2.DisplayName: 利刃台风
 DevRocket.DisplayName: 艳岚火箭
 RailgunBlast.DisplayName: 电磁炮爆炸
 // RoombaPetProj.DisplayName: Roomba Pet Proj
-// VortexBolt.DisplayName: Lightning Arc
+VortexBolt.DisplayName: 闪电弧
 VortexRitualProj.DisplayName: 星旋圣仪
 // DoveProj.DisplayName: Dove Proj
 WolfDashProj.DisplayName: 狼魂冲刺
@@ -619,93 +619,93 @@ PlasmaDeathRay.DisplayName: 等离子死亡射线
 // BaronScrap.DisplayName: Banished Baron Scrap
 // BaronShrapnel.DisplayName: Banished Baron Mine Shrapnel
 // ShadowOrbProjectile.DisplayName: Shadow Orb
-// WillDeathrayBig.DisplayName: Will Deathray
+WillDeathrayBig.DisplayName: 意志死亡射线
 // DeviBossProjectile.DisplayName: Deviantt
-// JevilScar.DisplayName: Enchanted Lightblade
-// LifeBlaster.DisplayName: Life Blaster
-// LifeBomb.DisplayName: Life Mine
+JevilScar.DisplayName: 附魔光之剑
+LifeBlaster.DisplayName: 生命湮灭炮
+LifeBomb.DisplayName: 生命雷
 // LifeTransitionBomb.DisplayName: Life Mine
-// LifeBombExplosion.DisplayName: Life Bomb
-// LifeCageExplosion.DisplayName: Cage Explosion
-// LifeCageProjectile.DisplayName: Life Cage
-// LifeCageTelegraph.DisplayName: Cage Telegraph
-// LifeChalBlasterDeathray.DisplayName: Holy Deathray
-// LifeChalDeathray.DisplayName: Holy Deathray
-// LifeCrosshair.DisplayName: Crosshair
-// LifeHomingProj.DisplayName: Lesser Fairy
-// LifeNeggravProj.DisplayName: Cross
-// LifeNuke.DisplayName: Life Bomb
-// LifeProjLarge.DisplayName: Cross
-// LifeProjSmall.DisplayName: Life Shot
-// LifeRuneHitbox.DisplayName: Life Rune
-// LifeScar.DisplayName: Life Mine
-// LifeSlurp.DisplayName: Gem
-// LifeSplittingProjSmall.DisplayName: Life Shot
-// LifeTpTelegraph.DisplayName: Teleport Telegraph
-// LifeWave.DisplayName: Life Wave
-// MutantBossProjectile.DisplayName: Mutant
-// ArcTelegraph.DisplayName: Arc Telegraph
-// BloomLine.DisplayName: Bloom Line
-// FishStickProjTornado.DisplayName: Fish Stick
-// PrismaRegaliaProj.DisplayName: Prisma Regalia
-// PrismaRegaliaStar.DisplayName: Star
-// CrystallineCongregationProj.DisplayName: Crystal Ball
-// EnchantedLifebladeProjectile.DisplayName: Enchanted Lifeblade
-// LightslingerBomb.DisplayName: Light Bomb
-// LightslingerBombshot.DisplayName: Light Shot
-// LightslingerShot.DisplayName: Light Shot
-// SpiritArrow.DisplayName: Spirit Arrow
-// SpiritArrowFlame.DisplayName: Spirit Flame
-// CirnoBomb.DisplayName: Cirno Bomb
-// RetinazerDeathray.DisplayName: Blazing Deathray
-// MimicDagger.DisplayName: Magic Dagger
-// MimicHallowStar.DisplayName: Hallow Star
-// MimicTitanGlove.DisplayName: Titan Glove
-// KamikazePixie.DisplayName: Pixie
-// BabyLifelight.DisplayName: Petlight
-// Nibble.DisplayName: Nibble
-// SolarMeteor.DisplayName: Solar Meteor
-// SolarFlamePillarSpawner.DisplayName: Solar Flame Pillar Spawner
-// SolarFlamePillar.DisplayName: Solar Flame Pillar
-// LightningTelegraph.DisplayName: Lightning Telegraph
-// PillarSpawner.DisplayName: Pillar Spawner
-// VortexVortex.DisplayName: Vortex Vortex
-// VortexVortexProjectile.DisplayName: Vortex Vortex Projectile
-// PillarNebulaBlaze.DisplayName: Pillar Nebula Blaze
-// NebulaDeathray.DisplayName: Nebula Deathray
-// NebulaPillarProj.DisplayName: Nebula Pillar Proj
-// NebulaTelegraph.DisplayName: Nebula Telegraph
-// PillarArcanum.DisplayName: Pillar Arcanum
-// BaronWhirlpool.DisplayName: Baron Whirlpool
-// BaronWhirlpoolBolt.DisplayName: Baron Whirlpool Bolt
-// BaronArenaWhirlpool.DisplayName: Baron Arena Whirlpool
-// BaronDeathray.DisplayName: Baron's Laser
-// BaronEyeFlash.DisplayName: Baron Eye Flash
-// BaronTuskShrapnel.DisplayName: Baron's Tusk Shrapnel
-// DecrepitAirstrike.DisplayName: Decrepit Airstrike
-// DecrepitAirstrikeNuke.DisplayName: Decrepit Airstrike Nuke
-// DecrepitAirstrikeNukeSplinter.DisplayName: Decrepit Airstrike Nuke Splinter
-// MechLureProjectile.DisplayName: Mechanical Lure
-// RoseTintedVisorDeathray.DisplayName: Rose-Tinted Visor Laser
-// GladiatorStandard.DisplayName: Gladiator Standard
-// HiveSentry.DisplayName: Hive
-// ROB.DisplayName: R.O.B
-// MeteorFlame.DisplayName: Meteor Flame
-// RainUmbrella.DisplayName: Rain Umbrella
-// BeeFlower.DisplayName: Bee Flower
-// MonkDashDamage.DisplayName: Monk Dash
-// PearlwoodStareline.DisplayName: Pearlwood Stareline
-// EaterRocketJr.DisplayName: Rotten Chunk
-// VortexLightningDeathray.DisplayName: Vortex Lightning Deathray
-// SpectralEoC.DisplayName: Spectral Eye of Cthulhu
-// MonkDashSlash.DisplayName: Monk Dash Slash
-// ObsidianExplosion.DisplayName: Obsidian Explosion
-// DeviGuardianHarmless.DisplayName: Devi Guardian Harmless
-// MagmawJaw.DisplayName: Magmaw Jaw
-// MagmawHand.DisplayName: Magmaw Hand
-// PungentEyeballMinion.DisplayName: Pungent Eyeball Minion
-// MinosPrime.DisplayName: Minos Prime
-// RainLightning.DisplayName: Rain Lightning
+LifeBombExplosion.DisplayName: 生命雷
+LifeCageExplosion.DisplayName: 囚笼爆炸
+LifeCageProjectile.DisplayName: 生命囚笼
+LifeCageTelegraph.DisplayName: 生命囚笼预警
+LifeChalBlasterDeathray.DisplayName: 神圣死亡射线
+LifeChalDeathray.DisplayName: 神圣死亡射线
+LifeCrosshair.DisplayName: 生命瞄准点
+LifeHomingProj.DisplayName: 小妖精
+LifeNeggravProj.DisplayName: 水晶十字
+LifeNuke.DisplayName: 生命炸弹
+LifeProjLarge.DisplayName: 水晶十字
+LifeProjSmall.DisplayName: 曙光子弹
+LifeRuneHitbox.DisplayName: 生命符文
+LifeScar.DisplayName: 生命雷
+LifeSlurp.DisplayName: 水晶宝石
+LifeSplittingProjSmall.DisplayName: 曙光子弹
+LifeTpTelegraph.DisplayName: 传送预警
+LifeWave.DisplayName: 生命涌波
+MutantBossProjectile.DisplayName: 突变体
+ArcTelegraph.DisplayName: Arc Telegraph
+BloomLine.DisplayName: 预警光线
+FishStickProjTornado.DisplayName: 鱼杖
+PrismaRegaliaProj.DisplayName: 晶霞华枪
+PrismaRegaliaStar.DisplayName: 追踪之星
+CrystallineCongregationProj.DisplayName: 水晶球
+EnchantedLifebladeProjectile.DisplayName: 附魔蕴生之剑
+LightslingerBomb.DisplayName: 光之炸弹
+LightslingerBombshot.DisplayName: 曙光子弹
+LightslingerShot.DisplayName: 曙光子弹
+SpiritArrow.DisplayName: 心灵之箭
+SpiritArrowFlame.DisplayName: 心灵焰火
+CirnoBomb.DisplayName: 琪露诺炸弹
+RetinazerDeathray.DisplayName: 烈焰死亡射线
+MimicDagger.DisplayName: 魔法飞刀
+MimicHallowStar.DisplayName: 神圣之星
+MimicTitanGlove.DisplayName: 泰坦手套
+KamikazePixie.DisplayName: 妖精
+BabyLifelight.DisplayName: 照明圣光
+Nibble.DisplayName: 圆陆鲨
+SolarMeteor.DisplayName: 太阳风暴
+SolarFlamePillarSpawner.DisplayName: 日耀烈焰
+SolarFlamePillar.DisplayName: 日耀烈焰
+LightningTelegraph.DisplayName: 闪电预警
+PillarSpawner.DisplayName: 火柱生成
+VortexVortex.DisplayName: 星旋漩涡
+VortexVortexProjectile.DisplayName: 星旋漩涡
+PillarNebulaBlaze.DisplayName: 星云烈焰
+NebulaDeathray.DisplayName: 星云死亡激光
+NebulaPillarProj.DisplayName: 星云烈焰
+NebulaTelegraph.DisplayName: 星云预警
+PillarArcanum.DisplayName: 星云奥秘
+BaronWhirlpool.DisplayName: 遗爵漩涡
+BaronWhirlpoolBolt.DisplayName: 遗爵漩涡闪电
+BaronArenaWhirlpool.DisplayName: 遗爵漩涡
+BaronDeathray.DisplayName: 遗爵死亡射线
+BaronEyeFlash.DisplayName: 遗爵之电眼
+BaronTuskShrapnel.DisplayName: 獠牙弹片
+DecrepitAirstrike.DisplayName: 老旧空袭
+DecrepitAirstrikeNuke.DisplayName: 空袭核武器
+DecrepitAirstrikeNukeSplinter.DisplayName: 核武器碎片
+MechLureProjectile.DisplayName: 机械鱼饵
+RoseTintedVisorDeathray.DisplayName: 玫瑰激光
+GladiatorStandard.DisplayName: 角斗士旗帜
+HiveSentry.DisplayName: 蜂巢
+ROB.DisplayName: R.O.B
+MeteorFlame.DisplayName: 流星焰
+RainUmbrella.DisplayName: 雨伞
+BeeFlower.DisplayName: 蜜蜂花朵
+MonkDashDamage.DisplayName: 武僧冲刺
+PearlwoodStareline.DisplayName: 珍珠木凝线
+EaterRocketJr.DisplayName: 腐肉
+VortexLightningDeathray.DisplayName: 星旋闪电死亡射线
+SpectralEoC.DisplayName: 克苏鲁幽灵眼
+MonkDashSlash.DisplayName: 武僧冲刺斩
+ObsidianExplosion.DisplayName: 黑曜石爆炸
+DeviGuardianHarmless.DisplayName: 戴薇安守护
+MagmawJaw.DisplayName: Magmaw Jaw（这是什么？）//for patch
+MagmawHand.DisplayName: Magmaw Hand（这是什么？）//for patch
+PungentEyeballMinion.DisplayName: Pungent Eyeball Minion（这是什么？）//for patch
+MinosPrime.DisplayName: Minos Prime（这是什么？）//for patch
+RainLightning.DisplayName: 雷暴雨
 // PlanteraThornChakram.DisplayName: Plantera Thorn Chakram
 // PlanteraRitual.DisplayName: Plantera Ritual
 // PlanteraManEater.DisplayName: Plantera Man Eater

@@ -109,7 +109,7 @@ TerraChampionBody.DisplayName: 泰拉英灵
 TerraChampionTail.DisplayName: 泰拉英灵
 
 TimberChampion: {
-	DisplayName: 木英灵
+	DisplayName: 森林英灵
 
 	BossChecklistIntegration: {
 		// EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
@@ -118,7 +118,7 @@ TimberChampion: {
 	}
 }
 
-TimberChampionHead.DisplayName: 木英灵
+TimberChampionHead.DisplayName: 森林英灵
 
 WillChampion: {
 	DisplayName: 意志英灵
@@ -135,7 +135,7 @@ BrainClone.DisplayName: 克苏鲁之脑
 BrainIllusion.DisplayName: 克苏鲁之脑
 BrainIllusion2.DisplayName: 克苏鲁之脑
 BrainIllusionAttack.DisplayName: 克苏鲁之脑
-CreeperGutted.DisplayName: 爬行者
+CreeperGutted.DisplayName: 飞眼怪
 CrystalLeaf.DisplayName: 叶绿水晶
 DetonatingBubble.DisplayName: 爆炸泡泡
 DetonatingBubbleEX.DisplayName: 爆炸泡泡
@@ -292,7 +292,7 @@ DeviBoss: {
 ShadowOrbNPC.DisplayName: 暗影珠
 
 LifeChallenger: {
-	// DisplayName: Lifelight
+	DisplayName: 飘渺游光
 
 	BossChecklistIntegration: {
 		// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
@@ -304,7 +304,7 @@ LifeChallenger: {
 }
 
 BanishedBaron: {
-	// DisplayName: Banished Baron
+	DisplayName: 放逐遗爵
 
 	BossChecklistIntegration: {
 		// EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
@@ -315,11 +315,11 @@ BanishedBaron: {
 	// Slurp: slurp
 }
 
-// DetonatingBubbleNPC.DisplayName: Detonating Bubble
-// StardustMinion.DisplayName: Stardust Minion
+DetonatingBubbleNPC.DisplayName: 爆炸泡泡
+StardustMinion.DisplayName: 星尘仆从
 // StardustDragon.DisplayName: Stardust Dragon
-// SlimeSwarm.DisplayName: Slime Swarm
-// Magmaw.DisplayName: Magmaw
+SlimeSwarm.DisplayName: 集群史莱姆
+Magmaw.DisplayName: Magmaw（这是什么？如果有玩家看见这行字，请告诉我这是什么玩意）//for patch
 // currently not exist in game
 // DukeFishronEX.DisplayName: Duke Fishron EX
 

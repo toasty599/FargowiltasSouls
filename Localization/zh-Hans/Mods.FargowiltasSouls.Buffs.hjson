@@ -39,8 +39,8 @@ SeekerOfTreasuresBuff: {
 }
 
 NibbleBuff: {
-	// DisplayName: Nibble
-	// Description: Just one tiny bite (please)
+	DisplayName: 圆陆鲨
+	Description: 只需轻轻一咬
 }
 
 BrokenShell: {
@@ -96,8 +96,8 @@ HuntressCD: {
 LeadPoison.DisplayName: 铅中毒
 
 MonkBuff: {
-	// DisplayName: Meditation
-	// Description: Your Monk Dash is ready
+	DisplayName: 冥想
+	Description: 你的武僧冲刺已就绪
 }
 
 ObsidianLavaWetBuff: {
@@ -211,488 +211,488 @@ CrimetroidBuff: {
 }
 
 BerserkerInstallBuff: {
-	// DisplayName: Berserker Install
-	// Description: "'Get them! Berserker!'"
+	DisplayName: 狂暴负载
+	Description: “狂战士！干掉他们！”
 }
 
 BerserkerInstallCDBuff: {
-	// DisplayName: Berserker Cooldown
-	// Description: You cannot go berserk yet
+	DisplayName: 狂暴冷却
+	Description: 你还不能进入狂暴状态
 }
 
 BetsyDashBuff: {
-	// DisplayName: Dash
-	// Description: You're moving at high speed!
+	DisplayName: 冲刺
+	Description: 你正在高速移动！
 }
 
 AbomFangBuff: {
-	// DisplayName: Abominable Fang
-	// Description: The power of Eternity Mode compels you
+	DisplayName: 憎恶毒牙
+	Description: 永恒模式的力量压迫着你
 }
 
 AbomPresenceBuff: {
-	// DisplayName: Abominable Presence
-	// Description: Defense, damage reduction, and life regen reduced; Moon Leech effect
+	DisplayName: 憎恶驾到
+	Description: 减少防御力、伤害减免和生命恢复速度，附带月蛭凝块效果
 }
 
 BaronsBurdenBuff: {
-	// DisplayName: Baron's Burden
-	/* Description:
+	DisplayName: 遗爵威压
+	Description:
 		'''
-		Gravity heavily increased outside water
-		Breathe water but cannot breathe air
-		Improved underwater movement
-		''' */
+		处于空气中时重力急剧增加
+		在空气中无法呼吸，在水中时可自由呼吸
+		快回来！
+		'''
 }
 
 DeviPresenceBuff: {
-	// DisplayName: Deviant Presence
-	// Description: Friendly NPCs take massively increased damage
+	DisplayName: 戴薇安驾到
+	Description: 大幅增加友方NPC受到的伤害
 }
 
 GrabbedBuff: {
-	// DisplayName: Grabbed
-	// Description: Mash movement keys to escape!
+	DisplayName: 抓住你了！
+	Description: 狂敲你的移动键来逃离！
 }
 
 MutantFangBuff: {
-	// DisplayName: Mutant Fang
-	// Description: The power of Eternity Mode compels you
+	DisplayName: 突变毒牙
+	Description: 永恒模式的力量压迫着你
 }
 
 MutantPresenceBuff: {
-	// DisplayName: Mutant Presence
-	// Description: Defense, damage reduction, and life regen reduced; almost all soul toggles disabled; reduced graze radius
+	DisplayName: 突变驾到
+	Description: 减少防御力、伤害减免和生命恢复速度，关闭几乎所有魂的效果，减小擦弹范围
 }
 
 HellFireBuff: {
-	// DisplayName: Hell Fire
-	// Description: Mods.FargowiltasSouls.BuffDescription.HellFireBuff
+	DisplayName: 狱火
+	Description: Mods.FargowiltasSouls.BuffDescription.HellFireBuff
 }
 
 MagicalCleanseCDBuff: {
-	// DisplayName: Magical Cleanse Cooldown
-	// Description: You cannot cleanse debuffs yet
+	DisplayName: 魔法净化冷却
+	Description: 你还不能净化减益
 }
 
 AbomCooldownBuff: {
-	// DisplayName: Abominable Cooldown
-	// Description: Cannot endure another attack yet
+	DisplayName: 憎恶冷却
+	Description: 还不能承受另一次攻击
 }
 
 AbomRebirthBuff: {
-	// DisplayName: Abominable Rebirth
-	// Description: You cannot die unless struck
+	DisplayName: 憎恶重生
+	Description: 除非受击，你无法死亡
 }
 
 AnticoagulationBuff: {
-	// DisplayName: Anticoagulation
-	// Description: Losing life, shed blood when hurt, enemies will drink it and grow stronger
+	DisplayName: 凝血失效
+	Description: 生命流失，受伤时鲜血四溅，敌怪会吸收你溅出的鲜血并变得更强
 }
 
 AntisocialBuff: {
-	// DisplayName: Antisocial
-	// Description: You have no friends and no summon damage
+	DisplayName: 社恐
+	Description: 你没有朋友，也无法造成召唤伤害
 }
 
 AtrophiedBuff: {
-	// DisplayName: Atrophied
-	// Description: Your muscles are deteriorating
+	DisplayName: 萎缩
+	Description: 你的肌肉正在退化
 }
 
 BerserkedBuff: {
-	// DisplayName: Berserked
-	// Description: Increased offense, decreased defense, and you cannot control yourself
+	DisplayName: 狂暴
+	Description: 攻击欲望增强，防御力减少，你控几不住你记己
 }
 
 BloodDrinkerBuff: {
-	// DisplayName: Blood Drinker
-	// Description: 30% increased damage
+	DisplayName: 饮血者
+	Description: 增加30%伤害
 }
 
 BloodthirstyBuff: {
-	// DisplayName: Bloodthirsty
-	// Description: Hugely increased enemy spawn rate
+	DisplayName: 嗜血
+	Description: 极大提高刷怪速率
 }
 
 BrainOfConfusionBuff: {
-	// DisplayName: Cerebral Mindbreak
-	// Description: 30% decreased damage dealt
+	DisplayName: 理智崩溃
+	Description: 造成的伤害降低30%
 }
 
 ClippedWingsBuff: {
-	// DisplayName: Clipped Wings
-	// Description: You cannot fly or use rocket boots
+	DisplayName: 折翼
+	Description: 无法飞行或使用火箭靴
 }
 
 CrippledBuff: {
-	// DisplayName: Crippled
-	// Description: You cannot run
+	DisplayName: 跛足
+	Description: 你无法奔跑
 }
 
 CurseoftheMoonBuff: {
-	// DisplayName: Curse of the Moon
-	// Description: The moon's wrath consumes you
+	DisplayName: 月之诅咒
+	Description: 月亮的愤怒正在吞噬你
 }
 
 DefenselessBuff: {
-	// DisplayName: Defenseless
-	// Description: Your guard is completely broken
+	DisplayName: 毫无防御
+	Description: 你的防御完全崩溃了
 }
 
 FlamesoftheUniverseBuff: {
-	// DisplayName: Flames of the Universe
-	// Description: The heavens themselves have judged you
+	DisplayName: 宇宙之焰
+	Description: 来自诸天的亲自审判
 }
 
 FlippedBuff: {
-	// DisplayName: Flipped
-	// Description: Your gravity is reversed
+	DisplayName: 翻转
+	Description: 你的重力被颠倒了
 }
 
 FlippedHallowBuff: {
-	// DisplayName: Flipped
-	// Description: Your gravity is reversed
+	DisplayName: 翻转
+	Description: 你的重力被颠倒了
 }
 
 FusedBuff: {
-	// DisplayName: Fused
-	// Description: You're going out with a bang
+	DisplayName: 导火线
+	Description: 你和爆炸有个约会
 }
 
 GodEaterBuff: {
-	// DisplayName: God Eater
-	// Description: Your soul is cursed by divine wrath
+	DisplayName: 噬神者
+	Description: 你的灵魂被神明的忿怒所诅咒
 }
 
 GuiltyBuff: {
-	// DisplayName: Guilty
-	// Description: Weapons dulled by the guilt of slaying innocent critters
+	DisplayName: 内疚
+	Description: 杀害无辜动物产生的内疚使你的武器变得迟钝
 }
 
 HexedBuff: {
-	// DisplayName: Hexed
-	// Description: Your attacks heal enemies
+	DisplayName: 着魔
+	Description: 你的攻击会治愈敌人
 }
 
 HolyPriceBuff: {
-	// DisplayName: Holy Price
-	// Description: 30% decreased attack speed
+	DisplayName: 神圣代价
+	Description: 减少30%攻击速度
 }
 
 HypothermiaBuff: {
-	// DisplayName: Hypothermia
-	// Description: Friendly projectiles are slowed down and you take increased damage from cold attacks
+	DisplayName: 恐寒症
+	Description: 友方弹幕速度会减慢，你会承受更多来自冷系攻击的伤害
 }
 
 InfestedBuff: {
-	// DisplayName: Infested
-	// Description: This can only get worse
+	DisplayName: 感染
+	Description: 这只会变得更糟
 }
 
 IvyVenomBuff: {
-	// DisplayName: Ivy Venom
-	// Description: Losing life, will become Neurotoxin at 20 seconds
+	DisplayName: 常春藤毒素
+	Description: 流失生命, 持续时间超过20秒时变为神经毒素
 	Transform: 你身上的常春藤毒素转变为了神经毒素！！
 }
 
 JammedBuff: {
-	// DisplayName: Jammed
-	// Description: Your ranged weapons are faulty
+	DisplayName: 卡壳
+	Description: 你的远程武器出故障了
 }
 
 LethargicBuff: {
-	// DisplayName: Lethargic
-	// Description: Your weapons feel sluggish
+	DisplayName: 昏昏欲睡
+	Description: 你感觉你的武器变得缓慢
 }
 
 LightningRodBuff: {
-	// DisplayName: Lightning Rod
-	// Description: You attract thunderbolts
+	DisplayName: 避雷针
+	Description: 你会吸引雷电
 }
 
 LihzahrdBlessingBuff: {
-	// DisplayName: Lihzahrd Blessing
-	// Description: Wires enabled and reduced spawn rates in Jungle Temple
+	DisplayName: 蜥蜴祝福
+	Description: 电线重新受你的掌控，降低丛林神庙内的刷怪速率
 	Message: 丛林蜥蜴祭坛发出的光芒照耀在你身上！
 }
 
 LihzahrdCurseBuff: {
-	// DisplayName: Lihzahrd Curse
-	// Description: Wires disabled in Jungle Temple
+	DisplayName: 蜥蜴诅咒
+	Description: 丛林神庙内，你不能拆除或放置电线
 }
 
 LivingWastelandBuff: {
-	// DisplayName: Living Wasteland
-	// Description: Everyone around you turns to rot
+	DisplayName: 人形废土
+	Description: 你周围的每个人都开始腐烂
 }
 
 LoosePocketsBuff: {
-	// DisplayName: Loose Pockets
-	// Description: An item might be taken from you
+	DisplayName: 晃动衣袋
+	Description: 你身上的一件物品也许会被拿走
 }
 
 LovestruckBuff: {
-	// DisplayName: Lovestruck
-	// Description: You are in love!
+	DisplayName: 热恋
+	Description: 坠入爱河！
 }
 
 LowGroundBuff: {
-	// DisplayName: Low Ground
-	// Description: No hooks, cannot stand on platforms or liquids
+	DisplayName: 下陷
+	Description: 钩爪被禁止，不能站在平台或液体上
 }
 
 MarkedforDeathBuff: {
-	// DisplayName: Marked for Death
-	// Description: Just don't get hit
+	DisplayName: 死亡标记
+	Description: 别被打到
 }
 
 MidasBuff: {
-	// DisplayName: Midas
-	// Description: Drop money on hit
+	DisplayName: 迈达斯
+	Description: 受击时掉落钱币
 }
 
 MutantNibbleBuff: {
-	// DisplayName: Mutant Nibble
-	// Description: You cannot heal at all
+	DisplayName: 突变啃啄
+	Description: 无法恢复生命
 }
 
 NanoInjectionBuff: {
-	// DisplayName: Nano Injection
-	// Description: Life regeneration and stats reduced
+	DisplayName: 纳米灌注
+	Description: 降低生命恢复速度和综合属性
 }
 
 NeurotoxinBuff: {
-	// DisplayName: Neurotoxin
-	// Description: Your body is shutting down
+	DisplayName: 神经毒素
+	Description: 你的身体正在停歇关闭
 }
 
 NullificationCurseBuff: {
-	// DisplayName: Nullification Curse
-	// Description: Moon Lord has cycling damage type immunities!
+	DisplayName: 无效诅咒
+	Description: 月亮领主正在循环他的伤害免疫类型！
 }
 
 OceanicMaulBuff: {
-	// DisplayName: Oceanic Maul
-	// Description: Defensive stats and max life are savaged
+	DisplayName: 海洋重击
+	Description: 防御力和最大生命值被大幅降低
 	LifeUp: +5最大生命值
 	LifeDown: -5最大生命值
 }
 
 OceanicSealBuff: {
-	// DisplayName: Oceanic Seal
-	// Description: No dodging, no lifesteal, no supersonic, no escape
+	DisplayName: 海洋印记
+	Description: 无法闪避，无法吸血，无法使用超音速之魂快速移动，无法逃脱
 }
 
 OiledBuff: {
-	// DisplayName: Oiled
-	// Description: Taking more damage from being on fire
+	DisplayName: 浸油
+	Description: 着火时受到更多伤害
 }
 
 PungentGazeBuff: {
-	// DisplayName: Pungent Gaze
+	DisplayName: 尖刻注视
 	// Description: Mods.FargowiltasSouls.BuffDescription.PungentGazeBuff
 }
 
 PurgedBuff: {
-	// DisplayName: Purged
-	// Description: Dodge effects don't work
+	DisplayName: 涤荡
+	Description: 闪避效果不会生效
 }
 
 PurifiedBuff: {
-	// DisplayName: Purified
-	// Description: You are cleansed
+	DisplayName: 净化
+	Description: 你被净化了
 }
 
 RefreshedBuff: {
-	// DisplayName: Refreshed
-	// Description: Increased mobility and flight time
+	DisplayName: 焕然一新
+	Description: 机动性提升，飞行时间延长
 }
 
 ReverseManaFlowBuff: {
-	// DisplayName: Reverse Mana Flow
-	// Description: Your magic weapons cost life instead of mana
+	DisplayName: 魔力逆流
+	Description: 你的魔法武器消耗生命而不是魔力
 }
 
 RottingBuff: {
-	// DisplayName: Rotting
-	// Description: Your body is wasting away
+	DisplayName: 腐败
+	Description: 你的身体逐渐衰弱
 }
 
 RushJobBuff: {
-	// DisplayName: Rush Job
-	// Description: The Nurse cannot heal you again yet
+	DisplayName: 急活
+	Description: 护士现在还不能再次治疗你
 	// NurseChat: I've done all I can in the time I have!
 }
 
 SadismBuff: {
-	// DisplayName: Eternity
-	// Description: The power of Eternity Mode is with you
+	DisplayName: 永恒
+	Description: 永恒模式的力量与你同在
 }
 
 ShadowflameBuff: {
-	// DisplayName: Shadowflame
+	DisplayName: 暗影焰
 	Description: 流失生命
 }
 
 SmiteBuff: {
-	// DisplayName: Smite
-	// Description: Life regen reduced and 20% more damage taken
+	DisplayName: 惩戒
+	Description: 降低生命恢复速度，受到的伤害增加10%
 }
 
 SqueakyToyBuff: {
-	// DisplayName: Squeaky Toy
-	// Description: Your attacks are squeaky toys!
+	DisplayName: 吱吱响的玩具
+	Description: 你的攻击如同玩具一般作响！
 }
 
 StunnedBuff: {
-	// DisplayName: Stunned
-	// Description: You're too dizzy to move
+	DisplayName: 昏迷
+	Description: 你头晕目眩，动弹不得
 }
 
 SwarmingBuff: {
-	// DisplayName: Swarming
-	// Description: Hornets are attacking from every direction!
+	DisplayName: 蜂群
+	Description: 蜂群正从四面八方向你发起进攻！
 }
 
 ThiefCDBuff: {
-	// DisplayName: Thief Cooldown
-	// Description: Your items cannot be stolen again yet
+	DisplayName: 偷窃冷却
+	Description: 你的物品现在不会再次被偷了
 }
 
 UnluckyBuff: {
-	// DisplayName: Unlucky
-	// Description: You are feeling pretty unlucky
+	DisplayName: 霉运
+	Description: 你感觉你现在相当倒霉
 }
 
 UnstableBuff: {
-	// DisplayName: Unstable
-	// Description: You don't quite fit into reality
+	DisplayName: 不稳定
+	Description: 现实似乎在排斥你
 }
 
 BigBrainMinionBuff: {
-	// DisplayName: Big Brain of Cthulhu
-	// Description: The Brain of Cthulhu will fight for you
+	DisplayName: 克苏鲁大脑
+	Description: 克苏鲁的大脑将为你而战
 }
 
 BrainMinionBuff: {
-	// DisplayName: Brain of Cthulhu
-	// Description: The mini Brain of Cthulhu will fight for you
+	DisplayName: 克苏鲁之脑
+	Description: 迷你克苏鲁之脑将为你而战
 }
 
 CrystalSkullBuff: {
-	// DisplayName: Crystal Skull
-	// Description: The crystal skull will protect you
+	DisplayName: 水晶头骨
+	Description: 水晶头骨将会保护你
 }
 
 EaterMinionBuff: {
-	// DisplayName: Eater of Worlds
-	// Description: The mini Eater of Worlds will fight for you
+	DisplayName: 世界吞噬者
+	Description: 迷你世界吞噬者将为你而战
 }
 
 LunarCultistBuff: {
-	// DisplayName: Lunar Cultist
-	// Description: The Lunar Cultist will protect you
+	DisplayName: 拜月教徒
+	Description: 拜月教徒将会保护你
 }
 
 MutantPowerBuff: {
-	// DisplayName: Mutant Power
-	// Description: The power of Mutant is with you
+	DisplayName: 突变之力
+	Description: 突变之力与你同在
 }
 
 PlanterasChildBuff: {
-	// DisplayName: Plantera's Child
-	// Description: The child of Plantera will protect you
+	DisplayName: 世纪之花的孩子
+	Description: 世纪之花的孩子将会保护你
 }
 
 ProbesBuff: {
-	// DisplayName: Probes
-	// Description: The probes will protect you
+	DisplayName: 探测器
+	Description: 探测器将会保护你
 }
 
 PungentEyeballBuff: {
-	// DisplayName: Pungent Eyeball
-	// Description: The pungent eyeball will protect you
+	DisplayName: 尖刻眼球
+	Description: 尖刻眼球将会保护你
 }
 
 RainbowSlimeBuff: {
-	// DisplayName: Rainbow Slime
-	// Description: The Rainbow Slime will protect you
+	DisplayName: 彩虹史莱姆
+	Description: 彩虹史莱姆将会保护你
 }
 
 SaucerMinionBuff: {
-	// DisplayName: Mini Saucer
-	// Description: The Mini Saucer will protect you
+	DisplayName: 迷你飞碟
+	Description: 迷你飞碟将会保护你
 }
 
 SkeletronArmsBuff: {
-	// DisplayName: Skeletron Arms
-	// Description: The Skeletron arms will protect you
+	DisplayName: 骷髅王之手
+	Description: 骷髅王之手将会保护你
 }
 
 SouloftheMasochistBuff: {
-	// DisplayName: Soul of the Master
-	// Description: The power of Eternity Mode is with you
+	DisplayName: 大师之魂
+	Description: 永恒模式的力量与你同在
 }
 
 TrueEyesBuff: {
-	// DisplayName: True Eyes of Cthulhu
-	// Description: The eyes of Cthulhu will protect you
+	DisplayName: 克苏鲁真眼
+	Description: 克苏鲁的几只眼睛将会保护你
 }
 
 TwinsEXBuff: {
-	// DisplayName: Twins EX
-	// Description: The real Twins will fight for you
+	DisplayName: 双子EX
+	Description: 真正的双子魔眼将为你而战
 }
 
 MutantRebirthBuff: {
-	// DisplayName: Mutant Rebirth
-	// Description: Deathray revive is recharging
+	DisplayName: 突变重生
+	Description: 复活死亡射线蓄力中
 }
 
 BabyLifelightBuff: {
-	// DisplayName: Petlight
-	// Description: Behold, the light of an angel
+	DisplayName: 照明圣光
+	Description: 看哪，那天使的圣光
 }
 
 BrokenShellBuff: {
-	// DisplayName: Broken Shell
-	// Description: You cannot enter your shell yet
+	DisplayName: 破损龟壳
+	Description: 暂时无法缩壳
 }
 
 CrimsonRegenBuff: {
-	// DisplayName: Crimson Healing
-	// Description: Your lifeforce is building up
+	DisplayName: 猩红治愈
+	Description: 你上次的伤口即将恢复
 }
 
 FirstStrikeBuff: {
-	// DisplayName: First Strike
-	// Description: Your next attack will be enhanced
+	DisplayName: 先发制人
+	Description: 你的下一次攻击将会得到增强
 }
 
 FossilReviveCDBuff: {
-	// DisplayName: Revived
-	// Description: You cannot revive again
+	DisplayName: 已复活
+	Description: 你无法再次复活
 }
 
 FrozenBuff: {
-	// DisplayName: Frozen
-	// Description: You cannot move
+	DisplayName: 冻结
+	Description: 你无法移动
 }
 
 GoldenStasisBuff: {
-	// DisplayName: Golden Stasis
-	// Description: You are immune to all damage, but cannot move
+	DisplayName: 不动金身
+	Description: 免疫所有伤害，但无法移动
 }
 
 GoldenStasisCDBuff: {
-	// DisplayName: Golden Stasis Cooldown
-	// Description: You cannot turn gold yet
+	DisplayName: 金身冷却
+	Description: 你还不能进入金身
 }
 
 HallowCooldownBuff: {
-	// DisplayName: Hallowed Sword Cooldown
-	// Description: Your sword cannot reflect projectiles yet
+	DisplayName: 神圣之盾冷却
+	Description: 你的护盾现在无法反弹弹幕
 }
 
 HuntressBleedBuff: {
@@ -701,97 +701,97 @@ HuntressBleedBuff: {
 }
 
 HuntressCDBuff: {
-	// DisplayName: Arrow Rain Cooldown
-	// Description: You cannot trigger another rain of arrows yet
+	DisplayName: 箭雨冷却
+	Description: 你现在无法触发另一次箭雨
 }
 
 LeadPoisonBuff: {
-	// DisplayName: Lead Poison
-	// Description: Mods.FargowiltasSouls.BuffDescription.LeadPoisonBuff
+	DisplayName: 铅中毒
+	Description: Mods.FargowiltasSouls.BuffDescription.LeadPoisonBuff
 }
 
 MoltenAmplifyBuff: {
-	// DisplayName: Molten Amplify
-	// Description: Mods.FargowiltasSouls.BuffDescription.MoltenAmplifyBuff
+	DisplayName: 熔岩增幅
+	Description: Mods.FargowiltasSouls.BuffDescription.MoltenAmplifyBuff
 }
 
 OriPoisonBuff: {
-	// DisplayName: Orichalcum Poison
-	// Description: Mods.FargowiltasSouls.BuffDescription.OriPoisonBuff
+	DisplayName: 山铜中毒
+	Description: Mods.FargowiltasSouls.BuffDescription.OriPoisonBuff
 }
 
 ShellHideBuff: {
-	// DisplayName: Shell Hide
-	// Description: Projectiles are being blocked
+	DisplayName: 缩壳
+	Description: 阻挡弹幕
 }
 
 SnowstormCDBuff: {
-	// DisplayName: Snowstorm Cooldown
-	// Description: You cannot chill yet
+	DisplayName: 暴雪冷却
+	Description: 你现在不能冻结一切
 }
 
 SolarFlareBuff: {
-	// DisplayName: Solar Flare
-	// Description: Mods.FargowiltasSouls.BuffDescription.SolarFlareBuff
+	DisplayName: 耀斑
+	Description: Mods.FargowiltasSouls.BuffDescription.SolarFlareBuff
 }
 
 SuperBleedBuff: {
-	// DisplayName: Blood Geyser
-	// Description: Mods.FargowiltasSouls.BuffDescription.SuperBleedBuff
+	DisplayName: 血如泉涌
+	Description: Mods.FargowiltasSouls.BuffDescription.SuperBleedBuff
 }
 
 CorruptingBuff: {
-	// DisplayName: Corrupting
-	// Description: You are becoming corrupted
+	DisplayName: 腐化之力
+	Description: 你正被逐渐腐蚀
 }
 
 TimeFrozenBuff: {
-	// DisplayName: Time Frozen
-	// Description: You are stopped in time
+	DisplayName: 时间冻结
+	Description: 你停止了时间
 }
 
 TimeStopCDBuff: {
-	// DisplayName: Time Stop Cooldown
-	// Description: You cannot stop time yet
+	DisplayName: 时停冷却
+	Description: 你现在不能停止时间
 }
 
 TitaniumCDBuff: {
-	// DisplayName: Titanium Shield Cooldown
-	// Description: You are charging up Titanium Shield
+	DisplayName: 钛金护盾冷却
+	Description: 你正在为钛金护盾蓄力
 }
 
 VortexCDBuff: {
-	// DisplayName: Vortex Cooldown
-	// Description: You cannot spawn another vortex yet
+	DisplayName: 星旋冷却
+	Description: 你现在不能生成另一个星旋旋涡
 }
 
 SuperchargedBuff: {
-	// DisplayName: Supercharged
-	// Description: 20% increased move speed, 10% increased attack speed, your attacks electrify
+	DisplayName: 超级充能
+	Description: 增加20%移动速度和10%攻击速度，你的攻击会造成带电和避雷针
 }
 
 TribalCharmClickBuff: {
-	// DisplayName: Tribal Charm
-	// Description: Gain an instant of increased damage when you click to attack
+	DisplayName: 部落挂坠
+	Description: 当你单击鼠标攻击时获得一瞬间的伤害加成
 }
 
 TwinsInstallBuff: {
-	// DisplayName: Twins Install
-	// Description: Effects of Cursed Inferno and Ichor
+	DisplayName: 双子负载
+	Description: 诅咒狱火和灵液的效果
 }
 
 WretchedHexBuff: {
-	// DisplayName: Wretched Hex
-	// Description: Shadowflame tentacles and vastly increased damage, but vastly decreased speed and defenses
+	DisplayName: 诅咒之魔
+	Description: 暗影焰触手伤害大幅提升，但速度和防御大幅下降
 }
 
 CorruptedBuff: {
-	// DisplayName: Corrupted Buff
+	DisplayName: 腐化增益
 	// Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
 }
 
 CorruptedBuffForce: {
-	// DisplayName: Corrupted Buff Force
+	DisplayName: 腐化之力
 	// Description: Mods.FargowiltasSouls.Buffs.CorruptedBuffForce.Description
 }
 
@@ -801,23 +801,23 @@ JungleMimicSummonBuff: {
 }
 
 GladiatorBuff: {
-	// DisplayName: Gladiator Strength
-	// Description: +5% damage reduction, +5% damage, knockback immunity, improved spear rain
+	DisplayName: 角斗士之力
+	Description: +5%伤害减免，+5%伤害，免疫击退，增强长矛雨
 }
 
 ROBBuff: {
-	// DisplayName: R.O.B
+	DisplayName: R.O.B
 	// DescPatreon: The friend you've never left since Brawl
 	// DescNonPatreon: He's finally a top tier!
-	// Description: Mods.FargowiltasSouls.Buffs.ROBBuff.Description
+	Description: ""
 }
 
 RainCDBuff: {
-	// DisplayName: Rain Umbrella Cooldown
-	// Description: Your umbrella isn't ready yet
+	DisplayName: 雨云冷却
+	Description: 你的雨伞还没准备好
 }
 
 SublimationBuff: {
 	// Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
-	// DisplayName: Sublimation Buff
+	DisplayName: 升华
 }

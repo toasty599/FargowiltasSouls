@@ -1,5 +1,5 @@
 SoulConfig: {
-	// DisplayName: Soul Config
+	DisplayName: Fargo魂配置
 
 	Headers: {
 		Maso: 永恒模式
@@ -37,8 +37,8 @@ SoulConfig: {
 	}
 
 	PreBossNightGlow: {
-		// Label: Pre-Boss Enemy Glow
-		// Tooltip: In Eternity Mode, enemies glow at night before any boss has been killed
+		Label: "{$Mods.FargowiltasSouls.Config.PreBossNightGlow}"
+		Tooltip: "{$Mods.FargowiltasSouls.Config.PreBossNightGlowTooltip}"
 	}
 
 	OncomingMutantX: {
