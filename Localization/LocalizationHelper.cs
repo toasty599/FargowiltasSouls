@@ -108,7 +108,7 @@ namespace FargowiltasSouls
 
             #endregion boss spawn info
 
-
+            /*
             #region Toggles
 
             //AddToggle("PresetHeader", "Masochist");
@@ -460,7 +460,7 @@ namespace FargowiltasSouls
 
             #endregion Toggles
 
-
+            */
         }
     }
 }

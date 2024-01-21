@@ -236,6 +236,11 @@ namespace FargowiltasSouls.Core.Globals
         {
             LoadSpriteBuffered(recolor, type, TextureAssets.Golem, FargowiltasSouls.TextureBuffer.Golem, "GolemLights");
         }
+
+        protected static void LoadProjectile(bool recolor, int type)
+        {
+            LoadSpriteBuffered(recolor, type, TextureAssets.Projectile, FargowiltasSouls.TextureBuffer.Projectile, "Projectile_");
+        }
         #endregion
     }
 }

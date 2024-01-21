@@ -6029,6 +6029,7 @@ Mods: {
 			// PlanteraManEater.DisplayName: Plantera Man Eater
 			// PlanteraSnatcher.DisplayName: Plantera Snatcher
 			// PlanteraTrapper.DisplayName: Plantera Trapper
+			// PlanteraMushroomThing.DisplayName: Plantera Mushroom Thing
 		}
 
 		// MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"

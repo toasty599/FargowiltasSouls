@@ -350,7 +350,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             if (timer == 60 * 6) // redirect
                             {
                                 SoundEngine.PlaySound(SoundID.Zombie21 with { Pitch = -0.3f }, npc.Center);
-                                Particle particle = new ExpandingBloomParticle(npc.Center, Vector2.Zero, Color.LimeGreen, Vector2.Zero, Vector2.One * 100f, 20, true, Color.ForestGreen);
+                                bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+                                Color color = recolor ? Color.DeepSkyBlue : Color.LimeGreen;
+                                Color color2 = recolor ? Color.DarkBlue : Color.ForestGreen;
+                                Particle particle = new ExpandingBloomParticle(npc.Center, Vector2.Zero, color, Vector2.Zero, Vector2.One * 100f, 20, true, color2);
                                 particle.Spawn();
 
                                 foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == ModContent.ProjectileType<CrystalLeafShot>() && p.ai[0] == npc.whoAmI)) //my crystal leaves
@@ -523,7 +526,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     if (timer % (freq * 4) <= freq * 2)
                                     {
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionTo(player.Center),
-                                            ProjectileID.PoisonSeedPlantera, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                                            ModContent.ProjectileType<PlanteraMushroomThing>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                     }
                                 }
                                 if (timer > vineSpawnTime * 5)
@@ -610,7 +613,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (CrystalRedirectTimer >= 2) // every 3 throws, redirect instead of throwing
                     {
                         SoundEngine.PlaySound(SoundID.Zombie21 with { Pitch = -0.3f }, npc.Center);
-                        Particle particle = new ExpandingBloomParticle(npc.Center, Vector2.Zero, Color.LimeGreen, Vector2.Zero, Vector2.One * 100f, 20, true, Color.ForestGreen);
+                        bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+                        Color color = recolor ? Color.DeepSkyBlue : Color.LimeGreen;
+                        Color color2 = recolor ? Color.DarkBlue : Color.ForestGreen;
+                        Particle particle = new ExpandingBloomParticle(npc.Center, Vector2.Zero, color, Vector2.Zero, Vector2.One * 100f, 20, true, color2);
                         particle.Spawn();
 
                         foreach (Projectile p in Main.projectile.Where(p => p.active && p.type == ModContent.ProjectileType<CrystalLeafShot>() && p.ai[0] == npc.whoAmI)) //my crystal leaves
@@ -855,7 +861,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override Color? GetAlpha(NPC npc, Color drawColor)
         {
-            return IsVenomEnraged ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);
+            return !IsVenomEnraged ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -888,8 +894,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             LoadBossHeadSprite(recolor, 11);
             LoadBossHeadSprite(recolor, 12);
             LoadGoreRange(recolor, 378, 391);
-            LoadSpecial(recolor, ref TextureAssets.Chain26, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain26");
-            LoadSpecial(recolor, ref TextureAssets.Chain27, ref FargowiltasSouls.TextureBuffer.Chain12, "Chain27");
+            LoadSpecial(recolor, ref TextureAssets.Chain26, ref FargowiltasSouls.TextureBuffer.Chain26, "Chain26");
+            LoadSpecial(recolor, ref TextureAssets.Chain27, ref FargowiltasSouls.TextureBuffer.Chain27, "Chain27");
+            LoadProjectile(recolor, ProjectileID.SeedPlantera);
+            LoadProjectile(recolor, ProjectileID.PoisonSeedPlantera);
+            LoadProjectile(recolor, ProjectileID.ThornBall);
         }
     }
 
