@@ -285,7 +285,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                         LightningCounter++;
 
-                        if (LightningCounter >= 60 * 20)
+                        int lighntningMinSeconds = WorldSavingSystem.MasochistModeReal ? 10 : 17;
+                        if (LightningCounter >= 60 * lighntningMinSeconds)
                         {
                             Point tileCoordinates = Player.Top.ToTileCoordinates();
 
@@ -325,8 +326,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
                                 float ai1 = Player.Center.Y;
-
-                                Projectile.NewProjectile(Player.GetSource_Misc(""), tileCoordinates.X * 16 + 8, (tileCoordinates.Y * 16 + 17) - 900, 0f, 0f, ModContent.ProjectileType<RainLightning>(), 60, 2f, Main.myPlayer,
+                                int damage = (Main.hardMode ? 120 : 60) / 4;
+                                Projectile.NewProjectile(Player.GetSource_Misc(""), tileCoordinates.X * 16 + 8, (tileCoordinates.Y * 16 + 17) - 900, 0f, 0f, ModContent.ProjectileType<RainLightning>(), damage, 2f, Main.myPlayer,
                                     Vector2.UnitY.ToRotation(), ai1);
 
                                 LightningCounter = 0;

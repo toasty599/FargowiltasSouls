@@ -6065,6 +6065,7 @@ Mods: {
 			PlanteraSnatcher.DisplayName: Plantera Snatcher
 			PlanteraTrapper.DisplayName: Plantera Trapper
 			PlanteraMushroomThing.DisplayName: Plantera Mushroom Thing
+			RainExplosion.DisplayName: Rain Explosion
 		}
 
 		MasoHeader: "[i:FargowiltasSouls/MutantStatue][c/ffffff:{$Mods.FargowiltasSouls.Toggler.MasoHeader}]"

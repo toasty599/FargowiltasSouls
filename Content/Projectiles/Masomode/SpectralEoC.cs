@@ -12,6 +12,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core;
 using Terraria.Audio;
 using Microsoft.CodeAnalysis;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
@@ -349,8 +350,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override bool PreDraw(ref Color lightColor)
         {
             bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
-            string resprite = recolor ? "Resprites" : "Vanilla";
-            Texture2D tex = ModContent.Request<Texture2D>($"FargowiltasSouls/Assets/ExtraTextures/{resprite}/{EoCName}").Value;
+            Texture2D tex = TextureAssets.Npc[NPCID.EyeofCthulhu].Value;
             int sizeY = tex.Height / Main.projFrames[Type]; //ypos of lower right corner of sprite to draw
             int frameY = Projectile.frame * sizeY;
             Rectangle rectangle = new(0, frameY, tex.Width, sizeY);
