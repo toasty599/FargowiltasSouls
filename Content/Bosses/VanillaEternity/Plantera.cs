@@ -22,6 +22,7 @@ using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern;
 using System.Collections.Generic;
 using Terraria.Map;
 using static tModPorter.ProgressUpdate;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -107,7 +108,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.75f);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.65f);
 
             if (!Main.masterMode)
                 npc.lifeMax = (int)(npc.lifeMax * 1.2f);
@@ -276,7 +277,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     movementTimer++;
                 }
-                void WallHugMovement(bool goOverPlayer = false, float speedMult = 1, float heightMult = 1)
+                void WallHugMovement(bool fastX = false, float speedMult = 1, float heightMult = 1, float targetPosX = 0)
                 {
                     ref float movementTimer = ref npc.ai[2];
 
@@ -299,18 +300,25 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         speedY = Math.Sign(targetY - npc.Center.Y);
                     }
                     float targetX = player.Center.X + 130 * MathF.Sin(MathHelper.TwoPi * movementTimer / (60 * 5));
-                    if (goOverPlayer)
+                    if (targetPosX != 0)
                     {
-                        targetX = player.Center.X;
+                        targetX = targetPosX;
                     }
-
                     float speedX = Math.Sign(targetX - npc.Center.X);
 
                     Vector2 targetPos = Vector2.UnitX * (npc.Center.X + speedX * 50) + Vector2.UnitY * (npc.Center.Y + speedY * 60);
-                    Movement(targetPos, 0.15f * speedMult, goOverPlayer);
+                    Movement(targetPos, 0.15f * speedMult, fastX);
                     //npc.velocity += Vector2.UnitX * speedX * mod + Vector2.UnitY * speedY * mod;
                 }
                 #endregion
+                const int scanWidth = 500;
+                bool collisionLeft = Collision.SolidTiles(npc.Center - Vector2.UnitX * scanWidth, scanWidth, npc.height);
+                bool collisionRight = Collision.SolidTiles(npc.Center, scanWidth, npc.height);
+                float playerXAvoidWalls = player.Center.X;
+                if (collisionLeft && !collisionRight)
+                    playerXAvoidWalls += 500;
+                if (!collisionLeft && collisionRight)
+                    playerXAvoidWalls -= 500;
                 #region Attacks
                 switch (state) // ATTACKS
                 {
@@ -320,7 +328,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             if (timer < 60 * 6)
                                 WallHugMovement();
                             else
-                                WallHugMovement(true, 4, 0.1f);
+                                WallHugMovement(true, 4, 0.1f, playerXAvoidWalls);
                             
                             
 
@@ -364,44 +372,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             ref float repeatCheck = ref npc.localAI[1];
 
                             const int vineSpawnTime = 100;
-                            
-                            if (timer < vineSpawnTime)
+
+                            if (timer >= vineSpawnTime || WorldSavingSystem.MasochistModeReal)
                             {
-
-                                float vineProgress = timer / vineSpawnTime;
-
-                                if (repeatCheck == 0)
-                                {
-                                    if (timer == 0)
-                                        ai3 = Math.Sign(npc.Center.X - player.Center.X);
-                                    if (ai3 == 0)
-                                        ai3 = Main.rand.NextBool() ? 1 : -1;
-                                }
-
-                                if (timer < vineSpawnTime * 0.7f && !(repeatCheck == 1 && timer < vineSpawnTime * 0.6f))
-                                {
-                                    WallHugMovement(true, 4, 0.1f);
-                                }
-                                else
-                                    npc.velocity *= 0.96f;
-
-                                float side = ai3 * (repeatCheck == 1 ? -1 : 1);
-                                float attackAngle = Vector2.Lerp(Vector2.UnitX * side, Vector2.UnitY.RotatedBy(MathHelper.PiOver2 * 0.15f * side), vineProgress).ToRotation();
-
-                                const int freq = 5;
-                                if (timer % freq == freq - 1)
-                                {
-                                    if (FargoSoulsUtil.HostCheck)
-                                    {
-                                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, attackAngle.ToRotationVector2().RotatedByRandom(MathHelper.PiOver4) * 24,
-                                            ModContent.ProjectileType<PlanteraTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, attackAngle);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                npc.velocity *= 0.96f;
-
                                 if (timer % 50 == 0)
                                 {
                                     SoundEngine.PlaySound(SoundID.NPCDeath13, npc.Center);
@@ -428,27 +401,53 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                         }
                                     }
                                 }
+                            }
 
-                                /*
-                                const float shotTime = 12;
-                                if (timer % freq < shotTime && timer < vineSpawnTime * 3.8f)
+                            if (timer < vineSpawnTime)
+                            {
+
+                                float vineProgress = timer / vineSpawnTime;
+
+                                if (repeatCheck == 0)
                                 {
-                                    if (FargoSoulsUtil.HostCheck && timer % 3 == 0)
+                                    const int scanWidth2 = 500;
+                                    bool scanLeft = Collision.SolidTiles(npc.Center - Vector2.UnitX * scanWidth2, scanWidth2, npc.height);
+                                    bool scanRight = Collision.SolidTiles(npc.Center, scanWidth2, npc.height);
+                                    if (timer == 0)
                                     {
-                                        float progress = (timer % freq) / shotTime;
-                                        for (int i = -1; i <= 1; i += 2)
-                                        {
+                                        ai3 = Math.Sign(npc.Center.X - player.Center.X);
+                                        if (scanLeft && !scanRight)
+                                            ai3 = 1;
+                                        if (!scanLeft && scanRight)
+                                            ai3 = -1;
+                                    }
+                                    if (ai3 == 0)
+                                        ai3 = Main.rand.NextBool() ? 1 : -1;
+                                }
 
-                                            float angle = npc.DirectionTo(player.Center).ToRotation();
-                                            angle += i * MathHelper.PiOver2 * 0.25f * progress;
-                                            float speed = (3 + Math.Abs(i)) / 3f;
-                                            Vector2 dir = angle.ToRotationVector2();
-                                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + dir * npc.width / 2f, dir * speed,
-                                                ProjectileID.PoisonSeedPlantera, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI);
-                                        }
+                                if (timer < vineSpawnTime * 0.7f && !(repeatCheck == 1 && timer < vineSpawnTime * 0.6f))
+                                {
+                                    WallHugMovement(true, 4, 0.1f, playerXAvoidWalls);
+                                }
+                                else
+                                    npc.velocity *= 0.96f;
+
+                                float side = ai3 * (repeatCheck == 1 ? -1 : 1);
+                                float attackAngle = Vector2.Lerp(Vector2.UnitX * side, Vector2.UnitY.RotatedBy(MathHelper.PiOver2 * 0.15f * side), vineProgress).ToRotation();
+
+                                const int freq = 5;
+                                if (timer % freq == freq - 1)
+                                {
+                                    if (FargoSoulsUtil.HostCheck)
+                                    {
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, attackAngle.ToRotationVector2().RotatedByRandom(MathHelper.PiOver4) * 24,
+                                            ModContent.ProjectileType<PlanteraTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.whoAmI, attackAngle);
                                     }
                                 }
-                                */
+                            }
+                            else 
+                            {
+                                npc.velocity *= 0.96f;
                                 if (timer > vineSpawnTime * (repeatCheck == 1 ? 4.4f : 3.9f))
                                 {
                                     
@@ -464,9 +463,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     }
                                 }
                             }
+                            
                         }
                         break;
-                    case 3:
+                    case 3: // cone shots
                         {
                             const int vineSpawnTime = 100;
 
@@ -477,7 +477,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                                 if (timer < vineSpawnTime * 0.7f)
                                 {
-                                    WallHugMovement(true, 4, 1);
+                                    WallHugMovement(true, 4, 1, playerXAvoidWalls);
                                 }
                                 else
                                     npc.velocity *= 0.96f;
@@ -563,8 +563,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             else if (RingTossTimer == 120)
             {
 
-                if (WorldSavingSystem.MasochistModeReal)
-                    RingTossTimer = 0; //instantly spawn next set of crystals
+                //if (WorldSavingSystem.MasochistModeReal)
+                //    RingTossTimer = 0; //instantly spawn next set of crystals
 
                 npc.netUpdate = true;
                 NetSync(npc);
@@ -859,12 +859,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
             if (EnteredPhase3)
             {
-                Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[npc.type].Value;
                 Vector2 drawPos = npc.Center - screenPos;
 
-                Color glowColor = Color.Green;
+                Color glowColor = recolor ? Color.Blue : Color.Green;
                 for (int j = 0; j < 12; j++)
                 {
                     Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f;
@@ -876,8 +876,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         }
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
+            float dr = npc.GetLifePercent() < 0.25f ? 0.55f : 0.65f;
             if (npc.GetLifePercent() < 0.5f)
-                modifiers.FinalDamage *= 0.7f;
+                modifiers.FinalDamage *= dr;
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
