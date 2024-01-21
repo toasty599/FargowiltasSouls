@@ -2493,7 +2493,7 @@ EternityAdvisor: {
 	Tooltip:
 		'''
 		基于当前进度，为你提供永恒模式的配装建议
-		[c/ff0000: 注意，这些建议已经落后于当前版本，请对这些建议持谨慎的态度。]
+		[c/ff0000:注意，这些建议已经落后于当前版本，请对这些建议持谨慎的态度。]
 		'''
 	// General: General: {0}
 	// ClassSpecific: Class-Specific: {0}
