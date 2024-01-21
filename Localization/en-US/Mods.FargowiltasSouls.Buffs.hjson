@@ -43,58 +43,6 @@ NibbleBuff: {
 	Description: Just one tiny bite (please)
 }
 
-BrokenShell: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.BrokenShell
-	Description: Mods.FargowiltasSouls.BuffDescription.BrokenShell
-}
-
-CrimsonRegen: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.CrimsonRegen
-	Description: Mods.FargowiltasSouls.BuffDescription.CrimsonRegen
-}
-
-DisruptedFocus: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.DisruptedFocus
-	Description: Mods.FargowiltasSouls.BuffDescription.DisruptedFocus
-}
-
-FirstStrike: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.FirstStrike
-	Description: Mods.FargowiltasSouls.BuffDescription.FirstStrike
-}
-
-FossilReviveCD: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.FossilReviveCD
-	Description: Mods.FargowiltasSouls.BuffDescription.FossilReviveCD
-}
-
-Frozen: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.Frozen
-	Description: Mods.FargowiltasSouls.BuffDescription.Frozen
-}
-
-GoldenStasis: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.GoldenStasis
-	Description: Mods.FargowiltasSouls.BuffDescription.GoldenStasis
-}
-
-GoldenStasisCD: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.GoldenStasisCD
-	Description: Mods.FargowiltasSouls.BuffDescription.GoldenStasisCD
-}
-
-HallowCooldown: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.HallowCooldown
-	Description: Mods.FargowiltasSouls.BuffDescription.HallowCooldown
-}
-
-HuntressCD: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.HuntressCD
-	Description: Mods.FargowiltasSouls.BuffDescription.HuntressCD
-}
-
-LeadPoison.DisplayName: Mods.FargowiltasSouls.BuffName.LeadPoison
-
 MonkBuff: {
 	DisplayName: Meditation
 	Description: Your Monk Dash is ready
@@ -103,31 +51,6 @@ MonkBuff: {
 ObsidianLavaWetBuff: {
 	DisplayName: Lava Wet
 	Description: You are dripping lava
-}
-
-OriPoison.DisplayName: Mods.FargowiltasSouls.BuffName.OriPoison
-
-ShellHide: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.ShellHide
-	Description: Mods.FargowiltasSouls.BuffDescription.ShellHide
-}
-
-SolarFlare.DisplayName: Mods.FargowiltasSouls.BuffName.SolarFlare
-SuperBleed.DisplayName: Mods.FargowiltasSouls.BuffName.SuperBleed
-
-TimeFrozen: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.TimeFrozen
-	Description: Mods.FargowiltasSouls.BuffDescription.TimeFrozen
-}
-
-TimeStopCooldown: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.TimeStopCooldown
-	Description: Mods.FargowiltasSouls.BuffDescription.TimeStopCooldown
-}
-
-TitaniumCD: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.TitaniumCD
-	Description: Mods.FargowiltasSouls.BuffDescription.TitaniumCD
 }
 
 TitaniumDRBuff: {

@@ -43,58 +43,6 @@ NibbleBuff: {
 	// Description: Just one tiny bite (please)
 }
 
-BrokenShell: {
-	DisplayName: Casco Quebrado
-	Description: Você não pode entrar no seu casco ainda
-}
-
-CrimsonRegen: {
-	DisplayName: Regeneração do Carmim
-	Description: Você está regenerando sua última ferida
-}
-
-DisruptedFocus: {
-	DisplayName: Foco Interrompido
-	Description: Velocidade da arma reduzida
-}
-
-FirstStrike: {
-	DisplayName: Primeiro Acerto
-	Description: Seu próximo ataque será fortalecido
-}
-
-FossilReviveCD: {
-	DisplayName: Revivido
-	Description: Você não pode reviver novamente
-}
-
-Frozen: {
-	DisplayName: Congelado
-	Description: Você não consegue se mexer
-}
-
-GoldenStasis: {
-	DisplayName: Estase Dourada
-	Description: Você é imune a todo dano, mas não consegue se mexer
-}
-
-GoldenStasisCD: {
-	DisplayName: Tempo de Recarga da Estase Dourada
-	Description: Você não pode virar ouro ainda
-}
-
-HallowCooldown: {
-	DisplayName: Tempo de Recarga do Escudo Sagrado
-	Description: Seu escudo não pode refletir projéteis ainda
-}
-
-HuntressCD: {
-	DisplayName: Tempo de Recarga da Chuva de Flechas
-	Description: Você não pode desencadear outra chuva de flechas ainda
-}
-
-LeadPoison.DisplayName: Veneno de Chumbo
-
 MonkBuff: {
 	// DisplayName: Meditation
 	// Description: Your Monk Dash is ready
@@ -103,31 +51,6 @@ MonkBuff: {
 ObsidianLavaWetBuff: {
 	DisplayName: Molhado de Lava
 	Description: Você está vazando lava
-}
-
-OriPoison.DisplayName: Veneno de Oricalco
-
-ShellHide: {
-	DisplayName: Pele de Casco
-	Description: Os projéteis estão sendo bloqueados
-}
-
-SolarFlare.DisplayName: Chamas do Sol
-SuperBleed.DisplayName: Gêiser de Sangue
-
-TimeFrozen: {
-	DisplayName: Tempo Congelado
-	Description: Você está parado no tempo
-}
-
-TimeStopCooldown: {
-	DisplayName: Tempo de Recarga da Parada no Tempo
-	Description: Você não pode parar o tempo ainda
-}
-
-TitaniumCD: {
-	DisplayName: Tempo de Recarga do Escudo de Titânio
-	Description: Você está carregando o Escudo de Titânio
 }
 
 TitaniumDRBuff: {

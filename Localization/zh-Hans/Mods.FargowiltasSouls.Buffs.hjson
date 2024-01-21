@@ -43,58 +43,6 @@ NibbleBuff: {
 	Description: 只需轻轻一咬
 }
 
-BrokenShell: {
-	DisplayName: 破损龟壳
-	Description: 暂时无法缩壳
-}
-
-CrimsonRegen: {
-	DisplayName: 猩红再生
-	Description: 你正在自愈你上次的伤口
-}
-
-DisruptedFocus: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.DisruptedFocus
-	Description: Mods.FargowiltasSouls.BuffDescription.DisruptedFocus
-}
-
-FirstStrike: {
-	DisplayName: 先发制人
-	Description: 你的下一次攻击将会得到增强
-}
-
-FossilReviveCD: {
-	DisplayName: 已复活
-	Description: 你无法再次复活
-}
-
-Frozen: {
-	DisplayName: 冻结
-	Description: 你无法移动
-}
-
-GoldenStasis: {
-	DisplayName: 不动金身
-	Description: 免疫所有伤害，但无法移动
-}
-
-GoldenStasisCD: {
-	DisplayName: 金身冷却
-	Description: 你还不能进入金身
-}
-
-HallowCooldown: {
-	DisplayName: 神圣之盾冷却
-	Description: 你的护盾现在无法反弹弹幕
-}
-
-HuntressCD: {
-	DisplayName: 箭雨冷却
-	Description: 你现在无法触发另一次箭雨
-}
-
-LeadPoison.DisplayName: 铅中毒
-
 MonkBuff: {
 	DisplayName: 冥想
 	Description: 你的武僧冲刺已就绪
@@ -103,31 +51,6 @@ MonkBuff: {
 ObsidianLavaWetBuff: {
 	DisplayName: 熔岩之润
 	Description: 你的身上滴着熔岩
-}
-
-OriPoison.DisplayName: 山铜中毒
-
-ShellHide: {
-	DisplayName: 缩壳
-	Description: 阻挡弹幕
-}
-
-SolarFlare.DisplayName: 耀斑
-SuperBleed.DisplayName: 血如泉涌
-
-TimeFrozen: {
-	DisplayName: 时间冻结
-	Description: 你停止了时间
-}
-
-TimeStopCooldown: {
-	DisplayName: Mods.FargowiltasSouls.BuffName.TimeStopCooldown
-	Description: Mods.FargowiltasSouls.BuffDescription.TimeStopCooldown
-}
-
-TitaniumCD: {
-	DisplayName: 钛金护盾冷却
-	Description: 你正在为钛金护盾蓄力
 }
 
 TitaniumDRBuff: {
