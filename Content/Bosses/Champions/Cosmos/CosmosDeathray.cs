@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using Fargowiltas.NPCs;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using System;
@@ -144,7 +145,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && target.type == modNPC.Type)
+            if (target.type == ModContent.NPCType<Deviantt>())
                 modifiers.FinalDamage *= 4f;
             if (target.type == ModContent.NPCType<DeviBoss.DeviBoss>())
                 modifiers.FinalDamage *= 12f;

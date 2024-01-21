@@ -51,12 +51,15 @@ Enemies will explode into needles on death if they are struck with your needles
         }
         public static void AddEffects(Player player, Item item)
         {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+
+            modPlayer.CactusImmune = true;
             player.AddEffect<CactusEffect>(item);
             player.AddEffect<TurtleEffect>(item);
 
             player.turtleThorns = true;
             player.thorns = 1f;
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            
 
             if (player.HasEffect<TurtleEffect>() && !player.HasBuff(ModContent.BuffType<BrokenShellBuff>()) && modPlayer.IsStandingStill && !player.controlUseItem && player.whoAmI == Main.myPlayer && !modPlayer.noDodge)
             {

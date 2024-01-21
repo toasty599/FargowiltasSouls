@@ -2024,6 +2024,7 @@ Mods: {
 					'''
 					While attacking you release a spray of needles
 					Enemies will explode into needles on death if they are struck with your needles
+					Grants immunity to cactus damage in Eternity Mode
 					'It's the quenchiest!'
 					'''
 			}
@@ -2607,6 +2608,7 @@ Mods: {
 					Additionally you will destroy incoming projectiles and deal 10x more thorns damage
 					The shell lasts at least 1 second and up to 20 attacks blocked
 					Enemies will explode into needles on death if they are struck with your needles
+					Grants immunity to cactus damage in Eternity Mode
 					'You suddenly have the urge to hide in a shell'
 					'''
 			}

@@ -247,6 +247,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             TitaniumDRBuff = false;
             TitaniumCD = false;
 
+            CactusImmune = false;
+
 
             //            #endregion
 

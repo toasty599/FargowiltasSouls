@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             new NPCMatcher().MatchType(NPCID.LunarTowerVortex);
 
         public LunarTowerVortex() : base(ModContent.BuffType<JammedBuff>(), DustID.Vortex) { }
-        public override int MaxHP => 80000;
+        public override int MaxHP => 70000;
         public override int Damage => 80;
         public enum Attacks
         {
@@ -47,6 +47,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public override void ShieldsDownAI(NPC npc)
         {
             Player target = Main.player[npc.target];
+            FargoSoulsUtil.PrintAI(npc);
+            npc.ai[1] += 0.5f; // spawns portals half as often
             if (npc.HasPlayerTarget && target.active)
             {
                 switch (Attack)
@@ -178,7 +180,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         private void SkyLightning(NPC npc, Player player)
         {
             const int WindupDuration = 60 * 0;
-            const int AttackDuration = 60 * 4;
+            const int AttackDuration = 78 * 4;
             const int EndlagDuration = (int)(60 * 1.5f);
             void Windup()
             {
@@ -187,7 +189,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             void Attack()
             {
                 const int distance = 180;
-                const int AttackDelay = 70;
+                const int AttackDelay = 90;
                 if ((AttackTimer - WindupDuration) % AttackDelay == 1)
                 {
                     bool second = false;

@@ -23,6 +23,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using System.Collections.Generic;
 using System.Linq;
+using Fargowiltas.NPCs;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 {
@@ -232,11 +233,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 
             NPC.dontTakeDamage = false;
 
-            bool IsDeviantt(int n)
-            {
-                return Main.npc[n].active && !Main.npc[n].dontTakeDamage
-                    && (ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC modNPC) && Main.npc[n].type == modNPC.Type || Main.npc[n].type == ModContent.NPCType<DeviBoss.DeviBoss>());
-            }
+            bool IsDeviantt(int n) => Main.npc[n].active && !Main.npc[n].dontTakeDamage && (Main.npc[n].type == ModContent.NPCType<Deviantt>() || Main.npc[n].type == ModContent.NPCType<DeviBoss.DeviBoss>());
 
             switch ((int)Animation)
             {
