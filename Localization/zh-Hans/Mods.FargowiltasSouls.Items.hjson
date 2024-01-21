@@ -44,8 +44,8 @@ AncientShadowEnchant: {
 }
 
 AnglerEnchantment: {
-	// DisplayName: Mods.FargowiltasSouls.Items.AnglerEnchantment.DisplayName
-	// Tooltip: Mods.FargowiltasSouls.ItemTooltip.AnglerEnchantment
+	DisplayName: Mods.FargowiltasSouls.Items.AnglerEnchantment.DisplayName
+	Tooltip: Mods.FargowiltasSouls.ItemTooltip.AnglerEnchantment
 }
 
 ApprenticeEnchant: {
@@ -2436,37 +2436,37 @@ RabiesVaccine: {
 
 LifeDye: {
 	DisplayName: 天堂染料
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 WillDye: {
 	DisplayName: 意志力染料
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 GaiaDye: {
 	DisplayName: 盖亚染料
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 AbomEnergy: {
 	DisplayName: 憎恶能量
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 BrokenBlade: {
 	DisplayName: 破损的斧头
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 BrokenHilt: {
 	DisplayName: 破损的刀柄
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 DeviatingEnergy: {
 	DisplayName: 戴薇安能量
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 Eridanium: {
@@ -2485,7 +2485,7 @@ EternalEnergy: {
 
 PhantasmalEnergy: {
 	DisplayName: 幻象能量
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 EternityAdvisor: {
@@ -2495,10 +2495,10 @@ EternityAdvisor: {
 		基于当前进度，为你提供永恒模式的配装建议
 		[c/ff0000:注意，这些建议已经落后于当前版本，请对这些建议持谨慎的态度。]
 		'''
-	// General: General: {0}
-	// ClassSpecific: Class-Specific: {0}
-	// Other: Other: {0}
-	// Summon: Summon Item: {0}
+	General: 常规推荐：{0}
+	ClassSpecific: 特殊类别：{0}
+	Other: 其它：{0}
+	Summon: Boss召唤物：{0}
 }
 
 GalacticReformer: {
@@ -2519,7 +2519,7 @@ MutantsFury: {
 
 TopHatSquirrelCaught: {
 	DisplayName: 高顶礼帽松鼠
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 UniversalCollapse: {
@@ -2680,117 +2680,117 @@ HokeyBall: {
 
 AbomRelic: {
 	DisplayName: 憎恶圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 DeviRelic: {
 	DisplayName: 戴薇安圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 EarthChampionRelic: {
 	DisplayName: 大地英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 EridanusRelic: {
 	DisplayName: 宇宙英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 LifeChampionRelic: {
 	DisplayName: 生命英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 MutantRelic: {
 	DisplayName: 突变体圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 NatureChampionRelic: {
 	DisplayName: 自然英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 ShadowChampionRelic: {
 	DisplayName: 暗影英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 SpiritChampionRelic: {
 	DisplayName: 心灵英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 TerraChampionRelic: {
 	DisplayName: 泰拉英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 TimberChampionRelic: {
 	DisplayName: 森林英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 TrojanSquirrelRelic: {
 	DisplayName: 特洛伊松鼠圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 WillChampionRelic: {
 	DisplayName: 意志英灵圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 AbomTrophy: {
 	DisplayName: 憎恶纪念章
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 DeviTrophy: {
 	DisplayName: 戴薇安纪念章
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 EridanusTrophy: {
 	DisplayName: 宇宙英灵纪念章
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 MutantTrophy: {
 	DisplayName: 突变体纪念章
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 TrojanSquirrelTrophy: {
 	DisplayName: 特洛伊松鼠纪念章
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 MutantStatue: {
 	DisplayName: 突变体雕像
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 MutantStatueGift: {
 	DisplayName: 拿着礼物的突变体雕像
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 ScremPainting: {
 	DisplayName: 尖叫猫猫
-	// Tooltip: "'Merry N. Tuse'"
+	Tooltip: "'Merry N. Tuse'"
 }
 
 TophatSquirrelBanner: {
 	DisplayName: 高顶礼帽松鼠旗
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 TwentyTwoPainting: {
 	DisplayName: 22号画作
-	// Tooltip: "'Keuhm E. Dee'"
+	Tooltip: "'Keuhm E. Dee'"
 }
 
 AbominationnVoodooDoll: {
@@ -2817,7 +2817,7 @@ ChampionySigil: {
 
 DevisCurse: {
 	DisplayName: 戴薇安的诅咒
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 MutantsCurse: {
@@ -3209,7 +3209,7 @@ ForgorGift: {
 		在物品栏内对物品右键来重置突变体的一阶段跳过机制
 		我忘啦！
 		'''
-	// Message: forgor
+	Message: 已失忆
 }
 
 Masochist: {
@@ -3239,9 +3239,9 @@ MasochistReal: {
 		左键：给予剥夺该客户端开启受虐模式的能力
 		右键：给予剥夺世界开启受虐模式的能力
 		'''
-	// WorldState: "world is currently maso: "
-	// VarWorld: "world: "
-	// VarMod: "mod: "
+	WorldState: 当前世界的受虐模式开关状态：
+	VarWorld: 当前世界：
+	VarMod: 当前客户端：
 }
 
 MedallionoftheFallenKing: {
@@ -3447,12 +3447,12 @@ StoriaMusicBox: {
 
 LifelightRelic: {
 	DisplayName: 飘渺游光圣物
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 LifelightTrophy: {
 	DisplayName: 飘渺游光纪念章
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 FragilePixieLamp: {
@@ -3489,7 +3489,7 @@ Lightslinger: {
 		'''
 }
 
-// MostlyOrdinaryrock.Tooltip: Mods.FargowiltasSouls.ItemTooltip.MostlyOrdinaryrock
+MostlyOrdinaryrock.Tooltip: Mods.FargowiltasSouls.ItemTooltip.MostlyOrdinaryrock
 
 WiresPainting: {
 	DisplayName: Wires猫绘画
@@ -3510,7 +3510,7 @@ PrismaRegalia: {
 MechLure: {
 	DisplayName: 机械鱼饵
 	Tooltip: 在海洋区域的水下环境中使用以引诱一个被遗忘的生物
-	// TooltipTravelingMerchant: Can be sold by the Travelling Merchant
+	TooltipTravelingMerchant: 售卖于 旅商
 }
 
 TheBaronsTusk: {
@@ -3575,11 +3575,11 @@ RoseTintedVisor: {
 
 BaronTrophy: {
 	DisplayName: 放逐遗爵纪念章
-	// Tooltip: ""
+	Tooltip: ""
 }
 
 BaronRelic: {
-	// Tooltip: ""
+	Tooltip: ""
 	DisplayName: 放逐遗爵圣物
 }
 
@@ -3654,10 +3654,10 @@ OncomingMutantItem: {
 }
 
 Extra: {
-	// StarlightTungsten: Unaffected by Tungsten Enchantment
-	// DefensePrefixMaxLife: +{0} max life
+	StarlightTungsten: 无法被钨魔石强化
+	DefensePrefixMaxLife: +{0} 最大生命值
 	EternityItem: 永恒
 	PatreonItem: >> 捐赠者物品 <<
-	// steal items: removed
+	// stealing items texts are currently not displayed
 	ItemStolen: 你有东西被偷了！
 }

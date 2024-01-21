@@ -13,22 +13,22 @@ SoulConfig: {
 
 	DeviChatter: {
 		Label: 迷你戴薇安会和你聊天
-		// Tooltip: ""
+		Tooltip: ""
 	}
 
 	ToggleSearchReset: {
-		// Label: Accessory Effects menu resets search bar when closed
-		// Tooltip: ""
+		Label: 魂石效果开关界面被关闭时重置搜索栏
+		Tooltip: ""
 	}
 
 	BigTossMode: {
-		// Label: Big Toss Mode
-		// Tooltip: ""
+		Label: 乱扔瞎甩模式，所有敌怪和弹幕都会把你撞飞
+		Tooltip: ""
 	}
 
 	BossRecolors: {
 		Label: Boss贴图替换
-		// Tooltip: ""
+		Tooltip: ""
 	}
 
 	PrecisionSealIsHold: {
@@ -43,86 +43,86 @@ SoulConfig: {
 
 	OncomingMutantX: {
 		Label: 永恒模式图标水平位置
-		// Tooltip: ""
+		Tooltip: ""
 	}
 
 	OncomingMutantY: {
 		Label: 永恒模式图标竖直位置
-		// Tooltip: ""
+		Tooltip: ""
 	}
 
 	PatreonRoomba: {
-		// Label: "[i:FargowiltasSouls/RoombaPet] [c/ffffff:{$Mods.FargowiltasSouls.Items.RoombaPet.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/RoombaPet] [c/ffffff:{$Mods.FargowiltasSouls.Items.RoombaPet.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonOrb: {
-		// Label: "[i:FargowiltasSouls/ComputationOrb] [c/ffffff:{$Mods.FargowiltasSouls.Items.ComputationOrb.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/ComputationOrb] [c/ffffff:{$Mods.FargowiltasSouls.Items.ComputationOrb.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonFishingRod: {
-		// Label: "[i:FargowiltasSouls/MissDrakovisFishingPole] [c/ffffff:{$Mods.FargowiltasSouls.Items.MissDrakovisFishingPole.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/MissDrakovisFishingPole] [c/ffffff:{$Mods.FargowiltasSouls.Items.MissDrakovisFishingPole.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonDoor: {
-		// Label: "[i:FargowiltasSouls/SquidwardDoor] [c/ffffff:{$Mods.FargowiltasSouls.Items.SquidwardDoor.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/SquidwardDoor] [c/ffffff:{$Mods.FargowiltasSouls.Items.SquidwardDoor.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonWolf: {
-		// Label: "[i:FargowiltasSouls/ParadoxWolfSoul] [c/ffffff:{$Mods.FargowiltasSouls.Items.ParadoxWolfSoul.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/ParadoxWolfSoul] [c/ffffff:{$Mods.FargowiltasSouls.Items.ParadoxWolfSoul.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonDove: {
-		// Label: "[i:FargowiltasSouls/FigBranch] [c/ffffff:{$Mods.FargowiltasSouls.Items.FigBranch.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/FigBranch] [c/ffffff:{$Mods.FargowiltasSouls.Items.FigBranch.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonKingSlime: {
-		// Label: "[i:FargowiltasSouls/MedallionoftheFallenKing] [c/ffffff:{$Mods.FargowiltasSouls.Items.MedallionoftheFallenKing.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/MedallionoftheFallenKing] [c/ffffff:{$Mods.FargowiltasSouls.Items.MedallionoftheFallenKing.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonFishron: {
-		// Label: "[i:FargowiltasSouls/StaffOfUnleashedOcean] [c/ffffff:{$Mods.FargowiltasSouls.Items.StaffOfUnleashedOcean.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/StaffOfUnleashedOcean] [c/ffffff:{$Mods.FargowiltasSouls.Items.StaffOfUnleashedOcean.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonPlant: {
-		// Label: "[i:FargowiltasSouls/PiranhaPlantVoodooDoll] [c/ffffff:{$Mods.FargowiltasSouls.Items.PiranhaPlantVoodooDoll.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/PiranhaPlantVoodooDoll] [c/ffffff:{$Mods.FargowiltasSouls.Items.PiranhaPlantVoodooDoll.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonDevious: {
-		// Label: "[i:FargowiltasSouls/DeviousAestheticus] [c/ffffff:{$Mods.FargowiltasSouls.Items.DeviousAestheticus.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/DeviousAestheticus] [c/ffffff:{$Mods.FargowiltasSouls.Items.DeviousAestheticus.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonVortex: {
-		// Label: "[i:FargowiltasSouls/VortexMagnetRitual] [c/ffffff:{$Mods.FargowiltasSouls.Items.VortexMagnetRitual.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/VortexMagnetRitual] [c/ffffff:{$Mods.FargowiltasSouls.Items.VortexMagnetRitual.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonPrime: {
-		// Label: "[i:FargowiltasSouls/PrimeStaff] [c/ffffff:{$Mods.FargowiltasSouls.Items.PrimeStaff.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/PrimeStaff] [c/ffffff:{$Mods.FargowiltasSouls.Items.PrimeStaff.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonCrimetroid: {
-		// Label: "[i:FargowiltasSouls/CrimetroidEgg] [c/ffffff:{$Mods.FargowiltasSouls.Items.CrimetroidEgg.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/CrimetroidEgg] [c/ffffff:{$Mods.FargowiltasSouls.Items.CrimetroidEgg.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonNanoCore: {
-		// Label: "[i:FargowiltasSouls/NanoCore] [c/ffffff:{$Mods.FargowiltasSouls.Items.NanoCore.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/NanoCore] [c/ffffff:{$Mods.FargowiltasSouls.Items.NanoCore.DisplayName}]"
+		Tooltip: ""
 	}
 
 	PatreonROB: {
-		// Label: "[i:FargowiltasSouls/ROBGyro] [c/ffffff:{$Mods.FargowiltasSouls.Items.ROBGyro.DisplayName}]"
-		// Tooltip: ""
+		Label: "[i:FargowiltasSouls/ROBGyro] [c/ffffff:{$Mods.FargowiltasSouls.Items.ROBGyro.DisplayName}]"
+		Tooltip: ""
 	}
 }

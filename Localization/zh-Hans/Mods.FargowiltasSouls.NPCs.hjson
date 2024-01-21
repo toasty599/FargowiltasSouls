@@ -2,7 +2,7 @@ AbomBoss: {
 	DisplayName: 憎恶
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
 		SpawnInfo: 使用 [i:FargowiltasSouls/AbomsCurse] 召唤。
 		DespawnMessage: 憎恶找不到有价值的对手……
 		KilledAllMessage: 憎恶摧毁了所有人。
@@ -15,7 +15,7 @@ TrojanSquirrel: {
 	DisplayName: 特洛伊松鼠
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
 		SpawnInfo: 使用 [i:FargowiltasSouls/SquirrelCoatofArms] 召唤。
 		DespawnMessage: Trojan Squirrel returns to its squirrel clan...
 	}
@@ -28,7 +28,7 @@ CosmosChampion: {
 	DisplayName: 厄里达诺斯，宇宙英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
 		SpawnInfo: 在太空使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
 		DespawnMessage: 宇宙英灵回归群星之中……
 		KilledAllMessage: 宇宙英灵击败了每一个敌人。
@@ -39,8 +39,8 @@ EarthChampion: {
 	DisplayName: 大地英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.EarthChampion.DisplayName}"
-		// SpawnInfo: Spawn by using [i:FargowiltasSouls/SigilOfChampions] in the underworld.
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.EarthChampion.DisplayName}"
+		SpawnInfo: 在地狱使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 大地英灵隐于熔岩烈火……
 	}
 }
@@ -53,8 +53,8 @@ LifeChampion: {
 	DisplayName: 生命英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
-		SpawnInfo: 白天时在神圣之地使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChampion.DisplayName}"
+		SpawnInfo: 白天时在神圣之地使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 生命英灵消失在辉光中……
 	}
 }
@@ -63,8 +63,8 @@ NatureChampion: {
 	DisplayName: 自然英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
-		SpawnInfo: 在地下雪原使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.NatureChampion.DisplayName}"
+		SpawnInfo: 在地下雪原使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 自然英灵在它的巢穴沉沉睡去……
 	}
 }
@@ -75,8 +75,8 @@ ShadowChampion: {
 	DisplayName: 暗影英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
-		SpawnInfo: 夜晚时在腐化之地或猩红之地使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.ShadowChampion.DisplayName}"
+		SpawnInfo: 夜晚时在腐化之地或猩红之地使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 暗影英灵消失在魔雾中……
 	}
 }
@@ -87,8 +87,8 @@ SpiritChampion: {
 	DisplayName: 心灵英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
-		SpawnInfo: 在地下沙漠使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.SpiritChampion.DisplayName}"
+		SpawnInfo: 在地下沙漠使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 心灵英灵消失在沙漠深处……
 	}
 }
@@ -99,8 +99,8 @@ TerraChampion: {
 	DisplayName: 泰拉英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
-		SpawnInfo: 在地下使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.TerraChampion.DisplayName}"
+		SpawnInfo: 在地下使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 泰拉英灵消失在洞穴深处……
 	}
 }
@@ -112,8 +112,8 @@ TimberChampion: {
 	DisplayName: 森林英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
-		SpawnInfo: 白天时在地表使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.TimberChampion.DisplayName}"
+		SpawnInfo: 白天时在地表使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 森林英灵回到了它的松鼠聚落中……
 	}
 }
@@ -124,8 +124,8 @@ WillChampion: {
 	DisplayName: 意志英灵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
-		SpawnInfo: 在海洋使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.WillChampion.DisplayName}"
+		SpawnInfo: 在海洋使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 意志英灵返回深渊……
 	}
 }
@@ -147,7 +147,7 @@ MutantBoss: {
 	DisplayName: 突变体
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
 		SpawnInfo: 在突变体和憎恶存活时将 [i:FargowiltasSouls/AbominationnVoodooDoll] 投入岩浆池中。
 		DespawnMessage: 突变体再次将自己的力量封印起来……
 		KilledAllMessage: 突变体肃清了他周围的每一个生灵。
@@ -156,111 +156,150 @@ MutantBoss: {
 	SkipP1: 突变体不想再伪装下去了……
 
 	GFBText: {
-		// Random0: Hehehehehe...
-		// Random1: Do you enjoy this pain?
-		// Random2: This feeling...
-		// Random3: I will bring an end to this.
-		// Random4: Foolish Terrarian...
-		// Random5: Have it writ upon thy meagre grave: Felled by the Mutant.
-		// Random6: None may claim the title of Eternal.
-		// Random7: Eternal pain upon thee.
-		// Random8: You are unfit of the Eternal Soul.
-		// Random9: Cower before my power.
-		// Random10: The Penetrator shivers...
-		// Random11: Fall beneath true power!
-		// Random12: Power is in the eye of the beholder. Absolute power is a fact.
-		// Random13: Witness a true cataclysm.
-		// Random14: I could recite all the digits of Pi before you beat me.
-		// Random15: It has only begun.
-		// Random16: Don't even try to dodge.
-		// Random17: For centuries I have trained for a fight like this.
-		// Random18: Purge the weak.
-		// Random19: Luck won't help you here.
-		// Random20: I will fill a chalice with your blood.
-		// Random21: You're all so very small, in the end. Not me, though.
-		// Random22: I'll sunder you into uncountable fragments!
-		// Random23: Curse you with the power of the moon!
-		// Random24: This is only a fraction of my power!
-		// Random25: Your “power” is worthless compared to me.
-		// Random26: Every hit you take grows my power more than you can imagine.
-		// Random27: You think you can defeat me?
-		// Random28: I am unmatched. I am unbeatable.
-		// Random29: It all turns to dust in the end.
-		// Random30: Are you prepared to take on the mantle?
-		// Random31: THERE IS NO ESCAPE!
-		// Random32: God wants you to suffer, and I am God.
-		// Random33: I judge you unworthy to exist!
-		// Random34: Your life is fleeting. Your only remaining purpose is to die.
-		// Random35: The forces of terra are on my side.
-		// Random36: I'll break you!
-		// Random37: Shatter like glass.
-		// Random38: If you stop attacking, maybe I'll spare you.
-		// Random39: YOU WILL BECOME NAUGHT BUT MEMORIES!
-		// Random40: I WILL MAKE SURE THERE IS NOTHING LEFT TO BURY!
-		// Random41: THE VERY FIRES OF HELL CANNOT COMPARE!
-		// Random42: I think your cells are a bit too far apart. How \'bout I fix that for you?
-		// Random43: I will tear apart your very atoms.
-		// Random44: You are like a child, braying before an eternal god.
-		// Random45: I'll stain those souls with your blood.
-		// Random46: Behold the might of Terraria!
-		// Random47: Behold the strength of the Universe!
-		// Random48: From refulgent flame, my victory rises!
-		// Random49: Forget your dreams of divinity!
-		// Random50: Your every paltry bone will break.
-		// Random51: The great calamity, faithfully recreated!
-		// Random52: Will you live to see the end?
-		// Random53: That hurt!
-		// Random54: You can't hurt me.
-		// Random55: Shatter like glass.
-		// Random56: Fade like ash.
-		// Random57: Blinded by your own depression?
-		// Random58: The screams of your future deaths can be heard.
-		// Random59: They call me a Cruel Eternity God.
-		// Random60: Also try Satanist Mode.
-		// Random61: Not even Fargo holds a candle to my power.
-		// Random62: You've been paying me with counterfeit money. This is your punishment.
-		// Random63: Whats a Touhou?
-		// Random64: All the money you gave me just made me stronger.
-		// Random65: Circle this!!
-		// Random66: IT ALL ENDS TODAY!
-		// Random67: Your imminent death is fast approaching, maggot!
-		// Random68: I will crush your worthless existence.
-		// Random69: You won't live long enough to tell the tale!
-		// Random70: DO YOU THINK YOU STAND A CHANCE, AGAINST I WHO AM ETERNAL? I WHO TURN THE TIDE AND WORLD? I AM THE ETERNAL, I AM THE IMMORTAL. YOU ARE LIKE AN ANT IN A DYING SANDHILL, AND I THE SEARING SUN. YOU WILL BE SPLIT AND TORN UNTIL NOTHING REMAINS BUT MOTES OF ASH AND LIGHT! YOUR EVERY DEED PALES IN COMPARISON TO MY ETERNITY! I BEAR THE GOLEM'S FIST, THE PHANTASMAL EYE, THE WINDING VINE, THE RELENTLESS BEE, THE GENIUS BRAIN, THE HUNTER'S WINGS! YOU WILL BE REMOVED FROM HISTORY,, INSIGNIFICANT WORM!
-		// Quote1: Hand it over. That thing, your soul toggles.
-		// Quote2: I hope you're ready to embrace suffering.
-		// Quote3: Time to stop playing around.
-		// Quote4: Feel the Penetrator's fury!
-		// Quote5: Grah!
-		// Quote6: Rays of Death!
-		// Quote7: Feel my power.
-		// Quote8: My blade will strike you down!
-		// Quote9: Feel the Penetrator's wrath!
-		// Quote10: Grrrah!
-		// Quote11: Feel my power.
-		// Quote12: Solar, Vortex, Nebula, Stardust... all united against you.
-		// Quote13: I was the evil presence watching.
-		// Quote14: The Penetrator's true power!
-		// Quote15: Orah!
-		// Quote16: The world is trembling..
-		// Quote17: Mechanical fury...
-		// Quote18: Fishron Flurry!
-		// Quote19: If you don't dodge this, you deserve it.
-		// Quote20: Why am I using this?
-		// Quote21: Can you keep up?
-		// Quote22: No matter how many times you fight this battle, you will never win! I am a cruel god of eternity. I wield the branches of Yggdrasil and Ragnorak, the swirling brimstone of Calamity, the ceaseless shadows of Sacred Tools, the blue-tinted Magicks, the hallowed Spirits of arcane lands, the soaring power of ascended Avalon, the all-powerful blessing of the Ultraseer's Nova, the awakened essence of lost Ancients, the all-searing light and shade of the radiant universal Split, the world warping machines and city shaping tools of Lui, and the cosmic convergence that harkens the Old God's Hunt!
-		// Quote23: Nature unites against you.
-		// Quote24: The Empress' Excel Assault!
-		// Quote25: You thought I was done?
-		// Quote26: YOU ARE NOTHING COMPARED TO THE ERODED SPIRITS! I BRING FORTH THE END UPON THE FOOLISH, THE UNWORTHY! YOU WANT TO DEFEAT ME? MAYBE IN TWO ETERNITIES!!
-		// Quote27: DIE, FOOLISH TERRARIAN! THEY SAID THERE WAS 3 END BRINGERS, BUT I AM THE FOURTH, A BREAKER OF REALITY! HELL DOESN'T ACCEPT SCUM LIKE YOU, SO SUFFER FOREVER IN MY ENDLESS ONSLAUGHT OF INFINITE POWER, THE POTENTIAL OF ETERNITIES STRETCHED TO THE ABSOLUTE MAXIMUM APOTHEOSES! YOUR UNHOLY SOUL SHALL BE CONSUMED BY DEPTHS LOWER THAN THE DEEPEST REACHES OF HELL!
-		// Quote28: I CONTROL THE POWER THAT HAS REACHED FROM THE FAR ENDS OF THE UNIVERSE, UNITING DIMENSIONS, MANIPULATING TERRARIA, SLAYING MASOCHISTS, AND JUDGING HEAVENS! FOR CENTURIES I HAVE TRAINED FOR ONE GOAL ONLY: PURGE THE WORLD OF THE UNWORTHY, SLAY THE WEAK, AND BRING FORTH TRUE POWER. IN THE HIGHEST REACHES OF HEAVEN, MY BROTHER RULES OVER THE SKY! SOON, ALL OF TERRARIA WILL BE PURGED OF THE UNWORTH AND A NEW AGE WILL START! A NEW AGE OF AWESOME! A GOLDEN AGE WHERE ONLY ABSOLUTE BEINGS EXIST!DEATH, INFERNO, TIDE; I AM THE OMEGA AND THE ALPHA, THE BEGINNING AND THE END! ALMIGHTY POWER; REVELATIONS.ABSOLUTE BEING, ABSOLUTE PURITY.
-		// Quote29: WITHIN THE FOOLISH BANTERINGS OF THE MORTAL WORLD I HAVE ACHIEVED POWER THAT WAS ONCE BANISHED TO THE EDGE OF THE GALAXY! I BRING FORTH CALAMITIES, CATASTROPHES, AND CATACLYSM; ELDRITCH POWERS DERIVED FROM THE ABSOLUTE WORD OF FATE. FEEL MY UBIQUITOUS WRATH DRIVE YOU INTO THE GROUND AS A WORLD SHAPER DRIVES HIS WORLD INTO REALITY!
-		// Quote30: THE SHARPSHOOTER'S EYE PALES IN COMPARISON OF MY PERCEPTION OF REALITY! BERSERKERS RAGE NAUGHT BUT A BUNNIES! OLYMPIANS A MINOR GOD, ARCH WIZARDS A POSER! A MASTERY OF FLIGHT, THE IRON WILL OF A COLOSSUS; BOTH ELEMENTARY CONCEPTS! A CONJUROR BUT A PEDDLING MAGICIAN, A TRAWLER, A SLIVER COMPARED TO MY LIFE MASTERY? SUPERSONIC SPEED, LIGHTSPEED TIME! GLORIOUS LIGHT SHALL ELIMINATE YOU, YOU FOOLISH BUFFOON!!
-		// Quote31: AAAAAAAAAAAAAAAAAAAAAAAAAA
-		// Quote32: I have not a single regret in my existence!
-		// Quote33: Oh, right... my revive...
-		// Quote34: You're pretty good...
+		Random0: 呵呵呵呵呵呵呵......
+		Random1: 你们很享受这场灾难吗？
+		Random2: 这种感觉......
+		Random3: 我将终结这一切！
+		Random4: 愚蠢至极，泰拉人。
+		Random5: 在你们的渺小的墓碑上铭刻着：被伟大的突变体所击败！
+		Random6: 没人能声称拥有着永恒的称号！
+		Random7: 永恒的痛苦......
+		Random8: 你不配拥有永恒之魂！
+		Random9: 在我的力量下颤抖吧！
+		Random10: 洞察者躁动不安......
+		Random11: 在真正的力量下化为齑粉吧！
+		Random12: 力量掌握在我的手中！我绝对的力量是不可磨灭的事实！
+		Random13: 见证一场真正的灾难吧。
+		Random14: 我可以在你击败我之前背下圆周率的所有的位数。
+		Random15: 这才刚刚开始......
+		Random16: 不要试图逃避！
+		Random17: 焚膏继晷数千载，仅为此一战......
+		Random18: 弱者不配活着。
+		Random19: 运气不再会有用了。
+		Random20: 我将用你的血来灌满整个圣杯！
+		Random21: 你们至始至终都很渺小，但我不一样。
+		Random22: 你将被碾为粉末！
+		Random23: 感受月亮之力吧！
+		Random24: 这些，我只用了一成力量罢了
+		Random25: 你的“力量”与我相比真是可笑。
+		Random26: 我每攻击一次，力量就会巨大提升！
+		Random27: 你觉得你能打败我吗？
+		Random28: 我是无与伦比的，我是不可战胜的。
+		Random29: 一切都将化为灰烬。
+		Random30: 你准备好承担这一切的后果了吗？
+		Random31: 你，无处可逃！
+		Random32: 上帝希望你经历苦难，因为我就是上帝！
+		Random33: 你不配活着！
+		Random34: 你的生命是短暂的，你唯一的使命就是死亡。
+		Random35: 泰拉宇宙的力量都在我手中！
+		Random36: 去死吧！
+		Random37: 你可真是如玻璃般易碎啊......
+		Random38: 如果你停止攻击，我可以考虑放过你......
+		Random39: 汝将灰飞烟灭，徒留永恒痛苦之回忆！
+		Random40: 汝之一切，终将被埋葬！
+		Random41: 超越地狱烈火的煎熬！
+		Random42: 感觉你的细胞之间距离太远了呢，让我帮你解决这个问题......
+		Random43: 构成你的每个原子都将被撕碎！
+		Random44: 在永恒之神面前如孩童般哭泣吧！
+		Random45: 用你的鲜血祭奠那些灵魂！
+		Random46: 吾乃泰拉之主，天地共证！
+		Random47: 诸天都向我俯首！
+		Random48: 在熊熊烈火中，我将取得胜利！
+		Random49: 别再妄想你的成神之梦了！
+		Random50: 你的每根骨头都会被折断。
+		Random51: 大灾难即将来临！
+		Random52: 不知你能否活着看到结局？
+		Random53: 很痛吗？
+		Random54: 你根本伤害不到我。
+		Random55: 如同玻璃般四分五裂吧！
+		Random56: 如同尘土般灰飞烟灭吧！
+		Random57: 有抑郁症那你怎么不去死啊？
+		Random58: 期待听你死亡时凄惨的哭喊声呢......
+		Random59: 我是无上源初之神明！！
+		Random60: 要不要再添加一个魔鬼模式？
+		Random61: Furgo的力量在我面前如烛火般渺小！
+		Random62: 我觉得你一直用假币在欺骗我，需要狠狠惩罚呢......
+		Random63: 东方是什么动漫？
+		Random64: 你给我的假币让我很恼火，有点生气了呢......
+		Random65: 别想从我的手中逃脱出去！
+		Random66: 所有的一切都会在今天结束......
+		Random67: 你的死亡即将来临，你这蛆虫！
+		Random68: 你这种毫无价值令人恶心的存在快从世上消失吧！
+		Random69: 真可惜，你活不了多久了，无法见证我们的故事了呢......
+		Random70:
+			'''
+			汝以何之勇挑战吾？吾乃万象的支配者，吾乃永恒本身！
+			死亡的神祇属我麾下 ，历史的丰碑由我撰写！
+			若吾乃苍穹高悬的太阳，汝即为荒瀚垂死的蝼蚁。
+			汝之存在将被崩解，仅剩随风而逝的齑粉与末路穷途的余晖。
+			你一切的行动都在吾永恒的洞察中。
+			吾以巨像之拳巍然伫立，以幻影之眼洞悉周遭，以蜿蜒之蔓裹束宿命，以憎恶之蜂贯穿终始，以天赐之脑解构万象，猎手之翼振翅九霄！
+			微不足道的虫豸，汝之名姓将没于历史长河！
+			'''
+		Quote1: 交出你的灵魂吧！
+		Quote2: 准备好感受痛苦了吗......
+		Quote3: 游戏到此结束了......
+		Quote4: 洞察者之怒......
+		Quote5: 冲刺！
+		Quote6: 死亡射线！
+		Quote7: 欣赏我残酷永恒之神的永恒力吧！
+		Quote8: 让我的剑切碎你！
+		Quote9: 去死吧去死吧去死吧去死吧去死吧去死吧！！
+		Quote10: 我即是永恒！
+		Quote11: 感受我的力量吧！
+		Quote12: 日耀、星旋、星云、星尘......以四柱之力，撕碎你吧！
+		Quote13: 凝视深渊吧！
+		Quote14: 洞察者真正的力量......
+		Quote15: 和蔼！
+		Quote16: 世界千疮百孔......
+		Quote17: 机械动乱？
+		Quote18: 猪鲨之荣耀！
+		Quote19: 这是你应得的！
+		Quote20: 用哪一招折磨你呢......？
+		Quote21: 还能坚持住吗？
+		Quote22:
+			'''
+			无论多少次你都不可能获胜！我是残酷永恒之神明！
+			我拥有诸神黄昏下世界树的枝条、灾厄的硫火漩涡、
+			圣域的无尽暗影、蓝染的魔法、奥术之地的神圣魂灵、
+			升腾阿瓦隆的飞升之力、超视者新星的全能祝福、
+			远古觉醒的失落精华、裂痕魂魄的光耀万丈、
+			更好的体验的法力与构造、以及足以追溯至旧神之猎的宇宙之融合！
+			'''
+		Quote23: 全世界的力量都在联合对抗你！
+		Quote24: 光之女皇之力！
+		Quote25: 还没完呢，小子！
+		Quote26: 与那些魂石中的灵魂相比，你一无是处！我将以无上之力摧毁一切愚昧无知之辈！你要打败我吗？渡过两次永恒再来吧！！
+		Quote27: 去死吧虫子！传说末日到来前有三名使者，但我就是第四位，现实的毁灭者！你这样的败类，连地狱都不会容纳！永远承受我无限力量的无尽攻击，永恒的潜力延伸到绝对最大的神化！
+		Quote28:
+			'''
+			寰宇终末之力，维度重构之力，泰拉瑞亚之力，天堂审判之力都运与我掌！
+			数个世纪以来，我修炼的目的只有一个：裂解庸俗的囊瘤，碾碎无能的蝼蚁，拣选真正的强者。
+			我的血亲镇于天界，统御着天堂的至高点！
+			不久之后，新世纪的曙光即将出现在这片大地上！
+			一个令人敬畏的新时代，一个只有绝对存在的黄金时代！
+			殒殁，孽狱，潮汐；吾乃万物的起始与终焉，自然的运转与停息。
+			无边之伟力，鸿蒙之天启。绝对之存在，无瑕之圣洁！
+			'''
+		Quote29:
+			'''
+			在愚昧凡世的无稽戏谑中，我攫取了遗落于群星尽头的力量。
+			吾乃灾厄，灾劫，灾变的使者；命运箴言绝对骇能的施洗者。
+			感知吾凌驾时空的怒火，敬受吾令众生屈膝的鞭笞。
+			如同万象的塑型者令世界演变为真实！
+			'''
+		Quote30:
+			'''
+			神枪手之魂在我感知现实的能力面前苍白无力！狂战士之怒的力量只不过是小菜一碟！
+			超音速也无法与我的速度媲美，而可怜的巫师之魂只不过是装腔作势罢了！
+			飞行大师，巨像之魂仅是最基础的最基本的概念......
+			戴个大魔法帽的那位只不过是一个推销她的魔法的小家伙，南瓜头的实力与我相比只是冰山一角！
+			无论是超音速还是光速都打不到我！辉煌的光芒将消灭你，你这个傻瓜！！
+			'''
+		Quote31: 死死死死死死死死死死死死死死死死死！！！
+		Quote32: 我！不！会！被！毁！灭！
+		Quote33: 期待我的重生吧......
+		Quote34: 你真的很出色......
 	}
 }
 
@@ -270,7 +309,7 @@ DeviBoss: {
 	DisplayName: 戴薇安
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
 		SpawnInfo: 使用 [i:FargowiltasSouls/DevisCurse] 召唤。
 		DespawnMessage: 戴薇安对战斗感到厌倦了……
 		KilledAllMessage: 戴薇安对于她所展示的爱的表演感到很满意。
@@ -295,21 +334,21 @@ LifeChallenger: {
 	DisplayName: 飘渺游光
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
-		// SpawnInfo: Spawn by using [i:FargowiltasSouls/FragilePixieLamp] in the Hallow at day.
-		// DespawnMessage: Lifelight fades away...
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
+		SpawnInfo: 白天在神圣之地使用[i:FargowiltasSouls/FragilePixieLamp]召唤。
+		DespawnMessage: 飘渺游光随辉光消逝......
 	}
 
-	// FatherOfLies: It was a mistake to come here.
+	FatherOfLies: 你来到这里真是个致命错误。
 }
 
 BanishedBaron: {
 	DisplayName: 放逐遗爵
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
-		// SpawnInfo: Spawn by using [i:FargowiltasSouls/MechLure] underwater at the Ocean.
-		// DespawnMessage: The Banished Baron dives deeper into the ocean...
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
+		SpawnInfo: 在海洋的水下区域使用[i:FargowiltasSouls/MechLure]召唤。
+		DespawnMessage: 放逐遗爵正回归深渊......
 	}
 
 	// Slurp: slurp
@@ -317,11 +356,11 @@ BanishedBaron: {
 
 DetonatingBubbleNPC.DisplayName: 爆炸泡泡
 StardustMinion.DisplayName: 星尘仆从
-// StardustDragon.DisplayName: Stardust Dragon
+StardustDragon.DisplayName: 星尘之龙
 SlimeSwarm.DisplayName: 集群史莱姆
 Magmaw.DisplayName: Magmaw（这是什么？如果有玩家看见这行字，请告诉我这是什么玩意）//for patch
 // currently not exist in game
-// DukeFishronEX.DisplayName: Duke Fishron EX
+DukeFishronEX.DisplayName: 猪鲨EX
 
 EMode: {
 	Betsy1: 你怕了？

@@ -54,8 +54,8 @@ CrimsonRegen: {
 }
 
 DisruptedFocus: {
-	// DisplayName: Mods.FargowiltasSouls.BuffName.DisruptedFocus
-	// Description: Mods.FargowiltasSouls.BuffDescription.DisruptedFocus
+	DisplayName: Mods.FargowiltasSouls.BuffName.DisruptedFocus
+	Description: Mods.FargowiltasSouls.BuffDescription.DisruptedFocus
 }
 
 FirstStrike: {
@@ -121,8 +121,8 @@ TimeFrozen: {
 }
 
 TimeStopCooldown: {
-	// DisplayName: Mods.FargowiltasSouls.BuffName.TimeStopCooldown
-	// Description: Mods.FargowiltasSouls.BuffDescription.TimeStopCooldown
+	DisplayName: Mods.FargowiltasSouls.BuffName.TimeStopCooldown
+	Description: Mods.FargowiltasSouls.BuffDescription.TimeStopCooldown
 }
 
 TitaniumCD: {
@@ -491,7 +491,7 @@ OiledBuff: {
 
 PungentGazeBuff: {
 	DisplayName: 尖刻注视
-	// Description: Mods.FargowiltasSouls.BuffDescription.PungentGazeBuff
+	Description: Mods.FargowiltasSouls.BuffDescription.PungentGazeBuff
 }
 
 PurgedBuff: {
@@ -522,7 +522,7 @@ RottingBuff: {
 RushJobBuff: {
 	DisplayName: 急活
 	Description: 护士现在还不能再次治疗你
-	// NurseChat: I've done all I can in the time I have!
+	NurseChat: 我已经在这有限的时间内尽我所能了！
 }
 
 SadismBuff: {
@@ -696,8 +696,8 @@ HallowCooldownBuff: {
 }
 
 HuntressBleedBuff: {
-	// DisplayName: Huntress Bleed
-	// Description: Mods.FargowiltasSouls.BuffDescription.HuntressBleedBuff
+	DisplayName: 女猎人冷却
+	Description: Mods.FargowiltasSouls.BuffDescription.HuntressBleedBuff
 }
 
 HuntressCDBuff: {
@@ -787,12 +787,12 @@ WretchedHexBuff: {
 
 CorruptedBuff: {
 	DisplayName: 腐化增益
-	// Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
+	Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
 }
 
 CorruptedBuffForce: {
 	DisplayName: 腐化之力
-	// Description: Mods.FargowiltasSouls.Buffs.CorruptedBuffForce.Description
+	Description: Mods.FargowiltasSouls.Buffs.CorruptedBuffForce.Description
 }
 
 JungleMimicSummonBuff: {
@@ -807,8 +807,8 @@ GladiatorBuff: {
 
 ROBBuff: {
 	DisplayName: R.O.B
-	// DescPatreon: The friend you've never left since Brawl
-	// DescNonPatreon: He's finally a top tier!
+	DescPatreon: 自从开始战斗以来从未离开你的朋友
+	DescNonPatreon: 它终于跻身顶级了！
 	Description: ""
 }
 
@@ -818,6 +818,6 @@ RainCDBuff: {
 }
 
 SublimationBuff: {
-	// Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
+	Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
 	DisplayName: 升华
 }

@@ -1,4 +1,4 @@
 en-US, 2581/2581, 100%, missing 0
 es-ES, 2/2581, 0%, missing 2579
-zh-Hans, 2303/2581, 89%, missing 278
+zh-Hans, 2554/2581, 99%, missing 27
 pt-BR, 1480/2581, 57%, missing 1101

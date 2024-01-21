@@ -3633,6 +3633,6 @@ Extra: {
 	// DefensePrefixMaxLife: +{0} max life
 	EternityItem: Eternidade
 	PatreonItem: >> Item do Patreon <<
-	// steal items: removed
+	// stealing items texts are currently not displayed
 	ItemStolen: Um item foi roubado de você!
 }
