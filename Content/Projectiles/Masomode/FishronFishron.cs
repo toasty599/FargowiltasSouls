@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
     public class FishronFishron : MutantFishron
     {
         bool firstTick = false;
-        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Vanilla/NPC_370";
+        public override string Texture => FargoSoulsUtil.VanillaTextureNPC(NPCID.DukeFishron);
 
         public override void SetDefaults()
         {

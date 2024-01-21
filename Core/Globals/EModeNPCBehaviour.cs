@@ -157,9 +157,9 @@ namespace FargowiltasSouls.Core.Globals
         public virtual void LoadSprites(NPC npc, bool recolor) { }
 
         #region Sprite Loading
-        protected static Asset<Texture2D> LoadSprite(bool recolor, string texture)
+        protected static Asset<Texture2D> LoadSprite(string texture)
         {
-            if (ModContent.RequestIfExists("FargowiltasSouls/Assets/ExtraTextures/" + (recolor ? "Resprites/" : "Vanilla/") + texture, out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
+            if (ModContent.RequestIfExists("FargowiltasSouls/Assets/ExtraTextures/Resprites/" + texture, out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
             {
                 return asset;
             }
@@ -173,7 +173,7 @@ namespace FargowiltasSouls.Core.Globals
                 if (!fargoBuffer.ContainsKey(type))
                 {
                     fargoBuffer[type] = vanillaTexture[type];
-                    vanillaTexture[type] = LoadSprite(recolor, $"{texturePrefix}{type}") ?? vanillaTexture[type];
+                    vanillaTexture[type] = LoadSprite($"{texturePrefix}{type}") ?? vanillaTexture[type];
                 }
             }
             else
@@ -193,7 +193,7 @@ namespace FargowiltasSouls.Core.Globals
                 if (fargoSoulsBuffer == null)
                 {
                     fargoSoulsBuffer = vanillaResource;
-                    vanillaResource = LoadSprite(recolor, name) ?? vanillaResource;
+                    vanillaResource = LoadSprite(name) ?? vanillaResource;
                 }
             }
             else
