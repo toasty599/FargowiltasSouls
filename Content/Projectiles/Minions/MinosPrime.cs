@@ -16,12 +16,17 @@ using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
     public class MinosPrime : ModProjectile
     {
+        public ref float Timer => ref Projectile.ai[0];
 
+        private Vector2 mousePos;
+        private int syncTimer;
+        private float Wobble;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Lunar Cultist");
@@ -50,23 +55,48 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
         }
-        public ref float Timer => ref Projectile.ai[0];
-        public float Wobble = 0;
-
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(mousePos.X);
+            writer.Write(mousePos.Y);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Vector2 buffer;
+            buffer.X = reader.ReadSingle();
+            buffer.Y = reader.ReadSingle();
+            if (Projectile.owner != Main.myPlayer)
+            {
+                mousePos = buffer;
+            }
+        }
         public override bool? CanHitNPC(NPC target) => false; //no contact damage
         public override void AI()
         {
-            Main.projFrames[Type] = 1;
+            
             Player player = Main.player[Projectile.owner];
             if (player.active && !player.dead && player.HasEffect<PrimeSoulEffect>())
                 Projectile.timeLeft = 2;
 
+            SyncMouse(player);
             Wobble = 20f * (float)Math.Sin(MathHelper.TwoPi * (Timer / 60f));
             Movement(player);
         }
+        public void SyncMouse(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                mousePos = Main.MouseWorld;
+
+                if (++syncTimer > 20)
+                {
+                    syncTimer = 0;
+                    Projectile.netUpdate = true;
+                }
+            }
+        }
         public void Movement(Player player)
         {
-            Vector2 mousePos = Main.MouseWorld;
             int offset = Math.Sign(mousePos.X - player.Center.X);
             Projectile.spriteDirection = Projectile.direction = -offset;
             offset *= 225;
@@ -122,10 +152,10 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                 color2 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
-                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color2, num165, origin2, Projectile.scale, Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + Vector2.UnitY * Wobble + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color2, num165, origin2, Projectile.scale, Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             }
 
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color, Projectile.rotation, origin2, Projectile.scale, Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + Vector2.UnitY * Wobble + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color, Projectile.rotation, origin2, Projectile.scale, Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             return false;
         }
         public int ColorTimer = 0;
