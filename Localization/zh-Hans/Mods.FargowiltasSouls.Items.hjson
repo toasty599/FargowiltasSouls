@@ -43,11 +43,6 @@ AncientShadowEnchant: {
 		'''
 }
 
-AnglerEnchantment: {
-	DisplayName: Mods.FargowiltasSouls.Items.AnglerEnchantment.DisplayName
-	Tooltip: Mods.FargowiltasSouls.ItemTooltip.AnglerEnchantment
-}
-
 ApprenticeEnchant: {
 	DisplayName: 学徒魔石
 	Tooltip:
@@ -2161,11 +2156,6 @@ UniverseSoul: {
 		'''
 }
 
-VoidSoul: {
-	DisplayName: 虚空之魂
-	Tooltip: 召唤 某 些 东 西
-}
-
 WorldShaperSoul: {
 	DisplayName: 铸世者之魂
 	Tooltip:
@@ -3393,8 +3383,6 @@ AnglerEnchant: {
 		“只要不全是旧鞋，你就能高高兴兴地回家”
 		'''
 }
-
-PinkEskimoEnchant.DisplayName: 粉爱斯基摩魔石
 
 LifelightBag: {
 	DisplayName: 宝藏袋（飘渺游光）

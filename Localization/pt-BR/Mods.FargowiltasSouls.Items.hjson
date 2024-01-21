@@ -42,17 +42,6 @@ AncientShadowEnchant: {
 		'''
 }
 
-AnglerEnchantment: {
-	DisplayName: Encantamento do Pescador
-	Tooltip:
-		'''
-		Aumenta o poder de pescaria
-		Você pega peixes quase instantaneamente
-		Efeitos da Bolsa do Pescador à Prova de Lava
-		'Contanto que não sejam todos sapatos, você pode ir para casa feliz'
-		'''
-}
-
 ApprenticeEnchant: {
 	// DisplayName: Apprentice Enchantment
 	/* Tooltip:
@@ -2150,11 +2139,6 @@ UniverseSoul: {
 		'''
 }
 
-VoidSoul: {
-	DisplayName: Alma do Vazio
-	Tooltip: Invoca ALGO
-}
-
 WorldShaperSoul: {
 	DisplayName: Alma do Modelador do Mundo
 	Tooltip:
@@ -3365,8 +3349,6 @@ AnglerEnchant: {
 		'As long as they aren't all shoes, you can go home happily'
 		''' */
 }
-
-// PinkEskimoEnchant.DisplayName: Mods.FargowiltasSouls.Items.PinkEskimoEnchant.DisplayName
 
 LifelightBag: {
 	// DisplayName: Treasure Bag (Lifelight)

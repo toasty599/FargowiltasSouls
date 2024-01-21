@@ -1,4 +1,3 @@
-AbomBoss.DisplayName: 憎恶
 AbomDeathScythe.DisplayName: 憎恶镰刀
 AbomDeathray.DisplayName: 憎恶死亡射线
 AbomDeathrayMark.DisplayName: 死亡射线
@@ -46,7 +45,6 @@ DragonFireballBoom.DisplayName: 火球
 DungeonGuardian.DisplayName: 地牢守卫
 EaterRocket.DisplayName: 吞噬者火箭
 EyeFireFriendly.DisplayName: 魔眼烈火
-EyeProjectile2.DisplayName: Mods.FargowiltasSouls.Projectiles.EyeProjectile2.DisplayName
 FishNuke.DisplayName: 猪鲨核弹
 FishNukeExplosion.DisplayName: 猪鲨核弹
 FishStickProj.DisplayName: 鱼杖
@@ -132,8 +130,6 @@ ChampionBeetle.DisplayName: 甲虫
 CosmosBolt.DisplayName: 宇宙矢
 CosmosDeathray.DisplayName: 宇宙死亡射线
 CosmosDeathray2.DisplayName: 宇宙死亡射线
-CosmicFireball.DisplayName: Mods.FargowiltasSouls.Projectiles.CosmicFireball.DisplayName
-CosmicFireball2.DisplayName: Mods.FargowiltasSouls.Projectiles.CosmicFireball2.DisplayName
 CosmosGlowything.DisplayName: 宇宙入侵怪仆从
 CosmosInvader.DisplayName: 宇宙入侵怪仆从
 CosmosInvaderTime.DisplayName: 宇宙入侵怪仆从
@@ -171,9 +167,7 @@ NatureIcicle.DisplayName: 自然冰锥
 NatureRain.DisplayName: 自然之雨
 ShadowClone.DisplayName: 暗影英灵
 ShadowDeathraySmall.DisplayName: 暗影死亡射线
-ShadowFlameScythe.DisplayName: Mods.FargowiltasSouls.Projectiles.ShadowFlameScythe.DisplayName
 ShadowGuardian.DisplayName: 地牢守卫
-ShadowOrb.DisplayName: 暗影珠
 SpiritCrossBone.DisplayName: 交叉骨头
 SpiritCrossBoneReverse.DisplayName: 交叉骨头
 SpiritHand.DisplayName: 心灵英灵之手
@@ -198,7 +192,6 @@ TimberTree.DisplayName: 树
 TimberTreeAcorn.DisplayName: 橡实
 WillBomb.DisplayName: 意志英灵炸弹
 WillDeathray.DisplayName: 意志死亡射线
-WillDeathray2.DisplayName: 意志死亡射线
 WillDeathraySmall.DisplayName: 意志死亡射线
 WillFireball.DisplayName: 火球
 WillFireball2.DisplayName: 火球
@@ -218,14 +211,12 @@ DeviDeathray.DisplayName: 爱之光
 DeviDeathraySmall.DisplayName: 爱之光
 DeviLightBeam.DisplayName: 光束
 GolemBeam.DisplayName: 烈焰死亡射线
-PhantasmalDeathray.DisplayName: 烈焰死亡射线
 PhantasmalDeathrayML.DisplayName: 幻影死亡射线II型
 PhantasmalDeathrayMLSmall.DisplayName: 幻影死亡射线II型
 PhantasmalDeathrayWOF.DisplayName: 神圣死亡射线
 PhantasmalDeathrayWOFS.DisplayName: 神圣死亡射线
 DeviAxe.DisplayName: 闪闪发光的爱
 DeviBigMimic.DisplayName: 群系宝箱怪
-DeviBoss.DisplayName: 戴薇安
 DeviButterfly.DisplayName: 蛾
 DeviEnergyHeart.DisplayName: 能量爱心
 DeviGuardian.DisplayName: 宝宝守卫
@@ -283,8 +274,6 @@ CultistArrow.DisplayName: 教徒之箭
 CultistFireball.DisplayName: 火球
 CultistRitual.DisplayName: 教徒仪式
 CultistVortex.DisplayName: 星旋旋涡
-CultistFireballHoming.DisplayName: Mods.FargowiltasSouls.Projectiles.CultistFireballHoming.DisplayName
-CuresedFlameHostile2.DisplayName: Mods.FargowiltasSouls.Projectiles.CuresedFlameHostile2.DisplayName
 CursedFlamethrower.DisplayName: 魔眼烈火
 DarkStar.DisplayName: 暗星
 DarkStarDestroyer.DisplayName: 暗星
@@ -297,7 +286,6 @@ DicerPlantera.DisplayName: 切肉机空雷
 DrakanianDaybreak.DisplayName: 破晓之光
 ElfArcherArrow.DisplayName: 霜冻箭
 ElfCopterBullet.DisplayName: 爆炸子弹
-ElfcopterBulletExplosion.DisplayName: Mods.FargowiltasSouls.Projectiles.ElfcopterBulletExplosion.DisplayName
 EyeBeam2.DisplayName: 魔眼光束
 EyeFire2.DisplayName: 魔眼烈火
 FakeHeart.DisplayName: 假心
@@ -341,7 +329,6 @@ MoonLordNebulaBlaze2.DisplayName: 星云烈焰
 MoonLordSun.DisplayName: 太阳
 MoonLordSunBlast.DisplayName: 太阳爆炸
 MoonLordVortex.DisplayName: 星旋旋涡
-MoonLordvortexOld.DisplayName: Mods.FargowiltasSouls.Projectiles.MoonLordvortexOld.DisplayName
 MothDust.DisplayName: 蛾尘
 MothronZenith.DisplayName: 天顶剑
 PhantasmalBolt2.DisplayName: 幻影矢
@@ -445,7 +432,6 @@ TrueEyeS.DisplayName: 克苏鲁真眼
 BossRush.DisplayName: 突变结界
 MutantBomb.DisplayName: 幻象爆炸
 MutantBombSmall.DisplayName: 幻象爆炸
-MutantBoss.DisplayName: 突变体
 MutantCrystalLeaf.DisplayName: 叶绿水晶
 MutantDeathray1.DisplayName: 幻影死亡射线
 MutantDeathray2.DisplayName: 幻影死亡射线
@@ -586,23 +572,17 @@ NanoBase.DisplayName: 纳米基核
 NanoBlade.DisplayName: 等离子能量刃
 NanoProbe.DisplayName: 纳米探针
 PlasmaArrow.DisplayName: 等离子矢
-PlasmaDeathray.DisplayName: Mods.FargowiltasSouls.Projectiles.PlasmaDeathray.DisplayName
 PlasmaProj.DisplayName: 等离子束
-GlowRingHallow.DisplayName: 预警光环
 AbomBlast.DisplayName: 幻象爆炸
 AbomFlocko2.DisplayName: 超级雪花怪
 AbomFlocko3.DisplayName: 超级雪花怪
 AbomLaser.DisplayName: 激光
 EyeProjectile.DisplayName: 眼球
 HentaiSpearDash.DisplayName: 洞察者
-HentaiSpearRing.DisplayName: 洞察者
 CosmosFireball.DisplayName: 宇宙火球
 CosmosFireball2.DisplayName: 宇宙火球
-EatrhPalladOrb.DisplayName: 钯金治疗珠
 ShadowFlameburst.DisplayName: 爆炸烈焰
 ShadowFlamingScythe.DisplayName: 烈焰镰刀
-TimerPalmTree.DisplayName: 棕榈树
-WireFireball2.DisplayName: 火球
 DeviRitual2.DisplayName: 戴薇安结界
 CursedFireballHoming.DisplayName: 诅咒焰
 CursedFlameHostile2.DisplayName: 诅咒焰

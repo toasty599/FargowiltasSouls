@@ -1,4 +1,3 @@
-AbomBoss.DisplayName: Mods.FargowiltasSouls.Projectiles.AbomBoss.DisplayName
 AbomDeathScythe.DisplayName: Abominationn Scythe
 AbomDeathray.DisplayName: Abominable Deathray
 AbomDeathrayMark.DisplayName: Deathray
@@ -46,7 +45,6 @@ DragonFireballBoom.DisplayName: Fireball
 DungeonGuardian.DisplayName: Dungeon Guardian
 EaterRocket.DisplayName: Eater Rocket
 EyeFireFriendly.DisplayName: Eye Fire
-EyeProjectile2.DisplayName: Mods.FargowiltasSouls.Projectiles.EyeProjectile2.DisplayName
 FishNuke.DisplayName: Fish Nuke
 FishNukeExplosion.DisplayName: Fish Nuke
 FishStickProj.DisplayName: Fish Stick
@@ -132,8 +130,6 @@ ChampionBeetle.DisplayName: Beetle
 CosmosBolt.DisplayName: Cosmic Bolt
 CosmosDeathray.DisplayName: Cosmic Deathray
 CosmosDeathray2.DisplayName: Cosmic Deathray
-CosmicFireball.DisplayName: Mods.FargowiltasSouls.Projectiles.CosmicFireball.DisplayName
-CosmicFireball2.DisplayName: Mods.FargowiltasSouls.Projectiles.CosmicFireball2.DisplayName
 CosmosGlowything.DisplayName: Cosmic Invader
 CosmosInvader.DisplayName: Cosmic Invader
 CosmosInvaderTime.DisplayName: Cosmic Invader
@@ -171,9 +167,7 @@ NatureIcicle.DisplayName: Nature Icicle
 NatureRain.DisplayName: Nature Rain
 ShadowClone.DisplayName: Champion of Shadow
 ShadowDeathraySmall.DisplayName: Shadow Deathray
-ShadowFlameScythe.DisplayName: Mods.FargowiltasSouls.Projectiles.ShadowFlameScythe.DisplayName
 ShadowGuardian.DisplayName: Dungeon Guardian
-ShadowOrb.DisplayName: Mods.FargowiltasSouls.Projectiles.ShadowOrb.DisplayName
 SpiritCrossBone.DisplayName: Cross Bone
 SpiritCrossBoneReverse.DisplayName: Cross Bone
 SpiritHand.DisplayName: Spirit Hand
@@ -198,7 +192,6 @@ TimberTree.DisplayName: Tree
 TimberTreeAcorn.DisplayName: Acorn
 WillBomb.DisplayName: Will Bomb
 WillDeathray.DisplayName: Will Deathray
-WillDeathray2.DisplayName: Mods.FargowiltasSouls.Projectiles.WillDeathray2.DisplayName
 WillDeathraySmall.DisplayName: Will Deathray
 WillFireball.DisplayName: Fireball
 WillFireball2.DisplayName: Fireball
@@ -218,14 +211,12 @@ DeviDeathray.DisplayName: Love Ray
 DeviDeathraySmall.DisplayName: Love Ray
 DeviLightBeam.DisplayName: Light Ray
 GolemBeam.DisplayName: Blazing Deathray
-PhantasmalDeathray.DisplayName: Mods.FargowiltasSouls.Projectiles.PhantasmalDeathray.DisplayName
 PhantasmalDeathrayML.DisplayName: Phantasmal Deathray II
 PhantasmalDeathrayMLSmall.DisplayName: Phantasmal Deathray II
 PhantasmalDeathrayWOF.DisplayName: Divine Deathray
 PhantasmalDeathrayWOFS.DisplayName: Divine Deathray
 DeviAxe.DisplayName: Sparkling Love
 DeviBigMimic.DisplayName: Biome Mimic
-DeviBoss.DisplayName: Mods.FargowiltasSouls.Projectiles.DeviBoss.DisplayName
 DeviButterfly.DisplayName: Moth
 DeviEnergyHeart.DisplayName: Energy Heart
 DeviGuardian.DisplayName: Baby Guardian
@@ -283,8 +274,6 @@ CultistArrow.DisplayName: Cultist Arrow
 CultistFireball.DisplayName: Fireball
 CultistRitual.DisplayName: Cultist Ritual
 CultistVortex.DisplayName: Vortex
-CultistFireballHoming.DisplayName: Mods.FargowiltasSouls.Projectiles.CultistFireballHoming.DisplayName
-CuresedFlameHostile2.DisplayName: Mods.FargowiltasSouls.Projectiles.CuresedFlameHostile2.DisplayName
 CursedFlamethrower.DisplayName: Eye Fire
 DarkStar.DisplayName: Dark Star
 DarkStarDestroyer.DisplayName: Dark Star
@@ -297,7 +286,6 @@ DicerPlantera.DisplayName: Dicer Plantera
 DrakanianDaybreak.DisplayName: Daybreak
 ElfArcherArrow.DisplayName: Frostburn Arrow
 ElfCopterBullet.DisplayName: Explosive Bullet
-ElfcopterBulletExplosion.DisplayName: Mods.FargowiltasSouls.Projectiles.ElfcopterBulletExplosion.DisplayName
 EyeBeam2.DisplayName: Eye Beam
 EyeFire2.DisplayName: Eye Fire
 FakeHeart.DisplayName: Fake Heart
@@ -341,7 +329,6 @@ MoonLordNebulaBlaze2.DisplayName: Nebula Blaze
 MoonLordSun.DisplayName: Sun
 MoonLordSunBlast.DisplayName: Sun Blast
 MoonLordVortex.DisplayName: Vortex
-MoonLordvortexOld.DisplayName: Mods.FargowiltasSouls.Projectiles.MoonLordvortexOld.DisplayName
 MothDust.DisplayName: Moth Dust
 MothronZenith.DisplayName: Zenith
 PhantasmalBolt2.DisplayName: Phantasmal Bolt
@@ -445,7 +432,6 @@ TrueEyeS.DisplayName: True Eye of Cthulhu
 BossRush.DisplayName: Mutant Seal
 MutantBomb.DisplayName: Phantasmal Blast
 MutantBombSmall.DisplayName: Phantasmal Blast
-MutantBoss.DisplayName: Mods.FargowiltasSouls.Projectiles.MutantBoss.DisplayName
 MutantCrystalLeaf.DisplayName: Crystal Leaf
 MutantDeathray1.DisplayName: Phantasmal Deathray
 MutantDeathray2.DisplayName: Phantasmal Deathray
@@ -586,23 +572,17 @@ NanoBase.DisplayName: Nano Core
 NanoBlade.DisplayName: Plasma Blade
 NanoProbe.DisplayName: Nano Probe
 PlasmaArrow.DisplayName: Plasma Arrow
-PlasmaDeathray.DisplayName: Mods.FargowiltasSouls.Projectiles.PlasmaDeathray.DisplayName
 PlasmaProj.DisplayName: Plasma Bolt
-GlowRingHallow.DisplayName: Mods.FargowiltasSouls.Projectiles.GlowRingHallow.DisplayName
 AbomBlast.DisplayName: Phantasmal Blast
 AbomFlocko2.DisplayName: Super Flocko
 AbomFlocko3.DisplayName: Super Flocko
 AbomLaser.DisplayName: Laser
 EyeProjectile.DisplayName: EyeProjectile2
 HentaiSpearDash.DisplayName: The Penetrator
-HentaiSpearRing.DisplayName: Mods.FargowiltasSouls.Projectiles.HentaiSpearRing.DisplayName
 CosmosFireball.DisplayName: Cosmic Fireball
 CosmosFireball2.DisplayName: Cosmic Fireball
-EatrhPalladOrb.DisplayName: Mods.FargowiltasSouls.Projectiles.EatrhPalladOrb.DisplayName
 ShadowFlameburst.DisplayName: Flameburst
 ShadowFlamingScythe.DisplayName: Flaming Scythe
-TimerPalmTree.DisplayName: Mods.FargowiltasSouls.Projectiles.TimerPalmTree.DisplayName
-WireFireball2.DisplayName: Mods.FargowiltasSouls.Projectiles.WireFireball2.DisplayName
 DeviRitual2.DisplayName: Deviantt Seal
 CursedFireballHoming.DisplayName: Cursed Flame
 CursedFlameHostile2.DisplayName: Cursed Flame

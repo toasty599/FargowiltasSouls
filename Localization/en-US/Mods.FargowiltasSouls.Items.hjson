@@ -43,11 +43,6 @@ AncientShadowEnchant: {
 		'''
 }
 
-AnglerEnchantment: {
-	DisplayName: Mods.FargowiltasSouls.Items.AnglerEnchantment.DisplayName
-	Tooltip: Mods.FargowiltasSouls.ItemTooltip.AnglerEnchantment
-}
-
 ApprenticeEnchant: {
 	DisplayName: Apprentice Enchantment
 	Tooltip:
@@ -2157,11 +2152,6 @@ UniverseSoul: {
 		'''
 }
 
-VoidSoul: {
-	DisplayName: Mods.FargowiltasSouls.Items.VoidSoul.DisplayName
-	Tooltip: Mods.FargowiltasSouls.ItemTooltip.VoidSoul
-}
-
 WorldShaperSoul: {
 	DisplayName: World Shaper Soul
 	Tooltip:
@@ -3385,8 +3375,6 @@ AnglerEnchant: {
 		'As long as they aren't all shoes, you can go home happily'
 		'''
 }
-
-PinkEskimoEnchant.DisplayName: Mods.FargowiltasSouls.Items.PinkEskimoEnchant.DisplayName
 
 LifelightBag: {
 	DisplayName: Treasure Bag (Lifelight)
