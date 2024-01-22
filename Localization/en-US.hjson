@@ -1351,7 +1351,7 @@ Mods: {
 
 			MutantPresenceBuff: {
 				DisplayName: Mutant Presence
-				Description: Defense, damage reduction, and life regen reduced; almost all soul toggles disabled; reduced graze radius
+				Description: Defense, damage reduction, and life regen reduced; almost all effect toggles disabled; reduced graze radius
 			}
 
 			HellFireBuff: {
@@ -5139,7 +5139,7 @@ Mods: {
 
 			OncomingMutantItem: {
 				DisplayName: Oncoming Mutant Icon
-				Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant's Presence
+				Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant Presence
 			}
 		}
 
