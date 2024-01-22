@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -302,7 +303,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             if (Projectile.ai[1] < 0) //flying, lights on
             {
-                Texture2D eyes = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Vanilla/GolemLights1", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D eyes = TextureAssets.Golem[1].Value;
                 Rectangle eyeRectangle = new(0, eyes.Height / 2, eyes.Width, eyes.Height / 2);
                 Vector2 eyeOrigin = eyeRectangle.Size() / 2f;
                 eyeOrigin.Y -= 4;

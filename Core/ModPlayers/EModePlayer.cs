@@ -271,11 +271,15 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Player.AddBuff(ModContent.BuffType<SmiteBuff>(), 2);
                 }
 
+                Vector2 tileCenter = Player.Center;
+                tileCenter.X /= 16;
+                tileCenter.Y /= 16;
+                Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+
                 if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight)
                     && Player.HeldItem.type != ItemID.Umbrella && Player.HeldItem.type != ItemID.TragicUmbrella
                     && Player.armor[0].type != ItemID.UmbrellaHat && Player.armor[0].type != ItemID.Eyebrella)
                 {
-                    Tile currentTile = Framing.GetTileSafely(Player.Center);
                     if (currentTile.WallType == WallID.None)
                     {
                         if (Player.ZoneSnow)
@@ -286,7 +290,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                         LightningCounter++;
 
-                        if (LightningCounter >= 60 * 20)
+                        int lighntningMinSeconds = WorldSavingSystem.MasochistModeReal ? 10 : 17;
+                        if (LightningCounter >= 60 * lighntningMinSeconds)
                         {
                             Point tileCoordinates = Player.Top.ToTileCoordinates();
 
@@ -326,8 +331,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
                                 float ai1 = Player.Center.Y;
-
-                                Projectile.NewProjectile(Player.GetSource_Misc(""), tileCoordinates.X * 16 + 8, (tileCoordinates.Y * 16 + 17) - 900, 0f, 0f, ModContent.ProjectileType<RainLightning>(), 60, 2f, Main.myPlayer,
+                                int damage = (Main.hardMode ? 120 : 60) / 4;
+                                Projectile.NewProjectile(Player.GetSource_Misc(""), tileCoordinates.X * 16 + 8, (tileCoordinates.Y * 16 + 17) - 900, 0f, 0f, ModContent.ProjectileType<RainLightning>(), damage, 2f, Main.myPlayer,
                                     Vector2.UnitY.ToRotation(), ai1);
 
                                 LightningCounter = 0;
@@ -366,10 +371,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (!fargoSoulsPlayer.PureHeart && !Player.buffImmune[BuffID.Webbed] && Player.stickyBreak > 0)
                 {
-                    Vector2 tileCenter = Player.Center;
-                    tileCenter.X /= 16;
-                    tileCenter.Y /= 16;
-                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+                    
                     if (currentTile != null && currentTile.WallType == WallID.SpiderUnsafe)
                     {
                         Player.AddBuff(BuffID.Webbed, 30);
@@ -388,18 +390,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
 
-                if (!fargoSoulsPlayer.PureHeart && Main.bloodMoon)
-                    Player.AddBuff(BuffID.WaterCandle, 2);
-
-                if (WorldSavingSystem.MasochistModeReal)
+                if (currentTile != null && currentTile.TileType == TileID.Cactus && currentTile.HasUnactuatedTile && !fargoSoulsPlayer.CactusImmune)
                 {
-                    Vector2 tileCenter = Player.Center;
-                    tileCenter.X /= 16;
-                    tileCenter.Y /= 16;
-                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
-                    if (currentTile != null && currentTile.TileType == TileID.Cactus && currentTile.HasUnactuatedTile)
+                    int damage = 10;
+                    if (WorldSavingSystem.MasochistModeReal)
                     {
-                        int damage = 10;
                         if (Player.ZoneCorrupt)
                         {
                             damage *= 2;
@@ -415,14 +410,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                             damage *= 2;
                             Player.AddBuff(BuffID.Confused, 150);
                         }
-
-                        if (Main.hardMode)
-                            damage *= 2;
-
-                        if (Player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
-                            Player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.Cactus", Player.name)), damage, 0, false, false,  0, false);
                     }
+
+                    if (Main.hardMode)
+                        damage *= 2;
+
+                    if (Player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
+                        Player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.Cactus", Player.name)), damage, 0, false, false,  0, false);
                 }
+
+                if (!fargoSoulsPlayer.PureHeart && Main.bloodMoon)
+                    Player.AddBuff(BuffID.WaterCandle, 2);
             }
         }
 

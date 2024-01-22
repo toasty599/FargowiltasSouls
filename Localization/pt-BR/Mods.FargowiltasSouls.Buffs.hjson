@@ -150,7 +150,7 @@ MutantFangBuff: {
 
 MutantPresenceBuff: {
 	// DisplayName: Mutant Presence
-	// Description: Defense, damage reduction, and life regen reduced; almost all soul toggles disabled; reduced graze radius
+	// Description: Defense, damage reduction, and life regen reduced; almost all effect toggles disabled; reduced graze radius
 }
 
 HellFireBuff: {

@@ -27,6 +27,7 @@ using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
+using Fargowiltas.NPCs;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
@@ -140,11 +141,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override bool CanHitNPC(NPC target)
         {
-            if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
-                || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
-                || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Mutant").Type)
+            if (target.type == ModContent.NPCType<Deviantt>() || target.type == ModContent.NPCType<Abominationn>() || target.type == ModContent.NPCType<Mutant>())
                 return false;
-
             return base.CanHitNPC(target);
         }
 

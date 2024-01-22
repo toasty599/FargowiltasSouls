@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Common.Graphics.Shaders;
+﻿using Fargowiltas.NPCs;
+using Fargowiltas.Projectiles;
+using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -85,17 +87,13 @@ Cannot be used while a boss is alive
                 {
                     WorldSavingSystem.ShouldBeEternityMode = !WorldSavingSystem.ShouldBeEternityMode;
 
-                    if (FargoSoulsUtil.HostCheck && WorldSavingSystem.ShouldBeEternityMode && !WorldSavingSystem.SpawnedDevi
-                        && ModContent.TryFind("Fargowiltas", "Deviantt", out ModNPC deviantt) && !NPC.AnyNPCs(deviantt.Type))
+                    int deviType = ModContent.NPCType<Deviantt>();
+                    if (FargoSoulsUtil.HostCheck && WorldSavingSystem.ShouldBeEternityMode && !WorldSavingSystem.SpawnedDevi && !NPC.AnyNPCs(deviType))
                     {
                         WorldSavingSystem.SpawnedDevi = true;
 
-                        if (ModContent.TryFind("Fargowiltas", "SpawnProj", out ModProjectile spawnProj))
-                        {
-                            Vector2 spawnPos = (Main.zenithWorld || Main.remixWorld) ? player.Center : player.Center - 1000 * Vector2.UnitY;
-                            Projectile.NewProjectile(player.GetSource_ItemUse(Item), spawnPos, Vector2.Zero, spawnProj.Type, 0, 0, Main.myPlayer, deviantt.Type);
-                        }
-                            
+                        Vector2 spawnPos = (Main.zenithWorld || Main.remixWorld) ? player.Center : player.Center - 1000 * Vector2.UnitY;
+                        Projectile.NewProjectile(player.GetSource_ItemUse(Item), spawnPos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, deviType);
 
                         FargoSoulsUtil.PrintLocalization("Announcement.HasAwoken", new Color(175, 75, 255), Language.GetTextValue("Mods.Fargowiltas.NPCs.Deviantt.DisplayName"));
                     }

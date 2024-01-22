@@ -96,10 +96,10 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 if (true)
                 {
                     Projectile.position -= npc.velocity * 2 / 3;
-
-                    if (!npc.target.IsWithinBounds(Main.maxPlayers))
+                    int playerIndex = Player.FindClosest(npc.Center, 1, 1);
+                    if (!playerIndex.IsWithinBounds(Main.maxPlayers))
                         return;
-                    Player player = Main.player[npc.target];
+                    Player player = Main.player[playerIndex];
                     if (player == null || !player.active)
                         return;
                     float extension = Math.Min(npc.Distance(player.Center), defaultDistance - arenaDistance);
@@ -109,17 +109,10 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                     Vector2 distance = target - Projectile.Center;
                     float length = distance.Length();
-                    if (true)//length > 10f)
-                    {
-                        distance /= 8f;
-                        Projectile.velocity = (Projectile.velocity * 9f + distance) / 10f;
-                        
-                    }
-                    else
-                    {
-                        if (Projectile.velocity.Length() < 12f)
-                            Projectile.velocity *= 1.025f;
-                    }
+                    distance /= 8f;
+                    Projectile.velocity = (Projectile.velocity * 9f + distance) / 10f;
+                    if (distance.LengthSquared() < 100 * 100)
+                        Projectile.velocity /= 2;
                 }
                 /*
                 else if (counter == attackTime)

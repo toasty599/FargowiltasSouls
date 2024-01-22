@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (!fargoBuffer.ContainsKey(type))
                 {
                     fargoBuffer[type] = vanillaTexture[type];
-                    vanillaTexture[type] = LoadSprite(recolor, $"{texturePrefix}{type}{DungeonVariant}") ?? vanillaTexture[type];
+                    vanillaTexture[type] = LoadSprite($"{texturePrefix}{type}{DungeonVariant}") ?? vanillaTexture[type];
                 }
             }
             else

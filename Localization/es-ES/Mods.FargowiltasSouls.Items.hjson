@@ -108,6 +108,7 @@ CactusEnchant: {
 		'''
 		While attacking you release a spray of needles
 		Enemies will explode into needles on death if they are struck with your needles
+		Grants immunity to cactus damage in Eternity Mode
 		'It's the quenchiest!'
 		''' */
 }
@@ -693,6 +694,7 @@ TurtleEnchant: {
 		Additionally you will destroy incoming projectiles and deal 10x more thorns damage
 		The shell lasts at least 1 second and up to 20 attacks blocked
 		Enemies will explode into needles on death if they are struck with your needles
+		Grants immunity to cactus damage in Eternity Mode
 		'You suddenly have the urge to hide in a shell'
 		''' */
 }
@@ -2185,7 +2187,7 @@ WorldShaperSoul: {
 		Grants toggleable Builder Mode:
 		    Tiles and walls will not be consumed
 			Increased placement speed and range
-		Effect can be disabled in Soul Toggles menu
+		Effect can be disabled in Effect Toggles menu
 		Effects of the Cell Phone, Royal Gel and Treasure Magnet
 		Summons a pet Magic Lantern
 		'Limitless possibilities'
@@ -3649,7 +3651,7 @@ PrimeSoul: {
 
 OncomingMutantItem: {
 	// DisplayName: Oncoming Mutant Icon
-	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant's Presence
+	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant Presence
 }
 
 Extra: {

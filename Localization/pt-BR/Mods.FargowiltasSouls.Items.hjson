@@ -3607,7 +3607,7 @@ PrimeSoul: {
 
 OncomingMutantItem: {
 	// DisplayName: Oncoming Mutant Icon
-	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant's Presence
+	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant Presence
 }
 
 Extra: {

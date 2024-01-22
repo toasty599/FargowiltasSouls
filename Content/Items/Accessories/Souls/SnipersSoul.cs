@@ -52,7 +52,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             /*
 hive pack*/
             .AddIngredient(null, "SharpshootersEssence")
-            .AddIngredient(ItemID.BoneGlove)
             .AddIngredient(ItemID.MoltenQuiver)
             .AddIngredient(ItemID.StalkersQuiver)
             .AddIngredient(ItemID.ReconScope)

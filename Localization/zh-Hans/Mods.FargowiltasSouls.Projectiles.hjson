@@ -685,9 +685,11 @@ DeviGuardianHarmless.DisplayName: 戴薇安守护
 // MagmawHand.DisplayName: Magmaw Hand
 PungentEyeballMinion.DisplayName: 尖刻眼球
 // MinosPrime.DisplayName: Minos Prime
-RainLightning.DisplayName: 雷暴雨
+RainLightning.DisplayName: 闪电弧
 PlanteraThornChakram.DisplayName: 荆棘旋刃
 PlanteraRitual.DisplayName: 世纪之花结界
 PlanteraManEater.DisplayName: 食人怪
 PlanteraSnatcher.DisplayName: 抓人草
 PlanteraTrapper.DisplayName: 愤怒捕手
+PlanteraMushroomThing.DisplayName: 世纪之花孢子
+RainExplosion.DisplayName: 雨云爆炸

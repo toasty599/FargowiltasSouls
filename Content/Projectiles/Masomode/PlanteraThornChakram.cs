@@ -11,6 +11,8 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.GameContent;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
@@ -73,16 +75,18 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override bool PreDraw(ref Color lightColor)
         {
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+            Texture2D texture = recolor ? ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/Masomode/PlanteraThornChakram").Value : TextureAssets.Projectile[Type].Value;
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color2 = Color.LimeGreen * 0.75f;
+                Color color2 = recolor ? Color.DimGray : Color.LimeGreen * 0.75f;
                 color2 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 pos = Projectile.oldPos[i] + Projectile.Size / 2;
                 float rot = Projectile.oldRot[i];
-                FargoSoulsUtil.GenericProjectileDraw(Projectile, color2, drawPos: pos, rotation: rot);
+                FargoSoulsUtil.GenericProjectileDraw(Projectile, color2, texture: texture, drawPos: pos, rotation: rot);
             }
 
-            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor);
+            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor, texture: texture);
             return false;
         }
     }

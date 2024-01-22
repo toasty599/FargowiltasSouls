@@ -9,6 +9,10 @@ using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core;
+using System.Drawing;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 {
@@ -91,9 +95,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             if (NPC.localAI[1] == 0)
             {
                 NPC.localAI[1] = 1;
+                bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    int dustID = recolor ?
+                        (Main.rand.NextBool() ? DustID.GlowingMushroom : DustID.MushroomTorch) :
+                        (Main.rand.NextBool() ? DustID.TerraBlade : DustID.ChlorophyteWeapon);
+                    Vector2 vel = Main.rand.NextVector2Circular(4, 4);
+                    int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, dustID, vel.X, vel.Y, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
@@ -135,6 +144,11 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.position = plantera.Center + new Vector2(NPC.ai[1], 0f).RotatedBy(NPC.ai[3]);
             NPC.position.X -= NPC.width / 2;
             NPC.position.Y -= NPC.height / 2;
+
+            if (plantera.ai[1] == 1 && plantera.GetLifePercent() < 0.25f) // when shooting in p3
+            {
+                NPC.scale *= 1.5f;
+            }
 
             if (plantera.GetGlobalNPC<Plantera>().RingTossTimer > 120 && plantera.GetGlobalNPC<Plantera>().RingTossTimer < 120 + 45 && NPC.ai[1] == 130) //pause before shooting
             {
@@ -211,9 +225,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         {
             if (NPC.life <= 0)
             {
+                bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    int dustID = recolor ?
+                        (Main.rand.NextBool() ? DustID.MushroomTorch : DustID.GlowingMushroom) :
+                        (Main.rand.NextBool() ? DustID.TerraBlade : DustID.ChlorophyteWeapon);
+                    Vector2 vel = Main.rand.NextVector2Circular(4, 4);
+                    int index2 = Dust.NewDust(NPC.position - NPC.Size, NPC.width * 2, NPC.height * 2, dustID, vel.X, vel.Y, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
@@ -249,7 +268,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+            Texture2D texture2D13 = recolor ? ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/EternityModeNPCs/CrystalLeaf").Value : Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+
             Rectangle rectangle = NPC.frame;
             Vector2 origin2 = rectangle.Size() / 2f;
 

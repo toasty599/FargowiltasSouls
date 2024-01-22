@@ -40,18 +40,6 @@ namespace FargowiltasSouls.Content.Sky
             }
         }
 
-        /*
-        public override int ChooseFarTexture()
-        {
-            return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Assets/ExtraTextures/Vanilla/Background_7");
-        }
-        */
-        /*
-        public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
-        {
-            return base.ChooseCloseTexture(ref scale, ref parallax, ref a, ref b);
-        }
-        */
         public int fadeIn = 0;
         private Color ColorToUse(ref float opacity)
         {

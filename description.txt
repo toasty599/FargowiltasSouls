@@ -1,5 +1,7 @@
 Fargo's Souls Mod is a content mod that adds the powerful Enchantments and Souls accessories, as well as a variety of bosses and minibosses.
-Features the highly challenging Eternity Mode!
+Features the Eternity Mode, a mode that reworks many parts of the game and adds exciting challenge!
+
+If you intend to use this mod with the Calamity Mod, use the official Fargo's Souls DLC addon mod. https://steamcommunity.com/sharedfiles/filedetails/?id=3044249615
 
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
