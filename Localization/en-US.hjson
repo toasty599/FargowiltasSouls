@@ -6165,16 +6165,16 @@ Mods: {
 
 		Keybinds: {
 			Freeze.DisplayName: Freeze
-			"Turn Gold.DisplayName": Turn  Gold
-			"Throw Smoke Bomb.DisplayName": Throw  Smoke  Bomb
-			"Special Dash.DisplayName": Special  Dash
+			"Turn Gold.DisplayName": Turn Gold
+			"Throw Smoke Bomb.DisplayName": Throw Smoke Bomb
+			"Special Dash.DisplayName": Special Dash
 			Bomb.DisplayName: Bomb
 			"Open Soul Toggler.DisplayName": Open Effect Toggler
-			"Precision Movement.DisplayName": Precision  Movement
-			"Magical Cleanse.DisplayName": Magical  Cleanse
-			"Frigid Spell.DisplayName": Frigid  Spell
-			"Debuff Install.DisplayName": Debuff  Install
-			"Ammo Cycle.DisplayName": Ammo  Cycle
+			"Precision Movement.DisplayName": Precision Movement
+			"Magical Cleanse.DisplayName": Magical Cleanse
+			"Frigid Spell.DisplayName": Frigid Spell
+			"Debuff Install.DisplayName": Debuff Install
+			"Ammo Cycle.DisplayName": Ammo Cycle
 		}
 
 		Configs: {
