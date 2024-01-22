@@ -3777,7 +3777,7 @@ Mods: {
 					Grants toggleable Builder Mode:
 					    Tiles and walls will not be consumed
 						Increased placement speed and range
-					Effect can be disabled in Soul Toggles menu
+					Effect can be disabled in Effect Toggles menu
 					Effects of the Cell Phone, Royal Gel and Treasure Magnet
 					Summons a pet Magic Lantern
 					'Limitless possibilities'
@@ -6169,7 +6169,7 @@ Mods: {
 			"Throw Smoke Bomb.DisplayName": Throw  Smoke  Bomb
 			"Special Dash.DisplayName": Special  Dash
 			Bomb.DisplayName: Bomb
-			"Open Soul Toggler.DisplayName": Open  Soul  Toggler
+			"Open Soul Toggler.DisplayName": Open Effect Toggler
 			"Precision Movement.DisplayName": Precision  Movement
 			"Magical Cleanse.DisplayName": Magical  Cleanse
 			"Frigid Spell.DisplayName": Frigid  Spell
@@ -6375,7 +6375,7 @@ Mods: {
 			Random68: I will crush your worthless existence.
 			Random69: You won't live long enough to tell the tale!
 			Random70: DO YOU THINK YOU STAND A CHANCE, AGAINST I WHO AM ETERNAL? I WHO TURN THE TIDE AND WORLD? I AM THE ETERNAL, I AM THE IMMORTAL. YOU ARE LIKE AN ANT IN A DYING SANDHILL, AND I THE SEARING SUN. YOU WILL BE SPLIT AND TORN UNTIL NOTHING REMAINS BUT MOTES OF ASH AND LIGHT! YOUR EVERY DEED PALES IN COMPARISON TO MY ETERNITY! I BEAR THE GOLEM'S FIST, THE PHANTASMAL EYE, THE WINDING VINE, THE RELENTLESS BEE, THE GENIUS BRAIN, THE HUNTER'S WINGS! YOU WILL BE REMOVED FROM HISTORY,, INSIGNIFICANT WORM!
-			Quote1: Hand it over. That thing, your soul toggles.
+			Quote1: Hand it over. That thing, your effect toggles.
 			Quote2: I hope you're ready to embrace suffering.
 			Quote3: Time to stop playing around.
 			Quote4: Feel the Penetrator's fury!
