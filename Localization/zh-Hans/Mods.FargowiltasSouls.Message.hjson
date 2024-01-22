@@ -3,11 +3,11 @@ MasochistModeUnlocked: "{$Mods.FargowiltasSouls.Items.Masochist.DisplayName} 随
 WorldUpdatingSystem: {
 	EternityOn: 永恒模式已开启!
 	EternityOff: 永恒模式已关闭。
-	EternityWrongDifficulty: 难度过低，永恒模式已关闭...
+	EternityWrongDifficulty: 难度过低，永恒模式已关闭……
 	MasochistOn: 大师模式与永恒模式结合：受虐模式已开启！！
 	MasochistOnZenith: 大师模式与天顶种子结合：受虐模式已开启！！
 	MasochistOff: 受虐模式已关闭。
-	BloodMoonCancel: 血月改变了主意，溜了溜了...
+	BloodMoonCancel: 血月改变了主意，溜了溜了……
 }
 
 Revived: 你复活了！
