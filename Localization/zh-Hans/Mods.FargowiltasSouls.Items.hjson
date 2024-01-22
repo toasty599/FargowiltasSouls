@@ -1133,14 +1133,13 @@ DubiousCircuitry: {
 	DisplayName: 可疑电路
 	Tooltip:
 		'''
-		免疫[i:FargowiltasSouls/FusedLens]诅咒狱火、灵液、[i:FargowiltasSouls/GroundStick]避雷针、[i:FargowiltasSouls/ReinforcedPlating]毫无防御、昏迷、纳米灌注减益和击退
-		[i:FargowiltasSouls/FusedLens]按下“减益负载”键对你自己造成诅咒狱火和灵液，再次按下时取消
-		[i:FargowiltasSouls/FusedLens]当被诅咒狱火和灵液影响时，增加15%攻击速度，15%暴击率
-		[i:FargowiltasSouls/GroundStick]攻击小概率造成避雷针减益
-		[i:FargowiltasSouls/GroundStick]带电攻击或激光击中你会使你超级充能，在未充能完毕时这些攻击的伤害减半
-		[i:FargowiltasSouls/GroundStick]充能完毕后，增加移动速度和攻击速度，你的攻击会造成带电和避雷针减益
-		[i:FargowiltasSouls/GroundStick]召唤两个友善的探测器为你而战，并和你一起充能
-		[i:FargowiltasSouls/ReinforcedPlating]所受伤害减少5%
+		免疫 [i:FargowiltasSouls/FusedLens] 诅咒狱火、灵液、 [i:FargowiltasSouls/GroundStick] 避雷针、 [i:FargowiltasSouls/ReinforcedPlating] 毫无防御、昏迷、纳米灌注减益和击退
+		[i:FargowiltasSouls/FusedLens] 按下“减益负载”键对你自己造成诅咒狱火和灵液，再次按下时取消
+		[i:FargowiltasSouls/FusedLens] 当被诅咒狱火和灵液影响时，增加15%攻击速度，15%暴击率
+		[i:FargowiltasSouls/GroundStick] 带电攻击或激光击中你会使你超级充能，在未充能完毕时这些攻击的伤害减半
+		[i:FargowiltasSouls/GroundStick] 充能完毕后，增加移动速度和攻击速度，你的攻击会造成带电和避雷针减益
+		[i:FargowiltasSouls/GroundStick] 召唤两个友善的探测器为你而战，并和你一起充能
+		[i:FargowiltasSouls/ReinforcedPlating] 所受伤害减少5%
 		“里面也许没有恶意软件”
 		'''
 }
