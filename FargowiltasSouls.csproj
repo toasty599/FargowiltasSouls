@@ -38,9 +38,4 @@
       <HintPath>Fargowiltas.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Localization\zh-Hans\Mods.FargowiltasSouls.Items.hjson">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>
