@@ -34,6 +34,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         }
         public override void AI()
         {
+            Lighting.AddLight(Projectile.Center, 0.1f, 0.4f, 0.2f);
             if (Projectile.localAI[0] != 1)
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath13, Projectile.Center);
