@@ -168,7 +168,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (npc.ai[0] != 2f) //in phase 1
             {
                 float threshold = WorldSavingSystem.MasochistModeReal ? 0.8f : 1f;  //instant in emode, 80% in maso
-                if (npc.life < npc.lifeMax * threshold /*.8*/)
+                if (npc.life <= npc.lifeMax * threshold /*.8*/)
                 {
                     npc.ai[0] = 2f;
 
