@@ -6175,6 +6175,7 @@ Mods: {
 			"Frigid Spell.DisplayName": Frigid Spell
 			"Debuff Install.DisplayName": Debuff Install
 			"Ammo Cycle.DisplayName": Ammo Cycle
+			"Open Effect Toggler.DisplayName": Open  Effect  Toggler
 		}
 
 		Configs: {
