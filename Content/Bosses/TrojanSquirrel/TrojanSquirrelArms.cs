@@ -158,23 +158,27 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                         if (NPC.ai[1] > start && NPC.ai[1] % 4 == 0)
                         {
-                            Vector2 pos = GetShootPos();
+                            if (NPC.ai[1] % 8 == 0)
+                            {
+                                Vector2 pos = GetShootPos();
 
-                            SoundEngine.PlaySound(SoundID.Item11, pos);
+                                SoundEngine.PlaySound(SoundID.Item11, pos);
 
-                            float ratio = (NPC.ai[1] - start) / (end - start);
+                                float ratio = (NPC.ai[1] - start) / (end - start);
 
-                            Vector2 target = NPC.Center;
-                            target.X += Math.Sign(NPC.direction) * (WorldSavingSystem.EternityMode ? 1800f : 1200f) * ratio; //gradually targets further and further
-                            //target.Y -= 8 * 16;
-                            target += Main.rand.NextVector2Circular(16, 16);
-                            const float gravity = 0.5f;
-                            float time = 45f;
-                            Vector2 distance = target - pos;
-                            distance.X /= time;
-                            distance.Y = distance.Y / time - 0.5f * gravity * time;
-                            if (FargoSoulsUtil.HostCheck)
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, distance, ModContent.ProjectileType<TrojanSnowball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, gravity);
+                                Vector2 target = NPC.Center;
+                                target.X += Math.Sign(NPC.direction) * (WorldSavingSystem.EternityMode ? 1800f : 1200f) * ratio; //gradually targets further and further
+                                                                                                                                 //target.Y -= 8 * 16;
+                                target += Main.rand.NextVector2Circular(16, 16);
+                                const float gravity = 0.5f;
+                                float time = 45f;
+                                Vector2 distance = target - pos;
+                                distance.X /= time;
+                                distance.Y = distance.Y / time - 0.5f * gravity * time;
+                                if (FargoSoulsUtil.HostCheck)
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, distance, ModContent.ProjectileType<TrojanSnowball>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, gravity);
+                            }
+                            NPC.ai[1] += NPC.ai[1] > end / 3 ? NPC.ai[1] > end * (2/3) ? 2 : 0 : 0;
                         }
 
                         if (NPC.ai[1] > end)

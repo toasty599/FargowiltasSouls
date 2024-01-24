@@ -340,7 +340,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             {
                 if (!(npc.ai[1] == 1f && npc.ai[2] > 2f) || npc.ai[1] == 2) // when not spinning or dg phase
                 {
-                    float pushStrength = 0.5f * (1 - distance / minDist);
+                    float pushStrength = 1f * (1 - distance / minDist);
                     npc.velocity -= pushStrength * npc.DirectionTo(Main.player[npc.target].Center);
                 }
             }
