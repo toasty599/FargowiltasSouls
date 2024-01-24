@@ -3653,3 +3653,8 @@ Extra: {
 	// stealing items texts are currently not displayed
 	ItemStolen: 你有东西被偷了！
 }
+
+GravityTestItem: {
+	// DisplayName: Gravity Test Item
+	// Tooltip: ""
+}
