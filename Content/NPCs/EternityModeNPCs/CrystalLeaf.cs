@@ -13,6 +13,7 @@ using FargowiltasSouls.Core;
 using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 {
@@ -81,7 +82,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         {
             if (NPC.buffType[0] != 0)
                 NPC.DelBuff(0);
-
             NPC plantera = FargoSoulsUtil.NPCExists(NPC.ai[0], NPCID.Plantera);
             if (plantera == null || WorldSavingSystem.SwarmActive)
             {
@@ -145,12 +145,16 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.position.X -= NPC.width / 2;
             NPC.position.Y -= NPC.height / 2;
 
-            if (plantera.ai[1] == 1 && plantera.GetLifePercent() < 0.25f) // when shooting in p3
+            bool phase3 = false;
+            if (plantera.GetLifePercent() < 0.25f) // when shooting in p3
             {
-                NPC.scale *= 1.5f;
+                if (plantera.ai[1] == 1)
+                    NPC.scale *= 1.5f;
+                phase3 = true;
             }
+            
 
-            if (plantera.GetGlobalNPC<Plantera>().RingTossTimer > 120 && plantera.GetGlobalNPC<Plantera>().RingTossTimer < 120 + 45 && NPC.ai[1] == 130) //pause before shooting
+            if (!phase3 && plantera.GetGlobalNPC<Plantera>().RingTossTimer > 120 && plantera.GetGlobalNPC<Plantera>().RingTossTimer < 120 + 45 && NPC.ai[1] == 130) //pause before shooting
             {
                 NPC.localAI[3] = 1;
                 NPC.scale *= 1.5f;

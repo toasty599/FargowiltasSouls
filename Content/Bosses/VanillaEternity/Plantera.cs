@@ -316,6 +316,19 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     playerXAvoidWalls += 500;
                 if (!collisionLeft && collisionRight)
                     playerXAvoidWalls -= 500;
+ 
+                //repulsed by player whenever too close
+                const float minDist = 250;
+                float distance = npc.Distance(Main.player[npc.target].Center);
+                if (npc.HasValidTarget && distance < minDist)
+                {
+                    if (!(npc.ai[1] == 1f && npc.ai[2] > 2f) || npc.ai[1] == 2) // when not spinning or dg phase
+                    {
+                        float pushStrength = 1f * (1 - distance / minDist);
+                        npc.velocity -= pushStrength * npc.DirectionTo(Main.player[npc.target].Center);
+                    }
+                }
+
                 #region Attacks
                 switch (state) // ATTACKS
                 {

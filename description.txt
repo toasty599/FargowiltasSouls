@@ -4,7 +4,7 @@ Features the Eternity Mode, a mode that reworks many parts of the game and adds 
 If you intend to use this mod with the Calamity Mod, use the official Fargo's Souls DLC addon mod. https://steamcommunity.com/sharedfiles/filedetails/?id=3044249615
 
 Fargo Discord: https://discord.gg/Rgen4Vv
-Fargo Wiki: https://terrariamods.wiki.gg/wiki/Fargo%27s_Mod
+Fargo Wiki: https://fargosmods.wiki.gg
 
 NEW UPDATE - v1.6.4
 Completely revamped the code for accessories and the toggle system, making them more intertwined, allowing for several new and improved features
