@@ -2,6 +2,7 @@
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,6 +49,8 @@ While in stealth, your own projectiles will not be sucked in
             //portal spawn
             player.AddEffect<VortexStealthEffect>(item);
             player.AddEffect<VortexVortexEffect>(item);
+
+            //player.AddEffect<VortexProjGravity>(item);
 
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (player.mount.Active)
@@ -106,6 +109,32 @@ While in stealth, your own projectiles will not be sucked in
 
             .AddTile(TileID.LunarCraftingStation)
             .Register();
+        }
+    }
+    public class VortexProjGravity : AccessoryEffect
+    {
+        public override Header ToggleHeader => null;
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            foreach (Projectile toProj in Main.projectile.Where(p => p != null && p.active && p.friendly && p.owner == player.whoAmI))
+            {
+                foreach (Projectile fromProj in Main.projectile.Where(p => p != null && p.active && p.friendly && p.whoAmI != toProj.whoAmI && p.owner == player.whoAmI && !TungstenEffect.TungstenAlwaysAffectProj(p) && p.FargoSouls().CanSplit && FargoSoulsUtil.CanDeleteProjectile(p, 0)))
+                {
+                    // if (fromProj.aiStyle != 1)
+                    //    continue;
+                    Vector2 dif = toProj.Center - fromProj.Center;
+                    int distSq = (int)dif.LengthSquared();
+                    if (distSq < 1 || float.IsNaN(distSq))
+                        continue;
+                    int rSquared = distSq;
+                    rSquared += 100;
+                    Vector2 force = Utils.SafeNormalize(dif, Vector2.UnitY);
+                    const float gravityConstant = 9000f; // tweak
+                    force *= gravityConstant /* (toProj.Size.Length() * fromProj.Size.Length())*/ / rSquared;
+                    fromProj.velocity += force;
+                }
+            }
         }
     }
     public class VortexVortexEffect : AccessoryEffect
