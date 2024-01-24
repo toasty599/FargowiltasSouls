@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Terraria.Map;
 using static tModPorter.ProgressUpdate;
 using FargowiltasSouls.Core;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -103,15 +104,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             EnteredPhase2 = bitReader.ReadBit();
             EnteredPhase3 = bitReader.ReadBit();
         }
-
+        public const int EffectiveMaxHealth = 110000;
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
-
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.65f);
-
-            if (!Main.masterMode)
-                npc.lifeMax = (int)(npc.lifeMax * 1.2f);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.75f);
         }
 
         public override bool SafePreAI(NPC npc)
@@ -880,11 +877,17 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
             return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
         }
+        public static float DR(NPC npc) => 
+            npc.GetLifePercent() < 0.25f ? 0.4f // phase 3
+            : npc.GetLifePercent() < 0.5f ? 0.5f // phase 2
+            : 0; // phase 1
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
-            float dr = npc.GetLifePercent() < 0.25f ? 0.55f : 0.65f;
-            if (npc.GetLifePercent() < 0.5f)
-                modifiers.FinalDamage *= dr;
+            modifiers.FinalDamage *= 1 - DR(npc);
+        }
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            npc.lifeRegen = (int)Math.Round(npc.lifeRegen * (1 - DR(npc)));
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

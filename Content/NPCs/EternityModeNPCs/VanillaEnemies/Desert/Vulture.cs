@@ -38,8 +38,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Desert
             if (npc.ai[0] == 0f) //no attack until moving
                 AttackTimer = 0;
 
-            // ENEMY TODO: Finish vulture swoops, maybe replace the shooting part, add to harpies too, maybe give some tankiness and kb immunity while swooping
-
+            // 1.7 ENEMY TODO: Finish vulture swoops, maybe replace the shooting part, add to harpies too, maybe give some tankiness and kb immunity while swooping
+            /*
             if (RandomTime == 0)
             {
                 RandomTime = Main.rand.Next(10, 200);
@@ -54,6 +54,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Desert
                     SwoopCount = -1;
                 }
             }
+            */
         }
     }
 }
