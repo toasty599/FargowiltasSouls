@@ -27,7 +27,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             player.AddEffect<AncientCobaltEffect>(Item);
             player.AddEffect<CobaltEffect>(Item);
             player.AddEffect<PalladiumEffect>(Item);
-            player.AddEffect<PaladiumHealing>(Item);
+            player.AddEffect<PalladiumHealing>(Item);
             player.AddEffect<MythrilEffect>(Item);
             player.AddEffect<OrichalcumEffect>(Item);
             player.AddEffect<AdamantiteEffect>(Item);

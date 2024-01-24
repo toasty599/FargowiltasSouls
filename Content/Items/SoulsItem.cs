@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Items
 
             // Add the Eternity toolip after tooltip modification in order to be displayed underneath any manual tooltips (i.e. SoE cycling).
             if (Eternity)
-                tooltips.Add(new TooltipLine(Mod, $"{Mod.Name}:Eternity", Language.GetTextValue($"Mods.{Mod.Name}.Message.EternityItem")));
+                tooltips.Add(new TooltipLine(Mod, $"{Mod.Name}:Eternity", Language.GetTextValue($"Mods.{Mod.Name}.Items.Extra.EternityItem")));
         }
     }
 }

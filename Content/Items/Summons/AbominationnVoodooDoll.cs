@@ -63,7 +63,7 @@ namespace FargowiltasSouls.Content.Items.Summons
                             if (!hasDeclaredTeleport)
                             {
                                 hasDeclaredTeleport = true;
-                                FargoSoulsUtil.PrintLocalization("Mods.FargowiltasSouls.Message.AbominationnVoodooDollFail", new Color(175, 75, 255));
+                                FargoSoulsUtil.PrintLocalization("Mods.FargowiltasSouls.Items.AbominationnVoodooDoll.Fail", new Color(175, 75, 255));
                             }
 
                             Item.Center = Main.player[p].Center;

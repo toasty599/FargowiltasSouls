@@ -7,6 +7,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Core.Globals;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
@@ -49,7 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 if (EModeGlobalNPC.fishBossEX != fishron.whoAmI)
                 {
                     fishron.GetGlobalNPC<DukeFishron>().IsEX = true;
-                    fishron.GivenName = "Duke Fishron EX";
+                    fishron.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DukeFishronEX.DisplayName");
                     fishron.defDamage = (int)(fishron.defDamage * 1.5);
                     fishron.defDefense *= 2;
                     fishron.buffImmune[ModContent.BuffType<FlamesoftheUniverseBuff>()] = true;

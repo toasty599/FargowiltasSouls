@@ -199,7 +199,7 @@ namespace FargowiltasSouls.Content.Items
             if (item.CountsAsClass(DamageClass.Magic) && player.FargoSouls().ReverseManaFlow)
             {
                 int damage = (int)(item.mana / (1f - player.endurance) + player.statDefense);
-                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was destroyed by their own magic."), damage, 0);
+                player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.ReverseManaFlow", player.name)), damage, 0);
                 player.immune = false;
                 player.immuneTime = 0;
             }
@@ -494,7 +494,7 @@ namespace FargowiltasSouls.Content.Items
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             if (item.type == ItemID.PiercingStarlight)
-                tooltips.Add(new TooltipLine(Mod, "StarlightTungsten", Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.StarlightTungsten")));
+                tooltips.Add(new TooltipLine(Mod, "StarlightTungsten", Language.GetTextValue("Mods.FargowiltasSouls.Items.Extra.StarlightTungsten")));
             /*if (Array.IndexOf(Summon, item.type) > -1)
             {
                 TooltipLine helperLine = new TooltipLine(mod, "help", "Right click to convert");

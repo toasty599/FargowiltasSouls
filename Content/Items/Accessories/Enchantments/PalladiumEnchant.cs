@@ -26,7 +26,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<PalladiumEffect>(Item);
-            player.AddEffect<PaladiumHealing>(Item);
+            player.AddEffect<PalladiumHealing>(Item);
         }
 
         public override void AddRecipes()
@@ -43,7 +43,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .Register();
         }
     }
-    public class PaladiumHealing : AccessoryEffect
+    public class PalladiumHealing : AccessoryEffect
     {
         public override Header ToggleHeader => null;
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)

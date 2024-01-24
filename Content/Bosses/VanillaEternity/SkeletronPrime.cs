@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -263,7 +264,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (!NPC.AnyNPCs(NPCID.PrimeVice))
                             FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.PrimeVice, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
 
-                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeRegrow", new Color(175, 75, 255));
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.RegrowArms", new Color(175, 75, 255), npc.FullName);
 
                         foreach (NPC l in Main.npc.Where(l => l.active && l.ai[1] == npc.whoAmI )) // 2 seconds of no contact damage on phase transition
                         {
@@ -396,7 +397,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (!HasSaidEndure)
                 {
                     HasSaidEndure = true;
-                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeGuardian", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.GuardianForm", new Color(175, 75, 255), npc.FullName);
                 }
 
                 if (!WorldSavingSystem.MasochistModeReal)

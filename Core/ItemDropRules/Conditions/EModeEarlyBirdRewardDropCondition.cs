@@ -1,8 +1,7 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 {
@@ -12,6 +11,6 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 
         public bool CanShowItemDropInUI() => true;
 
-        public string GetConditionDescription() => $"[i:{ModContent.ItemType<Masochist>()}]Pre-Hardmode Eternity Mode drop rate";
+        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.EModeEarlyBirdPHM");
     }
 }

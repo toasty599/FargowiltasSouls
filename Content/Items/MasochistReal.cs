@@ -31,19 +31,19 @@ namespace FargowiltasSouls.Content.Items
 
         public override bool CanRightClick() => true;
 
-        public override void RightClick(Player player) => Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.Message.ForgottenGift") + $"{WorldSavingSystem.MasochistModeReal}");
+        public override void RightClick(Player player) => Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.Items.MasochistReal.WorldState") + $"{WorldSavingSystem.MasochistModeReal}");
 
         public override bool? UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
             {
                 WorldSavingSystem.CanPlayMaso = !WorldSavingSystem.CanPlayMaso;
-                Main.NewText($"world: {WorldSavingSystem.CanPlayMaso}");
+                Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.Items.MasochistReal.VarWorld") + WorldSavingSystem.CanPlayMaso);
             }
             else
             {
                 player.FargoSouls().Toggler.CanPlayMaso = !player.FargoSouls().Toggler.CanPlayMaso;
-                Main.NewText($"mod: {player.FargoSouls().Toggler.CanPlayMaso}");
+                Main.NewText(Language.GetTextValue("Mods.FargowiltasSouls.Items.MasochistReal.VarMod") + player.FargoSouls().Toggler.CanPlayMaso);
             }
             return true;
         }

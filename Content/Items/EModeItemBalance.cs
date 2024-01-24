@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Items
                         string bossesToKill = "";
                         if (!WorldSavingSystem.DownedAbom)
                         {
-                            bossesToKill += $"{Language.GetTextValue("Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName")},";
+                            bossesToKill += $"{Language.GetTextValue("Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName")}, ";
                         }
                         bossesToKill += $"{Language.GetTextValue("Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName")}";
 
@@ -291,14 +291,14 @@ namespace FargowiltasSouls.Content.Items
         {
             string prefix = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{change}");
             string nerf = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{key}", amount == 0 ? null : amount);
-            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, $"{change}{key}", $"{prefix} {nerf}"));
+            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, $"{change}{key}", $"{prefix}{nerf}"));
         }
 
         static void ItemBalance(List<TooltipLine> tooltips, EModeChange change, string key, string extra)
         {
             string prefix = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{change}");
             string nerf = Language.GetTextValue($"Mods.FargowiltasSouls.EModeBalance.{key}");
-            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, $"{change}{key}", $"{prefix} {nerf} {extra}"));
+            tooltips.Add(new TooltipLine(FargowiltasSouls.Instance, $"{change}{key}", $"{prefix}{nerf}{extra}"));
         }
 
         public static void BalanceTooltips(Item item, ref List<TooltipLine> tooltips)

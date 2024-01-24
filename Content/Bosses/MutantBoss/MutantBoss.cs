@@ -855,7 +855,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
         const int ObnoxiousQuoteCount = 71;
-        const string GFBLocPath = $"Mods.FargowiltasSouls.MutantGFB.";
+        const string GFBLocPath = $"Mods.FargowiltasSouls.NPCs.MutantBoss.GFBText.";
         private string RandomObnoxiousQuote() => Language.GetTextValue($"{GFBLocPath}Random{Main.rand.Next(ObnoxiousQuoteCount)}"); 
         private string GFBQuote(int num) => Language.GetTextValue($"{GFBLocPath}Quote{num}");
 
@@ -925,7 +925,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.netUpdate = true;
 
                     if (WorldSavingSystem.SkipMutantP1 == 10)
-                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.MutantSkipP1", Color.LimeGreen);
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.MutantBoss.SkipP1", Color.LimeGreen);
 
                     if (WorldSavingSystem.SkipMutantP1 >= 10)
                         NPC.ai[2] = 1; //flag for different p2 transition animation

@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
                 player.buffTime[buffIndex] = 1;
                 SoundEngine.PlaySound(SoundID.Roar, player.Center);
                 if (player.whoAmI == Main.myPlayer)
-                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.IvyVenomTransform"), 175, 75, 255);
+                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Buffs.IvyVenomBuff.Transform"), 175, 75, 255);
             }
             player.venom = true;
         }

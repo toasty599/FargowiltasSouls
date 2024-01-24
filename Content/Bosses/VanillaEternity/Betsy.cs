@@ -96,35 +96,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 for (int i = 0; i < 3; i++)
                 {
                     Rectangle rectangle = new((int)Main.screenPosition.X + Main.screenWidth / 3, (int)Main.screenPosition.Y + Main.screenHeight / 3, Main.screenWidth / 3, Main.screenHeight / 3);
-                    CombatText.NewText(rectangle, new Color(100 + Main.rand.Next(150), 100 + Main.rand.Next(150), 100 + Main.rand.Next(150)), Main.rand.Next(new List<string> {
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy1"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy2"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy3"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy4"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy5"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy6"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy7"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy8"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy9"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy10"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy11"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy12"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy13"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy14"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy15"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy16"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy17"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy18"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy19"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy20"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy21"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy22"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy23"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy24"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy25"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy26") + $"{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}" + Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy27"),
-                    Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy26") + $"{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}" + Language.GetTextValue("Mods.FargowiltasSouls.EternityMode.Betsy28"),
-                    }), Main.rand.NextBool(), Main.rand.NextBool());
+                    int num = Main.rand.Next(0, 27);
+                    string text = num < 25 ? MasoTexts[num].Value : MasoTexts[num].Format($"{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}{Main.rand.Next(10)}");
+                    CombatText.NewText(rectangle, new Color(100 + Main.rand.Next(150), 100 + Main.rand.Next(150), 100 + Main.rand.Next(150)), text, Main.rand.NextBool(), Main.rand.NextBool());
                 }
 
                 if (Main.rand.NextBool(30) && npc.HasPlayerTarget)
@@ -320,5 +294,36 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             LoadExtra(recolor, 81);
             LoadExtra(recolor, 82);
         }
+
+        private static readonly List<LocalizedText> MasoTexts = new()
+        {
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy1"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy2"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy3"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy4"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy5"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy6"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy7"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy8"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy9"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy10"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy11"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy12"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy13"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy14"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy15"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy16"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy17"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy18"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy19"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy20"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy21"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy22"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy23"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy24"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy25"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy26"),
+            Language.GetText("Mods.FargowiltasSouls.NPCs.EMode.Betsy27"),
+        };
     }
 }

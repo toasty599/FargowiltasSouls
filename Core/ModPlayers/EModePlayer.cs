@@ -17,6 +17,7 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using System.Collections.Generic;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Items;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -415,7 +416,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         damage *= 2;
 
                     if (Player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
-                        Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + " was pricked by a Cactus."), damage, 0, false, false, 0, false);
+                        Player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.Cactus", Player.name)), damage, 0, false, false,  0, false);
                 }
 
                 if (!fargoSoulsPlayer.PureHeart && Main.bloodMoon)
@@ -646,7 +647,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Main.LocalPlayer.HasBuff(ModContent.BuffType<RushJobBuff>()))
             {
-                chatText = "I've done all I can in the time I have!";
+                chatText = Language.GetTextValue("Mods.FargowiltasSouls.Buffs.RushJobBuff.NurseChat");
                 return false;
             }
 

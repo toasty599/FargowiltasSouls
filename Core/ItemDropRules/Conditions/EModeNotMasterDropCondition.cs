@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 {
@@ -10,6 +11,6 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 
         public bool CanShowItemDropInUI() => !Main.masterMode && WorldSavingSystem.EternityMode;
 
-        public string GetConditionDescription() => "This is a Master/Eternity Mode drop rate";
+        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.EModeNotMaster");
     }
 }
