@@ -97,7 +97,7 @@ namespace FargowiltasSouls
             SmokeBombKey = KeybindLoader.RegisterKeybind(this, "SmokeBomb", "I");
             SpecialDashKey = KeybindLoader.RegisterKeybind(this, "SpecialDash", "C");
             BombKey = KeybindLoader.RegisterKeybind(this, "Bomb", "Z");
-            SoulToggleKey = KeybindLoader.RegisterKeybind(this, "SoulToggle", ".");
+            SoulToggleKey = KeybindLoader.RegisterKeybind(this, "EffectToggle", ".");
             PrecisionSealKey = KeybindLoader.RegisterKeybind(this, "PrecisionSeal", "LeftShift");
             MagicalBulbKey = KeybindLoader.RegisterKeybind(this, "MagicalBulb", "N");
             FrigidSpellKey = KeybindLoader.RegisterKeybind(this, "FrigidSpell", "U");

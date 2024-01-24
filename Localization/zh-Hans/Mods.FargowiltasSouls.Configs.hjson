@@ -37,8 +37,8 @@ SoulConfig: {
 	}
 
 	PreBossNightGlow: {
-		Label: "Boss前敌怪发光"
-		Tooltip: "永恒模式中，如果你没有击败任何Boss，敌怪会在夜晚发光"
+		Label: Boss前敌怪发光
+		Tooltip: 永恒模式中，如果你没有击败任何Boss，敌怪会在夜晚发光
 	}
 
 	OncomingMutantX: {
