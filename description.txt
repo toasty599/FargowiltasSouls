@@ -7,6 +7,7 @@ Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://fargosmods.wiki.gg
 
 NEW UPDATE - v1.6.5.1
+Eternity Plantera phase 3 tweaks:
 -Foolproofed ceiling check, will now stop whenever there's any blocks between you
 -Maximum cap for vertical distance to player
 -Phase transition avoids the player even more carefully

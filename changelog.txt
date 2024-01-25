@@ -1,4 +1,5 @@
 NEW UPDATE - V {ModVersion}
+Eternity Plantera phase 3 tweaks:
 -Foolproofed ceiling check, will now stop whenever there's any blocks between you
 -Maximum cap for vertical distance to player
 -Phase transition avoids the player even more carefully
