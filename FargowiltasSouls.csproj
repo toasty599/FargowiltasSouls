@@ -21,6 +21,7 @@
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_276.png" />
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_277.png" />
     <None Remove="Content\NPCs\EternityModeNPCs\CrystalLeaf.png" />
+    <None Remove="Content\Projectiles\Extra_107.png" />
     <None Remove="Content\Projectiles\Masomode\CrystalLeafShot.png" />
     <None Remove="Content\Projectiles\Masomode\CrystalLeafShot_Old.png" />
     <None Remove="Content\Projectiles\Masomode\PlanteraThornChakram.png" />

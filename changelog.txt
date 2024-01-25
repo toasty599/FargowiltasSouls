@@ -47,4 +47,5 @@ Eternity Mode changes enemy/environment changes (more to come soon!):
 -Fixed bug where Nano Core could sometimes be reforged
 -Fixed Bionomic Cluster not correctly applying Tribal Charm effect
 -Fixed problems with Iron Enchant used material type list and clarified in description how it works
+-Fixed Golem loading an incorrect glow on his head
 -Fixed Tungsten Enchantment displaying debug text

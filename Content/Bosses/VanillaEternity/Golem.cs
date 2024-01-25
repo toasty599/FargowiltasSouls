@@ -449,7 +449,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             for (int i = 1; i <= 3; i++)
                 LoadGolem(recolor, i);
-
+            LoadExtra(recolor, 107);
             LoadGolemSpriteBuffered(recolor, 5, TextureAssets.NpcHeadBoss, FargowiltasSouls.TextureBuffer.NPCHeadBoss, "NPC_Head_Boss_");
         }
     }
