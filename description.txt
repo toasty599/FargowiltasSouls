@@ -6,6 +6,12 @@ If you intend to use this mod with the Calamity Mod, use the official Fargo's So
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://fargosmods.wiki.gg
 
+NEW UPDATE - v1.6.5.1
+-Foolproofed ceiling check, will now stop whenever there's any blocks between you
+-Maximum cap for vertical distance to player
+-Phase transition avoids the player even more carefully
+-Slightly sped up phase transition endlag
+
 NEW UPDATE - v1.6.5
 -Updated wiki links to lead to the brand new dedicated wiki at https://fargosmods.wiki.gg
 -Fixed gravity-reversing effects not flipping the screen
@@ -57,24 +63,3 @@ Eternity Mode changes enemy/environment changes (more to come soon!):
 -Fixed problems with Iron Enchant used material type list and clarified in description how it works
 -Fixed Golem loading an incorrect glow on his head
 -Fixed Tungsten Enchantment displaying debug text
-
-NEW UPDATE - v1.6.4
-Completely revamped the code for accessories and the toggle system, making them more intertwined, allowing for several new and improved features
-Added, removed and changed some toggles, and made some changes to the Some Effects and Minimal Effects presets
-The toggle menu now dynamically displays the toggles of things you have equipped
-New button to switch to/from displaying all toggles or equipped toggles
-Added a visual in the toggle menu for when you have Mutant's Presence that shows the disabled effects
-The code rework also results in some optimization
-
-Reduced lag of Mutant's slime rain attack
-Banished Baron:
--Phase 2 now starts at 66% HP in Expert+ Mode, and 50% HP in Normal Mode
--Fixed bug where Banished Baron could despawn when dashing in Phase 2
-Reworked Shinobi Infiltrator/Monk Enchant a bit:
--Combined their dashes
--Shinobi Infiltrator now upgrades the dash and allows it to teleport through walls, with a toggle
--Changed the wall teleport to be smoother and can now teleport mid-dash
-Prevented several bosses from despawning when they shouldn't in remix worlds
-Fixed some Eternity gore sprite issues and gave Dungeon Guardian the Eternity sprite
-Fixed Vineslinger projectile passing through the ground
-Fixed Apprentice Enchant interaction with Rainbow Gun that allowed duplicating rainbows
