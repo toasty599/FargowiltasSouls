@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Items;
 using Terraria.Localization;
+using FargowiltasSouls.Content.Projectiles.Souls;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -278,7 +279,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight)
                     && Player.HeldItem.type != ItemID.Umbrella && Player.HeldItem.type != ItemID.TragicUmbrella
-                    && Player.armor[0].type != ItemID.UmbrellaHat && Player.armor[0].type != ItemID.Eyebrella)
+                    && Player.armor[0].type != ItemID.UmbrellaHat && Player.armor[0].type != ItemID.Eyebrella 
+                    && !Player.HasEffect<RainUmbrellaEffect>())
                 {
                     if (currentTile.WallType == WallID.None)
                     {
@@ -286,7 +288,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                             Player.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 2);
                         else
                             Player.AddBuff(BuffID.Wet, 2);
-
 
                         LightningCounter++;
 
