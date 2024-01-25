@@ -1,18 +1,22 @@
+using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Drawing;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
     public class DicerPlantera : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/DicerMine";
+        public override string Texture => FargoSoulsUtil.VanillaTextureProjectile(ProjectileID.ThornBall);
 
         private const float range = 200;
 
@@ -80,10 +84,14 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                             }
                         }
                     }
-
+                    bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
-                        int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                        int dustID = recolor ?
+                        (Main.rand.NextBool() ? DustID.GlowingMushroom : DustID.MushroomTorch) :
+                        (Main.rand.NextBool() ? DustID.TerraBlade : DustID.ChlorophyteWeapon);
+                        Vector2 vel = Main.rand.NextVector2Circular(4, 4);
+                        int index2 = Dust.NewDust(Projectile.Center - Projectile.Size * Projectile.scale / 2, (int)(Projectile.width * Projectile.scale), (int)(Projectile.height * Projectile.scale), dustID, vel.X, vel.Y, 0, new Color(), 2f);
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].velocity *= 5f;
                     }
@@ -110,9 +118,14 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 }
                 else if (Projectile.localAI[0] == -120)
                 {
+                    bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
-                        int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                        int dustID = recolor ?
+                        (Main.rand.NextBool() ? DustID.GlowingMushroom : DustID.MushroomTorch) :
+                        (Main.rand.NextBool() ? DustID.TerraBlade : DustID.ChlorophyteWeapon);
+                        Vector2 vel = Main.rand.NextVector2Circular(4, 4);
+                        int index2 = Dust.NewDust(Projectile.Center - Projectile.Size * Projectile.scale / 2, (int)(Projectile.width * Projectile.scale), (int)(Projectile.height * Projectile.scale), dustID, vel.X, vel.Y, 0, new Color(), 2f);
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].velocity *= 5f;
                     }
@@ -178,7 +191,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[ProjectileID.ThornBall].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);

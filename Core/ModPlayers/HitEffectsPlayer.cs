@@ -21,6 +21,7 @@ using Terraria.WorldBuilding;
 using Terraria.Audio;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -31,7 +32,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (proj.hostile)
                 return;
 
-            if (SpiderEnchantActive && FargoSoulsUtil.IsSummonDamage(proj))
+            if (MinionCrits && FargoSoulsUtil.IsSummonDamage(proj))
             {
                 if (Main.rand.Next(100) < Player.ActualClassCrit(DamageClass.Summon))
                     modifiers.SetCrit();
@@ -53,30 +54,12 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 modifiers.Null();
             }
-
-            if (TungstenEnchantItem != null && proj.FargoSouls().TungstenScale != 1)
-            {
-                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers);
-            }
-
-            if (HuntressEnchantActive && proj.FargoSouls().HuntressProj == 1 && target.type != NPCID.TargetDummy)
-            {
-                HuntressEnchant.HuntressBonus(this, proj, target, ref modifiers);
-            }
-
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl"))
-            {
-                PearlwoodEnchant.PearlwoodCritReroll(Player, ref modifiers, proj.DamageType);
-            }
-
             ModifyHitNPCBoth(target, ref modifiers, proj.DamageType);
         }
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl")) {
-                PearlwoodEnchant.PearlwoodCritReroll(Player, ref modifiers, item.DamageType);
-            }
+
 
             if (SqueakyToy)
             {
@@ -88,12 +71,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Atrophied)
             {
                 modifiers.Null();
-            }
-
-            if (TungstenEnchantItem != null && Toggler != null && Player.GetToggleValue("Tungsten")
-                && (ForceEffect(TungstenEnchantItem.type) || item.shoot == ProjectileID.None))
-            {
-                TungstenEnchant.TungstenModifyDamage(Player, ref modifiers);
             }
 
             ModifyHitNPCBoth(target, ref modifiers, item.DamageType);
@@ -129,7 +106,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             SoundEngine.PlaySound(SoundID.Item147 with { Pitch = 1, Volume = 0.7f }, target.Center);
                         }
                     }
-                    if (SpiderEnchantActive && damageClass.CountsAsClass(DamageClass.Summon) && !TerrariaSoul)
+                    if (MinionCrits && damageClass.CountsAsClass(DamageClass.Summon) && !TerrariaSoul)
                         hitInfo.Damage = (int)(hitInfo.Damage * 0.75);
                 }
 
@@ -175,12 +152,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 TryAdditionalAttacks(proj.damage, proj.DamageType);
 
             OnHitNPCEither(target, hit, proj.DamageType, projectile: proj);
-
-            if (OriEnchantItem != null && proj.type == ProjectileID.FlowerPetal)
-            {
-                target.AddBuff(ModContent.BuffType<OriPoisonBuff>(), 300);
-                target.immune[proj.owner] = 2;
-            }
         }
 
         private void OnHitNPCEither(NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, Projectile projectile = null, Item item = null)
@@ -198,8 +169,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return baseDamage;
             }
 
-            
-
             if (StyxSet)
             {
                 StyxMeter += hitInfo.Damage;
@@ -207,71 +176,13 @@ namespace FargowiltasSouls.Core.ModPlayers
                     StyxTimer = 60;
             }
 
-            if (BeetleEnchantActive && Player.beetleOffense && damageClass != DamageClass.Melee)
-            {
-                Player.beetleCounter += hitInfo.Damage;
-            }
-            /*
-            if (BeeEnchantItem != null && Player.GetToggleValue("Bee") && BeeCD <= 0 && target.realLife == -1
-                && (projectile == null || (projectile.type != ProjectileID.Bee && projectile.type != ProjectileID.GiantBee && projectile.maxPenetrate != 1 && !projectile.usesLocalNPCImmunity && !projectile.usesIDStaticNPCImmunity && projectile.owner == Main.myPlayer)))
-            {
-                bool force = ForceEffect(ModContent.ItemType<BeeEnchant>());
-                if (force || Main.rand.NextBool())
-                {
-                    int beeDamage = GetBaseDamage();
-                    if (beeDamage > 0)
-                    {
-                        if (!TerrariaSoul)
-                            beeDamage = Math.Min(beeDamage, FargoSoulsUtil.HighestDamageTypeScaling(Player, 300));
 
-                        float beeKB = projectile?.knockBack ?? (item?.knockBack ?? hitInfo.Knockback);
-
-                        int p = Projectile.NewProjectile(item != null ? Player.GetSource_ItemUse(item) : projectile.GetSource_FromThis(), target.Center.X, target.Center.Y, Main.rand.Next(-35, 36) * 0.2f, Main.rand.Next(-35, 36) * 0.2f,
-                            force ? ProjectileID.GiantBee : Player.beeType(), beeDamage, Player.beeKB(beeKB), Player.whoAmI);
-                        if (p != Main.maxProjectiles)
-                            Main.projectile[p].DamageType = damageClass;
-                    }
-                    BeeCD = 15;
-                }
-            }
-            */
-
-            if (PalladEnchantItem != null && !Player.onHitRegen)
+            if (Player.HasEffect<TitaniumEffect>() && (projectile == null || projectile.type != ProjectileID.TitaniumStormShard))
             {
-                Player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
+                TitaniumEffect.TitaniumShards(this, Player);
             }
 
-            if (PearlwoodEnchantItem != null && Player.GetToggleValue("Pearl") && hitInfo.Crit)
-            {
-                SoundEngine.PlaySound(SoundID.Item25, target.position);
-                for (int i = 0; i < 30; i++) { //idk how to make dust look good (3)
-                    Dust.NewDust(target.position, target.width, target.height, DustID.YellowStarDust); 
-                }
-            }
-
-            bool wetCheck = target.HasBuff(BuffID.Wet) && Main.rand.NextBool(4);
-            if (CopperEnchantItem != null && (hitInfo.Crit || wetCheck))
-            {
-                CopperEnchant.CopperProc(this, target);
-            }
-
-            if (ShadewoodEnchantItem != null)
-            {
-                ShadewoodEnchant.ShadewoodProc(this, target, projectile);
-            }
-
-            if (TitaniumEnchantItem != null && (projectile == null || projectile.type != ProjectileID.TitaniumStormShard))
-            {
-                TitaniumEnchant.TitaniumShards(this, Player);
-            }
-
-
-            if (ObsidianEnchantItem != null && Player.GetToggleValue("Obsidian") && ObsidianCD == 0)
-            {
-                ObsidianEnchant.ObsidianProc(this, target, GetBaseDamage());
-            }
-
-            if (DevianttHeartItem != null && DevianttHeartsCD <= 0 && Player.GetToggleValue("MasoDevianttHearts")
+            if (DevianttHeartItem != null && DevianttHeartsCD <= 0 && Player.HasEffect<DevianttHearts>()
                 && (projectile == null || (projectile.type != ModContent.ProjectileType<FriendRay>() && projectile.type != ModContent.ProjectileType<FriendHeart>())))
             {
                 DevianttHeartsCD = AbomWandItem == null ? 600 : 300;
@@ -299,16 +210,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (SnowEnchantActive)
-            {
-                target.AddBuff(BuffID.Frostburn, 120);
-            }
-
-            if (RainEnchantItem != null)
-            {
-                target.AddBuff(BuffID.Wet, 180);
-            }
-
             if (GodEaterImbue)
             {
                 /*if (target.FindBuffIndex(ModContent.BuffType<GodEater>()) < 0 && target.aiStyle != 37)
@@ -320,24 +221,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }*/
                 target.AddBuff(ModContent.BuffType<GodEaterBuff>(), 420);
-            }
-
-            if (GladiatorEnchantActive && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("Gladiator") && GladiatorCD <= 0 && (projectile == null || projectile.type != ModContent.ProjectileType<GladiatorJavelin>()))
-            {
-                GladiatorEnchant.GladiatorSpearDrop(this, target, GetBaseDamage());
-            }
-
-            if (SolarEnchantActive && Player.GetToggleValue("SolarFlare") && Main.rand.NextBool(4))
-                target.AddBuff(ModContent.BuffType<SolarFlareBuff>(), 300);
-
-            if (TinEnchantItem != null)
-            {
-                TinEnchant.TinOnHitEnemy(this, hitInfo);
-            }
-
-            if (LeadEnchantItem != null)
-            {
-                target.AddBuff(ModContent.BuffType<LeadPoisonBuff>(), 30);
             }
 
 
@@ -396,105 +279,14 @@ namespace FargowiltasSouls.Core.ModPlayers
                     target.AddBuff(BuffID.Ichor, 360);
             }
 
-            if (!TerrariaSoul)
-            {
-                if (AncientShadowEnchantActive && Player.GetToggleValue("AncientShadow") && (projectile == null || projectile.type != ProjectileID.ShadowFlame) && Main.rand.NextBool(5))
-                    target.AddBuff(BuffID.Darkness, 600, true);
-            }
-
             if (Supercharged)
             {
                 target.AddBuff(BuffID.Electrified, 240);
                 target.AddBuff(ModContent.BuffType<LightningRodBuff>(), 60);
             }
 
-            if (GoldEnchantActive)
-                target.AddBuff(BuffID.Midas, 120, true);
-
-            if (DragonFang && !target.boss && !target.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] && Main.rand.NextBool(10))
-            {
-                target.velocity.X = 0f;
-                target.velocity.Y = 10f;
-                target.AddBuff(ModContent.BuffType<ClippedWingsBuff>(), 240);
-                target.netUpdate = true;
-            }
-
-            if (SpectreEnchantActive && Player.GetToggleValue("Spectre") && !target.immortal && SpectreCD <= 0 && Main.rand.NextBool())
-            {
-                bool spectreForceEffect = ForceEffect(ModContent.ItemType<SpectreEnchant>());
-                if (projectile == null)
-                {
-                    //forced orb spawn reeeee
-                    float num = 4f;
-                    float speedX = Main.rand.Next(-100, 101);
-                    float speedY = Main.rand.Next(-100, 101);
-                    float num2 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
-                    num2 = num / num2;
-                    speedX *= num2;
-                    speedY *= num2;
-                    Projectile p = FargoSoulsUtil.NewProjectileDirectSafe(Player.GetSource_Misc(""), target.position, new Vector2(speedX, speedY), ProjectileID.SpectreWrath, hitInfo.Damage / 2, 0, Player.whoAmI, target.whoAmI);
-
-                    if ((spectreForceEffect || (hitInfo.Crit && Main.rand.NextBool(5))) && p != null)
-                    {
-                        SpectreHeal(target, p);
-                        SpectreCD = spectreForceEffect ? 5 : 20;
-                    }
-                }
-                else if (projectile.type != ProjectileID.SpectreWrath)
-                {
-                    SpectreHurt(projectile);
-
-                    if (spectreForceEffect || (hitInfo.Crit && Main.rand.NextBool(5)))
-                        SpectreHeal(target, projectile);
-
-                    SpectreCD = spectreForceEffect ? 5 : 20;
-                }
-            }
-
-            if (AbomWandItem != null)
-            {
-                //target.AddBuff(ModContent.BuffType<OceanicMaul>(), 900);
-                //target.AddBuff(ModContent.BuffType<CurseoftheMoon>(), 900);
-                if (hitInfo.Crit && AbomWandCD <= 0 && Player.GetToggleValue("MasoFishron") && (projectile == null || projectile.type != ModContent.ProjectileType<AbomScytheFriendly>()))
-                {
-                    AbomWandCD = 360;
-
-                    float screenX = Main.screenPosition.X;
-                    if (Player.direction < 0)
-                        screenX += Main.screenWidth;
-                    float screenY = Main.screenPosition.Y;
-                    screenY += Main.rand.Next(Main.screenHeight);
-                    Vector2 spawn = new(screenX, screenY);
-                    Vector2 vel = target.Center - spawn;
-                    vel.Normalize();
-                    vel *= 27f;
-
-                    int dam = 150;
-                    if (MutantEyeItem != null)
-                        dam *= 3;
-
-                    if (projectile != null && FargoSoulsUtil.IsSummonDamage(projectile))
-                    {
-                        int p = FargoSoulsUtil.NewSummonProjectile(Player.GetSource_Accessory(AbomWandItem), spawn, vel, ModContent.ProjectileType<SpectralAbominationn>(), dam, 10f, Player.whoAmI, target.whoAmI);
-                        if (p != Main.maxProjectiles)
-                            Main.projectile[p].DamageType = DamageClass.Summon;
-                    }
-                    else
-                    {
-                        dam = (int)(dam * Player.ActualClassDamage(damageClass));
-
-                        int p = Projectile.NewProjectile(Player.GetSource_Accessory(AbomWandItem), spawn, vel, ModContent.ProjectileType<SpectralAbominationn>(), dam, 10f, Player.whoAmI, target.whoAmI);
-                        if (p != Main.maxProjectiles)
-                            Main.projectile[p].DamageType = damageClass;
-                    }
-                }
-            }
-
             if (DarkenedHeartItem != null)
                 DarkenedHeartAttack(projectile);
-
-            if (NebulaEnchantActive)
-                NebulaOnHit(target, projectile, damageClass);
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
@@ -521,8 +313,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             float dr = 0;
             dr += NecromanticBrew.NecroBrewDashDR(Player);
 
-            dr += TitaniumEnchant.TitaniumDR(this, npc);
-
             if (npc.FargoSouls().Corrupted || npc.FargoSouls().CorruptedForce)
                 dr += 0.2f;
 
@@ -541,27 +331,24 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (npc.FargoSouls().CurseoftheMoon)
                 dr += 0.2f;
 
+            dr += Player.AccessoryEffects().ContactDamageDR(npc, ref modifiers);
+
             ApplyDR(Player, dr, ref modifiers);
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             float dr = 0;
-            if (GroundStick)
-            {
-                dr += GroundStickDR(proj, ref modifiers);
-            }
 
             dr += NecromanticBrew.NecroBrewDashDR(Player);
-
-            dr += TitaniumEnchant.TitaniumDR(this, proj);
-
 
             if (Smite)
                 dr -= 0.2f;
 
             if (proj.coldDamage && Hypothermia)
                 dr -= 0.2f;
+
+            dr += Player.AccessoryEffects().ProjectileDamageDR(proj, ref modifiers);
 
             ApplyDR(Player, dr, ref modifiers);
         }
@@ -622,7 +409,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (BetsyDashing || GoldShell)
                 return false;
-            if (PrecisionSealHurtbox && !proj.Colliding(proj.Hitbox, GetPrecisionHurtbox()))
+            if (Player.HasEffect<PrecisionSealHurtbox>() && !proj.Colliding(proj.Hitbox, GetPrecisionHurtbox()))
                 return false;
             return true;
         }
@@ -640,7 +427,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (DeathMarked)
                 modifiers.FinalDamage *= 1.5f;
 
-            if (Player.whoAmI == Main.myPlayer && !noDodge && SqueakyAcc && Player.GetToggleValue("MasoSqueak") && Main.rand.NextBool(10))
+            if (Player.whoAmI == Main.myPlayer && !noDodge && Player.HasEffect<SqueakEffect>() && Main.rand.NextBool(10))
             {
                 Squeak(Player.Center);
                 modifiers.SetMaxDamage(1);
@@ -680,39 +467,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 20);
             }
         }
-        public void OnHurtEffects(double damage)
-        {
-            if (HurtTimer <= 0)
-            {
-                HurtTimer = 20;
-
-                if (CelestialRuneItem != null && Player.GetToggleValue("MasoVision"))
-                {
-                    if (MoonChalice)
-                    {
-                        int dam = 50;
-                        if (MasochistSoul)
-                            dam *= 2;
-                        for (int i = 0; i < 5; i++)
-                        {
-                            Projectile.NewProjectile(Player.GetSource_Accessory(CelestialRuneItem), Player.Center, Main.rand.NextVector2Circular(20, 20),
-                                    ModContent.ProjectileType<AncientVision>(), (int)(dam * Player.ActualClassDamage(DamageClass.Summon)), 6f, Player.whoAmI);
-                        }
-                    }
-                    else
-                    {
-                        Projectile.NewProjectile(Player.GetSource_Accessory(CelestialRuneItem), Player.Center, new Vector2(0, -10), ModContent.ProjectileType<AncientVision>(),
-                            (int)(40 * Player.ActualClassDamage(DamageClass.Summon)), 3f, Player.whoAmI);
-                    }
-                }
-            }
-
-            if (CobaltEnchantItem != null)
-                CobaltEnchant.CobaltHurt(Player, damage);
-
-            if (FossilEnchantItem != null)
-                FossilEnchant.FossilHurt(this, (int)damage);
-        }
 
         public override void OnHurt(Player.HurtInfo info)
         {
@@ -744,17 +498,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     NekomiMeter = 0;
             }
 
-            if (BeetleEnchantActive)
-                BeetleHurt();
-
-            if (TinEnchantItem != null)
-                TinEnchant.TinHurt(this);
-
-            if (CrimsonEnchantActive && Player.GetToggleValue("Crimson"))
-            {
-                CrimsonEnchant.CrimsonHurt(Player, this, ref info);
-            }
-
             if (ShellHide)
             {
                 TurtleShellHP--;
@@ -771,8 +514,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Main.dust[d].velocity = vector7;
                 }
             }
-
-            OnHurtEffects(info.Damage);
 
             if (Midas && Main.myPlayer == Player.whoAmI)
                 Player.DropCoins();

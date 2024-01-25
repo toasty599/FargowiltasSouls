@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
             {
                 foreach (Projectile tornado in Main.projectile.Where(p => p.active && p.type == ModContent.ProjectileType<FishStickProjTornado>()))
                 {
-                    if (player.altFunctionUse == 2)
+                    if (player.altFunctionUse == 2 || player.ownedProjectileCounts[ModContent.ProjectileType<FishStickProjTornado>()] > 1)
                     {
                         tornado.Kill();
                     }

@@ -26,13 +26,13 @@ namespace FargowiltasSouls.Core.Systems
             orig.Invoke(player, keyDir);
             if (keyDir == (Main.ReversedUpDownArmorSetBonuses ? 1 : 0))
             {
-                GladiatorEnchant.ActivateGladiatorBanner(player);
-                PalmWoodEnchant.ActivatePalmwoodSentry(player);
+                GladiatorBanner.ActivateGladiatorBanner(player);
+                PalmwoodEffect.ActivatePalmwoodSentry(player);
                 EridanusHat.EridanusSetBonusKey(player);
                 GaiaHelmet.GaiaSetBonusKey(player);
                 NekomiHood.NekomiSetBonusKey(player);
                 StyxCrown.StyxSetBonusKey(player);
-                ForbiddenEnchant.ActivateForbiddenStorm(player);
+                ForbiddenEffect.ActivateForbiddenStorm(player);
                 VortexEnchant.ActivateVortex(player);
             }
 

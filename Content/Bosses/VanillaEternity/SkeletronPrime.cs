@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -33,6 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public int RocketTimer;
         public bool DroppedSummon;
         public bool HasSaidEndure;
+        public bool EndSpin;
 
         public int limbTimer = 0; //1.4.4 used npc.ai[3] for managing mechdusa whoAmI, so this has to be moved to own variable
 
@@ -46,6 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             binaryWriter.Write7BitEncodedInt(limbTimer);
             bitWriter.WriteBit(FullySpawnedLimbs);
             bitWriter.WriteBit(HaveShotGuardians);
+            bitWriter.WriteBit(EndSpin);
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
@@ -57,6 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             limbTimer = binaryReader.Read7BitEncodedInt();
             FullySpawnedLimbs = bitReader.ReadBit();
             HaveShotGuardians = bitReader.ReadBit();
+            EndSpin = bitReader.ReadBit();
         }
 
         public override void SetDefaults(NPC npc)
@@ -164,22 +168,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
-            if (npc.ai[0] != 2f) //in phase 1
-            {
-                if (npc.life < npc.lifeMax * .8) //enter phase 2
-                {
-                    npc.ai[0] = 2f;
-
-                    SoundEngine.PlaySound(SoundID.Roar, npc.Center);
-                    return result;
-                }
-            }
-            else //in phase 2
+            if (npc.ai[0] == 2) //in phase 2
             {
                 npc.dontTakeDamage = false;
 
                 if (npc.ai[1] == 1f && npc.ai[2] > 2f) //spinning
                 {
+                    EndSpin = true;
                     //if (npc.HasValidTarget) npc.position += npc.DirectionTo(Main.player[npc.target].Center) * 5;
 
                     if (++ProjectileAttackTimer > 90) //projectile attack
@@ -220,7 +215,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     }
                     if (!Main.dayTime)
                     {
-                        npc.rotation += MathHelper.Pi / 12;
+                        npc.rotation += MathHelper.Pi / 6;
                     }
                     
                     if (!Main.dayTime && !WorldSavingSystem.MasochistModeReal)
@@ -232,13 +227,23 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
                 else //not spinning
                 {
+                    if (EndSpin) // frame after spin ends
+                    {
+                        EndSpin = false;
+                        if (npc.HasPlayerTarget)
+                        {
+                            float dist = npc.Distance(Main.player[npc.target].Center);
+                            npc.velocity *= Math.Max(1 - (dist / 800), 0.5f);
+                            npc.velocity = -npc.velocity;
+                        }
+                    }
                     ProjectileAttackTimer = 0; //buffer this for spin
 
                     npc.position += npc.velocity / 4f;
                 }
 
                 //spawn 4 more limbs
-                if (!FullySpawnedLimbs && (npc.life < npc.lifeMax * 0.6 || WorldSavingSystem.MasochistModeReal) && npc.ai[3] >= 0f)
+                if (!FullySpawnedLimbs && (npc.life < npc.lifeMax * 0.6 || WorldSavingSystem.MasochistModeReal) && npc.ai[1] == 0f && npc.ai[3] >= 0f) // cannot go p3 while spinning
                 {
                     if (limbTimer == 0)
                     {
@@ -259,7 +264,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (!NPC.AnyNPCs(NPCID.PrimeVice))
                             FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.PrimeVice, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
 
-                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeRegrow", new Color(175, 75, 255));
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.RegrowArms", new Color(175, 75, 255), npc.FullName);
+
+                        foreach (NPC l in Main.npc.Where(l => l.active && l.ai[1] == npc.whoAmI )) // 2 seconds of no contact damage on phase transition
+                        {
+                            if (l.TryGetGlobalNPC(out PrimeLimb limb) && limb.NoContactDamageTimer < 60 * 3)
+                                limb.NoContactDamageTimer = 60 * 3;
+                        }
                     }
 
                     limbTimer++;
@@ -322,6 +333,18 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
+            //repulsed by player whenever too close
+            const float minDist = 300;
+            float distance = npc.Distance(Main.player[npc.target].Center);
+            if (npc.HasValidTarget && distance < minDist)
+            {
+                if (!(npc.ai[1] == 1f && npc.ai[2] > 2f) || npc.ai[1] == 2) // when not spinning or dg phase
+                {
+                    float pushStrength = 1f * (1 - distance / minDist);
+                    npc.velocity -= pushStrength * npc.DirectionTo(Main.player[npc.target].Center);
+                }
+            }
+
             //accel at player whenever out of range
             if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) > 900)
             {
@@ -332,7 +355,22 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             return result;
         }
+        public override void SafePostAI(NPC npc)
+        {
+            // this is here because if you go phase 2 before AI on first frame, his hands won't spawn lol
+            // it's also kept for structural reasons, and since phase 1 still exists in masomode
+            if (npc.ai[0] != 2f) //go phase 2 instantly
+            {
+                float threshold = WorldSavingSystem.MasochistModeReal ? 0.8f : 1f;  //instant in emode, 80% in maso
+                if (npc.life <= npc.lifeMax * threshold /*.8*/)
+                {
+                    npc.ai[0] = 2f;
 
+                    //SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+                    return;
+                }
+            }
+        }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, hurtInfo);
@@ -359,7 +397,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (!HasSaidEndure)
                 {
                     HasSaidEndure = true;
-                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeGuardian", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.GuardianForm", new Color(175, 75, 255), npc.FullName);
                 }
 
                 if (!WorldSavingSystem.MasochistModeReal)
@@ -566,6 +604,93 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             bool useNormalAi = false;
 
+            bool SwipeLimbAI() // returns false if it should cancel AI
+            {
+                npc.damage = (int)(head.defDamage * 1.25);
+
+                //only selfdestruct once prime is done spawning limbs
+                if (npc.life == 1 && head.GetGlobalNPC<SkeletronPrime>().FullySpawnedLimbs)
+                {
+                    npc.dontTakeDamage = false; //for client side so you can hit the limb and update this
+                    if (FargoSoulsUtil.HostCheck)
+                    {
+                        npc.life = 0;
+                        npc.HitEffect();
+                        npc.active = false;
+                        if (Main.netMode == NetmodeID.Server)
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                        return false;
+                    }
+                }
+
+                if (!ModeReset)
+                {
+                    ModeReset = true;
+                    switch (npc.type)
+                    {
+                        case NPCID.PrimeCannon: IdleOffsetX = -1; IdleOffsetY = -1; break;
+                        case NPCID.PrimeLaser: IdleOffsetX = 1; IdleOffsetY = -1; break;
+                        case NPCID.PrimeSaw: IdleOffsetX = -1; IdleOffsetY = 1; break;
+                        case NPCID.PrimeVice: IdleOffsetX = 1; IdleOffsetY = 1; break;
+                        default: break;
+                    }
+                    npc.netUpdate = true;
+                }
+
+                if (++npc.ai[2] < 180)
+                {
+                    Vector2 offset = new(400 * IdleOffsetX, 400 * IdleOffsetY);
+                    if (CardinalSwipe)
+                        offset = offset.RotatedBy(MathHelper.PiOver4);
+
+                    Vector2 target = Main.player[npc.target].Center + offset;
+                    npc.velocity = (target - npc.Center) / 30;
+
+                    if (npc.ai[2] == 140)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item15 with { Volume = 1.5f }, npc.Center);
+
+                        if (FargoSoulsUtil.HostCheck)
+                        {
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 0);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+                        }
+                    }
+
+                    //npc.damage = 0;
+                    if (NoContactDamageTimer < 2)
+                        NoContactDamageTimer = 2;
+                }
+                else if (npc.ai[2] == 180)
+                {
+                    SoundEngine.PlaySound(SoundID.Item18 with { Volume = 1.25f }, npc.Center);
+                    npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * 20f;
+                    IdleOffsetX *= -1;
+                    IdleOffsetY *= -1;
+
+                    CardinalSwipe = !CardinalSwipe;
+
+                    npc.netUpdate = true;
+                }
+                else if (npc.ai[2] < 210)
+                {
+
+                }
+                else
+                {
+                    npc.ai[2] = head.ai[1] == 1 || head.ai[1] == 2 ? 0 : -90;
+
+                    if (WorldSavingSystem.MasochistModeReal)
+                        npc.ai[2] += 60;
+
+                    npc.netUpdate = true;
+                }
+
+                npc.rotation = head.DirectionTo(npc.Center).ToRotation() - (float)Math.PI / 2;
+
+                return true;
+            }
+
             if (head.ai[0] == 2f) //phase 2
             {
                 npc.target = head.target;
@@ -574,87 +699,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 if (IsSwipeLimb) //swipe AI
                 {
-                    npc.damage = (int)(head.defDamage * 1.25);
-
-                    //only selfdestruct once prime is done spawning limbs
-                    if (npc.life == 1 && head.GetGlobalNPC<SkeletronPrime>().FullySpawnedLimbs)
-                    {
-                        npc.dontTakeDamage = false; //for client side so you can hit the limb and update this
-                        if (FargoSoulsUtil.HostCheck)
-                        {
-                            npc.life = 0;
-                            npc.HitEffect();
-                            npc.active = false;
-                            if (Main.netMode == NetmodeID.Server)
-                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
-                            return false;
-                        }
-                    }
-
-                    if (!ModeReset)
-                    {
-                        ModeReset = true;
-                        switch (npc.type)
-                        {
-                            case NPCID.PrimeCannon: IdleOffsetX = -1; IdleOffsetY = -1; break;
-                            case NPCID.PrimeLaser: IdleOffsetX = 1; IdleOffsetY = -1; break;
-                            case NPCID.PrimeSaw: IdleOffsetX = -1; IdleOffsetY = 1; break;
-                            case NPCID.PrimeVice: IdleOffsetX = 1; IdleOffsetY = 1; break;
-                            default: break;
-                        }
-                        npc.netUpdate = true;
-                    }
-
-                    if (++npc.ai[2] < 180)
-                    {
-                        Vector2 offset = new(400 * IdleOffsetX, 400 * IdleOffsetY);
-                        if (CardinalSwipe)
-                            offset = offset.RotatedBy(MathHelper.PiOver4);
-
-                        Vector2 target = Main.player[npc.target].Center + offset;
-                        npc.velocity = (target - npc.Center) / 30;
-
-                        if (npc.ai[2] == 140)
-                        {
-                            SoundEngine.PlaySound(SoundID.Item15 with { Volume = 1.5f }, npc.Center);
-
-                            if (FargoSoulsUtil.HostCheck)
-                            {
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<PrimeTrail>(), 0, 0f, Main.myPlayer, npc.whoAmI, 0);
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
-                            }
-                        }
-
-                        //npc.damage = 0;
-                        if (NoContactDamageTimer < 2)
-                            NoContactDamageTimer = 2;
-                    }
-                    else if (npc.ai[2] == 180)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item18 with { Volume = 1.25f }, npc.Center);
-                        npc.velocity = npc.DirectionTo(Main.player[npc.target].Center) * 20f;
-                        IdleOffsetX *= -1;
-                        IdleOffsetY *= -1;
-
-                        CardinalSwipe = !CardinalSwipe;
-
-                        npc.netUpdate = true;
-                    }
-                    else if (npc.ai[2] < 210)
-                    {
-
-                    }
-                    else
-                    {
-                        npc.ai[2] = head.ai[1] == 1 || head.ai[1] == 2 ? 0 : -90;
-
-                        if (WorldSavingSystem.MasochistModeReal)
-                            npc.ai[2] += 60;
-
-                        npc.netUpdate = true;
-                    }
-
-                    npc.rotation = head.DirectionTo(npc.Center).ToRotation() - (float)Math.PI / 2;
+                    if (!SwipeLimbAI())
+                        return false;
                 }
                 else if (head.ai[1] == 1 || head.ai[1] == 2) //other limbs while prime spinning
                 {
@@ -730,7 +776,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         AttackTimer = -30; //extra delay before initiating melee attacks after spin
 
-                        NoContactDamageTimer = 60; //disable contact damage for 1sec after spin is over
+                        NoContactDamageTimer = 100; //disable contact damage for a bit after spin is over
 
                         npc.netUpdate = true;
                     }
@@ -948,16 +994,25 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
                 return useNormalAi;
             }
-
             return true;
         }
-
-        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot) => NoContactDamageTimer <= 0;
+        public override bool? CanBeHitByItem(NPC npc, Player player, Item item) => NoContactDamageTimer <= 0 ? null : false;
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile) => NoContactDamageTimer <= 0 ? null : false;
+        public override bool CanBeHitByNPC(NPC npc, NPC attacker)  => NoContactDamageTimer <= 0;
+        public override bool ModifyCollisionData(NPC npc, Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
         {
-            return NoContactDamageTimer <= 0;
+            if (NoContactDamageTimer > 0)
+                npcHitbox = new();
+            return base.ModifyCollisionData(npc, victimHitbox, ref immunityCooldownSlot, ref damageMultiplier, ref npcHitbox);
         }
-
-        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
+        public override Color? GetAlpha(NPC npc, Color drawColor)
+        {
+            if (NoContactDamageTimer > 0)
+                drawColor *= 0.5f;
+            return base.GetAlpha(npc, drawColor);
+        }
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo) 
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 

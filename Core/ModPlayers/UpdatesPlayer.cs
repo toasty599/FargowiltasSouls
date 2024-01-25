@@ -2,9 +2,11 @@
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -18,6 +20,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using FargowiltasSouls.Content.Items.Consumables;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -26,6 +29,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void PreUpdate()
         {
             Toggler.TryLoad();
+
 
             if (Player.CCed)
             {
@@ -107,7 +111,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.maxFallSpeed *= 10;
                     Player.gravity = 8;
                     //deactivate hover or those mounts refuse to dash down
-                    Player.mount._data.usesHover = false;
+                    //Player.mount._data.usesHover = false;
                 }
 
                 if (MonkDashing == 0 && Player.mount.Active)
@@ -115,7 +119,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.velocity *= 0.5f;
 
                     //add hover back
-                    Player.mount._data.usesHover = BaseSquireMountData.usesHover;
+                   // Player.mount._data.usesHover = BaseSquireMountData.usesHover;
                 }
             }
         }
@@ -135,7 +139,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 //regular OnRespawn() doesnt account for lifeforce, and is lowered by dying with oceanic maul
             }
 
-            if (SquireEnchantItem == null && BaseMountType != -1)
+            if (SquireEnchantActive && BaseMountType != -1)
             {
                 SquireEnchant.ResetMountStats(this);
             }
@@ -161,15 +165,9 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateEquips()
         {
-            if (MahoganyEnchantItem != null)
-                RichMahoganyEnchant.PostUpdate(Player);
+            if (DeerSinew)
+                Player.AddEffect<DeerSinewEffect>(ModContent.GetInstance<DeerSinew>().Item);
 
-            if (MeteorMomentum && !NoMomentum && !Player.mount.Active) //overriden by nomomentum
-            {
-                Player.runAcceleration *= 1.3f;
-                Player.runSlowdown *= 1.3f;
-
-            }
             if (NoMomentum && !Player.mount.Active)
             {
                 if (Player.vortexStealthActive && Math.Abs(Player.velocity.X) > 6)
@@ -181,44 +179,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (!IsStillHoldingInSameDirectionAsMovement)
                     Player.runSlowdown += 7f;
             }
-            if (PearlwoodEnchantItem != null)
-            {
-                PearlwoodEnchant.PearlwoodStar(Player, PearlwoodEnchantItem);
-            }
-            if (ApprenticeEnchantItem != null)
-            {
-                ApprenticeEnchant.ApprenticeSupport(Player);
-            }
             if (TribalCharmEquipped)
             {
                 Content.Items.Accessories.Masomode.TribalCharm.Effects(this);
-            }
-
-            if (PungentEyeball && Player.whoAmI == Main.myPlayer && Player.GetToggleValue("MasoPungentCursor"))
-            {
-                const float distance = 16 * 5;
-
-                foreach (NPC n in Main.npc.Where(n => n.active && !n.dontTakeDamage && n.lifeMax > 5 && !n.friendly))
-                {
-                    if (Vector2.Distance(Main.MouseWorld, FargoSoulsUtil.ClosestPointInHitbox(n.Hitbox, Main.MouseWorld)) < distance)
-                    {
-                        n.AddBuff(ModContent.BuffType<PungentGazeBuff>(), 2, true);
-                    }
-                }
-
-                for (int i = 0; i < 32; i++)
-                {
-                    Vector2 spawnPos = Main.MouseWorld + Main.rand.NextVector2CircularEdge(distance, distance);
-                    Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, DustID.GemRuby, 0, 0, 100, Color.White)];
-                    dust.scale = 0.5f;
-                    dust.velocity = Vector2.Zero;
-                    if (Main.rand.NextBool(3))
-                    {
-                        dust.velocity += Vector2.Normalize(Main.MouseWorld - dust.position) * Main.rand.NextFloat(5f);
-                        dust.position += dust.velocity * 5f;
-                    }
-                    dust.noGravity = true;
-                }
             }
 
             if (DarkenedHeartItem != null)
@@ -227,16 +190,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.runSlowdown += 0.2f;
             }
 
-            if (!StardustEnchantActive)
+            if (!Player.HasEffect<StardustEffect>())
                 FreezeTime = false;
 
-            if (TungstenEnchantItem != null && TungstenCD > 0)
-                TungstenCD--;
-
             UpdateShield();
-
-            if (ShadowEnchantActive)
-                ShadowEffectPostEquips();
 
             Player.wingTimeMax = (int)(Player.wingTimeMax * WingTimeModifier);
 
@@ -282,9 +239,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.GetArmorPenetration(DamageClass.Generic) += 10;
             }
 
-            if (BeetleEnchantDefenseTimer > 0)
-                BeetleEnchantDefenseTimer--;
-
             if (RabiesVaccine)
                 Player.buffImmune[BuffID.Rabies] = true;
 
@@ -318,8 +272,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (GuttedHeart)
-                GuttedHeartEffect();
 
             if (Player.velocity.Y == 0) //practically, if on the ground or hooked or similar
             {
@@ -329,45 +281,18 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (SlimyShieldItem != null || LihzahrdTreasureBoxItem != null || GelicWingsItem != null)
                 OnLandingEffects();
 
-            if (AgitatingLensItem != null)
-                AgitatingLensEffect();
-
-            if (WretchedPouchItem != null)
-                WretchedPouchEffect();
-
-            if (PalladEnchantItem != null)
-                PalladiumEnchant.PalladiumUpdate(this);
-
             if (noDodge)
             {
                 Player.onHitDodge = false;
                 Player.shadowDodge = false;
                 Player.blackBelt = false;
                 Player.brainOfConfusionItem = null;
-                GuttedHeart = false;
             }
 
             #region dashes
 
             if (Player.dashType != 0)
                 HasDash = true;
-
-            if (SolarEnchantActive)
-                SolarEffect();
-
-            if (ShinobiEnchantActive)
-                ShinobiDashChecks();
-
-            if (JungleEnchantActive)
-                JungleEffect();
-
-            if (DeerSinew)
-                DeerSinewEffect();
-
-            if (LihzahrdTreasureBoxItem != null)
-                LihzahrdTreasureBoxUpdate();
-
-            #endregion dashes
 
             if (PrecisionSealNoDashNoJump)
             {
@@ -380,7 +305,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.GetJumpState(ExtraJump.UnicornMount).Disable();
                 JungleJumping = false;
                 CanJungleJump = false;
-                dashCD = 2;
+                DashCD = 2;
                 IsDashingTimer = 0;
                 HasDash = false;
                 Player.dashDelay = 10;
@@ -388,13 +313,21 @@ namespace FargowiltasSouls.Core.ModPlayers
                 if (lihzahrdFallCD < 2)
                     lihzahrdFallCD = 2;
             }
+            if (Player.dashDelay > 0 && DashCD > 0)
+                Player.dashDelay = Math.Max(DashCD, Player.dashDelay);
+
+            DashManager.AddDashes(Player);
 
             DashManager.ManageDashes(Player);
 
-            if (DeerclawpsItem != null && IsInADashState)
-                DeerclawpsAttack(Player.Bottom);
+            if (LihzahrdTreasureBoxItem != null)
+                LihzahrdTreasureBoxUpdate();
+            if (Player.HasEffect<DeerclawpsEffect>() && IsInADashState)
+                DeerclawpsEffect.DeerclawpsAttack(Player, Player.Bottom);
 
-            if (NecromanticBrewItem != null && IsInADashState && Player.GetToggleValue("MasoSkeleSpin"))
+            #endregion dashes
+
+            if (NecromanticBrewItem != null && IsInADashState && Player.HasEffect<NecroBrewSpin>())
             {
                 //if (NecromanticBrewRotation == 0)
                 //{
@@ -484,21 +417,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Anticoagulation)
                 DamageOverTime(4, true);
 
-            if (Player.onFire && Player.FargoSouls().AshWoodEnchantItem != null)
+            if (Player.onFire && Player.HasEffect<AshWoodEffect>())
             {
                 Player.lifeRegen += 8;
             }
 
             if (Player.lifeRegen < 0)
             {
-                if (LeadEnchantItem != null && ForceEffect(LeadEnchantItem.type))
-                {
-                    Player.lifeRegen = (int)(Player.lifeRegen * 0.4f);
-                }
-                else if (LeadEnchantItem != null)
-                {
-                    Player.lifeRegen = (int)(Player.lifeRegen * 0.6f);
-                }
+                LeadEffect.ProcessLeadEffectLifeRegen(Player);
 
                 FusedLensCanDebuff = true;
             }
@@ -517,16 +443,14 @@ namespace FargowiltasSouls.Core.ModPlayers
             FargoSoulsPlayer modPlayer = Player.FargoSouls();
 
             //these are here so that emode minion nerf can properly detect the real set bonuses over in EModePlayer postupdateequips
-            if (SquireEnchantItem != null)
+            if (SquireEnchantActive)
                 Player.setSquireT2 = true;
-
-            if (ValhallaEnchantItem != null)
+            if (ValhallaEnchantActive)
                 Player.setSquireT3 = true;
 
-            if (ApprenticeEnchantItem != null)
+            if (ApprenticeEnchantActive)
                 Player.setApprenticeT2 = true;
-
-            if (DarkArtistEnchantItem != null)
+            if (DarkArtistEnchantActive)
                 Player.setApprenticeT3 = true;
 
             if (MonkEnchantActive)
@@ -576,11 +500,10 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (HallowHealTime > 0)
             {
-                bool hallowForce = HallowEnchantItem != null ? modPlayer.ForceEffect(HallowEnchantItem.type) : false;
-                int healDelay = 60;
-                int heal = hallowForce ? 17 : 14;
-                if (HallowEnchantItem != null && HallowHealTime % healDelay == 0)
+                const int healDelay = 60;
+                if (Player.HasEffect<HallowEffect>() && HallowHealTime % healDelay == 0)
                 {
+                    int heal = Player.ForceEffect<HallowEffect>() ? 17 : 14;
                     Player.Heal(heal);
                 }
                 HallowHealTime--;
@@ -591,11 +514,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (HealTimer > 0)
                 HealTimer--;
 
-            if (TinEnchantItem != null)
-                TinEnchant.TinPostUpdate(this);
-
-            if (NebulaEnchantActive)
-                NebulaEffect();
 
             if (LowGround)
             {
@@ -603,8 +521,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.waterWalk2 = false;
             }
 
-            if (dashCD > 0)
-                dashCD--;
+            if (DashCD > 0)
+                DashCD--;
 
             if (ReallyAwfulDebuffCooldown > 0)
                 ReallyAwfulDebuffCooldown--;
@@ -638,8 +556,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                     CirnoGrazeCounter--;
             }
 
-            if (StabilizedGravity && Player.GetToggleValue("MasoGrav2", false))
-                Player.gravity = Math.Max(Player.gravity, Player.defaultGravity);
 
             if (Atrophied)
             {
@@ -732,7 +648,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             else if (UniverseSoul)
                 Player.statManaMax2 += 300;
 
-            if (AdditionalAttacks && AdditionalAttacksTimer > 0)
+            if (Player.HasEffect<CelestialRuneAttacks>() && AdditionalAttacksTimer > 0)
                 AdditionalAttacksTimer--;
 
             if (MutantPresence || DevianttPresence)
@@ -752,43 +668,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
 
             StatLifePrevious = Player.statLife;
-
-            if (TitaniumDRBuff && prevDyes == null)
-            {
-                prevDyes = new List<int>();
-                int reflectiveSilver = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
-
-                for (int i = 0; i < Player.dye.Length; i++)
-                {
-                    prevDyes.Add(Player.dye[i].dye);
-                    Player.dye[i].dye = reflectiveSilver;
-                }
-
-                for (int j = 0; j < Player.miscDyes.Length; j++)
-                {
-                    prevDyes.Add(Player.miscDyes[j].dye);
-                    Player.miscDyes[j].dye = reflectiveSilver;
-                }
-
-                Player.UpdateDyes();
-            }
-            else if (!Player.HasBuff(ModContent.BuffType<TitaniumDRBuff>()) && prevDyes != null)
-            {
-                for (int i = 0; i < Player.dye.Length; i++)
-                {
-                    Player.dye[i].dye = prevDyes[i];
-                }
-
-                for (int j = 0; j < Player.miscDyes.Length; j++)
-                {
-                    Player.miscDyes[j].dye = prevDyes[j + Player.dye.Length];
-                }
-
-                Player.UpdateDyes();
-
-                prevDyes = null;
-            }
-
         }
     }
 }

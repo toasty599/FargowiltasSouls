@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -60,12 +61,9 @@ Summons 2 Skeletron arms to whack enemies
             //slimy shield
             player.buffImmune[BuffID.Slimed] = true;
 
-            if (player.GetToggleValue("SlimeFalling"))
-            {
-                player.maxFallSpeed *= 1.5f;
-            }
+            player.AddEffect<SlimeFallEffect>(Item);
 
-            if (player.GetToggleValue("MasoSlime"))
+            if (player.AddEffect<SlimyShieldEffect>(Item))
             {
                 player.FargoSouls().SlimyShieldItem = Item;
             }
@@ -73,7 +71,8 @@ Summons 2 Skeletron arms to whack enemies
             //agitating lens
             player.buffImmune[ModContent.BuffType<BerserkedBuff>()] = true;
             //player.GetDamage(DamageClass.Generic) += 0.1f;
-            fargoPlayer.AgitatingLensItem = Item;
+            player.AddEffect<AgitatingLensEffect>(Item);
+            player.AddEffect<AgitatingLensInstall>(Item);
 
             //queen stinger
             player.buffImmune[ModContent.BuffType<InfestedBuff>()] = true;
@@ -90,8 +89,8 @@ Summons 2 Skeletron arms to whack enemies
             //necromantic brew
             player.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;
             fargoPlayer.NecromanticBrewItem = Item;
-            if (player.GetToggleValue("MasoSkele"))
-                player.AddBuff(ModContent.BuffType<SkeletronArmsBuff>(), 2);
+            player.AddEffect<NecroBrewSpin>(Item);
+            player.AddEffect<SkeleMinionEffect>(Item);
         }
 
         public override void AddRecipes()

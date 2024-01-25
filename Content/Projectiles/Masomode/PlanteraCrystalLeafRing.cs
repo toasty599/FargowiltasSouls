@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -25,9 +27,14 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (++Projectile.localAI[0] == 0)
             {
+                bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
-                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Main.rand.NextBool() ? 107 : 157, 0f, 0f, 0, new Color(), 2f);
+                    int dustID = recolor ? 
+                        (Main.rand.NextBool() ? DustID.GlowingMushroom : DustID.MushroomTorch) : 
+                        (Main.rand.NextBool() ? DustID.TerraBlade : DustID.ChlorophyteWeapon);
+                    Vector2 vel = Main.rand.NextVector2Circular(4, 4);
+                    int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustID, vel.X, vel.Y, 0, new Color(), 2f);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].velocity *= 5f;
                 }
@@ -56,7 +63,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.localAI[0] = 1;
                 NPC plantera = FargoSoulsUtil.NPCExists(NPC.plantBoss, NPCID.Plantera);
                 if (plantera != null && Projectile.Distance(plantera.Center) < 1600f && FargoSoulsUtil.HostCheck)
-                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, 4f * Projectile.ai[1].ToRotationVector2(), ModContent.ProjectileType<CrystalLeafShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, 4f * Projectile.ai[1].ToRotationVector2(), ModContent.ProjectileType<CrystalLeafShot>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai0: plantera.whoAmI);
             }
         }
 
@@ -67,7 +74,9 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+            Texture2D texture2D13 = recolor ? ModContent.Request<Texture2D>("FargowiltasSouls/Content/NPCs/EternityModeNPCs/CrystalLeaf").Value : Terraria.GameContent.TextureAssets.Projectile[Type].Value;
+
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);

@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             //falls to the ground
-            if (!modPlayer.ForceEffect(ModContent.ItemType<PumpkinEnchant>()))
+            if (!modPlayer.ForceEffect<PumpkinEnchant>())
             {
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
                 if (Projectile.velocity.Y > 16f)
@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 }
             }
 
-            Projectile.damage = FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.ForceEffect(ModContent.ItemType<PumpkinEnchant>()) ? 45 : 15);
+            Projectile.damage = FargoSoulsUtil.HighestDamageTypeScaling(player, modPlayer.ForceEffect<PumpkinEnchant>() ? 45 : 15);
 
             if (Projectile.frame != 4)
             {
@@ -80,7 +80,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 {
                     int heal = 25;
 
-                    if (modPlayer.ForceEffect(ModContent.ItemType<PumpkinEnchant>()))
+                    if (modPlayer.ForceEffect<PumpkinEnchant>())
                     {
                         heal *= 2;
                     }

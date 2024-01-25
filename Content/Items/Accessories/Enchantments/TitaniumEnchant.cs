@@ -4,6 +4,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler.Content;
+using System.Collections.Generic;
+using Terraria.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -21,7 +26,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 'The power of titanium in the palm of your hand'"); */
         }
 
-        protected override Color nameColor => new(130, 140, 136);
+        public override Color nameColor => new(130, 140, 136);
         
 
         public override void SetDefaults()
@@ -34,25 +39,43 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            TitaniumEffect(player, Item);
+            player.AddEffect<TitaniumEffect>(Item);
         }
 
-        public static void TitaniumEffect(Player player, Item item)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Titanium");
+            CreateRecipe()
+                .AddRecipeGroup("FargowiltasSouls:AnyTitaHead")
+                .AddIngredient(ItemID.TitaniumBreastplate)
+                .AddIngredient(ItemID.TitaniumLeggings)
+                .AddIngredient(ItemID.Chik)
+                .AddIngredient(ItemID.CrystalStorm)
+                .AddIngredient(ItemID.CrystalVileShard)
 
-            if (player.GetToggleValue("Titanium"))
-            {
-                player.FargoSouls().TitaniumEnchantItem = item;
-            }
+                .AddTile(TileID.CrystalBall)
+                .Register();
         }
+    }
 
-        public static float TitaniumDR(FargoSoulsPlayer modPlayer, Entity attacker)
+    public class TitaniumEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<EarthHeader>();
+        public override int ToggleItemType => ModContent.ItemType<TitaniumEnchant>();
+
+        public override float ContactDamageDR(Player player, NPC npc, ref Player.HurtModifiers modifiers)
         {
+            return base.ContactDamageDR(player, npc, ref modifiers);
+        }
+        public override float ProjectileDamageDR(Player player, Projectile projectile, ref Player.HurtModifiers modifiers)
+        {
+            return TitaniumDR(player, projectile);
+        }
+        public static float TitaniumDR(Player player, Entity attacker)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+
             if (!modPlayer.TitaniumDRBuff)
                 return 0;
-
-            Player player = modPlayer.Player;
 
             bool canUseDR = attacker is NPC ||
                 attacker is Projectile projectile && projectile.GetSourceNPC() is NPC sourceNPC
@@ -61,7 +84,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
             if (canUseDR)
             {
                 float diff = 1f - player.endurance;
-                diff *= modPlayer.ForceEffect(modPlayer.TitaniumEnchantItem.type) ? 0.35f : 0.25f;
+                diff *= modPlayer.ForceEffect<TitaniumEnchant>() ? 0.35f : 0.25f;
                 return diff;
             }
             return 0;
@@ -69,6 +92,7 @@ This has a cooldown of 10 seconds during which you cannot gain shards
 
         public static void TitaniumShards(FargoSoulsPlayer modPlayer, Player player)
         {
+
             if (modPlayer.TitaniumCD)
                 return;
 
@@ -76,12 +100,12 @@ This has a cooldown of 10 seconds during which you cannot gain shards
             if (player.ownedProjectileCounts[ProjectileID.TitaniumStormShard] < 20)
             {
                 int damage = 50;
-                if (modPlayer.ForceEffect(modPlayer.TitaniumEnchantItem.type))
+                if (modPlayer.ForceEffect(player.EffectItem<TitaniumEffect>().ModItem))
                 {
                     damage = FargoSoulsUtil.HighestDamageTypeScaling(player, damage);
                 }
 
-                Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.TitaniumEnchantItem), player.Center, Vector2.Zero, ProjectileID.TitaniumStormShard /*ModContent.ProjectileType<TitaniumShard>()*/, damage, 15f, player.whoAmI, 0f, 0f);
+                Projectile.NewProjectile(player.GetSource_Accessory(player.EffectItem<TitaniumEffect>()), player.Center, Vector2.Zero, ProjectileID.TitaniumStormShard /*ModContent.ProjectileType<TitaniumShard>()*/, damage, 15f, player.whoAmI, 0f, 0f);
             }
             else
             {
@@ -105,18 +129,45 @@ This has a cooldown of 10 seconds during which you cannot gain shards
             }
         }
 
-        public override void AddRecipes()
+        public override void PostUpdateMiscEffects(Player player)
         {
-            CreateRecipe()
-                .AddRecipeGroup("FargowiltasSouls:AnyTitaHead")
-                .AddIngredient(ItemID.TitaniumBreastplate)
-                .AddIngredient(ItemID.TitaniumLeggings)
-                .AddIngredient(ItemID.Chik)
-                .AddIngredient(ItemID.CrystalStorm)
-                .AddIngredient(ItemID.CrystalVileShard)
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-                .AddTile(TileID.CrystalBall)
-                .Register();
+            if (modPlayer.TitaniumDRBuff && modPlayer.prevDyes == null)
+            {
+                modPlayer.prevDyes = new List<int>();
+                int reflectiveSilver = GameShaders.Armor.GetShaderIdFromItemId(ItemID.ReflectiveSilverDye);
+
+                for (int i = 0; i < player.dye.Length; i++)
+                {
+                    modPlayer.prevDyes.Add(player.dye[i].dye);
+                    player.dye[i].dye = reflectiveSilver;
+                }
+
+                for (int j = 0; j < player.miscDyes.Length; j++)
+                {
+                    modPlayer.prevDyes.Add(player.miscDyes[j].dye);
+                    player.miscDyes[j].dye = reflectiveSilver;
+                }
+
+                player.UpdateDyes();
+            }
+            else if (!player.HasBuff(ModContent.BuffType<TitaniumDRBuff>()) && modPlayer.prevDyes != null)
+            {
+                for (int i = 0; i < player.dye.Length; i++)
+                {
+                    player.dye[i].dye = modPlayer.prevDyes[i];
+                }
+
+                for (int j = 0; j < player.miscDyes.Length; j++)
+                {
+                    player.miscDyes[j].dye = modPlayer.prevDyes[j + player.dye.Length];
+                }
+
+                player.UpdateDyes();
+
+                modPlayer.prevDyes = null;
+            }
         }
     }
 }

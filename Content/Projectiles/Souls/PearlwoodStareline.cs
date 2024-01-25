@@ -1,4 +1,7 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Accessories.Forces;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,20 +23,22 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
     {
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.FairyQueenMagicItemShot;
         public override bool InstancePerEntity => true;
-        bool Pearlwood = false;
+        public bool Pearlwood = false;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             Player player = Main.player[projectile.owner];
-            if (player == null || !player.active || player.dead || player.FargoSouls().PearlwoodEnchantItem == null)
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (player == null || !player.active || player.dead || !(modPlayer.PearlwoodEnchantItem != null && player.HasEffect<PearlwoodEffect>()))
                 return;
-            if (source is EntitySource_ItemUse itemSource && itemSource.Item.type == player.FargoSouls().PearlwoodEnchantItem.type)
+             int[] pearlwoodItems = new int[] { ModContent.ItemType<PearlwoodEnchant>(), ModContent.ItemType<TimberForce>(), ModContent.ItemType<TerrariaSoul>() };
+            if (source is EntitySource_ItemUse itemSource && pearlwoodItems.Contains(itemSource.Item.type))
             {
                 SoundEngine.PlaySound(SoundID.Item84, projectile.Center);
                 Pearlwood = true;
 
                 projectile.hostile = true;
                 projectile.friendly = false;
-                projectile.penetrate = -1;
+                projectile.penetrate = 1;
                 projectile.timeLeft = 22;
                 //projectile.aiStyle = -1;
                 projectile.tileCollide = false;
@@ -75,19 +80,21 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 return;
             }
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.PearlwoodEnchantItem == null || !player.GetToggleValue("Pearl"))
+            if (modPlayer.PearlwoodEnchantItem == null || !player.HasEffect<PearlwoodEffect>())
             {
                 projectile.Kill();
                 return;
             } //kill projkcetoiele when unequip or toggled off or player dies or leaves or commits a war crime idfk
 
-            if (modPlayer.ForceEffect(modPlayer.PearlwoodEnchantItem.type))
-                projectile.friendly = true;  //ability to hit enemy with force
-            else
-                projectile.friendly = false;
+            //damage enemies if force
+            bool force = modPlayer.ForceEffect<PearlwoodEnchant>();
+            projectile.friendly = force;
 
             //refresh lifetime
             projectile.timeLeft = 22;
+
+            //damage to make sure it never can change
+            projectile.damage = 1000;
 
             //spin
             //projectile.rotation += MathHelper.ToRadians(6);
@@ -98,6 +105,12 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             //follow the player
             projectile.velocity = modPlayer.PStarelinePos - projectile.Center;
+        }
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            if (Pearlwood && target.type == NPCID.TargetDummy)
+                return false;
+            return base.CanHitNPC(projectile, target);
         }
         public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
         {
@@ -131,12 +144,12 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            for (int i = 0; i < 20; i++) //idk how to make dust look good (2)
+            for (int i = 0; i < 20; i++)
             {
                 Dust.NewDust(modPlayer.PStarelinePos, 22, 22, DustID.GoldFlame, 0f, 0f, 175, default, 1.75f);
             }
 
-            modPlayer.PStarelineActive = false;
+            //modPlayer.PStarelineActive = false;
         }
 
     }

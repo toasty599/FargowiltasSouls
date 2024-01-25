@@ -118,14 +118,14 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
                         if (FargoSoulsUtil.HostCheck)
                         {
                             FargoSoulsUtil.NewNPCEasy(Projectile.GetSource_FromThis(), Projectile.Center, ModContent.NPCType<MutantBoss>());
-                            FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}MutantBoss", 175, 75, 255);
+                            FargoSoulsUtil.PrintLocalization("Announcement.HasAwoken", new Color(175, 75, 255), Language.GetTextValue($"Mods.{Mod.Name}.NPCs.MutantBoss.DisplayName"));
                         }
                         break;
 
                     default:
                         if (Projectile.owner == Main.myPlayer)
                         {
-                            CombatText.NewText(Projectile.Hitbox, Color.LimeGreen, Language.GetTextValue($"Mods.{Mod.Name}.Message.{Name}NotSafe"));
+                            CombatText.NewText(Projectile.Hitbox, Color.LimeGreen, Language.GetTextValue($"Mods.{Mod.Name}.Items.SpawnSack.NotSafe"));
                         }
                         break;
                 }

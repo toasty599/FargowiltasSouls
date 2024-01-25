@@ -149,7 +149,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
 
-            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()
             { // Influences how the NPC looks in the Bestiary
                 CustomTexturePath = "FargowiltasSouls/Assets/Effects/LifeStar", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
                 Position = new Vector2(0f, 0f),
@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 42000;
+            NPC.lifeMax = 36500;
             NPC.defense = 0;
             NPC.damage = 70;
             NPC.knockBackResist = 0f;
@@ -221,6 +221,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             writer.Write7BitEncodedInt(P1state);
             writer.Write7BitEncodedInt(oldP1state);
 
+            writer.Write(rotspeed);
+
             writer.Write(UseTrueOriginAI);
             writer.Write(AttackF1);
 
@@ -239,6 +241,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             index2 = reader.Read7BitEncodedInt();
             P1state = reader.Read7BitEncodedInt();
             oldP1state = reader.Read7BitEncodedInt();
+
+            rotspeed = reader.ReadDouble();
 
             UseTrueOriginAI = reader.ReadBoolean();
             AttackF1 = reader.ReadBoolean();
@@ -265,10 +269,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             NPC.dontTakeDamage = false;
             Attacking = 1;
 
-            if (WorldSavingSystem.MasochistModeReal)
-            {
-                DoAura = true;
-            }
+            useDR = false;
 
             if (PhaseOne && NPC.life < P2Threshold)
                 phaseProtectionDR = true;
@@ -287,17 +288,17 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 NPC.life += healPerSecond / 60;
                 CombatText.NewText(NPC.Hitbox, CombatText.HealLife, healPerSecond);
             }
-
             if (PyramidPhase == 1)
             {
                 if (PyramidTimer == PyramidAnimationTime)
                 {
                     SoundEngine.PlaySound(SoundID.Item53, NPC.Center);
                     NPC.HitSound = SoundID.Item52;
-                    useDR = true;
+                    
                     NPC.defense = NPC.defDefense + 100;
                     NPC.netUpdate = true;
                 }
+                useDR = true;
                 ChunkDistance = DefaultChunkDistance * (1 - Math.Min((float)PyramidTimer / PyramidAnimationTime, 1f));
             }
             else if (PyramidPhase == -1)
@@ -306,7 +307,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     SoundEngine.PlaySound(SoundID.Shatter with { Pitch = -0.5f }, NPC.Center);
                     NPC.HitSound = SoundID.NPCHit4;
-                    useDR = false;
                     NPC.defense = NPC.defDefense;
                     NPC.netUpdate = true;
                 }
@@ -405,6 +405,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 NPC.timeLeft = 60;
             }
+            DoAura = WorldSavingSystem.MasochistModeReal; //reset aura status
 
             if (PhaseOne) //p1 just skip the rest of the ai and do its own ai lolll
             {
@@ -599,7 +600,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             {
                 if (UseTrueOriginAI)
                 {
-                    string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.FatherOfLies");
+                    string text = Language.GetTextValue($"Mods.{Mod.Name}.NPCs.LifeChallenger.FatherOfLies");
                     Color color = Color.Goldenrod;
                     FargoSoulsUtil.PrintText(text, color);
                     CombatText.NewText(Player.Hitbox, color, text, true);
@@ -1091,7 +1092,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     PyramidPhase = -1;
                     PyramidTimer = 0;
                     NPC.netUpdate = true;
-                    DoAura = WorldSavingSystem.MasochistModeReal;
 
                 }
                 if (LaserTimer > endTime && PyramidPhase == 0) //after shell crack animation
@@ -2497,8 +2497,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
         public override void UpdateLifeRegen(ref int damage)
         {
-            if ((useDR || phaseProtectionDR) && NPC.lifeRegen < 0)
+            if (NPC.lifeRegen < 0)
+            {
                 NPC.lifeRegen /= 2;
+            }
+                
         }
 
         #region Hitbox

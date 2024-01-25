@@ -1,10 +1,13 @@
 ﻿using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -82,17 +85,17 @@ This stacks up to 950 times until you get hit"); */
 
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (Item.vanity)
+            if (Item.social)
             {
                 return;
             }
-            string text = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EternitySoul.Vanilla");
+            string text = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.Vanilla");
             string[] lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             const int linesToShow = 7;
             int section = lines.Length / linesToShow;
 
-            string description = Language.GetTextValue("Mods.FargowiltasSouls.ItemExtra.EternitySoul.Additional");
+            string description = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.Additional");
             ulong seed = Main.GameUpdateCount / 5;
             for (int i = 0; i < linesToShow; i++)
             {
@@ -169,26 +172,22 @@ This stacks up to 950 times until you get hit"); */
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             //auto use, debuffs, mana up
             modPlayer.Eternity = true;
+            player.AddEffect<EternityTin>(Item);
 
             //UNIVERSE
             modPlayer.UniverseSoul = true;
             modPlayer.UniverseCore = true;
             player.GetDamage(DamageClass.Generic) += 2.5f;
-            if (player.GetToggleValue("Universe"))
-                modPlayer.AttackSpeed += 2.5f;
+            player.AddEffect<UniverseSpeedEffect>(Item);
             player.maxMinions += 20;
             player.maxTurrets += 10;
             //accessorys
-            if (player.GetToggleValue("YoyoBag", false))
-            {
-                player.counterWeight = 556 + Main.rand.Next(6);
-                player.yoyoGlove = true;
-                player.yoyoString = true;
-            }
-            if (player.GetToggleValue("Sniper"))
-            {
-                player.scope = true;
-            }
+
+            player.counterWeight = 556 + Main.rand.Next(6);
+            player.yoyoGlove = true;
+            player.yoyoString = true;
+
+            player.AddEffect<SniperScopeEffect>(Item);
             player.manaFlower = true;
             player.manaMagnet = true;
             player.magicCuffs = true;
@@ -197,16 +196,16 @@ This stacks up to 950 times until you get hit"); */
             //DIMENSIONS
             player.statLifeMax2 *= 5;
             player.buffImmune[BuffID.ChaosState] = true;
-            modPlayer.ColossusSoul(Item, 0, 0.4f, 15, hideVisual);
-            modPlayer.SupersonicSoul(Item, hideVisual);
-            modPlayer.FlightMasterySoul();
-            modPlayer.TrawlerSoul(Item, hideVisual);
-            modPlayer.WorldShaperSoul(hideVisual);
+            ColossusSoul.AddEffects(player, Item, 0, 0.4f, 15);
+            SupersonicSoul.AddEffects(player, Item, hideVisual);
+            FlightMasterySoul.AddEffects(player, Item);
+            TrawlerSoul.AddEffects(player, Item, hideVisual);
+            WorldShaperSoul.AddEffects(player, Item, hideVisual);
 
             //TERRARIA
-            ModContent.Find<ModItem>(Mod.Name, "TerrariaSoul").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<TerrariaSoul>().UpdateAccessory(player, hideVisual);
             //MASOCHIST
-            ModContent.Find<ModItem>(Mod.Name, "MasochistSoul").UpdateAccessory(player, hideVisual);
+            ModContent.GetInstance<MasochistSoul>().UpdateAccessory(player, hideVisual);
 
         }
         public override void AddRecipes()
@@ -224,4 +223,11 @@ This stacks up to 950 times until you get hit"); */
             .Register();
         }
     }
+    public class EternityTin : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<EternityHeader>();
+        public override int ToggleItemType => ModContent.ItemType<EternitySoul>();
+        public override bool IgnoresMutantPresence => true;
+    }
+
 }

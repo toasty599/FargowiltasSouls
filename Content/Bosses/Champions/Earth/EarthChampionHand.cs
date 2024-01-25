@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             //new
             NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true
             });

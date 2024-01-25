@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true
             });
@@ -128,7 +128,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         public override void FindFrame(int frameHeight)
         {
             NPC brain = FargoSoulsUtil.NPCExists(NPC.ai[0], NPCID.BrainofCthulhu);
-            if (brain != null)
+            if (brain.Alive())
             {
                 NPC.frame.Y = Main.npc[EModeGlobalNPC.brainBoss].frame.Y;
             }

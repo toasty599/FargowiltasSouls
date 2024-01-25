@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -58,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             Projectile.Center = player.Center;
                             maxTime = 40;
                             color = Color.LightGoldenrodYellow;
-                            Projectile.scale = 2.5f * HallowEnchant.RepelRadius / Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height;
+                            Projectile.scale = 2.5f * HallowEffect.RepelRadius / Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height;
                             Projectile.alpha = 100 + (int)(155f * Projectile.localAI[0] / maxTime);
                             color.A = 0;
                         }
@@ -85,9 +86,26 @@ namespace FargowiltasSouls.Content.Projectiles
                         customScaleAlpha = true;
                         maxTime = 90;
                         float modifier = Projectile.localAI[0] / maxTime;
-                        color = new Color(51, 255, 191) * modifier;
-                        Projectile.alpha = (int)(255f * (1f - modifier));
-                        Projectile.scale = 3f * 9f * (1f - modifier);
+                        float progress = 1 - modifier;
+                        color = new Color(255, 105, 180);
+                        //color = new Color(51, 255, 191) * modifier; OLD BLUE
+                        //if (maxTime - Projectile.localAI[0] < 10)
+                            //color = Color.White;
+                        Projectile.alpha = (int)(255f * (progress));
+                        //Projectile.scale = 3f * 9f * (1f - modifier);
+                        Projectile.scale = 0.2f + 0.8f * modifier;
+
+                        if (npc != null)
+                            Projectile.Center += Vector2.UnitY.RotatedBy(npc.rotation) * 15;
+
+                        Vector2 sparkDir = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi);
+                        float sparkDistance = (120 * progress) * Main.rand.NextFloat(0.6f, 1.3f);
+                        Vector2 sparkCenter = Projectile.Center + sparkDir * sparkDistance * 2;
+                        float sparkTime = 15;
+                        Vector2 sparkVel = (Projectile.Center - sparkCenter) / sparkTime;
+                        float sparkScale = 2f - modifier * 1.2f;
+                        Particle spark = new SparkParticle(sparkCenter, sparkVel, color, sparkScale, (int)sparkTime);
+                        spark.Spawn();
                     }
                     break;
 
@@ -129,9 +147,27 @@ namespace FargowiltasSouls.Content.Projectiles
                         customScaleAlpha = true;
                         maxTime = 200;
                         float modifier = Projectile.localAI[0] / maxTime;
-                        color = new Color(51, 255, 191) * modifier;
-                        Projectile.alpha = (int)(255f * (1f - modifier));
-                        Projectile.scale = 3f * 6f * (1f - modifier);
+                        float progress = 1 - modifier;
+                        color = new Color(255, 105, 180);
+                        //color = new Color(51, 255, 191) * modifier; OLD BLUE
+                        //if (maxTime - Projectile.localAI[0] < 10)
+                            //color = Color.White;
+                        Projectile.alpha = (int)(255f * (progress));
+                        //Projectile.scale = 3f * 6f * (1f - modifier);
+
+                        Projectile.scale = 0.2f + 0.8f * modifier;
+
+                        if (npc != null)
+                            Projectile.Center += Vector2.UnitY.RotatedBy(npc.rotation) * 15;
+
+                        Vector2 sparkDir = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi);
+                        float sparkDistance = (120 * progress) * Main.rand.NextFloat(0.6f, 1.3f);
+                        Vector2 sparkCenter = Projectile.Center + sparkDir * sparkDistance;
+                        float sparkTime = 15;
+                        Vector2 sparkVel = (Projectile.Center - sparkCenter) / sparkTime;
+                        float sparkScale = 2f - modifier * 1.2f;
+                        Particle spark = new SparkParticle(sparkCenter, sparkVel, color, sparkScale, (int)sparkTime);
+                        spark.Spawn();
                     }
                     break;
 

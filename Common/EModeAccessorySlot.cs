@@ -6,6 +6,7 @@ using FargowiltasSouls.Core.Systems;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Common
@@ -71,10 +72,10 @@ namespace FargowiltasSouls.Common
             switch (context)
             {
                 case AccessorySlotType.FunctionalSlot:
-                    Main.hoverItemName = "Enchantment, Force or Soul";
+                    Main.hoverItemName = Language.GetTextValue("Mods.FargowiltasSouls.Common.AccessorySlot.EModeSlotFunctional");
                     break;
                 case AccessorySlotType.VanitySlot:
-                    Main.hoverItemName = "Social Enchantment, Force or Soul";
+                    Main.hoverItemName = Language.GetTextValue("Mods.FargowiltasSouls.Common.AccessorySlot.EModeSlotVanity");
                     break;
             }
         }

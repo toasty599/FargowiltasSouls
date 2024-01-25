@@ -1,9 +1,13 @@
 ﻿
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,7 +25,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'Too little, too late…'"); */
         }
 
-        protected override Color nameColor => new(173, 154, 95);
+        public override Color nameColor => new(173, 154, 95);
 
         
         public override void SetDefaults()
@@ -34,20 +38,36 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            PearlwoodEffect(player, Item);
+            player.AddEffect<PearlwoodEffect>(Item);
+            player.FargoSouls().PearlwoodEnchantItem = Item;
         }
-
-
-        public static void PearlwoodEffect(Player player, Item item)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Pearl");
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.PearlwoodEnchantItem = item;
+            CreateRecipe()
+            .AddIngredient(ItemID.PearlwoodHelmet)
+            .AddIngredient(ItemID.PearlwoodBreastplate)
+            .AddIngredient(ItemID.PearlwoodGreaves)
+            .AddIngredient(ItemID.PearlwoodSword)
+            .AddIngredient(ItemID.LightningBug)
+            .AddIngredient(ItemID.Starfruit)
+
+            .AddTile(TileID.CrystalBall)
+            .Register();
+        }
+    }
+    public class PearlwoodEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<TimberHeader>();
+        public override int ToggleItemType => ModContent.ItemType<PearlwoodEnchant>();
+        public override void PostUpdateEquips(Player player)
+        {
+            PearlwoodStar(player, EffectItem(player));
         }
         public static void PearlwoodStar(Player player, Item item)
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex] != Vector2.Zero && player.GetToggleValue("Pearl")) //check if trail actually exists and if its toggled on
+            if (modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex] != Vector2.Zero) //check if trail actually exists
             {
                 modPlayer.PStarelinePos = modPlayer.PearlwoodTrail[modPlayer.PearlwoodIndex]; //set stareline position
 
@@ -55,8 +75,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 {
                     if (modPlayer.PearlwoodGrace == 120) //spawn after 2 seconds 
                     {
-                        Projectile.NewProjectile(player.GetSource_Accessory(item), modPlayer.PStarelinePos, Vector2.Zero, ProjectileID.FairyQueenMagicItemShot, 1000, 0f);
-                        modPlayer.PStarelineActive = true;
+                        Projectile.NewProjectile(player.GetSource_EffectItem<PearlwoodEffect>(), modPlayer.PStarelinePos, Vector2.Zero, ProjectileID.FairyQueenMagicItemShot, 1000, 0f);
+                        //modPlayer.PStarelineActive = true;
                         modPlayer.PearlwoodGrace = 0;
                     }
                     else
@@ -73,26 +93,38 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             modPlayer.PearlwoodIndex++; //read next in array
             if (modPlayer.PearlwoodIndex >= modPlayer.PearlwoodTrail.Length) { modPlayer.PearlwoodIndex = 0; } //loop around
         }
-        public static void PearlwoodCritReroll(Player player, ref NPC.HitModifiers modifiers, DamageClass damageClass)
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
-            if (Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass))
+            if (hitInfo.Crit)
             {
-                modifiers.SetCrit();
+                SoundEngine.PlaySound(SoundID.Item25, target.position);
+                for (int i = 0; i < 30; i++)
+                { //idk how to make dust look good (3)
+                    Dust.NewDust(target.position, target.width, target.height, DustID.YellowStarDust);
+                }
             }
         }
-
-        public override void AddRecipes()
+        public override void ModifyHitNPCWithProj(Player player, Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            CreateRecipe()
-            .AddIngredient(ItemID.PearlwoodHelmet)
-            .AddIngredient(ItemID.PearlwoodBreastplate)
-            .AddIngredient(ItemID.PearlwoodGreaves)
-            .AddIngredient(ItemID.PearlwoodSword)
-            .AddIngredient(ItemID.LightningBug)
-            .AddIngredient(ItemID.Starfruit)
+            PearlwoodCritReroll(player, ref modifiers, proj.DamageType);
+        }
+        public override void ModifyHitNPCWithItem(Player player, Item item, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            PearlwoodCritReroll(player, ref modifiers, item.DamageType);
+        }
+        public static void PearlwoodCritReroll(Player player, ref NPC.HitModifiers modifiers, DamageClass damageClass)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            .AddTile(TileID.CrystalBall)
-            .Register();
+            int rerolls = modPlayer.ForceEffect<PearlwoodEnchant>() ? 2 : 1;
+            for (int i = 0; i < rerolls; i++)
+            {
+                if (Main.rand.Next(0, 100) <= player.ActualClassCrit(damageClass))
+                {
+                    modifiers.SetCrit();
+                }
+            }
+
         }
     }
 }

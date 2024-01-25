@@ -75,17 +75,19 @@ namespace FargowiltasSouls.Core.Systems
             {
                 //NPC.LunarShieldPowerMax = 25;
 
-                if (Main.raining || Sandstorm.Happening || Main.bloodMoon)
+                if (/*Main.raining || Sandstorm.Happening || */Main.bloodMoon)
                 {
                     if (!HaveForcedAbomFromGoblins && !DownedAnyBoss //pre boss, disable some events
                         && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC abom) && !NPC.AnyNPCs(abom.Type))
                     {
+                        /*
                         Main.raining = false;
                         Main.rainTime = 0;
                         Main.maxRaining = 0;
                         Sandstorm.Happening = false;
                         Sandstorm.TimeLeft = 0;
                         if (Main.bloodMoon)
+                        */
                             FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.{Name}.BloodMoonCancel", new Color(175, 75, 255));
                         Main.bloodMoon = false;
                         if (Main.netMode == NetmodeID.Server)

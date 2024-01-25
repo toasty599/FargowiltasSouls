@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             if (--Projectile.ai[1] < 0)
             {
                 NPC n = FargoSoulsUtil.NPCExists(Projectile.ai[0]);
-                if (n != null && !n.friendly)
+                if (n.Alive() && !n.friendly)
                 {
                     for (int i = 0; i < 3; i++) //make up for real spectre bolt having 3 extraUpdates
                     {

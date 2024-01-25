@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     ModContent.BuffType<LightningRodBuff>(),
             });
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 PortraitScale = 1f
             });

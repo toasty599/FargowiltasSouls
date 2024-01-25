@@ -1,13 +1,6 @@
-﻿using FargowiltasSouls.Content.Items;
-using FargowiltasSouls.Core.Systems;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 {
@@ -17,6 +10,6 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 
         public bool CanShowItemDropInUI() => NPC.downedBoss2;
 
-        public string GetConditionDescription() => $"[i:After any Evil Boss has been defeated";
+        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.DownedEvilBoss");
     }
 }

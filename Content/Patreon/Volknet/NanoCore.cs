@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Core;
 using FargowiltasSouls.Content.Items.Materials;
+using Terraria.Utilities;
 
 namespace FargowiltasSouls.Content.Patreon.Volknet
 {
@@ -41,7 +42,7 @@ namespace FargowiltasSouls.Content.Patreon.Volknet
             Item.useTurn = true;
             Item.crit = 12;
         }
-
+        public override bool? PrefixChance(int pre, UnifiedRandom rand) => false;
         public override void SafePostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D tex = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Patreon/Volknet/NanoCoreGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;

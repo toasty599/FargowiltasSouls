@@ -23,6 +23,7 @@ using ReLogic.Content;
 using FargowiltasSouls.Content.Items.Summons;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Content.Items.Misc;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -72,6 +73,7 @@ namespace FargowiltasSouls.Core.Globals
         public int LethargicCounter;
         //        public bool ExplosiveCritter = false;
         //        private int critterCounter = 120;
+        public bool Sublimation;
 
         public bool SnowChilled;
         public int SnowChilledTimer;
@@ -122,6 +124,7 @@ namespace FargowiltasSouls.Core.Globals
             MutantNibble = false;
             GodEater = false;
             Suffocation = false;
+            Sublimation = false;
             //            //SnowChilled = false;
             Chilled = false;
             Smite = false;
@@ -286,6 +289,11 @@ namespace FargowiltasSouls.Core.Globals
                 npc.defense = originalDefense - 10;
             }
 
+            if (Sublimation)
+            {
+                npc.defense = originalDefense - 15; //ichor 2
+            }
+
             if (SnowChilled)
             {
                 int dustId = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Snow, npc.velocity.X, npc.velocity.Y, 100, default, 1f);
@@ -376,6 +384,17 @@ namespace FargowiltasSouls.Core.Globals
                         d.noGravity = false;
                         d.scale *= 0.5f;
                     }
+                }
+            }
+
+            if (Sublimation)
+            {
+                if (Main.rand.NextBool(4))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.PortalBolt, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 0, new Color(220, 255, 220), 2.5f);
+                    Main.dust[d].velocity.Y -= 1;
+                    Main.dust[d].velocity *= 1.5f;
+                    Main.dust[d].noGravity = true;
                 }
             }
 
@@ -590,7 +609,7 @@ namespace FargowiltasSouls.Core.Globals
                 Projectile proj = Main.projectile[i];
                 if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == Main.myPlayer)
                 {
-                    if ((proj.ModProjectile as BaronTuskShrapnel).EmbeddedNPC == npc)
+                    if (proj.As<BaronTuskShrapnel>().EmbeddedNPC == npc)
                     {
                         shrapnel++;
                     }
@@ -651,7 +670,7 @@ namespace FargowiltasSouls.Core.Globals
                         dot = 4;
                     }
                 }
-                bool forceEffect = Main.player.Any(p => p.active && !p.dead && p.FargoSouls() is FargoSoulsPlayer pF && pF != null && pF.LeadEnchantItem != null && pF.ForceEffect(pF.LeadEnchantItem.type));
+                bool forceEffect = Main.player.Any(p => p.Alive() && p.HasEffect<LeadEffect>() && p.FargoSouls() is FargoSoulsPlayer pF && pF != null && pF.ForceEffect<LeadEnchant>());
                 if (forceEffect)
                 {
                     dot *= 3;
@@ -659,6 +678,7 @@ namespace FargowiltasSouls.Core.Globals
 
                 npc.lifeRegen -= dot;
             }
+
 
             //50 dps
             if (SolarFlare)
@@ -699,7 +719,19 @@ namespace FargowiltasSouls.Core.Globals
                 }
             }
 
-            //20 dps
+            //25 dps which is 1 more than  
+            if (Sublimation)
+            {
+                if (npc.lifeRegen > 0)
+                    npc.lifeRegen = 0;
+
+                npc.lifeRegen -= 50;
+
+                if (damage < 5)
+                    damage = 5;
+            }
+
+            //20 dps 
             if (OriPoison)
             {
                 if (npc.lifeRegen > 0)
@@ -832,9 +864,9 @@ namespace FargowiltasSouls.Core.Globals
                     damage = 6;
             }
 
-            if (modPlayer.OriEnchantItem != null && npc.lifeRegen < 0)
+            if (modPlayer.Player.HasEffect<OrichalcumEffect>() && npc.lifeRegen < 0)
             {
-                OrichalcumEnchant.OriDotModifier(npc, modPlayer, ref damage);
+                OrichalcumEffect.OriDotModifier(npc, modPlayer, ref damage);
             }
 
             if (TimeFrozen && npc.life == 1)
@@ -875,7 +907,7 @@ namespace FargowiltasSouls.Core.Globals
                 maxSpawns *= 3;
             }
 
-            if (modPlayer.SinisterIcon)
+            if (player.HasEffect<SinisterIconEffect>())
             {
                 spawnRate /= 2;
                 maxSpawns *= 2;
@@ -903,9 +935,9 @@ namespace FargowiltasSouls.Core.Globals
             Player player = Main.player[npc.lastInteraction];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && !npc.boss)
+            if (player.HasEffect<NecroEffect>() && !npc.boss)
             {
-                NecroEnchant.NecroSpawnGraveEnemy(npc, player, modPlayer);
+                NecroEffect.NecroSpawnGraveEnemy(npc, player, modPlayer);
             }
 
             return true;
@@ -922,18 +954,17 @@ namespace FargowiltasSouls.Core.Globals
         public override void OnKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             if (!lootMultiplierCheck)
             {
                 lootMultiplierCheck = true;
 
-                if (modPlayer.SinisterIconDrops && !npc.boss && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                if (player.HasEffect<SinisterIconDropsEffect>() && !npc.boss && !IllegalLootMultiplierNPCs.Contains(npc.type))
                 {
                     npc.NPCLoot();
                 }
 
-                if (modPlayer.PlatinumEnchantActive && !npc.boss && Main.rand.NextBool(5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                if (player.FargoSouls().PlatinumEffectActive && !npc.boss && Main.rand.NextBool(5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
                 {
                     npc.extraValue /= 5;
 
@@ -1082,7 +1113,7 @@ namespace FargowiltasSouls.Core.Globals
 
             if (Needled && npc.lifeMax > 1 && npc.lifeMax != int.MaxValue) //super dummy
             {
-                CactusEnchant.CactusProc(npc, player);
+                CactusEffect.CactusProc(npc, player);
             }
 
             return base.CheckDead(npc);
@@ -1109,12 +1140,10 @@ namespace FargowiltasSouls.Core.Globals
                     Projectile.NewProjectile(npc.GetSource_OnHurt(player), npc.Center, Main.rand.NextVector2Circular(speed, speed), type, 0, 0f, Main.myPlayer, 1f);
                 }
             }
-            
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
-            if (damageDone > 0 && modPlayer.NecroEnchantActive && player.GetToggleValue("Necro") && npc.boss)
+            if (damageDone > 0 && player.HasEffect<NecroEffect>() && npc.boss)
             {
-                NecroEnchant.NecroSpawnGraveBoss(this, npc, player, damageDone);
+                NecroEffect.NecroSpawnGraveBoss(this, npc, player, damageDone);
             }
         }
 

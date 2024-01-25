@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using System;
 
 namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
 {
@@ -18,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
             {
                 MusicLoader.AddMusicBox(
                     Mod,
-                    MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs"),
+                    MusicLoader.GetMusicSlot(musicMod, (musicMod.Version >= Version.Parse("0.1.4")) ? "Assets/Music/Strawberry_Sparkly_Sunrise" : "Assets/Music/LexusCyanixs"),
                     ModContent.ItemType<DeviMusicBox>(),
                     ModContent.TileType<Tiles.MusicBoxes.DeviMusicBoxSheet>());
             }

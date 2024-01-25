@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true
             });
@@ -212,7 +212,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 CustomTexturePath = $"FargowiltasSouls/Content/Bosses/TrojanSquirrel/{Name}_Still",
                 Position = new Vector2(16 * 4, 16 * 4),
@@ -497,7 +497,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                             if (WorldSavingSystem.EternityMode && head == null && NPC.localAI[0] % 3 == 0 && FargoSoulsUtil.HostCheck)
                             {
-                                int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Top.X, NPC.Top.Y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5),
+                                int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Top.X, NPC.Top.Y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-3),
                                     Main.rand.Next(326, 329), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                                 if (p != Main.maxProjectiles)
                                     Main.projectile[p].timeLeft = 90;

@@ -11,6 +11,14 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using Terraria.WorldBuilding;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using System.Collections.Generic;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using FargowiltasSouls.Content.Items;
+using Terraria.Localization;
+using FargowiltasSouls.Content.Projectiles.Souls;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -32,6 +40,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int MythrilHalberdTimer;
         public int CobaltHitCounter;
+
+        public int LightningCounter;
         private int WeaponUseTimer => Player.FargoSouls().WeaponUseTimer;
 
         public override void ResetEffects()
@@ -71,6 +81,9 @@ namespace FargowiltasSouls.Core.ModPlayers
         }
         private void MurderGreaterDangersense()//KILL alchnpc greater dangersense (when boss alive)
         {
+            if (!WorldSavingSystem.EternityMode)
+                return;
+
             if (ModLoader.TryGetMod("AlchemistNPC", out Mod alchNPC) && FargoSoulsUtil.AnyBossAlive())
             {
                 if (alchNPC.TryFind("GreaterDangersense", out ModBuff greaterDangersense))
@@ -95,6 +108,21 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
         }
+
+        public static List<int> IronTiles = new List<int> // Tiles that lightning can lock onto
+        {
+            TileID.Iron,
+            TileID.IronBrick,
+            TileID.Lead,
+            TileID.LeadBrick,
+            TileID.MetalBars
+        };
+        public static List<int> IronWalls = new List<int>
+        {
+            WallID.IronFence,
+            WallID.WroughtIronFence,
+            WallID.MetalFence,
+        };
         public override void PreUpdate()
         {
             if (!WorldSavingSystem.EternityMode)
@@ -146,7 +174,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (Player.ZoneUnderworldHeight)
                 {
-                    bool anyAshwoodEffect = fargoSoulsPlayer.AshWoodEnchantItem != null || fargoSoulsPlayer.ObsidianEnchantItem != null;
+                    bool anyAshwoodEffect = Player.HasEffect<AshWoodEffect>() || Player.HasEffect<ObsidianEffect>();
                     if (anyAshwoodEffect || !(Player.fireWalk || fargoSoulsPlayer.PureHeart || Player.lavaMax > 0))
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.OnFire, 2);
                 }
@@ -156,7 +184,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !fargoSoulsPlayer.MutantAntibodies)
                         FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Poisoned, 2);
                 }
-
+                
                 if (Player.ZoneSnow)
                 {
                     //if (!fargoSoulsPlayer.PureHeart && !Main.dayTime && Framing.GetTileSafely(Player.Center).WallType == WallID.None)
@@ -165,13 +193,15 @@ namespace FargowiltasSouls.Core.ModPlayers
                     if (Player.wet && !Player.lavaWet && !Player.honeyWet && !fargoSoulsPlayer.MutantAntibodies
                         && Player.chilled)
                     {
-                        //Player.AddBuff(BuffID.Frostburn, Main.expertMode && Main.expertDebuffTime > 1 ? 1 : 2);
+                        Player.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 2);
+                        /*
                         MasomodeFreezeTimer++;
                         if (MasomodeFreezeTimer >= 600)
                         {
                             FargoSoulsUtil.AddDebuffFixedDuration(Player, BuffID.Frozen, 120);
                             MasomodeFreezeTimer = -300;
                         }
+                        */
                     }
                     else
                     {
@@ -182,7 +212,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     MasomodeFreezeTimer = 0;
                 }
-
+                
                 /*if (Player.wet && !fargoSoulsPlayer.MutantAntibodies)
                 {
                     if (Player.ZoneDesert)
@@ -242,37 +272,73 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Player.AddBuff(ModContent.BuffType<SmiteBuff>(), 2);
                 }
 
+                Vector2 tileCenter = Player.Center;
+                tileCenter.X /= 16;
+                tileCenter.Y /= 16;
+                Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+
                 if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight)
                     && Player.HeldItem.type != ItemID.Umbrella && Player.HeldItem.type != ItemID.TragicUmbrella
-                    && Player.armor[0].type != ItemID.UmbrellaHat && Player.armor[0].type != ItemID.Eyebrella)
+                    && Player.armor[0].type != ItemID.UmbrellaHat && Player.armor[0].type != ItemID.Eyebrella 
+                    && !Player.HasEffect<RainUmbrellaEffect>())
                 {
-                    Tile currentTile = Framing.GetTileSafely(Player.Center);
                     if (currentTile.WallType == WallID.None)
                     {
                         if (Player.ZoneSnow)
                             Player.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 2);
                         else
                             Player.AddBuff(BuffID.Wet, 2);
-                        /*if (Main.hardMode)
-                        {
-                            lightningCounter++;
 
-                            if (lightningCounter >= 600)
+                        LightningCounter++;
+
+                        int lighntningMinSeconds = WorldSavingSystem.MasochistModeReal ? 10 : 17;
+                        if (LightningCounter >= 60 * lighntningMinSeconds)
+                        {
+                            Point tileCoordinates = Player.Top.ToTileCoordinates();
+
+                            tileCoordinates.X += Main.rand.Next(-25, 25);
+                            tileCoordinates.Y -= Main.rand.Next(4, 8);
+
+
+                            bool foundMetal = false;
+                            
+                            /* TODO: make this work
+                            for (int x = -5; x < 5; x++)
+                            {
+                                for (int y = -5; y < 5; y++)
+                                {
+                                    int testX = tileCoordinates.X + x;
+                                    int testY = tileCoordinates.Y + y;
+                                    Tile tile = Main.tile[testX, testY];
+                                    if (IronTiles.Contains(tile.TileType) ||IronTiles.Contains(tile.WallType))
+                                    {
+                                        foundMetal = true;
+                                        tileCoordinates.X = testX;
+                                        tileCoordinates.Y = testY;
+                                        Main.NewText("found metal");
+                                        break;
+                                    }
+                                }
+                            }
+                            */
+                            
+                            if (Main.rand.NextBool(300) || foundMetal)
                             {
                                 //tends to spawn in ceilings if the Player goes indoors/underground
-                                Point tileCoordinates = Player.Top.ToTileCoordinates();
 
-                                tileCoordinates.X += Main.rand.Next(-25, 25);
-                                tileCoordinates.Y -= 15 + Main.rand.Next(-5, 5);
 
-                                for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) tileCoordinates.Y -= 1;
+                                //for (int index = 0; index < 10 && !WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) && tileCoordinates.Y > 10; ++index) 
+                                //    tileCoordinates.Y -= 1;
 
-                                Projectile.NewProjectile(tileCoordinates.X * 16 + 8, tileCoordinates.Y * 16 + 17, 0f, 0f, ProjectileID.VortexVortexLightning, 0, 2f, Main.myPlayer,
-                                    0f, 0);
 
-                                lightningCounter = 0;
+                                float ai1 = Player.Center.Y;
+                                int damage = (Main.hardMode ? 120 : 60) / 4;
+                                Projectile.NewProjectile(Player.GetSource_Misc(""), tileCoordinates.X * 16 + 8, (tileCoordinates.Y * 16 + 17) - 900, 0f, 0f, ModContent.ProjectileType<RainLightning>(), damage, 2f, Main.myPlayer,
+                                    Vector2.UnitY.ToRotation(), ai1);
+
+                                LightningCounter = 0;
                             }
-                        }*/
+                        }
                     }
                 }
 
@@ -284,20 +350,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                     bool inLiquid = Collision.DrownCollision(Player.position, Player.width, Player.height, Player.gravDir) || !Player.armor[0].IsAir && (Player.armor[0].type == ItemID.FishBowl || Player.armor[0].type == ItemID.GoldGoldfishBowl);
                     if (!inLiquid)
                     {
-                        Player.breath -= 1;
-                        
-                        if (++MasomodeSpaceBreathTimer > 4) //player.breath is an int so have to do this
+                        Player.breath -= 3;
+                        if (++MasomodeSpaceBreathTimer > 10)
                         {
                             MasomodeSpaceBreathTimer = 0;
-                            Player.breath -= 3;
+                            Player.breath--;
                         }
-                        
                         if (Player.breath == 0)
                             SoundEngine.PlaySound(SoundID.Drown);
-                        if (Player.breath < 0)
-                        {
+                        if (Player.breath <= 0)
                             Player.AddBuff(BuffID.Suffocation, 2);
-                        }
+
                         if (Player.breath < -10) //don't stack far into negatives
                         {
                             
@@ -309,10 +372,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (!fargoSoulsPlayer.PureHeart && !Player.buffImmune[BuffID.Webbed] && Player.stickyBreak > 0)
                 {
-                    Vector2 tileCenter = Player.Center;
-                    tileCenter.X /= 16;
-                    tileCenter.Y /= 16;
-                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+                    
                     if (currentTile != null && currentTile.WallType == WallID.SpiderUnsafe)
                     {
                         Player.AddBuff(BuffID.Webbed, 30);
@@ -331,18 +391,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                 }
 
-                if (!fargoSoulsPlayer.PureHeart && Main.bloodMoon)
-                    Player.AddBuff(BuffID.WaterCandle, 2);
-
-                if (WorldSavingSystem.MasochistModeReal)
+                if (currentTile != null && currentTile.TileType == TileID.Cactus && currentTile.HasUnactuatedTile && !fargoSoulsPlayer.CactusImmune)
                 {
-                    Vector2 tileCenter = Player.Center;
-                    tileCenter.X /= 16;
-                    tileCenter.Y /= 16;
-                    Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
-                    if (currentTile != null && currentTile.TileType == TileID.Cactus && currentTile.HasUnactuatedTile)
+                    int damage = 10;
+                    if (WorldSavingSystem.MasochistModeReal)
                     {
-                        int damage = 10;
                         if (Player.ZoneCorrupt)
                         {
                             damage *= 2;
@@ -358,14 +411,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                             damage *= 2;
                             Player.AddBuff(BuffID.Confused, 150);
                         }
-
-                        if (Main.hardMode)
-                            damage *= 2;
-
-                        if (Player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
-                            Player.Hurt(PlayerDeathReason.ByCustomReason(Player.name + " was pricked by a Cactus."), damage, 0, false, false,  0, false);
                     }
+
+                    if (Main.hardMode)
+                        damage *= 2;
+
+                    if (Player.hurtCooldowns[0] <= 0) //same i-frames as spike tiles
+                        Player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.Cactus", Player.name)), damage, 0, false, false,  0, false);
                 }
+
+                if (!fargoSoulsPlayer.PureHeart && Main.bloodMoon)
+                    Player.AddBuff(BuffID.WaterCandle, 2);
             }
         }
 
@@ -386,6 +442,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             Player.manaRegenBonus += 5;
 
             Player.wellFed = true; //no longer expert half regen unless fed
+
         }
 
         public override void PostUpdateEquips()
@@ -486,6 +543,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             ShadowDodgeNerf();
+
+            if (Player.resistCold && npc.coldDamage) //warmth potion nerf
+            {
+                modifiers.FinalDamage *= 1.15f;
+            }
         }
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
@@ -493,6 +555,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 return;
 
             ShadowDodgeNerf();
+
+            if (Player.resistCold && proj.coldDamage) //warmth potion nerf
+            {
+                modifiers.FinalDamage *= 1.15f;
+            }
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -506,7 +573,6 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
-
             //ShadowDodgeNerf();
         }
 
@@ -520,6 +586,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             //because NO MODIFY/ONHITPLAYER HOOK WORKS
             if (modifiers.DamageSource.SourceProjectileType == ProjectileID.Explosives)
                 Player.FargoSouls().AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
+
+            
 
             base.ModifyHurt(ref modifiers);
         }
@@ -542,6 +610,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
+
+            EmodeItemBalance.BalanceWeaponStats(Player, item, ref damage);
 
             //if (item.DamageType == DamageClass.Ranged) //changes all of these to additive
             //{
@@ -578,7 +648,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Main.LocalPlayer.HasBuff(ModContent.BuffType<RushJobBuff>()))
             {
-                chatText = "I've done all I can in the time I have!";
+                chatText = Language.GetTextValue("Mods.FargowiltasSouls.Buffs.RushJobBuff.NurseChat");
                 return false;
             }
 

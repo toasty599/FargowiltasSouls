@@ -28,6 +28,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Patreon.Phupperbat;
 using System.Collections.Generic;
+using Fargowiltas.Projectiles;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
@@ -135,7 +136,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             NPC.timeLeft = NPC.activeTime * 30;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/LexusCyanixs") : MusicID.OtherworldlyHallow;
+                ? MusicLoader.GetMusicSlot(musicMod, (musicMod.Version >= Version.Parse("0.1.4")) ? "Assets/Music/Strawberry_Sparkly_Sunrise" : "Assets/Music/LexusCyanixs") : MusicID.OtherworldlyHallow;
             SceneEffectPriority = SceneEffectPriority.BossMedium;
 
             //MusicPriority = (MusicPriority)10;
@@ -421,6 +422,8 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                     if (NPC.localAI[1] == 0) //pick random number of teleports to do
                     {
                         NPC.localAI[1] = NPC.localAI[3] > 1 ? Main.rand.Next(3, 10) : Main.rand.Next(3, 6);
+                        if (NPC.localAI[0] > 0)
+                            NPC.localAI[1] = Main.rand.NextBool() ? 2 : 3;
                         NPC.netUpdate = true;
                     }
 
@@ -576,7 +579,10 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                     if (!AliveCheck(player) || Phase2Check())
                         break;
 
-                    targetPos = player.Center + player.DirectionTo(NPC.Center) * 375;
+                    if (NPC.ai[3] == 0)
+                        NPC.ai[3] = Main.rand.NextBool() ? 1 : -1;
+
+                    targetPos = player.Center + (player.DirectionTo(NPC.Center) * 375).RotatedBy(NPC.ai[3] * MathHelper.PiOver2 / 10f);
                     if (NPC.Distance(targetPos) > 50)
                         Movement(targetPos, 0.15f);
 
@@ -584,6 +590,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                     {
                         NPC.netUpdate = true;
                         NPC.ai[1] = WorldSavingSystem.EternityMode ? 120 : 150;
+                        NPC.ai[3] = Main.rand.NextBool() ? 1 : -1;
 
                         int repeats = 3;
                         if (++NPC.ai[2] > repeats)
@@ -616,8 +623,9 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                     targetPos = player.Center;
                     targetPos.X += 300 * (NPC.Center.X < targetPos.X ? -1 : 1);
                     targetPos.Y -= 300;
+                    float speedMod = NPC.ai[1] < 120 ? 0.3f : 0.15f;
                     if (NPC.Distance(targetPos) > 50)
-                        Movement(targetPos, 0.15f);
+                        Movement(targetPos, speedMod);
 
                     if (++NPC.ai[1] < 120)
                     {
@@ -781,9 +789,51 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                     {
                         if (!AliveCheck(player) || Phase2Check())
                             break;
-
-                        EModeGlobalNPC.Aura(NPC, WorldSavingSystem.MasochistModeReal ? 400 : 450, true, -1, Color.GreenYellow, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
+                        int threshold = WorldSavingSystem.MasochistModeReal ? 400 : 450;
+                        EModeGlobalNPC.Aura(NPC, threshold, true, -1, Color.GreenYellow);//, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
                         EModeGlobalNPC.Aura(NPC, WorldSavingSystem.MasochistModeReal ? 200 : 150, false, -1, default, ModContent.BuffType<HexedBuff>(), ModContent.BuffType<CrippledBuff>(), BuffID.Dazed, BuffID.OgreSpit);
+
+                        Player localPlayer = Main.LocalPlayer;
+                        float distance = localPlayer.Distance(NPC.Center);
+                        if (localPlayer.active && !localPlayer.dead && !localPlayer.ghost) //pull into arena
+                        {
+                            if (distance > threshold && distance < threshold * 4f)
+                            {
+                                if (distance > threshold * 2f)
+                                {
+                                    localPlayer.controlLeft = false;
+                                    localPlayer.controlRight = false;
+                                    localPlayer.controlUp = false;
+                                    localPlayer.controlDown = false;
+                                    localPlayer.controlUseItem = false;
+                                    localPlayer.controlUseTile = false;
+                                    localPlayer.controlJump = false;
+                                    localPlayer.controlHook = false;
+                                    if (localPlayer.grapCount > 0)
+                                        localPlayer.RemoveAllGrapplingHooks();
+                                    if (localPlayer.mount.Active)
+                                        localPlayer.mount.Dismount(localPlayer);
+                                    localPlayer.velocity.X = 0f;
+                                    localPlayer.velocity.Y = -0.4f;
+                                    localPlayer.FargoSouls().NoUsingItems = 2;
+                                }
+
+                                Vector2 movement = NPC.Center - localPlayer.Center;
+                                float difference = movement.Length() - threshold;
+                                movement.Normalize();
+                                movement *= difference < 17f ? difference : 17f;
+                                localPlayer.position += movement;
+
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    int DustType = Main.rand.NextFromList(DustID.YellowTorch, DustID.PinkTorch, DustID.UltraBrightTorch);
+                                    int d = Dust.NewDust(localPlayer.position, localPlayer.width, localPlayer.height, DustType, 0f, 0f, 0, default, 1.25f);
+                                    Main.dust[d].noGravity = true;
+                                    Main.dust[d].velocity *= 5f;
+                                }
+                            }
+                        }
+
 
                         // Indicate that the borders should be drawn.
                         DrawRuneBorders = true;
@@ -1178,6 +1228,14 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
                         if (++NPC.ai[1] < 180)
                         {
+                            if (NPC.ai[1] % 5 == 0 && FargoSoulsUtil.HostCheck)
+                            {
+                                Vector2 vel = -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2 / 3f) * 20;
+                                int p = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<DeviGuardianHarmless>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3), 0f, Main.myPlayer);
+                                if (p != Main.maxProjectiles)
+                                    Main.projectile[p].timeLeft = 60;
+                            }
+                            /*
                             //warning dust
                             for (int i = 0; i < 3; i++)
                             {
@@ -1186,6 +1244,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                                 Main.dust[d].noLight = true;
                                 Main.dust[d].velocity *= 12f;
                             }
+                            */
                         }
                         else if (NPC.ai[1] == 180)
                         {
@@ -1702,6 +1761,11 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                             }
                         }
 
+                        //some slight rearing back before swing
+                        float progress = NPC.ai[1] / 150f;
+                        float modifier = 0.025f;
+                        NPC.ai[3] -= NPC.ai[2] * progress * modifier;
+
                         NPC.direction = NPC.spriteDirection = Math.Sign(NPC.ai[2]);
                     }
                     else if (NPC.ai[1] == 150) //start swinging
@@ -1719,7 +1783,13 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                     }
                     else if (NPC.ai[1] < 180)
                     {
-                        NPC.ai[3] += NPC.ai[2];
+                        //acceleration logic from math on paper
+                        const float startTime = 150;
+                        const float totalTime = 30;
+                        float progress = (NPC.ai[1] - startTime);
+                        float maxSpeed = NPC.ai[2] * 2 / (totalTime);
+                        NPC.ai[3] += progress * maxSpeed;
+                        //NPC.ai[3] += NPC.ai[2];
                         NPC.direction = NPC.spriteDirection = Math.Sign(NPC.ai[2]);
                     }
                     else
@@ -1815,36 +1885,36 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                         }
                         else if (NPC.ai[1] == 60)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Line1"));
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Line1"));
                         }
                         else if (NPC.ai[1] == 150)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Line2"), true);
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Line2"), true);
                         }
                         else if (NPC.ai[1] == 300)
                         {
-                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Line3"), true);
+                            CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Line3"), true);
                         }
                         else if (NPC.ai[1] == 450)
                         {
                             if (WorldSavingSystem.DownedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept1"));
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Accept1"));
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Reject1"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Reject1"), true);
                             }
                         }
                         else if (NPC.ai[1] == 600)
                         {
                             if (WorldSavingSystem.DownedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept2"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Accept2"), true);
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Reject2"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Reject2"), true);
 
                                 SoundEngine.PlaySound(SoundID.Item28, player.Center);
                                 Vector2 spawnPos = NPC.Center + Vector2.UnitX * NPC.width * 2 * (player.Center.X < NPC.Center.X ? -1 : 1);
@@ -1868,11 +1938,11 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                         {
                             if (WorldSavingSystem.DownedDevi)
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Accept3"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Accept3"), true);
                             }
                             else
                             {
-                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.Message.DeviBribe.Reject3"), true);
+                                CombatText.NewText(displayPoint, Color.HotPink, Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DeviBoss.Bribe.Reject3"), true);
                             }
                         }
 

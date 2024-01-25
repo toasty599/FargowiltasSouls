@@ -1,141 +1,51 @@
 NEW UPDATE - V {ModVersion}
+-Updated wiki links to lead to the brand new dedicated wiki at https://fargosmods.wiki.gg
+-Fixed gravity-reversing effects not flipping the screen
+-Implemented new Deviantt theme
 
-Major features:
--Reworked Eternity Advisor display
--NEW ITEM: The Blastbiter
--NEW ITEM: The Biggest Sting
--READDED ITEM: Omniscience Staff
+-Eternity Plantera:
+Large rework, featuring a new phase
+Tweaked health distribution, damage reduction and maximum health. No longer has a health buff in specifically Eternity-Expert.
+Added a complete visual revamp with the Eternity Mode Boss Resprites config enabled, going along with her Eternity resprite. This will be done for other bosses that need it aswell.
+now refunds Plantera's Fruit unconditionally on attempts, instead of only after Mech Bosses have been defeated
 
--Eternity Mode change: Damage reduction capped at 75%
--Internal restructure and rework for damage reduction
--All modifiers on player final damage are now additive, unless otherwise stated
-
--Defense prefixes provide 1 less defense in Pre-Hardmode
--Defense prefixes provide +5 max life
-
-Other changes:
-Mutant:
--Decreased arena aura size during p1 sphere rings attack
--Increased duration of p1 sphere rings attack in Masochist Mode
--During the p1 spear dash attack, arena aura is locked in a stationary position in Masochist Mode
--Mutant p1 arena is enlargened while stationary for dash spam attack in Masochist Mode
--Mutant moves along with Slime Rain
--Fixed bug where p1 arena aura became invisible when Mutant is offscreen
--Banished Baron:
-Base health 30500 -> 32000
-Reduced delay between phase 1 attacks and increased swim speed
 -Lifelight:
-Base health 44000 -> 42000
-Changed mine spawning logic for phase transition attack (it's easier now)
+Maximum health 42000 -> 36500
+Now gains DoT resistance proportionate to her damage reduction
+Smite debuff duration reduced from 10 seconds to 3 seconds
+
+-Skeletron Prime:
+Instantly enters Phase 2 in Eternity, unchanged in Maso
+Now tries to stay at a distance from the player during his normal AI
+Does a small backhop when finishing blender spin
+Arms are now fully intangible when they don't deal contact damage
+Hands deal no contact damage for a few seconds after transition to arm regrowth phase
+Extended time period before hands start deal contact damage after spinning
+Now cannot enter phase 3 (arm regrow) mid-spin
+
 -Trojan Squirrel:
--Tons of visual polishing touches and tweaks
--Made squirrel rain attack 1 second faster
--Slightly decreased telegraph time to compensate for it no longer being ambiguous due to visual changes
--King Slime (Eternity):
-Minor rework
--Eye of Cthulhu (Eternity):
-Minor rework
--Lunar Pillars (Eternity):
-Reworked Nebula Pillar idle attack
-Improved pattern of Nebula Pillar Arcanum attack shots
-Nebula Mirage pillars now have a random start angle (still evenly spread)
-Vortex Pillar ends Vortex desperation attack when you die
-Reworked Vortex Pillar lightning and added new attack variant
--Empress of Light (Eternity):
-Projectiles now get low opacity when they aren't damaging
--Queen Slime (Eternity):
-Queenly Smash now deals no damage on Eternity, only Masochist
--Destroyer (Eternity):
-Reduces the actual damage of projectiles that hit him by 25%
-Coiled up segments at the start of the fight are immune to damage
--Queen Bee (Eternity):
-Contact damage in dash mode inflicts Broken Armor for 5s
--Skeletron (Eternity):
-Transforms into Dungeon Guardian at daytime
+Snowball attack now speeds up like a minigun
+Decreased initial maximum vertical speed for phase 3 fire sparks while running
 
--New health buffs that only apply to Expert Eternity (not Master): 
-Deviantt +40%
-Wall of Flesh +30%
-Plantera +20%
-Golem +25%
+Eternity Mode changes enemy/environment changes (more to come soon!):
+-Lightning rarely strikes during rain, when you're exposed and wet
+-The lightning bolt explodes on terrain in Hardmode
+-Cactuses once again deal contact damage in Eternity Mode, but Cactus Enchant grants immunity to them
+-Improved Pixies vertical mobility
+-Rain and Sandstorm are once again able to occur preboss/abom
+-Flying Fish can't horde split preboss
+-Removed freeze in Snow biome water
+-Going in Snow biome water gives the Hypothermia buff instead of the freeze
+-Having the Hypothermia buff now slows down all your projectiles
 
--Several champions now have a chance to drop Solutions on-hit on Don't Dig Up:
-Timber Champion drops Brown Solution
-Life Champion drops Blue Solution
-Nature Champion drops the rest, depending on the hit head
-
--Reworked Fish Stick
--Big Sting is now a slow-firing launcher, minigun is now The Biggest Sting
--Overgrown Key damage 30 -> 49
--Vineslinger damage 52 -> 58, increased speed and travel distance
--Mahoguny damage 45 -> 59
--Small/Big Sting now receive a 10% damage bonus from the Hive Pack effect
--Mechanical Leash of Cthulhu damage 244 -> 160 and receives less benefit from Shroomite Enchantment
--Slime Slinging Slasher damage 367 -> 335
--Hellzone damage 262 -> 274
--Massively buffed Staff of Unleashed Ocean tornadoes
-
--Reworked Universe Core
--Special Dash cooldown 3 -> 5 seconds
--Box of Gizmos grants autofire to non-weapon items
--Darkened Heart eater damage 12 -> 18
--Pure Heart eater damage 38 -> 45
-Seekers inflict Cursed Inferno
--Gutted Heart:
-Creepers inflict ichor
-Creeper cooldown increased based on your missing health
-
--Reworked Pearlwood Enchant
--Reworked Adamantite Enchant
--Reworked Crimson Enchant
--Tungsten Enchant:
-No longer provides crit rerolls
-Damage bonus is now 7%, 14% with force
-Removed melee speed penalty
-Ebonwood Enchant: 
--Proc time reduced to 3 seconds
--Force effect aura radius 400 -> 500
--Contact damage reduction 10% -> 20%, and force effect armor penetration 30 -> 40
--Pumpkin Enchant:
-Pumpkin spawntime 5s>7.5s 
-Pumpkin flame damage 30>15
--Force effect pumpkin flame damage 30>45
-Hallowed Enchant:
-Buffed healing from 120%>140%
-Buffed force effect healing from 140%>170%
--Squire Enchant:
-Heal bonus 25%>10%
-Force Squire/Valhalla heal bonus 33%>15%
-Force Valhalla heal bonus 50>20%
--Palmwood Enchant:
-Force effect: increased size, damage and speed instead of granting an additional sentry
--Gladiator Enchant:
-Banner 10 defense -> 5% DR
--Rain Enchant:
-Umbrella force effect health 1000 -> 400
--Copper Enchant:
-Damage increased from 35/150 to 50/200
-Lightning deals less damage per hit enemy
--Monk Enchant:
-Dashing through enemies now slashes them for massive damage
--Meteor Enchant:
-Now uses Magiluminescence in recipe instead of Space Gun and provides its effects
--Titanium Enchant:
-Effect DR 50 -> 25%
-Force effect DR 75 -> 35%
--Shinobi Enchant:
-Now has a force effect
-
--New explosion animations for Cobalt Enchant, Ancient Cobalt Enchant, Obsidian Enchant
--Several recipe changes
--Banished Baron now drops a relic
--Removed Mana Sickness from debuff list (affects things like Titanium Enchant debuff immunity)
--Added Discord and Wiki links in mod description
--Alchemist NPC Greater Dangersense Potion disabled while a boss is alive in Eternity Mode
--Fixed Eternity Advisor not selling from Deviantt
--Fixed Ancient Shadow Enchant shadowflame damaging player instead of enemies
--Fixed Lunar Pillars not working correctly after rejoining world while they're alive
--Fixed Precision Seal not working correctly
--Fixed some other bugs and issues
--Resprited Duke Fishron
--Several resprites
+-Internally improved localization system, and made minor tweaks to some text
+-Added full Chinese localization
+-Updated description of Universe Core to note the chance of a supercrit
+-Adamantite Enchant only gives extra iframes when split is successful
+-Removed Bone Glove from Sniper Soul recipe
+-Network synced Ancient Hallow Enchant sword mouse position
+-Fixed bug where Nano Core could sometimes be reforged
+-Fixed Bionomic Cluster not correctly applying Tribal Charm effect
+-Fixed problems with Iron Enchant used material type list and clarified in description how it works
+-Fixed Golem loading an incorrect glow on his head
+-Fixed Tungsten Enchantment displaying debug text

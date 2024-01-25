@@ -500,6 +500,16 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 OnFirstTick(projectile);
             }
+
+            //Slower friendly projectiles in Snow biome
+            if (projectile.friendly)
+            {
+                Player player = Main.player[projectile.owner];
+                if (player.HasBuff(ModContent.BuffType<HypothermiaBuff>()) && projectile.velocity.Length() > 3f)
+                {
+                    projectile.velocity *= 0.975f;
+                }
+            }
             
             counter++;
 
@@ -1164,7 +1174,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 if (FadeTimer > 0)
                                     FadeTimer--;
                             }
-                            float fade = 1f - (0.8f * FadeTimer / FadeTime);
+                            float fade = 1f - (0.5f * FadeTimer / FadeTime);
                             projectile.Opacity = fade;
                         }
                     }

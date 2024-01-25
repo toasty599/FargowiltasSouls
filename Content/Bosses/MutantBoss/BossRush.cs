@@ -1,6 +1,8 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
@@ -138,7 +140,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 int n = FargoSoulsUtil.NewNPCEasy(Terraria.Entity.InheritSource(Projectile), npc.Center, type);
                 if (n != Main.maxNPCs)
-                    FargoSoulsUtil.PrintText(Main.npc[n].FullName + " has awoken!", 175, 75, 255);
+                    FargoSoulsUtil.PrintLocalization("Announcement.HasAwoken", new Color(175, 75, 255), Language.GetTextValue($"Mods.{Mod.Name}.NPCs.MutantBoss.DisplayName"));
             }
         }
     }

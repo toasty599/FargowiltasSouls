@@ -14,11 +14,18 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using Terraria.GameContent;
+using Terraria.WorldBuilding;
+using System.Drawing;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
-	public abstract class GolemPart : EModeNPCBehaviour
+    public abstract class GolemPart : EModeNPCBehaviour
     {
+
         public int HealPerSecond;
         public int HealCounter;
 
@@ -63,7 +70,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     CombatText.NewText(npc.Hitbox, CombatText.HealLife, HealPerSecond);
                 }
             }
-
             return base.SafePreAI(npc);
         }
 
@@ -76,11 +82,36 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             target.AddBuff(BuffID.WitheredArmor, 600);
         }
 
+        public static string DungeonVariant => 
+            GenVars.crackedType == TileID.CrackedBlueDungeonBrick ? "B" : 
+            GenVars.crackedType == TileID.CrackedGreenDungeonBrick ? "G" : 
+            "P";
+
+        public static void LoadGolemSpriteBuffered(bool recolor, int type, Asset<Texture2D>[] vanillaTexture, Dictionary<int, Asset<Texture2D>> fargoBuffer, string texturePrefix)
+        {
+            if (recolor)
+            {
+                if (!fargoBuffer.ContainsKey(type))
+                {
+                    fargoBuffer[type] = vanillaTexture[type];
+                    vanillaTexture[type] = LoadSprite($"{texturePrefix}{type}{DungeonVariant}") ?? vanillaTexture[type];
+                }
+            }
+            else
+            {
+                if (fargoBuffer.ContainsKey(type))
+                {
+                    vanillaTexture[type] = fargoBuffer[type];
+                    fargoBuffer.Remove(type);
+                }
+            }
+        }
         public override void LoadSprites(NPC npc, bool recolor)
         {
             base.LoadSprites(npc, recolor);
 
-            LoadNPCSprite(recolor, npc.type);
+            LoadGolemSpriteBuffered(recolor, npc.type, TextureAssets.Npc, FargowiltasSouls.TextureBuffer.NPC, "NPC_");
+            
         }
     }
 
@@ -418,6 +449,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             for (int i = 1; i <= 3; i++)
                 LoadGolem(recolor, i);
+            LoadExtra(recolor, 107);
+            LoadGolemSpriteBuffered(recolor, 5, TextureAssets.NpcHeadBoss, FargowiltasSouls.TextureBuffer.NPCHeadBoss, "NPC_Head_Boss_");
         }
     }
 

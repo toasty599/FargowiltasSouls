@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -144,7 +145,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 {
                     if (!Main.dedServ)
                         Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(planteraCenter) * (i + Main.rand.NextFloat(increment)), Vector2.Zero,
-                        ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "Gore_386" : "Gore_387").Type, Projectile.scale);
+                        Main.rand.NextBool() ? 386 : 387, Projectile.scale);
                 }
             }
 
@@ -166,7 +167,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             if (Projectile.localAI[0] != 0 && Projectile.localAI[1] != 0)
             {
-                Texture2D texture = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Vanilla/Chain26", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                Texture2D texture = TextureAssets.Chain27.Value;
                 Vector2 position = Projectile.Center;
                 Vector2 mountedCenter = new(Projectile.localAI[0], Projectile.localAI[1]);
                 Rectangle? sourceRectangle = new Rectangle?();
@@ -196,7 +197,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     }
             }
 
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPCID.PlanterasTentacle].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);

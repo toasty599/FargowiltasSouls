@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             // DisplayName.SetDefault("Hungry");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            Main.projFrames[Type] = 6;
         }
 
         public override void SetDefaults()
@@ -64,6 +65,15 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 }
             }*/
 
+            if (++Projectile.frameCounter > 4)
+            {
+                if (++Projectile.frame >= Main.projFrames[Type])
+                {
+                    Projectile.frame = 0;
+                }
+                Projectile.frameCounter = 0;
+            }
+
             //dust!
             int dustId = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 2f), Projectile.width, Projectile.height + 5, DustID.RedTorch, Projectile.velocity.X * 0.2f,
                 Projectile.velocity.Y * 0.2f, 100, default, 2f);
@@ -84,7 +94,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
 
                 NPC n = FargoSoulsUtil.NPCExists(FargoSoulsUtil.FindClosestHostileNPC(Projectile.Center, 600, true));
-                if (n != null)
+                if (n.Alive())
                 {
                     Vector2 desiredVelocity = Projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);

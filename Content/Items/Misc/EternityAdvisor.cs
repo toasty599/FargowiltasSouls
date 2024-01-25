@@ -14,6 +14,7 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Misc
@@ -79,8 +80,9 @@ namespace FargowiltasSouls.Content.Items.Misc
             return GetBuildText(choices.ToArray());
         }
 
-        private int GetBossHelp(ref string build, Player player)
+        private int GetBossHelp(out string build, Player player)
         {
+            build = "";
             int summonType = -1;
             string other = string.Empty;
             int[] meleeSpecific = null, rangerSpecific = null, mageSpecific = null, summonerSpecific = null;
@@ -614,15 +616,17 @@ namespace FargowiltasSouls.Content.Items.Misc
 
             string classSpecific = ClassSpecific(player, meleeSpecific, rangerSpecific, mageSpecific, summonerSpecific);
 
+            build = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternityAdvisor.General", build);
+
             if (!string.IsNullOrEmpty(classSpecific))
-                classSpecific = $"\nClass-Specific: {classSpecific}";
+                classSpecific = "\n" + Language.GetTextValue("Mods.FargowiltasSouls.Items.EternityAdvisor.ClassSpecific", classSpecific);
             build += classSpecific;
 
             if (!string.IsNullOrEmpty(other))
-                other = $"\nOther: {other}";
+                other = "\n" + Language.GetTextValue("Mods.FargowiltasSouls.Items.EternityAdvisor.Other", other);
             build += other;
 
-            build += $"\nSummon Item: [i:{summonType}]";
+            build += "\n" + Language.GetTextValue("Mods.FargowiltasSouls.Items.EternityAdvisor.Summon", $"[i:{summonType}]");
 
             return summonType;
         }
@@ -658,8 +662,7 @@ namespace FargowiltasSouls.Content.Items.Misc
         {
             if (player.ItemTimeIsZero)
             {
-                string dialogue = "General: ";
-                GetBossHelp(ref dialogue, player);
+                GetBossHelp(out string dialogue, player);
                 if (player.whoAmI == Main.myPlayer)
                     Main.NewText(dialogue);
 
