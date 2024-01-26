@@ -1,9 +1,11 @@
 ﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
@@ -134,7 +136,20 @@ namespace FargowiltasSouls.Core.Globals
                         npc.AddBuff(BuffID.OnFire, 2);
                 }
 
-                if (npc.wet && !npc.noTileCollide && !isWaterEnemy && npc.HasPlayerTarget)
+                Vector2 tileCenter = npc.Center;
+                tileCenter.X /= 16;
+                tileCenter.Y /= 16;
+                Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+
+                if (Main.raining && (npc.position.Y / 16 < Main.worldSurface))
+                {
+                    if (currentTile.WallType == WallID.None)
+                    {
+                        npc.AddBuff(BuffID.Wet, 2);
+                    }
+                }
+
+                        if (npc.wet && !npc.noTileCollide && !isWaterEnemy && npc.HasPlayerTarget)
                 {
                     npc.AddBuff(ModContent.BuffType<LethargicBuff>(), 2, true);
                     if (Main.player[npc.target].ZoneCorrupt)
