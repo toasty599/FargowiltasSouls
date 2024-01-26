@@ -90,7 +90,5 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         {
             return Main.rand.NextBool();
         }
-
-        
     }
 }
