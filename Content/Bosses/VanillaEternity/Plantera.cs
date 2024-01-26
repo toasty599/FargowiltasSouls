@@ -241,12 +241,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     //if (fastX && Math.Sign(npc.velocity.X) != Math.Sign(target.X - npc.Center.X))
                         //npc.velocity.X = 0;
                 }
+
                 if (state == 0) // Phase transition movement, go up while avoiding player
                 {
                     Vector2 playerToNPC = (npc.Center - player.Center);
                     float distX;
                     if (Math.Sign(playerToNPC.Y) > -10)
-                        distX = Utils.Clamp(Math.Abs(playerToNPC.X), 300, 500);
+                        distX = Utils.Clamp(Math.Abs(playerToNPC.X), 300, 500) * Math.Sign(playerToNPC.X);
                     else
                         distX = 0;
                     float targetX = player.Center.X + Math.Sign(playerToNPC.X) * distX;
@@ -258,7 +259,14 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (playerToNPC.Y > -distY)
                     {
                         Movement(targetPos, 0.3f, true);
-                        timer--;
+                        if (timer > 50)
+                            timer--;
+
+                        if (Math.Abs(playerToNPC.Y) < Math.Abs(playerToNPC.X)) //anti go into you and fuck you when going up
+                        {
+                            npc.velocity.Y *= 0.95f;
+                            npc.velocity.X += Math.Sign(playerToNPC.X) * 0.5f;
+                        }
                     }
                     else
                     {
@@ -274,6 +282,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     movementTimer++;
                 }
+
                 void WallHugMovement(bool fastX = false, float speedMult = 1, float heightMult = 1, float targetPosX = 0)
                 {
                     ref float movementTimer = ref npc.ai[2];
@@ -282,6 +291,15 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     int searchHeight = 200 + 120 * (int)MathF.Sin(MathHelper.TwoPi * movementTimer / (60 * 8.35f));
                     searchHeight = (int)(searchHeight * heightMult);
                     bool collisionAbove = Collision.SolidCollision(npc.Center - Vector2.UnitX * searchWidth / 2 - Vector2.UnitY * searchHeight, searchWidth, searchHeight);
+
+                    if (!Collision.CanHitLine(npc.Center, 0, 0, player.Center, 0, 0)) // if collision between you and player, and are above, go down
+                    {
+                        collisionAbove = true;
+                    }
+                    if (player.Center.X - npc.Center.X > 900) //cap it
+                    {
+                        collisionAbove = true;
+                    }
                     float speedY;
                     if (collisionAbove && player.Center.Y - npc.Center.Y > 150)
                     {

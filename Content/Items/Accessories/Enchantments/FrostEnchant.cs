@@ -71,6 +71,7 @@ There is a 60 second cooldown for this effect
 
             .AddTile(TileID.CrystalBall)
             .Register();
+
         }
     }
     public class FrostEffect : AccessoryEffect

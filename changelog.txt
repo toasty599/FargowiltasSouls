@@ -1,51 +1,6 @@
 NEW UPDATE - V {ModVersion}
--Updated wiki links to lead to the brand new dedicated wiki at https://fargosmods.wiki.gg
--Fixed gravity-reversing effects not flipping the screen
--Implemented new Deviantt theme
-
--Eternity Plantera:
-Large rework, featuring a new phase
-Tweaked health distribution, damage reduction and maximum health. No longer has a health buff in specifically Eternity-Expert.
-Added a complete visual revamp with the Eternity Mode Boss Resprites config enabled, going along with her Eternity resprite. This will be done for other bosses that need it aswell.
-now refunds Plantera's Fruit unconditionally on attempts, instead of only after Mech Bosses have been defeated
-
--Lifelight:
-Maximum health 42000 -> 36500
-Now gains DoT resistance proportionate to her damage reduction
-Smite debuff duration reduced from 10 seconds to 3 seconds
-
--Skeletron Prime:
-Instantly enters Phase 2 in Eternity, unchanged in Maso
-Now tries to stay at a distance from the player during his normal AI
-Does a small backhop when finishing blender spin
-Arms are now fully intangible when they don't deal contact damage
-Hands deal no contact damage for a few seconds after transition to arm regrowth phase
-Extended time period before hands start deal contact damage after spinning
-Now cannot enter phase 3 (arm regrow) mid-spin
-
--Trojan Squirrel:
-Snowball attack now speeds up like a minigun
-Decreased initial maximum vertical speed for phase 3 fire sparks while running
-
-Eternity Mode changes enemy/environment changes (more to come soon!):
--Lightning rarely strikes during rain, when you're exposed and wet
--The lightning bolt explodes on terrain in Hardmode
--Cactuses once again deal contact damage in Eternity Mode, but Cactus Enchant grants immunity to them
--Improved Pixies vertical mobility
--Rain and Sandstorm are once again able to occur preboss/abom
--Flying Fish can't horde split preboss
--Removed freeze in Snow biome water
--Going in Snow biome water gives the Hypothermia buff instead of the freeze
--Having the Hypothermia buff now slows down all your projectiles
-
--Internally improved localization system, and made minor tweaks to some text
--Added full Chinese localization
--Updated description of Universe Core to note the chance of a supercrit
--Adamantite Enchant only gives extra iframes when split is successful
--Removed Bone Glove from Sniper Soul recipe
--Network synced Ancient Hallow Enchant sword mouse position
--Fixed bug where Nano Core could sometimes be reforged
--Fixed Bionomic Cluster not correctly applying Tribal Charm effect
--Fixed problems with Iron Enchant used material type list and clarified in description how it works
--Fixed Golem loading an incorrect glow on his head
--Fixed Tungsten Enchantment displaying debug text
+Eternity Plantera phase 3 tweaks:
+-Foolproofed ceiling check, will now stop whenever there's any blocks between you
+-Maximum cap for vertical distance to player
+-Phase transition avoids the player even more carefully
+-Slightly sped up phase transition endlag

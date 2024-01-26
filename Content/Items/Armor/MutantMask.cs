@@ -60,11 +60,11 @@ Increases max number of minions and sentries by 10
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = getSetBonusString();
+            player.setBonus = GetSetBonusString();
             MutantSetBonus(player, Item);
         }
 
-        public static string getSetBonusString()
+        public static string GetSetBonusString()
         {
             return Language.GetTextValue($"Mods.FargowiltasSouls.SetBonus.Mutant");
         }
