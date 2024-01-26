@@ -155,6 +155,10 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 1.2f;
                     return EModeChange.Buff;
+                case ItemID.IceBlade:
+                    balanceTextKeys = new string[] { "IceBladeFrostburn" };
+                    balanceNumber = 1;
+                    return EModeChange.Buff;
 
                 /*
             case ItemID.PiercingStarlight:
