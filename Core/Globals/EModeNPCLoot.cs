@@ -547,7 +547,7 @@ namespace FargowiltasSouls.Core.Globals
             npcLoot.Add(emodeRule);
         }
     }
-    public class EModeLifeCrystalDrop : GlobalNPC
+    public class EModeFirstKillDrop : GlobalNPC
     {
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
@@ -555,16 +555,17 @@ namespace FargowiltasSouls.Core.Globals
 
             if (npc.type == ModContent.NPCType<TrojanSquirrel>())
             {
-                rule = DropLifeCrystal(2);
+                rule = FirstKillDrop(2, ItemID.LifeCrystal);
+                npcLoot.Add(FirstKillDrop(1, ItemID.SquirrelHook));
             }
 
             switch (npc.type)
             {
                 case NPCID.KingSlime:
-                    rule = DropLifeCrystal(2);
+                    rule = FirstKillDrop(2, ItemID.LifeCrystal);
                     break;
                 case NPCID.EyeofCthulhu:
-                    rule = DropLifeCrystal(3);
+                    rule = FirstKillDrop(3, ItemID.LifeCrystal);
                     break;
             }
 
@@ -637,18 +638,17 @@ namespace FargowiltasSouls.Core.Globals
         }
         */
 
-        private static IItemDropRule Drop(int count) => ItemDropRule.Common(ItemID.LifeCrystal, minimumDropped: count, maximumDropped: count);
+        private static IItemDropRule Drop(int count, int itemID) => ItemDropRule.Common(itemID, minimumDropped: count, maximumDropped: count);
 
-        public static IItemDropRule DropLifeCrystal(int amount)
+        public static IItemDropRule FirstKillDrop(int amount, int itemID)
         {
-            IItemDropRule rule = new LeadingConditionRule(new LifeCrystalCondition());
-            rule.OnSuccess(Drop(amount));
-
+            IItemDropRule rule = new LeadingConditionRule(new FirstKillCondition());
+            rule.OnSuccess(Drop(amount, itemID));
             return rule;
         }
     }
 
-    internal class LifeCrystalCondition : IItemDropRuleCondition
+    internal class FirstKillCondition : IItemDropRuleCondition
     {
         public bool CanDrop(DropAttemptInfo info) =>
             !info.IsInSimulation &&
@@ -662,6 +662,6 @@ namespace FargowiltasSouls.Core.Globals
 
         public bool CanShowItemDropInUI() => true;
 
-        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.Conditions.LifeCrystalDrop");
+        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.Conditions.FirstKill");
     }
 }
