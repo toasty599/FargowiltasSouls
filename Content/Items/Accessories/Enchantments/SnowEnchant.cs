@@ -53,6 +53,20 @@ There is a 60 second cooldown for this effect
 
             .AddTile(TileID.DemonAltar)
             .Register();
+
+            CreateRecipe()
+
+            .AddIngredient(ItemID.EskimoHood)
+            .AddIngredient(ItemID.EskimoCoat)
+            .AddIngredient(ItemID.EskimoPants)
+            //hand warmer
+            //fruitcake chakram
+            .AddIngredient(ItemID.IceBlade)
+            .AddIngredient(ItemID.FrostMinnow)
+            .AddIngredient(ItemID.AtlanticCod)
+
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
     public class SnowEffect : AccessoryEffect
