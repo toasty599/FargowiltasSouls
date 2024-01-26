@@ -115,7 +115,6 @@ namespace FargowiltasSouls.Core.Globals
         #endregion
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            
             LeadingConditionRule emodeRule = new(new EModeDropCondition());
             switch (npc.type)
             {
@@ -472,8 +471,9 @@ namespace FargowiltasSouls.Core.Globals
                 case NPCID.Shark:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<HokeyBall>(), 1000));
                     break;
-
-                
+                case NPCID.SporeBat:
+                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Shroomerang, 10));
+                    break;
 
             }
             #region early bird
