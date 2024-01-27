@@ -151,13 +151,22 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 1.1f;
                     return EModeChange.Buff;
 
-                    /*
-                case ItemID.PiercingStarlight:
+                case ItemID.Shroomerang:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.6f;
-                    return EModeChange.Nerf;
-                    */
-                
+                    balanceNumber = 1.2f;
+                    return EModeChange.Buff;
+                case ItemID.IceBlade:
+                    balanceTextKeys = new string[] { "IceBladeFrostburn" };
+                    balanceNumber = 1;
+                    return EModeChange.Buff;
+
+                /*
+            case ItemID.PiercingStarlight:
+                balanceTextKeys = new string[] { "Damage" };
+                balanceNumber = 0.6f;
+                return EModeChange.Nerf;
+                */
+
                 case ItemID.PumpkinMoonMedallion:
                 case ItemID.NaughtyPresent:
                     if (WorldSavingSystem.MasochistModeReal)

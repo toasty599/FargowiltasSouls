@@ -570,7 +570,7 @@ SnowEnchant: {
 	Tooltip:
 		'''
 		Your attacks briefly inflict Frostburn
-		Press the Freeze Key to chill everything for 15 seconds
+		Press the Freeze Key to chill and Frostburn everything for 15 seconds
 		There is a 60 second cooldown for this effect
 		'It's Burning Cold Outside'
 		'''
