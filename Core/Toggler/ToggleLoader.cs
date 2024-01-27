@@ -1,48 +1,45 @@
-﻿using System;
+﻿using FargowiltasSouls.Content.UI.Elements;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler
 {
     public static class ToggleLoader
     {
-        public static Dictionary<string, Toggle> LoadedToggles
+        public static Dictionary<AccessoryEffect, Toggle> LoadedToggles
         {
             get;
-            private set;
+            set;
+        } 
+        public static HashSet<Header> LoadedHeaders
+        {
+            get;
+            set;
         }
 
-        public static List<int> HeaderToggles
-        {
-            get;
-            private set;
-        }
-
-        public static Dictionary<string, (string name, int item)> LoadedHeaders
-        {
-            get;
-            private set;
-        }
 
         public static void Load()
         {
-            LoadedToggles = new Dictionary<string, Toggle>();
-            HeaderToggles = new List<int>();
-            LoadedHeaders = new Dictionary<string, (string name, int item)>();
-            LoadTogglesFromAssembly(FargowiltasSouls.Instance.Code);
+            //LoadTogglesFromAssembly(FargowiltasSouls.Instance.Code);
         }
 
         public static void Unload()
         {
             LoadedToggles?.Clear();
-            HeaderToggles?.Clear();
             LoadedHeaders?.Clear();
         }
 
 
         public static void LoadTogglesFromAssembly(Assembly assembly)
         {
+            // Toggles are now registered from the AccessoryEffect system. Headers are now registered from each derived class of the Header baseclass.
+
+            #region Collection Loading (outdated)
+            /*
             Type[] types = assembly.GetTypes();
             List<ToggleCollection> collections = new();
 
@@ -73,16 +70,28 @@ namespace FargowiltasSouls.Core.Toggler
                     RegisterToggle(toggle);
                 }
             }
+            */
+            #endregion
         }
 
         public static void RegisterToggle(Toggle toggle)
         {
-            if (LoadedToggles.ContainsKey(toggle.InternalName)) throw new Exception("Toggle with internal name " + toggle.InternalName + " is already registered");
+            
+            if (LoadedToggles == null)
+                LoadedToggles = new Dictionary<AccessoryEffect, Toggle>();
+            if (LoadedToggles.ContainsKey(toggle.Effect)) throw new Exception("Toggle of effect " + toggle.Effect.Name + " is already registered");
 
-            LoadedToggles.Add(toggle.InternalName, toggle);
+            LoadedToggles.Add(toggle.Effect, toggle);
 
-            if (LoadedHeaders.ContainsKey(toggle.InternalName))
-                HeaderToggles.Add(LoadedToggles.Values.ToList().FindIndex((t) => t.InternalName == toggle.InternalName));
+        }
+        public static void RegisterHeader(Header header)
+        {
+            
+            if (LoadedHeaders == null)
+                LoadedHeaders = new HashSet<Header>();
+            //if (LoadedHeaders.Contains(header)) throw new Exception("Header with internal name " + header.Name + " is already registered");
+
+            LoadedHeaders.Add(header);
         }
     }
 }

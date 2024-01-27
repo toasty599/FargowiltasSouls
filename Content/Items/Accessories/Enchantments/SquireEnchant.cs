@@ -1,4 +1,7 @@
-﻿using FargowiltasSouls.Content.Buffs.Souls;
+﻿using Fargowiltas.Common.Configs;
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -14,13 +17,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(148, 143, 140);
+        public override Color nameColor => new(148, 143, 140);
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.LightPurple;
             Item.value = 150000;
         }
 
@@ -31,13 +34,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public static void SquireEffect(Player player, Item item)
         {
+            player.AddEffect<SquireMountSpeed>(item);
+            player.AddEffect<SquireMountJump>(item);
             FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.SquireEnchantItem = item;
+            modPlayer.SquireEnchantActive = true;
 
-            player.DisplayToggle("SquirePanic");
-
-            if (!player.GetToggleValue("SquirePanic"))
-                player.buffImmune[BuffID.BallistaPanic] = true;
+            player.buffImmune[BuffID.BallistaPanic] = true;
 
             Mount mount = player.mount;
 
@@ -53,13 +55,15 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                     Mount.MountData original = Mount.mounts[mount.Type];
                     //copy over ANYTHING that will be changed
-                    modPlayer.BaseSquireMountData = new Mount.MountData();
-                    modPlayer.BaseSquireMountData.acceleration = original.acceleration;
-                    modPlayer.BaseSquireMountData.dashSpeed = original.dashSpeed;
-                    modPlayer.BaseSquireMountData.fallDamage = original.fallDamage;
+                    modPlayer.BaseSquireMountData = new Mount.MountData
+                    {
+                        acceleration = original.acceleration,
+                        dashSpeed = original.dashSpeed,
+                        fallDamage = original.fallDamage,
 
-                    modPlayer.BaseSquireMountData.jumpSpeed = original.jumpSpeed;
-                    modPlayer.BaseSquireMountData.usesHover = original.usesHover;
+                        jumpSpeed = original.jumpSpeed,
+                        //usesHover = original.usesHover
+                    };
 
                     modPlayer.BaseMountType = mount.Type;
                 }
@@ -68,13 +72,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 float accelBoost;
                 float speedBoost;
 
-                if (modPlayer.ValhallaEnchantItem != null && modPlayer.ForceEffect(modPlayer.ValhallaEnchantItem.type))
+                if (modPlayer.ValhallaEnchantActive && modPlayer.ForceEffect<ValhallaKnightEnchant>())
                 {
                     defenseBoost = 20;
                     accelBoost = 2f;
                     speedBoost = 1.5f;
                 }
-                else if (modPlayer.ValhallaEnchantItem != null || modPlayer.ForceEffect(modPlayer.SquireEnchantItem.type))
+                else if (modPlayer.ValhallaEnchantActive || modPlayer.ForceEffect<SquireEnchant>())
                 {
                     defenseBoost = 15;
                     accelBoost = 1.5f;
@@ -86,55 +90,83 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     accelBoost = 1.25f;
                     speedBoost = 1.25f;
                 }
-                if (!player.GetToggleValue("SquireMountSpeed"))
+                
+                
+                if (!player.HasEffect<SquireMountSpeed>())
                 {
                     accelBoost = 1;
                     speedBoost = 1;
                 }
-                if (modPlayer.ValhallaEnchantItem != null)
+                if (player.HasEffect<ValhallaDash>())
                 {
-                    player.DisplayToggle("Valhalla");
 
                     if (modPlayer.ValhallaDashCD > 0)
                     {
                         modPlayer.ValhallaDashCD--;
                     }
 
-                    if (modPlayer.ValhallaDashCD == 0 && player.GetToggleValue("Valhalla"))
+                    if (modPlayer.ValhallaDashCD == 0)
                     {
-                        //mount dash
-                        if ((player.controlDown && player.releaseDown))
+                        if (Main.myPlayer == player.whoAmI)
                         {
-                            if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                            if (Fargowiltas.Fargowiltas.DashKey.Current)
                             {
-                                ValhallaDash(player, true, 1);
+                                if (player.controlDown)
+                                {
+                                    ValhallaDash(player, true, 1);
+                                }
+                                //up
+                                else if (player.controlUp)
+                                {
+                                    ValhallaDash(player, true, -1);
+                                }
+                                if (player.controlRight)
+                                {
+                                    ValhallaDash(player, false, 1);
+                                }
+                                else if (player.controlLeft)
+                                {
+                                    ValhallaDash(player, false, -1);
+                                }
                             }
-                        }
-                        //up
-                        else if ((player.controlUp && player.releaseUp))
-                        {
-                            if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
+                            else if (!ModContent.GetInstance<FargoClientConfig>().DoubleTapDashDisabled)
                             {
-                                ValhallaDash(player, true, -1);
-                            }
-                        }
-                        if (player.controlRight && player.releaseRight)
-                        {
-                            if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
-                            {
-                                ValhallaDash(player, false, 1);
-                            }
-                        }
-                        else if (player.controlLeft && player.releaseLeft)
-                        {
-                            if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
-                            {
-                                ValhallaDash(player, false, -1);
+                                //mount dash
+                                if ((player.controlDown && (player.releaseDown)))
+                                {
+                                    if (player.doubleTapCardinalTimer[0] > 0 && player.doubleTapCardinalTimer[0] != 15)
+                                    {
+                                        ValhallaDash(player, true, 1);
+                                    }
+                                }
+                                //up
+                                else if ((player.controlUp && player.releaseUp))
+                                {
+                                    if (player.doubleTapCardinalTimer[1] > 0 && player.doubleTapCardinalTimer[1] != 15)
+                                    {
+                                        ValhallaDash(player, true, -1);
+                                    }
+                                }
+                                if (player.controlRight && player.releaseRight)
+                                {
+                                    if (player.doubleTapCardinalTimer[2] > 0 && player.doubleTapCardinalTimer[2] != 15)
+                                    {
+                                        ValhallaDash(player, false, 1);
+                                    }
+                                }
+                                else if (player.controlLeft && player.releaseLeft)
+                                {
+                                    if (player.doubleTapCardinalTimer[3] > 0 && player.doubleTapCardinalTimer[3] != 15)
+                                    {
+                                        ValhallaDash(player, false, -1);
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                if (player.GetToggleValue("SquireMountJump"))
+                
+                if (player.HasEffect<SquireMountJump>())
                 {
                     player.GetJumpState(ExtraJump.FartInAJar).Enable();
                 }
@@ -147,10 +179,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 mount._data.fallDamage = 0;
                 player.noFallDmg = true;
 
+                /*
                 if (modPlayer.IsDashingTimer == 0)
                 {
-                    mount._data.usesHover = modPlayer.BaseSquireMountData.usesHover;
+                    //mount._data.usesHover = modPlayer.BaseSquireMountData.usesHover;
                 }
+                */
                 
 
                 //Main.NewText(mount.DashSpeed);
@@ -226,6 +260,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Mount.mounts[modPlayer.BaseMountType].fallDamage = modPlayer.BaseSquireMountData.fallDamage;
 
             Mount.mounts[modPlayer.BaseMountType].jumpSpeed = modPlayer.BaseSquireMountData.jumpSpeed;
+            //Mount.mounts[modPlayer.BaseMountType].usesHover = modPlayer.BaseSquireMountData.usesHover;
             modPlayer.BaseMountType = -1;
         }
 
@@ -242,5 +277,17 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddTile(TileID.CrystalBall)
             .Register();
         }
+    }
+    public class SquireMountSpeed : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+
+        public override int ToggleItemType => ModContent.ItemType<SquireEnchant>();
+    }
+    public class SquireMountJump : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<WillHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SquireEnchant>();
     }
 }

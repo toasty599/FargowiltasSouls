@@ -15,6 +15,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             // DisplayName.SetDefault("Hungry");
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            Main.projFrames[Type] = 6;
         }
 
         public override void SetDefaults()
@@ -63,6 +64,15 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     Projectile.netUpdate = true;
                 }
             }*/
+
+            if (++Projectile.frameCounter > 4)
+            {
+                if (++Projectile.frame >= Main.projFrames[Type])
+                {
+                    Projectile.frame = 0;
+                }
+                Projectile.frameCounter = 0;
+            }
 
             //dust!
             int dustId = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 2f), Projectile.width, Projectile.height + 5, DustID.RedTorch, Projectile.velocity.X * 0.2f,

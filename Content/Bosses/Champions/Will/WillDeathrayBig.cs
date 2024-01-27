@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
 
             if (Main.LocalPlayer.active && !Main.dedServ)
             {
-                Main.LocalPlayer.GetModPlayer<FargoSoulsPlayer>().Screenshake = 10;
+                Main.LocalPlayer.FargoSouls().Screenshake = 10;
 
                 if (Projectile.localAI[0] < maxTime / 2)
                 {

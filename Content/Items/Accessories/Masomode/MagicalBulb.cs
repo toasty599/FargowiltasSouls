@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -35,11 +37,15 @@ Attracts a legendary plant's offspring which flourishes in combat
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Lime;
             Item.value = Item.sellPrice(0, 6);
         }
 
-        public static void Effects(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            AddEffects(player, Item);
+        }
+        public static void AddEffects(Player player, Item item)
         {
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[ModContent.BuffType<IvyVenomBuff>()] = true;
@@ -57,13 +63,19 @@ Attracts a legendary plant's offspring which flourishes in combat
             }
 
             player.FargoSouls().MagicalBulb = true;
-            if (player.GetToggleValue("MasoPlant"))
-                player.AddBuff(ModContent.BuffType<PlanterasChildBuff>(), 2);
-        }
+            player.AddEffect<PlantMinionEffect>(item);
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        }
+    }
+    public class PlantMinionEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<ChaliceHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MagicalBulb>();
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
         {
-            Effects(player);
+            if (!player.HasBuff<SouloftheMasochistBuff>())
+                player.AddBuff(ModContent.BuffType<PlanterasChildBuff>(), 2);
         }
     }
 }

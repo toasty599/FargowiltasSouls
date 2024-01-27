@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 using Terraria;
@@ -56,7 +58,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 return;
             }
 
-            Projectile.FargoSouls().TimeFreezeImmune = player.FargoSouls().StardustEnchantActive;
+            Projectile.FargoSouls().TimeFreezeImmune = player.HasEffect<StardustEffect>();
 
             if (player.mount.Active)
                 player.mount.Dismount(player);

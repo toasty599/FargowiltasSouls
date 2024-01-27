@@ -26,7 +26,7 @@ Increases your maximum mana by 50
             // '这是个开始...'");
         }
 
-        protected override Color nameColor => new(255, 83, 255);
+        public override Color nameColor => new(255, 83, 255);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -57,7 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
             player.FargoSouls().BetsyDashing = true;
 
-            player.FargoSouls().dashCD = 5;
+            player.dashDelay = 5;
             player.FargoSouls().IsDashingTimer = 0;
 
             player.Center = Projectile.Center;

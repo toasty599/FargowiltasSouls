@@ -1,7 +1,11 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -28,56 +32,58 @@ Collect the bones to heal for 20 HP each
             // '被遗忘已久的记忆'");
         }
 
-        protected override Color nameColor => new(140, 92, 59);
+        public override Color nameColor => new(140, 92, 59);
         
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 40000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FossilEffect(player, Item);
+            player.AddEffect<FossilEffect>(Item);
+            player.AddEffect<FossilBones>(Item);
         }
 
-        public static void FossilEffect(Player player, Item item)
+        public override void AddRecipes()
         {
-            player.DisplayToggle("Fossil");
-            //bone zone
-            player.FargoSouls().FossilEnchantItem = item;
+            CreateRecipe()
+                .AddIngredient(ItemID.FossilHelm)
+                .AddIngredient(ItemID.FossilShirt)
+                .AddIngredient(ItemID.FossilPants)
+                .AddIngredient(ItemID.BoneDagger, 100)
+                .AddIngredient(ItemID.AmberStaff)
+                .AddIngredient(ItemID.AntlionClaw)
+
+                .AddTile(TileID.DemonAltar)
+                .Register();
         }
-
-        public static void FossilHurt(FargoSoulsPlayer modPlayer, int damage)
+    }
+    public class FossilEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => null;
+        public override void OnHurt(Player player, Player.HurtInfo info)
         {
-            Player player = modPlayer.Player;
-
             player.immune = true;
             player.immuneTime = 60;
-
-            if (player.GetToggleValue("Fossil"))
-            {
-                //spawn bones
-                int damageCopy = damage;
-                for (int i = 0; i < 5; i++)
-                {
-                    if (damageCopy < 30)
-                        break;
-                    damageCopy -= 30;
-
-                    float velX = Main.rand.Next(-5, 6) * 3f;
-                    float velY = Main.rand.Next(-5, 6) * 3f;
-                    Projectile.NewProjectile(player.GetSource_Misc(""), player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
-                }
-            }
         }
-
-        public static void FossilRevive(FargoSoulsPlayer modPlayer)
+        public override bool PreKill(Player player, double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            Player player = modPlayer.Player;
+            if (player.whoAmI == Main.myPlayer && player.statLife <= 0 && !player.HasBuff<FossilReviveCDBuff>())
+            {
+                FossilRevive(player);
+                return false;
+            }
+            return true;
+        }
+        public void FossilRevive(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
 
             void Revive(int healAmount, int reviveCooldown)
             {
@@ -99,33 +105,40 @@ Collect the bones to heal for 20 HP each
             if (modPlayer.Eternity)
             {
                 Revive(player.statLifeMax2 / 2 > 200 ? player.statLifeMax2 / 2 : 200, 10800);
-                FargoSoulsUtil.XWay(30, player.GetSource_Accessory(modPlayer.FossilEnchantItem), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                FargoSoulsUtil.XWay(30, GetSource_EffectItem(player), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
             }
             else if (modPlayer.TerrariaSoul)
             {
                 Revive(200, 14400);
-                FargoSoulsUtil.XWay(25, player.GetSource_Accessory(modPlayer.FossilEnchantItem), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                FargoSoulsUtil.XWay(25, GetSource_EffectItem(player), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
             }
             else
             {
-                bool forceEffect = modPlayer.ForceEffect(modPlayer.FossilEnchantItem.type);
+                bool forceEffect = modPlayer.ForceEffect<FossilEnchant>();
                 Revive(forceEffect ? 200 : 50, 18000);
-                FargoSoulsUtil.XWay(forceEffect ? 20 : 10, player.GetSource_Accessory(modPlayer.FossilEnchantItem), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
+                FargoSoulsUtil.XWay(forceEffect ? 20 : 10, GetSource_EffectItem(player), player.Center, ModContent.ProjectileType<FossilBone>(), 15, 0, 0);
             }
         }
-
-        public override void AddRecipes()
+    }
+    public class FossilBones : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<SpiritHeader>();
+        public override int ToggleItemType => ModContent.ItemType<FossilEnchant>();
+        public override void OnHurt(Player player, Player.HurtInfo info)
         {
-            CreateRecipe()
-                .AddIngredient(ItemID.FossilHelm)
-                .AddIngredient(ItemID.FossilShirt)
-                .AddIngredient(ItemID.FossilPants)
-                .AddIngredient(ItemID.BoneDagger, 100)
-                .AddIngredient(ItemID.AmberStaff)
-                .AddIngredient(ItemID.AntlionClaw)
+            //spawn bones
+            int damageCopy = info.Damage;
+            for (int i = 0; i < 5; i++)
+            {
+                if (damageCopy < 30)
+                    break;
+                damageCopy -= 30;
 
-                .AddTile(TileID.DemonAltar)
-                .Register();
+                float velX = Main.rand.Next(-5, 6) * 3f;
+                float velY = Main.rand.Next(-5, 6) * 3f;
+                Projectile.NewProjectile(GetSource_EffectItem(player), player.position.X + velX, player.position.Y + velY, velX, velY, ModContent.ProjectileType<FossilBone>(), 0, 0f, player.whoAmI);
+            }
         }
     }
 }

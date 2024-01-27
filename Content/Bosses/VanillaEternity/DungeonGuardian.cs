@@ -13,6 +13,7 @@ using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Core.Systems;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -47,6 +48,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             npc.boss = true;
             npc.lifeMax /= 4;
+        }
+
+        public override void LoadSprites(NPC npc, bool recolor)
+        {
+            base.LoadSprites(npc, recolor);
+
+            LoadNPCSprite(recolor, npc.type);
         }
 
         public override void AI(NPC npc)

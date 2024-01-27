@@ -31,7 +31,7 @@ Use to teleport to your last death point
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 4);
 
             Item.useTime = 180;

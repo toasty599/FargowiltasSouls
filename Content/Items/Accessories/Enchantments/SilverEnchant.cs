@@ -1,3 +1,5 @@
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -14,15 +16,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             // DisplayName.SetDefault("Silver Enchantment");
 
-            string tooltip =
-@"Right Click to guard with your shield
-Guard just before being hit to parry and negate damage
-Parry blocks up to 100 damage
-'Reflection'";
             // Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new(180, 180, 204);
+        public override Color nameColor => new(180, 180, 204);
         
 
         public override void SetDefaults()
@@ -35,15 +32,7 @@ Parry blocks up to 100 damage
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            player.DisplayToggle("SilverS");
-            if (player.GetToggleValue("SilverS"))
-            {
-                //shield
-                modPlayer.SilverEnchantItem = Item;
-            }
-
-            // modPlayer.AddMinion(Item, player.GetToggleValue("Silver"), ModContent.ProjectileType<SilverSword>(), 20, 0);
+            player.AddEffect<SilverEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -60,5 +49,11 @@ Parry blocks up to 100 damage
             .AddTile(TileID.DemonAltar)
             .Register();
         }
+    }
+    public class SilverEffect : AccessoryEffect
+    {
+        
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SilverEnchant>();
     }
 }

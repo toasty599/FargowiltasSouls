@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -36,7 +38,7 @@ Press the Bomb key to use your freeze bomb
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Lime;
             Item.value = Item.sellPrice(0, 6);
             Item.defense = 5;
         }
@@ -45,19 +47,20 @@ Press the Bomb key to use your freeze bomb
         {
             player.endurance += 0.05f;
             player.buffImmune[ModContent.BuffType<HypothermiaBuff>()] = true;
-            Effects(player, Item);
+            AddEffects(player, Item);
         }
 
-        public static void Effects(Player player, Item item)
+        public static void AddEffects(Player player, Item item)
         {
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.IceQueensCrown = true;
-            if (player.GetToggleValue("IceQueensCrown"))
+            if (player.AddEffect<IceQueenGraze>(item))
             {
                 fargoPlayer.Graze = true;
                 fargoPlayer.CirnoGraze = true;
             }
-            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.GetToggleValue("MasoGrazeRing", false) && player.ownedProjectileCounts[ModContent.ProjectileType<GrazeRing>()] < 1)
+            player.AddEffect<MasoGrazeRing>(item);
+            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.HasEffect<MasoGrazeRing>() && player.ownedProjectileCounts[ModContent.ProjectileType<GrazeRing>()] < 1)
                 Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<GrazeRing>(), 0, 0f, Main.myPlayer);
         }
 
@@ -94,5 +97,11 @@ Press the Bomb key to use your freeze bomb
                 Main.dust[d].velocity = vector7;
             }
         }
+    }
+    public class IceQueenGraze : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<HeartHeader>();
+        public override int ToggleItemType => ModContent.ItemType<IceQueensCrown>();
+
     }
 }

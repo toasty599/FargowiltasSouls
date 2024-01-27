@@ -26,6 +26,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.penetrate = 1;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.ignoreWater = true;
+
+            Projectile.FargoSouls().CanSplit = false;
         }
         public const int TravelTime = 30;
         ref float Timer => ref Projectile.ai[2];
@@ -39,6 +41,10 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             if (Timer >= TravelTime)
             {
                 Projectile.velocity = Vector2.Zero;
+            }
+            foreach (Projectile tornado in Main.projectile.Where(p => p.active && p.type == ModContent.ProjectileType<FishStickProjTornado>() && p.owner == Projectile.owner && p.identity > Projectile.identity))
+            {
+                tornado.Kill();
             }
             Timer++;
         }

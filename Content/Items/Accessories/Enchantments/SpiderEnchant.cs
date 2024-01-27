@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -27,20 +30,20 @@ Summon crits do x1.5 damage instead of x2
 
         }
 
-        protected override Color nameColor => new(109, 78, 69);
+        public override Color nameColor => new(109, 78, 69);
         
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.LightPurple;
+            Item.rare = ItemRarityID.Pink;
             Item.value = 150000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().SpiderEffect(hideVisual);
+            player.AddEffect<SpiderEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -59,6 +62,21 @@ Summon crits do x1.5 damage instead of x2
 
             .AddTile(TileID.CrystalBall)
             .Register();
+        }
+    }
+
+    public class SpiderEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
+        public override int ToggleItemType => ModContent.ItemType<SpiderEnchant>();
+        public override bool MinionEffect => true;
+        public override bool IgnoresMutantPresence => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            //minion crits
+            player.FargoSouls().MinionCrits = true;
+
+            player.GetCritChance(DamageClass.Summon) += 4;
         }
     }
 }

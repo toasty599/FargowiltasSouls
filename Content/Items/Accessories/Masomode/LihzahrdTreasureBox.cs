@@ -1,4 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,6 +45,19 @@ Fastfall will create a fiery eruption on impact after falling a certain distance
             player.buffImmune[ModContent.BuffType<LihzahrdCurseBuff>()] = true;
             player.buffImmune[ModContent.BuffType<LowGroundBuff>()] = true;
             player.FargoSouls().LihzahrdTreasureBoxItem = Item;
+            player.AddEffect<LihzahrdGroundPound>(Item);
+            player.AddEffect<LihzahrdBoulders>(Item);
         }
+    }
+    public class LihzahrdGroundPound : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<ChaliceHeader>();
+        public override int ToggleItemType => ModContent.ItemType<LihzahrdTreasureBox>();
+    }
+    public class LihzahrdBoulders : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<ChaliceHeader>();
+        public override int ToggleItemType => ModContent.ItemType<LihzahrdTreasureBox>();
+        public override bool ExtraAttackEffect => true;
     }
 }

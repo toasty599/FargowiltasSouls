@@ -1,4 +1,5 @@
 ﻿
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
     public class WoodEnchant : BaseEnchant
     {
-        protected override Color nameColor => new(151, 107, 75);
+        public override Color nameColor => new(151, 107, 75);
 
         public override void SetStaticDefaults()
         {
@@ -75,7 +76,7 @@ Discount effect works in vanity slots"); */
 
             //register extra kill per kill
             int addedKillBonus = 1;
-            if (modPlayer.ForceEffect(modPlayer.WoodEnchantItem.type))
+            if (modPlayer.ForceEffect<WoodEnchant>())
                 addedKillBonus = 4;
 
             //for nonstandard banner thresholds, e.g. some ooa npcs at 100 or 200

@@ -1,9 +1,12 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static FargowiltasSouls.Content.Items.Accessories.Masomode.CelestialRune;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
@@ -43,7 +46,7 @@ Summons a friendly Cultist and plant to fight at your side
             Item.width = 32;
             Item.height = 54;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 7);
             Item.defense = 8;
         }
@@ -53,7 +56,7 @@ Summons a friendly Cultist and plant to fight at your side
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
 
             //magical bulb
-            MagicalBulb.Effects(player);
+            MagicalBulb.AddEffects(player, Item);
 
             //lihzahrd treasure
             player.buffImmune[BuffID.Burning] = true;
@@ -61,11 +64,12 @@ Summons a friendly Cultist and plant to fight at your side
             player.buffImmune[ModContent.BuffType<LihzahrdCurseBuff>()] = true;
             player.buffImmune[ModContent.BuffType<LowGroundBuff>()] = true;
             fargoPlayer.LihzahrdTreasureBoxItem = Item;
+            player.AddEffect<LihzahrdGroundPound>(Item);
+            player.AddEffect<LihzahrdBoulders>(Item);
 
             //celestial rune
             player.buffImmune[ModContent.BuffType<MarkedforDeathBuff>()] = true;
-            fargoPlayer.CelestialRuneItem = Item;
-            fargoPlayer.AdditionalAttacks = true;
+            player.AddEffect<CelestialRuneAttacks>(Item);
 
             //chalice
             player.buffImmune[ModContent.BuffType<AtrophiedBuff>()] = true;
@@ -73,9 +77,8 @@ Summons a friendly Cultist and plant to fight at your side
             player.buffImmune[ModContent.BuffType<ReverseManaFlowBuff>()] = true;
             player.buffImmune[ModContent.BuffType<AntisocialBuff>()] = true;
             fargoPlayer.MoonChalice = true;
+            player.AddEffect<CultistMinionEffect>(Item);
 
-            if (player.GetToggleValue("MasoCultist"))
-                player.AddBuff(ModContent.BuffType<LunarCultistBuff>(), 2);
         }
 
         public override void AddRecipes()
@@ -94,6 +97,17 @@ Summons a friendly Cultist and plant to fight at your side
             .AddTile(TileID.LunarCraftingStation)
 
             .Register();
+        }
+    }
+    public class CultistMinionEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<ChaliceHeader>();
+        public override int ToggleItemType => ModContent.ItemType<ChaliceoftheMoon>();
+        public override bool MinionEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            if (!player.HasBuff<SouloftheMasochistBuff>())
+                player.AddBuff(ModContent.BuffType<LunarCultistBuff>(), 2);
         }
     }
 }

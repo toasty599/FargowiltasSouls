@@ -1,6 +1,10 @@
+using FargowiltasSouls.Content.Buffs.Souls;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -12,15 +16,10 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             // DisplayName.SetDefault("Lead Enchantment");
 
-            string tooltip =
-@"You take 40% less from damage over time
-Attacks inflict enemies with Lead Poisoning
-Lead Poisoning deals damage over time and spreads to nearby enemies
-'Not recommended for eating'";
             // Tooltip.SetDefault(tooltip);
         }
 
-        protected override Color nameColor => new(67, 69, 88);
+        public override Color nameColor => new(67, 69, 88);
         
 
         public override void SetDefaults()
@@ -33,12 +32,8 @@ Lead Poisoning deals damage over time and spreads to nearby enemies
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            LeadEffect(player, Item);
-        }
-
-        public static void LeadEffect(Player player, Item item)
-        {
-            player.FargoSouls().LeadEnchantItem = item;
+            player.AddEffect<LeadEffect>(Item);
+            player.AddEffect<LeadPoisonEffect>(Item);
         }
 
         public override void AddRecipes()
@@ -53,6 +48,36 @@ Lead Poisoning deals damage over time and spreads to nearby enemies
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class LeadEffect : AccessoryEffect
+    {
+
+        public override Header ToggleHeader => null;
+
+        public static void ProcessLeadEffectLifeRegen(Player player)
+        {
+            if (player.HasEffect<LeadEffect>())
+            {
+                if (player.FargoSouls().ForceEffect<LeadEnchant>())
+                {
+                    player.lifeRegen = (int)(player.lifeRegen * 0.4f);
+                }
+                else
+                {
+                    player.lifeRegen = (int)(player.lifeRegen * 0.6f);
+                }
+            }
+            
+        }
+    }
+    public class LeadPoisonEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<LeadEnchant>();
+        public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
+        {
+            target.AddBuff(ModContent.BuffType<LeadPoisonBuff>(), 30);
         }
     }
 }

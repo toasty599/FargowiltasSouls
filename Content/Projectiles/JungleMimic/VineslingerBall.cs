@@ -25,7 +25,8 @@ namespace FargowiltasSouls.Content.Projectiles.JungleMimic
         }
         public override void PostAI()
         {
-            Projectile.position += Projectile.velocity * 0.25f; //because flail AI is literally entirely static
+            if (Projectile.ai[0] != 6) //otherwise it burrows
+                Projectile.position += Projectile.velocity * 0.25f; //because flail AI is literally entirely static
             base.PostAI();
         }
         public override bool PreDraw(ref Color lightColor)

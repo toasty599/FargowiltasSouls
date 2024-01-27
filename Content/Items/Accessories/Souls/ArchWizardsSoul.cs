@@ -16,13 +16,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "巫师之魂");
 
 
-            string tooltip =
-@"30% increased magic damage
-20% increased spell casting speed
-15% increased magic crit chance
-Increases your maximum mana by 200
-Effects of Celestial Cuffs and Mana Flower
-'Arcane to the core'";
             // Tooltip.SetDefault(tooltip);
             //string tooltip_ch =
             //@"增加30%魔法伤害
@@ -34,8 +27,8 @@ Effects of Celestial Cuffs and Mana Flower
             //Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
 
         }
-
-        protected override Color? nameColor => new Color(255, 83, 255);
+        public static readonly Color ItemColor = new Color(255, 83, 255);
+        protected override Color? nameColor => ItemColor;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -44,8 +37,7 @@ Effects of Celestial Cuffs and Mana Flower
             player.GetCritChance(DamageClass.Magic) += 15;
             player.statManaMax2 += 200;
             //accessorys
-            if (player.GetToggleValue("ManaFlower", false))
-                player.manaFlower = true;
+            player.manaFlower = true;
             //add mana cloak
             player.manaMagnet = true;
             player.magicCuffs = true;

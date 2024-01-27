@@ -2,6 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -19,42 +22,30 @@ Increases armor pen by 15
 'Attack faster than the eye can see'"); */
         }
 
-        protected override Color nameColor => new(48, 49, 52);
+        public override Color nameColor => new(48, 49, 52);
         
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 30000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.NinjaEnchantItem = Item;
-            player.DisplayToggle("NinjaSpeed");
+            player.AddEffect<NinjaEffect>(Item);
         }
 
         public static void NinjaSpeedSetup(FargoSoulsPlayer modPlayer, Projectile projectile, FargoSoulsGlobalProjectile globalProj)
         {
             Player player = modPlayer.Player;
-
-            if (player.GetToggleValue("NinjaSpeed"))
+            float maxSpeedRequired = modPlayer.ForceEffect<NinjaEnchant>() ? 7 : 4; //the highest velocity at which your projectile speed is increased
+            if (player.velocity.Length() < maxSpeedRequired)
             {
-                /*
-                float maxSpeedIncrease = modPlayer.ShadowForce ? 0.75f : 0.5f;
-                float maxSpeedScaling = modPlayer.ShadowForce ? 20 : 15; //the highest velocity at which your projectile speed is increased
-                float speedIncrease = maxSpeedIncrease - Math.Min(player.velocity.Length() / maxSpeedScaling, maxSpeedIncrease);
-                globalProj.NinjaSpeedup = 1 + speedIncrease;
-                */
-                float maxSpeedRequired = modPlayer.ForceEffect(modPlayer.NinjaEnchantItem.type) ? 7 : 4; //the highest velocity at which your projectile speed is increased
-                if (player.velocity.Length() < maxSpeedRequired)
-                {
-                    const int speedIncrease = 1;
-                    globalProj.NinjaSpeedup = projectile.extraUpdates + speedIncrease;
-                }
+                const int speedIncrease = 1;
+                globalProj.NinjaSpeedup = projectile.extraUpdates + speedIncrease;
             }
         }
 
@@ -71,5 +62,10 @@ Increases armor pen by 15
                 .AddTile(TileID.DemonAltar)
                 .Register();
         }
+    }
+    public class NinjaEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<ShadowHeader>();
+        public override int ToggleItemType => ModContent.ItemType<NinjaEnchant>();
     }
 }

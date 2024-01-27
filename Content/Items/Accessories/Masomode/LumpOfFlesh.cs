@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,7 +45,7 @@ Enemies are less likely to target you
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemRarityID.Lime;
             Item.value = Item.sellPrice(0, 7);
         }
 
@@ -68,8 +70,9 @@ Enemies are less likely to target you
                 player.npcTypeNoAggro[NPCID.RaggedCaster] = true;
                 player.npcTypeNoAggro[NPCID.RaggedCasterOpenCoat] = true;
             }*/
+            player.AddEffect<PungentEyeballCursor>(Item);
             player.FargoSouls().PungentEyeball = true;
-            if (player.GetToggleValue("MasoPugent"))
+            if (player.AddEffect<PungentMinion>(Item))
             {
                 player.buffImmune[ModContent.BuffType<Buffs.Minions.CrystalSkullBuff>()] = true;
                 player.AddBuff(ModContent.BuffType<Buffs.Minions.PungentEyeballBuff>(), 5);
@@ -77,12 +80,11 @@ Enemies are less likely to target you
 
             player.buffImmune[ModContent.BuffType<AnticoagulationBuff>()] = true;
             player.noKnockback = true;
-            if (player.GetToggleValue("DreadShellParry"))
-                player.FargoSouls().DreadShellItem = Item;
+            player.AddEffect<DreadShellEffect>(Item);
 
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
-            player.FargoSouls().DeerclawpsItem = Item;
+            player.AddEffect<DeerclawpsEffect>(Item);
         }
 
         public override void AddRecipes()

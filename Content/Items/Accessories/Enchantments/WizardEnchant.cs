@@ -19,13 +19,13 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 'I'm a what?'"); */
         }
 
-        protected override Color nameColor => new(50, 80, 193);
+        public override Color nameColor => new(50, 80, 193);
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.Pink;
             Item.value = 100000;
         }
 

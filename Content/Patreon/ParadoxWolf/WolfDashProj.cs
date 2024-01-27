@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Content.Projectiles;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -41,7 +43,7 @@ namespace FargowiltasSouls.Content.Patreon.ParadoxWolf
             player.GetModPlayer<PatreonPlayer>().WolfDashing = true;
             if (player.FargoSouls().IsDashingTimer < 2)
                 player.FargoSouls().IsDashingTimer = 2;
-            Projectile.FargoSouls().TimeFreezeImmune = player.FargoSouls().StardustEnchantActive;
+            Projectile.FargoSouls().TimeFreezeImmune = player.HasEffect<StardustEffect>();
 
             player.Center = Projectile.Center;
             Projectile.spriteDirection = -Projectile.direction;

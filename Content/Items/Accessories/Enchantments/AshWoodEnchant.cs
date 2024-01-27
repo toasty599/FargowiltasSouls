@@ -1,5 +1,8 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Core.Toggler;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -15,14 +18,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
         }
 
-        protected override Color nameColor => new(139, 116, 100);
+        public override Color nameColor => new(139, 116, 100);
 
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 10000;
         }
         public static void PassiveEffect(Player player)
@@ -30,36 +33,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             player.FargoSouls().fireNoDamage = true;
         }
         public override void UpdateInventory(Player player) => PassiveEffect(player);
+        public override void UpdateVanity(Player player) => PassiveEffect(player);
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            
-            AshwoodEffect(player, Item);
+            player.AddEffect<AshWoodEffect>(Item);
+            player.AddEffect<AshWoodFireballs>(Item);
         }
 
-        public static void AshwoodEffect(Player player, Item item)
-        {
-            player.DisplayToggle("AshWood");
-            PassiveEffect(player);
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            modPlayer.AshWoodEnchantItem = item;
-            player.buffImmune[ModContent.BuffType<OiledBuff>()] = true;
-            player.ashWoodBonus = true;
 
-            if (modPlayer.AshwoodCD > 0)
-                modPlayer.AshwoodCD--;
-        }
-
-        public static void AshwoodFireball(FargoSoulsPlayer modPlayer, int damage)
-        {
-            Player player = modPlayer.Player;
-
-            Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
-            vel = vel.RotatedByRandom(Math.PI / 10);
-            int fireballDamage = damage;
-            if (!modPlayer.TerrariaSoul)
-                fireballDamage = Math.Min(fireballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, 60));
-            Projectile.NewProjectile(player.GetSource_Accessory(modPlayer.AshWoodEnchantItem), player.Center, vel, ProjectileID.BallofFire, fireballDamage, 1, Main.myPlayer);
-        }
 
         public override void AddRecipes()
         {
@@ -72,6 +53,44 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             .AddIngredient(ItemID.Gel, 50)
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+    public class AshWoodEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => null;
+
+        public override void PostUpdateEquips(Player player)
+        {
+            AshWoodEnchant.PassiveEffect(player);
+            player.buffImmune[ModContent.BuffType<OiledBuff>()] = true;
+            player.ashWoodBonus = true;
+        }
+    }
+    public class AshWoodFireballs : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<TerraHeader>();
+        public override int ToggleItemType => ModContent.ItemType<AshWoodEnchant>();
+        public override bool ExtraAttackEffect => true;
+        public override void PostUpdateEquips(Player player)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.AshwoodCD > 0)
+                modPlayer.AshwoodCD--;
+        }
+        public override void TryAdditionalAttacks(Player player, int damage, DamageClass damageType)
+        {
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+            if (modPlayer.AshwoodCD <= 0 && ((player.onFire || player.onFire2 || player.onFire3) || player.HasEffect<ObsidianProcEffect>()))
+            {
+                modPlayer.AshwoodCD = modPlayer.ForceEffect<AshWoodEnchant>() ? 15 : player.HasEffect<ObsidianProcEffect>() ? 20 : 30;
+
+                Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 17f;
+                vel = vel.RotatedByRandom(Math.PI / 10);
+                int fireballDamage = damage;
+                if (!modPlayer.TerrariaSoul)
+                    fireballDamage = Math.Min(fireballDamage, FargoSoulsUtil.HighestDamageTypeScaling(player, 60));
+                Projectile.NewProjectile(GetSource_EffectItem(player), player.Center, vel, ProjectileID.BallofFire, fireballDamage, 1, Main.myPlayer);
+            }
         }
     }
 }

@@ -2,6 +2,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
@@ -14,7 +16,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.CreativeWings];
         }
 
-        protected override Color nameColor => new(254, 246, 37);
+        public override Color nameColor => new(254, 246, 37);
 
         public override void SetDefaults()
         {
@@ -28,7 +30,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = modPlayer.ForceEffect(Item.type) ? ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.BeeWings] : ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.CreativeWings];
-            modPlayer.BeeEffect(hideVisual, Item); //add effect
+            player.AddEffect<BeeEffect>(Item);
         }
         public override void AddRecipes()
         {
@@ -48,6 +50,18 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             .AddTile(TileID.DemonAltar)
             .Register();
+        }
+    }
+
+    // beeEf
+    public class BeeEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<LifeHeader>();
+        public override int ToggleItemType => ModContent.ItemType<BeeEnchant>();
+
+        public override void PostUpdateEquips(Player player)
+        {
+            player.strongBees = true;
         }
     }
 }

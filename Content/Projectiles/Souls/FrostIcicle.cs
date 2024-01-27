@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -34,12 +36,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.timeLeft++;
             Projectile.netUpdate = true;
 
-            if (player.whoAmI == Main.myPlayer && player.dead)
-            {
-                modPlayer.FrostEnchantActive = false;
-            }
-
-            if (player.whoAmI == Main.myPlayer && (!player.GetToggleValue("Frost") || !modPlayer.FrostEnchantActive))
+            if (player.whoAmI == Main.myPlayer && !player.HasEffect<FrostEffect>())
             {
                 Projectile.Kill();
                 return;

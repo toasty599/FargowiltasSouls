@@ -1,4 +1,7 @@
-﻿using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Globals;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,18 +14,7 @@ namespace FargowiltasSouls.Content.Buffs.Souls
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            bool check = false;
-            for (int i = 0; i < Main.maxPlayers; i++)
-            {
-                Player player = Main.player[i];
-                if (player.active)
-                {
-                    if (player.FargoSouls().EbonwoodEnchantItem != null)
-                    {
-                        check = true;
-                    }
-                }
-            }
+            bool check = Main.player.Any(p => p.Alive() && p.HasEffect<EbonwoodEffect>());
             if (check)
             {
                 npc.buffTime[buffIndex] = 60;

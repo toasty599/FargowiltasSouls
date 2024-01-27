@@ -10,6 +10,8 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Content.Buffs
 {
@@ -112,7 +114,7 @@ namespace FargowiltasSouls.Content.Buffs
                     {
                         if (FargoSoulsUtil.HostCheck)
                         {
-                            Player player = Main.player.FirstOrDefault(p => p.active && !p.dead && p.FargoSouls().AncientShadowEnchantActive);
+                            Player player = Main.player.FirstOrDefault(p => p.active && !p.dead && p.HasEffect<AncientShadowDarkness>());
                             if (player != null && player.active && !player.dead)
                             {
                                 for (int i = 0; i < Main.maxNPCs; i++)

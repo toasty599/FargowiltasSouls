@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -11,9 +12,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             base.SetStaticDefaults();
 
             // DisplayName.SetDefault("Platinum Enchantment");
-            string tooltip =
-@"20% chance for enemies to drop 5x loot
-'Its value is immeasurable'";
             // Tooltip.SetDefault(tooltip);
 
             //             DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "铂金魔石");
@@ -23,20 +21,20 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             //             Tooltip.AddTranslation((int)GameCulture.CultureName.Chinese, tooltip_ch);
         }
 
-        protected override Color nameColor => new(83, 103, 143);
+        public override Color nameColor => new(83, 103, 143);
         
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 100000;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().PlatinumEnchantActive = true;
+            player.FargoSouls().PlatinumEffectActive = true;
         }
 
         public override void AddRecipes()
