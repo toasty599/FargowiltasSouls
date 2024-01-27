@@ -37,3 +37,4 @@ MythrilHalberdRework: 不攻击持续2秒后下一击造成三倍伤害
 OrichalcumHalberdRework: 挥舞时矛的顶端会释放花瓣
 SuperStarCannon: 最大穿透次数降低为7次
 WarmthPotionNerf: 伤害减免效果减半
+// IceBladeFrostburn: Projectile inflicts Frostburn on-hit
