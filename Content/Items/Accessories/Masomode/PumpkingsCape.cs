@@ -38,7 +38,7 @@ Counter an attack to gain life based on the blocked damage
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Lime;
             Item.value = Item.sellPrice(0, 6);
         }
 

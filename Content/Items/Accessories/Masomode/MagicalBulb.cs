@@ -37,7 +37,7 @@ Attracts a legendary plant's offspring which flourishes in combat
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Lime;
             Item.value = Item.sellPrice(0, 6);
         }
 

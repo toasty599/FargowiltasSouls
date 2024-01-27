@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Essences
             Item.height = 20;
             Item.accessory = true;
             Item.value = 150000;
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.Pink;
         }
 
         public override Color? GetAlpha(Color lightColor) => Color.White;

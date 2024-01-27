@@ -41,7 +41,7 @@ Enemies will explode into needles on death if they are struck with your needles
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.LightPurple;
             Item.value = 250000;
         }
 

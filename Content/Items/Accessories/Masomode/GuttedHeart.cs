@@ -38,7 +38,7 @@ Creeper respawn speed increases when not moving
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(0, 2);
         }
 

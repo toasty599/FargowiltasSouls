@@ -35,7 +35,7 @@ Your hurtbox size is reduced even when not shown
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 8);
         }
 

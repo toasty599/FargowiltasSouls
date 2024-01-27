@@ -37,7 +37,7 @@ Grants knockback immunity when you are facing the attack
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 40000;
         }
 

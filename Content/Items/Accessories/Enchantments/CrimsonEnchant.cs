@@ -30,7 +30,7 @@ This does not affect hits dealing less than 10 damage
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
             Item.value = 50000;
         }
 

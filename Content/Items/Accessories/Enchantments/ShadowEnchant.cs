@@ -29,7 +29,7 @@ Attacking a Shadow Orb will cause it to release a burst of homing shadow energy
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
             Item.value = 50000;
         }
 

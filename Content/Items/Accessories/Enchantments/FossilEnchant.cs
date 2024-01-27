@@ -39,7 +39,7 @@ Collect the bones to heal for 20 HP each
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 40000;
         }
 
