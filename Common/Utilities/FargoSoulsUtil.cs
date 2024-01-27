@@ -437,6 +437,8 @@ namespace FargowiltasSouls //lets everything access it without using
 
         public static void PrintLocalization(string localizationKey, int r, int g, int b) => PrintLocalization(localizationKey, new Color(r, g, b));
 
+        public static void PrintLocalization(string localizationKey, Color color, params object[] args) => PrintText(Language.GetTextValue(localizationKey, args), color);
+
         public static void PrintText(string text, Color color)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
@@ -448,16 +450,7 @@ namespace FargowiltasSouls //lets everything access it without using
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), color);
             }
         }
-
-        public static bool IsChinese()
-        {
-            return Language.ActiveCulture.LegacyId == (int)GameCulture.CultureName.Chinese;
-        }
-        public static bool IsPortuguese()
-        {
-            return Language.ActiveCulture.LegacyId == (int)GameCulture.CultureName.Portuguese;
-        }
-
+        
         public static void PrintText(string text, int r, int g, int b) => PrintText(text, new Color(r, g, b));
 
         public static Vector2 ClosestPointInHitbox(Rectangle hitboxOfTarget, Vector2 desiredLocation)

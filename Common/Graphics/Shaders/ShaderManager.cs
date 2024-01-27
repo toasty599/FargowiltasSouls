@@ -120,14 +120,14 @@ namespace FargowiltasSouls.Common.Graphics.Shaders
 				Main.instance.GraphicsDevice.SetRenderTarget(target1);
 				Main.instance.GraphicsDevice.Clear(clearColor);
 				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Invert(Main.GameViewMatrix.EffectMatrix));
-				Main.spriteBatch.Draw(target2, Vector2.Zero, Color.White);
+				Main.spriteBatch.Draw(target2, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.FlipVertically, 0f);
 				Main.spriteBatch.End();
 				target2 = AuxilaryTarget;
 			}
 
 			foreach (var filter in FilterLookupTable.Values.Where(filter => filter.Opacity > 0))
             {
-				target1 = ((target2 != MainTarget.Target) ? MainTarget : AuxilaryTarget);
+				target1 = (target2 != MainTarget.Target) ? MainTarget : AuxilaryTarget;
 				Main.instance.GraphicsDevice.SetRenderTarget(target1);
 				Main.instance.GraphicsDevice.Clear(clearColor);
 				Main.spriteBatch.Begin((SpriteSortMode)1, BlendState.AlphaBlend);

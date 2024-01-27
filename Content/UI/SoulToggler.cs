@@ -157,13 +157,12 @@ namespace FargowiltasSouls.Content.UI
                 
                 if (slot == ToggleBackend.CustomPresetCount) //after last panel is loaded, load reload button
                 {
-                    slot++;
                     DisplayAllButton = new FargoUIDisplayAllButton(FargoUIManager.DisplayAllButtonTexture.Value,
                         () => Language.GetTextValue("Mods.FargowiltasSouls.UI.DisplayAll"),
                         () => Language.GetTextValue("Mods.FargowiltasSouls.UI.DisplayEquipped"));
                     DisplayAllButton.OnLeftClick += DisplayAllButton_OnLeftClick;
                     DisplayAllButton.Top.Set(6, 0);
-                    DisplayAllButton.Left.Set(xOffset + 22 * slot, 0);
+                    DisplayAllButton.Left.Set(xOffset + 22 * (slot + 1), 0);
                     PresetPanel.Append(DisplayAllButton);
                 }
                 

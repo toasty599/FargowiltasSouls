@@ -28,6 +28,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             BeetleEnchant.AddEffects(player, Item);
             player.AddEffect<PumpkinEffect>(Item);
             TurtleEnchant.AddEffects(player, Item);
+            modPlayer.CactusImmune = true;
             player.AddEffect<CactusEffect>(Item);
         }
 

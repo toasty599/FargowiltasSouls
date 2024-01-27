@@ -412,7 +412,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
 
                 string key = Enum.GetName(talkType);
                 int actualSay = TalkCounters[talkInt] + 1;
-                string text = Language.GetTextValue($"Mods.FargowiltasSouls.DeviChatter.{key}{actualSay}");
+                string text = Language.GetTextValue($"Mods.FargowiltasSouls.Items.ChibiHat.DeviChatter.{key}{actualSay}");
 
                 Vector2 pos = Vector2.Lerp(target, Projectile.Center, 0.5f);
                 pos = Vector2.Lerp(pos, Main.player[Projectile.owner].Center, 0.5f);

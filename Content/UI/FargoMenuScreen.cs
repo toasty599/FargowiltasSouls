@@ -5,6 +5,7 @@ using ReLogic.Content;
 using Terraria.ModLoader;
 using Terraria.ID;
 using FargowiltasSouls.Content.Sky;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.UI
 {
@@ -24,7 +25,7 @@ namespace FargowiltasSouls.Content.UI
 
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => ModContent.GetInstance<MainMenuBackgroundStyle>();
 
-        public override string DisplayName => "Fargo's";
+        public override string DisplayName => Language.GetTextValue("Mods.FargowiltasSouls.UI.MainMenu");
 
         public override void OnSelected()
         {

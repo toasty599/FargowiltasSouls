@@ -27,6 +27,7 @@ using FargowiltasSouls.Assets.ExtraTextures;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
+using Fargowiltas.NPCs;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
@@ -140,11 +141,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override bool CanHitNPC(NPC target)
         {
-            if (target.type == ModContent.Find<ModNPC>("Fargowiltas", "Deviantt").Type
-                || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Abominationn").Type
-                || target.type == ModContent.Find<ModNPC>("Fargowiltas", "Mutant").Type)
+            if (target.type == ModContent.NPCType<Deviantt>() || target.type == ModContent.NPCType<Abominationn>() || target.type == ModContent.NPCType<Mutant>())
                 return false;
-
             return base.CanHitNPC(target);
         }
 
@@ -857,7 +855,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
         }
         const int ObnoxiousQuoteCount = 71;
-        const string GFBLocPath = $"Mods.FargowiltasSouls.MutantGFB.";
+        const string GFBLocPath = $"Mods.FargowiltasSouls.NPCs.MutantBoss.GFBText.";
         private string RandomObnoxiousQuote() => Language.GetTextValue($"{GFBLocPath}Random{Main.rand.Next(ObnoxiousQuoteCount)}"); 
         private string GFBQuote(int num) => Language.GetTextValue($"{GFBLocPath}Quote{num}");
 
@@ -927,7 +925,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.netUpdate = true;
 
                     if (WorldSavingSystem.SkipMutantP1 == 10)
-                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.MutantSkipP1", Color.LimeGreen);
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.MutantBoss.SkipP1", Color.LimeGreen);
 
                     if (WorldSavingSystem.SkipMutantP1 >= 10)
                         NPC.ai[2] = 1; //flag for different p2 transition animation

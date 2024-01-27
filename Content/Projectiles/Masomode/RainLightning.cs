@@ -1,7 +1,11 @@
 ﻿using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
@@ -19,7 +23,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.hostile = true;
         }
         int telegraphTimer;
-        public int TelegraphTime => 190 * (1 + Projectile.extraUpdates);
+        public int TelegraphTime => (WorldSavingSystem.MasochistModeReal ? 110 : 190) * (1 + Projectile.extraUpdates);
 
         public bool Telegraphing => (telegraphTimer >= 0 && telegraphTimer < TelegraphTime);
 
@@ -55,7 +59,27 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             return base.PreAI();
         }
-
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Electrified, 120);
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.Electrified, 120);
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (Main.hardMode)
+            {
+                SoundEngine.PlaySound(SoundID.Item62);
+                if (FargoSoulsUtil.HostCheck)
+                {
+                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero,
+                        ModContent.ProjectileType<RainExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+            }
+            return base.OnTileCollide(oldVelocity);
+        }
         public override bool PreDraw(ref Color lightColor) //Prevent drawing while telegraphing
         {
             if (Telegraphing)

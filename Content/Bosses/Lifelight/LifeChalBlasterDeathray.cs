@@ -111,7 +111,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             if (WorldSavingSystem.EternityMode)
             {
                 target.AddBuff(ModContent.BuffType<PurifiedBuff>(), 300);
-                target.AddBuff(ModContent.BuffType<SmiteBuff>(), 600);
+                target.AddBuff(ModContent.BuffType<SmiteBuff>(), 60 * 3);
             }
         }
     }

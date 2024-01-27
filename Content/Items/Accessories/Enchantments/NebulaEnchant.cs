@@ -1,6 +1,8 @@
 ﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -59,6 +61,7 @@ Buff booster stacking capped at 2
             .Register();
         }
     }
+
     public class NebulaEffect : AccessoryEffect
     {
         public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();

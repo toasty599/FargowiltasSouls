@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
     public class PrimeSoul : SoulsItem
     {
-        public override bool IsLoadingEnabled(Mod mod) => true;
+        public override bool IsLoadingEnabled(Mod mod) => false;
         public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";
         public override void SetStaticDefaults()
         {
@@ -38,12 +38,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (player.AddEffect<PrimeSoulEffect>(Item))
                 modPlayer.PrimeSoulActive = modPlayer.PrimeSoulActiveBuffer = true;
-            string e = "";
-            foreach (int b in WorldSavingSystem.IronUsedList)
-            {
-                e += b + " ";
-            }
-            Main.NewText(e);
         }
 
         public override void UpdateInventory(Player player) => PrimeSoulEffect(player);

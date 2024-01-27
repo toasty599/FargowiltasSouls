@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             Projectile.friendly = false;
             Projectile.hostile = false;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 40;
+            Projectile.timeLeft = 50;
             Projectile.scale = 1;
             AIType = 0;
             Projectile.aiStyle = 0;

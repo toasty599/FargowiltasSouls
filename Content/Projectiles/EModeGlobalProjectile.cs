@@ -1325,6 +1325,9 @@ namespace FargowiltasSouls.Content.Projectiles
                         projectile.ai[2]++;
                     }
                     break;
+                case ProjectileID.IceBolt: //Ice Blade projectile
+                    target.AddBuff(BuffID.Frostburn, 60 * 3);
+                    break;
                 default:
                     break;
             }

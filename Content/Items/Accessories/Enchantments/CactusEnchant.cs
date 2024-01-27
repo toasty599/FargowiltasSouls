@@ -41,6 +41,7 @@ Enemies will explode into needles on death if they are struck with your needles
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.FargoSouls().CactusImmune = true;
             player.AddEffect<CactusEffect>(Item);
         }     
 

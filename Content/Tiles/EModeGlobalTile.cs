@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Tiles
             {
                 if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<LihzahrdBlessingBuff>()))
                 {
-                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Message.LihzahrdBlessing"), Color.Orange);
+                    Main.NewText(Language.GetTextValue($"Mods.{Mod.Name}.Buffs.LihzahrdBlessingBuff.Message"), Color.Orange);
                     SoundEngine.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
                     for (int k = 0; k < 50; k++)
                     {

@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 42000;
+            NPC.lifeMax = 36500;
             NPC.defense = 0;
             NPC.damage = 70;
             NPC.knockBackResist = 0f;
@@ -600,7 +600,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             {
                 if (UseTrueOriginAI)
                 {
-                    string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.FatherOfLies");
+                    string text = Language.GetTextValue($"Mods.{Mod.Name}.NPCs.LifeChallenger.FatherOfLies");
                     Color color = Color.Goldenrod;
                     FargoSoulsUtil.PrintText(text, color);
                     CombatText.NewText(Player.Hitbox, color, text, true);
@@ -2497,8 +2497,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
         public override void UpdateLifeRegen(ref int damage)
         {
-            if ((useDR || phaseProtectionDR) && NPC.lifeRegen < 0)
+            if (NPC.lifeRegen < 0)
+            {
                 NPC.lifeRegen /= 2;
+            }
+                
         }
 
         #region Hitbox

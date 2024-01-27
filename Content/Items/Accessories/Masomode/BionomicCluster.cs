@@ -133,6 +133,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.buffImmune[ModContent.BuffType<PurifiedBuff>()] = true;
             fargoPlayer.TribalCharm = true;
             fargoPlayer.TribalCharmEquipped = true;
+            player.AddEffect<TribalCharmClickBonus>(Item);
 
             // Mystic skull
             player.buffImmune[BuffID.Suffocation] = true;
@@ -280,6 +281,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             player.buffImmune[ModContent.BuffType<PurifiedBuff>()] = true;
             fargoPlayer.TribalCharm = true;
             fargoPlayer.TribalCharmEquipped = true;
+            player.AddEffect<TribalCharmClickBonus>(Item);
 
             // Mystic skull
             player.buffImmune[BuffID.Suffocation] = true;

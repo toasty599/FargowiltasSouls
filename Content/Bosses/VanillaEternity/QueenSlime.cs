@@ -226,7 +226,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     check = true;
 
-                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.GelatinSubjects", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.GelatinSubjects", new Color(175, 75, 255));
 
                     for (int i = 0; i < 7; i++)
                     {

@@ -12,6 +12,7 @@ using FargowiltasSouls.Content.Projectiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Items
 {
@@ -39,7 +40,7 @@ namespace FargowiltasSouls.Content.Items
                             tooltip.Text = new string(text.ToArray());
                         }
                         
-                        tooltip.Text += $"\n+{life} max life";
+                        tooltip.Text += "\n" + Language.GetTextValue("Mods.FargowiltasSouls.Items.Extra.DefensePrefixMaxLife", life);
                     }
                 }
             }
@@ -148,7 +149,7 @@ namespace FargowiltasSouls.Content.Items
                 float endurance = player.endurance;
                 player.statDefense.FinalMultiplier *= 0;
                 player.endurance = 0;
-                player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " didn't materialize."), player.statLifeMax2 / 7, 0, false, false, 0, false);
+                player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.RodOfHarmony", player.name)), player.statLifeMax2 / 7, 0, false, false, 0, false);
                 player.statDefense = defense;
                 player.endurance = endurance;
                 

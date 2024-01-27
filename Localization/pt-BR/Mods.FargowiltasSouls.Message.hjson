@@ -1,0 +1,20 @@
+MasochistModeUnlocked: "{$Mods.FargowiltasSouls.ItemName.Masochist} surge com novos poderes...!"
+
+WorldUpdatingSystem: {
+	// EternityOn: Eternity Mode activated!
+	// EternityOff: Eternity Mode deactivated.
+	// EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
+	// MasochistOn: Master and Eternity combined: Masochist Mode activated!!
+	// MasochistOnZenith: Master and Zenith seed combined: Masochist Mode activated!!
+	// MasochistOff: Masochist Mode deactivated.
+	// BloodMoonCancel: The Blood Moon changed its mind and left...
+}
+
+Revived: Você foi revivido!
+NoMusic1: Fargo's Music Mod não encontrado!
+NoMusic2: Instale Fargo's Music Mod para ter a experiência completa!!
+// NoDLC1: We detected that you're playing Fargo's Souls Mod together with {0}.
+// NoDLC2: It's recommended to use the "Fargo's Souls DLC" mod for compatibility and content between these mods!
+// Wiki: Check out the official Fargo's Wiki at [c/3989FF:https://fargosmods.wiki.gg]!
+PatreonNameEffect: Seus efeitos especiais do patreon estão ativos
+MoonsDeathPenalty: O progresso da onda regrediu!

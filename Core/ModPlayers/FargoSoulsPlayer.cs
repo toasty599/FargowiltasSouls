@@ -247,6 +247,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             TitaniumDRBuff = false;
             TitaniumCD = false;
 
+            CactusImmune = false;
+
 
             //            #endregion
 
@@ -535,7 +537,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         if (CurrentLifeReduction < newLifeReduction)
                         {
                             CurrentLifeReduction = newLifeReduction;
-                            CombatText.NewText(Player.Hitbox, Color.DarkRed, Language.GetTextValue($"Mods.{Mod.Name}.Message.OceanicMaulLifeDown"));
+                            CombatText.NewText(Player.Hitbox, Color.DarkRed, Language.GetTextValue($"Mods.{Mod.Name}.Buffs.OceanicMaulBuff.LifeDown"));
                         }
                     }
                     else //after maul wears off, real max life gradually recovers to normal value
@@ -543,7 +545,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         CurrentLifeReduction -= 5;
                         if (MaxLifeReduction > CurrentLifeReduction)
                             MaxLifeReduction = CurrentLifeReduction;
-                        CombatText.NewText(Player.Hitbox, Color.DarkGreen, Language.GetTextValue($"Mods.{Mod.Name}.Message.OceanicMaulLifeUp"));
+                        CombatText.NewText(Player.Hitbox, Color.DarkGreen, Language.GetTextValue($"Mods.{Mod.Name}.Buffs.OceanicMaulBuff.LifeUp"));
                     }
                 }
             }
@@ -884,15 +886,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         private PlayerDeathReason DeathByLocalization(string key)
         {
-            string death = Language.GetTextValue($"Mods.FargowiltasSouls.DeathMessage.{key}");
-            if (FargoSoulsUtil.IsChinese())
-            {
-                return PlayerDeathReason.ByCustomReason($"{Player.name}{death}");
-            }
-            else
-            {
-                return PlayerDeathReason.ByCustomReason($"{Player.name} {death}");
-            }
+            return PlayerDeathReason.ByCustomReason(Language.GetTextValue($"Mods.FargowiltasSouls.DeathMessage.{key}", Player.name));
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

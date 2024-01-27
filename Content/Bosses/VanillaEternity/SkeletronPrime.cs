@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -33,6 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public int RocketTimer;
         public bool DroppedSummon;
         public bool HasSaidEndure;
+        public bool EndSpin;
 
         public int limbTimer = 0; //1.4.4 used npc.ai[3] for managing mechdusa whoAmI, so this has to be moved to own variable
 
@@ -46,6 +48,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             binaryWriter.Write7BitEncodedInt(limbTimer);
             bitWriter.WriteBit(FullySpawnedLimbs);
             bitWriter.WriteBit(HaveShotGuardians);
+            bitWriter.WriteBit(EndSpin);
         }
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
@@ -57,6 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             limbTimer = binaryReader.Read7BitEncodedInt();
             FullySpawnedLimbs = bitReader.ReadBit();
             HaveShotGuardians = bitReader.ReadBit();
+            EndSpin = bitReader.ReadBit();
         }
 
         public override void SetDefaults(NPC npc)
@@ -164,23 +168,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
-            if (npc.ai[0] != 2f) //in phase 1
-            {
-                float threshold = WorldSavingSystem.MasochistModeReal ? 0.8f : 1f;  //instant in emode, 80% in maso
-                if (npc.life < npc.lifeMax * threshold /*.8*/)
-                {
-                    npc.ai[0] = 2f;
-
-                    //SoundEngine.PlaySound(SoundID.Roar, npc.Center);
-                    return result;
-                }
-            }
-            else //in phase 2
+            if (npc.ai[0] == 2) //in phase 2
             {
                 npc.dontTakeDamage = false;
 
                 if (npc.ai[1] == 1f && npc.ai[2] > 2f) //spinning
                 {
+                    EndSpin = true;
                     //if (npc.HasValidTarget) npc.position += npc.DirectionTo(Main.player[npc.target].Center) * 5;
 
                     if (++ProjectileAttackTimer > 90) //projectile attack
@@ -233,6 +227,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
                 else //not spinning
                 {
+                    if (EndSpin) // frame after spin ends
+                    {
+                        EndSpin = false;
+                        if (npc.HasPlayerTarget)
+                        {
+                            float dist = npc.Distance(Main.player[npc.target].Center);
+                            npc.velocity *= Math.Max(1 - (dist / 800), 0.5f);
+                            npc.velocity = -npc.velocity;
+                        }
+                    }
                     ProjectileAttackTimer = 0; //buffer this for spin
 
                     npc.position += npc.velocity / 4f;
@@ -260,12 +264,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (!NPC.AnyNPCs(NPCID.PrimeVice))
                             FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.PrimeVice, npc.whoAmI, -1f, npc.whoAmI, 0f, 0f, npc.target);
 
-                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeRegrow", new Color(175, 75, 255));
+                        FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.RegrowArms", new Color(175, 75, 255), npc.FullName);
 
-                        foreach (NPC l in Main.npc.Where(l => l.active && l.ai[1] == npc.whoAmI)) // 2 seconds of no contact damage on phase transition
+                        foreach (NPC l in Main.npc.Where(l => l.active && l.ai[1] == npc.whoAmI )) // 2 seconds of no contact damage on phase transition
                         {
-                            PrimeLimb limb = l.GetGlobalNPC<PrimeLimb>();
-                            if (limb.NoContactDamageTimer < 60 * 3)
+                            if (l.TryGetGlobalNPC(out PrimeLimb limb) && limb.NoContactDamageTimer < 60 * 3)
                                 limb.NoContactDamageTimer = 60 * 3;
                         }
                     }
@@ -330,6 +333,18 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
+            //repulsed by player whenever too close
+            const float minDist = 300;
+            float distance = npc.Distance(Main.player[npc.target].Center);
+            if (npc.HasValidTarget && distance < minDist)
+            {
+                if (!(npc.ai[1] == 1f && npc.ai[2] > 2f) || npc.ai[1] == 2) // when not spinning or dg phase
+                {
+                    float pushStrength = 1f * (1 - distance / minDist);
+                    npc.velocity -= pushStrength * npc.DirectionTo(Main.player[npc.target].Center);
+                }
+            }
+
             //accel at player whenever out of range
             if (npc.HasValidTarget && npc.Distance(Main.player[npc.target].Center) > 900)
             {
@@ -340,7 +355,22 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             return result;
         }
+        public override void SafePostAI(NPC npc)
+        {
+            // this is here because if you go phase 2 before AI on first frame, his hands won't spawn lol
+            // it's also kept for structural reasons, and since phase 1 still exists in masomode
+            if (npc.ai[0] != 2f) //go phase 2 instantly
+            {
+                float threshold = WorldSavingSystem.MasochistModeReal ? 0.8f : 1f;  //instant in emode, 80% in maso
+                if (npc.life <= npc.lifeMax * threshold /*.8*/)
+                {
+                    npc.ai[0] = 2f;
 
+                    //SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+                    return;
+                }
+            }
+        }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, hurtInfo);
@@ -367,7 +397,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (!HasSaidEndure)
                 {
                     HasSaidEndure = true;
-                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.Message.SkeletronPrimeGuardian", new Color(175, 75, 255));
+                    FargoSoulsUtil.PrintLocalization($"Mods.{Mod.Name}.NPCs.EMode.GuardianForm", new Color(175, 75, 255), npc.FullName);
                 }
 
                 if (!WorldSavingSystem.MasochistModeReal)
@@ -746,7 +776,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         AttackTimer = -30; //extra delay before initiating melee attacks after spin
 
-                        NoContactDamageTimer = 60; //disable contact damage for 1sec after spin is over
+                        NoContactDamageTimer = 100; //disable contact damage for a bit after spin is over
 
                         npc.netUpdate = true;
                     }
@@ -964,16 +994,25 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
                 return useNormalAi;
             }
-
             return true;
         }
-
-        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot)
+        public override bool CanHitPlayer(NPC npc, Player target, ref int CooldownSlot) => NoContactDamageTimer <= 0;
+        public override bool? CanBeHitByItem(NPC npc, Player player, Item item) => NoContactDamageTimer <= 0 ? null : false;
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile) => NoContactDamageTimer <= 0 ? null : false;
+        public override bool CanBeHitByNPC(NPC npc, NPC attacker)  => NoContactDamageTimer <= 0;
+        public override bool ModifyCollisionData(NPC npc, Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
         {
-            return NoContactDamageTimer <= 0;
+            if (NoContactDamageTimer > 0)
+                npcHitbox = new();
+            return base.ModifyCollisionData(npc, victimHitbox, ref immunityCooldownSlot, ref damageMultiplier, ref npcHitbox);
         }
-
-        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
+        public override Color? GetAlpha(NPC npc, Color drawColor)
+        {
+            if (NoContactDamageTimer > 0)
+                drawColor *= 0.5f;
+            return base.GetAlpha(npc, drawColor);
+        }
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo) 
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 

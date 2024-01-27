@@ -84,6 +84,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public int ApprenticeCD;
         public bool IronRecipes = false;
+        public bool CactusImmune = false;
         public int CactusProcCD;
         public bool ChlorophyteEnchantActive = false;
         public bool MonkEnchantActive = false;

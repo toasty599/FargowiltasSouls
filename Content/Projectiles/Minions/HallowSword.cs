@@ -23,6 +23,19 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 {
     public class HallowSword : ModProjectile
     {
+        private Vector2 mousePos;
+        private int syncTimer;
+
+        public Vector2 handlePos = Vector2.Zero;
+        private int HitsLeft = 0;
+        public int SlashCDMax = 60 * 2;
+        public const int MaxDistance = 300;
+        public bool Reflected = false;
+        ref float SlashCD => ref Projectile.ai[1];
+        ref float Action => ref Projectile.ai[0];
+
+        ref float SlashRotation => ref Projectile.localAI[0];
+        ref float SlashArc => ref Projectile.localAI[1];
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("HallowSword");
@@ -45,21 +58,22 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
             Projectile.scale = 1;
         }
-        public float MousePosX;
-        public float MousePosY;
-        public Vector2 mousePos => Vector2.UnitX * MousePosX + Vector2.UnitY * MousePosY;
 
-        public Vector2 handlePos = Vector2.Zero;
-        private int HitsLeft = 0;
-        public int SlashCDMax = 60 * 2;
-        public const int MaxDistance = 300;
-        public bool Reflected = false;
-        ref float SlashCD => ref Projectile.ai[1];
-        ref float Action => ref Projectile.ai[0];
-
-        ref float SlashRotation => ref Projectile.localAI[0];
-        ref float SlashArc => ref Projectile.localAI[1];
-
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(mousePos.X);
+            writer.Write(mousePos.Y);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Vector2 buffer;
+            buffer.X = reader.ReadSingle();
+            buffer.Y = reader.ReadSingle();
+            if (Projectile.owner != Main.myPlayer)
+            {
+                mousePos = buffer;
+            }
+        }
 
         //actions:
         //0: idle
@@ -109,15 +123,18 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
         {
             const int offsetX = 50;
             Vector2 offset = Vector2.UnitX * offsetX * Projectile.scale * GetSide(player) + Vector2.UnitY * 0;
+
             if (player.whoAmI == Main.myPlayer)
             {
-                Vector2 mousePos = MousePos(player);
-                MousePosX = mousePos.X;
-                MousePosY = mousePos.Y;
+                mousePos = MousePos(player);
 
-                NetMessage.SendData(MessageID.SyncProjectile, number2: MousePosX, number3: MousePosY);
+                if (++syncTimer > 20)
+                {
+                    syncTimer = 0;
+                    Projectile.netUpdate = true;
+                }
             }
-            
+
 
             Vector2 desiredPos = mousePos + offset;
             handlePos = Vector2.Lerp(handlePos, desiredPos, 0.5f);
