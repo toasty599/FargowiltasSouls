@@ -218,7 +218,7 @@ FrostEnchant: {
 		你的周围会出现冰锥
 		攻击时会将冰锥发射至光标位置
 		冰锥击中敌人时会使其短暂冻结，并造成冻伤减益
-		按下“冻结”键后将一切冻结20秒
+		按下“冻结”键后将一切冻结20秒，并造成霜冻减益
 		效果有60秒的冷却时间
 		“让我们给这个世界披上一层厚厚的冰衣”
 		'''
@@ -563,7 +563,7 @@ SnowEnchant: {
 	Tooltip:
 		'''
 		你的攻击造成短暂的霜冻减益
-		按下“冻结”键后将一切冻结15秒
+		按下“冻结”键后将一切冻结15秒，并造成霜冻减益
 		效果有60秒的冷却时间
 		“冷的要死”
 		'''
@@ -857,7 +857,7 @@ NatureForce: {
 		[i:FargowiltasSouls/MoltenEnchant] 引燃你附近较大范围内的敌人
 		[i:FargowiltasSouls/MoltenEnchant] 所有敌怪在狱火圈内时多受到50%伤害
 		[i:FargowiltasSouls/RainEnchant] 召唤一把可反射上方弹幕的雨伞
-		[i:FargowiltasSouls/SnowEnchant] 你的周围会出现冰锥
+		[i:FargowiltasSouls/SnowEnchant] 你的周围会出现冰锥，按下“冻结”键后将一切冻结20秒，并造成霜冻减益
 		[i:FargowiltasSouls/ChlorophyteEnchant] 召唤一圈叶绿水晶攻击附近的敌人
 		[i:FargowiltasSouls/JungleEnchant] 使你获得孢子二段跳和孢子冲刺的能力
 		[i:FargowiltasSouls/ShroomiteEnchant] 站定不动时使你进入隐身状态

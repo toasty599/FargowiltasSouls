@@ -662,6 +662,6 @@ namespace FargowiltasSouls.Core.Globals
 
         public bool CanShowItemDropInUI() => true;
 
-        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.Conditions.FirstKill");
+        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.FirstKill");
     }
 }

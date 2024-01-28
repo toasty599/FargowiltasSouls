@@ -1,8 +1,8 @@
 SoulTogglerButton: 设置饰品效果
 EternityEnabled: 永恒模式已开启
 MasochistEnabled: 受虐模式已开启
-SavedToSlot: 已将饰品效果设置保存至自定义效果配置
-NoTogglesFound: 未找到自定义效果配置
+SavedToSlot: 已将饰品效果设置保存至自定义效果配置{0}！
+NoTogglesFound: 未找到自定义效果配置{0}
 TurnAllTogglesOff: 关闭全部饰品效果
 TurnAllTogglesOn: 打开全部饰品效果
 SomeEffectsPreset: 部分效果预设
