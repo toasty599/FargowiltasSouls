@@ -35,9 +35,9 @@ namespace FargowiltasSouls.Content.Patreon
             
             void AddPatreonDrop(Func<bool> condition, int item, int chanceDenominator = 1, string extraKey = default)
             {
-                string description = Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.Patreon");
+                string description = Language.GetTextValue("Mods.FargowiltasSouls.Conditions.Patreon");
                 if (extraKey != default)
-                     description = Language.GetTextValue($"Mods.FargowiltasSouls.DropRuleConditions.{extraKey}");
+                     description = Language.GetTextValue($"Mods.FargowiltasSouls.Conditions.{extraKey}");
                 RuntimeDropCondition dropCondition = new(condition, description);
                 npcLoot.Add(ItemDropRule.ByCondition(dropCondition, item, chanceDenominator));
             }
@@ -74,7 +74,7 @@ namespace FargowiltasSouls.Content.Patreon
 
                 case NPCID.Dryad:
                     npcLoot.Add(ItemDropRule.ByCondition(
-                        new PatreonPlantDropCondition(Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.PatreonPlant")),
+                        new PatreonPlantDropCondition(Language.GetTextValue("Mods.FargowiltasSouls.Conditions.PatreonPlant")),
                         ModContent.ItemType<PiranhaPlantVoodooDoll>()));
                     break;
 
