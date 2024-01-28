@@ -1,6 +1,8 @@
 ﻿using Fargowiltas;
+using Fargowiltas.Items.Tiles;
 using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
@@ -94,10 +96,10 @@ Increases max number of minions and sentries by 10
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.Find<ModItem>("Fargowiltas", "MutantMask"))
-            .AddIngredient(null, "AbomEnergy", 10)
-            .AddIngredient(null, "EternalEnergy", 10)
-            .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
+            .AddIngredient<Fargowiltas.Items.Vanity.MutantMask>()
+            .AddIngredient<AbomEnergy>(10)
+            .AddIngredient<EternalEnergy>(10)
+            .AddTile<CrucibleCosmosSheet>()
 
             .Register();
         }
