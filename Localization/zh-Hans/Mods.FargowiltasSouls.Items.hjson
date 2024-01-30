@@ -63,6 +63,7 @@ AshWoodEnchant: {
 		“着火了！”减益不再伤害你与城镇NPC
 		对npc生效的效果放在背包中也可生效
 		当玩家身上有“着火了！”减益时，攻击会附带有火球
+		免疫浸油减益
 		降低岩浆的接触伤害
 		“你告诉我，这不是木头？”
 		'''
@@ -3485,7 +3486,7 @@ MostlyOrdinaryrock.Tooltip: Mods.FargowiltasSouls.ItemTooltip.MostlyOrdinaryrock
 
 WiresPainting: {
 	DisplayName: Wires猫绘画
-	Tooltip: 看那边！
+	Tooltip: “向内看……”
 }
 
 PrismaRegalia: {
