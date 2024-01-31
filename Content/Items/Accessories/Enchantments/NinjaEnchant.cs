@@ -29,7 +29,7 @@ Increases armor pen by 15
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 30000;
         }
 

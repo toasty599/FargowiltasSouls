@@ -31,7 +31,7 @@ Missing any attack will reset these bonuses
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.LightPurple;
             Item.value = 200000;
         }
 

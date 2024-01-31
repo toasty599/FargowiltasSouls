@@ -46,7 +46,7 @@ Summons a friendly Cultist and plant to fight at your side
             Item.width = 32;
             Item.height = 54;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 7);
             Item.defense = 8;
         }

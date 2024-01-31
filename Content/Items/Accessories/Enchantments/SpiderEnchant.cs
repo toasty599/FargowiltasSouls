@@ -37,7 +37,7 @@ Summon crits do x1.5 damage instead of x2
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.LightPurple;
+            Item.rare = ItemRarityID.Pink;
             Item.value = 150000;
         }
 

@@ -31,7 +31,7 @@ Enemies struck while Bleeding spew damaging blood
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 10000;
         }
 

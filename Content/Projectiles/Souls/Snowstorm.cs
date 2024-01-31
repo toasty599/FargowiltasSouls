@@ -16,7 +16,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             // DisplayName.SetDefault("Snowstorm");
         }
 
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Empty";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         public override void SetDefaults()
         {

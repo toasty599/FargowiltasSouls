@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 {
     public class PumpkinFlame : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Empty";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         public override void SetStaticDefaults()
         {
