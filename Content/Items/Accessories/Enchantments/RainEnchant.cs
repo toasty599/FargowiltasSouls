@@ -33,7 +33,7 @@ Effects of Inner Tube
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.LightPurple;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 150000;
         }
 

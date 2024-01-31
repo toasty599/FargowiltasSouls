@@ -36,7 +36,7 @@ You spawn mini eaters to seek out enemies every few attacks
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(0, 2);
         }
 

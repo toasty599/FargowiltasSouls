@@ -36,7 +36,7 @@ When you land after a jump, slime spikes shoot out to your sides
             Item.width = 32;
             Item.height = 28;
             Item.accessory = true;
-            Item.rare = ItemRarityID.LightPurple;
+            Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(0, 4);
         }
 

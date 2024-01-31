@@ -48,7 +48,7 @@ Summons 2 Skeletron arms to whack enemies
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.LightRed;
             Item.value = Item.sellPrice(0, 4);
             Item.defense = 2;
         }

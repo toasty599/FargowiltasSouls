@@ -30,7 +30,7 @@ Attacks have a chance to squeak and deal 1 damage to you
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 3);
         }
 

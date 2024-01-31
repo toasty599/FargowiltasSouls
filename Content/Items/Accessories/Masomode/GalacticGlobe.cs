@@ -35,7 +35,7 @@ Increases flight time by 100%
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Purple;
             Item.value = Item.sellPrice(0, 8);
         }
 

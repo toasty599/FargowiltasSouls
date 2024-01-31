@@ -30,7 +30,7 @@ While grappling you gain 10% damage resistance for one hit and a 50% thorns effe
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 10000;
         }
 
