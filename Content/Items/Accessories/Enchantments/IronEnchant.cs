@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 40000;
         }
         public override void UpdateInventory(Player player) => AddEffects(player, Item);

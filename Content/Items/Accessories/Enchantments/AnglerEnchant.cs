@@ -31,7 +31,7 @@ Effects of Lavaproof Tackle Bag
             base.SetDefaults();
 
             Item.value = 100000;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.Blue;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

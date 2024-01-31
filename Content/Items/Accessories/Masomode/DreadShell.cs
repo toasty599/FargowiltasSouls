@@ -40,7 +40,7 @@ Absorb Anticoagulation blood clots to gain 30% increased damage
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.LightPurple;
+            Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(0, 4);
             Item.defense = 2;
         }

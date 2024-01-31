@@ -24,7 +24,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             Item.height = 20;
             Item.accessory = true;
             Item.value = 50000;
-            Item.rare = ItemRarityID.Blue;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
