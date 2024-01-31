@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
     public class ElfCopterBulletExplosion : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Explosion";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         public override void SetStaticDefaults()
         {

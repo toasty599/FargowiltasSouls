@@ -3668,3 +3668,8 @@ GravityTestItem: {
 	// DisplayName: Gravity Test Item
 	// Tooltip: ""
 }
+
+CoffinSummon: {
+	// DisplayName: Forgotten Urn
+	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
+}

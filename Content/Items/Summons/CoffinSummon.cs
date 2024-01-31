@@ -1,30 +1,24 @@
-//JAVYZ TODO: CURSED COFFIN BOSS SUMMON
-/*
+
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
-using FargowiltasSouls.Content.NPCs.Challengers;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader.IO;
-using FargowiltasSouls.Content.Bosses.Champions;
+using FargowiltasSouls.Content.Bosses.CursedCoffin;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {
 
     public class CoffinSummon : SoulsItem
     {
-        public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coffin Summon");
-            Tooltip.SetDefault("While in the underground Desert, summon the Cursed Coffin");
-
+            //DisplayName.SetDefault("Coffin Summon");
+            //Tooltip.SetDefault("While in the underground Desert, summon the Cursed Coffin");
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
         }
 
-        public override bool IsLoadingEnabled(Mod mod) => false; //prevent appearing
+        public override bool IsLoadingEnabled(Mod mod) => true;
 
         public override void SetDefaults()
         {
@@ -42,24 +36,25 @@ namespace FargowiltasSouls.Content.Items.Summons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup("FargowiltasSouls:AnyGoldBar", 4)
+                .AddRecipeGroup("FargowiltasSouls:AnyDemoniteBar", 4)
+                .AddIngredient(ItemID.ClayBlock, 15)
+                .AddIngredient(ItemID.FossilOre, 10)
                 .AddTile(TileID.DemonAltar)
                 .Register();
         }
 
         public override bool CanUseItem(Player Player)
         {
-            if (Player.ZoneDesert && Player.ZoneDirtLayerHeight)
-                return !NPC.AnyNPCs(ModContent.NPCType<CursedCoffin>()); //not (x or y)
+            if (Player.ZoneDesert && (Player.ZoneDirtLayerHeight || Player.ZoneRockLayerHeight))
+                return !NPC.AnyNPCs(NPCType<CursedCoffin>()); //not (x or y)
             return false;
         }
 
         public override bool? UseItem(Player Player)
         {
-            NPC.SpawnOnPlayer(Player.whoAmI, ModContent.NPCType<CursedCoffin>());
-            SoundEngine.PlaySound(SoundID.Roar, Player.Center);
+            NPC.SpawnOnPlayer(Player.whoAmI, NPCType<CursedCoffin>());
+            SoundEngine.PlaySound(SoundID.Shatter, Player.Center);
             return true;
         }
     }
 }
-*/

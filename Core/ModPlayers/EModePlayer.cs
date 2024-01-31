@@ -109,7 +109,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public static List<int> IronTiles = new List<int> // Tiles that lightning can lock onto
+        public static List<int> IronTiles = new()
         {
             TileID.Iron,
             TileID.IronBrick,
@@ -117,7 +117,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             TileID.LeadBrick,
             TileID.MetalBars
         };
-        public static List<int> IronWalls = new List<int>
+        public static List<int> IronWalls = new()
         {
             WallID.IronFence,
             WallID.WroughtIronFence,

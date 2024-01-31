@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
     public class TimberJumpMark : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Empty";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         public override void SetStaticDefaults()
         {

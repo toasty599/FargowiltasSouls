@@ -127,9 +127,10 @@ namespace FargowiltasSouls.Core.Globals
 
             if (!npc.dontTakeDamage)
             {
-                if (npc.position.Y / 16 < Main.worldSurface * 0.35f) //enemy in space
+                bool boss = npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail;
+                if (npc.position.Y / 16 < Main.worldSurface * 0.35f && !boss) //enemy in space
                     npc.AddBuff(BuffID.Suffocation, 2, true);
-                else if (npc.position.Y / 16 > Main.maxTilesY - 200) //enemy in hell
+                else if (npc.position.Y / 16 > Main.maxTilesY - 200 && !boss) //enemy in hell
                 {
                     //because of funny bug where town npcs fall forever in mp, including into hell
                     if (FargoSoulsUtil.HostCheck)

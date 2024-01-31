@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.CloudinaBottle);
-            Item.value = (int)(Item.value * 0.75);
+            Item.value = Item.sellPrice(0, 0, 1);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

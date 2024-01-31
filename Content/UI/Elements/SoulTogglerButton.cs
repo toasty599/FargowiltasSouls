@@ -54,6 +54,7 @@ namespace FargowiltasSouls.Content.UI.Elements
             if (!Main.playerInventory)
             {
                 return;
+                
             }
             
             FargoUIManager.ToggleSoulToggler();
