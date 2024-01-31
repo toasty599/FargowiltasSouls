@@ -267,6 +267,7 @@ HuntressEnchant: {
 		'''
 		攻击忽略6点敌怪防御力并造成3点额外伤害
 		每次连续攻击会额外忽略6点防御力并多造成3点伤害
+		最多叠加10次
 		追踪武器和召唤物不会增加这些加成
 		任何一次攻击没有击中都会重置这些加成
 		“精确带来力量”
@@ -279,6 +280,7 @@ IronEnchant: {
 		'''
 		在物品栏中即可生效
 		制作物品时每种材料都有33%概率不消耗
+		对于每种材料每个世界只生效一次
 		不适用于在宇宙坩埚上制作的物品
 		物品的吸附范围扩大
 		“趁热打铁”
@@ -555,6 +557,7 @@ SilverEnchant: {
 		'''
 		右键进行盾牌格挡
 		如果时机正确则抵消这次伤害
+		最多抵消100点伤害
 		“反射”
 		'''
 }
@@ -843,7 +846,7 @@ LifeForce: {
 		[i:FargowiltasSouls/CactusEnchant] 敌人死亡时有几率爆裂出针刺
 		[i:FargowiltasSouls/BeeEnchant] 飞行时在空中留下花朵
 		[i:FargowiltasSouls/BeeEnchant] 获得蜂巢背包的效果
-		[i:FargowiltasSouls/SpiderEnchant] 仆从和哨兵可以造成暴击，且有30%基础暴击率，但暴击伤害只有1.5倍而不是2倍
+		[i:FargowiltasSouls/SpiderEnchant] 仆从和哨兵可以造成暴击，但暴击伤害只有1.5倍而不是2倍
 		[i:FargowiltasSouls/TurtleEnchant] 站定不动时且不攻击时你会缩进壳里
 		[i:FargowiltasSouls/BeetleEnchant] 甲虫会提高你的攻击能力和防御能力
 		“罕有生灵敢违背你的意愿”
@@ -915,7 +918,7 @@ TerraForce: {
 		[i:FargowiltasSouls/SilverEnchant] 右键进行盾牌格挡
 		[i:FargowiltasSouls/TungstenEnchant] 每过0.25秒剑和弹幕的大小增加300%
 		[i:FargowiltasSouls/ObsidianEnchant] 使你免疫火块与熔岩
-		[i:FargowiltasSouls/AshWoodEnchant] 玩家与城镇npc攻击时会附带火球
+		[i:FargowiltasSouls/AshWoodEnchant] 当你正在燃烧或浸泡在岩浆中时，玩家与城镇npc攻击时会附带火球
 		“大地赐予它力量”
 		'''
 }
