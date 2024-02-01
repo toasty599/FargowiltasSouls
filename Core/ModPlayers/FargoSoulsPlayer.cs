@@ -375,7 +375,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             DeathMarked = false;
             Hypothermia = false;
             Midas = false;
+            if (MutantPresence == false)
+                PresenceTogglerTimer = 0;
             MutantPresence = MutantPresence && Player.HasBuff(ModContent.BuffType<MutantPresenceBuff>());
+            HadMutantPresence = MutantPresence;
             MutantFang = false;
             DevianttPresence = false;
             Swarming = false;

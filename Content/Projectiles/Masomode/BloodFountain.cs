@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
     public class BloodFountain : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Empty";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         public override void SetDefaults()
         {

@@ -7,18 +7,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
     public class UniverseCore : SoulsItem
     {
-        public override int NumFrames => 8;
+        public override int NumFrames => 5;
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Universe Core");
-            /* Tooltip.SetDefault(@"Crits deal 4x instead of 2x
-All attacks inflict Flames of the Universe
-'Bursting with ultra-high-energy cosmic rays'"); */
-
-            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(4, 8));
-            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-
+            Main.RegisterItemAnimation(Type, new DrawAnimationVertical(10, NumFrames));
+            ItemID.Sets.AnimatesAsSoul[Type] = true;
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -30,12 +24,12 @@ All attacks inflict Flames of the Universe
             Item.rare = ItemRarityID.Expert;
             Item.value = Item.sellPrice(0, 50);
 
-            Item.scale *= 0.5f;
+            //Item.scale *= 0.5f;
 
             Item.expert = true;
         }
 
-        public override Color? GetAlpha(Color lightColor) => Color.White;
+        //public override Color? GetAlpha(Color lightColor) => Color.White;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

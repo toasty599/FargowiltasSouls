@@ -9,7 +9,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
     public class DeviAxe : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Empty";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         public override void SetStaticDefaults()
         {

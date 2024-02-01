@@ -337,7 +337,9 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int CurrentLifeReduction;
         public int LifeReductionUpdateTimer;
         public bool Midas;
+        public bool HadMutantPresence;
         public bool MutantPresence;
+        public int PresenceTogglerTimer;
         public bool MutantFang;
         public bool DevianttPresence;
         public bool Swarming;

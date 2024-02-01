@@ -188,6 +188,10 @@ namespace FargowiltasSouls.Core.Systems
             group = new RecipeGroup(() => ItemXOrY(ItemID.GoldBar, ItemID.PlatinumBar), ItemID.GoldBar, ItemID.PlatinumBar);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyGoldBar", group);
 
+            //vanilla demonite bars bar
+            group = new RecipeGroup(() => ItemXOrY(ItemID.DemoniteBar, ItemID.CrimtaneBar), ItemID.DemoniteBar, ItemID.CrimtaneBar);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyDemoniteBar", group);
+
             //mythril and ori bar
             group = new RecipeGroup(() => ItemXOrY(ItemID.MythrilBar, ItemID.OrichalcumBar), ItemID.MythrilBar, ItemID.OrichalcumBar);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyMythrilBar", group);

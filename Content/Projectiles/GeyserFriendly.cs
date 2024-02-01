@@ -6,7 +6,7 @@ namespace FargowiltasSouls.Content.Projectiles
 {
     public class GeyserFriendly : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Explosion";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         public override void SetStaticDefaults()
         {

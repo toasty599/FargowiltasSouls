@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Essences;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
+using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
@@ -9,10 +10,12 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.UI.Chat;
 
 namespace FargowiltasSouls.Content.UI.Elements
 {
@@ -56,7 +59,7 @@ namespace FargowiltasSouls.Content.UI.Elements
 
             if (disabledByMinos)
                 spriteBatch.Draw(FargoUIManager.Cross.Value, position, Color.Cyan);
-            else if (disabledByPresence)
+            else if (disabledByPresence && modPlayer.PresenceTogglerTimer <= 50)
                 spriteBatch.Draw(FargoUIManager.Cross.Value, position, Color.Gray);
             else if (Main.LocalPlayer.GetToggleValue(Effect, true))
                 spriteBatch.Draw(FargoUIManager.CheckMark.Value, position, Color.White);
@@ -85,10 +88,56 @@ namespace FargowiltasSouls.Content.UI.Elements
             }
             else if (disabledByPresence)
             {
-                color = Color.Gray * 0.5f;
-                text += $" [i:{ModContent.ItemType<OncomingMutantItem>()}]";
+                Color gray = Color.Gray * 0.5f;
+                if (modPlayer.PresenceTogglerTimer > 50)
+                    color = Color.Lerp(gray, color, (modPlayer.PresenceTogglerTimer - 50) / 50f);
+                else
+                {
+                    color = gray;
+                    text += $" [i:{ModContent.ItemType<OncomingMutantItem>()}]";
+                }
             }
             Utils.DrawBorderString(spriteBatch, text, position, color);
+
+            if (modPlayer.PresenceTogglerTimer > 0) // draw slash
+            {
+                //TODO: this doesn't work rn. fix later. probably change to something else
+
+                Vector2 offset = Vector2.UnitX * (float)Utils.Lerp(-1500, 1500, modPlayer.PresenceTogglerTimer / 100f);
+                Vector2 start = position + offset;
+                Vector2 end = start + Vector2.UnitX * 50;
+
+                Texture2D texture = TextureAssets.Projectile[ModContent.ProjectileType<MonkDashDamage>()].Value;
+                Rectangle rect = new(0, 0, texture.Width, texture.Height);
+                Vector2 origin = rect.Size() / 2;
+                int num149 = 18;
+                int num147 = 0;
+                int num148 = -2;
+                float value12 = 1.3f;
+                float num150 = 15f;
+
+                for (int num152 = num149; (num148 > 0 && num152 < num147) || (num148 < 0 && num152 > num147); num152 += num148)
+                {
+                    Color color32 = Color.Cyan;
+
+                    float num157 = num147 - num152;
+                    if (num148 < 0)
+                    {
+                        num157 = num149 - num152;
+                    }
+                    color32 *= num157 / ((float)10 * 1.5f);
+                    Vector2 vector29 = start + (end - start) * num157 / ((float)10 * 1.5f);
+                    float num158 = 0;
+                    SpriteEffects effects2 = SpriteEffects.None;
+                    if (vector29 == Vector2.Zero)
+                    {
+                        continue;
+                    }
+                    Vector2 position3 = vector29;
+                    Main.EntitySpriteDraw(texture, position3, rect, color32, num158, origin, MathHelper.Lerp(1, value12, (float)num152 / num150), effects2);
+                }
+                //spriteBatch.Draw(TextureAssets.Extra[33].Value, start, null, Color.Cyan, 0, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            }
         }
     }
 }
