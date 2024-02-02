@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         #region Standard
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 1;
+            Main.npcFrameCount[NPC.type] = 9;
             NPCID.Sets.TrailCacheLength[NPC.type] = 8; //decrease later if not needed
             NPCID.Sets.TrailingMode[NPC.type] = 2;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
@@ -63,11 +63,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             NPC.aiStyle = -1;
             NPC.lifeMax = 2200;
-            NPC.defense = 0;
+            NPC.defense = 10;
             NPC.damage = 35;
             NPC.knockBackResist = 0f;
-            NPC.width = 52;
-            NPC.height = 52;
+            NPC.width = 120;
+            NPC.height = 120;
             //NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -105,8 +105,46 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             if (NPC.Opacity < 1)
                 return false;
-            return base.CanHitPlayer(target, ref cooldownSlot);
+            Vector2 boxPos = target.position;
+            Vector2 boxDim = target.Size;
+            return Collides(boxPos, boxDim);
         }
+        public override bool CanHitNPC(NPC target)
+        {
+            Vector2 boxPos = target.position;
+            Vector2 boxDim = target.Size;
+            return Collides(boxPos, boxDim);
+        }
+        public bool Collides(Vector2 boxPos, Vector2 boxDim)
+        {
+            //circular hitbox-inator
+            Vector2 ellipseDim = NPC.Size;
+            Vector2 ellipseCenter = NPC.position + 0.5f * new Vector2(NPC.width, NPC.height);
+
+            float x = 0f; //ellipse center
+            float y = 0f; //ellipse center
+            if (boxPos.X > ellipseCenter.X)
+            {
+                x = boxPos.X - ellipseCenter.X; //left corner
+            }
+            else if (boxPos.X + boxDim.X < ellipseCenter.X)
+            {
+                x = boxPos.X + boxDim.X - ellipseCenter.X; //right corner
+            }
+            if (boxPos.Y > ellipseCenter.Y)
+            {
+                y = boxPos.Y - ellipseCenter.Y; //top corner
+            }
+            else if (boxPos.Y + boxDim.Y < ellipseCenter.Y)
+            {
+                y = boxPos.Y + boxDim.Y - ellipseCenter.Y; //bottom corner
+            }
+            float a = ellipseDim.X / 2f;
+            float b = ellipseDim.Y / 2f;
+
+            return x * x / (a * a) + y * y / (b * b) < 1; //point collision detection
+        }
+
         #endregion
         List<float> SlowChargeStates = new()
         {
@@ -208,7 +246,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 AI3 = 2;
                 NPC.velocity = Vector2.UnitY * 7;
 
-                //SoundEngine.PlaySound(SoundID.TheGhostThingy, NPC.Center);
+                SoundEngine.PlaySound(CursedCoffin.SoulShotSFX, NPC.Center);
                 if (FargoSoulsUtil.HostCheck)
                 {
                     int cap = WorldSavingSystem.EternityMode ? WorldSavingSystem.MasochistModeReal ? 3 : 2 : 1;
@@ -249,6 +287,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             }
             else if (Timer < 240)
             {
+                SoundEngine.PlaySound(CursedCoffin.SpiritDroneSFX, NPC.Center);
                 Vector2 vectorToIdlePosition = player.Center - NPC.Center;
                 float speed = 6.5f;
                 float inertia = 10f;
@@ -287,10 +326,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 const int shotTime = 20;
                 if (Timer % shotTime == shotTime - 1)
                 {
+                    SoundEngine.PlaySound(CursedCoffin.SoulShotSFX, NPC.Center);
                     if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 vel = -Vector2.UnitY.RotatedBy(MathF.Tau * 0.14f * Math.Sin(MathF.Tau * (Timer + Main.rand.Next(20)) / 53)) * 4;
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + NPC.velocity, vel, ModContent.ProjectileType<CoffinDarkSouls>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, NPC.whoAmI, 0.18f);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<CoffinDarkSouls>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, NPC.whoAmI, 0.18f);
                     }
                 }
                 Timer++;
@@ -361,16 +401,15 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
             for (int i = 0; i < NPCID.Sets.TrailCacheLength[NPC.type]; i++)
             {
-                Vector2 value4 = NPC.oldPos[i];
-                int oldFrame = Frame;
-                Rectangle oldRectangle = new(0, oldFrame * bodytexture.Height / Main.npcFrameCount[NPC.type], bodytexture.Width, bodytexture.Height / Main.npcFrameCount[NPC.type]);
-                DrawData oldGlow = new(bodytexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldRectangle), NPC.GetAlpha(drawColor) * (0.5f / i), NPC.rotation, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, spriteEffects, 0);
+                Vector2 oldPos = NPC.oldPos[i];
+
+                DrawData oldGlow = new(bodytexture, oldPos + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), NPC.frame, NPC.GetAlpha(drawColor) * (0.5f / i), NPC.rotation, NPC.Size / 2, NPC.scale, spriteEffects, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(Color.Blue).UseSecondaryColor(Color.Black);
                 GameShaders.Misc["LCWingShader"].Apply(oldGlow);
                 oldGlow.Draw(spriteBatch);
             }
 
-            spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: NPC.GetAlpha(drawColor), rotation: NPC.rotation, scale: NPC.scale, effects: spriteEffects, layerDepth: 0f);
+            spriteBatch.Draw(origin: NPC.Size / 2, texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: NPC.GetAlpha(drawColor), rotation: NPC.rotation, scale: NPC.scale, effects: spriteEffects, layerDepth: 0f);
             return false;
         }
         public override void DrawBehind(int index)
@@ -383,8 +422,20 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         public override void FindFrame(int frameHeight)
         {
+            if (++NPC.frameCounter > 4)
+            {
+                if (++Frame >= Main.npcFrameCount[Type] - 1)
+                    Frame = 0;
+                NPC.frameCounter = 0;
+            }
             NPC.spriteDirection = NPC.direction;
             NPC.frame.Y = frameHeight * Frame;
+            NPC.frame.Width = 120;
+
+            if (SlowChargeStates.Contains(State))
+                NPC.frame.X = 120;
+            else
+                NPC.frame.X = 0;
         }
 
         #endregion

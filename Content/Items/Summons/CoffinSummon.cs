@@ -36,9 +36,10 @@ namespace FargowiltasSouls.Content.Items.Summons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup("FargowiltasSouls:AnyDemoniteBar", 4)
+                //.AddRecipeGroup("FargowiltasSouls:AnyDemoniteBar", 4)
                 .AddIngredient(ItemID.ClayBlock, 15)
-                .AddIngredient(ItemID.FossilOre, 10)
+                .AddIngredient(ItemID.FossilOre, 8)
+                .AddIngredient(ItemID.Sapphire, 2)
                 .AddTile(TileID.DemonAltar)
                 .Register();
         }

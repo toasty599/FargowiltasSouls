@@ -33,29 +33,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Expert
 
             Item.expert = true;
         }
-
-
-
         public override void UpdateAccessory(Player player, bool hideVisual) => player.AddEffect<VortexProjGravity>(Item);
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-
-            .AddIngredient(ModContent.ItemType<BoxofGizmos>())
-            .AddIngredient(ModContent.ItemType<RustedOxygenTank>())
-            .AddIngredient(ModContent.ItemType<LifeRevitalizer>())
-            .AddIngredient(ItemID.SoulofFlight, 3)
-            .AddIngredient(ItemID.SoulofLight, 3)
-            .AddIngredient(ItemID.SoulofNight, 3)
-            .AddIngredient(ItemID.SoulofMight, 3)
-            .AddIngredient(ItemID.SoulofFright, 3)
-            .AddIngredient(ItemID.SoulofSight, 3)
-            //add each other challenger expert drop when they're made
-
-            .AddTile<CrucibleCosmosSheet>()
-
-            .Register();
-        }
     }
 }

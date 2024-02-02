@@ -23,6 +23,15 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
     public partial class CursedCoffin : ModNPC
     {
         #region Variables
+
+        public static readonly SoundStyle PhaseTransitionSFX = new("FargowiltasSouls/Assets/Sounds/CoffinPhaseTransition");
+        public static readonly SoundStyle SlamSFX = new("FargowiltasSouls/Assets/Sounds/CoffinSlam") { PitchVariance = 0.3f };
+        public static readonly SoundStyle SpiritDroneSFX = new("FargowiltasSouls/Assets/Sounds/CoffinSpiritDrone") { MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.2f };
+        public static readonly SoundStyle BigShotSFX = new("FargowiltasSouls/Assets/Sounds/CoffinBigShot") { Volume = 0.6f, PitchVariance = 0.3f };
+        public static readonly SoundStyle ShotSFX = new("FargowiltasSouls/Assets/Sounds/CoffinShot") { Volume = 0.3f, PitchVariance = 0.3f };
+        public static readonly SoundStyle SoulShotSFX = new("FargowiltasSouls/Assets/Sounds/CoffinSoulShot") { Volume = 0.3f, PitchVariance = 0.3f};
+        public static readonly SoundStyle HandChargeSFX = new("FargowiltasSouls/Assets/Sounds/CoffinHandCharge");
+
         public bool PhaseTwo;
         public enum StateEnum
         {
@@ -138,6 +147,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     if (NPC.velocity.Y <= 1) //when you hit tile
                     {
                         SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+                        SoundEngine.PlaySound(SlamSFX, NPC.Center);
                         //dust explosion
                         ExtraTrail = false;
                         Timer = -60;
@@ -164,11 +174,13 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             HoverSound();
 
-            const int TransTime = 90;
+            const int TransTime = 120;
             NPC.velocity = -Vector2.UnitY * 5 * (1-(Timer / TransTime));
             NPC.rotation = Main.rand.NextFloat(MathF.Tau * 0.06f * (Timer / TransTime));
+            SoundEngine.PlaySound(SpiritDroneSFX, NPC.Center);
             if (Timer >= 60)
             {
+                SoundEngine.PlaySound(PhaseTransitionSFX, NPC.Center);
                 PhaseTwo = true;
                 NPC.netUpdate = true;
                 if (FargoSoulsUtil.HostCheck)
@@ -195,6 +207,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             }
             else if (Timer == 20)
             {
+                SoundEngine.PlaySound(ShotSFX, NPC.Center);
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 dir = NPC.rotation.ToRotationVector2();
@@ -256,19 +269,20 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
             if (Timer >= 0)
             {
-                if (Timer < 15) // no funny double hits from weird terrain
-                    NPC.noTileCollide = true;
+                //if (Timer < 15) // no funny double hits from weird terrain
+                  //  NPC.noTileCollide = true;
 
                 NPC.velocity.X *= 0.97f;
                 if (WorldSavingSystem.EternityMode)
                     NPC.velocity.X += Math.Sign(Player.Center.X - NPC.Center.X) * 0.2f;
-                if (NPC.velocity.Y > 0 && Counter == 0)
+                if (NPC.velocity.Y >= 0 && Counter == 0)
                 {
                     Counter = 1;
                 }
                 if (NPC.velocity.Y == 0 && Counter > 0) //when you hit tile
                 {
                     SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+                    SoundEngine.PlaySound(SlamSFX, NPC.Center);
                     ExtraTrail = false;
 
                     //shockwaves
@@ -330,6 +344,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             }
             else if (Timer == TelegraphTime)
             {
+                SoundEngine.PlaySound(BigShotSFX, maskCenter);
                 int shots = Main.expertMode ? WorldSavingSystem.EternityMode ? WorldSavingSystem.MasochistModeReal ? 12 : 10 : 8 : 6;
                 if (FargoSoulsUtil.HostCheck)
                 {
@@ -412,6 +427,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
                 if (Timer % ShotTime == 0)
                 {
+                    SoundEngine.PlaySound(ShotSFX, NPC.Center);
                     if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), maskCenter, maskCenter.DirectionTo(Player.Center) * 4, ModContent.ProjectileType<CoffinWaveShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, 1);
@@ -451,8 +467,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             }
             if (Timer > 2 && Timer == AI3)
             {
+                
                 foreach (Projectile hand in Main.projectile.Where(p => p.TypeAlive(ModContent.ProjectileType<CoffinHand>()) && p.ai[0] == NPC.whoAmI && p.ai[1] == 1))
                 {
+                    SoundEngine.PlaySound(HandChargeSFX, hand.Center);
                     hand.ai[1] = 2;
                     hand.netUpdate = true;
                 }
@@ -465,6 +483,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             }
             else if (Timer == 40)
             {
+                SoundEngine.PlaySound(ShotSFX, NPC.Center);
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 dir = NPC.rotation.ToRotationVector2();

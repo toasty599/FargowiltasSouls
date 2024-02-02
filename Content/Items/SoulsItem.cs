@@ -1,9 +1,11 @@
 ﻿using FargowiltasSouls.Common.Utilities;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
 using Terraria;
