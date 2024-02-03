@@ -40,7 +40,7 @@ There is a 60 second cooldown for this effect
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Purple;
             Item.value = 400000;
         }
 

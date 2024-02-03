@@ -34,7 +34,7 @@ Effects of Night Owl, Spelunker, Hunter, Shine, and Dangersense Potions
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 20000;
         }
 

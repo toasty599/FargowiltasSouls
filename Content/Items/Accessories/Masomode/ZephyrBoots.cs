@@ -27,7 +27,7 @@ Increases jump height and negates fall damage
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Lime;
+            Item.rare = ItemRarityID.LightRed;
             Item.value = Item.sellPrice(0, 10);
         }
 

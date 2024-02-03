@@ -33,7 +33,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
     public class BanishedBaron : ModNPC
     {
         Player player => Main.player[NPC.target];
-        //TODO: re-enable boss checklist compat, localizationhelper addSpawnInfo
 
         public SoundStyle BaronRoar = new("FargowiltasSouls/Assets/Sounds/BaronRoar");
         public SoundStyle BaronYell = new("FargowiltasSouls/Assets/Sounds/BaronYell");

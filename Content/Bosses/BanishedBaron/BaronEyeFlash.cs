@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
 	public class BaronEyeFlash : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Explosion";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Banished Baron Scrap");

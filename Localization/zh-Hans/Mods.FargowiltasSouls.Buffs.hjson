@@ -709,3 +709,8 @@ SublimationBuff: {
 	Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
 	DisplayName: 升华
 }
+
+CoffinTossBuff: {
+	// DisplayName: Coffin Toss Buff
+	// Description: Mods.FargowiltasSouls.Buffs.CoffinTossBuff.Description
+}

@@ -37,7 +37,7 @@ Attacks may inflict the Solar Flare debuff
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Purple;
             Item.value = 400000;
         }
 

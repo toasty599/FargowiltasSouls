@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Explosion";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
         public override void SetDefaults()
         {
             Projectile.width = 16;

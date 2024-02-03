@@ -104,7 +104,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             EnteredPhase2 = bitReader.ReadBit();
             EnteredPhase3 = bitReader.ReadBit();
         }
-        public const int EffectiveMaxHealth = 110000;
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
@@ -120,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (WorldSavingSystem.SwarmActive)
                 return result;
 
-            if (!npc.HasValidTarget)
+            if (!npc.HasValidTarget && !EnteredPhase3)
                 npc.velocity.Y++;
 
             Player player = Main.player[npc.target];
@@ -175,12 +174,24 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 ref float movementTimer = ref npc.ai[2];
                 ref float ai3 = ref npc.ai[3];
 
-                if (!npc.HasValidTarget)
+
+                //Targeting
+                if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 5000)
                 {
-                    timer = 0;
-                    state = 0;
-                    movementTimer = 0;
-                    return true;
+                    npc.TargetClosest(false);
+                    player = Main.player[npc.target];
+                    if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 5000)
+                    {
+                        if (npc.timeLeft > 60)
+                            npc.timeLeft = 60;
+                        npc.velocity.Y -= 0.4f;
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (npc.timeLeft < 60)
+                        npc.timeLeft = 60;
                 }
 
                 if (FargoSoulsUtil.HostCheck && !Main.npc.Any(n => n.active && n.type == ModContent.NPCType<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] == innerRingDistance))
@@ -276,6 +287,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         timer = 0;
                         state = 1;
+                        npc.TargetClosest(false);
                     }
                 }
                 else
@@ -395,6 +407,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             {
                                 timer = 0;
                                 state = 2;
+                                npc.TargetClosest(false);
                             }
                         }
                         break;
@@ -491,6 +504,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     {
                                         repeatCheck = 0;
                                         state = 3;
+                                        npc.TargetClosest(false);
                                     }
                                 }
                             }
@@ -561,6 +575,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 {
                                     timer = 0;
                                     state = 1;
+                                    npc.TargetClosest(false);
                                 }
                             }
                         }

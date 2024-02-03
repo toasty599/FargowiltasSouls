@@ -7,7 +7,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 {
     public class EarthGeyser : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Explosion";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         public override void SetStaticDefaults()
         {

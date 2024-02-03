@@ -1,6 +1,4 @@
-﻿//JAVYZ TODO: CURSED COFFIN BOSS
-/*
-using System;
+﻿using System;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -10,73 +8,56 @@ using System.Collections.Generic;
 using Terraria.DataStructures;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
-using FargowiltasSouls.Content.Patreon.ManliestDove;
-using System.Reflection;
-using System.Linq;
-using Terraria.Audio;
-using FargowiltasSouls.Content.Items.BossBags;
-using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json.Linq;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
+using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Buffs;
+using FargowiltasSouls.Common.Graphics.Particles;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
     [AutoloadBossHead]
-    public class CursedCoffin : ModNPC
+    public partial class CursedCoffin : ModNPC
     {
-        //TODO: re-enable boss checklist compat, localizationhelper addSpawnInfo
-        public override bool IsLoadingEnabled(Mod mod) => false; //prevent appearing
+        public override bool IsLoadingEnabled(Mod mod) => true; 
 
         #region Variables
-        private enum StateEnum
-        {
-            Opening
-        }
 
-        private enum P1Attacks
-        {
-
-        }
         private bool Attacking = true;
-        private bool Flying = false;
         private bool ExtraTrail = false;
-
-        private int StateCount = Enum.GetValues(typeof(StateEnum)).Length;
+        
         private int Frame = 0;
 
-        private List<int> availablestates = new List<int>(0);
 
         private Vector2 LockVector1 = Vector2.Zero;
 
         //NPC.ai[] overrides
         public ref float Timer => ref NPC.ai[0];
         public ref float State => ref NPC.ai[1];
-        public ref float Random => ref NPC.ai[2];
+        public ref float AI2 => ref NPC.ai[2];
         public ref float AI3 => ref NPC.ai[3];
+
+        public Vector2 MaskCenter() => NPC.Center - Vector2.UnitY * NPC.height * NPC.scale / 4;
+
+        public static readonly Color GlowColor = new(224, 196, 252, 0);
 
         #endregion
         #region Standard
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cursed Coffin");
             Main.npcFrameCount[NPC.type] = 4;
             NPCID.Sets.TrailCacheLength[NPC.type] = 18; //decrease later if not needed
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
-            NPCID.Sets.DebuffImmunitySets.Add(NPC.type, new NPCDebuffImmunityData
+            NPC.AddDebuffImmunities(new List<int>
             {
-                SpecificallyImmuneTo = new int[]
-                {
-                    BuffID.Confused,
-                    BuffID.Chilled,
-                    BuffID.Suffocation,
-                    ModContent.BuffType<Lethargic>(),
-                    ModContent.BuffType<ClippedWings>()
-                }
+                BuffID.Confused,
+                BuffID.Chilled,
+                BuffID.Suffocation,
+                ModContent.BuffType<LethargicBuff>(),
+                ModContent.BuffType<ClippedWingsBuff>()
             });
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -86,13 +67,14 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
                 new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
             });
+
         }
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 4000;
+            NPC.lifeMax = 2222;
             NPC.defense = 0;
-            NPC.damage = 55;
+            NPC.damage = 35;
             NPC.knockBackResist = 0f;
             NPC.width = 90;
             NPC.height = 150;
@@ -109,64 +91,100 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             NPC.value = Item.buyPrice(0, 2);
 
         }
-
-        public override void ScaleExpertStats(int numPlayers, float balance)
+        public override bool? CanBeHitByItem(Player player, Item item)
+        {
+            if (PhaseTwo)
+                return null;
+            if (Frame > 1)
+                return false;
+            return item.Hitbox.Intersects(MaskHitbox()) ? null : false;
+        }
+        public override bool? CanBeHitByProjectile(Projectile projectile)
+        {
+            if (PhaseTwo)
+                return null;
+            if (Frame > 1)
+                return false;
+            return projectile.Colliding(projectile.Hitbox, MaskHitbox()) ? null : false;
+        }
+        
+        public Rectangle MaskHitbox()
+        {
+            Vector2 maskCenter = MaskCenter();
+            int maskRadius = 18;
+            return new((int)(maskCenter.X - maskRadius * NPC.scale), (int)(maskCenter.Y - maskRadius * NPC.scale), maskRadius * 2, maskRadius * 2);
+        }
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
 
+        int LastAttackChoice;
         public override void SendExtraAI(BinaryWriter writer)
         {
 
+            writer.Write(NPC.localAI[0]);
+            writer.Write(NPC.localAI[1]);
+            writer.Write(NPC.localAI[2]);
+            writer.Write(NPC.localAI[3]);
+            writer.Write(PhaseTwo);
+            writer.Write7BitEncodedInt(LastAttackChoice);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-
+            NPC.localAI[0] = reader.ReadSingle();
+            NPC.localAI[1] = reader.ReadSingle();
+            NPC.localAI[2] = reader.ReadSingle();
+            NPC.localAI[3] = reader.ReadSingle();
+            PhaseTwo = reader.ReadBoolean();
+            LastAttackChoice = reader.Read7BitEncodedInt();
         }
         #endregion
         #region Overrides
-
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        public override void HitEffect(NPC.HitInfo hit)
         {
-            
-            return true;
-        }
-        public override bool CanHitPlayer(Player target, ref int CooldownSlot)
-        {
-            return true;
-        }
-        public override void HitEffect(int hitDirection, double HitDamage)
-        {
+            //TODO: gore
+            /*
             if (NPC.life <= 0)
             {
-                //
-
-                return;
+                for (int i = 1; i <= 4; i++)
+                {
+                    Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
+                    if (!Main.dedServ)
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"BaronGore{i}").Type, NPC.scale);
+                }
             }
-        }
-        public override bool CheckDead()
-        {
-            return base.CheckDead();
+            */
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
             Vector2 drawPos = NPC.Center - screenPos;
-            int currentFrame = NPC.frame.Y / (bodytexture.Height / Main.npcFrameCount[NPC.type]);
+            SpriteEffects spriteEffects = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             for (int i = 0; i < (ExtraTrail ? NPCID.Sets.TrailCacheLength[NPC.type] : NPCID.Sets.TrailCacheLength[NPC.type] / 4); i++)
             {
                 Vector2 value4 = NPC.oldPos[i];
                 int oldFrame = Frame;
-                Rectangle oldRectangle = new Rectangle(0, oldFrame * bodytexture.Height / Main.npcFrameCount[NPC.type], bodytexture.Width, bodytexture.Height / Main.npcFrameCount[NPC.type]);
-                DrawData oldGlow = new DrawData(bodytexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldRectangle), drawColor * (0.5f / i), NPC.rotation, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, SpriteEffects.None, 0);
+                Rectangle oldRectangle = new(0, oldFrame * bodytexture.Height / Main.npcFrameCount[NPC.type], bodytexture.Width, bodytexture.Height / Main.npcFrameCount[NPC.type]);
+                DrawData oldGlow = new(bodytexture, value4 + NPC.Size / 2f - screenPos + new Vector2(0, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(oldRectangle), drawColor * (0.5f / i), NPC.rotation, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, spriteEffects, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(Color.Blue).UseSecondaryColor(Color.Black);
                 GameShaders.Misc["LCWingShader"].Apply(oldGlow);
                 oldGlow.Draw(spriteBatch);
             }
 
-            spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: drawColor, rotation: NPC.rotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
+            spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: drawColor, rotation: NPC.rotation, scale: NPC.scale, effects: spriteEffects, layerDepth: 0f);
+
+            if (!PhaseTwo)
+            {
+                float shakeFactor = 2;
+                if (State == (float)StateEnum.PhaseTransition)
+                    shakeFactor = 2 + 5 * (Timer / 60);
+                Texture2D glowTexture = ModContent.Request<Texture2D>(Texture + "_MaskGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: glowTexture, position: drawPos + Main.rand.NextVector2Circular(shakeFactor, shakeFactor), sourceRectangle: NPC.frame, color: drawColor * Main.rand.NextFloat(0.8f, 0.95f), rotation: NPC.rotation, scale: NPC.scale, effects: spriteEffects, layerDepth: 0f);
+            }
+            
             return false;
         }
 
@@ -200,115 +218,5 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             //npcLoot.Add(rule);
         }
         #endregion
-        #region AI
-        public override void AI()
-        {
-            //Defaults
-            Player player = Main.player[NPC.target];
-            NPC.defense = NPC.defDefense;
-            NPC.rotation = 0;
-
-            //Targeting
-            if (!player.active || player.dead || player.ghost || NPC.Distance(player.Center) > 2400)
-            {
-                NPC.TargetClosest(false);
-                player = Main.player[NPC.target];
-                if (!player.active || player.dead || player.ghost || NPC.Distance(player.Center) > 2400)
-                {
-                    if (NPC.timeLeft > 60)
-                        NPC.timeLeft = 60;
-                    NPC.velocity.Y -= 0.4f;
-                    return;
-                }
-            }
-            NPC.timeLeft = 60;
-            if (State == 0 && Timer == 0) //opening
-            {
-                NPC.position = player.Center + new Vector2(0, -700) - NPC.Size / 2;
-                LockVector1 = player.Center;
-                NPC.velocity = new Vector2(0, 0.25f);
-                //NPC.velocity = new Vector2(0, 10);
-            }
-            //Normal looping attack AI
-            if (Flying) //Flying AI
-            {
-                FlyingState();
-            }
-
-            if (Attacking) //Phases and random attack choosing
-            {
-                switch (State) //Attack Choices
-                {
-                    case (float)StateEnum.Opening:
-                        Opening();
-                        break;
-                    default:
-                        StateReset();
-                        break;
-                }
-            }
-            Timer++;
-        }
-        #endregion
-        #region States
-        public void FlyingState()
-        {
-
-        }
-        public void Opening()
-        {
-            //TODO: add slam when it hits ground (little shockwave, dust)
-            Flying = false;
-            ExtraTrail = true;
-            NPC.velocity.Y *= 1.04f;
-            if (NPC.Center.Y >= LockVector1.Y)
-            {
-                NPC.noTileCollide = false;
-                if (NPC.velocity.Y <= 1) //when you hit tile
-                {
-                    SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
-                    //dust explosion
-                    ExtraTrail = false;
-                    StateReset();
-                }
-            }
-            if (NPC.Center.Y >= LockVector1.Y + 500) //only go so far
-            {
-                NPC.velocity = Vector2.Zero;
-            }
-            
-        }
-        #endregion
-        #region Help Methods
-        public void StateReset()
-        {
-            NPC.TargetClosest(false);
-            RandomizeState();
-            Timer = 0;
-            Random = 0;
-            AI3 = 0;
-        }
-        public void RandomizeState() //it's done this way so it cycles between attacks in a random order: for increased variety
-        {
-            int index;
-            if (availablestates.Count < 1)
-            {
-                availablestates.Clear();
-                for (int j = 0; j < StateCount; j++)
-                {
-                    availablestates.Add(j);
-                }
-                availablestates.Remove((int)State);
-            }
-            if (FargoSoulsUtil.HostCheck)
-            {
-                index = Main.rand.Next(availablestates.Count);
-                State = availablestates[index];
-                availablestates.RemoveAt(index);
-            }
-            NPC.netUpdate = true;
-        }
-        #endregion
     }
 }
-*/

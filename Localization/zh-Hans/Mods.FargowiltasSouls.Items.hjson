@@ -61,7 +61,7 @@ AshWoodEnchant: {
 	Tooltip:
 		'''
 		“着火了！”减益不再伤害你与城镇NPC
-		对npc生效的效果放在背包中也可生效
+		对NPC生效的效果放在背包中也可生效
 		当玩家身上有“着火了！”减益时，攻击会附带有火球
 		免疫浸油减益
 		降低岩浆的接触伤害
@@ -918,7 +918,7 @@ TerraForce: {
 		[i:FargowiltasSouls/SilverEnchant] 右键进行盾牌格挡
 		[i:FargowiltasSouls/TungstenEnchant] 每过0.25秒剑和弹幕的大小增加300%
 		[i:FargowiltasSouls/ObsidianEnchant] 使你免疫火块与熔岩
-		[i:FargowiltasSouls/AshWoodEnchant] 当你正在燃烧或浸泡在岩浆中时，玩家与城镇npc攻击时会附带火球
+		[i:FargowiltasSouls/AshWoodEnchant] 玩家与城镇NPC攻击时会附带火球
 		“大地赐予它力量”
 		'''
 }
@@ -3661,4 +3661,9 @@ Extra: {
 GravityTestItem: {
 	// DisplayName: Gravity Test Item
 	// Tooltip: ""
+}
+
+CoffinSummon: {
+	// DisplayName: Forgotten Urn
+	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
 }

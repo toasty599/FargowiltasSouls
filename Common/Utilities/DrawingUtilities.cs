@@ -103,10 +103,8 @@ namespace FargowiltasSouls
 
         public static void GenericProjectileDraw(Projectile projectile, Color lightColor, Texture2D texture = null, Vector2? drawPos = null, float? rotation = null)
 		{
-			if (rotation == null)
-				rotation = projectile.rotation;
-			if (drawPos == null)
-                drawPos = projectile.Center;
+            rotation ??= projectile.rotation;
+            drawPos ??= projectile.Center;
 
             Texture2D _texture = texture != null ? texture : TextureAssets.Projectile[projectile.type].Value;
             int sizeY = _texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
@@ -117,5 +115,7 @@ namespace FargowiltasSouls
             Main.EntitySpriteDraw(_texture, drawPos.Value - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
                     rotation.Value, origin, projectile.scale, spriteEffects, 0);
         }
+
+		public static string EmptyTexture => "FargowiltasSouls/Content/Projectiles/Empty";
 	}
 }

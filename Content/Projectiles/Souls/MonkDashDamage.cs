@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             
         }
 
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Empty";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
 
         /*public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {

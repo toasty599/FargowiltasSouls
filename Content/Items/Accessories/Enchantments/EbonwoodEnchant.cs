@@ -35,7 +35,7 @@ Any projectiles that would deal less than 10 damage to you are destroyed
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 10000;
         }
 

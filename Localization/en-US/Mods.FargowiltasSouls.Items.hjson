@@ -919,7 +919,7 @@ TerraForce: {
 		[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
 		[i:FargowiltasSouls/TungstenEnchant] Weapon size increased to 300% and projectile size every quarter second
 		[i:FargowiltasSouls/ObsidianEnchant] Grants immunity to lava
-		[i:FargowiltasSouls/AshWoodEnchant] While burning or in lava, player and town NPC attacks are accompanied by fireballs
+		[i:FargowiltasSouls/AshWoodEnchant] Player and town NPC attacks are accompanied by fireballs
 		'The land lends its strength'
 		'''
 }
@@ -3647,4 +3647,9 @@ Extra: {
 GravityTestItem: {
 	DisplayName: Gravity Test Item
 	Tooltip: ""
+}
+
+CoffinSummon: {
+	DisplayName: Forgotten Urn
+	Tooltip: Break in the underground Desert to summon the Cursed Coffin
 }

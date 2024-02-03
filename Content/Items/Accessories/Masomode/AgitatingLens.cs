@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(gold: 1);
         }
 
