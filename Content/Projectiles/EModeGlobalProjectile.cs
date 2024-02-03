@@ -1163,7 +1163,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         if (projectile.hostile)
                         {
-                            const int FadeTime = 10;
+                            const int FadeTime = 15;
                             if (!EModeCanHurt)
                             {
                                 if (FadeTimer < FadeTime)
@@ -1174,7 +1174,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 if (FadeTimer > 0)
                                     FadeTimer--;
                             }
-                            float fade = 1f - (0.5f * FadeTimer / FadeTime);
+                            float fade = 1f - (0.25f * FadeTimer / FadeTime);
                             projectile.Opacity = fade;
                         }
                     }

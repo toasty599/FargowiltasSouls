@@ -37,6 +37,13 @@ namespace FargowiltasSouls.Content.Buffs.Boss
             player.fullRotation = player.velocity.ToRotation() + MathHelper.PiOver2;
             player.fullRotationOrigin = player.Center - player.position;
 
+            if (player.buffTime[buffIndex] < 2) // make sure you get unrotated
+            {
+                player.fullRotation = 0;
+                player.DelBuff(buffIndex);
+            }
+                
+
             if (Collision.SolidCollision(player.position + player.velocity, player.width, player.height))
             {
                 player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.CoffinToss", player.name)), 65, 0, false, false, 0, false);
