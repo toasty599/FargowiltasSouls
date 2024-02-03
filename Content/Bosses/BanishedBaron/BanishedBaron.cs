@@ -34,8 +34,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
     {
         Player player => Main.player[NPC.target];
 
-        public SoundStyle BaronRoar = new("FargowiltasSouls/Assets/Sounds/BaronRoar");
-        public SoundStyle BaronYell = new("FargowiltasSouls/Assets/Sounds/BaronYell");
+        public static readonly SoundStyle BaronRoar = new("FargowiltasSouls/Assets/Sounds/BaronRoar");
+        public static readonly SoundStyle BaronYell = new("FargowiltasSouls/Assets/Sounds/BaronYell");
 
         #region Variables
         public enum StateEnum //ALL states

@@ -3659,6 +3659,7 @@ Extra: {
 	// StarlightTungsten: Unaffected by Tungsten Enchantment
 	// DefensePrefixMaxLife: +{0} max life
 	// EternityItem: Eternity
+	// DisabledEffects: Has effects disabled by the Effect Toggles menu
 	// PatreonItem: >> Patreon Item <<
 	// stealing items texts are currently not displayed
 	// ItemStolen: An item was stolen from you!
@@ -3672,4 +3673,9 @@ GravityTestItem: {
 CoffinSummon: {
 	// DisplayName: Forgotten Urn
 	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
+}
+
+TogglerIconItem: {
+	// DisplayName: Toggler Icon Item
+	// Tooltip: ""
 }

@@ -480,8 +480,6 @@ namespace FargowiltasSouls
             Item.NewItem(null, player.Center, ItemID.WaterCandle);
 
             Item.NewItem(null, player.Center, ItemID.Torch, 200);
-            //Item.NewItem(null, player.Center, ItemID.LifeCrystal, 4);
-            //Item.NewItem(null, player.Center, ItemID.ManaCrystal, 2);
             Item.NewItem(null, player.Center, ItemID.LesserHealingPotion, 15);
             Item.NewItem(null, player.Center, ItemID.RecallPotion, 15);
             if (Main.netMode != NetmodeID.SinglePlayer)
@@ -498,28 +496,37 @@ namespace FargowiltasSouls
 
             GiveItem("Fargowiltas", "AutoHouse", 2);
             GiveItem("Fargowiltas", "MiniInstaBridge", 2);
-            //GiveItem("Fargowiltas", "HalfInstavator");
 
             Item.NewItem(null, player.Center, ModContent.ItemType<EurusSock>());
             Item.NewItem(null, player.Center, ModContent.ItemType<PuffInABottle>());
-            //int bugnet = (Main.zenithWorld || Main.remixWorld) ? ItemID.FireproofBugNet : ItemID.BugNet;
             Item.NewItem(null, player.Center, ItemID.BugNet);
             Item.NewItem(null, player.Center, ItemID.Squirrel);
-            //Item.NewItem(null, player.Center, ItemID.GrapplingHook);
 
             if (Main.zenithWorld || Main.remixWorld)
             {
                 Item.NewItem(null, player.Center, ItemID.ObsidianSkinPotion, 5);
             }
 
+            bool isTerry = player.name.ToLower().Contains("terry");
+
+            if (isTerry)
+            {
+                GiveItem("Fargowiltas", "HalfInstavator");
+                GiveItem("Fargowiltas", "RegalStatue");
+                Item.NewItem(null, player.Center, ItemID.GrapplingHook);
+                Item.NewItem(null, player.Center, ItemID.LifeCrystal, 4);
+                Item.NewItem(null, player.Center, ItemID.ManaCrystal, 2);
+            }
+
             //only give once per world
             if (!WorldSavingSystem.ReceivedTerraStorage)
             {
+                int units = isTerry ? 16 : 4;
                 if (ModLoader.TryGetMod("MagicStorage", out Mod _))
                 {
                     GiveItem("MagicStorage", "StorageHeart");
                     GiveItem("MagicStorage", "CraftingAccess");
-                    GiveItem("MagicStorage", "StorageUnit", 4);
+                    GiveItem("MagicStorage", "StorageUnit", units);
 
                     WorldSavingSystem.ReceivedTerraStorage = true;
                     if (Main.netMode != NetmodeID.SinglePlayer)
@@ -529,7 +536,7 @@ namespace FargowiltasSouls
                 {
                     GiveItem("MagicStorageExtra", "StorageHeart");
                     GiveItem("MagicStorageExtra", "CraftingAccess");
-                    GiveItem("MagicStorageExtra", "StorageUnit", 4);
+                    GiveItem("MagicStorageExtra", "StorageUnit", units);
 
                     WorldSavingSystem.ReceivedTerraStorage = true;
                     if (Main.netMode != NetmodeID.SinglePlayer)

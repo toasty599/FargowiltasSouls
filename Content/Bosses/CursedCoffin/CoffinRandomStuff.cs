@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,77 +9,68 @@ using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using FargowiltasSouls.Content.Buffs.Masomode;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
-    public class CoffinDarkSouls : ModProjectile
+    public class CoffinRandomStuff : ModProjectile
     {
+        public const int Frames = 7;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Banished Baron Scrap");
-            ProjectileID.Sets.TrailCacheLength[Type] = 10;
+            ProjectileID.Sets.TrailCacheLength[Type] = 3;
             ProjectileID.Sets.TrailingMode[Type] = 2;
-            Main.projFrames[Type] = 4;
+            Main.projFrames[Type] = Frames;
         }
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 18;
+            Projectile.width = 32;
+            Projectile.height = 32;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.scale = 1f;
-            Projectile.light = 1;
             Projectile.timeLeft = 60 * 6;
         }
-
+        public ref float ObjectType => ref Projectile.ai[0];
+        public ref float StartHeight => ref Projectile.ai[1];
+        public static float Gravity(float objectType) => 
+            objectType switch
+            {
+                5 => 0.15f, // vase
+                6 => 0.17f, // bone
+                _ => 0.2f // gem
+            };
+        public override void OnSpawn(IEntitySource source)
+        {
+            StartHeight = Projectile.Center.Y;
+            Projectile.position = Projectile.Center;
+            Projectile.width = Projectile.height = ObjectType switch
+            {
+                5 => 28,
+                6 => 16,
+                _ => 32
+            };
+            Projectile.Center = Projectile.position;
+        }
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            /*
-            NPC owner = Main.npc[(int)Projectile.ai[0]];
-            Player target = Main.player[owner.target];
-            if (!target.Alive())
-                return;
-            */
-            if (Projectile.ai[1] != 0)
-                Projectile.velocity.Y += Projectile.ai[1]; //ai1 is Y-acceleration
+            if (Projectile.localAI[0] == 0)
+                Projectile.localAI[0] = Main.rand.NextBool() ? 1 : -1;
 
-            if (Projectile.timeLeft <= 20)
-            {
-                Projectile.Opacity -= 1 / 20f;
-                Projectile.scale -= 1 / 20f;
-            }
+            Projectile.rotation += MathF.Tau * Projectile.localAI[0] / 33;
 
-            /*
-            if (++Projectile.ai[1] < 100 && Projectile.ai[2] == 0)
-            {
-                Vector2 vectorToIdlePosition = target.Center - Projectile.Center;
-                float speed = 18f;
-                float inertia = 75 ;
-                vectorToIdlePosition.Normalize();
-                vectorToIdlePosition *= speed;
-                Projectile.velocity = (Projectile.velocity * (inertia - 1f) + vectorToIdlePosition) / inertia;
-                if (Projectile.velocity == Vector2.Zero)
-                {
-                    Projectile.velocity.X = -0.15f;
-                    Projectile.velocity.Y = -0.05f;
-                }
-                if (Projectile.Distance(target.Center) < 100)
-                    Projectile.ai[2] = 1;
-            }
-            */
-        }
-        private static readonly Color GlowColor = new(224, 196, 252, 0);
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 60 * 4);
+            Projectile.velocity.Y += Gravity(ObjectType);
+            Projectile.tileCollide = Projectile.Center.Y > StartHeight;
+            Projectile.frame = (int)ObjectType;
         }
         public override bool PreDraw(ref Color lightColor)
         {
+            Projectile.frame = (int)ObjectType;
+
             //draw projectile
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
@@ -91,7 +83,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = GlowColor;
+                Color color27 = lightColor;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
