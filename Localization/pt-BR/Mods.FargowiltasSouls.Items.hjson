@@ -3615,7 +3615,7 @@ Extra: {
 	// StarlightTungsten: Unaffected by Tungsten Enchantment
 	// DefensePrefixMaxLife: +{0} max life
 	EternityItem: Eternidade
-	// DisabledEffects: Effects disabled by the Effect Toggles menu
+	// DisabledEffects: Has effects disabled by the Effect Toggles menu
 	PatreonItem: >> Item do Patreon <<
 	// stealing items texts are currently not displayed
 	ItemStolen: Um item foi roubado de você!

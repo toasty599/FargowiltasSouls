@@ -174,7 +174,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             (float)CursedCoffin.StateEnum.PhaseTransition,
             (float)CursedCoffin.StateEnum.WavyShotCircle,
-            (float)CursedCoffin.StateEnum.WavyShotFlight
+            (float)CursedCoffin.StateEnum.WavyShotFlight,
+            (float)CursedCoffin.StateEnum.RandomStuff
         };
         public override bool CheckActive() => false;
         #region AI
@@ -344,6 +345,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 SoundEngine.PlaySound(CursedCoffin.SpiritDroneSFX, NPC.Center);
                 Vector2 vectorToIdlePosition = player.Center - NPC.Center;
                 float speed = 6.5f;
+                if (!WorldSavingSystem.EternityMode)
+                    speed /= 2;
                 float inertia = 10f;
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;

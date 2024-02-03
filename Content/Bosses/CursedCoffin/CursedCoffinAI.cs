@@ -43,6 +43,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             WavyShotCircle,
             WavyShotFlight,
             GrabbyHands,
+            RandomStuff,
         }
 
         private readonly List<StateEnum> P1Attacks = new()
@@ -51,6 +52,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             StateEnum.WavyShotCircle,
             StateEnum.WavyShotFlight,
             StateEnum.GrabbyHands,
+            
         };
         private readonly List<StateEnum> P2Attacks = new()
         {
@@ -58,6 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             StateEnum.WavyShotCircle,
             StateEnum.WavyShotFlight,
             StateEnum.GrabbyHands,
+            StateEnum.RandomStuff,
         };
         private List<int> availablestates = new();
 
@@ -125,6 +128,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                         break;
                     case StateEnum.GrabbyHands:
                         GrabbyHands();
+                        break;
+                    case StateEnum.RandomStuff:
+                        RandomStuff();
                         break;
                     default:
                         StateReset();
@@ -521,6 +527,71 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     NPC.netUpdate = true;
                 }
 
+            }
+        }
+        public void RandomStuff()
+        {
+            ref float RandomProj = ref AI3;
+            NPC.noTileCollide = true;
+            if (Timer < 35)
+            {
+                HoverSound();
+                Vector2 offset = Vector2.UnitX * Math.Sign(NPC.Center.X - Player.Center.X) * 250;
+                Vector2 desiredPos = Player.Center + offset;
+                Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
+
+                Vector2 desiredRot = Vector2.UnitX * Math.Sign(Player.Center.X - NPC.Center.X) - Vector2.UnitY;
+                NPC.rotation = Vector2.Lerp(NPC.rotation.ToRotationVector2(), desiredRot, Timer / 35).ToRotation();
+            }
+            else
+            {
+                NPC.velocity *= 0.95f;
+            }
+            if (Timer < 350)
+            {
+                if (Timer % 20 == 0)
+                {
+                    RandomProj = Main.rand.Next(CoffinRandomStuff.Frames);
+                    NPC.netUpdate = true;
+                }
+                if (Timer % 20 == 19)
+                {
+                    SoundStyle sound = RandomProj switch
+                    {
+                        5 => SoundID.Item106,
+                        6 => SoundID.NPCHit2,
+                        _ => SoundID.Item101
+                    };
+                    SoundEngine.PlaySound(sound, NPC.Center);
+                    if (FargoSoulsUtil.HostCheck)
+                    {
+                        float gravity = CoffinRandomStuff.Gravity(RandomProj);
+                        // we want the proj to end up at player x position in t frames
+                        // we also want proj to end up at same y position, in an arc
+                        // vX * t = xdif -> vX = xdif / t
+                        // vY * t = a*t^2 / 2 -> vY = a*t / 2
+                        // we also want 45 degree angle, so vX = vY
+                        // xdif / t = a*t/2 -> t = sqrt(2 * xdif / a), vX = vY = xdif / t
+                        float xDif = Player.Center.X - NPC.Center.X;
+                        float travelTime = MathF.Sqrt(2 * Math.Abs(xDif) / gravity);
+                        Vector2 vel = Vector2.UnitX * xDif / travelTime - Vector2.UnitY * Math.Abs(xDif) / travelTime;
+                        vel *= Main.rand.NextFloat(0.9f, 1.3f);
+
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<CoffinRandomStuff>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, RandomProj);
+                    }
+                }
+            }
+            else
+            {
+                if (Timer < 400)
+                {
+                    NPC.rotation = Vector2.Lerp(NPC.rotation.ToRotationVector2(), 0f.ToRotationVector2(), (Timer - 350) / 50).ToRotation();
+                }
+                else
+                {
+                    NPC.rotation = 0;
+                    StateReset();
+                }
             }
         }
         #endregion
