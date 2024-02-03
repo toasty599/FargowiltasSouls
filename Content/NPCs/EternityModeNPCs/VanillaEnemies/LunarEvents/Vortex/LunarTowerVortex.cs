@@ -47,7 +47,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         public override void ShieldsDownAI(NPC npc)
         {
             Player target = Main.player[npc.target];
-            FargoSoulsUtil.PrintAI(npc);
             npc.ai[1] += 0.5f; // spawns portals half as often
             if (npc.HasPlayerTarget && target.active)
             {

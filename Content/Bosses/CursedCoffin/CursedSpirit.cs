@@ -14,6 +14,8 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Common.Graphics.Particles;
 using Terraria.Audio;
+using FargowiltasSouls.Content.Buffs.Boss;
+using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
@@ -35,6 +37,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public ref float AI3 => ref NPC.ai[3];
 
         public static readonly Color GlowColor = new(224, 196, 252, 0);
+
+        public int BiteTimer;
+        public int BittenPlayer = -1;
 
         #endregion
         #region Standard
@@ -92,6 +97,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
             writer.Write(NPC.localAI[3]);
+            writer.Write7BitEncodedInt(BiteTimer);
+            writer.Write7BitEncodedInt(BittenPlayer);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -100,6 +107,23 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
             NPC.localAI[3] = reader.ReadSingle();
+            BiteTimer = reader.Read7BitEncodedInt();
+            BittenPlayer = reader.Read7BitEncodedInt();
+        }
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+        {
+            if (SlowChargeStates.Contains(State))
+                target.longInvince = true;
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+        {
+            if (SlowChargeStates.Contains(State))
+            {
+                BittenPlayer = target.whoAmI;
+                BiteTimer = 360;
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+            }
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
@@ -146,7 +170,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
 
         #endregion
-        List<float> SlowChargeStates = new()
+        readonly List<float> SlowChargeStates = new()
         {
             (float)CursedCoffin.StateEnum.PhaseTransition,
             (float)CursedCoffin.StateEnum.WavyShotCircle,
@@ -171,6 +195,36 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             if (!(owner.target.IsWithinBounds(Main.maxPlayers) && Main.player[owner.target] is Player player && player.Alive()))
                 return;
             CursedCoffin coffin = owner.As<CursedCoffin>();
+
+            if (BittenPlayer != -1)
+            {
+
+                Player victim = Main.player[BittenPlayer];
+                if (BiteTimer > 0 && victim.active && !victim.ghost && !victim.dead
+                    && (NPC.Distance(victim.Center) < 160 || victim.whoAmI != Main.myPlayer)
+                    && victim.FargoSouls().MashCounter < 20)
+                {
+                    victim.AddBuff(ModContent.BuffType<GrabbedBuff>(), 2);
+                    NPC.velocity *= 0.92f;
+                    victim.velocity = Vector2.Zero;
+                    victim.Center = Vector2.Lerp(victim.Center, NPC.Center, 0.1f);
+                }
+                else
+                {
+                    BittenPlayer = -1;
+                    BiteTimer = -90; //cooldown
+
+                    // dash away otherwise it's bullshit except on maso because lol
+                    if (!WorldSavingSystem.MasochistModeReal)
+                        NPC.velocity = -NPC.DirectionTo(victim.Center) * 15;
+
+                    NPC.netUpdate = true;
+
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+                }
+                return;
+            }
 
             switch ((CursedCoffin.StateEnum)coffin.State)
             {

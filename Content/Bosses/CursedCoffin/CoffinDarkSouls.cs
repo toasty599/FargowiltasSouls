@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
@@ -74,7 +75,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         private static readonly Color GlowColor = new(224, 196, 252, 0);
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.ShadowFlame, 60 * 3);
+            target.AddBuff(ModContent.BuffType<ShadowflameBuff>(), 60 * 4);
         }
         public override bool PreDraw(ref Color lightColor)
         {

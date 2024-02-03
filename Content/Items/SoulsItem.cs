@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Common.Utilities;
+using FargowiltasSouls.Content.UI.Elements;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -52,6 +53,11 @@ namespace FargowiltasSouls.Content.Items
         public virtual int NumFrames => 1;
 
         /// <summary>
+        /// Whether this item currently has togglable effects that are disabled. Used for tooltip. <br />
+        /// </summary>
+        public bool HasDisabledEffects = false;
+
+        /// <summary>
         /// Allows you to draw things in front of this item. This method is called even if PreDrawInWorld returns false. <br />
         /// Runs directly after the code for PostDrawInWorld in SoulsItem.
         /// </summary>
@@ -93,7 +99,12 @@ namespace FargowiltasSouls.Content.Items
 
             // Add the Eternity toolip after tooltip modification in order to be displayed underneath any manual tooltips (i.e. SoE cycling).
             if (Eternity)
-                tooltips.Add(new TooltipLine(Mod, $"{Mod.Name}:Eternity", Language.GetTextValue($"Mods.{Mod.Name}.Items.Extra.EternityItem")));
+                tooltips.Add(new TooltipLine(Mod, $"{Mod.Name}:Eternity", Language.GetTextValue($"Mods.FargowiltasSouls.Items.Extra.EternityItem")));
+            if (HasDisabledEffects)
+            {
+                string text = $"[i:{ModContent.ItemType<TogglerIconItem>()}] [c/FF0000:{Language.GetTextValue($"Mods.FargowiltasSouls.Items.Extra.DisabledEffects")}]";
+                tooltips.Add(new TooltipLine(Mod, $"{Mod.Name}:DisabledEffects", text));
+            }
         }
     }
 }

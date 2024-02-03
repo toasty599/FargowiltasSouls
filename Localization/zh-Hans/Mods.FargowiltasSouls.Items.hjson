@@ -3649,6 +3649,7 @@ Extra: {
 	StarlightTungsten: 无法被钨魔石强化
 	DefensePrefixMaxLife: +{0} 最大生命值
 	EternityItem: 永恒
+	// DisabledEffects: Effects disabled by the Effect Toggles menu
 	PatreonItem: >> 捐赠者物品 <<
 	// stealing items texts are currently not displayed
 	ItemStolen: 你有东西被偷了！
@@ -3662,4 +3663,9 @@ GravityTestItem: {
 CoffinSummon: {
 	// DisplayName: Forgotten Urn
 	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
+}
+
+TogglerIconItem: {
+	// DisplayName: Toggler Icon Item
+	// Tooltip: ""
 }
