@@ -1,5 +1,4 @@
 en-US, 2530/2530, 100%, missing 0
 es-ES, 2/2530, 0%, missing 2528
-zh-Hans, 2505/2530, 99%, missing 25
+zh-Hans, 2517/2530, 99%, missing 13
 pt-BR, 1425/2530, 56%, missing 1105
-

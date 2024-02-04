@@ -3653,23 +3653,23 @@ Extra: {
 	StarlightTungsten: 无法被钨魔石强化
 	DefensePrefixMaxLife: +{0} 最大生命值
 	EternityItem: 永恒
-	// DisabledEffects: Has effects disabled by the Effect Toggles menu
+	DisabledEffects: 能够通过饰品效果切换菜单禁用饰品效果 // 待议
 	PatreonItem: >> 捐赠者物品 <<
 	// stealing items texts are currently not displayed
 	ItemStolen: 你有东西被偷了！
 }
 
 GravityTestItem: {
-	// DisplayName: Gravity Test Item
+	DisplayName: 重力测试物品
 	// Tooltip: ""
 }
 
 CoffinSummon: {
-	// DisplayName: Forgotten Urn
-	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
+	DisplayName: 失落之瓮
+	Tooltip: 在地下沙漠打碎会召唤Cursed Coffin // 待议
 }
 
 TogglerIconItem: {
-	// DisplayName: Toggler Icon Item
+	DisplayName: 效果切换图标
 	// Tooltip: ""
 }

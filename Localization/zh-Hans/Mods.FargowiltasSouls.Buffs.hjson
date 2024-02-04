@@ -711,6 +711,6 @@ SublimationBuff: {
 }
 
 CoffinTossBuff: {
-	// DisplayName: Coffin Toss Buff
+	DisplayName: Coffin Toss Buff  // 待议
 	// Description: Mods.FargowiltasSouls.Buffs.CoffinTossBuff.Description
 }
