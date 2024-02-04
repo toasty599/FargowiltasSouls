@@ -3670,6 +3670,6 @@ CoffinSummon: {
 }
 
 TogglerIconItem: {
-	DisplayName: 效果切换图标
+	DisplayName: 饰品效果切换图标
 	// Tooltip: ""
 }
