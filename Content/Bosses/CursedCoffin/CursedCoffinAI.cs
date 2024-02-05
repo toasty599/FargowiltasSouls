@@ -576,18 +576,16 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     if (FargoSoulsUtil.HostCheck)
                     {
                         float gravity = CoffinRandomStuff.Gravity(RandomProj);
-                        // we want the proj to end up at player x position in t frames
-                        // we also want proj to end up at player's y position position, in an arc
-                        // vX * t = xdif -> vX = xdif / t
-                        // ydif = a*t^2 / 2 - vY * t  -> vY = a*t / 2 - ydif/t
-                        // we also want 45 degree angle, so vX = vY
-                        // xdif / t = a*t/2 - ydif/t -> t = sqrt(2 * (xdif+ydif) / a), vX = vY = xdif / t
-
-                        // this is scuffed rn, vertically. fix it. tweak until it works
+                        
                         float xDif = Player.Center.X - NPC.Center.X;
                         float yDif = Player.Center.Y - NPC.Center.Y;
-                        float travelTime = MathF.Sqrt(2 * (Math.Abs(xDif) + yDif) / gravity);
-                        Vector2 vel = Vector2.UnitX * xDif / travelTime - Vector2.UnitY * Math.Abs(xDif) / travelTime;
+
+                        float velY = -10; // starting y speed
+                        // modify starting velY to cause a good arc
+                        float t = -velY / gravity + MathF.Sqrt(MathF.Pow(velY / gravity, 2) + (2 * yDif / gravity));
+                        float velX = xDif / t;
+                        Vector2 vel = velX * Vector2.UnitX + velY * Vector2.UnitY;
+
                         vel *= Main.rand.NextFloat(0.9f, 1.3f);
 
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<CoffinRandomStuff>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, RandomProj);
