@@ -551,7 +551,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             {
                 if (Timer % 20 == 0)
                 {
-                    RandomProj = Main.rand.Next(CoffinRandomStuff.Frames);
+                    RandomProj = Main.rand.Next(3) switch
+                    {
+                        1 => 5,
+                        2 => 6,
+                        _ => Main.rand.Next(5)
+                    };
                     NPC.netUpdate = true;
                 }
                 if (Timer % 20 == 19)
@@ -567,13 +572,16 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     {
                         float gravity = CoffinRandomStuff.Gravity(RandomProj);
                         // we want the proj to end up at player x position in t frames
-                        // we also want proj to end up at same y position, in an arc
+                        // we also want proj to end up at player's y position position, in an arc
                         // vX * t = xdif -> vX = xdif / t
-                        // vY * t = a*t^2 / 2 -> vY = a*t / 2
+                        // ydif = a*t^2 / 2 - vY * t  -> vY = a*t / 2 - ydif/t
                         // we also want 45 degree angle, so vX = vY
-                        // xdif / t = a*t/2 -> t = sqrt(2 * xdif / a), vX = vY = xdif / t
+                        // xdif / t = a*t/2 - ydif/t -> t = sqrt(2 * (xdif+ydif) / a), vX = vY = xdif / t
+
+                        // this is scuffed rn, vertically. fix it. tweak until it works
                         float xDif = Player.Center.X - NPC.Center.X;
-                        float travelTime = MathF.Sqrt(2 * Math.Abs(xDif) / gravity);
+                        float yDif = Player.Center.Y - NPC.Center.Y;
+                        float travelTime = MathF.Sqrt(2 * (Math.Abs(xDif) + yDif) / gravity);
                         Vector2 vel = Vector2.UnitX * xDif / travelTime - Vector2.UnitY * Math.Abs(xDif) / travelTime;
                         vel *= Main.rand.NextFloat(0.9f, 1.3f);
 
