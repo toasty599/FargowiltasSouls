@@ -53,7 +53,20 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.ForceEffect<NecroEnchant>())
             {
-                Projectile.velocity.Y = 0;
+                Projectile.scale = 2;
+                Projectile.width = 48 * (int)Projectile.scale;
+                Projectile.height = 32 * (int)Projectile.scale;
+
+                float directionX = (player.position.X < Projectile.position.X) ? -1 : 1;
+                float directionY = (player.position.Y < Projectile.position.Y) ? -1 : 1;
+
+                if (System.Math.Sqrt((player.position.X - Projectile.position.X) * (player.position.X - Projectile.position.X) + (player.position.Y - Projectile.position.Y) * (player.position.Y - Projectile.position.Y)) < 300) { 
+                    Projectile.velocity.X = directionX/2;
+                    Projectile.velocity.Y = directionY/2;
+                } else
+                {
+                    Projectile.velocity = Vector2.Zero;
+                } //worst possible fucking way to do this LETS FUCKING GOOOOOOOOOOOOOOOO
 
                 for (int i = 0; i < 4; i++) //smoke to make the floating convincing
                 {

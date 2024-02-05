@@ -43,9 +43,8 @@ Increases your max number of sentries by 1
                 .AddIngredient(ItemID.VampireFrogStaff)
                 .AddIngredient(ItemID.HoundiusShootius)
                 .AddIngredient(ItemID.HornetStaff)
-                .AddIngredient(ItemID.FireWhip) //firecracker
+                .AddIngredient(ItemID.ThornWhip) //snapthorn 
                 .AddIngredient(ItemID.ImpStaff)
-                .AddIngredient(ItemID.DD2LightningAuraT1Popper)
                 .AddIngredient(ItemID.SummonerEmblem)
                 .AddIngredient(ItemID.HallowedBar, 5)
 
