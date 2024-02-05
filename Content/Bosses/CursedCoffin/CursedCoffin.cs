@@ -26,7 +26,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         private bool Attacking = true;
         private bool ExtraTrail = false;
-        
+
+        public bool PhaseTwo;
+
+        public int MashTimer = 15;
+
         private int Frame = 0;
 
 
@@ -114,7 +118,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public Rectangle MaskHitbox()
         {
             Vector2 maskCenter = MaskCenter();
-            int maskRadius = 20;
+            int maskRadius = 24;
             return new((int)(maskCenter.X - maskRadius * NPC.scale), (int)(maskCenter.Y - maskRadius * NPC.scale), maskRadius * 2, maskRadius * 2);
         }
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -181,11 +185,13 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
             if (!PhaseTwo)
             {
-                float shakeFactor = 2;
+                float shakeFactor = 1;
                 if (State == (float)StateEnum.PhaseTransition)
-                    shakeFactor = 2 + 5 * (Timer / 60);
+                    shakeFactor = 3 + 5 * (Timer / 60);
                 Texture2D glowTexture = ModContent.Request<Texture2D>(Texture + "_MaskGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                DrawData oldGlow = new(glowTexture, drawPos + Main.rand.NextVector2Circular(shakeFactor, shakeFactor), NPC.frame, drawColor * Main.rand.NextFloat(0.9f, 1.2f), NPC.rotation, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, spriteEffects, 0);
+                Color glowColor = GlowColor;
+                int glowTimer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
+                DrawData oldGlow = new(glowTexture, drawPos + Main.rand.NextVector2Circular(shakeFactor, shakeFactor), NPC.frame, glowColor * (0.75f + 0.25f * MathF.Sin(MathF.Tau * glowTimer / 60f)), NPC.rotation, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, spriteEffects, 0);
                 GameShaders.Misc["LCWingShader"].UseColor(Color.Purple).UseSecondaryColor(Color.Black);
                 GameShaders.Misc["LCWingShader"].Apply(oldGlow);
                 oldGlow.Draw(spriteBatch);

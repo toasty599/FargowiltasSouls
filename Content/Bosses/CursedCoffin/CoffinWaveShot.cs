@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
@@ -41,8 +42,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             float rot = MathHelper.PiOver2 * rotStr * MathF.Sin(MathF.Tau * (Projectile.ai[1] / 50f));
             Projectile.velocity = Projectile.velocity.RotatedBy(rot);
 
+            float accel = WorldSavingSystem.MasochistModeReal ? 1.02f : 1.016f;
             if (Projectile.velocity.Length() < 15f)
-                Projectile.velocity *= 1.02f;
+                Projectile.velocity *= accel;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
