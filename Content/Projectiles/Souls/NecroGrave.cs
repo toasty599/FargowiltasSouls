@@ -57,16 +57,17 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
                 Projectile.width = 48 * (int)Projectile.scale;
                 Projectile.height = 32 * (int)Projectile.scale;
 
-                float directionX = (player.position.X < Projectile.position.X) ? -1 : 1;
-                float directionY = (player.position.Y < Projectile.position.Y) ? -1 : 1;
 
-                if (System.Math.Sqrt((player.position.X - Projectile.position.X) * (player.position.X - Projectile.position.X) + (player.position.Y - Projectile.position.Y) * (player.position.Y - Projectile.position.Y)) < 300) { 
-                    Projectile.velocity.X = directionX/2;
-                    Projectile.velocity.Y = directionY/2;
-                } else
+                if (Projectile.Distance(player.Center) < 300) 
+                {
+                    float speed = 1;
+                    Projectile.velocity = Projectile.DirectionTo(player.Center) * speed;
+                } 
+                else
                 {
                     Projectile.velocity = Vector2.Zero;
-                } //worst possible fucking way to do this LETS FUCKING GOOOOOOOOOOOOOOOO
+                } 
+                //worst possible fucking way to do this LETS FUCKING GOOOOOOOOOOOOOOOO
 
                 for (int i = 0; i < 4; i++) //smoke to make the floating convincing
                 {
@@ -78,13 +79,12 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             }
             else
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
+                Projectile.velocity.Y += 0.2f;
                 if (Projectile.velocity.Y > 16f)
                     Projectile.velocity.Y = 16f;
             }
 
-            if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.Hitbox.Intersects(Projectile.Hitbox)
-                && player.HasEffect<NecroEffect>())
+            if (Main.LocalPlayer.Alive() && Main.LocalPlayer.Hitbox.Intersects(Projectile.Hitbox) && player.HasEffect<NecroEffect>())
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, -12), ModContent.ProjectileType<DungeonGuardianNecro>(), (int)Projectile.ai[0], 1, Projectile.owner);
 
