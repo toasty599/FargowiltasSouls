@@ -6,3 +6,9 @@ ogre always spawns alongside a t1 dark mage
 ogre is a lot bigger lol
 improved snowball staff tile collision
 fixed minimal effects preset crashing the game
+nerfed health of vortex and solar pillars
+increased vortex delay between attacks
+increased vortex delay between lightning barrages
+increased vortex delay on when it begins to reflect projectiles
+increased nebula delay between attacks
+nerfed nebula tower random nebula blaze speed
