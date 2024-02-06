@@ -590,7 +590,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             RPS = 0.1f;
 
             if (!Main.dedServ && UseTrueOriginAI && ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                && musicMod.Version >= Version.Parse("0.1.1.5"))
+                && musicMod.Version >= Version.Parse("0.1.1.5") && AI_Timer > 60)
             {
                 Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Lieflight");
             }
@@ -1499,7 +1499,10 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             }
             Flying = false;
             float flySpeed2 = 7f;
-            float inertia2 = 7f;
+            float dist = NPC.Distance(Player.Center);
+            if (dist < 800)
+                flySpeed2 *= dist / 800;
+            float inertia2 = flySpeed2;
             Vector2 flyonPlayer = NPC.DirectionTo(Player.Center) * flySpeed2;
             NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
 

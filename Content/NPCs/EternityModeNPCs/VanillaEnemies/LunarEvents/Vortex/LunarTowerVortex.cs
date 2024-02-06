@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             new NPCMatcher().MatchType(NPCID.LunarTowerVortex);
 
         public LunarTowerVortex() : base(ModContent.BuffType<JammedBuff>(), DustID.Vortex) { }
-        public override int MaxHP => 70000;
+        public override int MaxHP => 65000;
         public override int Damage => 80;
         public enum Attacks
         {
@@ -78,7 +78,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 if (Attack == (int)Attacks.VortexVortex)
                 {
                     EndAttack(npc);
-                    foreach (Projectile projectile in Main.projectile.Where(p => p.TypeAlive(ModContent.ProjectileType<VortexVortex>())))
+                    foreach (Projectile projectile in Main.projectile.Where(p => p.TypeAlive<VortexVortex>()))
                     {
                         projectile.Kill();
                     }
@@ -188,7 +188,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             void Attack()
             {
                 const int distance = 180;
-                const int AttackDelay = 90;
+                const int AttackDelay = 120;
                 if ((AttackTimer - WindupDuration) % AttackDelay == 1)
                 {
                     bool second = false;
@@ -291,14 +291,14 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         }
         private void VortexShield(NPC npc, Player player)
         {
-            const int AttackDuration = 60 * 2;
+            const int AttackDuration = 60 * 3;
             if (AttackTimer == 1) //triggers "shield going down" animation
             {
                 npc.ai[3] = 1f;
                 npc.netUpdate = true;
                 NetSync(npc);
             }
-            const int ReactionTime = 15;
+            const int ReactionTime = 40;
             npc.reflectsProjectiles = AttackTimer >= ReactionTime;
             if (npc.reflectsProjectiles) //dust
             {
@@ -322,7 +322,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 EndAttack(npc);
             }
         }
-        const int IdleTime = 90;
+        const int IdleTime = 120;
         private void Idle(NPC npc, Player player)
         {
             if (AttackTimer > IdleTime)

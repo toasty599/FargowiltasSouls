@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
+using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
 {
@@ -13,6 +14,20 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
             NPCID.DD2OgreT2,
             NPCID.DD2OgreT3
         );
+
+        public override void SetDefaults(NPC entity)
+        {
+            base.SetDefaults(entity);
+
+            entity.scale *= 2;
+        }
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            base.OnSpawn(npc, source);
+
+            FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, NPCID.DD2DarkMageT1, target: npc.target);
+        }
 
         public override void AI(NPC npc)
         {

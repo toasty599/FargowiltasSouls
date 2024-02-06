@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override void SetDefaults()
         {
             Projectile.width = 30;
-            Projectile.height = 42;
+            Projectile.height = 30;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
@@ -109,6 +109,13 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 6;
+        }
+
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 16;
+            height = 16;
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

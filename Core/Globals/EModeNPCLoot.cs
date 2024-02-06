@@ -300,6 +300,7 @@ namespace FargowiltasSouls.Core.Globals
                 #endregion
                 #region Normal Enemies
                 case NPCID.CaveBat:
+                case NPCID.GiantBat:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<RabiesShot>(), 5));
                     break;
                 case NPCID.Clown:

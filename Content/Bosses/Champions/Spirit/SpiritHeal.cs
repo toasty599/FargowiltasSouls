@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
             if (--Projectile.ai[1] < 0 && Projectile.ai[1] > -300)
             {
                 NPC n = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<SpiritChampion>());
-                if (n.TypeAlive(ModContent.NPCType<SpiritChampion>()))
+                if (n.TypeAlive<SpiritChampion>())
                 {
                     if (Projectile.Distance(n.Center) > 50) //stop homing when in certain range
                     {

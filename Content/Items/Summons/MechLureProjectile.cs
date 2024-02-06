@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Items.Summons
             if (baronID >= 0 && baronID < Main.maxNPCs)
             {
                 NPC baron = Main.npc[baronID];
-                if (baron.TypeAlive(ModContent.NPCType<BanishedBaron>()))
+                if (baron.TypeAlive<BanishedBaron>())
                 {
                     if (Projectile.Colliding(Projectile.Hitbox, baron.Hitbox))
                     {

@@ -142,7 +142,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 npc.ai[3] = 0;
                 
                 FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
-                foreach (NPC n in Main.npc.Where(n => n.TypeAlive(ModContent.NPCType<CrystalLeaf>()) && n.ai[0] == npc.whoAmI && n.ai[1] != innerRingDistance)) // delete non-inner crystal ring
+                foreach (NPC n in Main.npc.Where(n => n.TypeAlive<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] != innerRingDistance)) // delete non-inner crystal ring
                 {
                     n.life = 0;
                     n.HitEffect();
