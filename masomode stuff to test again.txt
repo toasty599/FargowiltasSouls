@@ -12,3 +12,4 @@ increased vortex delay between lightning barrages
 increased vortex delay on when it begins to reflect projectiles
 increased nebula delay between attacks
 nerfed nebula tower random nebula blaze speed
+resynced maso lifelight spawn anim with music
