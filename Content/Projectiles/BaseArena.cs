@@ -13,16 +13,18 @@ namespace FargowiltasSouls.Content.Projectiles
         protected readonly int npcType;
         protected readonly int dustType;
         protected readonly int increment;
+        protected readonly int visualCount;
         protected float threshold;
         protected float targetPlayer;
 
-        protected BaseArena(float rotationPerTick, float threshold, int npcType, int dustType = 135, int increment = 2)
+        protected BaseArena(float rotationPerTick, float threshold, int npcType, int dustType = 135, int increment = 2, int visualCount = 32)
         {
             this.rotationPerTick = rotationPerTick;
             this.threshold = threshold;
             this.npcType = npcType;
             this.dustType = dustType;
             this.increment = increment;
+            this.visualCount = visualCount;
         }
 
         public override void SetStaticDefaults()
@@ -205,28 +207,28 @@ namespace FargowiltasSouls.Content.Projectiles
 
             Color color26 = Projectile.GetAlpha(lightColor);
 
-            for (int x = 0; x < 32; x++)
+            for (int x = 0; x < visualCount; x++)
             {
                 int frame = (Projectile.frame + x) % Main.projFrames[Projectile.type];
                 int y3 = num156 * frame; //ypos of upper left corner of sprite to draw
                 Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
                 Vector2 origin2 = rectangle.Size() / 2f;
 
-                float rotation = 2f * MathHelper.Pi / 32 * x + Projectile.ai[0];
+                float rotation = 2f * MathHelper.Pi / visualCount * x + Projectile.ai[0];
 
                 Vector2 drawOffset = new Vector2(threshold * Projectile.scale / 2f, 0f).RotatedBy(Projectile.ai[0]);
-                drawOffset = drawOffset.RotatedBy(2f * MathHelper.Pi / 32f * x);
+                drawOffset = drawOffset.RotatedBy(2f * MathHelper.Pi / visualCount * x);
                 const int max = 4;
                 for (int i = 0; i < max; i++)
                 {
                     Color color27 = color26;
                     color27 *= (float)(max - i) / max;
                     Vector2 value4 = Projectile.Center + drawOffset.RotatedBy(rotationPerTick * -i);
-                    float rot = rotation + Projectile.rotation;
+                    float rot = rotation + Projectile.rotation + MathHelper.TwoPi / 4 * x;
                     Main.EntitySpriteDraw(texture2D13, value4 - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, rot, origin2, Projectile.scale, SpriteEffects.None, 0);
                 }
 
-                float finalRot = rotation + Projectile.rotation;
+                float finalRot = rotation + Projectile.rotation + MathHelper.TwoPi / 4 * x;
                 Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, finalRot, origin2, Projectile.scale, SpriteEffects.None, 0);
             }
             return false;

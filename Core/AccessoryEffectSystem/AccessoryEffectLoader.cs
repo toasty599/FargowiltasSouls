@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 
             if (effect.HasToggle && !player.GetToggleValue(effect, true))
             {
-                if (item.ModItem is SoulsItem soulsItem)
+                if (item != null && item.ModItem is SoulsItem soulsItem)
                     soulsItem.HasDisabledEffects = true;
                 return false;
             }

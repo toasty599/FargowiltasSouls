@@ -134,6 +134,7 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
+            width = 20;
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 

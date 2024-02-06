@@ -55,6 +55,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         private int NextBeep = 1;
         private int beep = 1;
+        private int RingFlash;
+        private const int RingFlashDuration = 20;
         ref float Duration => ref Projectile.ai[0];
         ref float Timer => ref Projectile.localAI[0];
         public override bool CanHitPlayer(Player target) => Timer > 60;
@@ -69,7 +71,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 SoundEngine.PlaySound(Beep, Projectile.Center);
                 NextBeep = (int)((int)Timer + Math.Floor(Duration / (3 + 2 * beep)));
                 beep++;
+                RingFlash = RingFlashDuration;
             }
+            if (RingFlash > 0)
+                RingFlash--;
             Dust.NewDust(Projectile.Center - new Vector2(1, 1), 2, 2, DustID.Water, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
             Projectile.rotation = Projectile.velocity.RotatedBy(MathHelper.Pi).ToRotation();
 
@@ -196,7 +201,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 return false;
             }
             //draw glow ring
-            float modifier = Timer / Duration;
+            float modifier = (float)RingFlash / RingFlashDuration;
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
             Texture2D ringTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int ringy = ringTexture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
