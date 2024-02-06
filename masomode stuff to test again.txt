@@ -21,3 +21,4 @@ fish stick rework
 	shoots sharks at your mouse
 	increased duration (travel distance) of sharks
 	also shoots HOMING sharks at enemies you hit
+sands of time gives cactus damage immune again
