@@ -13,3 +13,11 @@ increased vortex delay on when it begins to reflect projectiles
 increased nebula delay between attacks
 nerfed nebula tower random nebula blaze speed
 resynced maso lifelight spawn anim with music
+fish stick rework
+	right click spawns it a fixed distance away from you
+	restored old tornado
+	tornado lasts up to 1min at a time
+	sharks do much less damage but have 60 armor pen to compensate
+	shoots sharks at your mouse
+	increased duration (travel distance) of sharks
+	also shoots HOMING sharks at enemies you hit

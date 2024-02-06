@@ -321,7 +321,7 @@ namespace FargowiltasSouls //lets everything access it without using
 
         public static void PrintAI(Projectile projectile)
         {
-            Main.NewText($"{projectile.whoAmI} ai: {projectile.ai[0]} {projectile.ai[1]}, local: {projectile.localAI[0]} {projectile.localAI[1]}");
+            Main.NewText($"{projectile.whoAmI} ai: {projectile.ai[0]} {projectile.ai[1]} {projectile.ai[2]}, local: {projectile.localAI[0]} {projectile.localAI[1]}");
         }
 
         public static void GrossVanillaDodgeDust(Entity entity)
