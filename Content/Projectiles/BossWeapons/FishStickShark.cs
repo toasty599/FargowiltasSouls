@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,16 +25,27 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.CloneDefaults(ProjectileID.MiniSharkron);
             AIType = ProjectileID.MiniSharkron;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 90;
+            Projectile.timeLeft = 180;
+            //Projectile.extraUpdates = 1;
 
             Projectile.tileCollide = false;
             Projectile.minion = false;
             Projectile.DamageType = DamageClass.Ranged;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.ArmorPenetration += 60;
+        }
+
         public override void AI()
         {
             Projectile.position += Projectile.velocity * 0.5f;
+            NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[2]);
+            if (npc != null && Projectile.velocity != Vector2.Zero)
+            {
+                Projectile.velocity = Projectile.DirectionTo(npc.Center) * Projectile.velocity.Length();
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -49,12 +61,21 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 Main.dust[num322].velocity /= 2f;
             }
             int num323 = 10;
-            int num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.8f, 584, 1f);
-            Main.gore[num324].timeLeft /= num323;
-            num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.9f, 585, 1f);
-            Main.gore[num324].timeLeft /= num323;
-            num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 1f, 586, 1f);
-            Main.gore[num324].timeLeft /= num323;
+            if (Main.rand.NextBool(10))
+            {
+                int num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.8f, 584, 1f);
+                Main.gore[num324].timeLeft /= num323;
+            }
+            if (Main.rand.NextBool(10))
+            {
+                int num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 0.9f, 585, 1f);
+                Main.gore[num324].timeLeft /= num323;
+            }
+            if (Main.rand.NextBool(10))
+            {
+                int num324 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 1f, 586, 1f);
+                Main.gore[num324].timeLeft /= num323;
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -73,7 +94,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = Color.White * Projectile.Opacity * 0.25f;
+                Color color27 = Color.White * Projectile.Opacity * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i] + rotationModifier;

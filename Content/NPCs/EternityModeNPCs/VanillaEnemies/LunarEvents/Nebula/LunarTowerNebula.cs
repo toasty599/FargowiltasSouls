@@ -277,7 +277,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
         {
             const int WindupDuration = 60 * 0;
             const int AttackDuration = 60 * 2;
-            const int EndlagDuration = 60 * 1;
+            const int EndlagDuration = 60 * 2;
             void Windup()
             {
             }
@@ -315,6 +315,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                             Vector2 posOffset = Vector2.UnitX.RotatedBy(MathHelper.TwoPi * (float)degOff / CircleProjs);
                             posOffset *= 1300;
                             float speed = Main.rand.NextFloat(5f, 6f);
+                            speed *= 0.9f;
                             Vector2 pos = player.Center + posOffset;
                             Vector2 vel = pos.DirectionTo(player.Center) * speed;
                             Projectile.NewProjectile(npc.GetSource_FromThis(), pos, vel, ModContent.ProjectileType<PillarNebulaBlaze>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 3f, Main.myPlayer, 0.03f, ai2: npc.whoAmI);

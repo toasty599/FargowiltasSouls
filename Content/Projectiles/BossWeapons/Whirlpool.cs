@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.width = 75;
             Projectile.height = 21;
             Projectile.aiStyle = -1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 3600;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.tileCollide = false;
