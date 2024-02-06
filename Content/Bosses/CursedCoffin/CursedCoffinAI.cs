@@ -580,8 +580,17 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                         float xDif = Player.Center.X - NPC.Center.X;
                         float yDif = Player.Center.Y - NPC.Center.Y;
 
-                        float velY = -10; // starting y speed
-                        // modify starting velY to cause a good arc
+
+                        float velY = -10; // initial y vel
+                        if (yDif < 0) // if player is above
+                        {
+                            float arcTop = yDif - 300;
+                            // calculate initial y vel that results in good arc above
+                            float newVelY = -MathF.Sqrt(-arcTop * gravity) / 1.5f;
+                            if (newVelY < velY)
+                                velY = newVelY;
+                        }
+
                         float t = -velY / gravity + MathF.Sqrt(MathF.Pow(velY / gravity, 2) + (2 * yDif / gravity));
                         float velX = xDif / t;
                         Vector2 vel = velX * Vector2.UnitX + velY * Vector2.UnitY;
