@@ -2393,6 +2393,7 @@ MutantsDiscountCard: {
 		'''
 		Permanently reduces Mutant's shop prices by 20%
 		'It's not used how you think'
+		Minor improvements to all stats
 		'''
 }
 

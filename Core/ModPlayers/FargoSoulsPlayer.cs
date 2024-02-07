@@ -874,7 +874,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (ConcentratedRainbowMatter
                 && Player.statLife < Player.statLifeMax2
                 && Player.potionDelay <= 0
-                && Player.HasEffect<RainbowHealEffect>())
+                && Player.HasEffect<RainbowHealEffect>()
+                && !MutantNibble)
             {
                 Item potion = Player.QuickHeal_GetItemToUse();
                 if (potion != null)
