@@ -650,6 +650,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.HasEffect<CelestialRuneAttacks>() && AdditionalAttacksTimer > 0)
                 AdditionalAttacksTimer--;
 
+            /* TODO: Mutant's Presence toggle visual
             if (PresenceTogglerTimer == 5)
             {
                 Main.playerInventory = false;
@@ -667,7 +668,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 PresenceTogglerTimer--;
             }
                 
-
+            
             if (MutantPresence && !HadMutantPresence && !MutantFang)
             {
                 PresenceTogglerTimer = 100;
@@ -675,6 +676,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 FargoUIManager.OpenToggler();
                 SoundEngine.PlaySound(SoundID.MenuOpen);
             }
+            */
 
             if (MutantPresence || DevianttPresence)
             {

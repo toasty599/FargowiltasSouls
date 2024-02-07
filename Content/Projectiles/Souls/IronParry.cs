@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,6 +29,8 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override void AI()
         {
+            Projectile.light = Projectile.ai[0] != 1 ? 1 : 0; // only give light on perfect parry
+
             if (Projectile.localAI[0] == 0)
             {
                 Projectile.localAI[0] = 1;
@@ -62,13 +65,18 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
-            Vector2 origin2 = rectangle.Size() / 2f;
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            int frameWidth = texture.Width / 2;
+            int frameHeight = texture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            bool imperfectSheet = Projectile.ai[0] == 0; // imperfect parry, use second sheet
+            int frameX = imperfectSheet ? frameWidth : 0;
+            int frameY = frameHeight * Projectile.frame;
+            Rectangle rectangle = new(frameX, frameY, frameWidth, frameHeight);
+
+            Vector2 origin = rectangle.Size() / 2f;
             SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), rectangle, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, effects, 0);
             return false;
         }
     }

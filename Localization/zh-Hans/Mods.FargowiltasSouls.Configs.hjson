@@ -11,6 +11,11 @@ SoulConfig: {
 		Tooltip: 如果开启，饰品效果菜单会在你关闭物品栏时自动隐藏
 	}
 
+	ItemDisabledTooltip: {
+		// Label: Disabled Effect Tooltip
+		// Tooltip: If true, items with any effects disabled by the Effect Toggler will have a tooltip line stating this.
+	}
+
 	DeviChatter: {
 		Label: 迷你戴薇安会和你聊天
 		Tooltip: ""

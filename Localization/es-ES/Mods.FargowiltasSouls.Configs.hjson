@@ -11,6 +11,11 @@ SoulConfig: {
 		// Tooltip: If true, the effect toggler is automatically hidden when your inventory is closed.
 	}
 
+	ItemDisabledTooltip: {
+		// Label: Disabled Effect Tooltip
+		// Tooltip: If true, items with any effects disabled by the Effect Toggler will have a tooltip line stating this.
+	}
+
 	DeviChatter: {
 		// Label: Chibi Devi can talk
 		// Tooltip: ""

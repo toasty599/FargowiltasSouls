@@ -3612,7 +3612,7 @@ OncomingMutantItem: {
 }
 
 Extra: {
-	// StarlightTungsten: Unaffected by Tungsten Enchantment
+	// StarlightTungsten: x0.40 damage when used with Tungsten Enchantment
 	// DefensePrefixMaxLife: +{0} max life
 	EternityItem: Eternidade
 	// DisabledEffects: Has effects disabled by the Effect Toggles menu

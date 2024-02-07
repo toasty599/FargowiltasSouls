@@ -560,7 +560,7 @@ SilverEnchant: {
 		'''
 		Right Click to guard with your shield
 		Guard shortly before being hit to parry and negate damage
-		Guard exactly when hit to perfect parry and gain Striking Moment
+		Guard exactly when hit to perfect parry, gaining Striking Moment
 		Parry blocks up to 100 damage
 		'Reflection'
 		'''

@@ -23,7 +23,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
     public class CursedSpirit : ModNPC
     {
         //TODO: re-enable boss checklist compat, localizationhelper addSpawnInfo
-        public override bool IsLoadingEnabled(Mod mod) => true;
+        public override bool IsLoadingEnabled(Mod mod) => CursedCoffin.Enabled;
 
         #region Variables
 

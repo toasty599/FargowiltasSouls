@@ -15,7 +15,10 @@ namespace FargowiltasSouls.Core
 
         [DefaultValue(true)]
         public bool HideTogglerWhenInventoryIsClosed;
-        
+
+        [DefaultValue(true)]
+        public bool ItemDisabledTooltip;
+
         [DefaultValue(true)]
         public bool DeviChatter;
         

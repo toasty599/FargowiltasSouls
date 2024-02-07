@@ -68,6 +68,7 @@ FossilBones: Fossil Bones On Hit
 HallowEffect: Hallowed Healing Potions
 AncientHallowMinion: Ancient Hallowed Blade
 SpectreEffect: Spectre Orbs
+ForbiddenEffect: Forbidden Storm
 TikiEffect: Tiki Minions
 CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
 MeteorMomentumEffect: Meteor Speed

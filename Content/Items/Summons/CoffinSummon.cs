@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Items.Summons
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
         }
 
-        public override bool IsLoadingEnabled(Mod mod) => true;
+        public override bool IsLoadingEnabled(Mod mod) => CursedCoffin.Enabled;
 
         public override void SetDefaults()
         {

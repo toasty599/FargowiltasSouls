@@ -85,7 +85,6 @@ namespace FargowiltasSouls.Content.Items
         {
             if (tooltips.TryFindTooltipLine("ItemName", out TooltipLine itemNameLine))
             {
-                // If this item is exclusive to e-mode, give it a custom item "rarity" (not an actual rarity, wait for 1.4).
                 // This is often overridden.
                 if (Eternity)
                     itemNameLine.OverrideColor = FargowiltasSouls.EModeColor();
