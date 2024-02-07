@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Patreon.DevAesthetic
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 1;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.sellPrice(gold: 20);
             Item.rare = ItemRarityID.Green;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
