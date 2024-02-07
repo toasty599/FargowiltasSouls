@@ -80,6 +80,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void AI()
         {
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
             if (NPC.buffType[0] != 0)
                 NPC.DelBuff(0);
             NPC plantera = FargoSoulsUtil.NPCExists(NPC.ai[0], NPCID.Plantera);
@@ -95,7 +96,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             if (NPC.localAI[1] == 0)
             {
                 NPC.localAI[1] = 1;
-                bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
                     int dustID = recolor ?
@@ -136,8 +136,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                     }
                 }
             }*/
+            
+            if (recolor)
+                Lighting.AddLight(NPC.Center, 25f / 255, 47f / 255, 64f / 255);
+            else
+                Lighting.AddLight(NPC.Center, 0.1f, 0.4f, 0.2f);
 
-            Lighting.AddLight(NPC.Center, 0.1f, 0.4f, 0.2f);
             NPC.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
             NPC.life = NPC.lifeMax;
 
