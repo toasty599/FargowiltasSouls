@@ -772,7 +772,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         damageBlockCap = higherCap;
                         Player.AddBuff(BuffID.ParryDamageBuff, 300);
 
-                        SoundEngine.PlaySound(SoundID.Item3, Player.Center);
+                        SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 
                         for (int i = 0; i < 50; i++)
                         {
