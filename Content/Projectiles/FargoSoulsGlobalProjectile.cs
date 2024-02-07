@@ -893,8 +893,10 @@ namespace FargowiltasSouls.Content.Projectiles
                             Main.spriteBatch.Draw(value3, position2, null, color2, rotation, origin2, vector, effects, 0f);
                             Main.spriteBatch.Draw(value3, position2, null, color3, rotation, origin2, vector * 0.6f, effects, 0f);
                         }
+
+                        return false;
                     }
-                    return false;
+                    break;
                 default:
                     break;
             }

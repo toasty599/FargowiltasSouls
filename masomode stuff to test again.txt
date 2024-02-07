@@ -37,3 +37,5 @@ parry adjustments
 	silver increases parry window with dread/cape (but not perfect parry! late parry blocks damage with no dread/cape counter)
 reduced shark damage of fish stick
 fixed ice golem not doing emode attacks
+
+fixed starlight being invisble without tungsten
