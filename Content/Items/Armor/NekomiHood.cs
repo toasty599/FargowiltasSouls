@@ -64,7 +64,7 @@ Increases max number of minions by 2"); */
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (modPlayer.NekomiSet && player.whoAmI == Main.myPlayer)
             {
-                bool superAttack = modPlayer.NekomiMeter >= MAX_METER;
+                bool superAttack = modPlayer.NekomiAttackReadyTimer > 0;
                 if (superAttack)
                 {
                     int baseDamage = 2222 / 3;
@@ -73,6 +73,7 @@ Increases max number of minions by 2"); */
                     FargoSoulsUtil.NewSummonProjectile(player.GetSource_Misc(""), player.Center, Vector2.Zero, ModContent.ProjectileType<NekomiDevi>(), baseDamage, 16f, player.whoAmI);
                     SoundEngine.PlaySound(SoundID.Item43, player.Center);
                     modPlayer.NekomiMeter = 0;
+                    modPlayer.NekomiAttackReadyTimer = 0;
                 }
                 else
                 {
@@ -102,7 +103,7 @@ Increases max number of minions by 2"); */
             fargoPlayer.NekomiSet = true;
             fargoPlayer.GrazeRadius *= 1.5f;
 
-            const int decayTime = 420 / 2;
+            const int decayTime = 420;
             if (fargoPlayer.NekomiTimer > 0)
             {
                 const int bonusSpeedPoint = 90;
@@ -126,6 +127,9 @@ Increases max number of minions by 2"); */
 
             if (player.whoAmI == Main.myPlayer)
             {
+                if (fargoPlayer.NekomiMeter >= MAX_METER)
+                    fargoPlayer.NekomiAttackReadyTimer = FargoSoulsPlayer.SuperAttackMaxWindow;
+
                 int ritualType = ModContent.ProjectileType<NekomiRitual>();
                 if (player.ownedProjectileCounts[ritualType] < 1)
                     Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ritualType, 0, 0f, player.whoAmI);

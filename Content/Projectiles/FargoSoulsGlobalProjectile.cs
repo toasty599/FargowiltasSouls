@@ -1192,6 +1192,9 @@ namespace FargowiltasSouls.Content.Projectiles
             if (stormTimer > 0)
                 modifiers.FinalDamage *= modPlayer.ForceEffect<ForbiddenEnchant>() ? 1.6f : 1.3f;
 
+            if (TungstenScale != 1 && projectile.type == ProjectileID.PiercingStarlight)
+                modifiers.FinalDamage *= 0.4f;
+
             if (Main.player[projectile.owner].HasEffect<NinjaEffect>())
             {
                 float maxDamageIncrease = modPlayer.ForceEffect<NinjaEnchant>() ? 0.3f : 0.2f;

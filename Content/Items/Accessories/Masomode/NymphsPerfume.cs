@@ -63,7 +63,7 @@ Your attacks occasionally produce hearts
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.NymphsPerfume = true;
             if (modPlayer.NymphsPerfumeCD > 0)
-                modPlayer.NymphsPerfumeCD -= 10;
+                modPlayer.NymphsPerfumeCD -= modPlayer.MasochistSoul ? 10 : 1;
         }
     }
 }
