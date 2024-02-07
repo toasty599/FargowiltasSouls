@@ -3602,10 +3602,10 @@ EaterLauncherJr: {
 	DisplayName: The Blastbiter
 	Tooltip:
 		'''
-		Uses Rotten Chunks for ammo
+		Right Click in inventory to consume a Rotten Chunk for ammunition
+		Each Rotten Chunk provides 100 rounds, up to 1000
 		Fires a chunk of rotted flesh
 		Increased damage to enemies in the given range
-		50% chance to not consume ammo
 		'The rotting remains of a defeated foe..'
 		'''
 }
