@@ -194,9 +194,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             EridanusSet = false;
             GaiaSet = false;
             StyxSet = false;
+            if (StyxAttackReadyTimer > 0)
+                StyxAttackReadyTimer--;
             NekomiSet = false;
             if (NekomiHitCD > 0)
                 NekomiHitCD--;
+            if (NekomiAttackReadyTimer > 0)
+                NekomiAttackReadyTimer--;
 
             BrainMinion = false;
             EaterMinion = false;
@@ -460,9 +464,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             EridanusTimer = 0;
             StyxMeter = 0;
             StyxTimer = 0;
-            StyxAttackReady = false;
+            StyxAttackReadyTimer = 0;
             NekomiMeter = 0;
             NekomiTimer = 0;
+            NekomiAttackReadyTimer = 0;
 
             CirnoGrazeCounter = 0;
 

@@ -828,6 +828,75 @@ namespace FargowiltasSouls.Content.Projectiles
                         FargoSoulsUtil.GenericProjectileDraw(projectile, lightColor);
                     }
                     return false;
+                case ProjectileID.PiercingStarlight:
+                    if (TungstenScale != 1)
+                    {
+                        float swordScaleModifier = TungstenScale;
+                        float slashScaleModifier = TungstenScale * 1.25f;
+
+                        int num = 3;
+                        int num2 = 2;
+                        Vector2 value = projectile.Center - projectile.rotation.ToRotationVector2() * num2;
+                        
+                        float num3 = Main.rand.NextFloat();
+                        float scale = Utils.GetLerpValue(0f, 0.3f, num3, clamped: true) * Utils.GetLerpValue(1f, 0.5f, num3, clamped: true);
+                        Color color = projectile.GetAlpha(Lighting.GetColor(projectile.Center.ToTileCoordinates())) * scale;
+                        Texture2D value2 = TextureAssets.Item[4923].Value;
+                        Vector2 origin = value2.Size() / 2f;
+                        float num4 = Main.rand.NextFloatDirection();
+                        float scaleFactor = 8f + MathHelper.Lerp(0f, 20f, num3) + Main.rand.NextFloat() * 6f;
+                        scaleFactor *= swordScaleModifier;
+                        float num5 = projectile.rotation + num4 * ((float)Math.PI * 2f) * 0.04f;
+                        float num6 = num5 + (float)Math.PI / 4f;
+                        Vector2 position = value + num5.ToRotationVector2() * scaleFactor + Main.rand.NextVector2Circular(8f, 8f) - Main.screenPosition;
+                        SpriteEffects spriteEffects = SpriteEffects.None;
+                        if (projectile.rotation < -(float)Math.PI / 2f || projectile.rotation > (float)Math.PI / 2f)
+                        {
+                            num6 += (float)Math.PI / 2f;
+                            spriteEffects |= SpriteEffects.FlipHorizontally;
+                        }
+
+                        Main.spriteBatch.Draw(value2, position, null, color, num6, origin, swordScaleModifier, spriteEffects, 0f);
+                        
+
+                        for (int j = 0; j < num; j++)
+                        {
+                            float num7 = Main.rand.NextFloat();
+                            float num8 = Utils.GetLerpValue(0f, 0.3f, num7, clamped: true) * Utils.GetLerpValue(1f, 0.5f, num7, clamped: true);
+                            float amount = Utils.GetLerpValue(0f, 0.3f, num7, clamped: true) * Utils.GetLerpValue(1f, 0.5f, num7, clamped: true);
+                            float scaleFactor2 = MathHelper.Lerp(0.6f, 1f, amount);
+                            scaleFactor2 *= slashScaleModifier;
+                            Microsoft.Xna.Framework.Color fairyQueenWeaponsColor = projectile.GetFairyQueenWeaponsColor(0.25f, 0f, (Main.rand.NextFloat() * 0.33f + Main.GlobalTimeWrappedHourly) % 1f);
+                            Texture2D value3 = TextureAssets.Projectile[projectile.type].Value;
+                            Microsoft.Xna.Framework.Color color2 = fairyQueenWeaponsColor;
+                            color2 *= num8 * 0.5f;
+                            Vector2 origin2 = value3.Size() / 2f;
+                            Microsoft.Xna.Framework.Color value4 = Microsoft.Xna.Framework.Color.White * num8;
+                            value4.A /= 2;
+                            Microsoft.Xna.Framework.Color color3 = value4 * 0.5f;
+                            float num9 = 1f;
+                            float num10 = Main.rand.NextFloat() * 2f;
+                            float num11 = Main.rand.NextFloatDirection();
+                            Vector2 vector = new Vector2(2.8f + num10, 1f) * num9 * scaleFactor2;
+                            _ = new Vector2(1.5f + num10 * 0.5f, 1f) * num9 * scaleFactor2;
+                            int num12 = 50;
+                            Vector2 value5 = projectile.rotation.ToRotationVector2() * ((j >= 1) ? 56 : 0);
+                            float num13 = 0.03f - (float)j * 0.012f;
+                            float scaleFactor3 = 30f + MathHelper.Lerp(0f, num12, num7) + num10 * 16f;
+                            scaleFactor3 *= slashScaleModifier;
+                            float num14 = projectile.rotation + num11 * ((float)Math.PI * 2f) * num13;
+                            float rotation = num14;
+                            Vector2 position2 = value + num14.ToRotationVector2() * scaleFactor3 + Main.rand.NextVector2Circular(20f, 20f) + value5 - Main.screenPosition;
+                            color2 *= num9;
+                            color3 *= num9;
+                            SpriteEffects effects = SpriteEffects.None;
+                            Main.spriteBatch.Draw(value3, position2, null, color2, rotation, origin2, vector, effects, 0f);
+                            Main.spriteBatch.Draw(value3, position2, null, color3, rotation, origin2, vector * 0.6f, effects, 0f);
+                        }
+
+                        return false;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -1191,6 +1260,9 @@ namespace FargowiltasSouls.Content.Projectiles
 
             if (stormTimer > 0)
                 modifiers.FinalDamage *= modPlayer.ForceEffect<ForbiddenEnchant>() ? 1.6f : 1.3f;
+
+            if (TungstenScale != 1 && projectile.type == ProjectileID.PiercingStarlight)
+                modifiers.FinalDamage *= 0.4f;
 
             if (Main.player[projectile.owner].HasEffect<NinjaEffect>())
             {

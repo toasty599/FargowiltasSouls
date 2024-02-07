@@ -38,7 +38,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Snow
             if (npc.velocity.Y < 0) //higher jump
                 npc.position.Y += npc.velocity.Y;
 
-            /* if (++Counter % 120 == 0)
+            Counter++;
+
+            /* if (Counter % 120 == 0)
             {
                 if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                 {

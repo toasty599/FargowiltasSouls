@@ -22,3 +22,20 @@ fish stick rework
 	increased duration (travel distance) of sharks
 	also shoots HOMING sharks at enemies you hit
 sands of time gives cactus damage immune again
+
+plantera p3 omega flowey spread shots have more spread, unnerfed in maso
+added a delay to plantera p3 triple rapid shots, doesn't fire them as early into the vines spreading out
+removed emode wof ray screenshake
+starlight can have tungsten enlarge but receives x0.4 damage instead
+fixed nymph perfume always having 10x faster cooldown(!!!!!!)
+nekomi lasts much longer before decaying
+nekomi and styx have a 1/4th second grace window to input their super after being hit at max charge
+	(basically you dont get scammed out of a super because you got hit just as you double tapped)
+parry adjustments
+	silver no longer reduces cooldown when used with dread/cape
+	silver can now perfect parry for striking moment, same window as dread/cape
+	silver increases parry window with dread/cape (but not perfect parry! late parry blocks damage with no dread/cape counter)
+reduced shark damage of fish stick
+fixed ice golem not doing emode attacks
+
+fixed starlight being invisble without tungsten

@@ -757,20 +757,29 @@ namespace FargowiltasSouls.Core.ModPlayers
                     invul += 60;
 
                     extrashieldCD = LONG_SHIELD_COOLDOWN;
-                    if (silverEffect)
-                        extrashieldCD = (LONG_SHIELD_COOLDOWN + BASE_SHIELD_COOLDOWN) / 2;
                 }
                 else if (silverEffect)
                 {
                     extrashieldCD = BASE_SHIELD_COOLDOWN;
                 }
 
+                bool perfectParry = shieldHeldTime <= PERFECT_PARRY_WINDOW;
+
                 if (silverEffect)
                 {
-                    if (ForceEffect<SilverEnchant>())
+                    if (perfectParry || ForceEffect<SilverEnchant>())
                     {
                         damageBlockCap = higherCap;
                         Player.AddBuff(BuffID.ParryDamageBuff, 300);
+
+                        SoundEngine.PlaySound(SoundID.Item4, Player.Center);
+
+                        for (int i = 0; i < 50; i++)
+                        {
+                            int d = Dust.NewDust(Player.Center, 0, 0, DustID.GemDiamond, 0f, 0f, 0, default, 3f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 9f;
+                        }
                     }
 
                     Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
@@ -787,12 +796,12 @@ namespace FargowiltasSouls.Core.ModPlayers
                     hurtInfo.Damage = newDamage;
                 }
 
-                if (dreadEffect)
+                if (dreadEffect && perfectParry)
                 {
                     DreadParryCounter();
                 }
 
-                if (pumpkingEffect)
+                if (pumpkingEffect && perfectParry)
                 {
                     PumpkingsCapeCounter(damageBlocked);
                 }
@@ -815,6 +824,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         private const int BASE_SHIELD_COOLDOWN = 100;
         private const int HARD_PARRY_WINDOW = 10;
         private const int LONG_SHIELD_COOLDOWN = 360;
+        private const int PERFECT_PARRY_WINDOW = 10;
 
         void RaisedShieldEffects()
         {
@@ -855,17 +865,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.velocity.Y *= 0.85f;
             }
 
-            int cooldown = BASE_SHIELD_COOLDOWN;
-            if (dreadEffect || pumpkingEffect)
-            {
-                cooldown = LONG_SHIELD_COOLDOWN;
-                if (silverEffect)
-                    cooldown = (LONG_SHIELD_COOLDOWN + BASE_SHIELD_COOLDOWN) / 2;
-            }
-            else if (silverEffect)
-            {
-                cooldown = BASE_SHIELD_COOLDOWN;
-            }
+            int cooldown = dreadEffect || pumpkingEffect ? LONG_SHIELD_COOLDOWN : BASE_SHIELD_COOLDOWN;
 
             if (shieldCD < cooldown)
                 shieldCD = cooldown;
@@ -883,6 +883,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.inventory[Player.selectedItem].type == ItemID.DD2SquireDemonSword || Player.inventory[Player.selectedItem].type == ItemID.BouncingShield)
             {
                 shieldTimer = 0;
+                shieldHeldTime = 0;
                 wasHoldingShield = false;
                 return;
             }
@@ -895,6 +896,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.shieldRaised)
             {
                 GuardRaised = true;
+                shieldHeldTime++;
 
                 for (int i = 3; i < 8 + Player.extraAccessorySlots; i++)
                 {
@@ -911,16 +913,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                     if (shieldCD == 0) //if cooldown over, enable parry
                     {
-                        if (dreadEffect || pumpkingEffect)
-                        {
-                            shieldTimer = HARD_PARRY_WINDOW;
-                            if (silverEffect)
-                                shieldTimer += (BASE_PARRY_WINDOW - HARD_PARRY_WINDOW) / 2;
-                        }
-                        else if (silverEffect)
-                        {
-                            shieldTimer = BASE_PARRY_WINDOW;
-                        }
+                        shieldTimer = silverEffect ? BASE_PARRY_WINDOW : HARD_PARRY_WINDOW;
                     }
 
                     Player.itemAnimation = 0;
@@ -958,14 +951,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             else
             {
                 shieldTimer = 0;
+                shieldHeldTime = 0;
 
                 if (wasHoldingShield)
                 {
                     wasHoldingShield = false;
 
                     Player.shield_parry_cooldown = 0; //prevent that annoying tick noise
-                    //Player.shieldParryTimeLeft = 0;
-                    //ironShieldTimer = 0;
                 }
 
                 if (shieldCD == 1) //cooldown over
