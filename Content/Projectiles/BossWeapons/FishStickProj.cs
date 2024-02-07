@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                     Vector2 vel = Vector2.Normalize(target - tornado.Center + Main.rand.NextVector2Circular(32, 32))
                         * shootSpeed * Main.rand.NextFloat(1f, 1.5f);
                     //increase damage, compensate for probably missing the mouse-aimed ones
-                    int sharkDamage = damage / (int)Math.Round(FishStickWhirlpool.TornadoHeight * 0.75);
+                    int sharkDamage = damage / FishStickWhirlpool.TornadoHeight;
                     Projectile.NewProjectile(source, tornado.Center, vel, ModContent.ProjectileType<FishStickShark>(), sharkDamage, knockback, Main.myPlayer, ai2: whoAmI);
                 }
             }

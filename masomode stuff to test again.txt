@@ -35,3 +35,4 @@ parry adjustments
 	silver no longer reduces cooldown when used with dread/cape
 	silver can now perfect parry for striking moment, same window as dread/cape
 	silver increases parry window with dread/cape (but not perfect parry! late parry blocks damage with no dread/cape counter)
+reduced shark damage of fish stick
