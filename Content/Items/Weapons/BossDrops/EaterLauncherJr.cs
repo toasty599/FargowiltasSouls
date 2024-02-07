@@ -9,6 +9,7 @@ using System.Linq;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
+using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
@@ -40,13 +41,22 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
             Item.shoot = ModContent.ProjectileType<EaterRocketJr>();
             Item.shootSpeed = 18f;
         }
-
+        
+        public const int MaxCharge = 1000;
+        public int Charge = 0;
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("BlastbiterCharge", Charge);
+        }
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.ContainsKey("BlastbiterCharge"))
+                Charge = tag.GetAsInt("BlastbiterCharge");
+        }
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(2, -4);
         }
-        public const int MaxCharge = 1000;
-        public int Charge = 0;
         public override bool CanRightClick() => Main.LocalPlayer.HasItem(ItemID.RottenChunk) && Charge < MaxCharge;
         void LoadChunk(Player player)
         {

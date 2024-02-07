@@ -452,10 +452,9 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!WorldSavingSystem.EternityMode)
                 return;
 
-            Main.NewText(CrossNecklaceTimer);
             if (Player.longInvince && !Player.immune)
             {
-                if (CrossNecklaceTimer < 60)
+                if (CrossNecklaceTimer < 30)
                 {
                     Player.longInvince = false;
                     CrossNecklaceTimer++;

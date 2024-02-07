@@ -1315,7 +1315,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (Main.player[projectile.owner].HasEffect<NinjaEffect>())
             {
                 const float maxKnockbackMult = 2f;
-                hit.Knockback = hit.Knockback * (maxKnockbackMult * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 60, 1f));
+                hit.Knockback *= (maxKnockbackMult * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 40, 1f));
 
             }
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)
