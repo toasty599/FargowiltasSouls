@@ -629,7 +629,7 @@ SuperBleedBuff: {
 }
 
 CorruptingBuff: {
-	DisplayName: 腐化之力
+	DisplayName: 腐化之蚀
 	Description: 你正被逐渐腐蚀
 }
 
@@ -674,7 +674,7 @@ WretchedHexBuff: {
 }
 
 CorruptedBuff: {
-	DisplayName: 腐化增益
+	DisplayName: 腐化之力
 	Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
 }
 
