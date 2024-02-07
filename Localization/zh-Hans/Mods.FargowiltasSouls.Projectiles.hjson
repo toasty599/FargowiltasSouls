@@ -181,7 +181,7 @@ TerraLightningOrbDeathray.DisplayName: 闪电死亡射线
 TimberAcorn.DisplayName: 橡实
 TimberHook.DisplayName: 松鼠钩
 TimberHook2.DisplayName: 松鼠钩
-TimberJumpMark.DisplayName: 森林爆炸
+TimberJumpMark.DisplayName: 爆炸
 TimberLaser.DisplayName: 激光
 TimberLightningOrb.DisplayName: 闪电珠
 TimberPalmTree.DisplayName: 棕榈树
@@ -693,9 +693,9 @@ PlanteraSnatcher.DisplayName: 抓人草
 PlanteraTrapper.DisplayName: 愤怒捕手
 PlanteraMushroomThing.DisplayName: 世纪之花孢子
 RainExplosion.DisplayName: 雨云爆炸
-// CoffinSlamShockwave.DisplayName: Coffin Slam Shockwave
-// CoffinWaveShot.DisplayName: Coffin Wave Shot
-// CoffinDarkSouls.DisplayName: Coffin Dark Souls
-// CoffinHand.DisplayName: Coffin Hand
-// CoffinRandomStuff.DisplayName: Coffin Random Stuff
-// FishStickWhirlpool.DisplayName: Fish Stick Whirlpool
+CoffinSlamShockwave.DisplayName: 冲击波
+CoffinWaveShot.DisplayName: 波形弹
+CoffinDarkSouls.DisplayName: 邪恶灵魂
+CoffinHand.DisplayName: Coffin之手
+CoffinRandomStuff.DisplayName: 杂物
+FishStickWhirlpool.DisplayName: 鱼杖

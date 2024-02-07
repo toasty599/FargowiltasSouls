@@ -1047,7 +1047,7 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 		[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
 		[c/00FFFF:Following effects are currently disabled in inventory (right click to enable):]
-		    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
+		    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, cactus damage, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
 		    [i:FargowiltasSouls/WyvernFeather] Stabilizes gravity in space and in liquid, [i:FargowiltasSouls/OrdinaryCarrot] improves your nightvision, [i:FargowiltasSouls/SecurityWallet] and drastically improves reforges
 		    [i:FargowiltasSouls/ConcentratedRainbowMatter] Automatically uses healing & [i:FargowiltasSouls/MysticSkull] mana potions when needed and increases pickup range for mana stars
 		    [i:FargowiltasSouls/NymphsPerfume] You respawn with more life [i:FargowiltasSouls/SandsofTime] and when no boss is alive, respawn faster
@@ -3631,6 +3631,7 @@ PrimeSoul: {
 	Tooltip: ""
 }
 
+// Dummy Item
 OncomingMutantItem: {
 	DisplayName: Oncoming Mutant Icon
 	Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant Presence
@@ -3656,6 +3657,7 @@ CoffinSummon: {
 	Tooltip: Break in the underground Desert to summon the Cursed Coffin
 }
 
+// Dummy Item
 TogglerIconItem: {
 	DisplayName: Toggler Icon Item
 	Tooltip: ""

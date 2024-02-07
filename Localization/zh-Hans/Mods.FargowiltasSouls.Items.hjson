@@ -556,7 +556,8 @@ SilverEnchant: {
 	Tooltip:
 		'''
 		右键进行盾牌格挡
-		如果时机正确则抵消这次伤害
+		在受击前短时间内格挡可抵消这次伤害
+		在受击的一刻完美格挡可获得惊人一刻增益
 		最多抵消100点伤害
 		“反射”
 		'''
@@ -1023,7 +1024,7 @@ BionomicCluster: {
 		[i:FargowiltasSouls/TimsConcoction]某些敌人在死亡时会掉落药水
 		[i:FargowiltasSouls/TribalCharm]手动点击攻击时，增加30%非召唤伤害
 		[c/00FFFF:当该饰品放在背包中或时装栏时，下列效果也会生效（右键点击以禁用）：]
-		    免疫[i:FargowiltasSouls/SandsofTime]强风、[i:FargowiltasSouls/MysticSkull]窒息、[i:FargowiltasSouls/FrigidGemstone]冷冻、[i:FargowiltasSouls/SqueakyToy]内疚减益
+		    免疫[i:FargowiltasSouls/SandsofTime]强风与仙人掌伤害、[i:FargowiltasSouls/MysticSkull]窒息、[i:FargowiltasSouls/FrigidGemstone]冷冻、[i:FargowiltasSouls/SqueakyToy]内疚减益
 		    [i:FargowiltasSouls/OrdinaryCarrot]获得夜视效果，[i:FargowiltasSouls/SecurityWallet]并改善重铸结果
 		    [i:FargowiltasSouls/ConcentratedRainbowMatter][i:FargowiltasSouls/MysticSkull]需要时自动使用治疗和魔力药水，并增大自动拾取魔力星的范围
 		    [i:FargowiltasSouls/NymphsPerfume]你会以满生命值重生，[i:FargowiltasSouls/SandsofTime]没有Boss在场时加快重生速度
@@ -1049,7 +1050,7 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/TimsConcoction]某些敌人在死亡时会掉落药水
 		[i:FargowiltasSouls/TribalCharm]手动点击攻击时，增加30%非召唤伤害
 		[c/00FFFF:当该饰品放在背包中或时装栏时，下列效果也会生效（右键点击以启用）：]
-		    免疫[i:FargowiltasSouls/SandsofTime]强风、[i:FargowiltasSouls/MysticSkull]窒息、[i:FargowiltasSouls/FrigidGemstone]冷冻、[i:FargowiltasSouls/SqueakyToy]内疚减益
+		    免疫[i:FargowiltasSouls/SandsofTime]强风与仙人掌伤害、[i:FargowiltasSouls/MysticSkull]窒息、[i:FargowiltasSouls/FrigidGemstone]冷冻、[i:FargowiltasSouls/SqueakyToy]内疚减益
 		    [i:FargowiltasSouls/OrdinaryCarrot]获得夜视效果，[i:FargowiltasSouls/SecurityWallet]并改善重铸结果
 		    [i:FargowiltasSouls/ConcentratedRainbowMatter][i:FargowiltasSouls/MysticSkull]需要时自动使用治疗和魔力药水，并增大自动拾取魔力星的范围
 		    [i:FargowiltasSouls/NymphsPerfume]你会以满生命值重生，[i:FargowiltasSouls/SandsofTime]没有Boss在场时加快重生速度
@@ -1082,8 +1083,8 @@ ChaliceoftheMoon: {
 		[i:FargowiltasSouls/LihzahrdTreasureBox]在空中双击“下”键快速下落
 		在一定高度使用快速下落，撞击地面时会产生猛烈的火焰喷发
 		落地时生成一连串巨石
-		[i:FargowiltasSouls/CelestialRune]根据武器类型，定期发动额外的攻击，受伤时召唤远古幻影妖攻击敌人
-		[i:FargowiltasSouls/ChaliceoftheMoon][i:FargowiltasSouls/MagicalBulb]召唤友善的邪教徒和植物幼株为你而战
+		[i:FargowiltasSouls/CelestialRune] 根据武器类型，定期发动额外的攻击，受伤时召唤远古幻影妖攻击敌人
+		召唤友善的[i:FargowiltasSouls/CelestialRune]邪教徒和[i:FargowiltasSouls/MagicalBulb]植物幼株为你而战
 		“喝了它”
 		'''
 }
@@ -1479,7 +1480,7 @@ SandsofTime: {
 	Tooltip:
 		'''
 		放在物品栏中即可生效
-		免疫强风减益
+		免疫强风减益和仙人掌伤害
 		没有Boss在场时重生速度加倍
 		使用以传送到你上一次死亡的地点
 		“无论你做什么，都不要丢下它”
@@ -3644,6 +3645,7 @@ PrimeSoul: {
 	Tooltip: ""
 }
 
+// Dummy Item
 OncomingMutantItem: {
 	DisplayName: 未完成的突变体图标
 	Tooltip: 只有在玩家身上有突变驾到减益时出现在饰品效果切换UI里
@@ -3653,7 +3655,7 @@ Extra: {
 	StarlightTungsten: 无法被钨魔石强化
 	DefensePrefixMaxLife: +{0} 最大生命值
 	EternityItem: 永恒
-	DisabledEffects: 能够通过饰品效果切换菜单禁用饰品效果 // 待议
+	DisabledEffects: 有效果被饰品效果配置禁用
 	PatreonItem: >> 捐赠者物品 <<
 	// stealing items texts are currently not displayed
 	ItemStolen: 你有东西被偷了！
@@ -3669,6 +3671,7 @@ CoffinSummon: {
 	Tooltip: 在地下沙漠打碎会召唤Cursed Coffin // 待议
 }
 
+// Dummy Item
 TogglerIconItem: {
 	DisplayName: 饰品效果切换图标
 	// Tooltip: ""
