@@ -3603,7 +3603,7 @@ EaterLauncherJr: {
 	Tooltip:
 		'''
 		Right Click in inventory to load a Rotten Chunk for ammunition
-		Attempting to fire when out of ammunition also loads a Rotten Chunk
+		Attempting to fire also loads a Rotten Chunk if necessary
 		Each Rotten Chunk provides 100 rounds, up to 1000
 		Fires a chunk of rotted flesh
 		Increased damage to enemies in the given range
