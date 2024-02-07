@@ -48,7 +48,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
         public const int MaxCharge = 1000;
         public int Charge = 0;
         public override bool CanRightClick() => Main.LocalPlayer.HasItem(ItemID.RottenChunk) && Charge < MaxCharge;
-        public override void RightClick(Player player)
+        void LoadChunk(Player player)
         {
             if (player.ConsumeItem(ItemID.RottenChunk))
             {
@@ -58,13 +58,19 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
                     Charge = MaxCharge;
             }
         }
+        public override void RightClick(Player player)
+        {
+            LoadChunk(player);
+        }
         public override bool ConsumeItem(Player player) => false;
         public override bool CanUseItem(Player player)
         {
-            return (Charge > 0);
+            return (Charge > 0 || player.HasItem(ItemID.RottenChunk));
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            if (Charge <= 0)
+                LoadChunk(player);
             Charge--;
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
