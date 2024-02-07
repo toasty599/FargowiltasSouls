@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     [AutoloadEquip(EquipType.Wings)]
     public class DimensionSoul : FlightMasteryWings
     {
-        protected override bool HasSupersonicSpeed => true;
+        public override bool HasSupersonicSpeed => true;
 
         public override void SetStaticDefaults()
         {
