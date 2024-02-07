@@ -31,3 +31,7 @@ fixed nymph perfume always having 10x faster cooldown(!!!!!!)
 nekomi lasts much longer before decaying
 nekomi and styx have a 1/4th second grace window to input their super after being hit at max charge
 	(basically you dont get scammed out of a super because you got hit just as you double tapped)
+parry adjustments
+	silver no longer reduces cooldown when used with dread/cape
+	silver can now perfect parry for striking moment, same window as dread/cape
+	silver increases parry window with dread/cape (but not perfect parry! late parry blocks damage with no dread/cape counter)

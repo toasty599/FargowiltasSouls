@@ -369,6 +369,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int DreadShellVulnerabilityTimer;
         public int shieldTimer;
         public int shieldCD;
+        public int shieldHeldTime;
         public bool wasHoldingShield;
         public int LightslingerHitShots;
 
