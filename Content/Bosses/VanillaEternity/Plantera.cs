@@ -424,21 +424,23 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     SoundEngine.PlaySound(SoundID.NPCDeath13, npc.Center);
                                     if (FargoSoulsUtil.HostCheck)
                                     {
-                                        for (int i = -2; i <= 2; i++)
+                                        float spreadAngle = WorldSavingSystem.MasochistModeReal ? 0.18f : 0.27f;
+                                        int spreadAmount = WorldSavingSystem.MasochistModeReal ? 3 : 2;
+                                        for (int i = -spreadAmount; i <= spreadAmount; i++)
                                         {
                                             float angle = npc.DirectionTo(player.Center).ToRotation();
                                             float speed = 1;
-                                            angle += i * MathHelper.PiOver2 * 0.18f;
+                                            angle += i * MathHelper.PiOver2 * spreadAngle;
                                             Vector2 dir = angle.ToRotationVector2();
                                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + dir * npc.width / 2f, dir * speed,
                                                 ModContent.ProjectileType<PlanteraThornChakram>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 4);
                                         }
-                                        for (int i = -2; i <= 3; i++)
+                                        for (int i = -spreadAmount; i <= spreadAmount + 1; i++)
                                         {
                                             float x = i - 0.5f;
                                             float angle = npc.DirectionTo(player.Center).ToRotation();
                                             float speed = 2;
-                                            angle += x * MathHelper.PiOver2 * 0.18f;
+                                            angle += x * MathHelper.PiOver2 * spreadAngle;
                                             Vector2 dir = angle.ToRotationVector2();
                                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + dir * npc.width / 2f, dir * speed,
                                                 ModContent.ProjectileType<PlanteraThornChakram>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 8);
@@ -563,7 +565,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 }
                                 */
                                 int freq = WorldSavingSystem.MasochistModeReal ? 9 : 14;
-                                if (timer % freq == 0)
+                                if (timer % freq == 0 && (timer > vineSpawnTime || WorldSavingSystem.MasochistModeReal))
                                 {
                                     if (timer % (freq * 4) <= freq * 2)
                                     {

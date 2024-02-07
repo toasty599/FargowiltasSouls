@@ -22,11 +22,13 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool StyxSet;
         public int StyxMeter;
         public int StyxTimer;
-        public bool StyxAttackReady;
+        public int StyxAttackReadyTimer;
         public bool NekomiSet;
         public int NekomiMeter;
         public int NekomiTimer;
         public int NekomiHitCD;
+        public int NekomiAttackReadyTimer;
+        public const int SuperAttackMaxWindow = 15;
 
         //        //minions
         public bool BrainMinion;

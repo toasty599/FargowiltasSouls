@@ -75,7 +75,7 @@ Increases max number of minions and sentries by 3"); */
             if (modPlayer.StyxSet && player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ModContent.ProjectileType<StyxGazerArmor>()] <= 0)
             {
                 int scytheType = ModContent.ProjectileType<StyxArmorScythe>();
-                bool superAttack = player.ownedProjectileCounts[scytheType] >= MAX_SCYTHES;
+                bool superAttack = modPlayer.StyxAttackReadyTimer > 0;
 
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
@@ -100,7 +100,7 @@ Increases max number of minions and sentries by 3"); */
 
                     player.controlUseItem = false; //this kills other heldprojs
                     player.releaseUseItem = true;
-                    modPlayer.StyxAttackReady = false;
+                    modPlayer.StyxAttackReadyTimer = 0;
                 }
             }
         }
@@ -125,7 +125,7 @@ Increases max number of minions and sentries by 3"); */
             {
                 fargoPlayer.StyxMeter = 0;
                 fargoPlayer.StyxTimer = 0;
-                fargoPlayer.StyxAttackReady = true;
+                fargoPlayer.StyxAttackReadyTimer = FargoSoulsPlayer.SuperAttackMaxWindow;
             }
         }
 

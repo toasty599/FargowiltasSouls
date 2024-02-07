@@ -535,7 +535,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     Vector2 speed = Vector2.UnitX.RotatedBy(npc.ai[3]);
                     if (FargoSoulsUtil.HostCheck && PreventAttacks <= 0)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<PhantasmalDeathrayWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, 0, npc.whoAmI);
-                    Main.LocalPlayer.FargoSouls().Screenshake = 90;
                 }
                 /*
                 else //ring dust to denote i am vulnerable now
