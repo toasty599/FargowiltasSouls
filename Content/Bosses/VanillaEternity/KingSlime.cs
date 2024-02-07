@@ -369,8 +369,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
+            /* special teleport
             if (npc.life < npc.lifeMax / 3)
             {
+                
                 if (npc.ai[1] == 5) //when teleporting
                 {
                     if (npc.ai[0] == 1 && !DidSpecialTeleport)
@@ -399,8 +401,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     teleportTimer += 1f / 3f; //always increment the teleport timer
                 }
+                
             }
-
+            */
             // Drop summon
             EModeUtils.DropSummon(npc, "SlimyCrown", NPC.downedSlimeKing, ref DroppedSummon);
 

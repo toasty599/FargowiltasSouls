@@ -17,6 +17,8 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Patreon.DanielTheRobot;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Common.Utilities;
+using FargowiltasSouls.Content.Items.Summons;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
@@ -87,6 +89,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 NPC.defense += 15;
             NPC.rotation = 0;
             NPC.noTileCollide = true;
+
+            if (WorldSavingSystem.EternityMode && !WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.CursedCoffin] && FargoSoulsUtil.HostCheck)
+                Item.NewItem(NPC.GetSource_Loot(), Main.player[NPC.target].Hitbox, ModContent.ItemType<CoffinSummon>());
 
             if (!Targeting())
                 return;
