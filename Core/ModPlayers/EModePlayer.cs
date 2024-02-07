@@ -42,6 +42,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int CobaltHitCounter;
 
         public int LightningCounter;
+
+        public int CrossNecklaceTimer;
         private int WeaponUseTimer => Player.FargoSouls().WeaponUseTimer;
 
         public override void ResetEffects()
@@ -449,6 +451,20 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (!WorldSavingSystem.EternityMode)
                 return;
+
+            Main.NewText(CrossNecklaceTimer);
+            if (Player.longInvince && !Player.immune)
+            {
+                if (CrossNecklaceTimer < 60)
+                {
+                    Player.longInvince = false;
+                    CrossNecklaceTimer++;
+                }
+            }
+            else
+            {
+                CrossNecklaceTimer = 0;
+            }
 
             if (Player.iceBarrier)
                 Player.GetDamage(DamageClass.Generic) -= 0.10f;
