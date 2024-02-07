@@ -180,6 +180,11 @@ namespace FargowiltasSouls.Content.Items
                         return EModeChange.None;
                     }
 
+                case ItemID.CrossNecklace:
+                case ItemID.StarVeil:
+                    balanceTextKeys = new string[] { "CrossNecklaceNerf" };
+                    return EModeChange.Nerf;
+
                 #region Sword and Spear Reworks
                 case ItemID.CobaltNaginata:
                     balanceNumber = -1;
