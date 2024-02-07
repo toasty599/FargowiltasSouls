@@ -68,7 +68,7 @@ FossilBones: 化石 受击释放骨头
 HallowEffect: 神圣 治疗药水
 AncientHallowMinion: 远古神圣 泰拉棱镜
 SpectreEffect: 幽魂 幽魂珠
-// ForbiddenEffect: Forbidden Storm
+ForbiddenEffect: 禁戒 风暴
 TikiEffect: 提基 鞭打召唤物
 CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
 MeteorMomentumEffect: 流星 速度

@@ -2413,6 +2413,7 @@ MutantsDiscountCard: {
 		'''
 		Permanently reduces Mutant's shop prices by 20%
 		'It's not used how you think'
+		Minor improvements to all stats
 		''' */
 }
 
@@ -3623,7 +3624,7 @@ EaterLauncherJr: {
 	/* Tooltip:
 		'''
 		Right Click in inventory to load a Rotten Chunk for ammunition
-		Attempting to fire when out of ammunition also loads a Rotten Chunk
+		Attempting to fire also loads Rotten Chunk if necessary
 		Each Rotten Chunk provides 100 rounds, up to 1000
 		Fires a chunk of rotted flesh
 		Increased damage to enemies in the given range
