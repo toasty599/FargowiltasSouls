@@ -494,6 +494,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             LoadNPCSprite(recolor, npc.type);
             LoadBossHeadSprite(recolor, 19);
             LoadGoreRange(recolor, 54, 57);
+            LoadProjectile(recolor, ProjectileID.Skull);
 
             LoadSpecial(recolor, ref TextureAssets.BoneArm, ref FargowiltasSouls.TextureBuffer.BoneArm, "Arm_Bone");
         }

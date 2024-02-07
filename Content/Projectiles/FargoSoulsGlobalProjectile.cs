@@ -897,6 +897,18 @@ namespace FargowiltasSouls.Content.Projectiles
                         return false;
                     }
                     break;
+                case ProjectileID.ApprenticeStaffT3Shot: // betsy uses this for some reason
+                    {
+                        NPC sourceNPC = projectile.GetSourceNPC();
+                        if (sourceNPC != null && sourceNPC.type == NPCID.DD2Betsy)
+                        {
+                            Texture2D tex = TextureAssets.Projectile[ProjectileID.DD2BetsyFireball].Value;
+                            FargoSoulsUtil.GenericProjectileDraw(projectile, lightColor, tex);
+                            return false;
+                        }
+                        
+                    }
+                    break;
                 default:
                     break;
             }
