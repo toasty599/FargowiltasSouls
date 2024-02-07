@@ -196,6 +196,11 @@ namespace FargowiltasSouls.Core.Systems
             group = new RecipeGroup(() => ItemXOrY(ItemID.MythrilBar, ItemID.OrichalcumBar), ItemID.MythrilBar, ItemID.OrichalcumBar);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyMythrilBar", group);
 
+            //any evil orb magic
+            group = new RecipeGroup(() => ItemXOrY(ItemID.Vilethorn, ItemID.CrimsonRod), ItemID.Vilethorn, ItemID.CrimsonRod);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:VilethornOrCrimsonRod", group);
+
+
         }
         public override void PostAddRecipes()
         {

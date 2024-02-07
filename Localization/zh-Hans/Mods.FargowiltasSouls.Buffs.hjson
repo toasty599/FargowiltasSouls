@@ -80,7 +80,7 @@ DoveBuff: {
 
 ChibiiRemiiBuff: {
 	DisplayName: 小不点蕾米
-	Description: 恶魔「蕾米莉亚·斯特睐赤」
+	Description: 恶魔「Remilia Stretch」
 }
 
 PrimeMinionBuff: {
@@ -711,6 +711,6 @@ SublimationBuff: {
 }
 
 CoffinTossBuff: {
-	// DisplayName: Coffin Toss Buff
+	DisplayName: Coffin Toss Buff  // 待议
 	// Description: Mods.FargowiltasSouls.Buffs.CoffinTossBuff.Description
 }

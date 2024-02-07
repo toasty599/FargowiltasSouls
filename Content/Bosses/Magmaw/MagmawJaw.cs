@@ -61,7 +61,7 @@ namespace FargowiltasSouls.Content.Bosses.Magmaw
                 return;
             }
             NPC parent = Main.npc[parentID];
-            if (!parent.TypeAlive(ModContent.NPCType<Magmaw>()))
+            if (!parent.TypeAlive<Magmaw>())
             {
                 Projectile.Kill();
                 return;
@@ -94,7 +94,7 @@ namespace FargowiltasSouls.Content.Bosses.Magmaw
                 return null;
             }
             NPC parent = Main.npc[parentID];
-            if (!parent.TypeAlive(ModContent.NPCType<Magmaw>()))
+            if (!parent.TypeAlive<Magmaw>())
             {
                 Projectile.Kill();
                 return null;

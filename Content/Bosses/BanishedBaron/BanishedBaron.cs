@@ -34,8 +34,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
     {
         Player player => Main.player[NPC.target];
 
-        public SoundStyle BaronRoar = new("FargowiltasSouls/Assets/Sounds/BaronRoar");
-        public SoundStyle BaronYell = new("FargowiltasSouls/Assets/Sounds/BaronYell");
+        public static readonly SoundStyle BaronRoar = new("FargowiltasSouls/Assets/Sounds/BaronRoar");
+        public static readonly SoundStyle BaronYell = new("FargowiltasSouls/Assets/Sounds/BaronYell");
 
         #region Variables
         public enum StateEnum //ALL states
@@ -586,7 +586,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile p = Main.projectile[i];
-                    if (p.TypeAlive(ModContent.ProjectileType<MechLureProjectile>()))
+                    if (p.TypeAlive<MechLureProjectile>())
                     {
                         LockVector1 = p.Center;
                         break;

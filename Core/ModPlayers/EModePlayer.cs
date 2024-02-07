@@ -558,7 +558,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.resistCold && proj.coldDamage) //warmth potion nerf
             {
-                modifiers.FinalDamage *= 1.15f;
+                modifiers.SourceDamage *= 1.15f; // warmth potion modifies source damage (pre defense) for some fucking reason
             }
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

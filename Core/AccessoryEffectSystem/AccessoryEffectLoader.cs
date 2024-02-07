@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
+﻿using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.Items.Accessories.Expert;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
             AccessoryEffect effect = ModContent.GetInstance<T>();
             AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
             effectPlayer.EquippedEffects[effect.Index] = true;
+            effectPlayer.EffectItems[effect.Index] = item;
 
             if (effect.MinionEffect || effect.ExtraAttackEffect)
             {
@@ -46,14 +48,17 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
                 if (!effect.IgnoresMutantPresence)
                     return false;
 
-            if (!effect.HasToggle || player.GetToggleValue(effect, true))
+            if (effect.HasToggle && !player.GetToggleValue(effect, true))
             {
-                if (!effectPlayer.ActiveEffects[effect.Index])
-                {
-                    effectPlayer.ActiveEffects[effect.Index] = true;
-                    effectPlayer.EffectItems[effect.Index] = item;
-                    return true;
-                }
+                if (item != null && item.ModItem is SoulsItem soulsItem)
+                    soulsItem.HasDisabledEffects = true;
+                return false;
+            }
+
+            if (!effectPlayer.ActiveEffects[effect.Index])
+            {
+                effectPlayer.ActiveEffects[effect.Index] = true;
+                return true;
             }
             return false;
         }

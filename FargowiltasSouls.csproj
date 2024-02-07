@@ -17,6 +17,7 @@
     <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Content\Bosses\CursedCoffin\CoffinRandomStuff.png" />
     <None Remove="Content\Items\Summons\CoffinSummon.png" />
   </ItemGroup>
   <ItemGroup>

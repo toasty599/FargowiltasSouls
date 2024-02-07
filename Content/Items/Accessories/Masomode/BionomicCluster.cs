@@ -84,6 +84,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.SandsofTime = true;
+            fargoPlayer.CactusImmune = true;
             fargoPlayer.SecurityWallet = true;
             fargoPlayer.TribalCharm = true;
             fargoPlayer.NymphsPerfumeRespawn = true;

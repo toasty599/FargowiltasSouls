@@ -13,6 +13,7 @@ using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Content.Buffs.Souls;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
@@ -25,7 +26,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         private bool Attacking = true;
         private bool ExtraTrail = false;
-        
+
+        public bool PhaseTwo;
+
+        public int MashTimer = 15;
+
         private int Frame = 0;
 
 
@@ -57,7 +62,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 BuffID.Chilled,
                 BuffID.Suffocation,
                 ModContent.BuffType<LethargicBuff>(),
-                ModContent.BuffType<ClippedWingsBuff>()
+                ModContent.BuffType<ClippedWingsBuff>(),
+                ModContent.BuffType<TimeFrozenBuff>()
             });
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -73,7 +79,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             NPC.aiStyle = -1;
             NPC.lifeMax = 2222;
-            NPC.defense = 0;
+            NPC.defense = 10;
             NPC.damage = 35;
             NPC.knockBackResist = 0f;
             NPC.width = 90;
@@ -93,15 +99,16 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
         public override bool? CanBeHitByItem(Player player, Item item)
         {
-            if (PhaseTwo)
+            if (PhaseTwo || !WorldSavingSystem.EternityMode)
                 return null;
-            if (Frame > 1)
-                return false;
-            return item.Hitbox.Intersects(MaskHitbox()) ? null : false;
+            //if (Frame > 1)
+              //  return false;
+            return null;
+            //return item.Hitbox.Intersects(MaskHitbox()) ? null : false;
         }
         public override bool? CanBeHitByProjectile(Projectile projectile)
         {
-            if (PhaseTwo)
+            if (PhaseTwo || !WorldSavingSystem.EternityMode)
                 return null;
             if (Frame > 1)
                 return false;
@@ -111,7 +118,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public Rectangle MaskHitbox()
         {
             Vector2 maskCenter = MaskCenter();
-            int maskRadius = 18;
+            int maskRadius = 24;
             return new((int)(maskCenter.X - maskRadius * NPC.scale), (int)(maskCenter.Y - maskRadius * NPC.scale), maskRadius * 2, maskRadius * 2);
         }
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -178,11 +185,16 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
             if (!PhaseTwo)
             {
-                float shakeFactor = 2;
+                float shakeFactor = 1;
                 if (State == (float)StateEnum.PhaseTransition)
-                    shakeFactor = 2 + 5 * (Timer / 60);
+                    shakeFactor = 3 + 5 * (Timer / 60);
                 Texture2D glowTexture = ModContent.Request<Texture2D>(Texture + "_MaskGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-                spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: glowTexture, position: drawPos + Main.rand.NextVector2Circular(shakeFactor, shakeFactor), sourceRectangle: NPC.frame, color: drawColor * Main.rand.NextFloat(0.8f, 0.95f), rotation: NPC.rotation, scale: NPC.scale, effects: spriteEffects, layerDepth: 0f);
+                Color glowColor = GlowColor;
+                int glowTimer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
+                DrawData oldGlow = new(glowTexture, drawPos + Main.rand.NextVector2Circular(shakeFactor, shakeFactor), NPC.frame, glowColor * (0.75f + 0.25f * MathF.Sin(MathF.Tau * glowTimer / 60f)), NPC.rotation, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, spriteEffects, 0);
+                GameShaders.Misc["LCWingShader"].UseColor(Color.Purple).UseSecondaryColor(Color.Black);
+                GameShaders.Misc["LCWingShader"].Apply(oldGlow);
+                oldGlow.Draw(spriteBatch);
             }
             
             return false;

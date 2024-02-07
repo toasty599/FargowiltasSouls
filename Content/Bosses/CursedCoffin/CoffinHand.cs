@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
 using System.IO;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
@@ -41,6 +42,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public ref float Timer => ref Projectile.localAI[0];
         public ref float State => ref Projectile.ai[1];
         public ref float RotDir => ref Projectile.ai[2];
+
+        private int CaughtPlayer = -1;
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(Timer);
@@ -52,11 +55,15 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
+            if (target.HasBuff<GrabbedBuff>())
+                return;
+            target.buffImmune[ModContent.BuffType<CoffinTossBuff>()] = true;
             Projectile.frame = 1;
             Timer = 0;
             State = 100;
             Projectile.velocity = -Vector2.UnitY * 5;
             Projectile.damage = 0;
+            CaughtPlayer = target.whoAmI;
             //grab
             modifiers.Null();
         }
@@ -82,11 +89,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             Projectile.scale = (float)Utils.Lerp(Projectile.scale, 1f, 0.1f);
 
             NPC owner = Main.npc[(int)Projectile.ai[0]];
-            if (!owner.Alive())
+            if (!owner.TypeAlive<CursedCoffin>())
             {
                 Projectile.Kill();
                 return;
             }
+            CursedCoffin coffin = owner.As<CursedCoffin>();
             Player target = Main.player[owner.target];
             if (!target.Alive())
                 return;
@@ -108,7 +116,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     break;  
                 case 2:
                     {
-                        float speed = (Timer - 25) / 2f;
+                        float divisor = WorldSavingSystem.MasochistModeReal ? 2f : 3f;
+                        float speed = (Timer - 25) / divisor;
                         const int cap = 24;
                         if (speed > cap)
                             speed = cap;
@@ -136,20 +145,55 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     break;
                 case 100: //grabbed player, toss
                     {
-                        Projectile.velocity *= 0.96f;
-                        target.Center = Projectile.Center;
-                        target.fullRotation = Projectile.DirectionFrom(owner.Center).ToRotation() + MathHelper.PiOver2;
-                        target.fullRotationOrigin = target.Center - target.position;
-                        if (Timer == 60)
+                        if (!CaughtPlayer.IsWithinBounds(Main.maxPlayers))
                         {
-                            target.AddBuff(ModContent.BuffType<CoffinTossBuff>(), 100);
-                            target.velocity = Projectile.DirectionFrom(owner.Center) * 30;
+                            State = 101;
+                            break;
+                        }
+                        Player victim = Main.player[CaughtPlayer];
+                        if (!victim.Alive())
+                        {
+                            State = 101;
+                            break;
+                        }
+                        victim.buffImmune[ModContent.BuffType<StunnedBuff>()] = true; // cannot be stunned while grabbed, and removes stun
+
+                        if (Timer >= 60)
+                        {
+                            victim.AddBuff(ModContent.BuffType<CoffinTossBuff>(), 100);
+                            victim.velocity = Projectile.DirectionFrom(owner.Center) * 30;
+
+                            coffin.MashTimer = 15; // reset mash cap
+                            owner.netUpdate = true;
+
                             State = 101;
                             break;
                         }
                         else
                         {
-                            target.AddBuff(ModContent.BuffType<StunnedBuff>(), 2);
+                            int mashCap = 20;
+                            if (victim.Alive() && (Projectile.Distance(victim.Center) < 160 || victim.whoAmI != Main.myPlayer) && victim.FargoSouls().MashCounter < mashCap)
+                            {
+                                victim.AddBuff(ModContent.BuffType<GrabbedBuff>(), 2);
+                                Projectile.velocity *= 0.96f;
+                                victim.Center = Projectile.Center;
+                                victim.fullRotation = Projectile.DirectionFrom(owner.Center).ToRotation() + MathHelper.PiOver2;
+                                victim.fullRotationOrigin = victim.Center - victim.position;
+                                
+                            }
+                            else // escaped
+                            {
+                                CaughtPlayer = -1;
+                                State = 101; //cooldown
+                                victim.fullRotation = 0;
+                                Projectile.netUpdate = true;
+
+                                coffin.MashTimer += 5; // increment mash cap, each successful mash makes the next one harder
+                                owner.netUpdate = true;
+
+                                if (Main.netMode == NetmodeID.Server)
+                                    NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, Projectile.whoAmI);
+                            }
                         }
                         
                         Timer++;
