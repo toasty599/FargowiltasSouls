@@ -560,7 +560,7 @@ SilverEnchant: {
 		'''
 		Right Click to guard with your shield
 		Guard shortly before being hit to parry and negate damage
-		Guard exactly when hit to perfect parry and gain Striking Moment
+		Guard exactly when hit to perfect parry, gaining Striking Moment
 		Parry blocks up to 100 damage
 		'Reflection'
 		''' */
@@ -3622,10 +3622,11 @@ EaterLauncherJr: {
 	// DisplayName: The Blastbiter
 	/* Tooltip:
 		'''
-		Uses Rotten Chunks for ammo
+		Right Click in inventory to load a Rotten Chunk for ammunition
+		Attempting to fire when out of ammunition also loads a Rotten Chunk
+		Each Rotten Chunk provides 100 rounds, up to 1000
 		Fires a chunk of rotted flesh
 		Increased damage to enemies in the given range
-		50% chance to not consume ammo
 		'The rotting remains of a defeated foe..'
 		''' */
 }

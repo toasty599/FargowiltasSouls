@@ -773,16 +773,17 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Player.AddBuff(BuffID.ParryDamageBuff, 300);
 
                         SoundEngine.PlaySound(SoundID.Item4, Player.Center);
-
+                        /*
                         for (int i = 0; i < 50; i++)
                         {
                             int d = Dust.NewDust(Player.Center, 0, 0, DustID.GemDiamond, 0f, 0f, 0, default, 3f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 9f;
                         }
+                        */
                     }
-
-                    Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer);
+                    int sheet = perfectParry ? 1 : 0; // which parry vfx sprite sheet to use
+                    Projectile.NewProjectile(Player.GetSource_Misc(""), Player.Center, Vector2.Zero, ModContent.ProjectileType<IronParry>(), 0, 0f, Main.myPlayer, sheet);
                 }
 
                 int damageBlocked = Math.Min(damageBlockCap, hurtInfo.Damage);

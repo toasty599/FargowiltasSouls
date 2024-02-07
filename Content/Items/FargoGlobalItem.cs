@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -24,7 +25,7 @@ namespace FargowiltasSouls.Content.Items
     {
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.Acorn || item.type == ItemID.Bone || item.type == ItemID.RottenChunk)
+            if (item.type == ItemID.Acorn || item.type == ItemID.Bone)
             {
                 item.ammo = item.type;
             }

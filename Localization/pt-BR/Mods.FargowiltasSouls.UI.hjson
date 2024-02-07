@@ -10,6 +10,7 @@ MasochistEnabled: Modo Masoquista está ativado
 // CustomPreset: Custom preset {0} (right click to save)
 // Reload button is currently removed
 // ReloadToggles: Reload Toggles (right click to reset)
+// NoToggles: No togglable effects equipped!
 // DisplayAll: Display All
 // DisplayEquipped: Display Equipped
 // SearchText: Search...

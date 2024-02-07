@@ -295,20 +295,23 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.ItemType<MechLure>() },
                     false
                 );
-                
-                Add("Boss",
+                if (CursedCoffin.Enabled)
+                {
+                    Add("Boss",
                     "CursedCoffin",
                     //TODO: ADD LOOT
                     new List<int> { ModContent.NPCType<CursedCoffin>() },
                     () => WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.CursedCoffin],
                     () => true,
-                    new List<int> { 
+                    new List<int>
+                    {
 
                     },
                     new List<int> { ModContent.ItemType<CoffinSummon>() },
                     false
                     //"Content/NPCs/Challengers/CursedCoffin"
                 );
+                }
 
                 #endregion challengers
             }

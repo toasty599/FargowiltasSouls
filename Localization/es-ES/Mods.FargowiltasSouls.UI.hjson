@@ -1,4 +1,4 @@
-// SoulTogglerButton: Configure Accessory Effects
+// SoulTogglerButton: Effect Toggler
 // EternityEnabled: Eternity Mode is enabled
 // MasochistEnabled: Masochist Mode is enabled
 // SavedToSlot: Toggles saved to custom set {0}!
@@ -10,6 +10,7 @@
 // CustomPreset: Custom preset {0} (right click to save)
 // Reload button is currently removed
 // ReloadToggles: Reload Toggles (right click to reset)
+// NoToggles: No togglable effects equipped!
 // DisplayAll: Display All
 // DisplayEquipped: Display Equipped
 // SearchText: Search...

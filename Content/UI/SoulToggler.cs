@@ -15,6 +15,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using XPT.Core.Audio.MP3Sharp.Decoding;
+using static System.Net.Mime.MediaTypeNames;
 using static Terraria.GameContent.UI.EmoteID;
 using Header = FargowiltasSouls.Core.Toggler.Header;
 
@@ -235,6 +236,11 @@ namespace FargowiltasSouls.Content.UI
                     }
                 }
             }
+            if (ToggleList.Count == 0) // empty, no toggles
+            {
+                ToggleList.Add(new FargoUIHeader($"[i:{ModContent.ItemType<TogglerIconItem>()}] {Language.GetTextValue("Mods.FargowiltasSouls.UI.NoToggles")}", FargowiltasSouls.Instance.Name, ModContent.ItemType<TogglerIconItem>(), (BackWidth - 16, 20)));
+            }
+
             //old
             /*
             foreach (Toggle toggle in DisplayToggles)
