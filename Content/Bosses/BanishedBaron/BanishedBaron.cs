@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             DeathAnimation
         }
 
-        public static List<int> P1Attacks = new List<int>() //these are randomly chosen attacks in p1
+        public static List<int> P1Attacks = new() //these are randomly chosen attacks in p1
         {
             (int)StateEnum.P1BigNuke,
             (int)StateEnum.P1RocketStorm,
@@ -68,7 +68,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             (int)StateEnum.P1SineSwim,
             (int)StateEnum.P1Whirlpool
         };
-        public static List<int> P2Attacks = new List<int>() //these are randomly chosen attacks in p2
+        public static List<int> P2Attacks = new() //these are randomly chosen attacks in p2
         {
             (int)StateEnum.P2PredictiveDash,
             (int)StateEnum.P2CarpetBomb,
