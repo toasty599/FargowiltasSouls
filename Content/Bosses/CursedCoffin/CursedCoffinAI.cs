@@ -758,7 +758,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             NPC.TargetClosest(false);
             RandomizeState();
-            State = (float)StateEnum.GrabbyHands;
             Timer = 0;
             AI2 = 0;
             AI3 = 0;
