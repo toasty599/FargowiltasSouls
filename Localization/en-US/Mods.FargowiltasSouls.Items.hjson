@@ -2392,8 +2392,8 @@ MutantsDiscountCard: {
 	Tooltip:
 		'''
 		Permanently reduces Mutant's shop prices by 20%
+		{$CommonItemTooltip.MajorStats}
 		'It's not used how you think'
-		Minor improvements to all stats
 		'''
 }
 
@@ -2407,7 +2407,7 @@ OrdinaryCarrot: {
 	Tooltip:
 		'''
 		Increases night vision
-		Minor improvements to all stats
+		{$CommonItemTooltip.MinorStats}
 		1 minute duration
 		Right click to increase view range while in inventory
 		'Plucked from the face of a defeated foe'

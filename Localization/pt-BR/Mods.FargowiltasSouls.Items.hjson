@@ -2377,6 +2377,7 @@ MutantsDiscountCard: {
 	Tooltip:
 		'''
 		Permanentemente reduz os preços da loja do Mutant em 20%
+		{$CommonItemTooltip.MajorStats}
 		'Não é usado como você pensa'
 		'''
 }
@@ -2391,7 +2392,7 @@ OrdinaryCarrot: {
 	Tooltip:
 		'''
 		Aumenta a visão noturna
-		Pequenas melhorias em todas as estatísticas
+		{$CommonItemTooltip.MinorStats}
 		1 minuto(s) de duração
 		Clique com o botão direito para aumentar o alcance de visualização enquanto estiver no inventário
 		'Arrancado do rosto de um inimigo derrotado'
