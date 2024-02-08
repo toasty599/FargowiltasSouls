@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
     [AutoloadBossHead]
     public partial class CursedCoffin : ModNPC
     {
-        public static bool Enabled = false;
+        public static bool Enabled = true;
         public override bool IsLoadingEnabled(Mod mod) => Enabled; 
 
         #region Variables
@@ -70,8 +70,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
+                //BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.any,
                 new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
             });
 
@@ -167,6 +167,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            if (NPC.IsABestiaryIconDummy)
+                return true;
             Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
             Vector2 drawPos = NPC.Center - screenPos;
             SpriteEffects spriteEffects = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

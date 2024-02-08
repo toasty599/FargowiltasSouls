@@ -200,6 +200,10 @@ namespace FargowiltasSouls.Core.Systems
             group = new RecipeGroup(() => ItemXOrY(ItemID.Vilethorn, ItemID.CrimsonRod), ItemID.Vilethorn, ItemID.CrimsonRod);
             RecipeGroup.RegisterGroup("FargowiltasSouls:VilethornOrCrimsonRod", group);
 
+            //any shellphone because they made it 5 fucking different items
+            group = new RecipeGroup(() => AnyItem(ItemID.Shellphone), ItemID.Shellphone, ItemID.ShellphoneDummy, ItemID.ShellphoneHell, ItemID.ShellphoneOcean, ItemID.ShellphoneSpawn);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyShellphone", group);
+
 
         }
         public override void PostAddRecipes()

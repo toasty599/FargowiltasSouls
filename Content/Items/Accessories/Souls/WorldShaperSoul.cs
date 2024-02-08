@@ -135,7 +135,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             .AddIngredient(ItemID.ActuationAccessory)
             .AddIngredient(ItemID.LaserRuler)
             .AddIngredient(ItemID.RoyalGel)
-            .AddIngredient(ItemID.Shellphone)
+            .AddRecipeGroup("FargowiltasSouls:AnyShellphone")
+            //.AddIngredient(ItemID.Shellphone)
             //.AddIngredient(ItemID.BloodHamaxe) //haemoraxe
             .AddRecipeGroup("FargowiltasSouls:AnyDrax")
             .AddIngredient(ItemID.ShroomiteDiggingClaw)

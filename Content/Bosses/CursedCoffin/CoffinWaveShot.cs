@@ -37,7 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         public override void AI()
         {
-            Projectile.ai[1]++;
+            
             float rotStr = Projectile.ai[0] == 0 ? 0.06f : 0.03f;
             float rot = MathHelper.PiOver2 * rotStr * MathF.Sin(MathF.Tau * (Projectile.ai[1] / 50f));
             Projectile.velocity = Projectile.velocity.RotatedBy(rot);
@@ -45,6 +45,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             float accel = WorldSavingSystem.MasochistModeReal ? 1.02f : 1.016f;
             if (Projectile.velocity.Length() < 15f)
                 Projectile.velocity *= accel;
+
+            Projectile.ai[1]++;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {

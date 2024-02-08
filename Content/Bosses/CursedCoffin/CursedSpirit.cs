@@ -360,6 +360,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 float speed = 6.5f;
                 if (!WorldSavingSystem.EternityMode)
                     speed /= 2;
+                else if (!WorldSavingSystem.MasochistModeReal)
+                    speed /= 1.1f;
                 float inertia = 10f;
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;
