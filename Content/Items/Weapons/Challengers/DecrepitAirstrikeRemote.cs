@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
@@ -72,6 +73,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         {
             
             return base.UseItem(player);
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<BanishedBaronBag>(2).AddTile(TileID.Solidifier);
         }
     }
 }

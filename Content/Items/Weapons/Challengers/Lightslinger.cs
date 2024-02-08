@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -89,6 +90,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             }
 
             return base.UseItem(player);
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<LifelightBag>(2).AddTile(TileID.Solidifier);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+﻿using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,6 +34,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Acorn>();
             Item.shootSpeed = 9f;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<TrojanSquirrelBag>(2).AddTile(TileID.Solidifier);
         }
     }
 }

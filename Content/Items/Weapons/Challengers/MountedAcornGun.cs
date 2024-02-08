@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+﻿using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,5 +40,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         }
 
         public override bool CanConsumeAmmo(Item ammo, Player player) => Main.rand.NextBool();
+
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<TrojanSquirrelBag>(2).AddTile(TileID.Solidifier);
+        }
     }
 }

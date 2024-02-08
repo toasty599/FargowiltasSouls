@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+﻿using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -118,6 +119,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         public static float MomentumProgress(float x)
         {
             return (x * x * 3) - (x * x * x * 2);
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<BanishedBaronBag>(2).AddTile(TileID.Solidifier);
         }
     }
 }
