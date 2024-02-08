@@ -256,7 +256,13 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                         if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = 0; i < 30; i++)
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitX.RotatedBy(Main.rand.NextDouble() * Math.PI) * Main.rand.NextFloat(30f), ModContent.ProjectileType<AbomDeathScythe>(), 0, 0f, Main.myPlayer);
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                                    Vector2.UnitX.RotatedBy(Main.rand.NextDouble() * Math.PI) * Main.rand.NextFloat(30f),
+                                    ModContent.ProjectileType<AbomDeathScythe>(), 
+                                    FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 100),
+                                    0f, Main.myPlayer);
+                            }
 
                             if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                             {

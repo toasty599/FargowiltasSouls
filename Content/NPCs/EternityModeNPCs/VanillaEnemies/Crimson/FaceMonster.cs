@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Crimson
         {
             base.AI(npc);
 
-            EModeGlobalNPC.Aura(npc, 150, false, 199, default, BuffID.Blackout, BuffID.Darkness);
+            EModeGlobalNPC.Aura(npc, 150, false, 235, default, BuffID.Blackout, BuffID.Darkness);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
