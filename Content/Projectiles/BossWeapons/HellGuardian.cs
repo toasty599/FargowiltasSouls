@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<HellFireBuff>(), 60);
-            target.AddBuff(ModContent.BuffType<HellFireMarked>(), 60 * 10);
+            target.AddBuff(ModContent.BuffType<HellFireMarkedBuff>(), 60 * 10);
         }
 
         public override void OnKill(int timeLeft)

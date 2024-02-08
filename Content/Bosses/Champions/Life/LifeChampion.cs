@@ -40,7 +40,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                     BuffID.Suffocation,
                     ModContent.BuffType<LethargicBuff>(),
                     ModContent.BuffType<ClippedWingsBuff>(),
-                    ModContent.BuffType<HellFireMarked>(),
+                    ModContent.BuffType<HellFireMarkedBuff>(),
             });
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()

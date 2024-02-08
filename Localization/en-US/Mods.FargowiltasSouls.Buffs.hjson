@@ -715,7 +715,7 @@ CoffinTossBuff: {
 	Description: Mods.FargowiltasSouls.Buffs.CoffinTossBuff.Description
 }
 
-HellFireMarked: {
+HellFireMarkedBuff: {
 	DisplayName: Hell Fire Marked
 	Description: Mods.FargowiltasSouls.Buffs.HellFireMarked.Description
 }

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs
 {
-    public class HellFireMarked : ModBuff
+    public class HellFireMarkedBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {
