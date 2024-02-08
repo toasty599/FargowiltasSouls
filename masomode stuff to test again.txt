@@ -45,3 +45,5 @@ nerfed monk dash iframes from 30t to 20t
 made face monster aura brighter
 nerfed stardust tower cell life 10K -> 8K
 abom death anim scythes can kill you in maso
+mutant death anim can also kill you in maso lmao
+buffed antibodies damage 20 to 25%
