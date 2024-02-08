@@ -1318,7 +1318,7 @@ MutantAntibodies: {
 		Grants immunity to Wet, Feral Bite, Mutant Nibble, and Oceanic Maul
 		Grants immunity to most debuffs caused by entering water
 		Grants effects of Wet debuff while riding Cute Fishron
-		Increases damage for your current weapon class by 20%, but decreases life regeneration
+		Increases damage for your current weapon class by 25%, but decreases life regeneration
 		Submerging in water refreshes flight time and gives you improved speed and increased max flight time
 		'Healthy drug recommended by 0 out of 10 doctors'
 		'''
@@ -3137,6 +3137,9 @@ HellZone: {
 		'''
 		Uses bones for ammo
 		80% chance to not consume ammo
+		Left click attack inflicts Hellfire
+		Right click to fire a skull that marks enemies for death
+		Marked enemies take 5x damage over time from Hellfire
 		'The reward for slaughtering many...'
 		'''
 }

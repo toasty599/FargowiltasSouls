@@ -8,12 +8,11 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-    public class HellSkeletron : ModProjectile
+    public class HellGuardian : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Hell Skeletron");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
@@ -25,11 +24,14 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = -1;
-            Projectile.tileCollide = true;
-            Projectile.timeLeft = 120;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 600;
             Projectile.extraUpdates = 1;
-            Projectile.scale = 1.25f;
             Projectile.hide = true;
+
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 30;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()
@@ -46,8 +48,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.immune[Projectile.owner] = 8;
             target.AddBuff(ModContent.BuffType<HellFireBuff>(), 60);
+            target.AddBuff(ModContent.BuffType<HellFireMarked>(), 60 * 10);
         }
 
         public override void OnKill(int timeLeft)
@@ -68,14 +70,11 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Color color26 = lightColor;
-            color26 = Projectile.GetAlpha(color26);
-
             SpriteEffects effects = SpriteEffects.None;
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = color26 * 0.5f;
+                Color color27 = Color.Purple * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];

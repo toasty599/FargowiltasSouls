@@ -17,6 +17,7 @@ using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using System.Collections.Generic;
+using FargowiltasSouls.Content.Buffs;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Life
 {
@@ -39,6 +40,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Life
                     BuffID.Suffocation,
                     ModContent.BuffType<LethargicBuff>(),
                     ModContent.BuffType<ClippedWingsBuff>(),
+                    ModContent.BuffType<HellFireMarked>(),
             });
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()

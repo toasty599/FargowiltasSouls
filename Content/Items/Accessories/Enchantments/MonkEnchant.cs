@@ -129,7 +129,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             player.velocity.X = speed * direction;
 
             player.immune = true;
-            int invul = 30;
+            int invul = 20;
             modPlayer.MonkDashing = invul;
             player.immuneTime = Math.Max(player.immuneTime, invul);
             player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);

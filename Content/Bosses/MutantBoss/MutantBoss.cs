@@ -3536,8 +3536,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 NPC.ai[1] = 0;
                 NPC.ai[3] = (float)-Math.PI / 2;
                 NPC.netUpdate = true;
-                if (FargoSoulsUtil.HostCheck) //shoot harmless mega ray
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -1, ModContent.ProjectileType<MutantGiantDeathray2>(), 0, 0f, Main.myPlayer, 1, NPC.whoAmI);
+                if (FargoSoulsUtil.HostCheck) //shoot death anim mega ray
+                {
+                    int damage = WorldSavingSystem.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.5f) : 0;
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -1,
+                        ModContent.ProjectileType<MutantGiantDeathray2>(), 
+                        damage, 0f, Main.myPlayer, 1, NPC.whoAmI);
+                }
                 EdgyBossText(GFBQuote(32));
             }
             if (--NPC.localAI[0] < 0)
@@ -3561,6 +3566,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         void DyingAnimationAndHandling()
         {
+            /*if (WorldSavingSystem.MasochistModeReal)
+            {
+                if (!AliveCheck(player))
+                    return;
+                i'm not THAT fucked up
+            }*/
             NPC.velocity = Vector2.Zero;
             for (int i = 0; i < 5; i++)
             {

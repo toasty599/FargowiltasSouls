@@ -39,3 +39,17 @@ reduced shark damage of fish stick
 fixed ice golem not doing emode attacks
 
 fixed starlight being invisble without tungsten
+
+added 1 plat to special terry devi gift
+nerfed monk dash iframes from 30t to 20t
+made face monster aura brighter
+nerfed stardust tower cell life 10K -> 8K
+abom death anim scythes can kill you in maso
+mutant death anim can also kill you in maso lmao
+buffed antibodies damage 20 to 25%
+hell zone buff
+	made speed ignore reforges, but made it fire every 4t instead of 5 (doesnt matter because iframes)
+	reduced hellfire duration on hit from 5sec to 1sec
+	right click with it to fire a guardian that marks enemies for 10sec
+	marked enemies take 5x dot from hellfire
+	life champ is immune to marked lmao you thought

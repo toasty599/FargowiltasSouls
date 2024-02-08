@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -28,11 +29,12 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.aiStyle = -1;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
+            Projectile.hostile = true;
         }
 
         public override bool? CanDamage()
         {
-            return false;
+            return WorldSavingSystem.MasochistModeReal;
         }
 
         public override void AI()
@@ -47,6 +49,12 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.velocity.Y -= 0.6f;
 
             Projectile.rotation += Projectile.localAI[0];
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (WorldSavingSystem.EternityMode)
+                target.AddBuff(ModContent.BuffType<Buffs.Boss.AbomFangBuff>(), 300);
         }
 
         public override bool PreDraw(ref Color lightColor)

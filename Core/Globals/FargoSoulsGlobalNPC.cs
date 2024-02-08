@@ -52,6 +52,7 @@ namespace FargowiltasSouls.Core.Globals
         public bool SolarFlare;
         public bool TimeFrozen;
         public bool HellFire;
+        public bool HellFireMarked;
         public bool Corrupted;
         public bool CorruptedForce;
         public bool Infested;
@@ -113,6 +114,7 @@ namespace FargowiltasSouls.Core.Globals
             LeadPoison = false;
             SolarFlare = false;
             HellFire = false;
+            HellFireMarked = false;
             Corrupted = false;
             CorruptedForce = false;
             OriPoison = false;
@@ -416,6 +418,26 @@ namespace FargowiltasSouls.Core.Globals
                 }
             }
 
+            if (HellFireMarked)
+            {
+                if (Main.rand.NextBool(3))
+                {
+                    int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.SolarFlare, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, Scale: 4f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
+
+                    Dust d = Main.dust[dust];
+                    d.velocity.Y -= 0.5f;
+                    if (Main.rand.NextBool(4))
+                    {
+                        d.noGravity = false;
+                        d.scale *= 0.5f;
+                    }
+
+                    d.velocity *= 3;
+                }
+            }
+
             if (SBleed)
             {
                 if (Main.rand.Next(4) < 3)
@@ -702,11 +724,14 @@ namespace FargowiltasSouls.Core.Globals
                 if (npc.lifeRegen > 0)
                     npc.lifeRegen = 0;
 
-                npc.lifeRegen -= 200;
+                int hellfireMarkedMultiplier = HellFireMarked ? 5 : 1;
 
-                if (damage < 20)
+                npc.lifeRegen -= 200 * hellfireMarkedMultiplier;
+
+                int shownDamage = 50 * hellfireMarkedMultiplier;
+                if (damage < shownDamage)
                 {
-                    damage = 20;
+                    damage = shownDamage;
                 }
             }
             bool anyAshwood = modPlayer.fireNoDamage;
