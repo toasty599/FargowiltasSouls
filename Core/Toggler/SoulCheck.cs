@@ -26,8 +26,8 @@ namespace FargowiltasSouls.Core.Toggler
                     FargoSoulsPlayer modPlayer = player.FargoSouls();
                     if (modPlayer.PrimeSoulActive)
                     {
-                        if (!player.HasEffect(effect)) // Don't stack per item
-                            modPlayer.PrimeSoulItemCount++;
+                        //if (!player.HasEffect(effect)) // Don't stack per item
+                            //modPlayer.PrimeSoulItemCount++;
                         return false;
                     }
                 }
