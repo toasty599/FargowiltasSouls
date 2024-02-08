@@ -3137,6 +3137,9 @@ HellZone: {
 		'''
 		Uses bones for ammo
 		80% chance to not consume ammo
+		Left click attack inflicts Hellfire
+		Right click to fire a skull that marks enemies for death
+		Marked enemies take 5x damage over time from Hellfire
 		'The reward for slaughtering many...'
 		'''
 }
