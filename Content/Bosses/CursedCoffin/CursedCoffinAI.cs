@@ -93,7 +93,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             if (!Targeting())
                 return;
             NPC.timeLeft = 60;
-
             if (Player.HasBuff<StunnedBuff>() && State != (float)StateEnum.StunPunish && !Main.projectile.Any(p => p.TypeAlive<CoffinHand>()))
             {
                 Timer = 0;
@@ -607,7 +606,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     Timer = 0;
                     AI2 = 0;
                     AI3 = 0;
-                    if (Main.rand.NextBool())
+                    if (NPC.Center.Y < Player.Center.Y) // if above, do slam
                     {
                         State = (float)StateEnum.SlamWShockwave;
                         NPC.noTileCollide = true;
@@ -615,7 +614,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                         NPC.velocity.Y -= 5;
                         NPC.velocity.X /= 2;
                     }
-                    else
+                    else // if below, do the "fly above" attack before slamming
                     {
                         State = (float)StateEnum.WavyShotFlight;
                         LastAttackChoice = (int)State;

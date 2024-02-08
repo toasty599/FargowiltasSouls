@@ -34,8 +34,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         private int Frame = 0;
 
-
         private Vector2 LockVector1 = Vector2.Zero;
+
+        private int LastAttackChoice;
 
         //NPC.ai[] overrides
         public ref float Timer => ref NPC.ai[0];
@@ -126,8 +127,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
-
-        int LastAttackChoice;
         public override void SendExtraAI(BinaryWriter writer)
         {
 
