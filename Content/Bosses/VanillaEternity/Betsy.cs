@@ -293,6 +293,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             LoadGoreRange(recolor, 1079, 1086);
             LoadExtra(recolor, 81);
             LoadExtra(recolor, 82);
+            LoadProjectile(recolor, ProjectileID.DD2BetsyFireball);
+            LoadProjectile(recolor, ProjectileID.DD2BetsyFlameBreath);
         }
 
         private static readonly List<LocalizedText> MasoTexts = new()

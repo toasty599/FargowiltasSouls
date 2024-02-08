@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -6,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,6 +44,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            bool recolor = WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors;
+            int dustID = recolor ? DustID.Shadowflame : DustID.Torch;
 
             for (int i = 0; i < 30; i++)
             {
@@ -53,11 +57,11 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
             for (int i = 0; i < 20; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
+                    Projectile.height, dustID, 0f, 0f, 100, default, 3.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 7f;
                 dust = Dust.NewDust(Projectile.position, Projectile.width,
-                    Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
+                    Projectile.height, dustID, 0f, 0f, 100, default, 1.5f);
                 Main.dust[dust].velocity *= 3f;
             }
 
@@ -102,6 +106,10 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Will
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy) && WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors)
+            {
+                texture2D13 = TextureAssets.Projectile[ProjectileID.DD2BetsyFireball].Value;
+            }
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);

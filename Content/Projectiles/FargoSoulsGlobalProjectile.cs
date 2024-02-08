@@ -897,6 +897,18 @@ namespace FargowiltasSouls.Content.Projectiles
                         return false;
                     }
                     break;
+                case ProjectileID.ApprenticeStaffT3Shot: // betsy uses this for some reason
+                    {
+                        NPC sourceNPC = projectile.GetSourceNPC();
+                        if (sourceNPC != null && sourceNPC.type == NPCID.DD2Betsy)
+                        {
+                            Texture2D tex = TextureAssets.Projectile[ProjectileID.DD2BetsyFireball].Value;
+                            FargoSoulsUtil.GenericProjectileDraw(projectile, lightColor, tex);
+                            return false;
+                        }
+                        
+                    }
+                    break;
                 default:
                     break;
             }
@@ -1315,7 +1327,7 @@ namespace FargowiltasSouls.Content.Projectiles
             if (Main.player[projectile.owner].HasEffect<NinjaEffect>())
             {
                 const float maxKnockbackMult = 2f;
-                hit.Knockback = hit.Knockback * (maxKnockbackMult * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 60, 1f));
+                hit.Knockback *= (maxKnockbackMult * Math.Min((projectile.extraUpdates + 1) * projectile.velocity.Length() / 40, 1f));
 
             }
             if (projectile.type == ProjectileID.SharpTears && !projectile.usesLocalNPCImmunity && projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown == 60 && noInteractionWithNPCImmunityFrames)

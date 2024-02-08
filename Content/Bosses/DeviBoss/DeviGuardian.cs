@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -76,7 +78,12 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
+            NPC sourceNPC = Projectile.GetSourceNPC();
+            bool recolor =
+                (sourceNPC != null && (sourceNPC.type == NPCID.SkeletronHead || sourceNPC.type == NPCID.SkeletronHand || sourceNPC.type == NPCID.DungeonGuardian)) &&
+                SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+
+            Texture2D texture2D13 = recolor ? ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/DeviBoss/DeviGuardian_Recolor").Value : Terraria.GameContent.TextureAssets.Projectile[Type].Value;
             int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
