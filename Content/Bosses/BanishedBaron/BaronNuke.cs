@@ -23,6 +23,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Banished Baron's Spicy Beeping Nuclear Torpedo of Death and Destruction");
+            Main.projFrames[Type] = 4;
         }
         public override void SetDefaults()
         {
@@ -33,7 +34,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 2f;
+            Projectile.scale = 1f;
             Projectile.light = 1;
             Projectile.timeLeft = 60 * 60;
         }
@@ -65,6 +66,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (Duration < 190) //make sure it doesn't bug out and explode early
             {
                 Duration = 190;
+            }
+            if (++Projectile.frameCounter > 8)
+            {
+                if (++Projectile.frame >= Main.projFrames[Type])
+                    Projectile.frame = 0;
+                Projectile.frameCounter = 0;
             }
             if (Timer == NextBeep)
             {
@@ -204,10 +211,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             float modifier = (float)RingFlash / RingFlashDuration;
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
             Texture2D ringTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            int ringy = ringTexture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            float RingScale = Projectile.scale * ExplosionDiameter / ringTexture.Height;
-            int ringy3 = ringy * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle ringrect = new(0, ringy3, ringTexture.Width, ringy);
+            float RingScale = Projectile.scale * 2 * ExplosionDiameter / ringTexture.Height;
+            Rectangle ringrect = new(0, 0, ringTexture.Width, ringTexture.Height);
             Vector2 ringorigin = ringrect.Size() / 2f;
             RingColor *= modifier;
             Main.EntitySpriteDraw(ringTexture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(ringrect), RingColor, Projectile.rotation, ringorigin, RingScale, SpriteEffects.None, 0);

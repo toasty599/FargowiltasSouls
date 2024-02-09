@@ -1013,13 +1013,20 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     NPC.Opacity = 1;
                 HitPlayer = true;
             }
-            if (Timer == 90 + ReactionTime)
+            int attackTime = 90 + ReactionTime;
+            int accelTime = 7;
+            float baseSpeed = 45;
+            float extraSpeed = (float)Math.Sqrt((player.Center - NPC.Center).Length()) / 1.5f;
+            if (Timer > attackTime - accelTime && Timer < attackTime)
+            {
+                float speed = Math.Max(((Timer - (attackTime - accelTime)) / accelTime), 0);
+                NPC.velocity = NPC.rotation.ToRotationVector2() * (baseSpeed + extraSpeed) * speed;
+            }
+            if (Timer == attackTime)
             {
                 NPC.Opacity = 1;
                 NPC.dontTakeDamage = false;
                 SoundEngine.PlaySound(BaronRoar, NPC.Center);
-                float baseSpeed = 45;
-                float extraSpeed = (float)Math.Sqrt((player.Center - NPC.Center).Length()) / 1.5f;
 
                 NPC.velocity = NPC.rotation.ToRotationVector2() * (baseSpeed + extraSpeed);
                 
@@ -1235,6 +1242,12 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
                 //LockVector1 = NPC.DirectionTo(player.Center + (player.velocity * PredictStr)) * PredictStr;
                 //RotateTowards(NPC.Center + LockVector1, 4);
+            }
+            int accelTime = 7;
+            if (Timer > ReactTime - accelTime && Timer < ReactTime)
+            {
+                float speed = Math.Max(((Timer - (ReactTime - accelTime)) / accelTime), 0);
+                NPC.velocity = NPC.rotation.ToRotationVector2() * PredictStr * speed;
             }
             if (Timer == ReactTime)
             {
@@ -1531,6 +1544,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (Math.Abs(AI2) > dashStart + reactTime)
                     {
                         SoundEngine.PlaySound(BaronRoar, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
                         NPC.velocity = NPC.rotation.ToRotationVector2() * DashSpeed;
                         AI3 = -1;
                         AI2 = Math.Sign(AI2);

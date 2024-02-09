@@ -23,15 +23,16 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
         public override void SetDefaults()
         {
-            Projectile.width = 58;
-            Projectile.height = 58;
+            Projectile.width = 110;
+            Projectile.height = 110;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 2f;
+            Projectile.scale = 1f;
             Projectile.light = 1;
+            Projectile.frame = 2;
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -59,7 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
             Projectile.rotation += MathHelper.ToRadians(Projectile.velocity.Length());
-
+            /*
             if (Projectile.frameCounter > 9)
             {
                 Projectile.frame++;
@@ -67,8 +68,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.frameCounter = 0;
             }
             Projectile.frameCounter++;
+            */
 
             const int endTime = 120;
+            if (++Projectile.localAI[1] > endTime * 0.33f && Projectile.frame > 0)
+            {
+                Projectile.frame--;
+                Projectile.localAI[1] = 0;
+            }
             if (++Projectile.localAI[0] > endTime)
             {
                 Projectile.Kill();
@@ -117,7 +124,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 pos = new Vector2(0, 1).RotatedBy(Projectile.rotation + i * MathHelper.TwoPi / 8);
-                    Vector2 vel = pos * Main.rand.NextFloat(4, 7) * speedmod;
+                    Vector2 vel = pos * Main.rand.NextFloat(5.5f, 6) * speedmod;
                     pos *= offset;
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
                     if (p != Main.maxProjectiles)
