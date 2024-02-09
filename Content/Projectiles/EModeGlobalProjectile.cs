@@ -557,7 +557,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         EModeCanHurt = true;
                         counter = -600;
                     }
-                    else if (!WorldSavingSystem.MasochistModeReal)
+                    else if (!(WorldSavingSystem.MasochistModeReal && Main.getGoodWorld))
                     {
                         EModeCanHurt = false;
                         projectile.position -= projectile.velocity;

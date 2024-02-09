@@ -56,6 +56,7 @@ hell zone buff
 
 rainbow gun is immune to golem fist deletion
 nerfed maso boc/eater/qs biome spray
-moved to maso
-	boc p2 physical clone
+boc p2 physical clone moved to maso
+moved to ftw
 	qs stupid stomp aoe hitbox
+	deerclops ghost hand restoration
