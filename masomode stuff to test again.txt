@@ -55,3 +55,4 @@ hell zone buff
 	life champ is immune to marked lmao you thought
 
 rainbow gun is immune to golem fist deletion
+moved boc p2 physical clone to maso
