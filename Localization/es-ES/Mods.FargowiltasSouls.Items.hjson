@@ -1111,6 +1111,8 @@ Deerclawps: {
 		'''
 		Grants immunity to Slow and Frozen
 		Dashing leaves a trail of ice spikes
+		Double tap DOWN in the air to fastfall
+		Fastfall will create a glacial eruption on impact after falling a certain distance
 		'The trimmed nails of a defeated foe'
 		''' */
 }
@@ -1294,6 +1296,8 @@ LumpOfFlesh: {
 		[i:FargowiltasSouls/DreadShell] Right Click to parry, blocking 200 damage and dealing a massive counterattack if it lands
 		[i:FargowiltasSouls/DreadShell] Defense and damage reduction drastically decreased while and shortly after guarding
 		[i:FargowiltasSouls/Deerclawps] Dashing leaves a trail of blood spikes
+		[i:FargowiltasSouls/Deerclawps] Double tap DOWN in the air to fastfall
+		[i:FargowiltasSouls/Deerclawps] Fastfall will create a glacial eruption on impact after falling a certain distance
 		'It's growing'
 		''' */
 }
@@ -2059,7 +2063,7 @@ FlightMasterySoul: {
 		Hold UP to boost faster
 		Increases gravity
 		Allows the control of gravity
-		'Ascend'
+		'Pierce the heavens'
 		''' */
 }
 
@@ -2084,6 +2088,11 @@ MasochistSoul: {
 		Use to teleport to your last death point
 		Summons the aid of all Eternity Mode bosses to your side
 		'Embrace mastery, embrace eternity'
+		[i:FargowiltasSouls/GalacticGlobe] Increases wing time by 200%, [i:FargowiltasSouls/QueensStinger] armor penetration by 50, [i:FargowiltasSouls/GalacticGlobe] and movement speed by 20%
+		[i:FargowiltasSouls/GuttedHeart] Increases max life by 100%, [i:FargowiltasSouls/MutantAntibodies] damage for your current weapon class by 50%, [i:FargowiltasSouls/ReinforcedPlating] and damage reduction by 10%
+		[i:FargowiltasSouls/PungentEyeball] Increases spawn chance of rare enemies massively, as well as  doubling spawnrates and causing non-boss enemies drop doubled loot
+
+
 		''' */
 }
 
@@ -2153,7 +2162,7 @@ TrawlerSoul: {
 		Permanent Sonar and Crate Buffs
 		Effects of Angler Tackle Bag, Volatile Gel, and Spore Sac 
 		Effects of Pink Horseshoe Balloon and Arctic Diving Gear
-		'The fish catch themselves'
+		'Fish fear me'
 		''' */
 }
 
@@ -2192,7 +2201,7 @@ WorldShaperSoul: {
 		Effect can be disabled in Effect Toggles menu
 		Effects of the Cell Phone, Royal Gel and Treasure Magnet
 		Summons a pet Magic Lantern
-		'Limitless possibilities'
+		'Living in a world of cardboard'
 		''' */
 }
 
