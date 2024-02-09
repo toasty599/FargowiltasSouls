@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 npc.dontTakeDamage = false;
             }
 
-            if (WorldSavingSystem.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal && Main.getGoodWorld)
             {
                 for (int i = 0; i < 3; i++)
                 {
