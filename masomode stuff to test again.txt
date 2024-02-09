@@ -53,3 +53,5 @@ hell zone buff
 	right click with it to fire a guardian that marks enemies for 10sec
 	marked enemies take 5x dot from hellfire
 	life champ is immune to marked lmao you thought
+
+rainbow gun is immune to golem fist deletion
