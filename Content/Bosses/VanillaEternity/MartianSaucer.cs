@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -108,6 +109,22 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ProjectileID.SaucerLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
                 }
             }
+        }
+
+        public override bool PreKill(NPC npc)
+        {
+            if (!NPC.downedGolemBoss)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (FargoSoulsUtil.HostCheck)
+                        Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ItemID.Heart);
+                }
+                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.ItemType<SaucerControlConsole>());
+                return false;
+            }
+
+            return base.PreKill(npc);
         }
 
     }
