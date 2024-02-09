@@ -1,4 +1,4 @@
-baron nuke flashes every time it beeps instead of persistent glow with time
+﻿baron nuke flashes every time it beeps instead of persistent glow with time
 reduced golem gib tile collision size, no longer breaks instantly when fired while standing on solid blocks
 made abom arena much visually denser
 nerfed ice golem frostball amount
@@ -63,3 +63,4 @@ moved to ftw
 	betsy twitch chat
 deerclops added another tell for when it does ice fort
 martian saucer can early bird in hm and guarantees console drop pre-golem
+deerclawps buff: shut the fuck up 「ディアークロプスダイブ」
