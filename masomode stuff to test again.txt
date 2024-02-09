@@ -64,3 +64,5 @@ moved to ftw
 deerclops added another tell for when it does ice fort
 martian saucer can early bird in hm and guarantees console drop pre-golem
 deerclawps buff: shut the fuck up 「ディアークロプスダイブ」
+
+improved mutant sword hitbox to end clipping through it forever
