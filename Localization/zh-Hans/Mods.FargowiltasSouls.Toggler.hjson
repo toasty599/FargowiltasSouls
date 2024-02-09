@@ -120,6 +120,7 @@ GelicWingJump: 明胶羽翼跳跃
 LumpofFleshHeader: "{$Mods.FargowiltasSouls.Items.LumpOfFlesh.DisplayName}"
 PungentEyeballCursor: 易伤区域光标
 PungentMinion: 眼球召唤物
+// DeerclawpsDive: Deerclawps Dive
 DeerclawpsEffect: 冲刺留下冰刺
 DreadShellEffect: 恐惧螺壳格挡
 ChaliceHeader: "{$Mods.FargowiltasSouls.Items.ChaliceoftheMoon.DisplayName}"

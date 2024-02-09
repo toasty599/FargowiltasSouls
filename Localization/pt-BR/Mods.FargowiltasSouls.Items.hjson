@@ -1705,7 +1705,8 @@ EternitySoul: {
 
 	Extra: {
 		Additional: Além disso, concede:
-		// Flavor: Mortal or Immortal, all things acknowledge your claim to divinity
+		// Additional effects are automatically pulled from material tooltips
+		// Flavor: "'Mortal or Immortal, all things acknowledge your claim to divinity.'"
 	}
 }
 

@@ -1,6 +1,8 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -38,7 +40,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         Vector2 HomePos = Vector2.Zero;
         public override void AI()
         {
-            Dust.NewDust(Projectile.Center - new Vector2(1, 1), 2, 2, DustID.Torch, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
+            Vector2 backPos = Projectile.Center - Vector2.Normalize(Projectile.velocity) * 54f * Projectile.scale / 2 + Main.rand.NextVector2Circular(10, 10);
+            if (Main.rand.NextBool(6) && Projectile.velocity.LengthSquared() > 9)
+            {
+                if (Rocket)
+                {
+                    Dust.NewDust(backPos, 2, 2, DustID.Torch, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
+                }
+                else
+                {
+                    Particle p = new Bubble(backPos, -Projectile.velocity.RotatedByRandom(MathF.PI * 0.12f) * Main.rand.NextFloat(0.6f, 1f) / 2f, 1, 30, rotation: Main.rand.NextFloat(MathF.Tau));
+                    p.Spawn();
+                    Dust.NewDust(backPos, 2, 2, DustID.Water, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
+                }
+            }
+            
+            
             Projectile.rotation = Projectile.velocity.RotatedBy(MathHelper.Pi).ToRotation();
 
             if (++Projectile.localAI[0] > 600f)
@@ -161,7 +178,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Rocket ? Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value : ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/BanishedBaron/BaronRocketTorp", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / MaxFrames; //ypos of lower right corner of sprite to draw
+            int num156 = texture2D13.Height / MaxFrames; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;

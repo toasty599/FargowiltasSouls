@@ -19,6 +19,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             // DisplayName.SetDefault("Banished Baron's Mine");
             Main.projFrames[Projectile.type] = 3;
+            ProjectileID.Sets.TrailCacheLength[Type] = 4;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
         }
 
         public override void SetDefaults()
@@ -53,13 +55,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             return false;
         }
         private Vector2 drawOffset = Vector2.Zero;
+        public bool Floating => Projectile.ai[0] == 1;
         public override void AI()
         {
             if (Projectile.localAI[0] == 0)
             {
                 Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
             }
-            Projectile.rotation += MathHelper.ToRadians(Projectile.velocity.Length());
+            float modifier = Floating ? 0.4f : 1f;
+            Projectile.rotation += modifier * MathHelper.ToRadians(Projectile.velocity.Length());
             /*
             if (Projectile.frameCounter > 9)
             {
@@ -70,12 +74,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.frameCounter++;
             */
 
-            const int endTime = 120;
+            int endTime = Floating ? 140 : 120;
             if (++Projectile.localAI[1] > endTime * 0.33f && Projectile.frame > 0)
             {
                 Projectile.frame--;
                 Projectile.localAI[1] = 0;
             }
+            int scaleupTime = 15;
+            Projectile.scale = (float)Utils.Lerp(0, 1, Math.Clamp(Projectile.localAI[0] / scaleupTime, 0, 1));
             if (++Projectile.localAI[0] > endTime)
             {
                 Projectile.Kill();
@@ -88,13 +94,17 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 if (!Collision.SolidCollision(Projectile.position, Projectile.height, Projectile.width)) //this check is inside to stop checking once tileCollide is on
                 {
-                    Projectile.tileCollide = true;
+                    Projectile.tileCollide = !Floating;
                 }
             }
-            if (Projectile.ai[0] == 1) //floating
+            if (Floating) //floating
             {
                 if (Collision.WetCollision(Projectile.position,  Projectile.width, Projectile.height) || Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
-                    Projectile.velocity.Y -= 0.08f;
+                {
+                    if (Projectile.velocity.Y > 0)
+                        Projectile.velocity.Y *= 0.94f;
+                    Projectile.velocity.Y -= 0.12f;
+                }
                 else
                 {
                     if (Projectile.velocity.Y < 0)
@@ -117,6 +127,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Main.dust[d].noGravity = true;
             }
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            for (int j = 0; j < 4; j++)
+            {
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, (Vector2.UnitX * 5).RotatedByRandom(MathHelper.TwoPi), Main.rand.Next(61, 64), 1f);
+            }
             float speedmod = Projectile.ai[0] == 1 ? 1 : 1.5f;
             float offset = 24;
             for (int i = 0; i < 8; i++)
@@ -124,7 +138,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 pos = new Vector2(0, 1).RotatedBy(Projectile.rotation + i * MathHelper.TwoPi / 8);
-                    Vector2 vel = pos * Main.rand.NextFloat(5.5f, 6) * speedmod;
+                    Vector2 vel = pos * Main.rand.NextFloat(5, 6) * speedmod;
                     pos *= offset;
                     int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
                     if (p != Main.maxProjectiles)
@@ -145,6 +159,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
+            {
+                Color color27 = lightColor * 0.75f;
+                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                Vector2 value4 = Projectile.oldPos[i];
+                float num165 = Projectile.oldRot[i];
+                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
+            }
 
             Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
 

@@ -1111,6 +1111,8 @@ Deerclawps: {
 		'''
 		Grants immunity to Slow and Frozen
 		Dashing leaves a trail of ice spikes
+		Double tap DOWN in the air to fastfall
+		Fastfall will create a glacial eruption on impact after falling a certain distance
 		'The trimmed nails of a defeated foe'
 		''' */
 }
@@ -1294,6 +1296,8 @@ LumpOfFlesh: {
 		[i:FargowiltasSouls/DreadShell] Right Click to parry, blocking 200 damage and dealing a massive counterattack if it lands
 		[i:FargowiltasSouls/DreadShell] Defense and damage reduction drastically decreased while and shortly after guarding
 		[i:FargowiltasSouls/Deerclawps] Dashing leaves a trail of blood spikes
+		[i:FargowiltasSouls/Deerclawps] Double tap DOWN in the air to fastfall
+		[i:FargowiltasSouls/Deerclawps] Fastfall will create a glacial eruption on impact after falling a certain distance
 		'It's growing'
 		''' */
 }
@@ -1744,7 +1748,8 @@ EternitySoul: {
 
 	Extra: {
 		// Additional: Additionally grants:
-		// Flavor: Mortal or Immortal, all things acknowledge your claim to divinity
+		// Additional effects are automatically pulled from material tooltips
+		// Flavor: "'Mortal or Immortal, all things acknowledge your claim to divinity.'"
 	}
 }
 

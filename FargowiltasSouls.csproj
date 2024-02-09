@@ -20,6 +20,8 @@
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_270.png" />
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_686.png" />
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_687.png" />
+    <None Remove="Common\Graphics\Particles\ParticleTextures\Bubble.png" />
+    <None Remove="Content\Bosses\BanishedBaron\BaronNukeRocket.png" />
     <None Remove="Content\Projectiles\Masomode\BetsyPhoenix_Recolor.png" />
     <None Remove="Content\Projectiles\Masomode\SkeletronBone_Recolor.png" />
     <None Remove="Content\Projectiles\Souls\BeeFlower.png" />
@@ -29,7 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\ExtraTextures\Noise\" />
-    <Folder Include="Common\Graphics\Particles\ParticleTextures\" />
     <Folder Include="Common\Graphics\Shaders\Compiler\" />
   </ItemGroup>
   <ItemGroup>
