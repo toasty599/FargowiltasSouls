@@ -316,8 +316,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 DoLaserAttack = Main.rand.NextBool();
                             NetSync(npc);
 
-                            if (DoLaserAttack && FargoSoulsUtil.HostCheck)
-                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                            if (FargoSoulsUtil.HostCheck)
+                            {
+                                if (DoLaserAttack)
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                                else
+                                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreStomp, 0, 0f, Main.myPlayer);
+                            }
                         }
 
                         Vector2 eye = npc.Center + new Vector2(64 * npc.direction, -24f) * npc.scale;

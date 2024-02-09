@@ -61,3 +61,4 @@ moved to ftw
 	qs stupid stomp aoe hitbox
 	deerclops ghost hand restoration
 	betsy twitch chat
+deerclops added another tell for when it does ice fort
