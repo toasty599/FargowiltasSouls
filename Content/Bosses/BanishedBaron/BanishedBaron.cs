@@ -382,14 +382,48 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 State = (int)StateEnum.DeathAnimation;
                 Timer = 0;
                 NPC.velocity = Vector2.Zero;
+
+                SoundEngine.PlaySound(SoundID.Item62 with { Pitch = 0.0f }, NPC.Center);
+
+                for (int i = 0; i < 30; i++)
+                {
+                    int dust = Dust.NewDust(NPC.position, NPC.width,
+                        NPC.height, DustID.Smoke, 0f, 0f, 100, default, 3f);
+                    Main.dust[dust].velocity *= 1.4f;
+                }
+
+                for (int i = 0; i < 20; i++)
+                {
+                    int dust = Dust.NewDust(NPC.position, NPC.width,
+                        NPC.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 7f;
+                    dust = Dust.NewDust(NPC.position, NPC.width,
+                        NPC.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
+                    Main.dust[dust].velocity *= 3f;
+                }
+
+                float scaleFactor9 = 0.5f;
+                for (int j = 0; j < 4; j++)
+                {
+                    int gore = Gore.NewGore(NPC.GetSource_FromThis(), NPC.Center,
+                        default,
+                        Main.rand.Next(61, 64));
+
+                    Main.gore[gore].velocity *= scaleFactor9;
+                    Main.gore[gore].velocity += new Vector2(1f, 1f).RotatedBy(MathHelper.TwoPi / 4 * j);
+                }
             }
             if (NPC.life <= 0)
             {
+                Main.LocalPlayer.FargoSouls().Screenshake = 60;
                 for (int i = 1; i <= 4; i++)
                 {
                     Vector2 pos = NPC.position + new Vector2(Main.rand.NextFloat(NPC.width), Main.rand.NextFloat(NPC.height));
+                    float vel = NPC.velocity.Length();
+                    float spd = Main.rand.NextFloat(vel * 1.25f, vel * 1.6f);
                     if (!Main.dedServ)
-                        Gore.NewGore(NPC.GetSource_FromThis(), pos, NPC.velocity, ModContent.Find<ModGore>(Mod.Name, $"BaronGore{i}").Type, NPC.scale);
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2) * spd, ModContent.Find<ModGore>(Mod.Name, $"BaronGore{i}").Type, NPC.scale);
                 }
             }
         }
@@ -758,6 +792,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 NPC.velocity.Y += 0.75f;
             }
+            if (Timer % 20 == 19)
+            {
+                SoundEngine.PlaySound(BaronNuke.Beep with { Pitch = Utils.Clamp( 0.25f - 1.25f * (Timer / 240), -1, 1) }, NPC.Center);
+            }
             if (Timer % 8 == 0)
             {
                 Vector2 exCenter = Main.rand.NextVector2FromRectangle(NPC.Hitbox);
@@ -981,6 +1019,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     float extraY = Math.Max(player.velocity.Y, 0);
                     Vector2 vel = Vector2.UnitX * Math.Sign(dir.X) * AI3 * 8 + Vector2.UnitY * dir.Y * (8 + extraY);
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<BaronMine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, player.whoAmI);
+                    if (WorldSavingSystem.MasochistModeReal)
+                    {
+                        Vector2 vel2 = Vector2.UnitX * Math.Sign(-dir.X) * (AI3-1) * 8 + Vector2.UnitY * dir.Y * (8 + extraY);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel2, ModContent.ProjectileType<BaronMine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 1, player.whoAmI);
+                    }
 
                 }
             }
