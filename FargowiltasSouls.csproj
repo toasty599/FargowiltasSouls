@@ -17,12 +17,26 @@
     <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\ExtraTextures\Resprites\Bone_Eyes.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Bone_Laser.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Dest0.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Dest1.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Dest2.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gores\Gore_147.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gores\Gore_148.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gores\Gore_149.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gores\Gore_150.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gore_147.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gore_148.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gore_149.png" />
+    <None Remove="Assets\ExtraTextures\Resprites\Gore_150.png" />
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_270.png" />
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_686.png" />
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_687.png" />
     <None Remove="Common\Graphics\Particles\ParticleTextures\Bubble.png" />
     <None Remove="Content\Bosses\BanishedBaron\BaronNukeRocket.png" />
     <None Remove="Content\Projectiles\Masomode\BetsyPhoenix_Recolor.png" />
+    <None Remove="Content\Projectiles\Masomode\MechElectricOrb.png" />
     <None Remove="Content\Projectiles\Masomode\SkeletronBone_Recolor.png" />
     <None Remove="Content\Projectiles\Souls\BeeFlower.png" />
   </ItemGroup>

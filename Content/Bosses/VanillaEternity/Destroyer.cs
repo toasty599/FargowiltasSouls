@@ -17,6 +17,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -105,8 +106,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 distance = npc.DirectionTo(Main.player[npc.target].Center) * 14f;
-                        int type = ModContent.ProjectileType<DarkStarHoming>();
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, type, ProjectileDamage(npc), 0f, Main.myPlayer, npc.target);
+                        int type = ModContent.ProjectileType<MechElectricOrbHoming>();
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, type, ProjectileDamage(npc), 0f, Main.myPlayer, npc.target, ai2: MechElectricOrb.Blue);
                     }
                 }
 
@@ -137,11 +138,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         double angleModifier = MathHelper.ToRadians(30);
                         distance.Normalize();
                         distance *= 14f;
-                        int type = ModContent.ProjectileType<DarkStarHoming>();
+                        int type = ModContent.ProjectileType<MechElectricOrbHoming>();
                         int delay = -5;
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance.RotatedBy(-angleModifier), type, ProjectileDamage(npc), 0f, Main.myPlayer, npc.target, delay);
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, type, ProjectileDamage(npc), 0f, Main.myPlayer, npc.target, delay);
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance.RotatedBy(angleModifier), type, ProjectileDamage(npc), 0f, Main.myPlayer, npc.target, delay);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance.RotatedBy(-angleModifier), type, ProjectileDamage(npc), 0f, Main.myPlayer, npc.target, delay, ai2: MechElectricOrb.Blue);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance, type, ProjectileDamage(npc), 0f, Main.myPlayer, npc.target, delay, ai2: MechElectricOrb.Blue);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance.RotatedBy(angleModifier), type, ProjectileDamage(npc), 0f, Main.myPlayer, npc.target, delay, ai2: MechElectricOrb.Blue);
                     }
                 }
 
@@ -294,8 +295,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         for (int i = 0; i < Main.maxProjectiles; i++)
                         {
                             if (Main.projectile[i].active && (
-                                Main.projectile[i].type == ModContent.ProjectileType<DarkStarHoming>() ||
-                                Main.projectile[i].type == ModContent.ProjectileType<DarkStarDestroyer>() ||
+                                Main.projectile[i].type == ModContent.ProjectileType<MechElectricOrbHoming>() ||
+                                Main.projectile[i].type == ModContent.ProjectileType<MechElectricOrbDestroyer>() ||
                                 Main.projectile[i].type == ModContent.ProjectileType<DestroyerLaser>() ||
                                 Main.projectile[i].type == ProjectileID.DeathLaser))
                             {
@@ -347,7 +348,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         private void NonCoilAttacksAI(NPC npc, ref float num15, ref float num16, ref Vector2 target, ref float maxSpeed, ref float flySpeedModifierRatio)
         {
-            int darkStarThreshold = P2_ATTACK_SPACING * 3;
+            int MechElectricOrbThreshold = P2_ATTACK_SPACING * 3;
             int laserThreshold = P2_ATTACK_SPACING * 2;
 
             if (FargoSoulsUtil.HostCheck && AttackModeTimer > P2_ATTACK_SPACING - 120 && AttackModeTimer < P2_ATTACK_SPACING * 2 - 60)
@@ -379,19 +380,19 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
-            int maxDarkStarIntervals = 4;
+            int maxMechElectricOrbIntervals = 4;
             if (npc.life < npc.lifeMax * 0.75)
-                maxDarkStarIntervals = 5;
+                maxMechElectricOrbIntervals = 5;
             if (npc.life < npc.lifeMax * 0.5)
-                maxDarkStarIntervals = 6;
+                maxMechElectricOrbIntervals = 6;
             if (npc.life < npc.lifeMax * 0.25)
-                maxDarkStarIntervals = 7;
+                maxMechElectricOrbIntervals = 7;
 
-            const int darkStarPause = 50;
-            int upperDarkStarTime = darkStarThreshold + maxDarkStarIntervals * darkStarPause;
-            if (AttackModeTimer == darkStarThreshold)
+            const int MechElectricOrbPause = 50;
+            int upperMechElectricOrbTime = MechElectricOrbThreshold + maxMechElectricOrbIntervals * MechElectricOrbPause;
+            if (AttackModeTimer == MechElectricOrbThreshold)
                 SecondaryAttackTimer = 0;
-            if (AttackModeTimer >= darkStarThreshold && AttackModeTimer <= upperDarkStarTime + 90) //spaced star spread attack
+            if (AttackModeTimer >= MechElectricOrbThreshold && AttackModeTimer <= upperMechElectricOrbTime + 90) //spaced star spread attack
             {
                 if (WorldSavingSystem.MasochistModeReal)
                 {
@@ -423,7 +424,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     }
                 }
 
-                if (AttackModeTimer < upperDarkStarTime && AttackModeTimer % darkStarPause == 0)
+                if (AttackModeTimer < upperMechElectricOrbTime && AttackModeTimer % MechElectricOrbPause == 0)
                 {
                     Vector2 targetPos = Main.player[npc.target].Center;
 
@@ -437,11 +438,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                     float accelerationAngle = segment.DirectionTo(targetPos).ToRotation();
 
-                    double maxStarModifier = 0.5 + 0.5 * Math.Sin(MathHelper.Pi / (maxDarkStarIntervals - 1) * SecondaryAttackTimer++);
+                    double maxStarModifier = 0.5 + 0.5 * Math.Sin(MathHelper.Pi / (maxMechElectricOrbIntervals - 1) * SecondaryAttackTimer++);
                     int maxStarsInOneWave = (int)(maxStarModifier * (8.0 - 7.0 * npc.life / npc.lifeMax));
                     if (maxStarsInOneWave > 6)
                         maxStarsInOneWave = 6;
-                    //Main.NewText($"{Counter3} {maxStarModifier} {maxStarsInOneWave} {maxDarkStarIntervals}");
+                    //Main.NewText($"{Counter3} {maxStarModifier} {maxStarsInOneWave} {maxMechElectricOrbIntervals}");
                     for (int i = -maxStarsInOneWave; i <= maxStarsInOneWave; i++)
                     {
                         Vector2 offset = segment.DirectionTo(targetPos).RotatedBy(MathHelper.PiOver2);
@@ -450,7 +451,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         Vector2 individualTarget = targetPos + offset * offsetLength;
                         Vector2 vel = (individualTarget - segment.Center) / travelTime;
                         if (FargoSoulsUtil.HostCheck)
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), segment.Center, vel * 2, ModContent.ProjectileType<DarkStarDestroyer>(), ProjectileDamage(npc), 0f, Main.myPlayer, accelerationAngle, -travelTime);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), segment.Center, vel * 2, ModContent.ProjectileType<MechElectricOrbDestroyer>(), ProjectileDamage(npc), 0f, Main.myPlayer, accelerationAngle, -travelTime, ai2: MechElectricOrb.Blue);
                         //Main.NewText($"{segment.Center} to {individualTarget}, dist {segment.Distance(individualTarget)}");
                         //Main.NewText($"vel: {vel * 2} for {travelTime} ticks");
                         //Main.NewText($"sanity: {targetPos}");
@@ -752,6 +753,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             LoadNPCSprite(recolor, npc.type);
             LoadBossHeadSprite(recolor, 25);
             LoadGore(recolor, 156);
+            for (int i = 1; i <= 3; i++)
+                LoadDest(recolor, i - 1);
         }
     }
 
@@ -883,7 +886,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.netUpdate = true;
                 }
             }
-            else //light is out, shoot dark star
+            else //light is out, shoot Electric Orb
             {
                 int cap = Main.npc[npc.realLife].lifeMax / Main.npc[npc.realLife].life;
                 if (cap > 20) //prevent meme scaling at super low life
@@ -905,8 +908,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (delay < 0)
                             delay = 0;
 
-                        int type = ModContent.ProjectileType<DarkStarHoming>();
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Normalize(distance) * modifier, type, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, -delay);
+                        int type = ModContent.ProjectileType<MechElectricOrbHoming>();
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Normalize(distance) * modifier, type, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, -delay, ai2: MechElectricOrb.Blue);
                     }
                 }
             }

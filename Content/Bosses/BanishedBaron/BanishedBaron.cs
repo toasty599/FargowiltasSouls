@@ -432,6 +432,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (!Main.dedServ)
                         Gore.NewGore(NPC.GetSource_FromThis(), pos, -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2) * spd, ModContent.Find<ModGore>(Mod.Name, $"BaronGore{i}").Type, NPC.scale);
                 }
+
+                for (int j = 0; j < 20; j++)
+                {
+                    Vector2 pos = Main.rand.NextVector2FromRectangle(NPC.Hitbox);
+                    Vector2 vel = Main.rand.NextVector2CircularEdge(1, 1) * Main.rand.NextFloat(16, 24);
+                    int type = Main.rand.Next(6) + 1;
+                    if (!Main.dedServ)
+                        Gore.NewGore(NPC.GetSource_FromThis(), pos, vel, ModContent.Find<ModGore>(Mod.Name, $"BaronScrapGore{type}").Type, NPC.scale);
+                }
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -805,13 +814,14 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             if (Timer % 20 == 19)
             {
-                SoundEngine.PlaySound(BaronNuke.Beep with { Pitch = Utils.Clamp( 0.25f - 1.25f * (Timer / AnimTime), -1, 1) }, NPC.Center);
+                SoundEngine.PlaySound(BaronNuke.Beep with { Pitch = Utils.Clamp( -1 + 1.25f * (Timer / AnimTime), -1, 1) }, NPC.Center);
             }
             int expFreq = (int)Math.Round(30 - 28 * (Timer / AnimTime));
             if (Timer % expFreq == 0)
             {
-
-                Vector2 exCenter = Main.rand.NextVector2FromRectangle(NPC.Hitbox);
+                Vector2 topleft = NPC.position + NPC.Size / 3;
+                Rectangle rect = new((int)topleft.X, (int)topleft.Y, (int)(NPC.width * 1 / 3f), (int)(NPC.height * 1 / 3f));
+                Vector2 exCenter = Main.rand.NextVector2FromRectangle(rect);
                 SoundEngine.PlaySound(SoundID.Item14, exCenter);
                 Vector2 pos = exCenter; //circle with highest density in middle
                 Vector2 vel = NPC.velocity;

@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                             for (int i = 0; i < max; i++)
                             {
                                 int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 1.25f * velocity.RotatedBy(MathHelper.TwoPi / max * i + baseRotation),
-                                    ModContent.ProjectileType<DarkStarHomingFriendly>(), Projectile.damage, 1f, Projectile.owner, -1, 0);
+                                    ModContent.ProjectileType<MechElectricOrbHomingFriendly>(), Projectile.damage, 1f, Projectile.owner, -1, 0);
                                 if (p != Main.maxProjectiles)
                                 {
                                     Main.projectile[p].DamageType = DamageClass.Melee;

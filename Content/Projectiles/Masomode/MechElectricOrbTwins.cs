@@ -5,10 +5,9 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class DarkStarTwins : DarkStar
+    public class MechElectricOrbTwins : MechElectricOrb
     {
-        public override string Texture => "Terraria/Images/Projectile_12";
-
+        public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/MechElectricOrb";
         public override void SetDefaults()
         {
             base.SetDefaults();
