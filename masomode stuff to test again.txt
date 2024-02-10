@@ -67,3 +67,5 @@ deerclawps buff: shut the fuck up 「ディアークロプスダイブ」
 
 improved mutant sword hitbox to end clipping through it forever
 buffed ml core life 20% (x2.5 -> x3)
+cut cross necklace cd, 30 -> 20t
+buffed wof health 10%

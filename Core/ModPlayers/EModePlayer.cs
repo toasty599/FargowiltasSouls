@@ -454,7 +454,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.longInvince && !Player.immune)
             {
-                if (CrossNecklaceTimer < 30)
+                if (CrossNecklaceTimer < 20)
                 {
                     Player.longInvince = false;
                     CrossNecklaceTimer++;

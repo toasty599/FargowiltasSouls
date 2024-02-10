@@ -69,9 +69,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)(npc.lifeMax * 1.5);
-            if (!Main.masterMode)
-                npc.lifeMax = (int)(npc.lifeMax * 1.3);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.2);
             npc.defense = 0;
             npc.HitSound = SoundID.NPCHit41;
         }
@@ -441,7 +439,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)(npc.lifeMax * 1.5);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.2);
         }
 
         public override void OnFirstTick(NPC npc)
