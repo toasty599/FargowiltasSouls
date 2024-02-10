@@ -517,6 +517,7 @@ namespace FargowiltasSouls
                 Item.NewItem(null, player.Center, ItemID.GrapplingHook);
                 Item.NewItem(null, player.Center, ItemID.LifeCrystal, 4);
                 Item.NewItem(null, player.Center, ItemID.ManaCrystal, 2);
+                Item.NewItem(null, player.Center, ModContent.ItemType<SandsofTime>());
             }
 
             //only give once per world
