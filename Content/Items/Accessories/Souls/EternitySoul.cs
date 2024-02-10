@@ -95,6 +95,7 @@ This stacks up to 950 times until you get hit"); */
             const int linesToShow = 7;
 
             string description = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.Additional");
+            description += "                                                                                                                                               "; // blankspaces for consistent box size lmao
             
             if (Main.GameUpdateCount % 5 == 0 || EternitySoulSystem.TooltipLines == null)
             {
@@ -251,7 +252,11 @@ This stacks up to 950 times until you get hit"); */
                 foreach (Item item in recipe.requiredItem)
                 {
                     if (item.ModItem is ModItem modItem)
-                        Tooltips.AddRange(modItem.Tooltip.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries));
+                    {
+                        var tooltips = modItem.Tooltip.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                        Tooltips.AddRange(tooltips);
+                    }
+                        
                 }
             }
         }
