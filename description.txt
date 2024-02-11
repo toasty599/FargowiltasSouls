@@ -54,7 +54,7 @@ Parry changes:
 -Silver can now perfect parry for Striking Moment buff, same window as Dread/Cape
 -Silver increases late parry window with dread/cape (only the window of parrying damage, without the Dread/Cape/Striking Moment extra effects)
 
-Decrepit Airstrike Emote base damage 350 -> 375
+Decrepit Airstrike Remote base damage 350 -> 375
 Items with any effects disabled by the Effect Toggler now have a tooltip stating this
 All Trojan Squirrel, Banished Baron and Lifelight weapon drops are now craftable with 2 of the respective Boss Bag
 Trojan Squirrel now only drops Squirrel Hook on first kill
