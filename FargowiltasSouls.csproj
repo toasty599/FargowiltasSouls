@@ -35,6 +35,8 @@
     <None Remove="Assets\ExtraTextures\Resprites\Projectile_687.png" />
     <None Remove="Common\Graphics\Particles\ParticleTextures\Bubble.png" />
     <None Remove="Content\Bosses\BanishedBaron\BaronNukeRocket.png" />
+    <None Remove="Content\NPCs\EternityModeNPCs\RoyalSubject.png" />
+    <None Remove="Content\NPCs\EternityModeNPCs\RoyalSubject22.png" />
     <None Remove="Content\Projectiles\Masomode\BetsyPhoenix_Recolor.png" />
     <None Remove="Content\Projectiles\Masomode\MechElectricOrb.png" />
     <None Remove="Content\Projectiles\Masomode\SkeletronBone_Recolor.png" />
