@@ -2064,6 +2064,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
                 if (Timer == PositioningTime + WindupTime)
                 {
+                    /*
                     if (WorldSavingSystem.MasochistModeReal)
                     {
                         SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
@@ -2075,6 +2076,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                             Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, -vel, ModContent.ProjectileType<BaronNuke>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, nukeDur, player.whoAmI, 1);
                         }
                     }
+                    */
                     //const float RotationFactor = 0.75f;
 
                     
