@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Bosses.Lifelight;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
+using System.Data;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,6 +26,7 @@ namespace FargowiltasSouls.Content.Items.BossBags
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldenBugNet, 50, 1, 1));
             itemLoot.Add(ItemDropRule.Common(ItemID.FishHook, 50, 1, 1));
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldenFishingRod, 150, 1, 1));
+            itemLoot.Add(ItemDropRule.Common(ItemID.Goldfish, 1, 1, 1));
         }
     }
 }
