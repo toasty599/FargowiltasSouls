@@ -70,3 +70,6 @@ buffed ml core life 20% (x2.5 -> x3)
 cut cross necklace cd, 30 -> 20t
 buffed wof health 10%
 devi gifts sans
+
+jungle rose boosts planteras fruit drop rate
+tweak deerclops ice castle tell

@@ -358,7 +358,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool NanoInjection;
         public bool Stunned;
         public bool HaveCheckedAttackSpeed;
-
+        public bool HasJungleRose;
 
 
         public int ReallyAwfulDebuffCooldown;

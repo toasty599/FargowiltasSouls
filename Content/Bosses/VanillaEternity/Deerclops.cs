@@ -310,18 +310,24 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (TeleportTimer > TeleportThreshold - cooldown)
                             TeleportTimer = TeleportThreshold - cooldown;
 
-                        if (EnteredPhase2 && npc.ai[1] == 0)
+                        if (npc.ai[1] == 0)
                         {
-                            if (npc.alpha == 0) //i.e. dont randomize when coming out of tp
-                                DoLaserAttack = Main.rand.NextBool();
-                            NetSync(npc);
-
-                            if (FargoSoulsUtil.HostCheck)
+                            if (EnteredPhase2)
                             {
-                                if (DoLaserAttack)
-                                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
-                                else
-                                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreStomp, 0, 0f, Main.myPlayer);
+                                if (npc.alpha == 0) //i.e. dont randomize when coming out of tp
+                                    DoLaserAttack = Main.rand.NextBool();
+                                NetSync(npc);
+
+                                if (FargoSoulsUtil.HostCheck)
+                                {
+                                    if (DoLaserAttack)
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlowRing>(), 0, 0f, Main.myPlayer, npc.whoAmI, npc.type);
+                                }
+                            }
+
+                            if (FargoSoulsUtil.HostCheck && !DoLaserAttack)
+                            {
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.DD2OgreSmash, 0, 0f, Main.myPlayer);
                             }
                         }
 
