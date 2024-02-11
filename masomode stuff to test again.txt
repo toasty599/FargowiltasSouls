@@ -72,3 +72,4 @@ buffed wof health 10%
 devi gifts sans
 
 jungle rose boosts planteras fruit drop rate
+tweak deerclops ice castle tell
