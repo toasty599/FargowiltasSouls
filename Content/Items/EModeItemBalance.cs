@@ -255,6 +255,10 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "WarmthPotionNerf" };
                     return EModeChange.Nerf;
 
+                case ItemID.JungleRose:
+                    balanceTextKeys = new string[] { "JungleRose" };
+                    return EModeChange.Buff;
+
                 default:
                     return EModeChange.None;
             }
