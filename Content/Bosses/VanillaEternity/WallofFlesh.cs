@@ -69,7 +69,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.4);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.2);
             npc.defense = 0;
             npc.HitSound = SoundID.NPCHit41;
         }
