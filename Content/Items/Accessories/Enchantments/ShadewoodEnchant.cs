@@ -112,7 +112,6 @@ Enemies struck while Bleeding spew damaging blood
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             bool forceEffect = modPlayer.ForceEffect<ShadewoodEnchant>();
-            bool trueMelee = projectile == null || projectile.aiStyle == ProjAIStyleID.Spear;
             int dmg = 20;
 
             if (forceEffect)
@@ -120,7 +119,7 @@ Enemies struck while Bleeding spew damaging blood
                 dmg *= 3;
             }
 
-            if (target.HasBuff(ModContent.BuffType<SuperBleedBuff>()) && (trueMelee || modPlayer.ShadewoodCD == 0) && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
+            if (target.HasBuff(ModContent.BuffType<SuperBleedBuff>()) && modPlayer.ShadewoodCD == 0 && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
             {
                 for (int i = 0; i < Main.rand.Next(3, 6); i++)
                 {
@@ -130,12 +129,6 @@ Enemies struck while Bleeding spew damaging blood
                 if (forceEffect)
                 {
                     target.AddBuff(BuffID.Ichor, 30);
-                }
-
-                //true melee attack does not go on cooldown
-                if (!trueMelee)
-                {
-                    modPlayer.ShadewoodCD = 30;
                 }
             }
         }

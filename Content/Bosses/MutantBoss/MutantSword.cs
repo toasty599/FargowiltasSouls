@@ -37,6 +37,20 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.FargoSouls().TimeFreezeImmune = true;
         }
 
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (projHitbox.Intersects(targetHitbox))
+                return true;
+
+            Rectangle trailHitbox = projHitbox;
+            trailHitbox.X = (int)Projectile.oldPosition.X;
+            trailHitbox.Y = (int)Projectile.oldPosition.Y;
+            if (trailHitbox.Intersects(targetHitbox))
+                return true;
+
+            return false;
+        }
+
         public override void AI()
         {
             //the important part

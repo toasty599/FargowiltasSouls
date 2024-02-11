@@ -100,7 +100,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
                 Color color27;
                 if (Projectile.ai[1] == 1)
-                    color27 = new Color(191, 51, 255, 210); //purple
+                    color27 = Color.Red * 0.7f; // red //new Color(191, 51, 255, 210); //purple
                 else if (Projectile.ai[1] == 2)
                     color27 = new Color(51, 255, 191, 210) * 0.75f; //teal
                 else

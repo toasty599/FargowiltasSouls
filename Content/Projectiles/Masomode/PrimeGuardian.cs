@@ -1,7 +1,10 @@
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -66,6 +69,12 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             if (!Main.dedServ)
                 Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity / 3, ModContent.Find<ModGore>(Mod.Name, Main.rand.NextBool() ? "Gore_149" : "Gore_150").Type, Projectile.scale);
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D tex = TextureAssets.Npc[NPCID.SkeletronPrime].Value;
+            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor, tex);
+            return false;
         }
     }
 }

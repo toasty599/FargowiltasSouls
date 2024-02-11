@@ -33,7 +33,7 @@ BlenderProj3.DisplayName: 绞肉机
 BlenderSpray.DisplayName: 绞肉机尖刺
 BlenderYoyoProj.DisplayName: 绞肉机
 Bonez.DisplayName: 骸骨
-DarkStarFriendly.DisplayName: 暗星
+MechElectricOrbFriendly.DisplayName: 暗星
 Dash.DisplayName: 洞察者冲刺
 Dash2.DisplayName: 洞察者冲刺
 DicerMine.DisplayName: 切肉机空雷
@@ -275,10 +275,10 @@ CultistFireball.DisplayName: 火球
 CultistRitual.DisplayName: 教徒仪式
 CultistVortex.DisplayName: 星旋旋涡
 CursedFlamethrower.DisplayName: 魔眼烈火
-DarkStar.DisplayName: 暗星
-DarkStarDestroyer.DisplayName: 暗星
-DarkStarHoming.DisplayName: 暗星
-DarkStarTwins.DisplayName: 暗星
+MechElectricOrb.DisplayName: 暗星
+MechElectricOrbDestroyer.DisplayName: 暗星
+MechElectricOrbHoming.DisplayName: 暗星
+MechElectricOrbTwins.DisplayName: 暗星
 DeathSkull.DisplayName: 死亡标记头骨
 DeerclopsHand.DisplayName: 暗影之手
 DestroyerLaser.DisplayName: 死亡激光
@@ -368,7 +368,7 @@ BigBrainProj.DisplayName: 克苏鲁大脑
 BrainMinion.DisplayName: 克苏鲁之脑
 CreeperMinion.DisplayName: 飞眼怪
 CrystalSkull.DisplayName: 水晶头骨
-DarkStarHomingFriendly.DisplayName: 暗星
+MechElectricOrbHomingFriendly.DisplayName: 暗星
 DestroyerBody.DisplayName: 毁灭者身体
 DestroyerBody2.DisplayName: 毁灭者身体
 DestroyerHead.DisplayName: 毁灭者头

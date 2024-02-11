@@ -13,12 +13,14 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Souls
 {
 	[AutoloadEquip(EquipType.Wings)]
     public class EternitySoul : FlightMasteryWings
     {
+        
         public override bool HasSupersonicSpeed => true;
 
         public override bool Eternity => true;
@@ -82,33 +84,49 @@ This stacks up to 950 times until you get hit"); */
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 10));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
-
+        
         public override void SafeModifyTooltips(List<TooltipLine> tooltips)
         {
             if (Item.social)
             {
                 return;
             }
-            string text = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.Vanilla");
-            string[] lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             const int linesToShow = 7;
-            int section = lines.Length / linesToShow;
 
             string description = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.Additional");
-            ulong seed = Main.GameUpdateCount / 5;
-            for (int i = 0; i < linesToShow; i++)
+            description += "                                                                                                                                               "; // blankspaces for consistent box size lmao
+            
+            if (Main.GameUpdateCount % 5 == 0 || EternitySoulSystem.TooltipLines == null)
             {
-                int start = section * i;
-                description += "\n" + lines[start + Utils.RandomInt(ref seed, section)];
+                EternitySoulSystem.TooltipLines = new();
+                for (int i = 0; i < linesToShow; i++)
+                {
+                    string line = Main.rand.NextFromCollection(EternitySoulSystem.Tooltips);
+                    if (line.StartsWith("'") || line.Contains("Following effects") || line.Contains("Grants togglable")) // flavor text or undesired lines
+                    {
+                        i--;
+                        continue;
+                    }
+                    if (EternitySoulSystem.TooltipLines.Contains(line)) // duplicate
+                    {
+                        i--;
+                        continue;
+                    }
+                    EternitySoulSystem.TooltipLines.Add(line);
+                }
             }
-
+            for (int i = 0; i < EternitySoulSystem.TooltipLines.Count; i++)
+            {
+                description += "\n" + EternitySoulSystem.TooltipLines[i];
+            }
             tooltips.Add(new TooltipLine(Mod, "tooltip", description));
+            tooltips.Add(new TooltipLine(Mod, "FlavorText", Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.Flavor")));
         }
 
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
         {
-            if (line.Mod == "Terraria" && line.Name == "ItemName")
+            if ((line.Mod == "Terraria" && line.Name == "ItemName") || line.Name == "FlavorText")
             {
                 Main.spriteBatch.End(); //end and begin main.spritebatch to apply a shader
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Main.UIScaleMatrix);
@@ -221,6 +239,26 @@ This stacks up to 950 times until you get hit"); */
             .AddTile(ModContent.Find<ModTile>("Fargowiltas", "CrucibleCosmosSheet"))
 
             .Register();
+        }
+    }
+    public class EternitySoulSystem : ModSystem
+    {
+        public static List<string> Tooltips = new();
+        public static List<string> TooltipLines = new();
+        public override void PostAddRecipes()
+        {
+            foreach (Recipe recipe in Main.recipe.Where(r => r.createItem != null && r.createItem.ModItem is BaseSoul))
+            {
+                foreach (Item item in recipe.requiredItem)
+                {
+                    if (item.ModItem is ModItem modItem)
+                    {
+                        var tooltips = modItem.Tooltip.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                        Tooltips.AddRange(tooltips);
+                    }
+                        
+                }
+            }
         }
     }
     public class EternityTin : AccessoryEffect

@@ -71,11 +71,14 @@ namespace FargowiltasSouls
             public static readonly Dictionary<int, Asset<Texture2D>> NPCHeadBoss = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Gore = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Golem = new();
+            public static readonly Dictionary<int, Asset<Texture2D>> Dest = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Extra = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Projectile = new();
             public static Asset<Texture2D> Ninja = null;
             public static Asset<Texture2D> BoneArm = null;
             public static Asset<Texture2D> BoneArm2 = null;
+            public static Asset<Texture2D> BoneLaser = null;
+            public static Asset<Texture2D> BoneEyes = null;
             public static Asset<Texture2D> Chain12 = null;
             public static Asset<Texture2D> Chain26 = null;
             public static Asset<Texture2D> Chain27 = null;
@@ -280,6 +283,7 @@ namespace FargowiltasSouls
             RestoreSprites(TextureBuffer.NPCHeadBoss, TextureAssets.NpcHeadBoss);
             RestoreSprites(TextureBuffer.Gore, TextureAssets.Gore);
             RestoreSprites(TextureBuffer.Golem, TextureAssets.Golem);
+            RestoreSprites(TextureBuffer.Dest, TextureAssets.Dest);
             RestoreSprites(TextureBuffer.Extra, TextureAssets.Extra);
             RestoreSprites(TextureBuffer.Projectile, TextureAssets.Projectile);
 
@@ -289,6 +293,10 @@ namespace FargowiltasSouls
                 TextureAssets.BoneArm = TextureBuffer.BoneArm;
             if (TextureBuffer.BoneArm2 != null)
                 TextureAssets.BoneArm2 = TextureBuffer.BoneArm2;
+            if (TextureBuffer.BoneLaser != null)
+                TextureAssets.BoneLaser = TextureBuffer.BoneLaser;
+            if (TextureBuffer.BoneEyes != null)
+                TextureAssets.BoneEyes = TextureBuffer.BoneEyes;
             if (TextureBuffer.Chain12 != null)
                 TextureAssets.Chain12 = TextureBuffer.Chain12;
             if (TextureBuffer.Chain26 != null)
@@ -517,6 +525,7 @@ namespace FargowiltasSouls
                 Item.NewItem(null, player.Center, ItemID.GrapplingHook);
                 Item.NewItem(null, player.Center, ItemID.LifeCrystal, 4);
                 Item.NewItem(null, player.Center, ItemID.ManaCrystal, 2);
+                Item.NewItem(null, player.Center, ModContent.ItemType<SandsofTime>());
             }
 
             //only give once per world

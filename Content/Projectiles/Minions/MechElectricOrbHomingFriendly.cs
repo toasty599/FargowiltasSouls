@@ -6,10 +6,9 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-    public class DarkStarHomingFriendly : DarkStar
+    public class MechElectricOrbHomingFriendly : MechElectricOrb
     {
-        public override string Texture => "Terraria/Images/Projectile_12";
-
+        public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/MechElectricOrb";
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
