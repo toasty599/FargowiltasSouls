@@ -112,7 +112,7 @@ Enemies struck while Bleeding spew damaging blood
         {
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             bool forceEffect = modPlayer.ForceEffect<ShadewoodEnchant>();
-            int dmg = 20;
+            int dmg = 12;
 
             if (forceEffect)
             {
