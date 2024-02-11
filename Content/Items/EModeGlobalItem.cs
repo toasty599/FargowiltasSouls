@@ -70,6 +70,10 @@ namespace FargowiltasSouls.Content.Items
                 }
                 player.statLifeMax2 += 5;
             }
+            if (item.type == ItemID.JungleRose)
+            {
+                player.FargoSouls().HasJungleRose = true;
+            }
         }
         public override void HoldItem(Item item, Player player)
         {
