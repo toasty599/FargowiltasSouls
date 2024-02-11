@@ -18,6 +18,7 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Terraria.GameContent;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -1122,9 +1123,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     const int attackTime = 110;
 
                     Vector2 towardsPlayer = 6f * npc.DirectionTo(Main.player[npc.target].Center);
-
+                    int dustID = WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors ? DustID.GemSapphire : DustID.GemRuby;
                     float dustScale = 0.5f + 2.5f * AttackTimer / attackTime;
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.GemRuby, 2f * towardsPlayer.X, 2f * towardsPlayer.Y, 0, default, dustScale);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, dustID, 2f * towardsPlayer.X, 2f * towardsPlayer.Y, 0, default, dustScale);
                     Main.dust[d].noGravity = true;
 
                     if (++AttackTimer > attackTime)
