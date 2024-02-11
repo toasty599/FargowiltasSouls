@@ -736,7 +736,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (projectile.type == ProjectileID.SoulDrain)
                 modifiers.FinalDamage *= 0.75f;
         }
-
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            cooldownSlot = 1;
+            return base.CanHitPlayer(npc, target, ref cooldownSlot);
+        }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, hurtInfo);

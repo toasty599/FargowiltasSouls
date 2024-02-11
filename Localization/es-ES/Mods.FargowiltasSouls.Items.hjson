@@ -670,7 +670,7 @@ TitaniumEnchant: {
 		Attacking generates a defensive barrier of up to 20 titanium shards
 		When you reach the maximum amount, you gain resistance to most debuffs on hit and 25% damage resistance against contact damage and projectiles in close range
 		This has a cooldown of 10 seconds during which you cannot gain shards
-		'The power of titanium in the palm of your hand'
+		'Who needs a dodge when you're indestructible'
 		''' */
 }
 
@@ -3128,7 +3128,7 @@ LifeRevitalizer: {
 
 AbomMusicBox: {
 	// DisplayName: Music Box (Abominationn)
-	// Tooltip: Sakuzyo 'Stigma'
+	// Tooltip: Yuri O 'Laevateinn'
 }
 
 ChampionMusicBox: {
@@ -3138,7 +3138,7 @@ ChampionMusicBox: {
 
 DeviMusicBox: {
 	// DisplayName: Music Box (Deviantt)
-	// Tooltip: Sakuzyo 'Lexus Cyanixs'
+	// Tooltip: Yuri O 'Sparkly Strawberry Sunrise'
 }
 
 MutantMusicBox: {
