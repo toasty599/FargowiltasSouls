@@ -154,7 +154,7 @@ MutantPresenceBuff: {
 }
 
 HellFireBuff: {
-	DisplayName: 狱火
+	DisplayName: 地狱烈焰
 	Description: Mods.FargowiltasSouls.BuffDescription.HellFireBuff
 }
 
@@ -716,6 +716,6 @@ CoffinTossBuff: {
 }
 
 HellFireMarkedBuff: {
-	// DisplayName: Hell Fire Marked
-	// Description: Mods.FargowiltasSouls.Buffs.HellFireMarked.Description
+	DisplayName: 地狱烈焰标记
+	Description: Mods.FargowiltasSouls.Buffs.HellFireMarked.Description
 }

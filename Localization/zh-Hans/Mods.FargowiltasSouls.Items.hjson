@@ -668,7 +668,7 @@ TitaniumEnchant: {
 		攻击生成钛金碎片防御屏障，最多有20个碎片
 		当你的碎片个数达到最大时，你会获得25%伤害减免，但你自身的减伤会被削减
 		效果生效时受击会导致该效果进入10秒冷却时间，在此期间你无法获得钛金碎片
-		“钛金之力握于手心”
+		“有了绝对防御后，谁还需要躲避呢？”
 		'''
 }
 
@@ -1117,6 +1117,8 @@ Deerclawps: {
 		'''
 		免疫缓慢和冰冻
 		冲刺会留下一串冰刺
+		在空中双击“下”键快速下落
+		在一定高度使用快速下落，撞击地面时会爆发冰刺
 		“从被击败的敌人的脚上剪下来的指甲”
 		'''
 }
@@ -1300,6 +1302,8 @@ LumpOfFlesh: {
 		[i:FargowiltasSouls/DreadShell]防护时和防护后短时间内，防御力和伤害减免大幅下降
 		[i:FargowiltasSouls/Deerclawps]冲刺会留下一串血刺
 		[i:FargowiltasSouls/SkullCharm]降低敌人以你为目标的可能性
+		[i:FargowiltasSouls/Deerclawps]在空中双击“下”键快速下落
+		[i:FargowiltasSouls/Deerclawps]在一定高度使用快速下落，撞击地面时会爆发冰刺
 		“它在生长”
 		'''
 }
@@ -1324,7 +1328,7 @@ MutantAntibodies: {
 		免疫潮湿、野性咬噬、突变啃啄和海洋重击减益
 		免疫大多数由水造成的减益
 		骑乘猪龙鱼坐骑时获得潮湿状态效果
-		增加20%你手持武器职业的伤害，但是降低生命恢复速度
+		增加25%你手持武器职业的伤害，但是降低生命恢复速度
 		浸在液体中重置飞行时间，增加最大飞行时间并增强移动力
 		“很健康的药物，十个医生中有零个会推荐使用它”
 		'''
@@ -1722,7 +1726,6 @@ EternitySoul: {
 	DisplayName: 永恒之魂
 	Tooltip:
 		'''
-		“无论凡人或不朽，一切都承认你的神性”
 		将你的基础暴击率设为50%
 		每次暴击时都会增加10%暴击率
 		暴击率达到100%后每次攻击会汲取10%生命值并增加5%伤害，你增加5防御力
@@ -1732,7 +1735,7 @@ EternitySoul: {
 	Extra: {
 		Additional: 额外加成：
 		// Additional effects are automatically pulled from material tooltips
-		// Flavor: "'Mortal or Immortal, all things acknowledge your claim to divinity.'"
+		Flavor: “无论凡人或不朽，一切都承认你的神性”
 	}
 }
 
@@ -2846,6 +2849,9 @@ HellZone: {
 		'''
 		使用骨头作为弹药
 		80%的几率不消耗弹药
+		攻击对敌人造成地狱烈焰减益
+		右键攻击发射骷髅头标记敌人
+		被标记的敌人受到的地狱烈焰伤害×5
 		“屠戮众多的奖励……”
 		'''
 }
@@ -3111,7 +3117,7 @@ LifeRevitalizer: {
 
 AbomMusicBox: {
 	DisplayName: 音乐盒（憎恶）
-	Tooltip: 削除 - 《Stigma》
+	Tooltip: Yuri O 'Laevateinn'
 }
 
 ChampionMusicBox: {
@@ -3121,7 +3127,7 @@ ChampionMusicBox: {
 
 DeviMusicBox: {
 	DisplayName: 音乐盒（戴薇安）
-	Tooltip: 削除 - 《Lexus Cyanixs》
+	Tooltip: Yuri O 'Sparkly Strawberry Sunrise'
 }
 
 MutantMusicBox: {

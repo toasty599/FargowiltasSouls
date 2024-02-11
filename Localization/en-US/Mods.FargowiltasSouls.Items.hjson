@@ -1870,7 +1870,7 @@ WorldShaperSoul: {
 		Provides light and allows gravity control
 		Grants toggleable Builder Mode:
 		    Tiles and walls will not be consumed
-			Increased placement speed and range
+		    Increased placement speed and range
 		Effect can be disabled in Effect Toggles menu
 		Effects of the Cell Phone, Royal Gel and Treasure Magnet
 		Summons a pet Magic Lantern
