@@ -7,9 +7,9 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-    public class DarkStarFriendly : Masomode.DarkStar
+    public class MechElectricOrbFriendly : Masomode.MechElectricOrb
     {
-        public override string Texture => "Terraria/Images/Projectile_12";
+        public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/MechElectricOrb";
 
         bool hasIframes = true;
 
@@ -55,22 +55,30 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             int num1 = 10;
             int num2 = 3;
 
+            int dustID = ColorType switch
+            {
+                Blue => DustID.BlueTorch,
+                Green => DustID.GreenTorch,
+                Yellow => DustID.YellowTorch,
+                _ => DustID.RedTorch
+            };
+
             for (int index = 0; index < num1; ++index)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Pink, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustID, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
             for (int index = 0; index < num2; ++index)
             {
                 int Type = Main.rand.Next(16, 18);
                 if (Projectile.type == 503)
                     Type = 16;
-                if (!Main.dedServ)
-                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Type, 1f);
+                //if (!Main.dedServ)
+                    //Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Type, 1f);
             }
 
             for (int index = 0; index < 10; ++index)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Gold, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
-            for (int index = 0; index < 3; ++index)
-                if (!Main.dedServ)
-                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustID, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, new Color(), 1.2f);
+            //for (int index = 0; index < 3; ++index)
+                //if (!Main.dedServ)
+                    //Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Projectile.velocity.X * 0.05f, Projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
 
             return false;
         }

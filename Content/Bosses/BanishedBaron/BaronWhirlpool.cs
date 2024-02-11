@@ -43,8 +43,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 return;
             }
-            target.FargoSouls().MaxLifeReduction += 50;
-            target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 20);
+            //target.FargoSouls().MaxLifeReduction += 50;
+            //target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 60 * 20);
             target.AddBuff(BuffID.Rabies, 60 * 10);
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -188,14 +188,9 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 if (Projectile.alpha >= 238)
                 {
                     Projectile child = Main.projectile[(int)ChildID];
-                    if (child != null)
-                    {
-                        if (child.active && child.type == Type)
-                        {
-                            child.As<BaronWhirlpool>().Fade = true;
-                            //child.As<BaronWhirlpool>().Animate = true;
-                        }
-                    }
+                    if (child.TypeAlive(Type))
+                        child.As<BaronWhirlpool>().Fade = true;
+
                     Projectile.Kill();
                 }
             }

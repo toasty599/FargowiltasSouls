@@ -1,6 +1,9 @@
-﻿using FargowiltasSouls.Content.Projectiles.ChallengerItems;
+﻿using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -81,34 +84,15 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         }
         public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
-            int shrapnel = 0;
-            for (int i = 0; i < Main.maxProjectiles; i++)
-            {
-                Projectile proj = Main.projectile[i];
-                if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == player.whoAmI)
-                {
-                    if (proj.As<BaronTuskShrapnel>().EmbeddedNPC == target)
-                    {
-                        shrapnel++;
-                    }
-                }
-            }
+            IEnumerable<Projectile> embeddedShrapnel = Main.projectile.Where(p => p.TypeAlive<BaronTuskShrapnel>() && p.owner == player.whoAmI && p.As<BaronTuskShrapnel>().EmbeddedNPC == target);
+            int shrapnel = embeddedShrapnel.Count();
             if (shrapnel >= 15)
             {
                 SoundEngine.PlaySound(SoundID.Item68, target.Center);
                 modifiers.FlatBonusDamage += 15 * Item.damage / 2.5f + (shrapnel * Item.damage / 6);
                 modifiers.SetCrit();
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile proj = Main.projectile[i];
-                    if (proj.active && proj.type == ModContent.ProjectileType<BaronTuskShrapnel>() && proj.owner == player.whoAmI)
-                    {
-                        if (proj.As<BaronTuskShrapnel>().EmbeddedNPC == target)
-                        {
-                            proj.ai[1] = 2;
-                        }
-                    }
-                }
+                foreach (Projectile proj in embeddedShrapnel)
+                    proj.ai[1] = 2;
             }
         }
         //this is ripped from my own game project
@@ -118,6 +102,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         public static float MomentumProgress(float x)
         {
             return (x * x * 3) - (x * x * x * 2);
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<BanishedBaronBag>(2).AddTile(TileID.Solidifier).Register();
         }
     }
 }

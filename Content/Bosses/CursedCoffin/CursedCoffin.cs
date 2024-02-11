@@ -34,8 +34,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         private int Frame = 0;
 
-
         private Vector2 LockVector1 = Vector2.Zero;
+
+        private int LastAttackChoice;
 
         //NPC.ai[] overrides
         public ref float Timer => ref NPC.ai[0];
@@ -70,8 +71,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
+                //BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.any,
                 new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
             });
 
@@ -126,8 +127,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
-
-        int LastAttackChoice;
         public override void SendExtraAI(BinaryWriter writer)
         {
 
@@ -167,6 +166,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            if (NPC.IsABestiaryIconDummy)
+                return true;
             Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
             Vector2 drawPos = NPC.Center - screenPos;
             SpriteEffects spriteEffects = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;

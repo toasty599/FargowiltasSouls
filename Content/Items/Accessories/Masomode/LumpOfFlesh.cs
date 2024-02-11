@@ -84,6 +84,7 @@ Enemies are less likely to target you
 
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
+            player.AddEffect<DeerclawpsDive>(Item);
             player.AddEffect<DeerclawpsEffect>(Item);
         }
 

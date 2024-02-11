@@ -33,7 +33,7 @@
 // BlenderSpray.DisplayName: Blender Spray
 // BlenderYoyoProj.DisplayName: The Blender
 // Bonez.DisplayName: Bonez
-// DarkStarFriendly.DisplayName: Dark Star
+// MechElectricOrbFriendly.DisplayName: Electric Orb
 // Dash.DisplayName: Dash
 // Dash2.DisplayName: Dash2
 // DicerMine.DisplayName: Dicer Mine
@@ -275,10 +275,10 @@
 // CultistRitual.DisplayName: Cultist Ritual
 // CultistVortex.DisplayName: Vortex
 // CursedFlamethrower.DisplayName: Eye Fire
-// DarkStar.DisplayName: Dark Star
-// DarkStarDestroyer.DisplayName: Dark Star
-// DarkStarHoming.DisplayName: Dark Star
-// DarkStarTwins.DisplayName: Dark Star
+// MechElectricOrb.DisplayName: Electric Orb
+// MechElectricOrbDestroyer.DisplayName: Electric Orb
+// MechElectricOrbHoming.DisplayName: Electric Orb
+// MechElectricOrbTwins.DisplayName: Electric Orb
 // DeathSkull.DisplayName: Death Skull
 // DeerclopsHand.DisplayName: Shadow Hand
 // DestroyerLaser.DisplayName: Death Laser
@@ -368,7 +368,7 @@
 // BrainMinion.DisplayName: Brain Proj
 // CreeperMinion.DisplayName: Brain Proj
 // CrystalSkull.DisplayName: Crystal Skull
-// DarkStarHomingFriendly.DisplayName: Dark Star
+// MechElectricOrbHomingFriendly.DisplayName: Electric Orb
 // DestroyerBody.DisplayName: Destroyer Body
 // DestroyerBody2.DisplayName: Destroyer Body
 // DestroyerHead.DisplayName: Destroyer Head
@@ -700,3 +700,4 @@
 // CoffinRandomStuff.DisplayName: Coffin Random Stuff
 // FishStickWhirlpool.DisplayName: Fish Stick Whirlpool
 // BetsyHomingFireball.DisplayName: Betsy Homing Fireball
+// HellGuardian.DisplayName: Hell Guardian

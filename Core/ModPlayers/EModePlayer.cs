@@ -279,7 +279,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 tileCenter.Y /= 16;
                 Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
 
-                if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight)
+                if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight)
                     && Player.HeldItem.type != ItemID.Umbrella && Player.HeldItem.type != ItemID.TragicUmbrella
                     && Player.armor[0].type != ItemID.UmbrellaHat && Player.armor[0].type != ItemID.Eyebrella 
                     && !Player.HasEffect<RainUmbrellaEffect>())
@@ -454,7 +454,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.longInvince && !Player.immune)
             {
-                if (CrossNecklaceTimer < 30)
+                if (CrossNecklaceTimer < 20)
                 {
                     Player.longInvince = false;
                     CrossNecklaceTimer++;

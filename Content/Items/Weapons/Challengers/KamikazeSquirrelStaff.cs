@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.Minions;
+﻿using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Projectiles.Minions;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
@@ -67,6 +68,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             }
 
             return true;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<TrojanSquirrelBag>(2).AddTile(TileID.Solidifier).Register();
         }
     }
 }

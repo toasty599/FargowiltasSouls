@@ -30,12 +30,13 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         {
             AccessoryEffect effect = ModContent.GetInstance<T>();
             AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             effectPlayer.EquippedEffects[effect.Index] = true;
             effectPlayer.EffectItems[effect.Index] = item;
 
             if (effect.MinionEffect || effect.ExtraAttackEffect)
             {
-                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                
                 if (modPlayer.PrimeSoulActive)
                 {
                     if (!player.HasEffect(effect)) // Don't stack per item
@@ -43,10 +44,9 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
                     return false;
                 }
             }
-            
-            if (player.FargoSouls().MutantPresence)
-                if (!effect.IgnoresMutantPresence)
-                    return false;
+
+            if (!effect.IgnoresMutantPresence && effect.HasToggle && modPlayer.MutantPresence)
+                return false;
 
             if (effect.HasToggle)
             {

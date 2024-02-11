@@ -135,6 +135,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 
             return Offset;
         }
+public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<CursedCoffinBag>(2).AddTile(TileID.Solidifier).Register();
+        }
     }
 }
 

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using System;
@@ -103,6 +104,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Vector2 pos = Main.MouseWorld + new Vector2(Main.rand.Next(-spread, spread), Main.rand.Next(-spread, spread));
             Projectile.NewProjectile(source, pos.X, pos.Y, 0f, 0f, type, damage, knockback, player.whoAmI);
             return false;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<LifelightBag>(2).AddTile(TileID.Solidifier).Register();
         }
     }
 }

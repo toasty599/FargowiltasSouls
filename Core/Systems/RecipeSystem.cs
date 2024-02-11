@@ -1,11 +1,13 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -199,6 +201,10 @@ namespace FargowiltasSouls.Core.Systems
             //any evil orb magic
             group = new RecipeGroup(() => ItemXOrY(ItemID.Vilethorn, ItemID.CrimsonRod), ItemID.Vilethorn, ItemID.CrimsonRod);
             RecipeGroup.RegisterGroup("FargowiltasSouls:VilethornOrCrimsonRod", group);
+
+            //any shellphone because they made it 5 fucking different items
+            group = new RecipeGroup(() => AnyItem(ItemID.Shellphone), ItemID.Shellphone, ItemID.ShellphoneDummy, ItemID.ShellphoneHell, ItemID.ShellphoneOcean, ItemID.ShellphoneSpawn);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyShellphone", group);
 
 
         }

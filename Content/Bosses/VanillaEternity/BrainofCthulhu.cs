@@ -270,7 +270,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, 1, -1);
                     FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, type, npc.whoAmI, npc.whoAmI, 1, 1);
 
-                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, ModContent.NPCType<BrainClone>(), npc.whoAmI);
+                    if (WorldSavingSystem.MasochistModeReal)
+                        FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromAI(), npc.Center, ModContent.NPCType<BrainClone>(), npc.whoAmI);
 
                     for (int i = 0; i < Main.maxProjectiles; i++) //clear old golden showers
                     {

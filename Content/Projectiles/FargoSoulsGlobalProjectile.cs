@@ -153,6 +153,11 @@ namespace FargowiltasSouls.Content.Projectiles
                     DeletionImmuneRank = 1;
                     break;
 
+                case ProjectileID.RainbowFront:
+                case ProjectileID.RainbowBack:
+                    DeletionImmuneRank = 1;
+                    break;
+
                 case ProjectileID.PhantasmalDeathray:
                 case ProjectileID.DeerclopsIceSpike:
                 case ProjectileID.FairyQueenSunDance:

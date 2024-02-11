@@ -46,7 +46,7 @@ Submerging in water refreshes flight time and gives you improved speed and incre
             player.FargoSouls().MutantAntibodies = true;
 
             DamageClass damageClass = player.ProcessDamageTypeFromHeldItem();
-            player.GetDamage(damageClass) += 0.2f;
+            player.GetDamage(damageClass) += 0.25f;
 
             player.rabid = true;
             if (player.mount.Active && player.mount.Type == MountID.CuteFishron)

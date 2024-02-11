@@ -557,7 +557,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         EModeCanHurt = true;
                         counter = -600;
                     }
-                    else if (!WorldSavingSystem.MasochistModeReal)
+                    else if (!(WorldSavingSystem.MasochistModeReal && Main.getGoodWorld))
                     {
                         EModeCanHurt = false;
                         projectile.position -= projectile.velocity;
@@ -1167,7 +1167,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         if (projectile.hostile)
                         {
-                            const int FadeTime = 15;
+                            const int FadeTime = 20;
                             if (!EModeCanHurt)
                             {
                                 if (FadeTimer < FadeTime)
@@ -1178,7 +1178,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                 if (FadeTimer > 0)
                                     FadeTimer--;
                             }
-                            float fade = 1f - (0.25f * FadeTimer / FadeTime);
+                            float fade = 1f - (0.5f * FadeTimer / FadeTime);
                             projectile.Opacity = fade;
                         }
                     }
@@ -1268,7 +1268,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = 0; i < 8; i++)
-                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.HallowSpray, 0, 0f, Main.myPlayer, 8f);
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 2f, ProjectileID.HallowSpray, 0, 0f, Main.myPlayer, 8f);
                         }
                     }
                     else

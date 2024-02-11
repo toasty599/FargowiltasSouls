@@ -159,7 +159,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
                     if (selectedTarget != -1) //shoot
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.DirectionTo(Main.npc[selectedTarget].Center).RotatedBy(Main.rand.NextFloat(-MathHelper.PiOver4, MathHelper.PiOver4)),
-                            ModContent.ProjectileType<DarkStarHomingFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner, selectedTarget);
+                            ModContent.ProjectileType<MechElectricOrbHomingFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner, selectedTarget);
                     }
                 }
             }

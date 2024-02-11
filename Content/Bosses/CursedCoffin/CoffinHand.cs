@@ -188,7 +188,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                                 victim.fullRotation = 0;
                                 Projectile.netUpdate = true;
 
-                                coffin.MashTimer += 5; // increment mash cap, each successful mash makes the next one harder
+                                coffin.MashTimer += 7; // increment mash cap, each successful mash makes the next one harder
                                 owner.netUpdate = true;
 
                                 if (Main.netMode == NetmodeID.Server)

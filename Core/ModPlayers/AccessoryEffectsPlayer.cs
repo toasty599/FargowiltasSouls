@@ -477,15 +477,16 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        int lihzahrdFallCD;
+        int fastFallCD;
         public void LihzahrdTreasureBoxUpdate()
         {
-            if (lihzahrdFallCD > 0)
-                lihzahrdFallCD--;
+            if (fastFallCD > 0)
+                fastFallCD--;
 
-            if (Player.gravDir > 0 && Player.HasEffect<LihzahrdGroundPound>())
+            bool canFastFall = Player.HasEffect<LihzahrdGroundPound>() || Player.HasEffect<DeerclawpsDive>();
+            if (Player.gravDir > 0 && canFastFall)
             {
-                if (lihzahrdFallCD <= 0 && !Player.mount.Active && Player.controlDown && Player.releaseDown && !Player.controlJump && Player.doubleTapCardinalTimer[0] > 0 && Player.doubleTapCardinalTimer[0] != 15)
+                if (fastFallCD <= 0 && !Player.mount.Active && Player.controlDown && Player.releaseDown && !Player.controlJump && Player.doubleTapCardinalTimer[0] > 0 && Player.doubleTapCardinalTimer[0] != 15)
                 {
                     if (Player.velocity.Y != 0f)
                     {
@@ -503,7 +504,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (GroundPound > 0)
                 {
-                    lihzahrdFallCD = 60;
+                    fastFallCD = 60;
 
                     if (Player.velocity.Y == 0f && Player.controlDown)
                     {
@@ -528,6 +529,10 @@ namespace FargowiltasSouls.Core.ModPlayers
                         {
                             GroundPound = 0;
 
+                            if (Player.HasEffect<DeerclawpsDive>())
+                            {
+                                DeerclawpsDive.DeerclawpsLandingSpikes(Player, Player.Bottom);
+                            }
                             if (Player.HasEffect<LihzahrdBoulders>())
                             {
                                 if (!Main.dedServ)
@@ -588,11 +593,23 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Player.maxFallSpeed = 15f;
                         GroundPound++;
 
-                        for (int i = 0; i < 5; i++)
+                        if (Player.HasEffect<LihzahrdGroundPound>())
                         {
-                            int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch, Scale: 1.5f);
-                            Main.dust[d].noGravity = true;
-                            Main.dust[d].velocity *= 0.2f;
+                            for (int i = 0; i < 5; i++)
+                            {
+                                int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch, Scale: 1.5f);
+                                Main.dust[d].noGravity = true;
+                                Main.dust[d].velocity *= 0.2f;
+                            }
+                        }
+                        if (Player.HasEffect<DeerclawpsDive>())
+                        {
+                            for (int i = 0; i < 5; i++)
+                            {
+                                int d = Dust.NewDust(Player.position, Player.width, Player.height, LumpOfFlesh ? DustID.CrimsonTorch : DustID.IceTorch, Scale: 1.5f);
+                                Main.dust[d].noGravity = true;
+                                Main.dust[d].velocity *= 0.2f;
+                            }
                         }
                     }
                 }

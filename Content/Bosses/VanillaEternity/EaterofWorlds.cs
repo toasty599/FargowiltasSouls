@@ -562,11 +562,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public override void OnKill(NPC npc)
         {
             base.OnKill(npc);
-
+            
             if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.HostCheck)
             {
                 for (int i = 0; i < 8; i++)
-                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.CorruptSpray, 0, 0f, Main.myPlayer, 8f);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 2f, ProjectileID.CorruptSpray, 0, 0f, Main.myPlayer, 8f);
             }
         }
     }

@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.5);
+            npc.lifeMax *= 3;
         }
 
         public override bool SafePreAI(NPC npc)

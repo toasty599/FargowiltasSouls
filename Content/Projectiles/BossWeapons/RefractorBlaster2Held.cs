@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 }
                 if (timer > 60)
                 {
-                    int type = ModContent.ProjectileType<DarkStarFriendly>();
+                    int type = ModContent.ProjectileType<MechElectricOrbFriendly>();
                     const int max = 10;
                     double spread = MathHelper.PiOver4 / max;
                     int damage = Projectile.damage / 3;
