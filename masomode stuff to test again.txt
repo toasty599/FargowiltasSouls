@@ -73,3 +73,4 @@ devi gifts sans
 
 jungle rose boosts planteras fruit drop rate
 tweak deerclops ice castle tell
+destroyer guns work with transparent friendly projs config
