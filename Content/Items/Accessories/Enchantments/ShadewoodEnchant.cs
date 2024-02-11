@@ -115,9 +115,7 @@ Enemies struck while Bleeding spew damaging blood
             int dmg = 12;
 
             if (forceEffect)
-            {
                 dmg *= 3;
-            }
 
             if (target.HasBuff(ModContent.BuffType<SuperBleedBuff>()) && modPlayer.ShadewoodCD == 0 && (projectile == null || projectile.type != ModContent.ProjectileType<SuperBlood>()) && player.whoAmI == Main.myPlayer)
             {
