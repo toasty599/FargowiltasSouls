@@ -67,6 +67,7 @@ Fixed bug where Nymph's Perfume dropped hearts much more often than intended
 Resprited Universe Core
 Resprited Life Revitalizer
 Resprited Reinforced Plating
+Resprited Sands of Time
 
 Banished Baron:
 -Resprited boss and some projectiles
