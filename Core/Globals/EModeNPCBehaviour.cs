@@ -241,6 +241,10 @@ namespace FargowiltasSouls.Core.Globals
         {
             LoadSpriteBuffered(recolor, type, TextureAssets.Dest, FargowiltasSouls.TextureBuffer.Dest, "Dest");
         }
+        protected static void LoadGlowMask(bool recolor, int type)
+        {
+            LoadSpriteBuffered(recolor, type, TextureAssets.GlowMask, FargowiltasSouls.TextureBuffer.GlowMask, "Glow_");
+        }
         protected static void LoadProjectile(bool recolor, int type)
         {
             LoadSpriteBuffered(recolor, type, TextureAssets.Projectile, FargowiltasSouls.TextureBuffer.Projectile, "Projectile_");
