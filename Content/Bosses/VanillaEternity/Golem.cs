@@ -42,8 +42,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             npc.damage = (int)Math.Round(npc.damage * 1.1);
 
-            if (!Main.masterMode)
-                npc.lifeMax = (int)(npc.lifeMax * 1.25);
+            npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.75);
         }
 
         public override void OnFirstTick(NPC npc)
@@ -160,7 +159,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax *= 3; //From 5, compensation for 1.4.4 nerf
+            npc.lifeMax *= 4; //From 5, compensation for 1.4.4 nerf
             npc.damage = (int)(npc.damage * 1.2);
         }
 
@@ -194,7 +193,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     p.AddBuff(ModContent.BuffType<LowGroundBuff>(), 2);
             }
 
-            HealPerSecond = WorldSavingSystem.MasochistModeReal ? 240 : 180;
+            HealPerSecond = WorldSavingSystem.MasochistModeReal ? 360 : 180;
             if (!IsInTemple) //temple enrage, more horiz move and fast jumps
             {
                 HealPerSecond *= 2;

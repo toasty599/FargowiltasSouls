@@ -920,7 +920,7 @@ TerraForce: {
 		[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
 		[i:FargowiltasSouls/TungstenEnchant] Weapon size increased to 300% and projectile size every quarter second
 		[i:FargowiltasSouls/ObsidianEnchant] Grants immunity to lava
-		[i:FargowiltasSouls/AshWoodEnchant] While burning or in lava, player and town NPC attacks are accompanied by fireballs
+		[i:FargowiltasSouls/AshWoodEnchant] Player and town NPC attacks are accompanied by fireballs
 		'The land lends its strength'
 		''' */
 }
@@ -1749,6 +1749,10 @@ EternitySoul: {
 	Extra: {
 		// Additional: Additionally grants:
 		// Additional effects are automatically pulled from material tooltips
+		// Tooltips which start the with the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		// StartsWithFilter: "'"
+		// Tooltips which contain the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		// ContainsFilter: Following effects|Grants togglable
 		// Flavor: "'Mortal or Immortal, all things acknowledge your claim to divinity.'"
 	}
 }
@@ -1891,7 +1895,7 @@ WorldShaperSoul: {
 		Provides light and allows gravity control
 		Grants toggleable Builder Mode:
 		    Tiles and walls will not be consumed
-			Increased placement speed and range
+		    Increased placement speed and range
 		Effect can be disabled in Effect Toggles menu
 		Effects of the Cell Phone, Royal Gel and Treasure Magnet
 		Summons a pet Magic Lantern
@@ -2115,8 +2119,8 @@ MutantsDiscountCard: {
 	/* Tooltip:
 		'''
 		Permanently reduces Mutant's shop prices by 20%
+		{$CommonItemTooltip.MajorStats}
 		'It's not used how you think'
-		Major improvements to all stats
 		''' */
 }
 
@@ -2130,7 +2134,7 @@ OrdinaryCarrot: {
 	/* Tooltip:
 		'''
 		Increases night vision
-		Minor improvements to all stats
+		{$CommonItemTooltip.MinorStats}
 		1 minute duration
 		Right click to increase view range while in inventory
 		'Plucked from the face of a defeated foe'
@@ -3359,6 +3363,7 @@ PrimeSoul: {
 	// Tooltip: ""
 }
 
+// Dummy Item
 OncomingMutantItem: {
 	// DisplayName: Oncoming Mutant Icon
 	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant Presence
@@ -3384,6 +3389,7 @@ CoffinSummon: {
 	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
 }
 
+// Dummy Item
 TogglerIconItem: {
 	// DisplayName: Toggler Icon Item
 	// Tooltip: ""
