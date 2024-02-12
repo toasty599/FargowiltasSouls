@@ -1749,6 +1749,10 @@ EternitySoul: {
 	Extra: {
 		// Additional: Additionally grants:
 		// Additional effects are automatically pulled from material tooltips
+		// Tooltips which start the with the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		// StartsWithFilter: "'"
+		// Tooltips which contain the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		// ContainsFilter: Following effects|Grants togglable
 		// Flavor: "'Mortal or Immortal, all things acknowledge your claim to divinity.'"
 	}
 }

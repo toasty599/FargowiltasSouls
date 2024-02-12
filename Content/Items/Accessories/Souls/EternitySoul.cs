@@ -60,11 +60,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
                 for (int i = 0; i < linesToShow; i++)
                 {
                     string line = Main.rand.NextFromCollection(EternitySoulSystem.Tooltips);
-                    if (line.StartsWith("'") || line.Contains("Following effects") || line.Contains("Grants togglable")) // flavor text or undesired lines
-                    {
-                        i--;
-                        continue;
-                    }
                     if (EternitySoulSystem.TooltipLines.Contains(line)) // duplicate
                     {
                         i--;
@@ -210,16 +205,20 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
         public override void PostAddRecipes()
         {
+            string[] startsWithFilter = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.StartsWithFilter").Split("|", StringSplitOptions.RemoveEmptyEntries);
+            string[] containsFilter = Language.GetTextValue("Mods.FargowiltasSouls.Items.EternitySoul.Extra.ContainsFilter").Split("|", StringSplitOptions.RemoveEmptyEntries);
+
             foreach (Recipe recipe in Main.recipe.Where(r => r.createItem != null && r.createItem.ModItem is BaseSoul))
             {
                 foreach (Item item in recipe.requiredItem)
                 {
                     if (item.ModItem is ModItem modItem)
                     {
-                        var tooltips = modItem.Tooltip.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries); // trim lines start with whitespace
+                        var tooltips = modItem.Tooltip.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) // trim lines start with whitespace
+                            .Where(line => !startsWithFilter.Any(line.StartsWith) && !containsFilter.Any(line.Contains)); // filter flavor text or undesired lines
+
                         Tooltips.AddRange(tooltips);
                     }
-
                 }
             }
         }

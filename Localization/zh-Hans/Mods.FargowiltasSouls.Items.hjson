@@ -1252,7 +1252,7 @@ HeartoftheMasochist: {
 		免疫[i:FargowiltasSouls/PumpkingsCape]人形废土、[i:FargowiltasSouls/SaucerControlConsole]带电、扭曲、[i:FargowiltasSouls/BetsysHeart]分泌物、枯萎武器、枯萎盔甲减益
 		免疫[i:FargowiltasSouls/IceQueensCrown]恐寒症、[i:FargowiltasSouls/GalacticGlobe]无效诅咒、翻转、不稳定、月之诅咒减益
 		免疫[i:FargowiltasSouls/PrecisionSeal]惩戒、[i:FargowiltasSouls/MutantAntibodies]潮湿、野性咬噬、突变啃啄、海洋重击和由水造成的减益
-		[i:FargowiltasSouls/PumpkingsCape][i:FargowiltasSouls/MutantAntibodies][i:FargowiltasSouls/IceQueensCrown]伤害和暴击率增加10%，当前职业伤害增加20%，伤害减免增加5%
+		[i:FargowiltasSouls/PumpkingsCape][i:FargowiltasSouls/MutantAntibodies][i:FargowiltasSouls/IceQueensCrown]伤害和暴击率增加10%，伤害减免增加5%
 		[i:FargowiltasSouls/PumpkingsCape]右键点击来用披肩防护
 		[i:FargowiltasSouls/BetsysHeart]按下“特殊冲刺”键后会进行短距离的无敌火球冲刺
 		[i:FargowiltasSouls/SaucerControlConsole]按下“弹药切换”键循环切换弹药（这个效果放在物品栏中也被动生效）
@@ -1735,6 +1735,10 @@ EternitySoul: {
 	Extra: {
 		Additional: 额外加成：
 		// Additional effects are automatically pulled from material tooltips
+		// Tooltips which start the with the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		StartsWithFilter: “|《
+		// Tooltips which contain the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		ContainsFilter: 给予可开关的|下列效果也会生效
 		Flavor: “无论凡人或不朽，一切都承认你的神性”
 	}
 }
@@ -2236,7 +2240,7 @@ AccursedRags: {
 	Tooltip:
 		'''
 		召唤一口被诅咒的石棺
-		“那就是为什么你的布子被诅咒了，你——”
+		“那就是你的布子被诅咒的原因，你——”
 		'''
 }
 
@@ -2253,7 +2257,7 @@ ChibiHat: {
 	DisplayName: 小不点帽子
 	Tooltip:
 		'''
-		召唤小不点德薇
+		召唤小不点戴薇安
 		她紧跟着你的鼠标
 		“可爱！可爱！太可爱了！”
 		'''
