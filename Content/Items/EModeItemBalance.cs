@@ -177,7 +177,8 @@ namespace FargowiltasSouls.Content.Items
                     }
                     else
                     {
-                        return EModeChange.None;
+                        balanceTextKeys = new string[] { "MoonsDrops" };
+                        return EModeChange.Nerf;
                     }
 
                 case ItemID.CrossNecklace:
