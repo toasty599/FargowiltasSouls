@@ -10,6 +10,6 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 
         public bool CanShowItemDropInUI() => NPC.downedBoss2;
 
-        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.DownedEvilBoss");
+        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.Conditions.DownedEvilBoss");
     }
 }
