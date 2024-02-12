@@ -394,6 +394,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             CerebralMindbreak = false;
             NanoInjection = false;
             Stunned = false;
+            HasJungleRose = false;
             HaveCheckedAttackSpeed = false;
             BoxofGizmos = false;
             OxygenTank = false;

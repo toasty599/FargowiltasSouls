@@ -2,6 +2,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -33,6 +34,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             Projectile.extraUpdates = 0;
             Projectile.timeLeft = 360 * (Projectile.extraUpdates + 1);
+
+            Projectile.hide = true;
 
             Projectile.FargoSouls().DeletionImmuneRank = 1;
 
@@ -163,6 +166,11 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     new Vector2(Projectile.localAI[0], Projectile.localAI[1]), Projectile.Center);
         }
 
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            if (Projectile.hide)
+                behindNPCs.Add(index);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             if (Projectile.localAI[0] != 0 && Projectile.localAI[1] != 0)

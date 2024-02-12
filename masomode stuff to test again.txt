@@ -70,3 +70,11 @@ buffed ml core life 20% (x2.5 -> x3)
 cut cross necklace cd, 30 -> 20t
 buffed wof health 10%
 devi gifts sans
+
+jungle rose boosts planteras fruit drop rate
+tweak deerclops ice castle tell
+destroyer guns work with transparent friendly projs config
+
+maso golem regen 240 -> 360
+golem base health mult x1.25 -> x1.75
+golem body health mult x3 -> x4

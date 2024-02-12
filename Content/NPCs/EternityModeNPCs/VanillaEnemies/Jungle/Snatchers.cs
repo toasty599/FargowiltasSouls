@@ -129,5 +129,15 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
                 target.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.Snatchers", target.name)), 999999, 0);
             }
         }
+
+        public override void OnKill(NPC npc)
+        {
+            Player player = FargoSoulsUtil.PlayerExists(npc.lastInteraction);
+            int chance = player != null && player.FargoSouls().HasJungleRose ? 20 : 200;
+            if (Main.rand.NextBool(chance))
+            {
+                Item.NewItem(npc.GetSource_Loot(), npc.Hitbox, ModContent.Find<ModItem>("Fargowiltas", "PlanterasFruit").Type);
+            }
+        }
     }
 }
