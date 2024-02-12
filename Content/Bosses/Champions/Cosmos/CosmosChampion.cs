@@ -167,7 +167,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                     if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<CosmosVortex>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
                 }
-                if (NPC.ai[1] == 118) // 1 frame before so can music fade up next frame
+                if (NPC.ai[1] == 117) // 1 frame before so can music fade up next frame
                 {
                     if (ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod))
                     {
@@ -178,8 +178,8 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
                         Music = MusicID.OtherworldlyLunarBoss;
                     }
                 }
-                if (NPC.ai[1] > 118)
-                    Main.musicFade[Main.curMusic] = 1;
+                if (NPC.ai[1] > 117)
+                    Main.musicFade[Main.curMusic] += 0.2f;
                 if (++NPC.ai[1] > 120)
                 {
                     NPC.netUpdate = true;
