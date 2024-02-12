@@ -323,7 +323,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case NPCID.Deerclops:
-                    color = Color.LightSkyBlue;
+                    color = npc.life < npc.lifeMax / 3 ? Color.Red : Color.LightSkyBlue;
                     color.A = 0;
                     scale = 9f;
                     maxTime = 30;
