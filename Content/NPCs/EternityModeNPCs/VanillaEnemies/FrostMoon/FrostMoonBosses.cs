@@ -7,6 +7,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoo
 {
 	public class FrostMoonBosses : EModeNPCBehaviour
     {
+        public const int WAVELOCK = 15;
+
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
             NPCID.Everscream,
             NPCID.SantaNK1,
@@ -15,7 +17,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoo
 
         public override bool PreKill(NPC npc)
         {
-            if (Main.snowMoon && NPC.waveNumber < 15)
+            if (Main.snowMoon && NPC.waveNumber < WAVELOCK)
             {
                 for (int i = 0; i < 10; i++)
                 {

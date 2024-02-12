@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoon;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinMoon;
+using FargowiltasSouls.Core.Systems;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -168,10 +170,21 @@ namespace FargowiltasSouls.Content.Items
                 */
 
                 case ItemID.PumpkinMoonMedallion:
+                    if (WorldSavingSystem.MasochistModeReal)
+                    {
+                        balanceNumber = PumpkinMoonBosses.WAVELOCK;
+                        balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
+                        return EModeChange.Nerf;
+                    }
+                    else
+                    {
+                        balanceTextKeys = new string[] { "MoonsDrops" };
+                        return EModeChange.Nerf;
+                    }
                 case ItemID.NaughtyPresent:
                     if (WorldSavingSystem.MasochistModeReal)
                     {
-                        balanceNumber = 15;
+                        balanceNumber = FrostMoonBosses.WAVELOCK;
                         balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
                         return EModeChange.Nerf;
                     }
