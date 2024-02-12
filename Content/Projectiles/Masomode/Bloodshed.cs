@@ -57,6 +57,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     if (Main.player[p].Distance(Projectile.Center) < 360)
                     {
                         Projectile.velocity = Projectile.DirectionTo(Main.player[p].Center) * 9f;
+                        Projectile.timeLeft++;
 
                         if (Projectile.Colliding(Projectile.Hitbox, Main.player[p].Hitbox))
                         {
