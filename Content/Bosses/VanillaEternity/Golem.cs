@@ -159,7 +159,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax *= 4; //From 5, compensation for 1.4.4 nerf
+            npc.lifeMax *= 3; //From 5, compensation for 1.4.4 nerf
             npc.damage = (int)(npc.damage * 1.2);
         }
 
