@@ -19,6 +19,8 @@ using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Items;
 using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinMoon;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoon;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -454,7 +456,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.longInvince && !Player.immune)
             {
-                if (CrossNecklaceTimer < 30)
+                if (CrossNecklaceTimer < 20)
                 {
                     Player.longInvince = false;
                     CrossNecklaceTimer++;
@@ -610,7 +612,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             
-            if ((Main.snowMoon && NPC.waveNumber < 20 || Main.pumpkinMoon && NPC.waveNumber < 15) && WorldSavingSystem.MasochistModeReal)
+            if (((Main.snowMoon && NPC.waveNumber < FrostMoonBosses.WAVELOCK) || (Main.pumpkinMoon && NPC.waveNumber < PumpkinMoonBosses.WAVELOCK)) && WorldSavingSystem.MasochistModeReal)
             {
                 if (NPC.waveNumber > 1)
                     NPC.waveNumber--;

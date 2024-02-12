@@ -556,14 +556,20 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             NPC.noTileCollide = true;
             HoverSound();
-            Vector2 offset = -Vector2.UnitY * 300 + Vector2.UnitX * Math.Sign(NPC.Center.X - Player.Center.X) * 200;
-            Vector2 desiredPos = Player.Center + offset;
-            Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
+            if (Timer < 40)
+            {
+                Vector2 offset = -Vector2.UnitY * 300 + Vector2.UnitX * Math.Sign(NPC.Center.X - Player.Center.X) * 200;
+                Vector2 desiredPos = Player.Center + offset;
+                Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
+            }
+            else
+            {
+                NPC.velocity *= 0.97f;
+            }
 
             if (Timer == 2)
             {
                 AI3 = Main.rand.Next(90, 103); // time for hands to grab
-                Main.NewText(AI3);
                 NPC.netUpdate = true;
             }
             if (Timer > 2 && Timer == AI3)
@@ -716,8 +722,28 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 {
                     NPC.velocity = Vector2.Zero;
                     NPC.rotation = 0;
-                    StateReset();
-                    
+
+
+                    NPC.frameCounter = 0;
+                    Frame = 0;
+                    NPC.TargetClosest(false);
+                    Timer = 0;
+                    AI2 = 0;
+                    AI3 = 0;
+                    if (NPC.Center.Y < Player.Center.Y) // if above, do slam
+                    {
+                        State = (float)StateEnum.SlamWShockwave;
+                        NPC.noTileCollide = true;
+                        LockVector1 = Player.Top - Vector2.UnitY * 250;
+                        NPC.velocity.Y -= 5;
+                        NPC.velocity.X /= 2;
+                    }
+                    else // if below, do the "fly above" attack before slamming
+                    {
+                        State = (float)StateEnum.WavyShotFlight;
+                        LastAttackChoice = (int)State;
+                    }
+                    NPC.netUpdate = true;
                 }
             }
         }

@@ -53,7 +53,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
     }
     public class MutantArmorHeader : MasoHeader
     {
-        public override int Item => ModContent.ItemType<MutantBody>();
+        public override int Item => ModContent.ItemType<MutantMask>();
         public override float Priority => 4f;
     }
     /*

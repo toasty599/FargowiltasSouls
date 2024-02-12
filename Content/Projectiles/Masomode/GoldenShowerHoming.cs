@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     if (FargoSoulsUtil.HostCheck)
                     {
                         for (int i = 0; i < 8; i++)
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.CrimsonSpray, 0, 0f, Main.myPlayer, 8f);
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 2f, ProjectileID.CrimsonSpray, 0, 0f, Main.myPlayer, 8f);
                     }
                 }
             }

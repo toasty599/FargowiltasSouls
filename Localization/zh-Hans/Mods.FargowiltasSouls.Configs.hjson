@@ -12,8 +12,8 @@ SoulConfig: {
 	}
 
 	ItemDisabledTooltip: {
-		// Label: Disabled Effect Tooltip
-		// Tooltip: If true, items with any effects disabled by the Effect Toggler will have a tooltip line stating this.
+		Label: 在物品信息中显示效果被禁用
+		Tooltip: 开启时，若饰品有效果被饰品效果配置禁用，会有一条物品信息提示你
 	}
 
 	DeviChatter: {

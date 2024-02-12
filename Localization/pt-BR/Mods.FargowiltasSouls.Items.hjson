@@ -1705,312 +1705,12 @@ EternitySoul: {
 
 	Extra: {
 		Additional: Além disso, concede:
-		Vanilla:
-			'''
-			250% de aumento nos danos
-			250% de aumento na velocidade do ataque
-			100% de aumento na velocidade de disparo
-			100% de aumento no recuo
-			Aumenta a perfuração de blindagem em 50
-			Acertos críticos causam 10x o dano
-			Aumenta drasticamente a regeneração de vida
-			Aumenta a sua mana máxima a 999
-			Aumenta os seus lacaios máximos em 30
-			Aumenta as suas sentinelas máximas em 20
-			Aumenta a sua vida máxima em 50%
-			Reduz o seu uso de mana em 50%
-			Todos os ataques infligem Chamas do Universo
-			Todos os ataques infligem Sadismo
-			Todos os ataques infligem Midas
-			Todos os ataques reduzem os quadros de imunidade do inimigo
-			Invoca bolas de fogo ao seu redor
-			Invoca 2 esferas das sombras ao seu redor
-			Invoca gelos ao seu redor
-			Invoca cristais de folha ao seu redor
-			Invoca uma espada e escudo consagrados
-			Invoca besouros para proteger você
-			Invoca um lacaio de Chamas Explosivas
-			Invoca muitos animais de estimação
-			Invoca todos os chefes do Modo Eternidade para o seu lado
-			Os ataques podem invocar relâmpagos
-			Os ataques podem invocar pétalas de flores
-			Os ataques podem invocar esferas espectrais
-			Os ataques podem invocar um Guardião do Calabouço
-			Os ataques podem invocar bolas de neve
-			Os ataques podem invocar lanças
-			Os ataques podem invocar corações
-			Os ataques podem invocar uma tempestade em miniatura
-			Os ataques podem invocar reforços de impulso
-			Os ataques aumentam a regeneração de vida
-			Os ataques causam desvio das sombras
-			Os ataques causam disparos de Chamas Explosivas
-			Os ataques causam ataques do Reibóbora
-			Os ataques causam feitiços do Cultista
-			Os ataques causam chuvas de meteoro
-			Todos os projéteis vão se dividir
-			Os projéteis podem quebrar
-			Os projéteis invocam estrelas
-			Tamanho de itens e projéteis aumentado
-			Você deixa um rastro de fogo
-			Inimigos próximos são incinerados
-			Lacaios ocasionalmente liberam gadanhas
-			Você pode invocar lacaios temporários
-			Os animais têm defesa aumentada
-			As almas dos animais podem te ajudar
-			Os inimigos explodirão em agulhas
-			Fortalece muito todas as sentinelas do DD2
-			Aperte duas vezes para baixo para invocar uma sentinela de palmeira
-			Aperte duas vezes para baixo para chamar uma tempestade antiga
-			Aperte duas vezes para baixo para chamar uma chuva de flechas
-			Aperte duas vezes para baixo para entrar no modo sorrateiro
-			Aperte duas vezes para baixo para invocar um portal
-			Aperte duas vezes para baixo para direcionar o seu guardião empoderado
-			Clique com o botão direito para defender-se
-			Aperte a tecla Ouro para se envolver em ouro
-			Aperte a tecla Congelar para congelar o tempo por 5 segundos
-			O escudo solar permite que você faça uma corrida
-			Correr em blocos sólidos teleporta você através deles
-			Lançe uma bomba de fumaça para teleportar-se a ela e ganhar o efeito Primeiro Ataque
-			Pular liberará uma explosão de esporos
-			Inimigos que chegarem muito perto ativarão todos os efeitos de contato
-			Sofrer danos reflete-os
-			Sofrer danos ativa um gêiser de sangue
-			Sofrer danos pode fazer barulho
-			Sofrer danos faz com que você irrompa em bolas com espinhos
-			Sofrer danos faz com que você irrompa em Visões Antigas
-			Concede a regeneração de Carmim
-			Concede imunidade a fogo
-			Concede imunidade a dano por queda
-			Concede imunidade a lava
-			Concede imunidade aos recuos
-			Concede imunidade a quase todos os efeitos negativos
-			Concede coleta de ervas dobrada
-			Concede 50% de chance de Mega Abelhas
-			15% de chance de acerto crítico por lacaios
-			20% de chance de espólios bônus
-			Permite a corrida supersônica e
-			Permite o voo infinito
-			Aumenta a habilidade de pesca substancialmente
-			Todas as varas de pesca terão 10 iscas extras
-			Você renasce 10x mais rápido
-			Impede surgimentos de chefes
-			Aumenta as taxas de surgimento
-			Reduz a hostilidade de esqueletos fora do calabouço
-			Fortalece o Peixe-dragão Fofo
-			Concede disparo automático
-			Concede proteção de modificadores
-			Concede controle da gravidade
-			Concede caída rápida
-			Melhora os ganchos
-			Você atrai itens de mais longe
-			Velocidade de posicionamento de blocos e paredes aumentada em 50%
-			Posicionamento de blocos quase infinito
-			Alcance de mineração quase infinito
-			Velocidade de mineração aumentada consideravelmente
-			Você reflete todos os projéteis
-			Quando você sofre danos, você explode violentamente para danificar inimigos próximos
-			Quando você morre, você revive com vida máxima
-			Efeitos da Manopla de Fogo
-			Efeitos da Bolsa de Ioiô
-			Efeitos da Luneta do Fuzil
-			Efeitos das Algemas Celestiais
-			Efeitos da Flor de Mana
-			Efeitos do Cérebro da Confusão
-			Efeitos do Véu das Estrelas
-			Efeitos do Colar da Amada
-			Efeitos da Manto de Abelhas
-			Efeitos da Bolsa de Esporos
-			Efeitos do Escudo do Paladino
-			Efeitos do Casco de Tartaruga Congelada
-			Efeitos do Equipamento de Mergulho Ártico
-			Efeitos das Pernas de Rã
-			Efeitos do Tapete Mágico
-			Efeitos das Botas de Lava
-			Efeitos da Bolsa do Pescador
-			Efeitos da Arma de Tinta
-			Efeitos da Pré-serra
-			Efeitos do Telefone Celular
-			Efeitos das Botas de Flores
-			Efeitos do Equipamento de Mestre Ninja
-			Efeitos do Anel da Cobiça
-			Efeitos do Casco Celestial
-			Efeitos da Pedra Brilhante
-			Efeitos da Poção do Espeleólogo
-			Efeitos da Poção do Instinto-perigo
-			Efeitos da Poção do Caçador
-			Efeitos da Poção Brilhante
-			Efeitos do Modo Construtor
-			'''
-		// mod compatibility is removed
-		Thorium:
-			'''
-			Bônus de armadura de Living Wood
-			Bônus de armadura de Life Bloom
-			Bônus de armadura de Yew Wood
-			Bônus de armadura de Tide Hunter
-			Bônus de armadura de Icy
-			Bônus de armadura de Cryo Magus
-			Bônus de armadura de Whispering
-			Bônus de armadura de Sacred
-			Bônus de armadura de Warlock
-			Bônus de armadura de Biotech
-			Bônus de armadura de Cyber Punk
-			Bônus de armadura de Maestro
-			Bônus de armadura de Bronze
-			Bônus de armadura de Darksteel
-			Bônus de armadura de Durasteel
-			Bônus de armadura de Conduit
-			Bônus de armadura de Lodestone
-			Bônus de armadura de Illumite
-			Bônus de armadura de Jester
-			Bônus de armadura de Thorium
-			Bônus de armadura de Terrarium
-			Bônus de armadura de Malignant
-			Bônus de armadura de Folv
-			Bônus de armadura de White Dwarf
-			Bônus de armadura de Celestial
-			Bônus de armadura de Spirit Trapper
-			Bônus de armadura de Dragon
-			Bônus de armadura de Dread
-			Bônus de armadura de Flesh
-			Bônus de armadura de Demon Blood
-			Bônus de armadura de Tide Turner
-			Bônus de armadura de Assassin
-			Bônus de armadura de Pyromancer
-			Bônus de armadura de Dream Weaver
-			Efeitos de Flawless Chrysalis
-			Efeitos de Bubble Magnet
-			Efeitos de Agnor's Bowl
-			Efeitos de Ice Bound Strider Hide
-			Efeitos de Ring of Unity
-			Efeitos de Mix Tape
-			Efeitos de Eye of the Storm
-			Efeitos de Champion's Rebuttal
-			Efeitos de Incandescent Spark
-			Efeitos de Greedy Magnet
-			Efeitos de Abyssal Shell
-			Efeitos de Astro-Beetle Husk
-			Efeitos de Eye of the Beholder
-			Efeitos de Crietz
-			Efeitos de Mana-Charged Rocketeers
-			Efeitos de Inner Flame
-			Efeitos de Crash Boots
-			Efeitos de Vampire Gland
-			Efeitos de Demon Blood Badge
-			Efeitos de Lich's Gaze
-			Efeitos de Plague Lord's Flask
-			Efeitos de Phylactery
-			Efeitos de Crystal Scorpion
-			Efeitos de Guide to Expert Throwing - Volume III
-			Efeitos de Mermaid's Canteen
-			Efeitos de Deadman's Patch
-			Efeitos de Support Sash
-			Efeitos de Saving Grace
-			Efeitos de Soul Guard
-			Efeitos de Archdemon's Curse
-			Efeitos de Archangel's Heart
-			Efeitos de Medical Bag
-			Efeitos de Epic Mouthpiece
-			Efeitos de Straight Mute
-			Efeitos de Digital Tuner
-			Efeitos de Guitar Pick Claw
-			Efeitos de Ocean's Retaliation
-			Efeitos de Terrarium Defender
-			Efeitos de Air Walkers
-			Efeitos de Survivalist Boots
-			Efeitos de Weighted Winglets
-			'''
-		Calamity:
-			'''
-			Bônus de armadura de Aerospec
-			Bônus de armadura de Statigel
-			Bônus de armadura de Daedalus
-			Bônus de armadura de Bloodflare
-			Bônus de armadura de Victide
-			Bônus de armadura de Xeroc
-			Bônus de armadura de Omega Blue
-			Bônus de armadura de God Slayer
-			Bônus de armadura de Silva
-			Bônus de armadura de Auric Tesla
-			Bônus de armadura de Mollusk
-			Bônus de armadura de Reaver
-			Bônus de armadura de Hydrothermic
-			Bônus de armadura de Astral
-			Bônus de armadura de Tarragon
-			Bônus de armadura de Demonshade
-			Efeitos de Spirit Glyph
-			Efeitos de Raider's Talisman
-			Efeitos de Trinket of Chi
-			Efeitos de Gladiator's Locket
-			Efeitos de Unstable Prism
-			Efeitos de Counter Scarf
-			Efeitos de Fungal Symbiote
-			Efeitos de Permafrost's Concoction
-			Efeitos de Regenator
-			Efeitos de Core of the Blood God
-			Efeitos de Affliction
-			Efeitos de Deep Dive
-			Efeitos de The Transformer
-			Efeitos de Luxor's Gift
-			Efeitos de The Community
-			Efeitos de Abyssal Diving Suit
-			Efeitos de Lumenous Amulet
-			Efeitos de Aquatic Emblem
-			Efeitos de Nebulous Core
-			Efeitos de Draedon's Heart
-			Efeitos de The Amalgam
-			Efeitos de Godly Soul Artifact
-			Efeitos de Yharim's Gift
-			Efeitos de Heart of the Elements
-			Efeitos de The Sponge
-			Efeitos de Giant Pearl
-			Efeitos de Amidias' Pendant
-			Efeitos de Flame-Licked Shell
-			Efeitos de Plague Hive
-			Efeitos de Astral Arcanum
-			Efeitos de Hide of Astrum Deus
-			Efeitos de Profaned Soul Artifact
-			Efeitos de Dark Sun Ring
-			Efeitos de Elemental Gauntlet
-			Efeitos de Elemental Quiver
-			Efeitos de Ethereal Talisman
-			Efeitos de Statis' Belt of Curses
-			Efeitos de Nanotech
-			Efeitos de Asgardian Aegis
-			'''
-		SOA:
-			'''
-			Bônus de armadura de Bismuth
-			Bônus de armadura de Frosthunter
-			Bônus de armadura de Blightbone
-			Bônus de armadura de Dreadfire
-			Bônus de armadura de Space Junk
-			Bônus de armadura de Marstech
-			Bônus de armadura de Blazing Brute
-			Bônus de armadura de Cosmic Commander
-			Bônus de armadura de Nebulous Apprentic
-			Bônus de armadura de Stellar Priest
-			Bônus de armadura de Fallen Prince
-			Bônus de armadura de Void Warden
-			Bônus de armadura de Vulcan Reaper
-			Bônus de armadura de Flarium
-			Bônus de armadura de Asthraltite
-			Efeitos de Dreadflame Emblem
-			Efeitos de Lapis Pendant
-			Efeitos de Frigid Pendant
-			Efeitos de Pumpkin Amulet
-			Efeitos de Nuba's Blessing
-			Efeitos de Novaniel's Resolve
-			Efeitos de Celestial Ring
-			Efeitos de Ring of the Fallen
-			Efeitos de Memento Mori
-			Efeitos de Arcanum of the Caster
-			'''
-		DBT:
-			'''
-			Efeitos de Zenkai Charm
-			Efeitos de Aspera Crystallite
-			'''
+		// Additional effects are automatically pulled from material tooltips
+		// Tooltips which start the with the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		// StartsWithFilter: "'"
+		// Tooltips which contain the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		// ContainsFilter: Following effects|Grants togglable
+		// Flavor: "'Mortal or Immortal, all things acknowledge your claim to divinity.'"
 	}
 }
 
@@ -2377,6 +2077,7 @@ MutantsDiscountCard: {
 	Tooltip:
 		'''
 		Permanentemente reduz os preços da loja do Mutant em 20%
+		{$CommonItemTooltip.MajorStats}
 		'Não é usado como você pensa'
 		'''
 }
@@ -2391,7 +2092,7 @@ OrdinaryCarrot: {
 	Tooltip:
 		'''
 		Aumenta a visão noturna
-		Pequenas melhorias em todas as estatísticas
+		{$CommonItemTooltip.MinorStats}
 		1 minuto(s) de duração
 		Clique com o botão direito para aumentar o alcance de visualização enquanto estiver no inventário
 		'Arrancado do rosto de um inimigo derrotado'
@@ -3372,7 +3073,7 @@ LifeRevitalizer: {
 
 AbomMusicBox: {
 	// DisplayName: Music Box (Abominationn)
-	// Tooltip: Sakuzyo 'Stigma'
+	// Tooltip: Yuri O 'Laevateinn'
 }
 
 ChampionMusicBox: {
@@ -3382,7 +3083,7 @@ ChampionMusicBox: {
 
 DeviMusicBox: {
 	// DisplayName: Music Box (Deviantt)
-	// Tooltip: Sakuzyo 'Lexus Cyanixs'
+	// Tooltip: Yuri O 'Sparkly Strawberry Sunrise'
 }
 
 MutantMusicBox: {
@@ -3607,6 +3308,7 @@ PrimeSoul: {
 	// Tooltip: ""
 }
 
+// Dummy Item
 OncomingMutantItem: {
 	// DisplayName: Oncoming Mutant Icon
 	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant Presence
@@ -3632,6 +3334,7 @@ CoffinSummon: {
 	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
 }
 
+// Dummy Item
 TogglerIconItem: {
 	// DisplayName: Toggler Icon Item
 	// Tooltip: ""

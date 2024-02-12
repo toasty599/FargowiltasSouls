@@ -61,8 +61,9 @@ AshWoodEnchant: {
 	Tooltip:
 		'''
 		“着火了！”减益不再伤害你与城镇NPC
-		对npc生效的效果放在背包中也可生效
+		对NPC生效的效果放在背包中也可生效
 		当玩家身上有“着火了！”减益时，攻击会附带有火球
+		免疫浸油减益
 		降低岩浆的接触伤害
 		“你告诉我，这不是木头？”
 		'''
@@ -218,7 +219,7 @@ FrostEnchant: {
 		你的周围会出现冰锥
 		攻击时会将冰锥发射至光标位置
 		冰锥击中敌人时会使其短暂冻结，并造成冻伤减益
-		按下“冻结”键后将一切冻结20秒
+		按下“冻结”键后将一切冻结20秒，并造成霜冻减益
 		效果有60秒的冷却时间
 		“让我们给这个世界披上一层厚厚的冰衣”
 		'''
@@ -266,6 +267,7 @@ HuntressEnchant: {
 		'''
 		攻击忽略6点敌怪防御力并造成3点额外伤害
 		每次连续攻击会额外忽略6点防御力并多造成3点伤害
+		最多叠加10次
 		追踪武器和召唤物不会增加这些加成
 		任何一次攻击没有击中都会重置这些加成
 		“精确带来力量”
@@ -278,6 +280,7 @@ IronEnchant: {
 		'''
 		在物品栏中即可生效
 		制作物品时每种材料都有33%概率不消耗
+		对于每种材料每个世界只生效一次
 		不适用于在宇宙坩埚上制作的物品
 		物品的吸附范围扩大
 		“趁热打铁”
@@ -389,7 +392,7 @@ NinjaEnchant: {
 		'''
 		弹幕会根据其速度获得增伤，最高可达20%
 		当玩家缓慢移动时弹幕速度大幅增加
-		“等待正确的时机......”
+		“等待正确的时机……”
 		'''
 }
 
@@ -441,7 +444,7 @@ PearlwoodEnchant: {
 		'''
 		攻击有额外一次暴击机会
 		移动时一颗破坏之星会跟随玩家并试图对玩家造成伤害
-		“直面你自己吧......”
+		“直面你自己吧……”
 		'''
 }
 
@@ -553,7 +556,9 @@ SilverEnchant: {
 	Tooltip:
 		'''
 		右键进行盾牌格挡
-		如果时机正确则抵消这次伤害
+		在受击前短时间内格挡可抵消这次伤害
+		在受击的一刻完美格挡可获得惊人一刻增益
+		最多抵消100点伤害
 		“反射”
 		'''
 }
@@ -563,7 +568,7 @@ SnowEnchant: {
 	Tooltip:
 		'''
 		你的攻击造成短暂的霜冻减益
-		按下“冻结”键后将一切冻结15秒
+		按下“冻结”键后将一切冻结15秒，并造成霜冻减益
 		效果有60秒的冷却时间
 		“冷的要死”
 		'''
@@ -663,7 +668,7 @@ TitaniumEnchant: {
 		攻击生成钛金碎片防御屏障，最多有20个碎片
 		当你的碎片个数达到最大时，你会获得25%伤害减免，但你自身的减伤会被削减
 		效果生效时受击会导致该效果进入10秒冷却时间，在此期间你无法获得钛金碎片
-		“钛金之力握于手心”
+		“有了绝对防御后，谁还需要躲避呢？”
 		'''
 }
 
@@ -842,7 +847,7 @@ LifeForce: {
 		[i:FargowiltasSouls/CactusEnchant] 敌人死亡时有几率爆裂出针刺
 		[i:FargowiltasSouls/BeeEnchant] 飞行时在空中留下花朵
 		[i:FargowiltasSouls/BeeEnchant] 获得蜂巢背包的效果
-		[i:FargowiltasSouls/SpiderEnchant] 仆从和哨兵可以造成暴击，且有30%基础暴击率，但暴击伤害只有1.5倍而不是2倍
+		[i:FargowiltasSouls/SpiderEnchant] 仆从和哨兵可以造成暴击，但暴击伤害只有1.5倍而不是2倍
 		[i:FargowiltasSouls/TurtleEnchant] 站定不动时且不攻击时你会缩进壳里
 		[i:FargowiltasSouls/BeetleEnchant] 甲虫会提高你的攻击能力和防御能力
 		“罕有生灵敢违背你的意愿”
@@ -857,7 +862,7 @@ NatureForce: {
 		[i:FargowiltasSouls/MoltenEnchant] 引燃你附近较大范围内的敌人
 		[i:FargowiltasSouls/MoltenEnchant] 所有敌怪在狱火圈内时多受到50%伤害
 		[i:FargowiltasSouls/RainEnchant] 召唤一把可反射上方弹幕的雨伞
-		[i:FargowiltasSouls/SnowEnchant] 你的周围会出现冰锥
+		[i:FargowiltasSouls/SnowEnchant] 你的周围会出现冰锥，按下“冻结”键后将一切冻结20秒，并造成霜冻减益
 		[i:FargowiltasSouls/ChlorophyteEnchant] 召唤一圈叶绿水晶攻击附近的敌人
 		[i:FargowiltasSouls/JungleEnchant] 使你获得孢子二段跳和孢子冲刺的能力
 		[i:FargowiltasSouls/ShroomiteEnchant] 站定不动时使你进入隐身状态
@@ -914,7 +919,7 @@ TerraForce: {
 		[i:FargowiltasSouls/SilverEnchant] 右键进行盾牌格挡
 		[i:FargowiltasSouls/TungstenEnchant] 每过0.25秒剑和弹幕的大小增加300%
 		[i:FargowiltasSouls/ObsidianEnchant] 使你免疫火块与熔岩
-		[i:FargowiltasSouls/AshWoodEnchant] 玩家与城镇npc攻击时会附带火球
+		[i:FargowiltasSouls/AshWoodEnchant] 玩家与城镇NPC攻击时会附带火球
 		“大地赐予它力量”
 		'''
 }
@@ -1019,7 +1024,7 @@ BionomicCluster: {
 		[i:FargowiltasSouls/TimsConcoction]某些敌人在死亡时会掉落药水
 		[i:FargowiltasSouls/TribalCharm]手动点击攻击时，增加30%非召唤伤害
 		[c/00FFFF:当该饰品放在背包中或时装栏时，下列效果也会生效（右键点击以禁用）：]
-		    免疫[i:FargowiltasSouls/SandsofTime]强风、[i:FargowiltasSouls/MysticSkull]窒息、[i:FargowiltasSouls/FrigidGemstone]冷冻、[i:FargowiltasSouls/SqueakyToy]内疚减益
+		    免疫[i:FargowiltasSouls/SandsofTime]强风与仙人掌伤害、[i:FargowiltasSouls/MysticSkull]窒息、[i:FargowiltasSouls/FrigidGemstone]冷冻、[i:FargowiltasSouls/SqueakyToy]内疚减益
 		    [i:FargowiltasSouls/OrdinaryCarrot]获得夜视效果，[i:FargowiltasSouls/SecurityWallet]并改善重铸结果
 		    [i:FargowiltasSouls/ConcentratedRainbowMatter][i:FargowiltasSouls/MysticSkull]需要时自动使用治疗和魔力药水，并增大自动拾取魔力星的范围
 		    [i:FargowiltasSouls/NymphsPerfume]你会以满生命值重生，[i:FargowiltasSouls/SandsofTime]没有Boss在场时加快重生速度
@@ -1045,7 +1050,7 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/TimsConcoction]某些敌人在死亡时会掉落药水
 		[i:FargowiltasSouls/TribalCharm]手动点击攻击时，增加30%非召唤伤害
 		[c/00FFFF:当该饰品放在背包中或时装栏时，下列效果也会生效（右键点击以启用）：]
-		    免疫[i:FargowiltasSouls/SandsofTime]强风、[i:FargowiltasSouls/MysticSkull]窒息、[i:FargowiltasSouls/FrigidGemstone]冷冻、[i:FargowiltasSouls/SqueakyToy]内疚减益
+		    免疫[i:FargowiltasSouls/SandsofTime]强风与仙人掌伤害、[i:FargowiltasSouls/MysticSkull]窒息、[i:FargowiltasSouls/FrigidGemstone]冷冻、[i:FargowiltasSouls/SqueakyToy]内疚减益
 		    [i:FargowiltasSouls/OrdinaryCarrot]获得夜视效果，[i:FargowiltasSouls/SecurityWallet]并改善重铸结果
 		    [i:FargowiltasSouls/ConcentratedRainbowMatter][i:FargowiltasSouls/MysticSkull]需要时自动使用治疗和魔力药水，并增大自动拾取魔力星的范围
 		    [i:FargowiltasSouls/NymphsPerfume]你会以满生命值重生，[i:FargowiltasSouls/SandsofTime]没有Boss在场时加快重生速度
@@ -1078,8 +1083,8 @@ ChaliceoftheMoon: {
 		[i:FargowiltasSouls/LihzahrdTreasureBox]在空中双击“下”键快速下落
 		在一定高度使用快速下落，撞击地面时会产生猛烈的火焰喷发
 		落地时生成一连串巨石
-		[i:FargowiltasSouls/CelestialRune]根据武器类型，定期发动额外的攻击，受伤时召唤远古幻影妖攻击敌人
-		[i:FargowiltasSouls/ChaliceoftheMoon][i:FargowiltasSouls/MagicalBulb]召唤友善的邪教徒和植物幼株为你而战
+		[i:FargowiltasSouls/CelestialRune] 根据武器类型，定期发动额外的攻击，受伤时召唤远古幻影妖攻击敌人
+		召唤友善的[i:FargowiltasSouls/CelestialRune]邪教徒和[i:FargowiltasSouls/MagicalBulb]植物幼株为你而战
 		“喝了它”
 		'''
 }
@@ -1112,6 +1117,8 @@ Deerclawps: {
 		'''
 		免疫缓慢和冰冻
 		冲刺会留下一串冰刺
+		在空中双击“下”键快速下落
+		在一定高度使用快速下落，撞击地面时会爆发冰刺
 		“从被击败的敌人的脚上剪下来的指甲”
 		'''
 }
@@ -1245,7 +1252,7 @@ HeartoftheMasochist: {
 		免疫[i:FargowiltasSouls/PumpkingsCape]人形废土、[i:FargowiltasSouls/SaucerControlConsole]带电、扭曲、[i:FargowiltasSouls/BetsysHeart]分泌物、枯萎武器、枯萎盔甲减益
 		免疫[i:FargowiltasSouls/IceQueensCrown]恐寒症、[i:FargowiltasSouls/GalacticGlobe]无效诅咒、翻转、不稳定、月之诅咒减益
 		免疫[i:FargowiltasSouls/PrecisionSeal]惩戒、[i:FargowiltasSouls/MutantAntibodies]潮湿、野性咬噬、突变啃啄、海洋重击和由水造成的减益
-		[i:FargowiltasSouls/PumpkingsCape][i:FargowiltasSouls/MutantAntibodies][i:FargowiltasSouls/IceQueensCrown]伤害和暴击率增加10%，当前职业伤害增加20%，伤害减免增加5%
+		[i:FargowiltasSouls/PumpkingsCape][i:FargowiltasSouls/MutantAntibodies][i:FargowiltasSouls/IceQueensCrown]伤害和暴击率增加10%，伤害减免增加5%
 		[i:FargowiltasSouls/PumpkingsCape]右键点击来用披肩防护
 		[i:FargowiltasSouls/BetsysHeart]按下“特殊冲刺”键后会进行短距离的无敌火球冲刺
 		[i:FargowiltasSouls/SaucerControlConsole]按下“弹药切换”键循环切换弹药（这个效果放在物品栏中也被动生效）
@@ -1295,6 +1302,8 @@ LumpOfFlesh: {
 		[i:FargowiltasSouls/DreadShell]防护时和防护后短时间内，防御力和伤害减免大幅下降
 		[i:FargowiltasSouls/Deerclawps]冲刺会留下一串血刺
 		[i:FargowiltasSouls/SkullCharm]降低敌人以你为目标的可能性
+		[i:FargowiltasSouls/Deerclawps]在空中双击“下”键快速下落
+		[i:FargowiltasSouls/Deerclawps]在一定高度使用快速下落，撞击地面时会爆发冰刺
 		“它在生长”
 		'''
 }
@@ -1319,7 +1328,7 @@ MutantAntibodies: {
 		免疫潮湿、野性咬噬、突变啃啄和海洋重击减益
 		免疫大多数由水造成的减益
 		骑乘猪龙鱼坐骑时获得潮湿状态效果
-		增加20%你手持武器职业的伤害，但是降低生命恢复速度
+		增加25%你手持武器职业的伤害，但是降低生命恢复速度
 		浸在液体中重置飞行时间，增加最大飞行时间并增强移动力
 		“很健康的药物，十个医生中有零个会推荐使用它”
 		'''
@@ -1475,7 +1484,7 @@ SandsofTime: {
 	Tooltip:
 		'''
 		放在物品栏中即可生效
-		免疫强风减益
+		免疫强风减益和仙人掌伤害
 		没有Boss在场时重生速度加倍
 		使用以传送到你上一次死亡的地点
 		“无论你做什么，都不要丢下它”
@@ -1717,7 +1726,6 @@ EternitySoul: {
 	DisplayName: 永恒之魂
 	Tooltip:
 		'''
-		“无论凡人或不朽，一切都承认你的神性”
 		将你的基础暴击率设为50%
 		每次暴击时都会增加10%暴击率
 		暴击率达到100%后每次攻击会汲取10%生命值并增加5%伤害，你增加5防御力
@@ -1726,312 +1734,12 @@ EternitySoul: {
 
 	Extra: {
 		Additional: 额外加成：
-		Vanilla:
-			'''
-			增加250%伤害
-			增加250%攻击速度
-			增加100%射击速度
-			增加100%击退
-			增加50点护甲穿透
-			暴击伤害×10
-			大幅增加生命恢复速度
-			你的最大魔力值增加至999
-			增加30个召唤栏位
-			增加20个哨兵栏位
-			增加50%最大生命值
-			魔力消耗减少50%
-			所有的攻击都会造成宇宙之火减益
-			所有的攻击都会造成至尊永恒减益
-			所有的攻击都会造成迈达斯减益
-			所有的攻击都会减少敌怪无敌帧
-			在你周围召唤火球
-			在你周围召唤暗影珠
-			在你周围召唤冰锥
-			在你周围召唤叶状水晶
-			在你周围召唤神圣剑和神圣盾
-			召唤甲虫保护你
-			召唤爆炸烈焰哨兵
-			召唤亿点宠物
-			召唤所有可以召唤的永恒Boss为你而战
-			攻击有几率召唤闪电
-			攻击有几率召唤花瓣
-			攻击有几率召唤幽灵珠
-			攻击有几率召唤地牢守卫
-			攻击有几率召唤雪球
-			攻击有几率召唤长矛
-			攻击有几率召唤心
-			攻击有几率召唤迷你雨云
-			攻击有几率召唤强化焰
-			击中敌人能提高生命恢复速度
-			击中敌人能获得暗影闪避增益
-			攻击会额外发射爆炸火焰
-			攻击会额外发射南瓜弹幕
-			攻击会额外发射拜月教徒的弹幕
-			攻击会召唤陨石雨
-			所有的弹幕都会分裂
-			所有的弹幕都可能碎裂
-			所有的弹幕都会召唤星星
-			增加物品和弹幕的尺寸
-			你的身后会留下一条火痕
-			引燃你附近的敌人
-			仆从会释放镰刀
-			召唤栏位用光后你仍可以召唤临时的哨兵和仆从
-			将某些小动物转化为武器
-			敌人死亡时会爆裂出针刺
-			大幅强化旧日军团的塔防哨兵
-			双击“下”键以召唤一个棕榈树哨兵
-			双击“下”键以召唤一个远古风暴
-			双击“下”键后令箭雨倾泄在光标位置
-			双击“下”键切换至隐形模式
-			双击“下”键以生成一个旋涡
-			双击“下”键将你的守卫引至光标位置
-			右键进行盾牌格挡
-			按下"金身"键会将你包裹在一个黄金壳中
-			按下"冻结"键后会冻结时间9秒
-			允许你使用日耀护盾进行冲刺
-			朝墙壁冲刺时会直接穿过去
-			你可以扔出烟雾弹、传送至烟雾弹的位置获得先发制人增益
-			跳跃时你周围会不断生成孢子
-			太靠近敌怪时会激活所有受击效果
-			被攻击时会反弹伤害
-			被攻击时会喷出血液
-			被攻击时有可能发出吱吱声
-			被攻击时你会释放出尖钉球
-			被攻击时你会释放远古幻影妖
-			获得猩红恢复效果
-			免疫火块
-			免疫摔落伤害
-			免疫岩浆
-			免疫击退
-			免疫大多数减益
-			药草收获翻倍
-			普通蜜蜂有50%几率变成超级蜜蜂
-			仆从和哨兵有30%基础暴击率
-			敌人死亡时有20%几率掉落更多战利品
-			你能超音速奔跑
-			你能无限飞行
-			大大增加渔力
-			所有的钓竿都会额外抛出10根鱼线
-			重生速度×10
-			阻止Boss自然生成
-			提高刷怪速率
-			所有武器能够自动攻击
-			你能控制重力
-			你能快速下落
-			增强钩爪
-			扩大你的拾取范围
-			物块和墙壁的放置速度增加50%
-			放置物块时不会消耗物块
-			获得近乎无限的放置和挖掘距离
-			大大提高挖掘速度
-			你能反弹所有弹幕
-			你受到伤害时会发生剧烈爆炸并伤害附近的敌人
-			受到致死伤害时会以满生命值重生
-			拥有烈火手套的效果
-			拥有悠悠球袋的效果
-			拥有狙击镜的效果
-			拥有天界手铐的效果
-			拥有魔力花的效果
-			拥有混乱之脑的效果
-			拥有星星面纱的效果
-			拥有甜心项链的效果
-			拥有蜜蜂斗篷的效果
-			拥有孢子囊的效果
-			拥有圣骑士护盾的效果
-			拥有冰冻海龟壳效果
-			拥有北极潜水装备的效果
-			拥有蛙腿的效果
-			拥有飞毯的效果
-			拥有熔岩靴的效果
-			拥有渔夫渔具袋的效果
-			拥有喷漆器的效果
-			拥有自动安放器的效果
-			拥有手机的效果
-			拥有花靴的效果
-			拥有忍者大师装备的效果
-			拥有贪婪戒指效果
-			拥有天界壳的效果
-			拥有闪亮石的效果
-			拥有洞穴探险增益效果
-			拥有危险感增益效果
-			拥有狩猎增益效果
-			拥有光芒增益效果
-			你能够开启“建筑师模式”
-			按下“减益负载”键对自己造成减益并加强自己
-			按下“魔法净化”键治愈你身上绝大多数的减益
-			按下“寒霜咒语”键放置冰雪魔杖之冰
-			按下“弹药切换”键循环切换弹药
-			'''
-		// mod compatibility is removed
-		Thorium:
-			'''
-			拥有生命木套装的套装效果
-			拥有树人套装的套装效果
-			拥有紫衫木套装的套装效果
-			拥有猎潮者套装的套装效果
-			拥有碎冰套装的套装效果
-			拥有极寒巫师套装的套装效果
-			拥有低语者套装的套装效果
-			拥有崇圣套装的套装效果
-			拥有术士套装的套装效果
-			拥有生物工程套装的套装效果
-			拥有赛博朋克套装的套装效果
-			拥有大师套装的套装效果
-			拥有青铜套装的套装效果
-			拥有暗金骑士套装的套装效果
-			拥有耐钢套装的套装效果
-			拥有电容套装的套装效果
-			拥有地脉石套装的套装效果
-			拥有荧光套装的套装效果
-			拥有弄臣套装的套装效果
-			拥有瑟银套装的套装效果
-			拥有元素之灵套装的套装效果
-			拥有恶毒套装的套装效果
-			拥有弗之套装的套装效果
-			拥有白矮星套装的套装效果
-			拥有天界套装的套装效果
-			拥有猎魂者套装的套装效果
-			拥有绿龙套装的套装效果
-			拥有恐惧套装的套装效果
-			拥有血肉套装的套装效果
-			拥有魔血套装的套装效果
-			拥有洪流逆潮者套装的套装效果
-			拥有刺客套装的套装效果
-			拥有炎法套装的套装效果
-			拥有梦境编织者套装的套装效果
-			拥有无暇之蛹的效果
-			拥有泡泡磁铁的效果
-			拥有琵琶鱼球碗的效果
-			拥有遁蛛冰皮的效果
-			拥有团结之戒的效果
-			拥有杂集磁带的效果
-			拥有风暴之眼的效果
-			拥有反击之盾的效果
-			拥有炽热火花的效果
-			拥有贪婪磁铁的效果
-			拥有深渊外壳的效果
-			拥有太空甲虫壳的效果
-			拥有注视者之镜的效果
-			拥有精准项链的效果
-			拥有工匠的火箭靴的效果
-			拥有心灵之火的效果
-			拥有震地靴的效果
-			拥有吸血鬼试剂的效果
-			拥有魔血徽章的效果
-			拥有注视者之凝的效果
-			拥有瘟疫之主的药剂瓶的效果
-			拥有魂匣的效果
-			拥有水晶蝎的效果
-			拥有投手大师指南: 卷三的效果
-			拥有美人鱼水壶的效果
-			拥有亡者眼罩的效果
-			拥有支援腰带的效果
-			拥有救世恩典的效果
-			拥有灵魂庇佑的效果
-			拥有大恶魔之咒的效果
-			拥有圣天使之心的效果
-			拥有医疗包的效果
-			拥有史诗吹口的效果
-			拥有金属弱音器的效果
-			拥有数码调谐器的效果
-			拥有吉他拨爪的效果
-			拥有海潮之噬的效果
-			拥有界元之庇佑的效果
-			拥有履空靴的效果
-			拥有求生家之飞鞋的效果
-			拥有举足轻重靴的效果
-			'''
-		Calamity:
-			'''
-			拥有天蓝套装的套装效果
-			拥有斯塔提斯套装的套装效果
-			拥有代达罗斯套装的套装效果
-			拥有血炎套装的套装效果
-			拥有胜潮套装的套装效果
-			拥有皇天套装的套装效果
-			拥有蓝色欧米茄套装的套装效果
-			拥有弑神者套装的套装效果
-			拥有始源林海套装的套装效果
-			拥有古圣金源套装的套装效果
-			拥有软壳套装的套装效果
-			拥有掠夺者套装的套装效果
-			拥有渊泉套装的套装效果
-			拥有星幻套装的套装效果
-			拥有龙蒿套装的套装效果
-			拥有魔影套装的套装效果
-			拥有灵魂浮雕的效果
-			拥有掠夺者护符的效果
-			拥有气功念珠的效果
-			拥有角斗士金锁的效果
-			拥有不稳定棱晶的效果
-			拥有反击围巾的效果
-			拥有真菌共生体的效果
-			拥有佩码·福洛斯特之秘药的效果
-			拥有再生护符的效果
-			拥有血神核心的效果
-			拥有灾劫之尖啸的效果
-			拥有深潜者的效果
-			拥有变压器的效果
-			拥有卢克索的礼物的效果
-			拥有归一心元石的效果
-			拥有深渊潜游服的效果
-			拥有流明护身符的效果
-			拥有海波纹章的效果
-			拥有星云之核的效果
-			拥有嘉登之心的效果
-			拥有聚合之脑的效果
-			拥有圣魂神物的效果
-			拥有魔君的礼物的效果
-			拥有元灵之心的效果
-			拥有化绵留香石的效果
-			拥有大珍珠的效果
-			拥有阿米迪亚斯之垂饰的效果
-			拥有舐火甲壳的效果
-			拥有瘟疫蜂巢的效果
-			拥有星辉秘术的效果
-			拥有星神隐壳的效果
-			拥有渎魂神物的效果
-			拥有蚀日尊戒的效果
-			拥有元素之握的效果
-			拥有元素箭袋的效果
-			拥有空灵护符的效果
-			拥有斯塔提斯的虚空饰带的效果
-			拥有纳米技术的效果
-			拥有阿斯加德之庇护的效果
-			'''
-		/* SOA:
-			'''
-			Armor bonuses from Bismuth
-			Armor bonuses from Frosthunter
-			Armor bonuses from Blightbone
-			Armor bonuses from Dreadfire
-			Armor bonuses from Space Junk
-			Armor bonuses from Marstech
-			Armor bonuses from Blazing Brute
-			Armor bonuses from Cosmic Commander
-			Armor bonuses from Nebulous Apprentic
-			Armor bonuses from Stellar Priest
-			Armor bonuses from Fallen Prince
-			Armor bonuses from Void Warden
-			Armor bonuses from Vulcan Reaper
-			Armor bonuses from Flarium
-			Armor bonuses from Asthraltite
-			Effects of Dreadflame Emblem
-			Effects of Lapis Pendant
-			Effects of Frigid Pendant
-			Effects of Pumpkin Amulet
-			Effects of Nuba's Blessing
-			Effects of Novaniel's Resolve
-			Effects of Celestial Ring
-			Effects of Ring of the Fallen
-			Effects of Memento Mori
-			Effects of Arcanum of the Caster
-			''' */
-		DBT:
-			'''
-			拥有全快护符的效果
-			拥有埃斯佩拉水晶的效果
-			'''
+		// Additional effects are automatically pulled from material tooltips
+		// Tooltips which start the with the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		StartsWithFilter: “|《
+		// Tooltips which contain the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		ContainsFilter: 给予可开关的|下列效果也会生效
+		Flavor: “无论凡人或不朽，一切都承认你的神性”
 	}
 }
 
@@ -2397,7 +2105,8 @@ MutantsDiscountCard: {
 	Tooltip:
 		'''
 		永久将突变体的商店价格降低20%
-		“它不是照你想的那么用的”
+		{$CommonItemTooltip.MajorStats}
+		“它不是照你想的那么用的”		
 		'''
 }
 
@@ -2411,7 +2120,7 @@ OrdinaryCarrot: {
 	Tooltip:
 		'''
 		提高夜视能力
-		所有属性小幅提升
+		{$CommonItemTooltip.MinorStats}
 		1分钟持续时间
 		放在物品栏中时，右键点击可以增加视野
 		“从被打败的敌人的脸上拔下来的”
@@ -2531,7 +2240,7 @@ AccursedRags: {
 	Tooltip:
 		'''
 		召唤一口被诅咒的石棺
-		“那就是为什么你的布子被诅咒了，你——”
+		“那就是你的布子被诅咒的原因，你——”
 		'''
 }
 
@@ -2548,7 +2257,7 @@ ChibiHat: {
 	DisplayName: 小不点帽子
 	Tooltip:
 		'''
-		召唤小不点德薇
+		召唤小不点戴薇安
 		她紧跟着你的鼠标
 		“可爱！可爱！太可爱了！”
 		'''
@@ -3144,6 +2853,9 @@ HellZone: {
 		'''
 		使用骨头作为弹药
 		80%的几率不消耗弹药
+		攻击对敌人造成地狱烈焰减益
+		右键攻击发射骷髅头标记敌人
+		被标记的敌人受到的地狱烈焰伤害×5
 		“屠戮众多的奖励……”
 		'''
 }
@@ -3409,7 +3121,7 @@ LifeRevitalizer: {
 
 AbomMusicBox: {
 	DisplayName: 音乐盒（憎恶）
-	Tooltip: 削除 - 《Stigma》
+	Tooltip: Yuri O 'Laevateinn'
 }
 
 ChampionMusicBox: {
@@ -3419,7 +3131,7 @@ ChampionMusicBox: {
 
 DeviMusicBox: {
 	DisplayName: 音乐盒（戴薇安）
-	Tooltip: 削除 - 《Lexus Cyanixs》
+	Tooltip: Yuri O 'Sparkly Strawberry Sunrise'
 }
 
 MutantMusicBox: {
@@ -3485,7 +3197,7 @@ MostlyOrdinaryrock.Tooltip: Mods.FargowiltasSouls.ItemTooltip.MostlyOrdinaryrock
 
 WiresPainting: {
 	DisplayName: Wires猫绘画
-	Tooltip: 看那边！
+	Tooltip: “向内看……”
 }
 
 PrismaRegalia: {
@@ -3611,11 +3323,12 @@ EaterLauncherJr: {
 	DisplayName: 爆裂噬魂者
 	Tooltip:
 		'''
-		使用腐肉作为弹药
+		在物品栏中右键以使用腐肉装填弹药
+		每个腐肉可装填100发，至多装填1000发
+		开火时若有需要会自动使用腐肉装填弹药
 		发射一大块腐肉
 		对指定范围内的敌怪造成更多伤害
-		50%的几率不消耗弹药
-		“被击败的敌人的腐烂遗骸......”
+		“被击败的敌人的腐烂遗骸……”
 		'''
 }
 
@@ -3626,7 +3339,7 @@ TheBiggestSting: {
 		使用飞镖作为弹药
 		伤害受蜜蜂伤害与击退影响
 		66%的几率不消耗弹药
-		“蜂王矢志不渝的蜂群......”
+		“蜂王矢志不渝的蜂群……”
 		'''
 }
 
@@ -3640,6 +3353,7 @@ PrimeSoul: {
 	Tooltip: ""
 }
 
+// Dummy Item
 OncomingMutantItem: {
 	DisplayName: 未完成的突变体图标
 	Tooltip: 只有在玩家身上有突变驾到减益时出现在饰品效果切换UI里
@@ -3649,25 +3363,26 @@ Extra: {
 	StarlightTungsten: 无法被钨魔石强化
 	DefensePrefixMaxLife: +{0} 最大生命值
 	EternityItem: 永恒
-	// DisabledEffects: Has effects disabled by the Effect Toggles menu
+	DisabledEffects: 有效果被饰品效果配置禁用
 	PatreonItem: >> 捐赠者物品 <<
 	// stealing items texts are currently not displayed
 	ItemStolen: 你有东西被偷了！
 }
 
 GravityTestItem: {
-	// DisplayName: Gravity Test Item
-	// Tooltip: ""
+	DisplayName: 重力测试物品
+	Tooltip: ""
 }
 
 CoffinSummon: {
-	// DisplayName: Forgotten Urn
-	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
+	DisplayName: 失落之瓮
+	Tooltip: 在地下沙漠打碎会召唤咒缚灵棺
 }
 
+// Dummy Item
 TogglerIconItem: {
-	// DisplayName: Toggler Icon Item
-	// Tooltip: ""
+	DisplayName: 饰品效果切换图标
+	Tooltip: ""
 }
 
 RazorContainer: {

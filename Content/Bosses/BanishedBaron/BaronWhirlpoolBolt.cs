@@ -1,6 +1,9 @@
 ﻿using FargowiltasSouls.Core.Systems;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -15,6 +18,8 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         {
             // DisplayName.SetDefault("Banished Baron Mine Shrapnel");
             Main.projFrames[Type] = 3;
+            ProjectileID.Sets.TrailCacheLength[Type] = 10;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
         }
         public override void SetDefaults()
         {
@@ -86,6 +91,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     }
                     break;
             }
+        }
+        public override bool PreDraw(ref Microsoft.Xna.Framework.Color lightColor)
+        {
+            FargoSoulsUtil.ProjectileWithTrailDraw(Projectile, lightColor, additiveTrail: true, alsoAdditiveMainSprite: false);
+            return false;
         }
     }
 }

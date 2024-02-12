@@ -77,7 +77,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 {
                     SoundEngine.PlaySound(SoundID.Item105 with { Pitch = -0.3f }, Projectile.Center);
                     Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / max);
-                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel / 2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, newvel / 2, ModContent.ProjectileType<MechElectricOrbFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     if (p < Main.maxProjectiles)
                     {
                         Main.projectile[p].DamageType = DamageClass.Melee;
@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                         {
                             SoundEngine.PlaySound(SoundID.Item105 with { Pitch = -0.3f }, Projectile.Center);
                             Vector2 newvel = baseVel.RotatedBy(i * MathHelper.TwoPi / 12);
-                            int p = Projectile.NewProjectile(target.Center, newvel/2, ModContent.ProjectileType<DarkStarFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, target.whoAmI);
+                            int p = Projectile.NewProjectile(target.Center, newvel/2, ModContent.ProjectileType<MechElectricOrbFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, target.whoAmI);
                             if(p < 1000)
                             {
                                 Main.Projectile[p].magic = false;

@@ -33,7 +33,7 @@ BlenderProj3.DisplayName: O Liquidificador
 BlenderSpray.DisplayName: Disparo do Liquidificador
 BlenderYoyoProj.DisplayName: O Liquidificador
 Bonez.DisplayName: Ossoz
-DarkStarFriendly.DisplayName: Estrela das Sombras
+MechElectricOrbFriendly.DisplayName: Estrela das Sombras
 Dash.DisplayName: Corrida
 Dash2.DisplayName: Corrida2
 DicerMine.DisplayName: Mina do Cortador
@@ -275,10 +275,10 @@ CultistFireball.DisplayName: Bola de Fogo
 CultistRitual.DisplayName: Ritual do Cultista
 CultistVortex.DisplayName: Vórtice
 CursedFlamethrower.DisplayName: Fogo dos Olhos
-DarkStar.DisplayName: Estrela das Sombras
-DarkStarDestroyer.DisplayName: Estrela das Sombras
-DarkStarHoming.DisplayName: Estrela das Sombras
-DarkStarTwins.DisplayName: Estrela das Sombras
+MechElectricOrb.DisplayName: Estrela das Sombras
+MechElectricOrbDestroyer.DisplayName: Estrela das Sombras
+MechElectricOrbHoming.DisplayName: Estrela das Sombras
+MechElectricOrbTwins.DisplayName: Estrela das Sombras
 DeathSkull.DisplayName: Caveira da Morte
 DeerclopsHand.DisplayName: Mão das Sombras
 DestroyerLaser.DisplayName: Laser da Morte
@@ -368,7 +368,7 @@ BigBrainProj.DisplayName: Grande Cérebro
 BrainMinion.DisplayName: Projétil do Cérebro
 CreeperMinion.DisplayName: Projétil do Cérebro
 CrystalSkull.DisplayName: Caveira de Cristal
-DarkStarHomingFriendly.DisplayName: Estrela das Sombras
+MechElectricOrbHomingFriendly.DisplayName: Estrela das Sombras
 DestroyerBody.DisplayName: Corpo do Destruidor
 DestroyerBody2.DisplayName: Corpo do Destruidor
 DestroyerHead.DisplayName: Cabeça do Destruidor

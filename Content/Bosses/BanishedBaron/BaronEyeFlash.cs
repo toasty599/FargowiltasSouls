@@ -50,6 +50,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             if (npc.TypeAlive<BanishedBaron>())
             {
                 Projectile.Center = npc.Center + npc.rotation.ToRotationVector2() * npc.width * 0.35f;
+                Projectile.velocity = npc.velocity;
             }
             if (Projectile.scale <= 0.05)
             {

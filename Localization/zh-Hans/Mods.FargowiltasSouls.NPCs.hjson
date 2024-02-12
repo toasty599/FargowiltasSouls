@@ -3,7 +3,7 @@ AbomBoss: {
 
 	BossChecklistIntegration: {
 		EntryName: "{$Mods.FargowiltasSouls.NPCs.AbomBoss.DisplayName}"
-		SpawnInfo: 使用 [i:FargowiltasSouls/AbomsCurse] 召唤。
+		SpawnInfo: 使用[i:FargowiltasSouls/AbomsCurse]召唤。
 		DespawnMessage: 憎恶找不到有价值的对手……
 		KilledAllMessage: 憎恶摧毁了所有人。
 	}
@@ -16,8 +16,8 @@ TrojanSquirrel: {
 
 	BossChecklistIntegration: {
 		EntryName: "{$Mods.FargowiltasSouls.NPCs.TrojanSquirrel.DisplayName}"
-		SpawnInfo: 使用 [i:FargowiltasSouls/SquirrelCoatofArms] 召唤。
-		DespawnMessage: Trojan Squirrel returns to its squirrel clan...
+		SpawnInfo: 使用[i:FargowiltasSouls/SquirrelCoatofArms]召唤。
+		DespawnMessage: 特洛伊松鼠回到了它的松鼠聚落中……
 	}
 }
 
@@ -29,7 +29,7 @@ CosmosChampion: {
 
 	BossChecklistIntegration: {
 		EntryName: "{$Mods.FargowiltasSouls.NPCs.CosmosChampion.DisplayName}"
-		SpawnInfo: 在太空使用 [i:FargowiltasSouls/SigilOfChampions] 召唤。
+		SpawnInfo: 在太空使用[i:FargowiltasSouls/SigilOfChampions]召唤。
 		DespawnMessage: 宇宙英灵回归群星之中……
 		KilledAllMessage: 宇宙英灵击败了每一个敌人。
 	}
@@ -148,7 +148,7 @@ MutantBoss: {
 
 	BossChecklistIntegration: {
 		EntryName: "{$Mods.FargowiltasSouls.NPCs.MutantBoss.DisplayName}"
-		SpawnInfo: 在突变体和憎恶存活时将 [i:FargowiltasSouls/AbominationnVoodooDoll] 投入岩浆池中。
+		SpawnInfo: 在突变体和憎恶存活时将[i:FargowiltasSouls/AbominationnVoodooDoll]投入岩浆池中。
 		DespawnMessage: 突变体再次将自己的力量封印起来……
 		KilledAllMessage: 突变体肃清了他周围的每一个生灵。
 	}
@@ -156,24 +156,24 @@ MutantBoss: {
 	SkipP1: 突变体不想再伪装下去了……
 
 	GFBText: {
-		Random0: 呵呵呵呵呵呵呵......
+		Random0: 呵呵呵呵呵呵呵……
 		Random1: 你们很享受这场灾难吗？
-		Random2: 这种感觉......
+		Random2: 这种感觉……
 		Random3: 我将终结这一切！
 		Random4: 愚蠢至极，泰拉人。
 		Random5: 在你们的渺小的墓碑上铭刻着：被伟大的突变体所击败！
 		Random6: 没人能声称拥有着永恒的称号！
-		Random7: 永恒的痛苦......
+		Random7: 永恒的痛苦……
 		Random8: 你不配拥有永恒之魂！
 		Random9: 在我的力量下颤抖吧！
-		Random10: 洞察者躁动不安......
+		Random10: 洞察者躁动不安……
 		Random11: 在真正的力量下化为齑粉吧！
 		Random12: 力量掌握在我的手中！我绝对的力量是不可磨灭的事实！
 		Random13: 见证一场真正的灾难吧。
 		Random14: 我可以在你击败我之前背下圆周率的所有的位数。
-		Random15: 这才刚刚开始......
+		Random15: 这才刚刚开始……
 		Random16: 不要试图逃避！
-		Random17: 焚膏继晷数千载，仅为此一战......
+		Random17: 焚膏继晷数千载，仅为此一战……
 		Random18: 弱者不配活着。
 		Random19: 运气不再会有用了。
 		Random20: 我将用你的血来灌满整个圣杯！
@@ -193,12 +193,12 @@ MutantBoss: {
 		Random34: 你的生命是短暂的，你唯一的使命就是死亡。
 		Random35: 泰拉宇宙的力量都在我手中！
 		Random36: 去死吧！
-		Random37: 你可真是如玻璃般易碎啊......
-		Random38: 如果你停止攻击，我可以考虑放过你......
+		Random37: 你可真是如玻璃般易碎啊……
+		Random38: 如果你停止攻击，我可以考虑放过你……
 		Random39: 汝将灰飞烟灭，徒留永恒痛苦之回忆！
 		Random40: 汝之一切，终将被埋葬！
 		Random41: 超越地狱烈火的煎熬！
-		Random42: 感觉你的细胞之间距离太远了呢，让我帮你解决这个问题......
+		Random42: 感觉你的细胞之间距离太远了呢，让我帮你解决这个问题……
 		Random43: 构成你的每个原子都将被撕碎！
 		Random44: 在永恒之神面前如孩童般哭泣吧！
 		Random45: 用你的鲜血祭奠那些灵魂！
@@ -214,18 +214,18 @@ MutantBoss: {
 		Random55: 如同玻璃般四分五裂吧！
 		Random56: 如同尘土般灰飞烟灭吧！
 		Random57: 有抑郁症那你怎么不去死啊？
-		Random58: 期待听你死亡时凄惨的哭喊声呢......
+		Random58: 期待听你死亡时凄惨的哭喊声呢……
 		Random59: 我是无上源初之神明！！
 		Random60: 要不要再添加一个魔鬼模式？
 		Random61: Furgo的力量在我面前如烛火般渺小！
-		Random62: 我觉得你一直用假币在欺骗我，需要狠狠惩罚呢......
+		Random62: 我觉得你一直用假币在欺骗我，需要狠狠惩罚呢……
 		Random63: 东方是什么动漫？
-		Random64: 你给我的假币让我很恼火，有点生气了呢......
+		Random64: 你给我的假币让我很恼火，有点生气了呢……
 		Random65: 别想从我的手中逃脱出去！
-		Random66: 所有的一切都会在今天结束......
+		Random66: 所有的一切都会在今天结束……
 		Random67: 你的死亡即将来临，你这蛆虫！
 		Random68: 你这种毫无价值令人恶心的存在快从世上消失吧！
-		Random69: 真可惜，你活不了多久了，无法见证我们的故事了呢......
+		Random69: 真可惜，你活不了多久了，无法见证我们的故事了呢……
 		Random70:
 			'''
 			汝以何之勇挑战吾？吾乃万象的支配者，吾乃永恒本身！
@@ -237,9 +237,9 @@ MutantBoss: {
 			微不足道的虫豸，汝之名姓将没于历史长河！
 			'''
 		Quote1: 交出你的灵魂吧！
-		Quote2: 准备好感受痛苦了吗......
-		Quote3: 游戏到此结束了......
-		Quote4: 洞察者之怒......
+		Quote2: 准备好感受痛苦了吗……
+		Quote3: 游戏到此结束了……
+		Quote4: 洞察者之怒……
 		Quote5: 冲刺！
 		Quote6: 死亡射线！
 		Quote7: 欣赏我残酷永恒之神的永恒力吧！
@@ -247,15 +247,15 @@ MutantBoss: {
 		Quote9: 去死吧去死吧去死吧去死吧去死吧去死吧！！
 		Quote10: 我即是永恒！
 		Quote11: 感受我的力量吧！
-		Quote12: 日耀、星旋、星云、星尘......以四柱之力，撕碎你吧！
+		Quote12: 日耀、星旋、星云、星尘……以四柱之力，撕碎你吧！
 		Quote13: 凝视深渊吧！
-		Quote14: 洞察者真正的力量......
+		Quote14: 洞察者真正的力量……
 		Quote15: 和蔼！
-		Quote16: 世界千疮百孔......
+		Quote16: 世界千疮百孔……
 		Quote17: 机械动乱？
 		Quote18: 猪鲨之荣耀！
 		Quote19: 这是你应得的！
-		Quote20: 用哪一招折磨你呢......？
+		Quote20: 用哪一招折磨你呢……？
 		Quote21: 还能坚持住吗？
 		Quote22:
 			'''
@@ -292,14 +292,14 @@ MutantBoss: {
 			'''
 			神枪手之魂在我感知现实的能力面前苍白无力！狂战士之怒的力量只不过是小菜一碟！
 			超音速也无法与我的速度媲美，而可怜的巫师之魂只不过是装腔作势罢了！
-			飞行大师，巨像之魂仅是最基础的最基本的概念......
+			飞行大师，巨像之魂仅是最基础的最基本的概念……
 			戴个大魔法帽的那位只不过是一个推销她的魔法的小家伙，南瓜头的实力与我相比只是冰山一角！
 			无论是超音速还是光速都打不到我！辉煌的光芒将消灭你，你这个傻瓜！！
 			'''
 		Quote31: 死死死死死死死死死死死死死死死死死！！！
 		Quote32: 我！不！会！被！毁！灭！
-		Quote33: 期待我的重生吧......
-		Quote34: 你真的很出色......
+		Quote33: 期待我的重生吧……
+		Quote34: 你真的很出色……
 	}
 }
 
@@ -310,7 +310,7 @@ DeviBoss: {
 
 	BossChecklistIntegration: {
 		EntryName: "{$Mods.FargowiltasSouls.NPCs.DeviBoss.DisplayName}"
-		SpawnInfo: 使用 [i:FargowiltasSouls/DevisCurse] 召唤。
+		SpawnInfo: 使用[i:FargowiltasSouls/DevisCurse]召唤。
 		DespawnMessage: 戴薇安对战斗感到厌倦了……
 		KilledAllMessage: 戴薇安对于她所展示的爱的表演感到很满意。
 	}
@@ -336,7 +336,7 @@ LifeChallenger: {
 	BossChecklistIntegration: {
 		EntryName: "{$Mods.FargowiltasSouls.NPCs.LifeChallenger.DisplayName}"
 		SpawnInfo: 白天在神圣之地使用[i:FargowiltasSouls/FragilePixieLamp]召唤。
-		DespawnMessage: 飘渺游光随辉光消逝......
+		DespawnMessage: 飘渺游光随辉光消逝……
 	}
 
 	FatherOfLies: 你来到这里真是个致命错误。
@@ -348,23 +348,23 @@ BanishedBaron: {
 	BossChecklistIntegration: {
 		EntryName: "{$Mods.FargowiltasSouls.NPCs.BanishedBaron.DisplayName}"
 		SpawnInfo: 在海洋的水下区域使用[i:FargowiltasSouls/MechLure]召唤。
-		DespawnMessage: 放逐遗爵正回归深渊......
+		DespawnMessage: 放逐遗爵正回归深渊……
 	}
 
 	Slurp: 吸溜
 }
 
 CursedCoffin: {
-	// DisplayName: Cursed Coffin
+	DisplayName: 咒缚灵棺
 
 	BossChecklistIntegration: {
-		// EntryName: "{$Mods.FargowiltasSouls.NPCs.CursedCoffin.DisplayName}"
-		// SpawnInfo: Spawn by using [i:FargowiltasSouls/CoffinSummon] underground in the Desert.
-		// DespawnMessage: The Cursed Coffin burrows back into the sandy depths...
+		EntryName: "{$Mods.FargowiltasSouls.NPCs.CursedCoffin.DisplayName}"
+		SpawnInfo: 在地下沙漠使用[i:FargowiltasSouls/CoffinSummon]召唤。
+		DespawnMessage: 咒缚灵棺隐匿于沙漠深处……
 	}
 }
 
-// CursedSpirit.DisplayName: Cursed Spirit
+CursedSpirit.DisplayName: 诅咒之灵
 DetonatingBubbleNPC.DisplayName: 爆炸泡泡
 StardustMinion.DisplayName: 星尘仆从
 StardustDragon.DisplayName: 星尘之龙

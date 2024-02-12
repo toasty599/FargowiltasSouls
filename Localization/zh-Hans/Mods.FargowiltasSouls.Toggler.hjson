@@ -68,7 +68,7 @@ FossilBones: 化石 受击释放骨头
 HallowEffect: 神圣 治疗药水
 AncientHallowMinion: 远古神圣 泰拉棱镜
 SpectreEffect: 幽魂 幽魂珠
-// ForbiddenEffect: Forbidden Storm
+ForbiddenEffect: 禁戒 风暴
 TikiEffect: 提基 鞭打召唤物
 CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
 MeteorMomentumEffect: 流星 速度
@@ -120,6 +120,7 @@ GelicWingJump: 明胶羽翼跳跃
 LumpofFleshHeader: "{$Mods.FargowiltasSouls.Items.LumpOfFlesh.DisplayName}"
 PungentEyeballCursor: 易伤区域光标
 PungentMinion: 眼球召唤物
+DeerclawpsDive: 冰鹿爪快速下落
 DeerclawpsEffect: 冲刺留下冰刺
 DreadShellEffect: 恐惧螺壳格挡
 ChaliceHeader: "{$Mods.FargowiltasSouls.Items.ChaliceoftheMoon.DisplayName}"

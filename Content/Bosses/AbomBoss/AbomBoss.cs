@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             NPC.timeLeft = NPC.activeTime * 30;
 
             Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma") : MusicID.OtherworldlyPlantera;
+                ? MusicLoader.GetMusicSlot(musicMod, (musicMod.Version >= Version.Parse("0.1.5")) ? "Assets/Music/Laevateinn_P1" : "Assets/Music/Stigma") : MusicID.OtherworldlyPlantera;
             SceneEffectPriority = SceneEffectPriority.BossMedium;
         }
 
@@ -319,6 +319,10 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     NPC.dontTakeDamage = true;
                     if (NPC.buffType[0] != 0)
                         NPC.DelBuff(0);
+
+                    Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
+                            ? MusicLoader.GetMusicSlot(musicMod, (musicMod.Version >= Version.Parse("0.1.5")) ? "Assets/Music/Laevateinn_P2" : "Assets/Music/Stigma") : MusicID.OtherworldlyPlantera;
+
                     if (++NPC.ai[1] > 120)
                     {
                         //because this breaks the background???

@@ -416,11 +416,18 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             CursedCoffin coffin = owner.As<CursedCoffin>();
             Player player = Main.player[owner.target];
 
-            Vector2 offset = -Vector2.UnitY * 300 - Vector2.UnitX * Math.Sign(owner.Center.X - player.Center.X) * 200;
-            Vector2 desiredPos = player.Center + offset;
-            Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
+            if (coffin.Timer < 40)
+            {
+                Vector2 offset = -Vector2.UnitY * 300 - Vector2.UnitX * Math.Sign(owner.Center.X - player.Center.X) * 200;
+                Vector2 desiredPos = player.Center + offset;
+                Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
+            }
+            else
+            {
+                NPC.velocity *= 0.97f;
+            }
 
-            if (coffin.Timer < 35)
+            if (coffin.Timer < 40)
             {
                 LerpOpacity(0.15f);
                 LerpScale(0.4f);

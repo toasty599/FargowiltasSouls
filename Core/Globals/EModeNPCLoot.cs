@@ -407,13 +407,8 @@ namespace FargowiltasSouls.Core.Globals
                 case NPCID.Piranha:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.AdhesiveBandage, 50));
                     break;
-                case NPCID.Snatcher:
-                case NPCID.ManEater:
                 case NPCID.AngryTrapper:
-                    if (npc.type == NPCID.AngryTrapper)
-                        FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Vine, 2));
-
-                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "PlanterasFruit").Type, 200));
+                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Vine, 2));
                     break;
                 case NPCID.BrainScrambler:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BrainScrambler, 100));

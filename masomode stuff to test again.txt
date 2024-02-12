@@ -1,4 +1,4 @@
-baron nuke flashes every time it beeps instead of persistent glow with time
+﻿baron nuke flashes every time it beeps instead of persistent glow with time
 reduced golem gib tile collision size, no longer breaks instantly when fired while standing on solid blocks
 made abom arena much visually denser
 nerfed ice golem frostball amount
@@ -53,3 +53,28 @@ hell zone buff
 	right click with it to fire a guardian that marks enemies for 10sec
 	marked enemies take 5x dot from hellfire
 	life champ is immune to marked lmao you thought
+
+rainbow gun is immune to golem fist deletion
+nerfed maso boc/eater/qs biome spray
+boc p2 physical clone moved to maso
+moved to ftw
+	qs stupid stomp aoe hitbox
+	deerclops ghost hand restoration
+	betsy twitch chat
+deerclops added another tell for when it does ice fort
+martian saucer can early bird in hm and guarantees console drop pre-golem
+deerclawps buff: shut the fuck up 「ディアークロプスダイブ」
+
+improved mutant sword hitbox to end clipping through it forever
+buffed ml core life 20% (x2.5 -> x3)
+cut cross necklace cd, 30 -> 20t
+buffed wof health 10%
+devi gifts sans
+
+jungle rose boosts planteras fruit drop rate
+tweak deerclops ice castle tell
+destroyer guns work with transparent friendly projs config
+
+maso golem regen 240 -> 360
+golem base health mult x1.25 -> x1.75
+golem body health mult x3 -> x4

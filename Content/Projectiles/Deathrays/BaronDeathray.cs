@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             {
                 Projectile.velocity = baron.rotation.ToRotationVector2();
                 Projectile.rotation = baron.rotation;
-                Projectile.Center = baron.Center + (baron.width / 3) * Projectile.rotation.ToRotationVector2();
+                Projectile.Center = baron.Center + (baron.width / 1.8f) * Projectile.rotation.ToRotationVector2();
                 maxTime = Projectile.ai[2];
             }
             else

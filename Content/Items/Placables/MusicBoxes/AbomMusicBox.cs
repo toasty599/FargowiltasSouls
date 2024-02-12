@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using System;
 
 namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
 {
@@ -18,7 +19,7 @@ namespace FargowiltasSouls.Content.Items.Placables.MusicBoxes
             {
                 MusicLoader.AddMusicBox(
                     Mod,
-                    MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma"),
+                    MusicLoader.GetMusicSlot(musicMod, musicMod.Version >= Version.Parse("0.1.5") ? "Assets/Music/Laevateinn_P2" : "Assets/Music/Stigma"),
                     ModContent.ItemType<AbomMusicBox>(),
                     ModContent.TileType<Tiles.MusicBoxes.AbomMusicBoxSheet>());
             }
