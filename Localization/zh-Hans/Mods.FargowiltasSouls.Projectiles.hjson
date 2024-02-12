@@ -693,7 +693,6 @@ PlanteraSnatcher.DisplayName: 抓人草
 PlanteraTrapper.DisplayName: 愤怒捕手
 PlanteraMushroomThing.DisplayName: 世纪之花孢子
 RainExplosion.DisplayName: 雨云爆炸
-// RazorBlade.DisplayName: Razor Blade
 CoffinSlamShockwave.DisplayName: 冲击波
 CoffinWaveShot.DisplayName: 波形弹
 CoffinDarkSouls.DisplayName: 邪恶灵魂
@@ -702,3 +701,4 @@ CoffinRandomStuff.DisplayName: 杂物
 FishStickWhirlpool.DisplayName: 鱼杖
 BetsyHomingFireball.DisplayName: 火光球
 HellGuardian.DisplayName: 地狱守卫者
+// RazorBlade.DisplayName: Razor Blade
