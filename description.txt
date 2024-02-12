@@ -74,6 +74,7 @@ Fixed bug where Fossil Enchantment revive was affected by Mutant's Presence
 Fixed bug where Nymph's Perfume dropped hearts much more often than intended
 Resprited Universe Core
 Resprited Life Revitalizer
+Resprited Reinforced Plating
 
 Banished Baron:
 -Resprited boss and some projectiles
@@ -90,7 +91,7 @@ Banished Baron:
 -Whirlpools no longer inflict Oceanic Maul, now only contact damage and nukes
 -Underwater projectiles and the boss itself now use bubble trails rather than a fire trail
 -New death animation
--Drops 1 Goldfish
+-Drops a Goldfish
 
 Lifelight: 
 During blue wave shotgun attack, speed is scaled down the closer to the player she is
