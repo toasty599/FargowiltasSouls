@@ -1,1 +1,2 @@
 ﻿golem body health mult x4 -> x3
+made deerclops mfd exclusive to maso

@@ -109,7 +109,8 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
             target.AddBuff(BuffID.Frozen, 30);
 
             target.AddBuff(BuffID.Frostburn, 90);
-            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
+            if (WorldSavingSystem.MasochistModeReal)
+                target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
             target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
         }
     }
