@@ -610,7 +610,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             
-            if ((Main.snowMoon && NPC.waveNumber < 20 || Main.pumpkinMoon && NPC.waveNumber < 15) && WorldSavingSystem.MasochistModeReal)
+            if ((Main.snowMoon && NPC.waveNumber < 20) || (Main.pumpkinMoon && NPC.waveNumber < 15))
             {
                 if (NPC.waveNumber > 1)
                     NPC.waveNumber--;
