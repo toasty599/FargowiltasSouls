@@ -42,7 +42,7 @@ Double tap a direction
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Lime;
+            Item.rare = ItemRarityID.LightPurple;
             Item.value = 150000;
         }
 

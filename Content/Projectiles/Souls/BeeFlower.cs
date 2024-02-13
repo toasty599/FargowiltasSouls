@@ -71,7 +71,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             {
                 Vector2 pos = Main.rand.NextVector2FromRectangle(Projectile.Hitbox);
                 int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), pos, (pos - Projectile.Center) / 12,
-                    Main.LocalPlayer.beeType(), Main.LocalPlayer.beeDamage(Projectile.damage), Main.LocalPlayer.beeKB(Projectile.knockBack), Main.LocalPlayer.whoAmI);
+                    Main.LocalPlayer.beeType(), Main.LocalPlayer.beeDamage((int)(Projectile.damage * 0.75f)), Main.LocalPlayer.beeKB(Projectile.knockBack), Main.LocalPlayer.whoAmI);
                 if (p != Main.maxProjectiles)
                     Main.projectile[p].DamageType = Projectile.DamageType;
             }

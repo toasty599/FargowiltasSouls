@@ -1,4 +1,5 @@
 using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -77,6 +78,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
                 Charges++;
             }
             return false;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<BanishedBaronBag>(2).AddTile(TileID.Solidifier).Register();
         }
     }
 }

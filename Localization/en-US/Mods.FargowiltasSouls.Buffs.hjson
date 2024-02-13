@@ -709,3 +709,13 @@ SublimationBuff: {
 	Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
 	DisplayName: Sublimation Buff
 }
+
+CoffinTossBuff: {
+	DisplayName: Coffin Toss Buff
+	Description: ""
+}
+
+HellFireMarkedBuff: {
+	DisplayName: Hell Fire Marked
+	Description: Mods.FargowiltasSouls.Buffs.HellFireMarked.Description
+}

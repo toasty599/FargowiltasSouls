@@ -14,6 +14,7 @@ using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -333,7 +334,9 @@ namespace FargowiltasSouls.Content.Projectiles
                         if (counter == 0)
                             Projectile.localAI[0] = Main.rand.NextFloat(0.9f, 1.1f);
 
-                        color = npc.ai[2] == 0 ? Color.Red : Color.Yellow;
+                        color = npc.ai[2] == 0 ? Color.Cyan : Color.Blue;
+                        if (!WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors)
+                            color = npc.ai[2] == 0 ? Color.DarkRed : Color.OrangeRed;
                         Projectile.Center = npc.Center;
 
                         float rotationModifier = (1f - Projectile.localAI[0]) * 10f;
@@ -359,7 +362,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile),
                                         Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(),
                                         ModContent.ProjectileType<DestroyerLaser>(),
-                                        Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                        Projectile.damage, Projectile.knockBack, Projectile.owner, ai1: NPCID.TheDestroyer);
                                 }
                             }
                             else
@@ -377,8 +380,8 @@ namespace FargowiltasSouls.Content.Projectiles
 
                                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile),
                                         Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(),
-                                        ModContent.ProjectileType<DarkStarHoming>(),
-                                        Projectile.damage, Projectile.knockBack, Projectile.owner, -1, 1f);
+                                        ModContent.ProjectileType<MechElectricOrbHoming>(),
+                                        Projectile.damage, Projectile.knockBack, Projectile.owner, -1, 1f, ai2: MechElectricOrb.Blue);
                                 }
                             }
                         }

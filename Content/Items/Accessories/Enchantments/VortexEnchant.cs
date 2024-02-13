@@ -36,7 +36,7 @@ While in stealth, your own projectiles will not be sucked in
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Purple;
             Item.value = 400000;
         }
 

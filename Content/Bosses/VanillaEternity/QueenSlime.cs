@@ -179,7 +179,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         if (FargoSoulsUtil.HostCheck)
                         {
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.QueenSlimeSmash, WorldSavingSystem.MasochistModeReal ? FargoSoulsUtil.ScaledProjectileDamage(npc.damage) : 0, 0f, Main.myPlayer);
+                            int smashDamage = WorldSavingSystem.MasochistModeReal && Main.getGoodWorld
+                                ? FargoSoulsUtil.ScaledProjectileDamage(npc.damage) : 0;
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.QueenSlimeSmash, smashDamage, 0f, Main.myPlayer);
 
                             for (int j = -1; j <= 1; j += 2) //spray spikes
                             {

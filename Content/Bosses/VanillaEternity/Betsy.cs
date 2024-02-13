@@ -91,7 +91,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 npc.dontTakeDamage = false;
             }
 
-            if (WorldSavingSystem.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal && Main.getGoodWorld)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -293,6 +293,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             LoadGoreRange(recolor, 1079, 1086);
             LoadExtra(recolor, 81);
             LoadExtra(recolor, 82);
+            LoadGlowMask(recolor, 226);
+            LoadProjectile(recolor, ProjectileID.DD2BetsyFireball);
+            LoadProjectile(recolor, ProjectileID.DD2BetsyFlameBreath);
         }
 
         private static readonly List<LocalizedText> MasoTexts = new()

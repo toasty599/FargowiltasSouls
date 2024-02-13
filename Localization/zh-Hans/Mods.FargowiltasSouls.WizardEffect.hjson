@@ -1,5 +1,5 @@
 // Maybe move into entries of each enchant
-Adamantite: 弹幕现在会分裂成三个，伤害从70%/60%降低为50%/40%
+Adamantite: 弹幕现在会分裂成三个，伤害从70%/60%降低为50%/37.5%
 Apprentice: 辅助武器的数量从1把提升至2把
 AncientHallow: 剑的伤害增加，可反射的弹幕伤害上限提升至200
 AncientShadow: 暗影珠数量增加
@@ -32,7 +32,7 @@ Molten: 狱火圈伤害和易伤生效范围增加
 Monk: 增加冲刺造成的伤害
 Mythril: 增加最大攻速加成，延长持续时间
 Nebula: 增益堆叠上限增加至3层
-Necro: 骨堆可漂浮在空中
+Necro: 骨堆体积增大，可漂浮，并在你接近时缓慢向你移动
 Ninja: 最大伤害加成增加至30%，当效果激活时玩家的最大速度增加
 Obsidian: 不再需要岩浆来引发爆炸或火球，减少冷却时间
 Orichalcum: 倍数提高到4
@@ -47,7 +47,7 @@ RichMahogany: 牵引速度×2.5，伤害减免和荆棘效果大幅提升
 Shadewood: 增加光环大小和血液伤害，并附加灵液效果
 Shinobi: 增加冲刺造成的伤害
 Shroomite: 蘑菇生成的频率加快
-Silver: 格挡可以抵消至多200伤害，且会给予惊人一刻增益
+Silver: 格挡可以抵消至多200伤害，且必定会获得惊人一刻增益
 Solar: 无增强
 Spectre: 冷却时间减少且必定生成治疗珠
 Spider: 无增强

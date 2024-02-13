@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             else
             {
                 Projectile parent = Main.projectile[(int)ParentID];
-                if (parent.active)
+                if (parent.TypeAlive<VortexVortex>())
                 {
                     if ((Projectile.Center - parent.Center).LengthSquared() < 16 * 16)
                     {
@@ -115,7 +115,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                     Vector2 diff = Vector2.Normalize(parent.Center - Projectile.Center);
                     Projectile.velocity = diff * speed;
                 }
-                if (!parent.active)
+                else
                 {
                     Projectile.Kill();
                 }

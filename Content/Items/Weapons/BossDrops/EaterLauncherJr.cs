@@ -5,6 +5,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using System.Linq;
+using Terraria.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
+using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
@@ -21,7 +26,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 
         public override void SetDefaults()
         {
-            Item.damage = 41;
+            Item.damage = 36;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 24;
             Item.height = 24;
@@ -30,18 +35,62 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
             Item.noMelee = true;
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item95;
-            Item.useAmmo = ItemID.RottenChunk;
             Item.value = Item.sellPrice(0, 10);
             Item.rare = ItemRarityID.Blue;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<EaterRocketJr>();
             Item.shootSpeed = 18f;
         }
-
+        
+        public const int MaxCharge = 1000;
+        public int Charge = 0;
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("BlastbiterCharge", Charge);
+        }
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.ContainsKey("BlastbiterCharge"))
+                Charge = tag.GetAsInt("BlastbiterCharge");
+        }
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(2, -4);
         }
+        public override bool CanRightClick() => Main.LocalPlayer.HasItem(ItemID.RottenChunk) && Charge < MaxCharge;
+        void LoadChunk(Player player)
+        {
+            if (player.ConsumeItem(ItemID.RottenChunk))
+            {
+                SoundEngine.PlaySound(SoundID.Item149 with { Pitch = 0.5f }, player.Center);
+                Charge += 100;
+                if (Charge > MaxCharge)
+                    Charge = MaxCharge;
+            }
+        }
+        public override void RightClick(Player player)
+        {
+            LoadChunk(player);
+        }
+        public override bool ConsumeItem(Player player) => false;
+        public override bool CanUseItem(Player player)
+        {
+            return (Charge > 0 || player.HasItem(ItemID.RottenChunk));
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (Charge <= 0)
+                LoadChunk(player);
+            Charge--;
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+        }
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+
+            Utils.DrawBorderString(spriteBatch, Charge.ToString(), position - Vector2.UnitX * 15 * scale, Color.SandyBrown, scale: 0.75f);
+            //spriteBatch.DrawString(FontAssets.ItemStack.Value, Charge, position, drawColor);
+        }
+
         public override void HoldItem(Player player)
         {
             if (player.itemTime > 0)
@@ -86,11 +135,5 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
             type = ModContent.ProjectileType<EaterRocketJr>();
         }
 
-        public override bool CanConsumeAmmo(Item ammo, Player player)
-        {
-            return Main.rand.NextBool();
-        }
-
-        
     }
 }

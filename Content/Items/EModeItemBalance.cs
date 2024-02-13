@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoon;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinMoon;
+using FargowiltasSouls.Core.Systems;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -151,25 +153,51 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 1.1f;
                     return EModeChange.Buff;
 
-                    /*
-                case ItemID.PiercingStarlight:
+                case ItemID.Shroomerang:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.6f;
-                    return EModeChange.Nerf;
-                    */
-                
+                    balanceNumber = 1.2f;
+                    return EModeChange.Buff;
+                case ItemID.IceBlade:
+                    balanceTextKeys = new string[] { "IceBladeFrostburn" };
+                    balanceNumber = 1;
+                    return EModeChange.Buff;
+
+                /*
+            case ItemID.PiercingStarlight:
+                balanceTextKeys = new string[] { "Damage" };
+                balanceNumber = 0.6f;
+                return EModeChange.Nerf;
+                */
+
                 case ItemID.PumpkinMoonMedallion:
-                case ItemID.NaughtyPresent:
                     if (WorldSavingSystem.MasochistModeReal)
                     {
-                        balanceNumber = 15;
+                        balanceNumber = PumpkinMoonBosses.WAVELOCK;
                         balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
                         return EModeChange.Nerf;
                     }
                     else
                     {
-                        return EModeChange.None;
+                        balanceTextKeys = new string[] { "MoonsDrops" };
+                        return EModeChange.Nerf;
                     }
+                case ItemID.NaughtyPresent:
+                    if (WorldSavingSystem.MasochistModeReal)
+                    {
+                        balanceNumber = FrostMoonBosses.WAVELOCK;
+                        balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
+                        return EModeChange.Nerf;
+                    }
+                    else
+                    {
+                        balanceTextKeys = new string[] { "MoonsDrops" };
+                        return EModeChange.Nerf;
+                    }
+
+                case ItemID.CrossNecklace:
+                case ItemID.StarVeil:
+                    balanceTextKeys = new string[] { "CrossNecklaceNerf" };
+                    return EModeChange.Nerf;
 
                 #region Sword and Spear Reworks
                 case ItemID.CobaltNaginata:
@@ -240,6 +268,10 @@ namespace FargowiltasSouls.Content.Items
                 case ItemID.WarmthPotion:
                     balanceTextKeys = new string[] { "WarmthPotionNerf" };
                     return EModeChange.Nerf;
+
+                case ItemID.JungleRose:
+                    balanceTextKeys = new string[] { "JungleRose" };
+                    return EModeChange.Buff;
 
                 default:
                     return EModeChange.None;

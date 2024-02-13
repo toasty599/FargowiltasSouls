@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 {
     public class MeteorFlame : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Explosion";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
         public override void SetStaticDefaults()
         {
         }

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
@@ -119,6 +120,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
         public static float ReloadProgress(float timer)
         {
             return (1 + (float)Math.Sin(MathHelper.Pi * (timer - 30) / 60f)) / 2f;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<BanishedBaronBag>(2).AddTile(TileID.Solidifier).Register();
         }
     }
 }

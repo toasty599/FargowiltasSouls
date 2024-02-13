@@ -77,8 +77,7 @@ namespace FargowiltasSouls.Core.Toggler
         public static void RegisterToggle(Toggle toggle)
         {
             
-            if (LoadedToggles == null)
-                LoadedToggles = new Dictionary<AccessoryEffect, Toggle>();
+            LoadedToggles ??= new Dictionary<AccessoryEffect, Toggle>();
             if (LoadedToggles.ContainsKey(toggle.Effect)) throw new Exception("Toggle of effect " + toggle.Effect.Name + " is already registered");
 
             LoadedToggles.Add(toggle.Effect, toggle);
@@ -87,8 +86,7 @@ namespace FargowiltasSouls.Core.Toggler
         public static void RegisterHeader(Header header)
         {
             
-            if (LoadedHeaders == null)
-                LoadedHeaders = new HashSet<Header>();
+            LoadedHeaders ??= new HashSet<Header>();
             //if (LoadedHeaders.Contains(header)) throw new Exception("Header with internal name " + header.Name + " is already registered");
 
             LoadedHeaders.Add(header);

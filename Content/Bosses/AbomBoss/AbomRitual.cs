@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         private const float realRotation = MathHelper.Pi / 180f;
 
-        public AbomRitual() : base(realRotation, 1400f, ModContent.NPCType<AbomBoss>(), 87) { }
+        public AbomRitual() : base(realRotation, 1400f, ModContent.NPCType<AbomBoss>(), 87, visualCount: 64) { }
 
         public override void SetStaticDefaults()
         {

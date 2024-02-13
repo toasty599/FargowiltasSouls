@@ -1,5 +1,5 @@
 // Maybe move into entries of each enchant
-Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/40%
+Adamantite: Projectiles now split into 3, damage reduced from 70/60% to 50/37.5%
 Apprentice: The next 2 weapons are used instead of 1
 AncientHallow: Sword damage increased, projectile damage cap increased to 200
 AncientShadow: Number of Shadow Orbs increased
@@ -32,7 +32,7 @@ Molten: Inferno ring does more damage and can affect enemies in slightly larger 
 Monk: Increased dash damage
 Mythril: Max attack speed bonus increased and lasts longer
 Nebula: Buff booster stack cap increased to 3
-Necro: Graves float
+Necro: Graves have increased size, float, and slightly home in on you when you're close
 Ninja: Maximum damage bonus increased to 30%, maximum player speed where effect activates increased
 Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
 Orichalcum: Increases multiplier to 4x
@@ -47,7 +47,7 @@ RichMahogany: Hooks pull 2.5x as fast, damage resistance and thorns increased gr
 Shadewood: Aura size and blood damage increased, additionally applies Ichor
 Shinobi: Increased dash damage
 Shroomite: Mushrooms are spawned more often
-Silver: Parrying blocks up to 200 damage and grants the Striking Moment buff
+Silver: Parrying blocks up to 200 damage and always grants the Striking Moment buff
 Solar: No upgrade
 Spectre: Decreased cooldown and always spawns healing orb
 Spider: No upgrade

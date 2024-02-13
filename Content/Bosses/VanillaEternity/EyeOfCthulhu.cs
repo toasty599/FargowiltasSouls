@@ -134,10 +134,14 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (ai_AttackState == 2f) 
                     npc.position += npc.ai[3] * 0.3f * npc.velocity;
             }
-            if (ai_Phase == 3f && ai_AttackState == 2f && !IsInFinalPhase)
-                npc.position += npc.ai[3] * 0.5f * npc.velocity; //Faster consecutive dashes in p2
+            if ((ai_Phase == 0f || ai_Phase == 3f) && ai_AttackState == 2f && !IsInFinalPhase) // Faster consecutive dashes in p1 and p2
+            {
+                float modifier = ai_Phase == 0 ? 0.25f : 0.5f; // more increase in p2
+                npc.position += npc.ai[3] * modifier * npc.velocity; 
+            }
+                
 
-            if (ai_Phase == 0f && ai_AttackState == 2f && npc.HasValidTarget) //Dashes curve in phase 1
+            if (ai_Phase == 0f && ai_AttackState == 2f && npc.HasValidTarget && WorldSavingSystem.MasochistModeReal) // Dashes curve in phase 1 done
             {
                 float speed = npc.velocity.Length();
                 float modifier = 0.25f;
@@ -221,7 +225,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             npc.position.X += Main.rand.NextBool() ? -600 : 600;
                             npc.position.Y += Main.rand.NextBool() ? -400 : 400;
 
-                            npc.position.X += Main.rand.Next(-100, 100); //1.6.1 change: random offset
+                            if (WorldSavingSystem.MasochistModeReal)
+                                npc.position.X += Main.rand.Next(-100, 100); //1.6.1 change: random offset
 
                             npc.TargetClosest(false);
                             npc.netUpdate = true;

@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
+﻿using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.Items.Accessories.Expert;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
     public static class AccessoryEffectLoader
     {
-        public static List<AccessoryEffect> AccessoryEffects = new List<AccessoryEffect>();
+        public static List<AccessoryEffect> AccessoryEffects = new();
         internal static void Register(AccessoryEffect effect)
         {
             effect.Index = AccessoryEffects.Count;
@@ -29,11 +30,13 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         {
             AccessoryEffect effect = ModContent.GetInstance<T>();
             AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             effectPlayer.EquippedEffects[effect.Index] = true;
+            effectPlayer.EffectItems[effect.Index] = item;
 
             if (effect.MinionEffect || effect.ExtraAttackEffect)
             {
-                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                
                 if (modPlayer.PrimeSoulActive)
                 {
                     if (!player.HasEffect(effect)) // Don't stack per item
@@ -41,19 +44,28 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
                     return false;
                 }
             }
-            
-            if (player.FargoSouls().MutantPresence)
-                if (!effect.IgnoresMutantPresence)
-                    return false;
 
-            if (!effect.HasToggle || player.GetToggleValue(effect, true))
+            if (!effect.IgnoresMutantPresence && effect.HasToggle && modPlayer.MutantPresence)
+                return false;
+
+            if (effect.HasToggle)
             {
-                if (!effectPlayer.ActiveEffects[effect.Index])
+                SoulsItem soulsItem = item != null && item.ModItem is SoulsItem si ? si : null;
+                if (!player.GetToggleValue(effect, true))
                 {
-                    effectPlayer.ActiveEffects[effect.Index] = true;
-                    effectPlayer.EffectItems[effect.Index] = item;
-                    return true;
+                    if (soulsItem != null)
+                        soulsItem.HasDisabledEffects = SoulConfig.Instance.ItemDisabledTooltip;
+                    return false;
                 }
+                if (soulsItem != null)
+                    soulsItem.HasDisabledEffects = SoulConfig.Instance.ItemDisabledTooltip && AccessoryEffects.Any(e => !player.GetToggleValue(e, true) && e.EffectItem(player) == item);
+            }
+
+            if (!effectPlayer.ActiveEffects[effect.Index])
+            {
+                
+                effectPlayer.ActiveEffects[effect.Index] = true;
+                return true;
             }
             return false;
         }

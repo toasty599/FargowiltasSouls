@@ -24,6 +24,7 @@ using FargowiltasSouls.Content.Bosses.Champions.Terra;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using FargowiltasSouls.Content.Bosses.Champions.Will;
 using FargowiltasSouls.Content.Bosses.Champions.Spirit;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -556,7 +557,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         EModeCanHurt = true;
                         counter = -600;
                     }
-                    else if (!WorldSavingSystem.MasochistModeReal)
+                    else if (!(WorldSavingSystem.MasochistModeReal && Main.getGoodWorld))
                     {
                         EModeCanHurt = false;
                         projectile.position -= projectile.velocity;
@@ -756,13 +757,16 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.GeyserTrap:
-                    if (!WorldSavingSystem.MasochistModeReal && sourceNPC is NPC && sourceNPC.type == NPCID.Golem && counter > 45)
+                    if (!WorldSavingSystem.MasochistModeReal && sourceNPC != null && sourceNPC.type == NPCID.Golem && counter > 45)
                         projectile.Kill();
                     break;
 
                 case ProjectileID.CultistBossFireBall:
-                    if (!WorldSavingSystem.MasochistModeReal && NonSwarmFight(projectile, NPCID.CultistBoss))
-                        projectile.position -= projectile.velocity * Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates); //accel startup
+                    {
+                        if (!WorldSavingSystem.MasochistModeReal && NonSwarmFight(projectile, NPCID.CultistBoss))
+                            projectile.position -= projectile.velocity * Math.Max(0, 1f - counter / 45f / projectile.MaxUpdates); //accel startup
+
+                    }
                     break;
 
                 case ProjectileID.NebulaSphere:
@@ -1079,7 +1083,7 @@ namespace FargowiltasSouls.Content.Projectiles
                             projVel.Normalize();
                             projVel *= Main.rand.NextFloat(8f, 12f);
 
-                            int type = ProjectileID.CultistBossFireBall;
+                            int type = ModContent.ProjectileType<BetsyHomingFireball>();
                             if (!phase2 || Main.rand.NextBool())
                             {
                                 type = ModContent.ProjectileType<WillFireball>();
@@ -1163,7 +1167,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     {
                         if (projectile.hostile)
                         {
-                            const int FadeTime = 10;
+                            const int FadeTime = 20;
                             if (!EModeCanHurt)
                             {
                                 if (FadeTimer < FadeTime)
@@ -1264,7 +1268,7 @@ namespace FargowiltasSouls.Content.Projectiles
                         if (FargoSoulsUtil.HostCheck)
                         {
                             for (int i = 0; i < 8; i++)
-                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 4f, ProjectileID.HallowSpray, 0, 0f, Main.myPlayer, 8f);
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.UnitY.RotatedBy(2 * Math.PI / 8 * i) * 2f, ProjectileID.HallowSpray, 0, 0f, Main.myPlayer, 8f);
                         }
                     }
                     else
@@ -1325,6 +1329,9 @@ namespace FargowiltasSouls.Content.Projectiles
                         projectile.ai[2]++;
                     }
                     break;
+                case ProjectileID.IceBolt: //Ice Blade projectile
+                    target.AddBuff(BuffID.Frostburn, 60 * 3);
+                    break;
                 default:
                     break;
             }
@@ -1358,7 +1365,8 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.DeerclopsIceSpike:
                 case ProjectileID.DeerclopsRangedProjectile:
                     target.AddBuff(BuffID.Frostburn, 90);
-                    target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
+                    if (WorldSavingSystem.MasochistModeReal)
+                        target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
                     target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
                     break;
 
@@ -1433,14 +1441,14 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case ProjectileID.Skull:
                     target.FargoSouls().AddBuffNoStack(BuffID.Cursed, 30);
-                    if (sourceNPC is NPC && sourceNPC.type == NPCID.DungeonGuardian)
+                    if (sourceNPC != null && sourceNPC.type == NPCID.DungeonGuardian)
                         target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
                     break;
 
                 case ProjectileID.EyeLaser:
                 case ProjectileID.GoldenShowerHostile:
                 case ProjectileID.CursedFlameHostile:
-                    if (sourceNPC is NPC && (sourceNPC.type == NPCID.WallofFlesh || sourceNPC.type == NPCID.WallofFleshEye))
+                    if (sourceNPC != null && (sourceNPC.type == NPCID.WallofFlesh || sourceNPC.type == NPCID.WallofFleshEye))
                         target.AddBuff(BuffID.OnFire, 300);
                     break;
 
@@ -1814,7 +1822,6 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
             }
         }
-
         public override bool PreKill(Projectile projectile, int timeLeft)
         {
             if (!WorldSavingSystem.EternityMode)

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -62,5 +63,11 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             .AddTile(TileID.Anvils)
             .Register();
         }
+        /*
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<TreasureGuardianBag>(2).AddTile(TileID.Solidifier).Register();
+        }
+        */
     }
 }

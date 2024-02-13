@@ -6,6 +6,7 @@ using System.Reflection;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
+using Terraria.ID;
 
 namespace FargowiltasSouls
 {
@@ -103,19 +104,57 @@ namespace FargowiltasSouls
 
         public static void GenericProjectileDraw(Projectile projectile, Color lightColor, Texture2D texture = null, Vector2? drawPos = null, float? rotation = null)
 		{
-			if (rotation == null)
-				rotation = projectile.rotation;
-			if (drawPos == null)
-                drawPos = projectile.Center;
+            rotation ??= projectile.rotation;
+            drawPos ??= projectile.Center;
+            texture ??= TextureAssets.Projectile[projectile.type].Value;
 
-            Texture2D _texture = texture != null ? texture : TextureAssets.Projectile[projectile.type].Value;
-            int sizeY = _texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            int sizeY = texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
             int frameY = projectile.frame * sizeY;
-            Rectangle rectangle = new(0, frameY, _texture.Width, sizeY);
+            Rectangle rectangle = new(0, frameY, texture.Width, sizeY);
             Vector2 origin = rectangle.Size() / 2f;
             SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            Main.EntitySpriteDraw(_texture, drawPos.Value - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor),
+            Main.EntitySpriteDraw(texture, drawPos.Value - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), rectangle, projectile.GetAlpha(lightColor),
                     rotation.Value, origin, projectile.scale, spriteEffects, 0);
         }
+		public static void ProjectileWithTrailDraw(Projectile projectile, Color lightColor, Texture2D texture = null, int? trailLength = null, bool additiveTrail = false, bool alsoAdditiveMainSprite = true)
+		{
+
+            texture ??= TextureAssets.Projectile[projectile.type].Value;
+
+            int sizeY = texture.Height / Main.projFrames[projectile.type]; //ypos of lower right corner of sprite to draw
+            int frameY = projectile.frame * sizeY;
+            Rectangle rectangle = new(0, frameY, texture.Width, sizeY);
+            Vector2 origin = rectangle.Size() / 2f;
+            SpriteEffects spriteEffects = projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            trailLength ??= ProjectileID.Sets.TrailCacheLength[projectile.type];
+
+			if (additiveTrail)
+			{
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            }
+            for (int i = 0; i < trailLength.Value; i++)
+            {
+                Color oldColor = lightColor * 0.75f;
+                oldColor = (Color)(oldColor * ((float)(trailLength - i) / trailLength));
+                Vector2 oldPos = projectile.oldPos[i] + rectangle.Size() / 2;
+                float oldRot = projectile.oldRot[i];
+                Main.spriteBatch.Draw(texture, oldPos - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), rectangle, projectile.GetAlpha(oldColor),
+                    oldRot, origin, projectile.scale, spriteEffects, 0);
+            }
+            if (additiveTrail && !alsoAdditiveMainSprite)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
+            GenericProjectileDraw(projectile, lightColor, texture);
+            if (additiveTrail && alsoAdditiveMainSprite)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
+        }
+		public static string EmptyTexture => "FargowiltasSouls/Content/Projectiles/Empty";
 	}
 }

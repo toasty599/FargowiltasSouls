@@ -241,7 +241,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                         if (Attack == (int)LunarTowerVortex.Attacks.VortexVortex)
                         {
                             EndAttack(npc);
-                            foreach (Projectile projectile in Main.projectile.Where(p => p.TypeAlive(ModContent.ProjectileType<VortexVortex>())))
+                            foreach (Projectile projectile in Main.projectile.Where(p => p.TypeAlive<VortexVortex>()))
                             {
                                 projectile.Kill();
                             }

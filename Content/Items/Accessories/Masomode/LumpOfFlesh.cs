@@ -45,7 +45,7 @@ Enemies are less likely to target you
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemRarityID.Lime;
             Item.value = Item.sellPrice(0, 7);
         }
 
@@ -84,6 +84,7 @@ Enemies are less likely to target you
 
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
+            player.AddEffect<DeerclawpsDive>(Item);
             player.AddEffect<DeerclawpsEffect>(Item);
         }
 

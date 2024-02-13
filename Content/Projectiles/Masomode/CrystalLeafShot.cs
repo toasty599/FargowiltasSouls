@@ -75,7 +75,15 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void AI()
         {
             if (!Collision.SolidCollision(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height))
-                Lighting.AddLight(Projectile.Center + Projectile.velocity, 0.1f, 0.4f, 0.2f);
+            {
+                bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+                if (recolor)
+                    Lighting.AddLight(Projectile.Center, 25f / 255, 47f / 255, 64f / 255);
+                else
+                    Lighting.AddLight(Projectile.Center + Projectile.velocity, 0.1f, 0.4f, 0.2f);
+
+            }
+                
             if (Projectile.timeLeft < 900 - 120)
                 Projectile.tileCollide = true;
 

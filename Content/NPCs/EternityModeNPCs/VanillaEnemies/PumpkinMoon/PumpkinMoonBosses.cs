@@ -8,6 +8,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinM
 {
 	public class PumpkinMoonBosses : EModeNPCBehaviour
     {
+        public const int WAVELOCK = 15;
+
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
             NPCID.MourningWood,
             NPCID.Pumpking
@@ -22,7 +24,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinM
 
         public override bool PreKill(NPC npc)
         {
-            if (Main.pumpkinMoon && NPC.waveNumber < 15)
+            if (Main.pumpkinMoon && NPC.waveNumber < WAVELOCK)
             {
                 for (int i = 0; i < 10; i++)
                 {

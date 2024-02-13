@@ -315,6 +315,17 @@ BanishedBaron: {
 	// Slurp: slurp
 }
 
+CursedCoffin: {
+	// DisplayName: Cursed Coffin
+
+	BossChecklistIntegration: {
+		// EntryName: "{$Mods.FargowiltasSouls.NPCs.CursedCoffin.DisplayName}"
+		// SpawnInfo: Spawn by using [i:FargowiltasSouls/CoffinSummon] underground in the Desert.
+		// DespawnMessage: The Cursed Coffin burrows back into the sandy depths...
+	}
+}
+
+// CursedSpirit.DisplayName: Cursed Spirit
 // DetonatingBubbleNPC.DisplayName: Detonating Bubble
 // StardustMinion.DisplayName: Stardust Minion
 // StardustDragon.DisplayName: Stardust Dragon

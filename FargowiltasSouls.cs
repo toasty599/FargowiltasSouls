@@ -71,11 +71,16 @@ namespace FargowiltasSouls
             public static readonly Dictionary<int, Asset<Texture2D>> NPCHeadBoss = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Gore = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Golem = new();
+            public static readonly Dictionary<int, Asset<Texture2D>> Dest = new();
+            public static readonly Dictionary<int, Asset<Texture2D>> GlowMask = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Extra = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Projectile = new();
             public static Asset<Texture2D> Ninja = null;
+            public static Asset<Texture2D> Probe = null;
             public static Asset<Texture2D> BoneArm = null;
             public static Asset<Texture2D> BoneArm2 = null;
+            public static Asset<Texture2D> BoneLaser = null;
+            public static Asset<Texture2D> BoneEyes = null;
             public static Asset<Texture2D> Chain12 = null;
             public static Asset<Texture2D> Chain26 = null;
             public static Asset<Texture2D> Chain27 = null;
@@ -280,15 +285,23 @@ namespace FargowiltasSouls
             RestoreSprites(TextureBuffer.NPCHeadBoss, TextureAssets.NpcHeadBoss);
             RestoreSprites(TextureBuffer.Gore, TextureAssets.Gore);
             RestoreSprites(TextureBuffer.Golem, TextureAssets.Golem);
+            RestoreSprites(TextureBuffer.Dest, TextureAssets.Dest);
+            RestoreSprites(TextureBuffer.GlowMask, TextureAssets.GlowMask);
             RestoreSprites(TextureBuffer.Extra, TextureAssets.Extra);
             RestoreSprites(TextureBuffer.Projectile, TextureAssets.Projectile);
 
             if (TextureBuffer.Ninja != null)
                 TextureAssets.Ninja = TextureBuffer.Ninja;
+            if (TextureBuffer.Probe != null)
+                TextureAssets.Probe = TextureBuffer.Probe;
             if (TextureBuffer.BoneArm != null)
                 TextureAssets.BoneArm = TextureBuffer.BoneArm;
             if (TextureBuffer.BoneArm2 != null)
                 TextureAssets.BoneArm2 = TextureBuffer.BoneArm2;
+            if (TextureBuffer.BoneLaser != null)
+                TextureAssets.BoneLaser = TextureBuffer.BoneLaser;
+            if (TextureBuffer.BoneEyes != null)
+                TextureAssets.BoneEyes = TextureBuffer.BoneEyes;
             if (TextureBuffer.Chain12 != null)
                 TextureAssets.Chain12 = TextureBuffer.Chain12;
             if (TextureBuffer.Chain26 != null)
@@ -480,8 +493,6 @@ namespace FargowiltasSouls
             Item.NewItem(null, player.Center, ItemID.WaterCandle);
 
             Item.NewItem(null, player.Center, ItemID.Torch, 200);
-            //Item.NewItem(null, player.Center, ItemID.LifeCrystal, 4);
-            //Item.NewItem(null, player.Center, ItemID.ManaCrystal, 2);
             Item.NewItem(null, player.Center, ItemID.LesserHealingPotion, 15);
             Item.NewItem(null, player.Center, ItemID.RecallPotion, 15);
             if (Main.netMode != NetmodeID.SinglePlayer)
@@ -498,28 +509,39 @@ namespace FargowiltasSouls
 
             GiveItem("Fargowiltas", "AutoHouse", 2);
             GiveItem("Fargowiltas", "MiniInstaBridge", 2);
-            //GiveItem("Fargowiltas", "HalfInstavator");
 
             Item.NewItem(null, player.Center, ModContent.ItemType<EurusSock>());
             Item.NewItem(null, player.Center, ModContent.ItemType<PuffInABottle>());
-            //int bugnet = (Main.zenithWorld || Main.remixWorld) ? ItemID.FireproofBugNet : ItemID.BugNet;
             Item.NewItem(null, player.Center, ItemID.BugNet);
             Item.NewItem(null, player.Center, ItemID.Squirrel);
-            //Item.NewItem(null, player.Center, ItemID.GrapplingHook);
 
             if (Main.zenithWorld || Main.remixWorld)
             {
                 Item.NewItem(null, player.Center, ItemID.ObsidianSkinPotion, 5);
             }
 
+            bool isTerry = player.name.ToLower().Contains("terry");
+
+            if (isTerry)
+            {
+                GiveItem("Fargowiltas", "HalfInstavator");
+                GiveItem("Fargowiltas", "RegalStatue");
+                Item.NewItem(null, player.Center, ItemID.PlatinumCoin);
+                Item.NewItem(null, player.Center, ItemID.GrapplingHook);
+                Item.NewItem(null, player.Center, ItemID.LifeCrystal, 4);
+                Item.NewItem(null, player.Center, ItemID.ManaCrystal, 2);
+                Item.NewItem(null, player.Center, ModContent.ItemType<SandsofTime>());
+            }
+
             //only give once per world
             if (!WorldSavingSystem.ReceivedTerraStorage)
             {
+                int units = isTerry ? 16 : 4;
                 if (ModLoader.TryGetMod("MagicStorage", out Mod _))
                 {
                     GiveItem("MagicStorage", "StorageHeart");
                     GiveItem("MagicStorage", "CraftingAccess");
-                    GiveItem("MagicStorage", "StorageUnit", 4);
+                    GiveItem("MagicStorage", "StorageUnit", units);
 
                     WorldSavingSystem.ReceivedTerraStorage = true;
                     if (Main.netMode != NetmodeID.SinglePlayer)
@@ -529,7 +551,7 @@ namespace FargowiltasSouls
                 {
                     GiveItem("MagicStorageExtra", "StorageHeart");
                     GiveItem("MagicStorageExtra", "CraftingAccess");
-                    GiveItem("MagicStorageExtra", "StorageUnit", 4);
+                    GiveItem("MagicStorageExtra", "StorageUnit", units);
 
                     WorldSavingSystem.ReceivedTerraStorage = true;
                     if (Main.netMode != NetmodeID.SinglePlayer)

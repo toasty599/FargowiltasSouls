@@ -19,6 +19,8 @@ using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Items;
 using Terraria.Localization;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinMoon;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoon;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -42,6 +44,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int CobaltHitCounter;
 
         public int LightningCounter;
+
+        public int CrossNecklaceTimer;
         private int WeaponUseTimer => Player.FargoSouls().WeaponUseTimer;
 
         public override void ResetEffects()
@@ -109,7 +113,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public static List<int> IronTiles = new List<int> // Tiles that lightning can lock onto
+        public static List<int> IronTiles = new()
         {
             TileID.Iron,
             TileID.IronBrick,
@@ -117,7 +121,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             TileID.LeadBrick,
             TileID.MetalBars
         };
-        public static List<int> IronWalls = new List<int>
+        public static List<int> IronWalls = new()
         {
             WallID.IronFence,
             WallID.WroughtIronFence,
@@ -277,7 +281,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 tileCenter.Y /= 16;
                 Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
 
-                if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight || Player.ZoneSkyHeight)
+                if (!fargoSoulsPlayer.PureHeart && Main.raining && (Player.ZoneOverworldHeight)
                     && Player.HeldItem.type != ItemID.Umbrella && Player.HeldItem.type != ItemID.TragicUmbrella
                     && Player.armor[0].type != ItemID.UmbrellaHat && Player.armor[0].type != ItemID.Eyebrella 
                     && !Player.HasEffect<RainUmbrellaEffect>())
@@ -450,6 +454,19 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!WorldSavingSystem.EternityMode)
                 return;
 
+            if (Player.longInvince && !Player.immune)
+            {
+                if (CrossNecklaceTimer < 20)
+                {
+                    Player.longInvince = false;
+                    CrossNecklaceTimer++;
+                }
+            }
+            else
+            {
+                CrossNecklaceTimer = 0;
+            }
+
             if (Player.iceBarrier)
                 Player.GetDamage(DamageClass.Generic) -= 0.10f;
 
@@ -558,7 +575,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.resistCold && proj.coldDamage) //warmth potion nerf
             {
-                modifiers.FinalDamage *= 1.15f;
+                modifiers.SourceDamage *= 1.15f; // warmth potion modifies source damage (pre defense) for some fucking reason
             }
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -595,7 +612,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             
-            if ((Main.snowMoon && NPC.waveNumber < 20 || Main.pumpkinMoon && NPC.waveNumber < 15) && WorldSavingSystem.MasochistModeReal)
+            if (((Main.snowMoon && NPC.waveNumber < FrostMoonBosses.WAVELOCK) || (Main.pumpkinMoon && NPC.waveNumber < PumpkinMoonBosses.WAVELOCK)) && WorldSavingSystem.MasochistModeReal)
             {
                 if (NPC.waveNumber > 1)
                     NPC.waveNumber--;

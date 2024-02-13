@@ -29,6 +29,7 @@ using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.BanishedBaron;
 using Terraria.Localization;
+using FargowiltasSouls.Content.Bosses.CursedCoffin;
 
 namespace FargowiltasSouls
 {
@@ -51,6 +52,7 @@ namespace FargowiltasSouls
             {"TrojanSquirrel", 0.5f},
             {"LifeChallenger", 11.49f},
             {"BanishedBaron", 8.7f},
+            {"CursedCoffin", 2.1f}
         };
         private void BossChecklistCompatibility()
         {
@@ -293,22 +295,23 @@ namespace FargowiltasSouls
                     new List<int> { ModContent.ItemType<MechLure>() },
                     false
                 );
-                
-                //Add("Boss",
-                //    "CursedCoffin",
-                //    //TODO: ADD LOOT
-                //    new List<int> { ModContent.NPCType<CursedCoffin>() },
-                //    4.75f,
-                //    () => WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.CursedCoffin],
-                //    () => true,
-                //    new List<int>(new int[]
-                //    {
+                if (CursedCoffin.Enabled)
+                {
+                    Add("Boss",
+                    "CursedCoffin",
+                    //TODO: ADD LOOT
+                    new List<int> { ModContent.NPCType<CursedCoffin>() },
+                    () => WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.CursedCoffin],
+                    () => true,
+                    new List<int>
+                    {
 
-                //    }),
-                //    new List<int> { ModContent.ItemType<CoffinSummon>() },
-                //    false,
-                //    "Content/NPCs/Challengers/CursedCoffin_Still"
-                //);
+                    },
+                    new List<int> { ModContent.ItemType<CoffinSummon>() },
+                    false
+                    //"Content/NPCs/Challengers/CursedCoffin"
+                );
+                }
 
                 #endregion challengers
             }

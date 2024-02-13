@@ -11,6 +11,11 @@ SoulConfig: {
 		Tooltip: Se verdadeiro, o alternador de efeitos é escondido automaticamente quando o seu inventário está fechado.
 	}
 
+	ItemDisabledTooltip: {
+		// Label: Disabled Effect Tooltip
+		// Tooltip: If true, items with any effects disabled by the Effect Toggler will have a tooltip line stating this.
+	}
+
 	DeviChatter: {
 		Label: Devi Chibi pode falar
 		// Tooltip: ""

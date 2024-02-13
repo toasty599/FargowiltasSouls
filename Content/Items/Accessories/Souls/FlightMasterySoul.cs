@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
     [AutoloadEquip(EquipType.Wings)]
     public class FlightMasterySoul : FlightMasteryWings
     {
-        protected override bool HasSupersonicSpeed => false;
+        public override bool HasSupersonicSpeed => false;
 
         public static readonly Color ItemColor = new(56, 134, 255);
         protected override Color? nameColor => ItemColor;
@@ -30,7 +30,8 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
 
             player.AddEffect<FlightMasteryInsignia>(item);
             player.AddEffect<FlightMasteryGravity>(item);
-            player.AddEffect<SupersonicSpeedEffect>(item);
+            if (item.ModItem != null && item.ModItem is FlightMasteryWings fmWings && fmWings.HasSupersonicSpeed)
+                player.AddEffect<SupersonicSpeedEffect>(item);
 
             //hover
             if (Player.controlDown && Player.controlJump && !Player.mount.Active)

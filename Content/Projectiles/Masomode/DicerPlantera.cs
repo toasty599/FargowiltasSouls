@@ -49,7 +49,12 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, .4f, 1.2f, .4f); //glow in the dark
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+            if (recolor)
+                Lighting.AddLight(Projectile.Center, 25f / 255, 47f / 255, 64f / 255);
+            else
+                Lighting.AddLight(Projectile.Center, .4f, 1.2f, .4f); 
+
 
             if (Projectile.localAI[0] == 0) //random rotation direction
             {
@@ -84,7 +89,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                             }
                         }
                     }
-                    bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+                    
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
                         int dustID = recolor ?
@@ -118,7 +123,6 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 }
                 else if (Projectile.localAI[0] == -120)
                 {
-                    bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
                     for (int index1 = 0; index1 < 20; ++index1)
                     {
                         int dustID = recolor ?

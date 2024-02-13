@@ -273,6 +273,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             //deerclaws
             player.buffImmune[BuffID.Slow] = true;
             player.buffImmune[BuffID.Frozen] = true;
+            player.AddEffect<DeerclawpsDive>(Item);
             player.AddEffect<DeerclawpsEffect>(Item);
 
             //sadism

@@ -139,7 +139,9 @@ namespace FargowiltasSouls //lets everything access it without using
         public static bool Alive(this Projectile projectile) => projectile != null && projectile.active;
         public static bool Alive(this NPC npc) => npc != null && npc.active;
         public static bool TypeAlive(this Projectile projectile, int type) => projectile.Alive() && projectile.type == type;
+        public static bool TypeAlive<T>(this Projectile projectile) where T : ModProjectile => projectile.Alive() && projectile.type == ModContent.ProjectileType<T>();
         public static bool TypeAlive(this NPC npc, int type) => npc.Alive() && npc.type == type;
+        public static bool TypeAlive<T>(this NPC npc) where T : ModNPC => npc.Alive() && npc.type == ModContent.NPCType<T>();
         public static NPC GetSourceNPC(this Projectile projectile)
             => projectile.GetGlobalProjectile<A_SourceNPCGlobalProjectile>().sourceNPC;
 
@@ -199,6 +201,18 @@ namespace FargowiltasSouls //lets everything access it without using
                 return player.HeldItem.DamageType;
             else
                 return DamageClass.Summon;
+        }
+
+        public static void Animate(this Projectile proj, int ticksPerFrame, int startFrame = 0, int? frames = null)
+        {
+            frames ??= Main.projFrames[proj.type];
+
+            if (++proj.frameCounter >= ticksPerFrame)
+            {
+                if (++proj.frame >= startFrame + frames)
+                    proj.frame = startFrame;
+                proj.frameCounter = 0;
+            }
         }
     }
 }

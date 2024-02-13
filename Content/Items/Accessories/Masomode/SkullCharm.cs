@@ -35,7 +35,7 @@ The crystal skull charges energy to attack as you attack
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 6);
         }
 

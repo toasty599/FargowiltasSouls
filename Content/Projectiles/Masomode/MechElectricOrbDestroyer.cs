@@ -3,10 +3,9 @@ using Terraria;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class DarkStarDestroyer : DarkStar
+    public class MechElectricOrbDestroyer : MechElectricOrb
     {
-        public override string Texture => "Terraria/Images/Projectile_12";
-
+        public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/MechElectricOrb";
         public override void AI()
         {
             if (Projectile.localAI[1] == 0)

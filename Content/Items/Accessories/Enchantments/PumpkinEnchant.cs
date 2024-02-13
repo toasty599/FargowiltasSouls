@@ -76,10 +76,7 @@ Enemies that touch them will destroy them and take damage
                     int x = (int)player.Center.X / 16;
                     int y = (int)(player.position.Y + player.height - 1f) / 16;
 
-                    //if (Main.tile[x, y] == null)
-                    //{
-                    //    Main.tile[x, y] = new Tile();
-                    //}
+                    //Main.tile[x, y] ??= new Tile();
 
                     if (!Main.tile[x, y].HasTile && Main.tile[x, y].LiquidType == 0 && Main.tile[x, y + 1] != null && (WorldGen.SolidTile(x, y + 1) || Main.tile[x, y + 1].TileType == TileID.Platforms)
                         || modPlayer.ForceEffect<PumpkinEnchant>())

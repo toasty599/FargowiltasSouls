@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Terraria;
 using Terraria.DataStructures;
@@ -36,6 +37,10 @@ namespace FargowiltasSouls.Content.Items.Weapons.Challengers
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.shoot = ModContent.ProjectileType<EnchantedLifebladeProjectile>();
             Item.shootSpeed = 30f;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe().AddIngredient<LifelightBag>(2).AddTile(TileID.Solidifier).Register();
         }
     }
 }

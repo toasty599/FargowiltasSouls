@@ -221,7 +221,7 @@ FrostEnchant: {
 		Icicles will start to appear around you
 		Attacking will launch them towards the cursor
 		When they hit an enemy they are inflicted with Frostbite and frozen solid
-		Press the Freeze Key to chill everything for 20 seconds
+		Press the Freeze Key to chill and Frostburn everything for 20 seconds
 		There is a 60 second cooldown for this effect
 		'Let's coat the world in a deep freeze'
 		''' */
@@ -559,7 +559,8 @@ SilverEnchant: {
 	/* Tooltip:
 		'''
 		Right Click to guard with your shield
-		Guard just before being hit to parry and negate damage
+		Guard shortly before being hit to parry and negate damage
+		Guard exactly when hit to perfect parry, gaining Striking Moment
 		Parry blocks up to 100 damage
 		'Reflection'
 		''' */
@@ -570,7 +571,7 @@ SnowEnchant: {
 	/* Tooltip:
 		'''
 		Your attacks briefly inflict Frostburn
-		Press the Freeze Key to chill everything for 15 seconds
+		Press the Freeze Key to chill and Frostburn everything for 15 seconds
 		There is a 60 second cooldown for this effect
 		'It's Burning Cold Outside'
 		''' */
@@ -669,7 +670,7 @@ TitaniumEnchant: {
 		Attacking generates a defensive barrier of up to 20 titanium shards
 		When you reach the maximum amount, you gain resistance to most debuffs on hit and 25% damage resistance against contact damage and projectiles in close range
 		This has a cooldown of 10 seconds during which you cannot gain shards
-		'The power of titanium in the palm of your hand'
+		'Who needs a dodge when you're indestructible'
 		''' */
 }
 
@@ -863,7 +864,7 @@ NatureForce: {
 		[i:FargowiltasSouls/MoltenEnchant] Nearby enemies are ignited in a greater radius
 		[i:FargowiltasSouls/RainEnchant] Spawns an umbrella that blocks projectiles from above
 		[i:FargowiltasSouls/FrostEnchant] Icicles will start to appear around you
-		[i:FargowiltasSouls/SnowEnchant] Press the Freeze Key to temporarily chill everything
+		[i:FargowiltasSouls/SnowEnchant] Press the Freeze Key to temporarily chill and Frostburn everything
 		[i:FargowiltasSouls/ChlorophyteEnchant] Summons a ring of leaf crystals to shoot at nearby enemies
 		[i:FargowiltasSouls/JungleEnchant] Grants a double spore jump and a dash
 		[i:FargowiltasSouls/ShroomiteEnchant] Not moving puts you in stealth
@@ -919,7 +920,7 @@ TerraForce: {
 		[i:FargowiltasSouls/SilverEnchant] Right Click to guard with your shield
 		[i:FargowiltasSouls/TungstenEnchant] Weapon size increased to 300% and projectile size every quarter second
 		[i:FargowiltasSouls/ObsidianEnchant] Grants immunity to lava
-		[i:FargowiltasSouls/AshWoodEnchant] While burning or in lava, player and town NPC attacks are accompanied by fireballs
+		[i:FargowiltasSouls/AshWoodEnchant] Player and town NPC attacks are accompanied by fireballs
 		'The land lends its strength'
 		''' */
 }
@@ -1022,7 +1023,7 @@ BionomicCluster: {
 		[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 		[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
 		[c/00FFFF:Following effects also work passively from inventory or vanity slots (right click to disable in inventory):]
-		    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
+		    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, cactus damage, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
 		    [i:FargowiltasSouls/WyvernFeather] Stabilizes gravity in space and in liquid, [i:FargowiltasSouls/OrdinaryCarrot] improves your nightvision, [i:FargowiltasSouls/SecurityWallet] and drastically improves reforges
 		    [i:FargowiltasSouls/ConcentratedRainbowMatter] Automatically uses healing & [i:FargowiltasSouls/MysticSkull] mana potions when needed and increases pickup range for mana stars
 		    [i:FargowiltasSouls/NymphsPerfume] You respawn with more life [i:FargowiltasSouls/SandsofTime] and when no boss is alive, respawn faster
@@ -1046,7 +1047,7 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 		[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
 		[c/00FFFF:Following effects are currently disabled in inventory (right click to enable):]
-		    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
+		    Grants immunity to [i:FargowiltasSouls/SandsofTime] Mighty Wind, cactus damage, [i:FargowiltasSouls/MysticSkull] Suffocation, [i:FargowiltasSouls/FrigidGemstone] Chilled, [i:FargowiltasSouls/SqueakyToy] and Guilty
 		    [i:FargowiltasSouls/WyvernFeather] Stabilizes gravity in space and in liquid, [i:FargowiltasSouls/OrdinaryCarrot] improves your nightvision, [i:FargowiltasSouls/SecurityWallet] and drastically improves reforges
 		    [i:FargowiltasSouls/ConcentratedRainbowMatter] Automatically uses healing & [i:FargowiltasSouls/MysticSkull] mana potions when needed and increases pickup range for mana stars
 		    [i:FargowiltasSouls/NymphsPerfume] You respawn with more life [i:FargowiltasSouls/SandsofTime] and when no boss is alive, respawn faster
@@ -1110,6 +1111,8 @@ Deerclawps: {
 		'''
 		Grants immunity to Slow and Frozen
 		Dashing leaves a trail of ice spikes
+		Double tap DOWN in the air to fastfall
+		Fastfall will create a glacial eruption on impact after falling a certain distance
 		'The trimmed nails of a defeated foe'
 		''' */
 }
@@ -1122,7 +1125,7 @@ DreadShell: {
 		Grants immunity to knockback
 		Right Click to guard with your shield
 		Defense and damage reduction drastically decreased while and shortly after guarding
-		Guard exactly as an attack touches you to parry and counter it on a very long cooldown
+		Guard exactly when hit to parry and counter it on a very long cooldown
 		Parry blocks up to 200 damage
 		Counterattack deals massive damage and inflicts Anticoagulation
 		Absorb Anticoagulation blood clots to gain 30% increased damage
@@ -1243,7 +1246,7 @@ HeartoftheMasochist: {
 		'''
 		Grants immunity to [i:FargowiltasSouls/PumpkingsCape] Living Wasteland, [i:FargowiltasSouls/IceQueensCrown] Hypothermia, [i:FargowiltasSouls/SaucerControlConsole] Electrified, Distorted, [i:FargowiltasSouls/BetsysHeart] Oozed, Withered Weapon, Withered Armor
 		[i:FargowiltasSouls/MutantAntibodies] Wet, Feral Bite, Mutant Nibble, Oceanic Maul, water debuffs, [i:FargowiltasSouls/PrecisionSeal] Smite, [i:FargowiltasSouls/GalacticGlobe] Nullification Curse, Flipped, Unstable, and Curse of the Moon	
-		[i:FargowiltasSouls/PumpkingsCape] [i:FargowiltasSouls/MutantAntibodies] [i:FargowiltasSouls/IceQueensCrown] Increases damage and crit chance by 10%, current class damage by 20%, and damage reduction by 5%
+		[i:FargowiltasSouls/PumpkingsCape] [i:FargowiltasSouls/MutantAntibodies] [i:FargowiltasSouls/IceQueensCrown] Increases damage and crit chance by 10%, and damage reduction by 5%
 		[i:FargowiltasSouls/PumpkingsCape] Right Click to guard and parry attacks. Parries heal you based on damage. While guarding, gain an aura of Rotting
 		[i:FargowiltasSouls/IceQueensCrown] Graze attacks to charge up a bomb. When it's charged, press Bomb Key to freeze all projectiles and enemies for a short time
 		[i:FargowiltasSouls/SaucerControlConsole] Summons a friendly Mini Saucer which slows enemies it hits
@@ -1293,6 +1296,8 @@ LumpOfFlesh: {
 		[i:FargowiltasSouls/DreadShell] Right Click to parry, blocking 200 damage and dealing a massive counterattack if it lands
 		[i:FargowiltasSouls/DreadShell] Defense and damage reduction drastically decreased while and shortly after guarding
 		[i:FargowiltasSouls/Deerclawps] Dashing leaves a trail of blood spikes
+		[i:FargowiltasSouls/Deerclawps] Double tap DOWN in the air to fastfall
+		[i:FargowiltasSouls/Deerclawps] Fastfall will create a glacial eruption on impact after falling a certain distance
 		'It's growing'
 		''' */
 }
@@ -1317,7 +1322,7 @@ MutantAntibodies: {
 		Grants immunity to Wet, Feral Bite, Mutant Nibble, and Oceanic Maul
 		Grants immunity to most debuffs caused by entering water
 		Grants effects of Wet debuff while riding Cute Fishron
-		Increases damage for your current weapon class by 20%, but decreases life regeneration
+		Increases damage for your current weapon class by 25%, but decreases life regeneration
 		Submerging in water refreshes flight time and gives you improved speed and increased max flight time
 		'Healthy drug recommended by 0 out of 10 doctors'
 		''' */
@@ -1411,7 +1416,7 @@ PumpkingsCape: {
 		Increases damage and critical strike chance by 5%
 		Right Click to guard with your cape
 		You have an aura of Rotting while guarding
-		Guard exactly as an attack touches you to parry and counter it on a very long cooldown
+		Guard exactly when hit to parry and counter it on a very long cooldown
 		Parry blocks up to 200 damage
 		Counter an attack to gain life based on the blocked damage
 		'Somehow, it's the right size'
@@ -1473,7 +1478,7 @@ SandsofTime: {
 	/* Tooltip:
 		'''
 		Works in your inventory
-		Grants immunity to Mighty Wind
+		Grants immunity to Mighty Wind and cactus damage
 		You respawn twice as fast when no boss is alive
 		Use to teleport to your last death point
 		'Whatever you do, don't drop it'
@@ -1743,309 +1748,12 @@ EternitySoul: {
 
 	Extra: {
 		// Additional: Additionally grants:
-		/* Vanilla:
-			'''
-			250% increased damage
-			250% increased attack speed
-			100% increased shoot speed
-			100% increased knockback
-			Increases armor penetration by 50
-			Crits deal 10x damage and inflict Flames of the Universe
-			Drastically increases life regeneration
-			Increases your maximum mana to 999
-			Increases your maximum minions by 30
-			Increases your maximum sentries by 20
-			Increases your maximum HP by 50%
-			Reduces your mana usage by 50%
-			All attacks inflict Sadism
-			All attacks inflict Midas
-			All attacks reduce enemy immunity frames
-			Summons fireballs arund you
-			Summons 2 shadow orbs around you
-			Summons icicles around you
-			Summons leaf crystals around you
-			Summons a hallowed sword and shield
-			Summons beetles to protect you
-			Summons a Flameburst minion
-			Summons a ton of pets
-			Summons all Eternity Mode bosses to your side 
-			Attacks may spawn lightning
-			Attacks may spawn flower petals
-			Attacks may spawn spectre orbs
-			Attacks may spawn a Dungeon Guardian
-			Attacks may spawn snowballs
-			Attacks may spawn spears
-			Attacks may spawn hearts
-			Attacks may spawn a miniture storm
-			Attacks may spawn buff boosters
-			Attacks cause increased life regen
-			Attacks cause shadow dodge
-			Attacks cause Flameburst shots
-			Attacks cause Pumpking attacks
-			Attacks cause Cultist spells
-			Attacks cause meteor showers
-			All Projectiles will split
-			Projectiles may shatter
-			Projectiles spawn stars
-			Item and projectile size increased
-			You leave a trail of fire
-			Nearby enemies are ignited
-			Minions occasionally spew scythes
-			You may spawn temporary minions
-			Critters have increased defense
-			Critter's souls may aid you
-			Enemies explode into needles
-			Greatly enhances all DD2 sentries
-			Double-tap down to spawn a palm tree sentry
-			Double-tap down to call an ancient storm
-			Double-tap down to call a rain of arrows
-			Double-tap down to toggle stealth
-			Double-tap down to spawn a portal
-			Double-tap down to direct your empowered guardian
-			Right Click to Guard
-			Press the Gold Key to encase yourself in gold
-			Press the Freeze Key to freeze time for 5 seconds
-			Solar shield allows you to dash
-			Dashing into solid blocks teleports you through them
-			Throw a smoke bomb to teleport to it and gain the first strike buff
-			Jumping will release a spore explosion
-			Enemies getting too close will trigger all on hit effects
-			Getting hit reflects damage
-			Getting hit triggers a blood geyser
-			Getting hit may squeak
-			Getting hit causes you to erupt into spiky balls
-			Getting hit causes you to erupt into Ancient Visions
-			Grants Crimson healing
-			Grants immunity to fire
-			Grants immunity to fall damage
-			Grants immunity to lava
-			Grants immunity to knockback
-			Grants immunity to almost all debuffs
-			Grants doubled herb collection
-			Grants 50% chance for Mega Bees
-			15% chance for minion crits
-			20% chance for bonus loot
-			Allows Supersonic running and 
-			Allows infinite flight
-			Increases fishing skill substantially
-			All fishing rods will have 10 extra lures
-			You respawn 10x as fast
-			Prevents boss spawns
-			Increases spawn rates
-			Reduces skeletons hostility outside of the dungeon
-			Empowers Cute Fishron
-			Grants modifier protection
-			Grants gravity control
-			Grants fast fall
-			Enhances grappling hooks
-			You attract Items from further away
-			Increased block and wall placement speed by 50%
-			Near infinite block placement
-			Near infinite mining reach
-			Mining speed dramatically increased
-			You reflect all projectiles
-			When you are hurt, you violently explode to damage nearby enemies
-			When you die, you revive with full HP
-			Effects of Fire Gauntlet
-			Effects of Yoyo Bag
-			Effects of Sniper Scope
-			Effects of Celestial Cuffs
-			Effects of Mana Flower
-			Effects of Brain of Confusion
-			Effects of Star Veil
-			Effects of Sweetheart Necklace
-			Effects of Bee Cloak
-			Effects of Spore Sac
-			Effects of Paladin's Shield
-			Effects of Frozen Turtle Shell
-			Effects of Arctic Diving Gear
-			Effects of Frog Legs
-			Effects of Flying Carpet
-			Effects of Lava Waders
-			Effects of Angler Tackle Bag
-			Effects of Paint Sprayer
-			Effects of Presserator
-			Effects of Cell Phone
-			Effects of Flower Boots
-			Effects of Master Ninja Gear
-			Effects of Celestial Shell
-			Effects of Shiny Stone
-			Effects of Spelunker potion
-			Effects of Dangersense potion
-			Effects of Hunter potion
-			Effects of Shine potion
-			Effects of Builder Mode
-			''' */
-		// mod compatibility is removed
-		/* Thorium:
-			'''
-			Armor bonuses from Living Wood
-			Armor bonuses from Life Bloom
-			Armor bonuses from Yew Wood
-			Armor bonuses from Tide Hunter
-			Armor bonuses from Icy
-			Armor bonuses from Cryo Magus
-			Armor bonuses from Whispering
-			Armor bonuses from Sacred
-			Armor bonuses from Warlock
-			Armor bonuses from Biotech
-			Armor bonuses from Cyber Punk
-			Armor bonuses from Maestro
-			Armor bonuses from Bronze
-			Armor bonuses from Darksteel
-			Armor bonuses from Durasteel
-			Armor bonuses from Conduit
-			Armor bonuses from Lodestone
-			Armor bonuses from Illumite
-			Armor bonuses from Jester
-			Armor bonuses from Thorium
-			Armor bonuses from Terrarium
-			Armor bonuses from Malignant
-			Armor bonuses from Folv
-			Armor bonuses from White Dwarf
-			Armor bonuses from Celestial
-			Armor bonuses from Spirit Trapper
-			Armor bonuses from Dragon
-			Armor bonuses from Dread
-			Armor bonuses from Flesh
-			Armor bonuses from Demon Blood
-			Armor bonuses from Tide Turner
-			Armor bonuses from Assassin
-			Armor bonuses from Pyromancer
-			Armor bonuses from Dream Weaver
-			Effects of Flawless Chrysalis
-			Effects of Bubble Magnet
-			Effects of Agnor's Bowl
-			Effects of Ice Bound Strider Hide
-			Effects of Ring of Unity
-			Effects of Mix Tape
-			Effects of Eye of the Storm
-			Effects of Champion's Rebuttal
-			Effects of Incandescent Spark
-			Effects of Greedy Magnet
-			Effects of Abyssal Shell
-			Effects of Astro-Beetle Husk
-			Effects of Eye of the Beholder
-			Effects of Crietz
-			Effects of Mana-Charged Rocketeers
-			Effects of Inner Flame
-			Effects of Crash Boots
-			Effects of Vampire Gland
-			Effects of Demon Blood Badge
-			Effects of Lich's Gaze
-			Effects of Plague Lord's Flask
-			Effects of Phylactery
-			Effects of Crystal Scorpion
-			Effects of Guide to Expert Throwing - Volume III
-			Effects of Mermaid's Canteen
-			Effects of Deadman's Patch
-			Effects of Support Sash
-			Effects of Saving Grace
-			Effects of Soul Guard
-			Effects of Archdemon's Curse
-			Effects of Archangel's Heart
-			Effects of Medical Bag
-			Effects of Epic Mouthpiece
-			Effects of Straight Mute
-			Effects of Digital Tuner
-			Effects of Guitar Pick Claw
-			Effects of Ocean's Retaliation
-			Effects of Terrarium Defender
-			Effects of Air Walkers
-			Effects of Survivalist Boots
-			Effects of Weighted Winglets
-			''' */
-		/* Calamity:
-			'''
-			Armor bonuses from Aerospec
-			Armor bonuses from Statigel
-			Armor bonuses from Daedalus
-			Armor bonuses from Bloodflare
-			Armor bonuses from Victide
-			Armor bonuses from Xeroc
-			Armor bonuses from Omega Blue
-			Armor bonuses from God Slayer
-			Armor bonuses from Silva
-			Armor bonuses from Auric Tesla
-			Armor bonuses from Mollusk
-			Armor bonuses from Reaver
-			Armor bonuses from Hydrothermic
-			Armor bonuses from Astral
-			Armor bonuses from Tarragon
-			Armor bonuses from Demonshade
-			Effects of Spirit Glyph
-			Effects of Raider's Talisman
-			Effects of Trinket of Chi
-			Effects of Gladiator's Locket
-			Effects of Unstable Prism
-			Effects of Counter Scarf
-			Effects of Fungal Symbiote
-			Effects of Permafrost's Concoction
-			Effects of Regenator
-			Effects of Core of the Blood God
-			Effects of Affliction
-			Effects of Deep Dive
-			Effects of The Transformer
-			Effects of Luxor's Gift
-			Effects of The Community
-			Effects of Abyssal Diving Suit
-			Effects of Lumenous Amulet
-			Effects of Aquatic Emblem
-			Effects of Nebulous Core
-			Effects of Draedon's Heart
-			Effects of The Amalgam
-			Effects of Godly Soul Artifact
-			Effects of Yharim's Gift
-			Effects of Heart of the Elements
-			Effects of The Sponge
-			Effects of Giant Pearl
-			Effects of Amidias' Pendant
-			Effects of Flame-Licked Shell
-			Effects of Plague Hive
-			Effects of Astral Arcanum
-			Effects of Hide of Astrum Deus
-			Effects of Profaned Soul Artifact
-			Effects of Dark Sun Ring
-			Effects of Elemental Gauntlet
-			Effects of Elemental Quiver
-			Effects of Ethereal Talisman
-			Effects of Statis' Belt of Curses
-			Effects of Nanotech
-			Effects of Asgardian Aegis
-			''' */
-		/* SOA:
-			'''
-			Armor bonuses from Bismuth
-			Armor bonuses from Frosthunter
-			Armor bonuses from Blightbone
-			Armor bonuses from Dreadfire
-			Armor bonuses from Space Junk
-			Armor bonuses from Marstech
-			Armor bonuses from Blazing Brute
-			Armor bonuses from Cosmic Commander
-			Armor bonuses from Nebulous Apprentic
-			Armor bonuses from Stellar Priest
-			Armor bonuses from Fallen Prince
-			Armor bonuses from Void Warden
-			Armor bonuses from Vulcan Reaper
-			Armor bonuses from Flarium
-			Armor bonuses from Asthraltite
-			Effects of Dreadflame Emblem
-			Effects of Lapis Pendant
-			Effects of Frigid Pendant
-			Effects of Pumpkin Amulet
-			Effects of Nuba's Blessing
-			Effects of Novaniel's Resolve
-			Effects of Celestial Ring
-			Effects of Ring of the Fallen
-			Effects of Memento Mori
-			Effects of Arcanum of the Caster
-			''' */
-		/* DBT:
-			'''
-			Effects of Zenkai Charm
-			Effects of Aspera Crystallite
-			''' */
+		// Additional effects are automatically pulled from material tooltips
+		// Tooltips which start the with the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		// StartsWithFilter: "'"
+		// Tooltips which contain the text in filter won't be included in the SoE tooltip, filters are seperated with "|"
+		// ContainsFilter: Following effects|Grants togglable
+		// Flavor: "'Mortal or Immortal, all things acknowledge your claim to divinity.'"
 	}
 }
 
@@ -2187,7 +1895,7 @@ WorldShaperSoul: {
 		Provides light and allows gravity control
 		Grants toggleable Builder Mode:
 		    Tiles and walls will not be consumed
-			Increased placement speed and range
+		    Increased placement speed and range
 		Effect can be disabled in Effect Toggles menu
 		Effects of the Cell Phone, Royal Gel and Treasure Magnet
 		Summons a pet Magic Lantern
@@ -2411,6 +2119,7 @@ MutantsDiscountCard: {
 	/* Tooltip:
 		'''
 		Permanently reduces Mutant's shop prices by 20%
+		{$CommonItemTooltip.MajorStats}
 		'It's not used how you think'
 		''' */
 }
@@ -2425,7 +2134,7 @@ OrdinaryCarrot: {
 	/* Tooltip:
 		'''
 		Increases night vision
-		Minor improvements to all stats
+		{$CommonItemTooltip.MinorStats}
 		1 minute duration
 		Right click to increase view range while in inventory
 		'Plucked from the face of a defeated foe'
@@ -3155,6 +2864,9 @@ HellZone: {
 		'''
 		Uses bones for ammo
 		80% chance to not consume ammo
+		Left click attack inflicts Hellfire
+		Right click to fire a skull that marks enemies for death
+		Marked enemies take 5x damage over time from Hellfire
 		'The reward for slaughtering many...'
 		''' */
 }
@@ -3420,7 +3132,7 @@ LifeRevitalizer: {
 
 AbomMusicBox: {
 	// DisplayName: Music Box (Abominationn)
-	// Tooltip: Sakuzyo 'Stigma'
+	// Tooltip: Yuri O 'Laevateinn'
 }
 
 ChampionMusicBox: {
@@ -3430,7 +3142,7 @@ ChampionMusicBox: {
 
 DeviMusicBox: {
 	// DisplayName: Music Box (Deviantt)
-	// Tooltip: Sakuzyo 'Lexus Cyanixs'
+	// Tooltip: Yuri O 'Sparkly Strawberry Sunrise'
 }
 
 MutantMusicBox: {
@@ -3621,10 +3333,11 @@ EaterLauncherJr: {
 	// DisplayName: The Blastbiter
 	/* Tooltip:
 		'''
-		Uses Rotten Chunks for ammo
+		Right Click in inventory to load a Rotten Chunk for ammunition
+		Attempting to fire also loads Rotten Chunk if necessary
+		Each Rotten Chunk provides 100 rounds, up to 1000
 		Fires a chunk of rotted flesh
 		Increased damage to enemies in the given range
-		50% chance to not consume ammo
 		'The rotting remains of a defeated foe..'
 		''' */
 }
@@ -3650,15 +3363,17 @@ PrimeSoul: {
 	// Tooltip: ""
 }
 
+// Dummy Item
 OncomingMutantItem: {
 	// DisplayName: Oncoming Mutant Icon
 	// Tooltip: Exists solely to be displayed in the Toggler UI when you have Mutant Presence
 }
 
 Extra: {
-	// StarlightTungsten: Unaffected by Tungsten Enchantment
+	// StarlightTungsten: x0.40 damage when used with Tungsten Enchantment
 	// DefensePrefixMaxLife: +{0} max life
 	// EternityItem: Eternity
+	// DisabledEffects: Has effects disabled by the Effect Toggles menu
 	// PatreonItem: >> Patreon Item <<
 	// stealing items texts are currently not displayed
 	// ItemStolen: An item was stolen from you!
@@ -3667,4 +3382,20 @@ Extra: {
 GravityTestItem: {
 	// DisplayName: Gravity Test Item
 	// Tooltip: ""
+}
+
+CoffinSummon: {
+	// DisplayName: Forgotten Urn
+	// Tooltip: Break in the underground Desert to summon the Cursed Coffin
+}
+
+// Dummy Item
+TogglerIconItem: {
+	// DisplayName: Toggler Icon Item
+	// Tooltip: ""
+}
+
+RazorContainer: {
+	// DisplayName: Razor Container
+	// Tooltip: Spawns 2? razor blades that hover around you. Hit them with a melee attack to send them flying dealing extra damage
 }

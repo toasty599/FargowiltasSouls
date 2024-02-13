@@ -8,14 +8,21 @@ namespace FargowiltasSouls.Core
 {
     class SoulConfig : ModConfig
     {
+        public static SoulConfig Instance;
+        public override void OnLoaded()
+        {
+            Instance = this;
+        }
         public override ConfigScope Mode => ConfigScope.ServerSide;
-        public static SoulConfig Instance => ModContent.GetInstance<SoulConfig>();
 
         private const string ModName = "FargowiltasSouls";
 
         [DefaultValue(true)]
         public bool HideTogglerWhenInventoryIsClosed;
-        
+
+        [DefaultValue(true)]
+        public bool ItemDisabledTooltip;
+
         [DefaultValue(true)]
         public bool DeviChatter;
         

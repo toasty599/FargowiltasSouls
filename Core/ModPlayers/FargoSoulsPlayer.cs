@@ -194,9 +194,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             EridanusSet = false;
             GaiaSet = false;
             StyxSet = false;
+            if (StyxAttackReadyTimer > 0)
+                StyxAttackReadyTimer--;
             NekomiSet = false;
             if (NekomiHitCD > 0)
                 NekomiHitCD--;
+            if (NekomiAttackReadyTimer > 0)
+                NekomiAttackReadyTimer--;
 
             BrainMinion = false;
             EaterMinion = false;
@@ -375,7 +379,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             DeathMarked = false;
             Hypothermia = false;
             Midas = false;
+            if (MutantPresence == false)
+                PresenceTogglerTimer = 0;
             MutantPresence = MutantPresence && Player.HasBuff(ModContent.BuffType<MutantPresenceBuff>());
+            HadMutantPresence = MutantPresence;
             MutantFang = false;
             DevianttPresence = false;
             Swarming = false;
@@ -387,6 +394,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             CerebralMindbreak = false;
             NanoInjection = false;
             Stunned = false;
+            HasJungleRose = false;
             HaveCheckedAttackSpeed = false;
             BoxofGizmos = false;
             OxygenTank = false;
@@ -457,9 +465,10 @@ namespace FargowiltasSouls.Core.ModPlayers
             EridanusTimer = 0;
             StyxMeter = 0;
             StyxTimer = 0;
-            StyxAttackReady = false;
+            StyxAttackReadyTimer = 0;
             NekomiMeter = 0;
             NekomiTimer = 0;
+            NekomiAttackReadyTimer = 0;
 
             CirnoGrazeCounter = 0;
 
@@ -866,7 +875,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (ConcentratedRainbowMatter
                 && Player.statLife < Player.statLifeMax2
                 && Player.potionDelay <= 0
-                && Player.HasEffect<RainbowHealEffect>())
+                && Player.HasEffect<RainbowHealEffect>()
+                && !MutantNibble)
             {
                 Item potion = Player.QuickHeal_GetItemToUse();
                 if (potion != null)

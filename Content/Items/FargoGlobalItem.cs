@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using FargowiltasSouls.Content.Projectiles.Souls;
+using FargowiltasSouls.Content.UI.Elements;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.CodeAnalysis;
 //using FargowiltasSouls.Content.Buffs.Souls;
@@ -10,6 +11,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -23,12 +25,11 @@ namespace FargowiltasSouls.Content.Items
     {
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.Acorn || item.type == ItemID.Bone || item.type == ItemID.RottenChunk)
+            if (item.type == ItemID.Acorn || item.type == ItemID.Bone)
             {
                 item.ammo = item.type;
             }
         }
-
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
             if (player.manaCost <= 0f) player.manaCost = 0f;
@@ -495,6 +496,7 @@ namespace FargowiltasSouls.Content.Items
         {
             if (item.type == ItemID.PiercingStarlight)
                 tooltips.Add(new TooltipLine(Mod, "StarlightTungsten", Language.GetTextValue("Mods.FargowiltasSouls.Items.Extra.StarlightTungsten")));
+            
             /*if (Array.IndexOf(Summon, item.type) > -1)
             {
                 TooltipLine helperLine = new TooltipLine(mod, "help", "Right click to convert");

@@ -17,7 +17,6 @@ namespace FargowiltasSouls.Content.Buffs.Boss
             Main.buffNoTimeDisplay[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
-
         public override void Update(Player player, ref int buffIndex)
         {
             //also halves defense, DR, and cripples life regen

@@ -17,12 +17,15 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 	public class BaronNuke : ModProjectile
     {
 
-        private readonly int ExplosionDiameter = WorldSavingSystem.MasochistModeReal ? 400 : 350;
+        private readonly int ExplosionDiameter = WorldSavingSystem.MasochistModeReal ? 500 : 500;
 
-        private SoundStyle Beep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
+        public static readonly SoundStyle Beep = new("FargowiltasSouls/Assets/Sounds/NukeBeep");
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Banished Baron's Spicy Beeping Nuclear Torpedo of Death and Destruction");
+            Main.projFrames[Type] = 4;
+            ProjectileID.Sets.TrailCacheLength[Type] = 10;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
         }
         public override void SetDefaults()
         {
@@ -33,7 +36,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
-            Projectile.scale = 2f;
+            Projectile.scale = 1f;
             Projectile.light = 1;
             Projectile.timeLeft = 60 * 60;
         }
@@ -55,8 +58,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         private int NextBeep = 1;
         private int beep = 1;
+        private int RingFlash;
+        private const int RingFlashDuration = 20;
         ref float Duration => ref Projectile.ai[0];
         ref float Timer => ref Projectile.localAI[0];
+        bool Rocket => Projectile.ai[2] != 0;
         public override bool CanHitPlayer(Player target) => Timer > 60;
         public override void AI()
         {
@@ -64,13 +70,38 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             {
                 Duration = 190;
             }
+            if (++Projectile.frameCounter > 8)
+            {
+                if (++Projectile.frame >= Main.projFrames[Type])
+                    Projectile.frame = 0;
+                Projectile.frameCounter = 0;
+            }
             if (Timer == NextBeep)
             {
                 SoundEngine.PlaySound(Beep, Projectile.Center);
                 NextBeep = (int)((int)Timer + Math.Floor(Duration / (3 + 2 * beep)));
                 beep++;
+                RingFlash = RingFlashDuration;
             }
-            Dust.NewDust(Projectile.Center - new Vector2(1, 1), 2, 2, DustID.Water, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
+            if (RingFlash > 0)
+                RingFlash--;
+
+            Vector2 backPos = Projectile.Center - Vector2.Normalize(Projectile.velocity) * 130f * Projectile.scale / 2 + Main.rand.NextVector2Circular(10, 10);
+            if (Main.rand.NextBool(3) && Projectile.velocity.LengthSquared() > 9)
+            {
+                if (Rocket)
+                {
+                    Dust.NewDust(backPos, 2, 2, DustID.Torch, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
+                }
+                else
+                {
+                    Particle p = new Bubble(backPos, -Projectile.velocity.RotatedByRandom(MathF.PI * 0.12f) * Main.rand.NextFloat(0.6f, 1f) / 2f, 1, 30, rotation: Main.rand.NextFloat(MathF.Tau));
+                    p.Spawn();
+                    Dust.NewDust(backPos, 2, 2, DustID.Water, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
+                }
+            }
+            
+
             Projectile.rotation = Projectile.velocity.RotatedBy(MathHelper.Pi).ToRotation();
 
             if (!Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
@@ -166,22 +197,22 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             }
             SoundEngine.PlaySound(SoundID.Item62 with { Pitch = -0.2f }, Projectile.Center);
 
-            for (int i = 0; i < 24; i++)
+            if (WorldSavingSystem.MasochistModeReal)
             {
-                
-                if (FargoSoulsUtil.HostCheck)
+                for (int i = 0; i < 24; i++)
                 {
-                    Vector2 pos = new Vector2(0, Main.rand.NextFloat(5, 7)).RotatedBy(i * MathHelper.TwoPi / 24);
-                    Vector2 vel = pos.RotatedBy(Main.rand.NextFloat(-MathHelper.TwoPi / 64, MathHelper.TwoPi / 64));
-                    int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
-                    if (p != Main.maxProjectiles)
+                    if (FargoSoulsUtil.HostCheck)
                     {
-                        Main.projectile[p].hostile = Projectile.hostile;
-                        Main.projectile[p].friendly = Projectile.friendly;
+                        Vector2 pos = new Vector2(0, Main.rand.NextFloat(5, 7)).RotatedBy(i * MathHelper.TwoPi / 24);
+                        Vector2 vel = pos.RotatedBy(Main.rand.NextFloat(-MathHelper.TwoPi / 64, MathHelper.TwoPi / 64));
+                        int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + pos, vel, ModContent.ProjectileType<BaronShrapnel>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
+                        if (p != Main.maxProjectiles)
+                        {
+                            Main.projectile[p].hostile = Projectile.hostile;
+                            Main.projectile[p].friendly = Projectile.friendly;
+                        }
                     }
                 }
-                
-                
             }
         }
         /*public override Color? GetAlpha(Color lightColor)
@@ -196,20 +227,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 return false;
             }
             //draw glow ring
-            float modifier = Timer / Duration;
+            float modifier = (float)RingFlash / RingFlashDuration;
             Color RingColor = Color.Lerp(Color.Orange, Color.Red, modifier);
             Texture2D ringTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/GlowRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            int ringy = ringTexture.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            float RingScale = Projectile.scale * ExplosionDiameter / ringTexture.Height;
-            int ringy3 = ringy * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle ringrect = new(0, ringy3, ringTexture.Width, ringy);
+            float RingScale = Projectile.scale * 2 * ExplosionDiameter / ringTexture.Height;
+            Rectangle ringrect = new(0, 0, ringTexture.Width, ringTexture.Height);
             Vector2 ringorigin = ringrect.Size() / 2f;
             RingColor *= modifier;
             Main.EntitySpriteDraw(ringTexture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(ringrect), RingColor, Projectile.rotation, ringorigin, RingScale, SpriteEffects.None, 0);
 
             //draw projectile
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            Texture2D texture2D13 = Rocket ? ModContent.Request<Texture2D>(Texture + "Rocket", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value : Terraria.GameContent.TextureAssets.Projectile[Type].Value;
+            int num156 = texture2D13.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
@@ -220,15 +249,18 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = color26 * 0.75f;
+                Color color27 = color26 * 0.5f;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
                 Main.EntitySpriteDraw(texture2D13, value4 + drawOffset + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
-
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
 
             Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
 

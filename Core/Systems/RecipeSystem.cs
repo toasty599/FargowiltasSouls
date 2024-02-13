@@ -1,11 +1,13 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -188,9 +190,22 @@ namespace FargowiltasSouls.Core.Systems
             group = new RecipeGroup(() => ItemXOrY(ItemID.GoldBar, ItemID.PlatinumBar), ItemID.GoldBar, ItemID.PlatinumBar);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyGoldBar", group);
 
+            //vanilla demonite bars bar
+            group = new RecipeGroup(() => ItemXOrY(ItemID.DemoniteBar, ItemID.CrimtaneBar), ItemID.DemoniteBar, ItemID.CrimtaneBar);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyDemoniteBar", group);
+
             //mythril and ori bar
             group = new RecipeGroup(() => ItemXOrY(ItemID.MythrilBar, ItemID.OrichalcumBar), ItemID.MythrilBar, ItemID.OrichalcumBar);
             RecipeGroup.RegisterGroup("FargowiltasSouls:AnyMythrilBar", group);
+
+            //any evil orb magic
+            group = new RecipeGroup(() => ItemXOrY(ItemID.Vilethorn, ItemID.CrimsonRod), ItemID.Vilethorn, ItemID.CrimsonRod);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:VilethornOrCrimsonRod", group);
+
+            //any shellphone because they made it 5 fucking different items
+            group = new RecipeGroup(() => AnyItem(ItemID.Shellphone), ItemID.Shellphone, ItemID.ShellphoneDummy, ItemID.ShellphoneHell, ItemID.ShellphoneOcean, ItemID.ShellphoneSpawn);
+            RecipeGroup.RegisterGroup("FargowiltasSouls:AnyShellphone", group);
+
 
         }
         public override void PostAddRecipes()

@@ -1,9 +1,11 @@
 ﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
@@ -125,13 +127,27 @@ namespace FargowiltasSouls.Core.Globals
 
             if (!npc.dontTakeDamage)
             {
-                if (npc.position.Y / 16 < Main.worldSurface * 0.35f) //enemy in space
+                bool boss = npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail;
+                if (npc.position.Y / 16 < Main.worldSurface * 0.35f && !boss) //enemy in space
                     npc.AddBuff(BuffID.Suffocation, 2, true);
-                else if (npc.position.Y / 16 > Main.maxTilesY - 200) //enemy in hell
+                else if (npc.position.Y / 16 > Main.maxTilesY - 200 && !boss) //enemy in hell
                 {
                     //because of funny bug where town npcs fall forever in mp, including into hell
                     if (FargoSoulsUtil.HostCheck)
                         npc.AddBuff(BuffID.OnFire, 2);
+                }
+
+                Vector2 tileCenter = npc.Center;
+                tileCenter.X /= 16;
+                tileCenter.Y /= 16;
+                Tile currentTile = Framing.GetTileSafely((int)tileCenter.X, (int)tileCenter.Y);
+
+                if (Main.raining && (npc.position.Y / 16 < Main.worldSurface))
+                {
+                    if (currentTile.WallType == WallID.None)
+                    {
+                        npc.AddBuff(BuffID.Wet, 2);
+                    }
                 }
 
                 if (npc.wet && !npc.noTileCollide && !isWaterEnemy && npc.HasPlayerTarget)
@@ -682,6 +698,7 @@ namespace FargowiltasSouls.Core.Globals
                         if (normalSpawn)
                         {
                             pool[NPCID.AngryNimbus] = .05f;
+                            pool[NPCID.MartianSaucerCore] = 0.001f;
 
                             if (NPC.downedGolemBoss)
                             {
@@ -727,7 +744,7 @@ namespace FargowiltasSouls.Core.Globals
 
                         if (!surface)
                         {
-                            pool[NPCID.BigMimicJungle] = .0025f;
+                            pool[NPCID.BigMimicJungle] = .0075f;
 
                             if (NPC.downedGolemBoss && bossCanSpawn)
                                 pool[NPCID.Plantera] = .00005f;
@@ -757,6 +774,11 @@ namespace FargowiltasSouls.Core.Globals
                     {
                         pool[NPCID.AnglerFish] = .1f;
                     }
+                }
+                // irrespective of hardmode
+                if (snow && !surface)
+                {
+                    pool[NPCID.SnowFlinx] = .05f;
                 }
             }
 

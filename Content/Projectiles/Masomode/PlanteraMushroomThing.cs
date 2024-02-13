@@ -1,7 +1,6 @@
 ﻿using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +11,6 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Terraria.Audio;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
@@ -34,7 +32,12 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         }
         public override void AI()
         {
-            Lighting.AddLight(Projectile.Center, 0.1f, 0.4f, 0.2f);
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+            if (recolor)
+                Lighting.AddLight(Projectile.Center, 25f / 255, 47f / 255, 64f / 255);
+            else
+                Lighting.AddLight(Projectile.Center, 0.1f, 0.4f, 0.2f);
+
             if (Projectile.localAI[0] != 1)
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath13, Projectile.Center);
@@ -94,7 +97,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 float rot = Projectile.oldRot[i];
                 FargoSoulsUtil.GenericProjectileDraw(Projectile, color2, texture: texture, drawPos: pos, rotation: rot);
             }
-            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor, texture: texture);
+            FargoSoulsUtil.GenericProjectileDraw(Projectile, Color.White, texture: texture);
             return false;
         }
     }

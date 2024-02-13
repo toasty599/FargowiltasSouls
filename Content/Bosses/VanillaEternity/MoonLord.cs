@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.5);
+            npc.lifeMax *= 3;
         }
 
         public override bool SafePreAI(NPC npc)
@@ -446,7 +446,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 const float maxRampup = 3;
                 float lerp = (float)npc.life / npc.lifeMax;
                 if (WorldSavingSystem.MasochistModeReal)
-                    lerp *= lerp;
+                    lerp = MathF.Pow(lerp, 1.5f);
                 float increment = (int)Math.Round(MathHelper.Lerp(maxRampup, 1, lerp));
 
                 VulnerabilityTimer += increment;

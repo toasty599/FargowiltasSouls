@@ -21,6 +21,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using FargowiltasSouls.Content.Items.Consumables;
+using FargowiltasSouls.Content.UI;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -310,8 +311,8 @@ namespace FargowiltasSouls.Core.ModPlayers
                 HasDash = false;
                 Player.dashDelay = 10;
 
-                if (lihzahrdFallCD < 2)
-                    lihzahrdFallCD = 2;
+                if (fastFallCD < 2)
+                    fastFallCD = 2;
             }
             if (Player.dashDelay > 0 && DashCD > 0)
                 Player.dashDelay = Math.Max(DashCD, Player.dashDelay);
@@ -320,7 +321,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             DashManager.ManageDashes(Player);
 
-            if (LihzahrdTreasureBoxItem != null)
+            if (LihzahrdTreasureBoxItem != null || Player.HasEffect<DeerclawpsDive>())
                 LihzahrdTreasureBoxUpdate();
             if (Player.HasEffect<DeerclawpsEffect>() && IsInADashState)
                 DeerclawpsEffect.DeerclawpsAttack(Player, Player.Bottom);
@@ -440,8 +441,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateMiscEffects()
         {
-            FargoSoulsPlayer modPlayer = Player.FargoSouls();
-
             //these are here so that emode minion nerf can properly detect the real set bonuses over in EModePlayer postupdateequips
             if (SquireEnchantActive)
                 Player.setSquireT2 = true;
@@ -650,6 +649,34 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.HasEffect<CelestialRuneAttacks>() && AdditionalAttacksTimer > 0)
                 AdditionalAttacksTimer--;
+
+            /* TODO: Mutant's Presence toggle visual
+            if (PresenceTogglerTimer == 5)
+            {
+                Main.playerInventory = false;
+                FargoUIManager.CloseSoulToggler();
+                SoundEngine.PlaySound(SoundID.MenuClose);
+                PresenceTogglerTimer = 0;
+            }
+            if (PresenceTogglerTimer > 5)
+            {
+                Main.playerInventory = true;
+                FargoUIManager.OpenToggler();
+            }
+            if (PresenceTogglerTimer > 0)
+            {
+                PresenceTogglerTimer--;
+            }
+                
+            
+            if (MutantPresence && !HadMutantPresence && !MutantFang)
+            {
+                PresenceTogglerTimer = 100;
+                Main.playerInventory = true;
+                FargoUIManager.OpenToggler();
+                SoundEngine.PlaySound(SoundID.MenuOpen);
+            }
+            */
 
             if (MutantPresence || DevianttPresence)
             {

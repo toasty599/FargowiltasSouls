@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
 using System;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -59,45 +61,32 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
-        private void ShootSharks(Vector2 target, int rngModifier, Vector2 leadLength = default)
+        public static void ShootSharks(Vector2 target, float speed, IEntitySource source, int damage, float knockback, int whoAmI = -1)
         {
-            Main.projectile.Where(x => x.active && x.type == ModContent.ProjectileType<Whirlpool>() && x.owner == Projectile.owner).ToList().ForEach(x =>
+            foreach (Projectile tornado in Main.projectile.Where(p => p.active && p.ModProjectile is Whirlpool && p.owner == Main.myPlayer))
             {
-                if (Main.rand.NextBool(rngModifier))
+                if (Main.rand.NextBool())
                 {
-                    Vector2 velocity = Vector2.Normalize(target + leadLength * Main.rand.NextFloat() - x.Center) * Main.rand.NextFloat(12f, 24f);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), x.Center, velocity, ModContent.ProjectileType<FishStickShark>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    float shootSpeed = speed;
+                    Vector2 vel = Vector2.Normalize(target - tornado.Center + Main.rand.NextVector2Circular(32, 32))
+                        * shootSpeed * Main.rand.NextFloat(1f, 1.5f);
+                    //increase damage, compensate for probably missing the mouse-aimed ones
+                    int sharkDamage = damage / FishStickWhirlpool.TornadoHeight;
+                    Projectile.NewProjectile(source, tornado.Center, vel, ModContent.ProjectileType<FishStickShark>(), sharkDamage, knockback, Main.myPlayer, ai2: whoAmI);
                 }
-            });
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Player player = Main.player[Projectile.owner];
-
             if (Projectile.owner == Main.myPlayer)
             {
-                ShootSharks(target.Center, 2, target.velocity * 30f);
+                ShootSharks(target.Center, Projectile.velocity.Length(), Projectile.GetSource_FromThis(), Projectile.damage, Projectile.knockBack, target.whoAmI);
             }
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Player player = Main.player[Projectile.owner];
-
-            if (Projectile.owner == Main.myPlayer)
-            {
-                ShootSharks(Projectile.Center, 5);
-            }
-
-            return true;
         }
 
         public override void OnKill(int timeLeft)
         {
-            if (Projectile.owner == Main.myPlayer)
-                ShootSharks(Projectile.Center, 5);
-
             for (int i = 0; i < 20; i++)
             {
                 int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueTorch, -Projectile.velocity.X * 0.2f,

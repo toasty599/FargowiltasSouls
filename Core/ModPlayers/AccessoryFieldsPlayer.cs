@@ -22,11 +22,13 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool StyxSet;
         public int StyxMeter;
         public int StyxTimer;
-        public bool StyxAttackReady;
+        public int StyxAttackReadyTimer;
         public bool NekomiSet;
         public int NekomiMeter;
         public int NekomiTimer;
         public int NekomiHitCD;
+        public int NekomiAttackReadyTimer;
+        public const int SuperAttackMaxWindow = 15;
 
         //        //minions
         public bool BrainMinion;
@@ -337,7 +339,9 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int CurrentLifeReduction;
         public int LifeReductionUpdateTimer;
         public bool Midas;
+        public bool HadMutantPresence;
         public bool MutantPresence;
+        public int PresenceTogglerTimer;
         public bool MutantFang;
         public bool DevianttPresence;
         public bool Swarming;
@@ -354,7 +358,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool NanoInjection;
         public bool Stunned;
         public bool HaveCheckedAttackSpeed;
-
+        public bool HasJungleRose;
 
 
         public int ReallyAwfulDebuffCooldown;
@@ -365,6 +369,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int DreadShellVulnerabilityTimer;
         public int shieldTimer;
         public int shieldCD;
+        public int shieldHeldTime;
         public bool wasHoldingShield;
         public int LightslingerHitShots;
 

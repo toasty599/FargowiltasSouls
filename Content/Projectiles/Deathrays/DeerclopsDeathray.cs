@@ -11,7 +11,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 {
     public class DeerclopsDeathray : BaseDeathray
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/PhantasmalDeathrayWOF";
+        public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/PhantasmalDeathray";
         public DeerclopsDeathray() : base(300) { }
 
         public override void SetStaticDefaults()
@@ -93,7 +93,7 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
                 Vector2 beamEnd = Projectile.Center + Projectile.velocity * Projectile.localAI[1];
                 for (int i = 0; i < 2; i = num3 + 1)
                 {
-                    int num812 = Dust.NewDust(beamEnd, 0, 0, DustID.GemSapphire);
+                    int num812 = Dust.NewDust(beamEnd, 0, 0, DustID.GemRuby);
                     Main.dust[num812].scale = 1f;
                     Main.dust[num812].velocity *= 3;
                     Main.dust[num812].velocity.Y -= 6f;
@@ -106,10 +106,9 @@ namespace FargowiltasSouls.Content.Projectiles.Deathrays
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(BuffID.Frozen, 30);
-
             target.AddBuff(BuffID.Frostburn, 90);
-            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
+            if (WorldSavingSystem.MasochistModeReal)
+                target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
             target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
         }
     }

@@ -10,6 +10,6 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 
         public bool CanShowItemDropInUI() => !WorldSavingSystem.EternityMode;
 
-        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.NotEMode");
+        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.Conditions.NotEMode");
     }
 }

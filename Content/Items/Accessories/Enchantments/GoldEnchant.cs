@@ -21,7 +21,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 150000;
         }
 
@@ -49,6 +49,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         
         public override Header ToggleHeader => Header.GetHeader<WillHeader>();
         public override int ToggleItemType => ModContent.ItemType<GoldEnchant>();
+        public override bool IgnoresMutantPresence => true;
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
             target.AddBuff(BuffID.Midas, 120, true);

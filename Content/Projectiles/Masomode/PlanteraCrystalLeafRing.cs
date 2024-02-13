@@ -25,9 +25,10 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override void AI()
         {
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
             if (++Projectile.localAI[0] == 0)
             {
-                bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+                
                 for (int index1 = 0; index1 < 30; ++index1)
                 {
                     int dustID = recolor ? 
@@ -39,8 +40,11 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     Main.dust[index2].velocity *= 5f;
                 }
             }
+            if (recolor)
+                Lighting.AddLight(Projectile.Center, 25f / 255, 47f / 255, 64f / 255);
+            else
+                Lighting.AddLight(Projectile.Center, 0.1f, 0.4f, 0.2f);
 
-            Lighting.AddLight(Projectile.Center, 0.1f, 0.4f, 0.2f);
             Projectile.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
             Projectile.scale *= 1.5f;
 

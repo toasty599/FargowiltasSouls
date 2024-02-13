@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -53,6 +54,20 @@ There is a 60 second cooldown for this effect
 
             .AddTile(TileID.DemonAltar)
             .Register();
+
+            CreateRecipe()
+
+            .AddIngredient(ItemID.EskimoHood)
+            .AddIngredient(ItemID.EskimoCoat)
+            .AddIngredient(ItemID.EskimoPants)
+            //hand warmer
+            //fruitcake chakram
+            .AddIngredient(ItemID.IceBlade)
+            .AddIngredient(ItemID.FrostMinnow)
+            .AddIngredient(ItemID.AtlanticCod)
+
+            .AddTile(TileID.DemonAltar)
+            .Register();
         }
     }
     public class SnowEffect : AccessoryEffect
@@ -89,8 +104,10 @@ There is a 60 second cooldown for this effect
 
                     if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage && !npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()])
                     {
-                        npc.FargoSouls().SnowChilled = true;
-                        npc.FargoSouls().SnowChilledTimer = 6;
+                        npc.AddBuff(BuffID.Frostburn, 2);
+                        FargoSoulsGlobalNPC soulsNPC = npc.FargoSouls();
+                        soulsNPC.SnowChilled = true;
+                        soulsNPC.SnowChilledTimer = 6;
                         npc.netUpdate = true;
                     }
                 }

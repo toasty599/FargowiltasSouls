@@ -32,7 +32,7 @@ Your attacks occasionally produce hearts
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 4);
         }
 
@@ -63,7 +63,7 @@ Your attacks occasionally produce hearts
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.NymphsPerfume = true;
             if (modPlayer.NymphsPerfumeCD > 0)
-                modPlayer.NymphsPerfumeCD -= 10;
+                modPlayer.NymphsPerfumeCD -= modPlayer.MasochistSoul ? 10 : 1;
         }
     }
 }

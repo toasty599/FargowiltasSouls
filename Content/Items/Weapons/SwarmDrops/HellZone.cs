@@ -30,8 +30,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
-            Item.useAnimation = 5; //
-            Item.useTime = 5; //
+            Item.useAnimation = 4;
+            Item.useTime = 4;
             Item.width = 54;
             Item.height = 14;
             Item.shoot = ModContent.ProjectileType<HellSkull2>();
@@ -44,19 +44,38 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
             Item.DamageType = DamageClass.Ranged;
         }
 
-        private int counter;
+        public override bool AltFunctionUse(Player player) => true;
 
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                Item.useAnimation = 40;
+                Item.useTime = 40;
+            }
+            else
+            {
+                Item.useAnimation = 4;
+                Item.useTime = 4;
+            }
+            return base.CanUseItem(player);
+        }
+
+        private int counter;
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            position += Vector2.Normalize(velocity) * 40f;
+            if (player.altFunctionUse == 2)
+            {
+                type = ModContent.ProjectileType<HellGuardian>();
+                damage *= 4;
+            }
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            /*Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
-            if (--skullTimer < 0)
-            {
-                skullTimer = 10;
-                //float ai = Main.rand.NextFloat((float)Math.PI * 2);
-                Projectile.NewProjectile(position, 1.5f * new Vector2(speedX, speedY), ModContent.ProjectileType<HellSkull>(), damage / 2, knockBack, player.whoAmI, -1);
-            }*/
+            if (player.altFunctionUse == 2)
+                return true;
 
-            position += Vector2.Normalize(velocity) * 40f;
             int max = Main.rand.Next(1, 4);
             float rotation = MathHelper.Pi / 4f / max * Main.rand.NextFloat(0.25f, 0.75f) * 0.75f;
             counter++;

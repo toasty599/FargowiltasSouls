@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
 
 	public class BaronEyeFlash : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Explosion";
+        public override string Texture => FargoSoulsUtil.EmptyTexture;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Banished Baron Scrap");
@@ -47,9 +47,10 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 Projectile.scale -= 0.05f;
             }
             NPC npc = Main.npc[(int)Projectile.ai[0]];
-            if (npc.TypeAlive(ModContent.NPCType<BanishedBaron>()))
+            if (npc.TypeAlive<BanishedBaron>())
             {
                 Projectile.Center = npc.Center + npc.rotation.ToRotationVector2() * npc.width * 0.35f;
+                Projectile.velocity = npc.velocity;
             }
             if (Projectile.scale <= 0.05)
             {

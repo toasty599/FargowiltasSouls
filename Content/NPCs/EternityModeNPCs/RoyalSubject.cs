@@ -1,7 +1,10 @@
 ﻿using FargowiltasSouls.Content.Bosses.VanillaEternity;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
@@ -12,13 +15,13 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 {
     public class RoyalSubject : ModNPC
     {
-        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_222";
+        //public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_222";
 
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Royal Subject");
             //DisplayName.AddTranslation((int)GameCulture.CultureName.Chinese, "皇家工蜂");
-            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.QueenBee];
+            Main.npcFrameCount[NPC.type] = 7;
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.SpecificDebuffImmunity[Type] = NPCID.Sets.SpecificDebuffImmunity[NPCID.QueenBee];
         }
@@ -37,8 +40,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void SetDefaults()
         {
-            NPC.width = 66;
-            NPC.height = 66;
+            NPC.width = 40;
+            NPC.height = 40;
             NPC.aiStyle = 43;
             AIType = NPCID.QueenBee;
             NPC.damage = 25;
@@ -51,7 +54,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.noTileCollide = true;
             NPC.timeLeft = NPC.activeTime * 30;
             NPC.npcSlots = 7f;
-            NPC.scale = 0.5f;
+            NPC.scale = 1;
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -144,7 +147,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                     NPC.frame.Y += frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y >= 4 * frameHeight)
+                if (NPC.frame.Y >= 3 * frameHeight)
                     NPC.frame.Y = 0;
             }
             else
@@ -154,13 +157,24 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                     NPC.frame.Y += frameHeight;
                     NPC.frameCounter = 0;
                 }
-                if (NPC.frame.Y < 4 * frameHeight)
-                    NPC.frame.Y = 4 * frameHeight;
-                if (NPC.frame.Y >= 12 * frameHeight)
-                    NPC.frame.Y = 4 * frameHeight;
+                if (NPC.frame.Y < 3 * frameHeight)
+                    NPC.frame.Y = 3 * frameHeight;
+                if (NPC.frame.Y >= Main.npcFrameCount[Type] * frameHeight)
+                    NPC.frame.Y = 3 * frameHeight;
             }
         }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            bool recolor = SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
+            Texture2D texture = recolor ? ModContent.Request<Texture2D>(Texture + "22").Value : Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            Rectangle rectangle = NPC.frame;
+            Vector2 origin2 = rectangle.Size() / 2f;
 
+            SpriteEffects effects = NPC.spriteDirection < 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            Color color = NPC.GetAlpha(drawColor);
+            Main.EntitySpriteDraw(texture, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), rectangle, color, NPC.rotation, origin2, NPC.scale, effects, 0);
+            return false;
+        }
         //public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         //{
         //    if (!Terraria.GameContent.TextureAssets.Npc[NPCID.QueenBee].IsLoaded)

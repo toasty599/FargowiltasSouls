@@ -11,6 +11,11 @@ SoulConfig: {
 		Tooltip: 如果开启，饰品效果菜单会在你关闭物品栏时自动隐藏
 	}
 
+	ItemDisabledTooltip: {
+		Label: 在物品信息中显示效果被禁用
+		Tooltip: 开启时，若饰品有效果被饰品效果配置禁用，会有一条物品信息提示你
+	}
+
 	DeviChatter: {
 		Label: 迷你戴薇安会和你聊天
 		Tooltip: ""

@@ -58,7 +58,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.sellPrice(0, 6);
             Item.defense = 6;
             Item.useTime = 180;
@@ -84,6 +84,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
             fargoPlayer.SandsofTime = true;
+            fargoPlayer.CactusImmune = true;
             fargoPlayer.SecurityWallet = true;
             fargoPlayer.TribalCharm = true;
             fargoPlayer.NymphsPerfumeRespawn = true;

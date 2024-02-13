@@ -29,14 +29,14 @@ namespace FargowiltasSouls.Content.Bosses.Magmaw
             HitPlayer = true;
 
             // Spawn jaw if none exists
-            if (!Main.projectile.Any(p => p.TypeAlive(ModContent.ProjectileType<MagmawJaw>()) && p.As<MagmawJaw>().ParentID == NPC.whoAmI))
+            if (!Main.projectile.Any(p => p.TypeAlive<MagmawJaw>() && p.As<MagmawJaw>().ParentID == NPC.whoAmI))
                 if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), JawCenter, Vector2.Zero, ModContent.ProjectileType<MagmawJaw>(), NPC.damage, 2f, Main.myPlayer, NPC.whoAmI);
 
             // Spawn hands if they don't exist
             for (int side = -1; side < 2; side += 2)
             {
-                if (!Main.projectile.Any(p => p.TypeAlive(ModContent.ProjectileType<MagmawHand>()) && p.As<MagmawHand>().ParentID == NPC.whoAmI && p.As<MagmawHand>().Side == side))
+                if (!Main.projectile.Any(p => p.TypeAlive<MagmawHand>() && p.As<MagmawHand>().ParentID == NPC.whoAmI && p.As<MagmawHand>().Side == side))
                     if (FargoSoulsUtil.HostCheck)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + Vector2.UnitX * side * 400, Vector2.Zero, ModContent.ProjectileType<MagmawHand>(), NPC.damage, 2f, Main.myPlayer, NPC.whoAmI, side);

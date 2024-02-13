@@ -38,14 +38,16 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Snow
             if (npc.velocity.Y < 0) //higher jump
                 npc.position.Y += npc.velocity.Y;
 
-            if (++Counter % 120 == 0)
+            Counter++;
+
+            /* if (Counter % 120 == 0)
             {
                 if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                 {
                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, new Vector2(6f, 0f).RotatedByRandom(2 * Math.PI),
                         ModContent.ProjectileType<FrostfireballHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.target, 30f);
                 }
-            }
+            } */
 
             if (Counter == 600 - 60)
             {
@@ -58,11 +60,11 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Snow
 
                 if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
                 {
-                    const int max = 16;
+                    const int max = 12;
                     for (int i = 0; i < max; i++)
                     {
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 6f * npc.DirectionTo(Main.player[npc.target].Center).RotatedBy(MathHelper.TwoPi / max * i),
-                            ModContent.ProjectileType<FrostfireballHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, 180f);
+                            ModContent.ProjectileType<FrostfireballHostile>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, 180 + Main.rand.Next(-60, 60));
                     }
                 }
 

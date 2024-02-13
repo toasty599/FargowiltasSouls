@@ -80,7 +80,7 @@ DoveBuff: {
 
 ChibiiRemiiBuff: {
 	DisplayName: 小不点蕾米
-	Description: 恶魔「蕾米莉亚·斯特睐赤」
+	Description: 恶魔「Remilia Stretch」
 }
 
 PrimeMinionBuff: {
@@ -154,7 +154,7 @@ MutantPresenceBuff: {
 }
 
 HellFireBuff: {
-	DisplayName: 狱火
+	DisplayName: 地狱烈焰
 	Description: Mods.FargowiltasSouls.BuffDescription.HellFireBuff
 }
 
@@ -629,7 +629,7 @@ SuperBleedBuff: {
 }
 
 CorruptingBuff: {
-	DisplayName: 腐化之力
+	DisplayName: 腐化之蚀
 	Description: 你正被逐渐腐蚀
 }
 
@@ -674,7 +674,7 @@ WretchedHexBuff: {
 }
 
 CorruptedBuff: {
-	DisplayName: 腐化增益
+	DisplayName: 腐化之力
 	Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
 }
 
@@ -708,4 +708,14 @@ RainCDBuff: {
 SublimationBuff: {
 	Description: Mods.FargowiltasSouls.Buffs.SublimationBuff.Description
 	DisplayName: 升华
+}
+
+CoffinTossBuff: {
+	DisplayName: 大力抛投
+	Description: ""
+}
+
+HellFireMarkedBuff: {
+	DisplayName: 地狱烈焰标记
+	Description: Mods.FargowiltasSouls.Buffs.HellFireMarked.Description
 }

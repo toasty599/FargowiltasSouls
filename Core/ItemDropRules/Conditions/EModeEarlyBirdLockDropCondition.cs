@@ -11,6 +11,6 @@ namespace FargowiltasSouls.Core.ItemDropRules.Conditions
 
         public bool CanShowItemDropInUI() => true;
 
-        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.DropRuleConditions.EModeEarlyBirdHM");
+        public string GetConditionDescription() => Language.GetTextValue("Mods.FargowiltasSouls.Conditions.EModeEarlyBirdHM");
     }
 }

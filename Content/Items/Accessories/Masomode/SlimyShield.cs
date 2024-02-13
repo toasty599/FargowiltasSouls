@@ -33,7 +33,7 @@ Slime inflicts Slimed and Oiled
             Item.width = 20;
             Item.height = 20;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 1);
             Item.defense = 2;
         }

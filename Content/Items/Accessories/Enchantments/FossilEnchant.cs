@@ -39,7 +39,7 @@ Collect the bones to heal for 20 HP each
         {
             base.SetDefaults();
 
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 40000;
         }
 
@@ -67,6 +67,7 @@ Collect the bones to heal for 20 HP each
     {
         
         public override Header ToggleHeader => null;
+        public override bool IgnoresMutantPresence => true;
         public override void OnHurt(Player player, Player.HurtInfo info)
         {
             player.immune = true;
