@@ -450,7 +450,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Frostburn, 90);
-            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
+            if (WorldSavingSystem.MasochistModeReal)
+                target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 600);
             target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
         }
 

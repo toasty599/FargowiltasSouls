@@ -1365,7 +1365,8 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.DeerclopsIceSpike:
                 case ProjectileID.DeerclopsRangedProjectile:
                     target.AddBuff(BuffID.Frostburn, 90);
-                    target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
+                    if (WorldSavingSystem.MasochistModeReal)
+                        target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
                     target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
                     break;
 
