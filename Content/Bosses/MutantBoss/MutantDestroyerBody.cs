@@ -133,7 +133,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             if (!Main.dedServ)
             {
-                int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity / 2, ModContent.Find<ModGore>(Mod.Name, "MutantDestroyerBody").Type, Projectile.scale);
+                int g = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity / 2, 156, Projectile.scale);
                 Main.gore[g].timeLeft = 20;
             }
         }
