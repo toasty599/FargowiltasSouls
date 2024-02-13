@@ -751,6 +751,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.LoadSprites(npc, recolor);
 
             LoadNPCSprite(recolor, npc.type);
+
             LoadBossHeadSprite(recolor, 25);
             LoadGore(recolor, 156);
             for (int i = 1; i <= 3; i++)
@@ -1212,6 +1213,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.LoadSprites(npc, recolor);
 
             LoadNPCSprite(recolor, npc.type);
+            LoadSpecial(recolor, ref TextureAssets.Probe, ref FargowiltasSouls.TextureBuffer.Probe, "Probe");
         }
     }
 }

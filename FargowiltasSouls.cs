@@ -76,6 +76,7 @@ namespace FargowiltasSouls
             public static readonly Dictionary<int, Asset<Texture2D>> Extra = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Projectile = new();
             public static Asset<Texture2D> Ninja = null;
+            public static Asset<Texture2D> Probe = null;
             public static Asset<Texture2D> BoneArm = null;
             public static Asset<Texture2D> BoneArm2 = null;
             public static Asset<Texture2D> BoneLaser = null;
@@ -291,6 +292,8 @@ namespace FargowiltasSouls
 
             if (TextureBuffer.Ninja != null)
                 TextureAssets.Ninja = TextureBuffer.Ninja;
+            if (TextureBuffer.Probe != null)
+                TextureAssets.Probe = TextureBuffer.Probe;
             if (TextureBuffer.BoneArm != null)
                 TextureAssets.BoneArm = TextureBuffer.BoneArm;
             if (TextureBuffer.BoneArm2 != null)
