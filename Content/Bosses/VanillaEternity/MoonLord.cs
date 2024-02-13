@@ -446,7 +446,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 const float maxRampup = 3;
                 float lerp = (float)npc.life / npc.lifeMax;
                 if (WorldSavingSystem.MasochistModeReal)
-                    lerp *= lerp;
+                    lerp = MathF.Pow(lerp, 1.8f);
                 float increment = (int)Math.Round(MathHelper.Lerp(maxRampup, 1, lerp));
 
                 VulnerabilityTimer += increment;
