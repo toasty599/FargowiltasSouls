@@ -16,6 +16,7 @@ NEW UPDATE - v1.6.6.1
 -Fixed Golem wall checks not working exactly as before
 -Fixed Destroyer Probe resprite glow
 -Fixed Brain of Cthulhu clones showing head icons despite the Brain itself not doing so
+-Fixed Mutant destroyers using the old gores
 
 NEW UPDATE - v1.6.6
 -Added new Abominationn theme (with new Music Mod version)

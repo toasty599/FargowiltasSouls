@@ -8,3 +8,4 @@ NEW UPDATE - V {ModVersion}
 -Fixed Golem wall checks not working exactly as before
 -Fixed Destroyer Probe resprite glow
 -Fixed Brain of Cthulhu clones showing head icons despite the Brain itself not doing so
+-Fixed Mutant destroyers using the old gores
