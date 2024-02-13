@@ -36,6 +36,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public ref float State => ref NPC.ai[2];
         public ref float AI3 => ref NPC.ai[3];
 
+        public ref float StartupFadein => ref NPC.localAI[0];
+
         public static readonly Color GlowColor = new(224, 196, 252, 0);
 
         public int BiteTimer;
@@ -191,6 +193,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 NPC.StrikeInstantKill();
                 return;
             }
+
+            if (StartupFadein < 30)
+            {
+                StartupFadein++;
+                NPC.scale = MathHelper.Lerp(0, 1, StartupFadein / 30f);
+            }
                 
             // share healthbar
             NPC.lifeMax = owner.lifeMax = Math.Min(NPC.lifeMax, owner.lifeMax);
@@ -221,9 +229,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     BittenPlayer = -1;
                     BiteTimer = -90; //cooldown
 
-                    // dash away otherwise it's bullshit except on maso because lol
-                    if (!WorldSavingSystem.MasochistModeReal)
-                        NPC.velocity = -NPC.DirectionTo(victim.Center) * 20;
+                    // dash away otherwise it's bullshit
+                    NPC.velocity = -NPC.DirectionTo(victim.Center) * 50;
 
                     NPC.netUpdate = true;
 
@@ -273,6 +280,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                         AI3 = 0;
                     }
                     SlowCharges(owner);
+                    break;
+                case CursedCoffin.StateEnum.PhaseTransition:
+                    {
+                        NPC.Center = owner.Center;
+                        NPC.scale = 0.2f;
+                    }
                     break;
                 default:
                     break;
@@ -373,6 +386,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 }
                 if (NPC.velocity.Length() > 6.5f)
                     NPC.velocity *= 0.97f;
+
+                if (Timer <= 130)
+                    NPC.velocity *= Timer / 130;
                 /*
                 Movement(player.Center, 0.02f, 10, 10, 0.04f, 10);
                 */

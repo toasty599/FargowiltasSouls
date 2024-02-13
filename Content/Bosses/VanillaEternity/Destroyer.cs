@@ -178,7 +178,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         Vector2 speed = npc.DirectionTo(pivot).RotatedBy(2 * Math.PI / max * i);
                         Vector2 spawnPos = pivot - speed * 600;
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 0.2f * speed, ModContent.ProjectileType<DestroyerLaser>(), ProjectileDamage(npc), 0f, Main.myPlayer, 1f);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 0.2f * speed, ModContent.ProjectileType<DestroyerLaser>(), ProjectileDamage(npc), 0f, Main.myPlayer, 1f, ai1: NPCID.TheDestroyer);
                     }
                 }
             }

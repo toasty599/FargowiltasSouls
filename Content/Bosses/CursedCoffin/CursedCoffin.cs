@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
     [AutoloadBossHead]
     public partial class CursedCoffin : ModNPC
     {
-        public static bool Enabled = false;
+        public const bool Enabled = true;
         public override bool IsLoadingEnabled(Mod mod) => Enabled; 
 
         #region Variables
