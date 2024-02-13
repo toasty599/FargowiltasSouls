@@ -6,6 +6,17 @@ If you intend to use this mod with the Calamity Mod, use the official Fargo's So
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://fargosmods.wiki.gg
 
+NEW UPDATE - v1.6.6.1
+-Eternity Golem body health multiplier 4x -> 3x
+-Decreased Masochist Moon Lord's phase change/attack speed
+-Moved Eternity Deerclops Marked for Death buff to Masochist Mode
+-Deerclops deathray is now red and no longer freezes
+-Eridanus' music now fades in much faster
+-Fixed Brain of Cthulhu lasers being drawn in blue
+-Fixed Golem wall checks not working exactly as before
+-Fixed Destroyer Probe resprite glow
+-Fixed Brain of Cthulhu clones showing head icons despite the Brain itself not doing so
+
 NEW UPDATE - v1.6.6
 -Added new Abominationn theme (with new Music Mod version)
 -Tons of changes! See wiki
