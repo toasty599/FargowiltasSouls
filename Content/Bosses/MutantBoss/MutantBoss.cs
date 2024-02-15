@@ -2708,14 +2708,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), basePos.X + i + 60, basePos.Y, 0f, 0f, ModContent.ProjectileType<MutantReticle>(), 0, 0f, Main.myPlayer, ai2: 1);
                     }
                 }
-
-                if (WorldSavingSystem.MasochistModeReal)
-                {
-                    NPC.ai[1] += 20; //less startup
-                }
             }
 
-            const int masoMovingRainAttackTime = 50;
+            const int masoMovingRainAttackTime = 60;
 
             if (NPC.ai[1] > masoMovingRainAttackTime && NPC.ai[1] % 3 == 0) //rain down slime balls
             {
