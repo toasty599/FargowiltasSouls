@@ -2467,7 +2467,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 ? player.Center + 300f * Vector2.UnitX * Math.Sign(NPC.Center.X - player.Center.X)
                 : NPC.Center + 30 * NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(60) * Math.Sign(player.Center.X - NPC.Center.X));
             Movement(target, 0.1f);
-            int maxSpeed = WorldSavingSystem.MasochistModeReal ? 4 : 2;
+            int maxSpeed = WorldSavingSystem.MasochistModeReal ? 3 : 2;
             if (NPC.velocity.Length() > maxSpeed)
                 NPC.velocity = Vector2.Normalize(NPC.velocity) * maxSpeed;
 
