@@ -108,7 +108,7 @@ namespace FargowiltasSouls.Content.Items
 
                 case ItemID.JackOLanternLauncher:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 2.5f;
+                    balanceNumber = 1.3f;
                     return EModeChange.Buff;
                 case ItemID.Razorpine:
                     balanceTextKeys = new string[] { "Damage" };
