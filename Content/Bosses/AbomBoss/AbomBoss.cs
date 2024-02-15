@@ -426,7 +426,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                         if (NPC.ai[3] == 0)
                         {
                             NPC.ai[3] = 1;
-                            if (NPC.localAI[3] > 1 || WorldSavingSystem.MasochistModeReal) //phase 2 saucers
+                            if (NPC.localAI[3] > 1 && WorldSavingSystem.MasochistModeReal) //phase 2 saucers
                             {
                                 int max = NPC.localAI[3] > 1 && WorldSavingSystem.MasochistModeReal ? 6 : 3;
                                 for (int i = 0; i < max; i++)

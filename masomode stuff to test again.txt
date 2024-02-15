@@ -1,3 +1,5 @@
 ﻿golem body health mult x4 -> x3
 made deerclops mfd exclusive to maso
 made deerclops ray red and removed the freeze
+
+banished abom p2 ufos to maso
