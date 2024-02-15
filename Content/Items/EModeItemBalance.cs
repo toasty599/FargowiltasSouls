@@ -116,7 +116,7 @@ namespace FargowiltasSouls.Content.Items
                     return EModeChange.Buff;
                 case ItemID.StakeLauncher:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 1.6f;
+                    balanceNumber = 1.3f;
                     return EModeChange.Buff;
 
                 case ItemID.Razorpine:

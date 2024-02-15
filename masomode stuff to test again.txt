@@ -15,6 +15,6 @@ fix display issue with frost/pump moon item tooltips
 maso mutant can randomly end most attacks MUCH earlier than usual
 added mutant queen slime attack
 razorpine -20% damage
-jack o lantern launcher +30% damage
+jack o lantern launcher +20% damage
 candy corn rifle +60% damage
-stake launcher +60% damage
+stake launcher +30% damage
