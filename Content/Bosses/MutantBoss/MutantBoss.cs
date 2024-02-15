@@ -2495,7 +2495,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
 
-            if (++NPC.ai[1] > 360 + 300 * endTimeVariance)
+            if (++NPC.ai[1] > 360 + 210 * endTimeVariance)
             {
                 ChooseNextAttack(11, 13, 16, 19, 24, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 35, 37, 39, 41, 42, 47);
             }
