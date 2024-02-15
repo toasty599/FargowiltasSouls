@@ -16,3 +16,4 @@ maso mutant can randomly end most attacks MUCH earlier than usual
 added mutant queen slime attack
 razorpine -20% damage
 jack o lantern launcher +30% damage
+candy corn rifle +80% damage
