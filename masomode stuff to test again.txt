@@ -18,3 +18,4 @@ razorpine -20% damage
 jack o lantern launcher +20% damage
 candy corn rifle +60% damage
 stake launcher +30% damage
+raised grace window on set bonus supers to half a second
