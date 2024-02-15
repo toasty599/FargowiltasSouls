@@ -28,6 +28,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using Fargowiltas.NPCs;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
@@ -1791,6 +1792,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             int pillarAttackDelay = 60;
 
+            if (WorldSavingSystem.MasochistModeReal)
+                player.confused = true;
+
             if (NPC.ai[2] == 0 && NPC.ai[3] == 0) //target one corner of arena
             {
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
@@ -1802,6 +1806,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Clone(1, 1, pillarAttackDelay * 3);
                     if (WorldSavingSystem.MasochistModeReal)
                         Clone(1, 1, pillarAttackDelay * 6);
+                    
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                 }
 
                 EdgyBossText(GFBQuote(12));
@@ -2349,6 +2355,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 if (FargoSoulsUtil.HostCheck)
                 {
+                    int projType = NPC.ai[0] == 30 ? ModContent.ProjectileType<MutantFishron>() : ModContent.ProjectileType<MutantShadowHand>();
                     for (int j = -1; j <= 1; j += 2) //to both sides of player
                     {
                         int max = (int)NPC.ai[1] / fishronDelay;
@@ -2358,7 +2365,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                                 continue;
                             float spread = MathHelper.Pi / 3 / (maxFishronSets + 1);
                             Vector2 offset = NPC.ai[2] == 0 ? Vector2.UnitY.RotatedBy(spread * i) * -450f * j : Vector2.UnitX.RotatedBy(spread * i) * 475f * j;
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantFishron>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, offset.X, offset.Y);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, projType, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, offset.X, offset.Y);
                         }
                     }
                 }
@@ -2442,15 +2449,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (!AliveCheck(player))
                 return;
 
-            if (WorldSavingSystem.MasochistModeReal)
-            {
-                Vector2 target = NPC.Bottom.Y < player.Top.Y
-                    ? player.Center + 300f * Vector2.UnitX * Math.Sign(NPC.Center.X - player.Center.X)
-                    : NPC.Center + 30 * NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(60) * Math.Sign(player.Center.X - NPC.Center.X));
-                Movement(target, 0.1f);
-                if (NPC.velocity.Length() > 2f)
-                    NPC.velocity = Vector2.Normalize(NPC.velocity) * 2f;
-            }
+            Vector2 target = NPC.Bottom.Y < player.Top.Y
+                ? player.Center + 300f * Vector2.UnitX * Math.Sign(NPC.Center.X - player.Center.X)
+                : NPC.Center + 30 * NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(60) * Math.Sign(player.Center.X - NPC.Center.X));
+            Movement(target, 0.1f);
+            int maxSpeed = WorldSavingSystem.MasochistModeReal ? 4 : 2;
+            if (NPC.velocity.Length() > maxSpeed)
+                NPC.velocity = Vector2.Normalize(NPC.velocity) * maxSpeed;
 
             if (NPC.ai[1] > (WorldSavingSystem.MasochistModeReal ? 120 : 180))
             {

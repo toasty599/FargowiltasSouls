@@ -4,3 +4,9 @@ made deerclops ray red and removed the freeze
 
 banished abom p2 ufos to maso
 nerfed fish p2 razor spin, half density, unnerfed in maso
+replaced one mutant fishron dash with shadow hands
+added a brain of confusion visual to mutant pillar attack
+mutant pillar attack maso confuses player
+mutant nuke has maso movement, maso now moves faster
+added The 22 Incident to maso mutant
+fix display issue with frost/pump moon item tooltips

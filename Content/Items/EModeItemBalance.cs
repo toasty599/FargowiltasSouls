@@ -170,9 +170,9 @@ namespace FargowiltasSouls.Content.Items
                 */
 
                 case ItemID.PumpkinMoonMedallion:
+                    balanceNumber = PumpkinMoonBosses.WAVELOCK;
                     if (WorldSavingSystem.MasochistModeReal)
                     {
-                        balanceNumber = PumpkinMoonBosses.WAVELOCK;
                         balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
                         return EModeChange.Nerf;
                     }
@@ -182,9 +182,9 @@ namespace FargowiltasSouls.Content.Items
                         return EModeChange.Nerf;
                     }
                 case ItemID.NaughtyPresent:
+                    balanceNumber = FrostMoonBosses.WAVELOCK;
                     if (WorldSavingSystem.MasochistModeReal)
                     {
-                        balanceNumber = FrostMoonBosses.WAVELOCK;
                         balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
                         return EModeChange.Nerf;
                     }
