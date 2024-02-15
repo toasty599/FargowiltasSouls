@@ -946,11 +946,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
                     if (FargoSoulsUtil.HostCheck) //spawn worm
                     {
+                        int appearance = Main.rand.Next(2);
                         for (int j = 0; j < 8; j++)
                         {
                             Vector2 vel = NPC.DirectionFrom(player.Center).RotatedByRandom(MathHelper.ToRadians(120)) * 10f;
                             float ai1 = 0.8f + 0.4f * j / 5f;
-                            int appearance = Main.rand.Next(2);
                             int current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerHead>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, ai1, appearance);
                             //timeleft: remaining duration of this case + extra delay after + successive death
                             Main.projectile[current].timeLeft = 90 * ((int)NPC.ai[3] + 1) + 30 + j * 6;
