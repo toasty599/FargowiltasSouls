@@ -14,4 +14,4 @@ fix display issue with frost/pump moon item tooltips
 
 maso mutant can randomly end most attacks MUCH earlier than usual
 added mutant queen slime attack
-razorpine -25% damage
+razorpine -20% damage
