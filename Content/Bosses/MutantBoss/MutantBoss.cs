@@ -282,10 +282,16 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 case 45: PrepareMutantSword(); break;
                 case 46: MutantSword(); break;
 
+                case 47: goto case 35;
+                case 48: QueenSlimeRain(); break;
+
+                //case 49: //golem
+                //case 50: //wof
+
                 //gap in the numbers here so the ai loops right
                 //when adding a new attack, remember to make ChooseNextAttack() point to the right case!
 
-                case 48: P2NextAttackPause(); break;
+                case 52: P2NextAttackPause(); break;
 
                 #endregion
 
@@ -491,7 +497,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         void ChooseNextAttack(params int[] args)
         {
             float buffer = AttackChoice + 1;
-            AttackChoice = 48;
+            AttackChoice = 52;
             NPC.ai[1] = 0;
             NPC.ai[2] = buffer;
             NPC.ai[3] = 0;
@@ -571,7 +577,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     attackHistory.Dequeue();
             }
 
-            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat() : 0;
+            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat(-1f, 1f) : 0;
 
             /*text = "";
             foreach (float f in attackHistory)
@@ -1438,7 +1444,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     P1NextAttackOrMasoOptions(AttackChoice);
                 }
-                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 5 * endTimeVariance)
+                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 5 * (endTimeVariance + 1))
                 {
                     AttackChoice--;
                     NPC.ai[1] = 0;
@@ -1547,7 +1553,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (WorldSavingSystem.EternityMode)
                 {
                     NPC.life = NPC.lifeMax;
-                    AttackChoice = Main.rand.Next(new int[] { 11, 13, 16, 19, 20, 21, 24, 26, 29, 35, 37, 39, 42 }); //force a random choice
+                    AttackChoice = Main.rand.Next(new int[] { 11, 13, 16, 19, 20, 21, 24, 26, 29, 35, 37, 39, 42, 47 }); //force a random choice
                 }
                 else
                 {
@@ -1600,8 +1606,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.netUpdate = true;
                     NPC.ai[2] -= NPC.ai[3] / (WorldSavingSystem.MasochistModeReal ? 3 : 2);
 
-                    if (NPC.localAI[0] == 21 && endTimeVariance > 0.75f //sometimes skip to end
-                    || NPC.localAI[0] == 41 && endTimeVariance < 0.25f)
+                    if (NPC.localAI[0] == 21 && endTimeVariance > 0.33f //sometimes skip to end
+                    || NPC.localAI[0] == 41 && endTimeVariance < -0.33f)
                         NPC.localAI[0] = 60;
 
                     EdgyBossText(GFBQuote(6));
@@ -1756,6 +1762,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
 
                 EdgyBossText(GFBQuote(11));
+
+                if (WorldSavingSystem.MasochistModeReal)
+                    NPC.ai[2] = Main.rand.NextFloat(MathHelper.Pi);
             }
             if (NPC.ai[3] > 60 && ++NPC.ai[1] > 2)
             {
@@ -1779,7 +1788,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
 
-            int endTime = 360 + 60 + (int)(240 * 2 * (endTimeVariance - 0.33f));
+            int endTime = 360 + 60 + (int)(300 * endTimeVariance);
             if (++NPC.ai[3] > endTime)
             {
                 ChooseNextAttack(11, 13, 19, 20, 21, 24, WorldSavingSystem.MasochistModeReal ? 31 : 26, 33, 41, 44);
@@ -1934,7 +1943,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[1] > 450)
             {
-                ChooseNextAttack(11, 13, 16, 21, 26, 29, 31, 33, 35, 37, 41, 44, 45);
+                ChooseNextAttack(11, 13, 16, 21, 26, 29, 31, 33, 35, 37, 41, 44, 45, 47);
             }
 
             /*if (Math.Abs(targetPos.X - player.Center.X) < 150) //avoid crossing up player
@@ -2021,9 +2030,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (++NPC.ai[2] > NPC.localAI[1])
                 {
                     if (WorldSavingSystem.MasochistModeReal)
-                        ChooseNextAttack(11, 13, 16, 19, 20, 31, 33, 35, 39, 42, 44);
+                        ChooseNextAttack(11, 13, 16, 19, 20, 31, 33, 35, 39, 42, 44, 47);
                     else
-                        ChooseNextAttack(11, 16, 26, 29, 31, 35, 37, 39, 42, 44);
+                        ChooseNextAttack(11, 16, 26, 29, 31, 35, 37, 39, 42, 44, 47);
                 }
                 else
                 {
@@ -2146,9 +2155,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     shouldAttack = false;
                     if (WorldSavingSystem.MasochistModeReal)
-                        ChooseNextAttack(11, 19, 20, 29, 31, 33, 35, 37, 39, 42, 44, 45);
+                        ChooseNextAttack(11, 19, 20, 29, 31, 33, 35, 37, 39, 42, 44, 45, 47);
                     else
-                        ChooseNextAttack(11, 19, 20, 26, 26, 26, 29, 31, 33, 35, 37, 39, 42, 44);
+                        ChooseNextAttack(11, 19, 20, 26, 26, 26, 29, 31, 33, 35, 37, 39, 42, 44, 47);
                 }
 
                 if ((shouldAttack || WorldSavingSystem.MasochistModeReal) && FargoSoulsUtil.HostCheck)
@@ -2311,7 +2320,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                 if (WorldSavingSystem.EternityMode) //use full moveset
                 {
-                    ChooseNextAttack(11, 13, 16, 19, 21, 24, 29, 31, 33, 35, 37, 39, 41, 42, 45);
+                    ChooseNextAttack(11, 13, 16, 19, 21, 24, 29, 31, 33, 35, 37, 39, 41, 42, 45, 47);
                 }
                 else
                 {
@@ -2384,7 +2393,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[1] > (WorldSavingSystem.MasochistModeReal ? 60 : 120))
             {
-                ChooseNextAttack(13, 19, 20, 21, WorldSavingSystem.MasochistModeReal ? 44 : 26, 31, 31, 31, 33, 35, 39, 41, 42, 44);
+                ChooseNextAttack(13, 19, 20, 21, WorldSavingSystem.MasochistModeReal ? 44 : 26, 31, 31, 31, 33, 35, 39, 41, 42, 44, 47);
             }
         }
 
@@ -2485,9 +2494,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
 
-            if (++NPC.ai[1] > 360 + 360 * endTimeVariance)
+            if (++NPC.ai[1] > 360 + 300 * endTimeVariance)
             {
-                ChooseNextAttack(11, 13, 16, 19, 24, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 35, 37, 39, 41, 42);
+                ChooseNextAttack(11, 13, 16, 19, 24, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 35, 37, 39, 41, 42, 47);
             }
 
             if (NPC.ai[1] > 45)
@@ -2661,8 +2670,121 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             int endTime = 180 * 3;
             if (WorldSavingSystem.MasochistModeReal)
-                endTime += timeToMove + (int)(120 * endTimeVariance) - 30;
+                endTime += timeToMove + (int)(300 * endTimeVariance) - 30;
             if (++NPC.ai[2] > endTime)
+            {
+                ChooseNextAttack(11, 16, 19, 20, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 33, 37, 39, 41, 42, 45);
+            }
+        }
+
+        void QueenSlimeRain()
+        {
+            if (NPC.ai[3] == 0)
+            {
+                NPC.ai[3] = 1;
+                //Main.NewText(NPC.position.Y);
+                SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+                if (FargoSoulsUtil.HostCheck)
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSlimeRain>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
+            }
+
+            if (NPC.ai[1] == 0) //telegraphs for where slime will fall
+            {
+                NPC.localAI[0] = Main.rand.Next(6, 9) * 120;
+                //always start on the same side as the player
+                if (player.Center.X > NPC.Center.X)
+                    NPC.localAI[0] += 600;
+                NPC.localAI[0] += 60;
+
+                Vector2 basePos = NPC.Center;
+                basePos.X -= 1200;
+                for (int i = -360; i <= 2760; i += 120) //spawn telegraphs
+                {
+                    if (FargoSoulsUtil.HostCheck)
+                    {
+                        if (i + 60 == (int)NPC.localAI[0])
+                            continue;
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), basePos.X + i + 60, basePos.Y, 0f, 0f, ModContent.ProjectileType<MutantReticle>(), 0, 0f, Main.myPlayer, ai2: 1);
+                    }
+                }
+
+                if (WorldSavingSystem.MasochistModeReal)
+                {
+                    NPC.ai[1] += 20; //less startup
+                }
+            }
+
+            const int masoMovingRainAttackTime = 50;
+
+            if (NPC.ai[1] > masoMovingRainAttackTime && NPC.ai[1] % 3 == 0) //rain down slime balls
+            {
+                SoundEngine.PlaySound(SoundID.Item34, player.Center);
+                if (FargoSoulsUtil.HostCheck)
+                {
+                    int frame = Main.rand.Next(3);
+
+                    void Slime(Vector2 pos, float off, Vector2 vel)
+                    {
+                        const int flip = 1;
+                        Vector2 spawnPos = pos + off * Vector2.UnitY * flip;
+                        float ai0 = FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null ? 0f : NPC.Distance(Main.projectile[ritualProj].Center);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, vel * flip, ModContent.ProjectileType<MutantSlimeSpike>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai2: frame);
+                    }
+
+                    Vector2 basePos = NPC.Center;
+                    basePos.X -= 1200;
+                    float yOffset = -1300;
+
+                    const float safeRange = 110;
+                    const int spacing = 75;
+                    for (int i = 0; i < 2400; i += spacing)
+                    {
+                        float rightOffset = NPC.localAI[0] + safeRange + i;
+                        if (basePos.X + rightOffset < NPC.Center.X + 1200)
+                            Slime(basePos + Vector2.UnitX * rightOffset, yOffset, Vector2.UnitY * 20f);
+                        float leftOffset = NPC.localAI[0] - safeRange - i;
+                        if (basePos.X + leftOffset > NPC.Center.X - 1200)
+                            Slime(basePos + Vector2.UnitX * leftOffset, yOffset, Vector2.UnitY * 20f);
+                    }
+                }
+            }
+
+            NPC.velocity = Vector2.Zero;
+
+            const int timeToMove = 360;
+            if (NPC.ai[1] == masoMovingRainAttackTime)
+            {
+                SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+
+                EdgyBossText(GFBQuote(21));
+            }
+
+            if (NPC.ai[1] > masoMovingRainAttackTime && --NPC.ai[2] < 0)
+            {
+                float safespotMoveSpeed = WorldSavingSystem.MasochistModeReal ? 7f : 6f;
+
+                if (--NPC.localAI[2] < 0) //reset and recalibrate for the other direction
+                {
+                    float safespotX = NPC.Center.X - 1200f + NPC.localAI[0];
+                    NPC.localAI[1] = Math.Sign(NPC.Center.X - safespotX); //direction to move safespot towards
+
+                    float farSideArenaBorder = NPC.Center.X + 1200f * NPC.localAI[1];
+                    float distanceToBorder = Math.Abs(farSideArenaBorder - safespotX);
+                    float minRequiredDistance = Math.Abs(NPC.Center.X - safespotX) + 100;
+
+                    float distanceToTravel = MathHelper.Lerp(minRequiredDistance, distanceToBorder, Main.rand.NextFloat(0.6f));
+
+                    NPC.localAI[2] = distanceToTravel / safespotMoveSpeed;
+                    if (!WorldSavingSystem.MasochistModeReal)
+                        NPC.ai[2] = 20; //adds a pause when turning around, gone in maso
+                }
+
+                //move the safespot
+                NPC.localAI[0] += safespotMoveSpeed * NPC.localAI[1];
+            }
+
+            int endTime = masoMovingRainAttackTime + timeToMove + (int)(300 * endTimeVariance);
+            if (++NPC.ai[1] > endTime)
             {
                 ChooseNextAttack(11, 16, 19, 20, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 33, 37, 39, 41, 42, 45);
             }
@@ -2714,7 +2836,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             NPC.velocity = Vector2.Zero;
 
-            int endTime = 420 + (int)(360 * (endTimeVariance - 0.33f));
+            int endTime = 420 + (int)(300 * endTimeVariance);
 
             if (++NPC.ai[1] > 10 && NPC.ai[3] > 60 && NPC.ai[3] < endTime - 60)
             {
@@ -2769,7 +2891,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.localAI[1] = 5;
 
                 if (WorldSavingSystem.MasochistModeReal)
-                    NPC.localAI[1] += 3;
+                    NPC.localAI[1] += Main.rand.Next(6);
                 NPC.localAI[2] = Main.rand.NextBool() ? -1 : 1; //pick a random rotation direction
                 NPC.netUpdate = true;
             }
@@ -2802,7 +2924,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 bool shouldAttack = true;
                 if (++NPC.ai[2] > NPC.localAI[1])
                 {
-                    ChooseNextAttack(11, 16, 19, 20, WorldSavingSystem.MasochistModeReal ? 44 : 26, 31, 33, 35, 42, 44, 45);
+                    ChooseNextAttack(11, 16, 19, 20, WorldSavingSystem.MasochistModeReal ? 44 : 26, 31, 33, 35, 42, 44, 45, 47);
                     shouldAttack = false;
                 }
 
@@ -2917,7 +3039,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             if (++NPC.ai[3] > 450)
             {
-                ChooseNextAttack(11, 13, 16, 21, 24, 26, 29, 31, 33, 35, 39, 41, 44, 45);
+                ChooseNextAttack(11, 13, 16, 21, 24, 26, 29, 31, 33, 35, 39, 41, 44, 45, 47);
             }
         }
 
@@ -2936,7 +3058,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPC.velocity = Vector2.Zero;
 
             int attackThreshold = WorldSavingSystem.MasochistModeReal ? 48 : 60;
-            int timesToAttack = WorldSavingSystem.MasochistModeReal ? 3 + (int)(endTimeVariance * 5) : 4;
+            int timesToAttack = 4 + (int)Math.Round(3 * endTimeVariance);
             int startup = 90;
 
             if (NPC.ai[1] == 0)
@@ -3065,7 +3187,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[1] > swordSwarmTime + (WorldSavingSystem.MasochistModeReal ? 60 : 30))
             {
-                ChooseNextAttack(11, 13, 16, 21, WorldSavingSystem.MasochistModeReal ? 26 : 24, 29, 31, 35, 37, 39, 41, 45);
+                ChooseNextAttack(11, 13, 16, 21, WorldSavingSystem.MasochistModeReal ? 26 : 24, 29, 31, 35, 37, 39, 41, 45, 47);
             }
         }
 
