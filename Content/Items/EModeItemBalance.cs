@@ -106,6 +106,10 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 7;
                     return EModeChange.Nerf;
 
+                case ItemID.Razorpine:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.7f;
+                    return EModeChange.Nerf;
                 case ItemID.BlizzardStaff:
                     balanceTextKeys = new string[] { "Damage", "Speed" };
                     balanceNumber = 0.7f;
