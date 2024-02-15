@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         private const float realRotation = MathHelper.Pi / 140f;
         private bool MutantDead;
 
-        public MutantRitual() : base(realRotation, 1200f, ModContent.NPCType<MutantBoss>()) { }
+        public MutantRitual() : base(realRotation, 1200f, ModContent.NPCType<MutantBoss>(), visualCount: 48) { }
 
         public override void SetStaticDefaults()
         {
@@ -46,7 +46,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             float targetRotation;
             //if (unmovingArenaStates.Contains((int)npc.ai[0])) //be stationary
-            if (npc.ai[0] == 19) //pillars
+            if (npc.ai[0] == 19 || npc.ai[0] == 49) //pillars, golem
             {
                 Projectile.velocity = Vector2.Zero;
 

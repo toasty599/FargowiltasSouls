@@ -285,7 +285,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 case 47: goto case 35;
                 case 48: QueenSlimeRain(); break;
 
-                //case 49: //golem
+                case 49: SANSGOLEM(); break;
+
                 //case 50: //wof
 
                 //gap in the numbers here so the ai loops right
@@ -2775,8 +2776,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     float distanceToTravel = MathHelper.Lerp(minRequiredDistance, distanceToBorder, Main.rand.NextFloat(0.6f));
 
                     NPC.localAI[2] = distanceToTravel / safespotMoveSpeed;
-                    if (!WorldSavingSystem.MasochistModeReal)
-                        NPC.ai[2] = 20; //adds a pause when turning around, gone in maso
+                    NPC.ai[2] = WorldSavingSystem.MasochistModeReal ? 15 : 30; //adds a pause when turning around
                 }
 
                 //move the safespot
@@ -3189,6 +3189,14 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 ChooseNextAttack(11, 13, 16, 21, WorldSavingSystem.MasochistModeReal ? 26 : 24, 29, 31, 35, 37, 39, 41, 45, 47);
             }
+        }
+
+        void SANSGOLEM()
+        {
+            Vector2 targetPos = player.Center + NPC.DirectionFrom(player.Center) * 400;
+            Movement(targetPos, 0.3f);
+
+
         }
 
         void P2NextAttackPause() //choose next attack but actually, this also gives breathing space for mp to sync up
