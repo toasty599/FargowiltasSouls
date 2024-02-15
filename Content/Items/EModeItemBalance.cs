@@ -112,8 +112,13 @@ namespace FargowiltasSouls.Content.Items
                     return EModeChange.Buff;
                 case ItemID.CandyCornRifle:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 1.8f;
+                    balanceNumber = 1.6f;
                     return EModeChange.Buff;
+                case ItemID.StakeLauncher:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 1.6f;
+                    return EModeChange.Buff;
+
                 case ItemID.Razorpine:
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 0.8f;
@@ -122,6 +127,7 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "Damage", "Speed" };
                     balanceNumber = 0.7f;
                     return EModeChange.Nerf;
+
                 case ItemID.DD2SquireBetsySword:
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 0.70f;
