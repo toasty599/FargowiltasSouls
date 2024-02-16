@@ -26,3 +26,4 @@ added a telegraph to ts acorns
 increased startup on ts kamikaze rain
 nerfed magic dagger -50% attack -50% speed phm
 nerfed jungle mimic, attacks for less time underground
+ks' slime minion rush and big overhead jump with falling slimeballs cannot overlap anymore
