@@ -138,6 +138,17 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 0.88f;
                     return EModeChange.Nerf;
 
+                case ItemID.MagicDagger:
+                    {
+                        if (!Main.hardMode)
+                        {
+                            balanceTextKeys = new string[] { "Damage" };
+                            balanceNumber = 0.5f;
+                            return EModeChange.Nerf;
+                        }
+                        return EModeChange.None;
+                    }
+
 
                 case ItemID.DemonScythe:
                     {
