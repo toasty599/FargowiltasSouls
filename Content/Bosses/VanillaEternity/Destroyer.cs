@@ -18,6 +18,7 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Terraria.GameContent;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -177,7 +178,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     {
                         Vector2 speed = npc.DirectionTo(pivot).RotatedBy(2 * Math.PI / max * i);
                         Vector2 spawnPos = pivot - speed * 600;
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 0.2f * speed, ModContent.ProjectileType<DestroyerLaser>(), ProjectileDamage(npc), 0f, Main.myPlayer, 1f);
+                        Projectile.NewProjectile(npc.GetSource_FromThis(), spawnPos, 0.2f * speed, ModContent.ProjectileType<DestroyerLaser>(), ProjectileDamage(npc), 0f, Main.myPlayer, 1f, ai1: NPCID.TheDestroyer);
                     }
                 }
             }
@@ -736,11 +737,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (projectile.type == ProjectileID.SoulDrain)
                 modifiers.FinalDamage *= 0.75f;
         }
-        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
-        {
-            cooldownSlot = 1;
-            return base.CanHitPlayer(npc, target, ref cooldownSlot);
-        }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             base.OnHitPlayer(npc, target, hurtInfo);
@@ -755,6 +751,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.LoadSprites(npc, recolor);
 
             LoadNPCSprite(recolor, npc.type);
+
             LoadBossHeadSprite(recolor, 25);
             LoadGore(recolor, 156);
             for (int i = 1; i <= 3; i++)
@@ -1127,9 +1124,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     const int attackTime = 110;
 
                     Vector2 towardsPlayer = 6f * npc.DirectionTo(Main.player[npc.target].Center);
-
+                    int dustID = WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors ? DustID.GemSapphire : DustID.GemRuby;
                     float dustScale = 0.5f + 2.5f * AttackTimer / attackTime;
-                    int d = Dust.NewDust(npc.position, npc.width, npc.height, DustID.GemRuby, 2f * towardsPlayer.X, 2f * towardsPlayer.Y, 0, default, dustScale);
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, dustID, 2f * towardsPlayer.X, 2f * towardsPlayer.Y, 0, default, dustScale);
                     Main.dust[d].noGravity = true;
 
                     if (++AttackTimer > attackTime)
@@ -1216,6 +1213,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.LoadSprites(npc, recolor);
 
             LoadNPCSprite(recolor, npc.type);
+            LoadSpecial(recolor, ref TextureAssets.Probe, ref FargowiltasSouls.TextureBuffer.Probe, "Probe");
         }
     }
 }

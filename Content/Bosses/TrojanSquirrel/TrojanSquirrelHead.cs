@@ -65,23 +65,55 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                     break;
 
                 case 1: //acorn spray
+                    if (NPC.ai[1] == 0 && !WorldSavingSystem.MasochistModeReal)
+                    {
+                        //telegraph
+                        SoundEngine.PlaySound(SoundID.Item11, NPC.Center);
+
+                        Vector2 pos = NPC.Center;
+                        pos.X += 22 * NPC.direction; //FUCKING LAUGH
+                        pos.Y += 22;
+
+                        for (int j = 0; j < 20; j++)
+                        {
+                            int d = Dust.NewDust(pos, 0, 0, DustID.GrassBlades, Scale: 3f);
+                            Main.dust[d].noGravity = true;
+                            Main.dust[d].velocity *= 4f;
+                            Main.dust[d].velocity.X += NPC.direction * Main.rand.NextFloat(6f, 18f);
+                        }
+                    }
+                    
                     if (++NPC.ai[1] % (body.dontTakeDamage || WorldSavingSystem.MasochistModeReal ? 30 : 45) == 0)
                     {
-                        const float gravity = 0.2f;
-                        float time = 80f;
-                        if (body.dontTakeDamage)
-                            time = 60f;
-                        if (WorldSavingSystem.MasochistModeReal)
-                            time = 45f;
-                        Vector2 distance = Main.player[NPC.target].Center - NPC.Center;// + player.velocity * 30f;
-                        distance.X /= time;
-                        distance.Y = distance.Y / time - 0.5f * gravity * time;
-                        for (int i = 0; i < 10; i++)
+                        bool doAttack = true;
+                        if (!WorldSavingSystem.MasochistModeReal && NPC.localAI[1] == 0)
                         {
-                            if (FargoSoulsUtil.HostCheck)
+                            NPC.localAI[1] = 1;
+                            doAttack = false; //skip the first normally
+                        }
+
+                        if (doAttack)
+                        {
+                            Vector2 pos = NPC.Center;
+                            pos.X += 22 * NPC.direction; //FUCKING LAUGH
+                            pos.Y += 22;
+
+                            const float gravity = 0.2f;
+                            float time = 80f;
+                            if (body.dontTakeDamage)
+                                time = 60f;
+                            if (WorldSavingSystem.MasochistModeReal)
+                                time = 45f;
+                            Vector2 distance = Main.player[NPC.target].Center - pos;// + player.velocity * 30f;
+                            distance.X /= time;
+                            distance.Y = distance.Y / time - 0.5f * gravity * time;
+                            for (int i = 0; i < 10; i++)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, distance + Main.rand.NextVector2Square(-0.5f, 0.5f),
-                                    ModContent.ProjectileType<TrojanAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
+                                if (FargoSoulsUtil.HostCheck)
+                                {
+                                    Projectile.NewProjectile(NPC.GetSource_FromThis(), pos, distance + Main.rand.NextVector2Square(-0.5f, 0.5f),
+                                        ModContent.ProjectileType<TrojanAcorn>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer);
+                                }
                             }
                         }
                     }
@@ -98,12 +130,12 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                     {
                         NPC.ai[1]++;
 
-                        int start = 60;
-                        int end = 240;
+                        int start = 60 + 30;
+                        int end = 240 + 30;
                         if (WorldSavingSystem.MasochistModeReal)
                         {
-                            start -= 30;
-                            end -= 90;
+                            start -= 30 - 30;
+                            end -= 90 - 30;
                         }
 
                         body.velocity.X *= 0.99f;

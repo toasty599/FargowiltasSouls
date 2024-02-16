@@ -362,7 +362,7 @@ namespace FargowiltasSouls.Content.Projectiles
                                     Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile),
                                         Projectile.Center, Projectile.localAI[0] * Projectile.rotation.ToRotationVector2(),
                                         ModContent.ProjectileType<DestroyerLaser>(),
-                                        Projectile.damage, Projectile.knockBack, Projectile.owner);
+                                        Projectile.damage, Projectile.knockBack, Projectile.owner, ai1: NPCID.TheDestroyer);
                                 }
                             }
                             else

@@ -107,8 +107,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
         public override Color? GetAlpha(Color lightColor)
         {
-            bool resprites = WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors;
-            return resprites ? Color.Cyan : Color.Red * Projectile.Opacity;
+            bool destroyerResprite = WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors && Projectile.ai[1] == NPCID.TheDestroyer; // if resprites and comes from destroyer
+            return (destroyerResprite ? Color.Cyan : Color.Red) * Projectile.Opacity;
         }
 
         public override bool PreDraw(ref Color lightColor)

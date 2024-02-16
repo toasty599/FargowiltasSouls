@@ -97,7 +97,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 float rot = Projectile.oldRot[i];
                 FargoSoulsUtil.GenericProjectileDraw(Projectile, color2, texture: texture, drawPos: pos, rotation: rot);
             }
-            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor, texture: texture);
+            FargoSoulsUtil.GenericProjectileDraw(Projectile, Color.White, texture: texture);
             return false;
         }
     }

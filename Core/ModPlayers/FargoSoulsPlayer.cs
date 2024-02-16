@@ -57,6 +57,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool fireNoDamage = false;
 
+        public int The22Incident;
+
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
 
@@ -394,6 +396,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             CerebralMindbreak = false;
             NanoInjection = false;
             Stunned = false;
+            HasJungleRose = false;
             HaveCheckedAttackSpeed = false;
             BoxofGizmos = false;
             OxygenTank = false;
@@ -505,6 +508,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             MaxLifeReduction = 0;
             CurrentLifeReduction = 0;
+
+            The22Incident = 0;
         }
 
         
