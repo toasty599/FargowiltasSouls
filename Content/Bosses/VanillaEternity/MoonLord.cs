@@ -676,6 +676,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 NetSync(npc);
             }
 
+            //deliberate partial desync only when spawned
+            if (OnSpawnCounter < 20)
+            {
+                return false;
+            }
+
             if (WorldSavingSystem.MasochistModeReal && LastState != npc.ai[0])
             {
                 LastState = npc.ai[0];
