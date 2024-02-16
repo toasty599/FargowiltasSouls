@@ -46,11 +46,26 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             float targetRotation;
             //if (unmovingArenaStates.Contains((int)npc.ai[0])) //be stationary
-            if (npc.ai[0] == 19 || npc.ai[0] == 49) //pillars, golem
+            if (npc.ai[0] == 19) //pillars
             {
                 Projectile.velocity = Vector2.Zero;
 
                 targetRotation = -realRotation / 2; //denote arena isn't moving
+            }
+            else if (npc.ai[0] == 49) //golem
+            {
+                if (npc.HasValidTarget && npc.ai[1] < 30) //snap it to player at start
+                {
+                    Projectile.velocity = (Main.player[npc.target].Center - Projectile.Center) / 10f;
+
+                    targetRotation = realRotation;
+                }
+                else
+                {
+                    Projectile.velocity = Vector2.Zero;
+
+                    targetRotation = -realRotation / 2; //denote arena isn't moving
+                }
             }
             else
             {

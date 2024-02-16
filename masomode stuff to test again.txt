@@ -29,3 +29,5 @@ nerfed jungle mimic, attacks for less time underground
 ks' slime minion rush and big overhead jump with falling slimeballs cannot overlap anymore
 wof telegraphs world evil attacks more in desperation phase
 increased effectiveness of flight mastery soul and upgrades upward boost
+
+added SANS GOLEM to mutant (needs polish)
