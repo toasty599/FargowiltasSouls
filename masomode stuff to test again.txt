@@ -21,3 +21,6 @@ stake launcher +30% damage
 raised grace window on set bonus supers to half a second
 
 moved maso mutant pillar confusion to ftw its REALLY fucked up
+
+added a telegraph to ts acorns
+increased startup on ts kamikaze rain
