@@ -26,7 +26,6 @@ namespace FargowiltasSouls.Content.Items.BossBags
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldenBugNet, 50, 1, 1));
             itemLoot.Add(ItemDropRule.Common(ItemID.FishHook, 50, 1, 1));
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldenFishingRod, 150, 1, 1));
-            itemLoot.Add(ItemDropRule.Common(ItemID.Goldfish, 1, 1, 1));
         }
     }
 }

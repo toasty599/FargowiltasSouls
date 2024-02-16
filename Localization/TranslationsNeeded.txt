@@ -1,0 +1,4 @@
+en-US, 2542/2542, 100%, missing 0
+es-ES, 2/2542, 0%, missing 2540
+zh-Hans, 2534/2542, 100%, missing 8
+pt-BR, 1420/2542, 56%, missing 1122

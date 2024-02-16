@@ -6,165 +6,19 @@ If you intend to use this mod with the Calamity Mod, use the official Fargo's So
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://fargosmods.wiki.gg
 
+NEW UPDATE - v1.6.6.1
+-Eternity Golem body health multiplier 4x -> 3x
+-Decreased Masochist Moon Lord's phase change/attack speed
+-Moved Eternity Deerclops Marked for Death buff to Masochist Mode
+-Deerclops deathray is now red and no longer freezes
+-Eridanus' music now fades in much faster
+-Fixed Brain of Cthulhu lasers being drawn in blue
+-Fixed Golem wall checks not working exactly as before
+-Fixed Destroyer Probe resprite glow
+-Fixed Brain of Cthulhu clones showing head icons despite the Brain itself not doing so
+-Fixed Mutant destroyers using the old gores
+
 NEW UPDATE - v1.6.6
-Added new Abominationn theme (with new Music Mod version)
+-Added new Abominationn theme (with new Music Mod version)
+-Tons of changes! See wiki
 
-Changed the following recipes:
-Apprentice Enchant: Vilethorn & Crimson Rod -> Vilethorn or Crimson Rod
-Occultist Essence: Firecracker -> Snapthorn, removed Lightning Aura Rod
-Frost Enchant is now craftable with Ice Blade or Ice Boomerang
-World Shaper Soul now takes any Shellphone variant
-
-Shadewood Enchant:
--True melee hits no longer ignore cooldown
--Base damage 20 -> 12
-
-
-Necro Enchant force effect makes graves large and move towards you when close
-Deerclawps has a new Dive ability (with a toggle)
-Snow Enchantment activated chill effect now applies Frostburn to all enemies for the duration
-Nerfed Monk Enchant iframes from 30t to 20t
-Mutant Antibodies damage 20% -> 25%
-Plantera's Bulb base damage 60 -> 66
-Reworked Soul of Eternity tooltip display
-Reduced Bee Enchant bee damage
-Resprited Bee Enchant flower
-
-Fish Stick rework:
- -Right click spawns it a fixed distance away from you
- -Restored old tornado
- -Tornado lasts up to 1min at a time
- -Sharks do much less damage but have 60 armor pen to compensate
- -Shoots sharks at your mouse
- -Increased duration (travel distance) of sharks
- -Also shoots homing sharks at enemies you hit
-
-Hell Zone changes:
--Speed ignores reforges, but fires every 4t instead of 5
--Reduced hellfire duration on hit from 5sec to 1sec
--Right click with it to fire a guardian that marks enemies for 10sec
--Marked enemies take 5x dot from hellfire
-
-Blastbiter changes:
--Is now loadable with Rotten Chunks by right clicking it with them or attempting to fire, rather than directly consuming them as ammo. Each Rotten Chunk provides 100 shots of ammunition.
--Damage 41 -> 36
-
-Parry changes:
--Silver no longer reduces cooldown when used with Dread/Cape
--Silver can now perfect parry for Striking Moment buff, same window as Dread/Cape
--Silver increases late parry window with dread/cape (only the window of parrying damage, without the Dread/Cape/Striking Moment extra effects)
-
-Decrepit Airstrike Remote base damage 350 -> 375
-Items with any effects disabled by the Effect Toggler now have a tooltip stating this
-All Trojan Squirrel, Banished Baron and Lifelight weapon drops are now craftable with 2 of the respective Boss Bag
-Trojan Squirrel now only drops Squirrel Hook on first kill
-Opening Deviantt's treasure bag now drops Stink Potion projectiles
-Moved "Supersonic Speed Boosts" toggle to correct header and toggle is only shown if the effect is relevant
-Starlight works with Tungsten Enchantment, but deals 40% damage when using this combination
-Nekomi Armor effect lasts much longer before decaying
-Nekomi and Styx armors have a 1/4th second grace window to input their super after being hit at max charge
-Auto-heal doesn't auto-heal when you have Mutant Nibble
-Improved tile collision for Golem tome and Snowball Staff projectiles
-Puff in a Bottle now has 1 Silver sell price
-Devious Aestheticus now has 20 Gold sell price
-Updated music boxes and their tooltips
-Added toggle for Forbidden Enchant activated effect
-Fixed bug where effects without a toggle didn't automatically ignore Mutant's Presence
-Fixed bug where Fossil Enchantment revive was affected by Mutant's Presence
-Fixed bug where Nymph's Perfume dropped hearts much more often than intended
-Resprited Universe Core
-Resprited Life Revitalizer
-
-Banished Baron:
--Resprited boss and some projectiles
--Changed some visuals
--Now accelerates very quickly for dashes, to reflect how his propellers and engine should work
--Dolphin flop dash now has an explosion sound to reflect the engine struggling/cutting
--Polished and smoothened boss movement to be much less snappy and jarring
--Reworked phase 1 floating mines attack
--Fade dash can now bonk into terrain and damage the Baron
--Dashes back after the predictive dash in Phase 2 in Eternity Mode
--Whirlpool attacks repeat less often
--Nuke now only explodes into shrapnel in Masochist Mode, but explosion radius increased
--No longer fires second nuke during laser sweep in Masochist Mode
--Whirlpools no longer inflict Oceanic Maul, now only contact damage and nukes
--Underwater projectiles and the boss itself now use bubble trails rather than a fire trail
--New death animation
--Drops 1 Goldfish
-
-Lifelight: 
-During blue wave shotgun attack, speed is scaled down the closer to the player she is
-Adjusted spawn animation length
-
-Abominationn: 
-Arena is visually denser
-Death animation scythes deal damage in Masochist Mode
-
-Mutant: Death animation deals damage in Masochist Mode, tweaked sword hitbox to not be clippable through
-
-Eternity Mode changes:
-Resprited all Mech bosses and some of their projectiles
-Resprited Queen Bee and Royal Subjects
-Resprited projectiles for Skeletron and Betsy to go along with boss resprites
-Betsy phase 2 homing fireballs now look like her normal fireballs rather than the Lunatic Cultist fireballs
-
-Plantera:
--Fixed despawning when near the edge of the trapper arena in Phase 3
--Increased spread of p3 chakrams, outside Masochist Mode
--Increased delay before rapid-fire triple shots
--Improved projectile visibility, tweaked a few sprites and fixed some inconsistencies
-
-Eye of Cthulhu:
--Consecutive dash speed increase is now in Phase 1 aswell
-- Curving Phase 1 dashes are now Masochist Mode only
-- Random offset during fade teleports is now Masochist Mode only
-
-Pillars:
--Reduced health of Solar, Vortex and Stardust pillars/minions
--Increased Vortex delay between attacks, lightning barrages, and before reflect
--Increased Nebula delay between attacks and reducd speed of blaze projectiles
-
-King Slime: Removed low-health special teleport
-Brain of Cthulhu: Moved p2 physical clone to Masochist Mode
-Wall of Flesh: +10% health, removed screenshake from deathray
-Empress of Light: Tweaked visibility for faded projectiles
-Moon Lord: Core +20% health
-
-Moved following Masochist changes to Masochist + For the Worthy:
--Deerclops vanilla shadow hands
--Queen Slime slam hitbox
--Betsy spam
-Nerfed Masochist biome spray from BoC, EoW and QS
-DD2 Ogres are a lot bigger and spawn a Dark Mage alongside them
-Martian Saucers can rarely spawn in Space in Hardmode, guaranteed dropping Saucer Control Console pre-Golem
-The Remnants mod's temple wall no longer enrages Golem
-
-These bosses now drop Life Crystals on first kill only:
--Trojan Squirrel, 2
--King Slime, 2
--Eye of Cthulhu, 3
-King Slime no longer unconditionally drops Life Crystals, replaced with aformentioned feature
-Ice Blade projectile inflicts Frostburn on-hit
-Shroomerang has an additional 10% drop rate from Spore Bats on top of the normal 2.5%
-Shroomerang buff: +20% damage
-Cross Necklace nerf: Long invincibility cannot trigger for a short moment after invincibility frames end (this targets specifically facetanking)
-Jungle Rose now boosts Plantera's Fruit drop rate
-Tripled Jungle Mimic spawn rate
-Added new Snow Flinxx spawnrate to Underground Snow (doesn't require Snow blocks)
-NPCs now get wet when exposed to Rain
-Bosses are now blanket-immune to Eternity Space suffocation and Hell ambient burning 
-Improved Rain hardmode explosion hitbox and made it circular
-Rain and Lightning effects don't apply in Space (you're above the clouds)
-Sands of Time provides immunity to Cactus damage
-Devi's Gift contains more items if the player name contains "Terry"
-Rainbow Gun is immune to being deleted by Golem Fists
-Giant Bats now drops Rabies Shots
-Fixed Warmth Potion emode nerf being applied after defense while Warmth Potion itself is applied before
-Fixed a strange obscure rare bug where Slimes could gain Eternity AI that they shouldn't
-
-NEW UPDATE - v1.6.5.1
-Eternity Plantera phase 3 tweaks:
--Foolproofed ceiling check, will now stop whenever there's any blocks between you
--Maximum cap for vertical distance to player
--Phase transition avoids the player even more carefully
--Slightly sped up phase transition endlag

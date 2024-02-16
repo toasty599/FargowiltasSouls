@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.netUpdate = true;
                     NetSync(npc);
                 }
-                else if (WorldEvilAttackCycleTimer > 600 - 120) //telegraph for special attacks
+                else if (WorldEvilAttackCycleTimer > (InDesperationPhase ? 300 : 600 - 120)) //telegraph for special attacks
                 {
                     for (int i = 0; i < 2; i++)
                     {

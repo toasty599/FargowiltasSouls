@@ -57,6 +57,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool fireNoDamage = false;
 
+        public int The22Incident;
+
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
 
@@ -506,6 +508,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             MaxLifeReduction = 0;
             CurrentLifeReduction = 0;
+
+            The22Incident = 0;
         }
 
         

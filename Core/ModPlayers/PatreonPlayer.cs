@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Patreon.ParadoxWolf;
+using FargowiltasSouls.Content.Patreon.Potato;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -41,6 +42,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool Northstrider;
 
+        public bool RazorContainer;
+
         public override void SaveData(TagCompound tag)
         {
             base.SaveData(tag);
@@ -81,6 +84,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             PrimeMinion = false;
             ChibiiRemii = false;
             Northstrider = false;
+            RazorContainer = false;
         }
 
         public override void OnEnterWorld()
@@ -293,6 +297,35 @@ namespace FargowiltasSouls.Core.ModPlayers
             //    Player.body = Mod.GetEquipSlot("BetaBody", EquipType.Body);
             //    Player.head = Mod.GetEquipSlot("BetaHead", EquipType.Head);
             //}
+        }
+
+        private int razorCD = 0;
+
+        public override void MeleeEffects(Item item, Rectangle hitbox)
+        {
+            if (RazorContainer && --razorCD <= 0)
+            {
+                for (int i = 0; i < Main.projectile.Length; i++)
+                {
+                    Projectile projectile = Main.projectile[i];
+
+                    if (projectile.type == ModContent.ProjectileType<RazorBlade>() && hitbox.Distance(projectile.Center) < 100)
+                    {
+                        //Player player = Main.player[projectile.owner];
+
+                        Vector2 velocity = Vector2.Normalize((Main.MouseWorld - projectile.Center)) * 10;
+
+                        projectile.velocity = velocity;
+
+                        Main.NewText("REAL");
+                    }
+                }
+
+                razorCD = 30;
+
+            }
+
+            
         }
     }
 }

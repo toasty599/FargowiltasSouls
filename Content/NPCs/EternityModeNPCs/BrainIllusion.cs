@@ -106,5 +106,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
         {
             return false;
         }
+        public override void BossHeadSlot(ref int index)
+        {
+            index = -1; 
+            base.BossHeadSlot(ref index);
+        }
     }
 }

@@ -1,80 +1,31 @@
-﻿baron nuke flashes every time it beeps instead of persistent glow with time
-reduced golem gib tile collision size, no longer breaks instantly when fired while standing on solid blocks
-made abom arena much visually denser
-nerfed ice golem frostball amount
-ogre always spawns alongside a t1 dark mage
-ogre is a lot bigger lol
-improved snowball staff tile collision
-fixed minimal effects preset crashing the game
-nerfed health of vortex and solar pillars
-increased vortex delay between attacks
-increased vortex delay between lightning barrages
-increased vortex delay on when it begins to reflect projectiles
-increased nebula delay between attacks
-nerfed nebula tower random nebula blaze speed
-resynced maso lifelight spawn anim with music
-fish stick rework
-	right click spawns it a fixed distance away from you
-	restored old tornado
-	tornado lasts up to 1min at a time
-	sharks do much less damage but have 60 armor pen to compensate
-	shoots sharks at your mouse
-	increased duration (travel distance) of sharks
-	also shoots HOMING sharks at enemies you hit
-sands of time gives cactus damage immune again
+﻿golem body health mult x4 -> x3
+made deerclops mfd exclusive to maso
+made deerclops ray red and removed the freeze
 
-plantera p3 omega flowey spread shots have more spread, unnerfed in maso
-added a delay to plantera p3 triple rapid shots, doesn't fire them as early into the vines spreading out
-removed emode wof ray screenshake
-starlight can have tungsten enlarge but receives x0.4 damage instead
-fixed nymph perfume always having 10x faster cooldown(!!!!!!)
-nekomi lasts much longer before decaying
-nekomi and styx have a 1/4th second grace window to input their super after being hit at max charge
-	(basically you dont get scammed out of a super because you got hit just as you double tapped)
-parry adjustments
-	silver no longer reduces cooldown when used with dread/cape
-	silver can now perfect parry for striking moment, same window as dread/cape
-	silver increases parry window with dread/cape (but not perfect parry! late parry blocks damage with no dread/cape counter)
-reduced shark damage of fish stick
-fixed ice golem not doing emode attacks
+banished abom p2 ufos to maso
+nerfed fish p2 razor spin, half density, unnerfed in maso
+replaced one mutant fishron dash with shadow hands
+added a brain of confusion visual to mutant pillar attack
+mutant pillar attack maso confuses player
+mutant nuke has maso movement, maso now moves faster
+added The 22 Incident to maso mutant
+mutant sometimes spawns eow instead of destroyers
+fix display issue with frost/pump moon item tooltips
 
-fixed starlight being invisble without tungsten
+maso mutant can randomly end most attacks MUCH earlier than usual
+added mutant queen slime attack
+razorpine -20% damage
+jack o lantern launcher +20% damage
+candy corn rifle +60% damage
+stake launcher +30% damage
+raised grace window on set bonus supers to half a second
 
-added 1 plat to special terry devi gift
-nerfed monk dash iframes from 30t to 20t
-made face monster aura brighter
-nerfed stardust tower cell life 10K -> 8K
-abom death anim scythes can kill you in maso
-mutant death anim can also kill you in maso lmao
-buffed antibodies damage 20 to 25%
-hell zone buff
-	made speed ignore reforges, but made it fire every 4t instead of 5 (doesnt matter because iframes)
-	reduced hellfire duration on hit from 5sec to 1sec
-	right click with it to fire a guardian that marks enemies for 10sec
-	marked enemies take 5x dot from hellfire
-	life champ is immune to marked lmao you thought
+moved maso mutant pillar confusion to ftw its REALLY fucked up
 
-rainbow gun is immune to golem fist deletion
-nerfed maso boc/eater/qs biome spray
-boc p2 physical clone moved to maso
-moved to ftw
-	qs stupid stomp aoe hitbox
-	deerclops ghost hand restoration
-	betsy twitch chat
-deerclops added another tell for when it does ice fort
-martian saucer can early bird in hm and guarantees console drop pre-golem
-deerclawps buff: shut the fuck up 「ディアークロプスダイブ」
-
-improved mutant sword hitbox to end clipping through it forever
-buffed ml core life 20% (x2.5 -> x3)
-cut cross necklace cd, 30 -> 20t
-buffed wof health 10%
-devi gifts sans
-
-jungle rose boosts planteras fruit drop rate
-tweak deerclops ice castle tell
-destroyer guns work with transparent friendly projs config
-
-maso golem regen 240 -> 360
-golem base health mult x1.25 -> x1.75
-golem body health mult x3 -> x4
+added a telegraph to ts acorns
+increased startup on ts kamikaze rain
+nerfed magic dagger -50% attack -50% speed phm
+nerfed jungle mimic, attacks for less time underground
+ks' slime minion rush and big overhead jump with falling slimeballs cannot overlap anymore
+wof telegraphs world evil attacks more in desperation phase
+increased effectiveness of flight mastery soul and upgrades upward boost

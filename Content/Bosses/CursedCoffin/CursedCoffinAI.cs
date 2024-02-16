@@ -285,8 +285,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                   //  NPC.noTileCollide = true;
 
                 NPC.velocity.X *= 0.97f;
+                float speedUp = Counter > 1 ? 0.35f : 0.2f;
                 if (WorldSavingSystem.EternityMode)
-                    NPC.velocity.X += Math.Sign(Player.Center.X - NPC.Center.X) * 0.2f;
+                    NPC.velocity.X += Math.Sign(Player.Center.X - NPC.Center.X) * speedUp;
                 if (NPC.velocity.Y >= 0 && Counter == 0)
                 {
                     Counter = 1;
@@ -310,7 +311,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     {
                         Counter = 2;
                         Timer = 0;
-                        NPC.velocity.Y = -8;
+                        NPC.velocity.Y = -10;
                     }
                     else
                     {
@@ -386,171 +387,74 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
         public void WavyShotFlight()
         {
-            /*
-            int dir = Math.Sign(Player.Center.X - NPC.Center.X);
-            NPC.direction = dir == 0 ? 1 : -dir;
-            */
-            NPC.noTileCollide = false;
-            HoverSound();
+            ref float totalRotate = ref AI2;
+            ref float circleStart = ref AI3;
+
             NPC.noTileCollide = true;
+            HoverSound();
+            const int Distance = 350;
 
-            float dir = Math.Sign(NPC.Center.X - Player.Center.X);
-            const int shotStart = 40;
-            const int prepTime = 100;
-            const int flightTime = 40;
+            const int PrepTime = 60;
+            const int CirclingTime = 280;
+            const int EndTime = 0;
 
-            if (Timer < prepTime)
+            static float MomentumProgress(float x) => (x * x * 3) - (x * x * x * 2);
+
+            if (Timer <= PrepTime)
             {
-                Vector2 desiredPos = Player.Center + Vector2.UnitX * dir * 350 + Vector2.UnitY * 200;
-                Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
+                Vector2 currentDir = Player.DirectionTo(NPC.Center);
+                circleStart = currentDir.ToRotation();
 
-                if (Timer >= shotStart)
+                float rot = FargoSoulsUtil.RotationDifference(currentDir, -Vector2.UnitY);
+                float rotDir = Math.Sign(rot);
+                Vector2 desiredPos = Player.Center + currentDir * Distance;
+                Movement(desiredPos, 0.08f, 30, 5, 0.06f, 50);
+                
+                totalRotate = (MathF.Tau - Math.Abs(rot)) * -rotDir;
+            }
+            else if (Timer <= PrepTime + CirclingTime)
+            {
+                float progress = (Timer - PrepTime) / CirclingTime;
+                float circleProgress = MomentumProgress(progress);
+                Vector2 desiredPos = Player.Center + (circleStart + (totalRotate + MathF.Tau * Math.Sign(totalRotate)) * circleProgress).ToRotationVector2() * Distance;
+
+                float modifier = Utils.Clamp(progress / 0.1f, 0, 1);
+                NPC.velocity = Vector2.Lerp(NPC.velocity, desiredPos - NPC.Center, modifier);
+
+                const float TimePadding = 0.2f;
+                const int ShotTime = 15;
+                if (Timer % ShotTime == 0 && progress >= TimePadding && progress <= 1 - TimePadding)
                 {
-                    const int ShotTime = 20;
-
-                    float progress = (Timer % ShotTime) / ShotTime;
-                    Vector2 maskCenter = MaskCenter();
-
-                    Vector2 sparkDir = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi);
-                    float sparkDistance = (120 * progress) * Main.rand.NextFloat(0.6f, 1.3f);
-                    Vector2 sparkCenter = maskCenter + sparkDir * sparkDistance * 2;
-                    float sparkTime = 15;
-                    Vector2 sparkVel = (maskCenter - sparkCenter) / sparkTime;
-                    float sparkScale = 2f - progress * 1.2f;
-                    sparkScale /= 2;
-                    Particle spark = new SparkParticle(sparkCenter, sparkVel, GlowColor, sparkScale, (int)sparkTime);
-                    spark.Spawn();
-
-                    if (Timer % ShotTime == 0)
+                    SoundEngine.PlaySound(ShotSFX, NPC.Center);
+                    if (FargoSoulsUtil.HostCheck)
                     {
-                        SoundEngine.PlaySound(ShotSFX, NPC.Center);
-                        if (FargoSoulsUtil.HostCheck)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), maskCenter, maskCenter.DirectionTo(Player.Center).RotatedBy(-MathHelper.Pi / 10) * 4, ModContent.ProjectileType<CoffinWaveShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, 1);
-                        }
+                        Vector2 maskCenter = MaskCenter();
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), maskCenter, maskCenter.DirectionTo(Player.Center).RotatedBy(-MathHelper.Pi / 10) * 4, ModContent.ProjectileType<CoffinWaveShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, 1);
                     }
                 }
-            }
-            else if (Timer == prepTime)
-            {
+
                 
-                Vector2 desiredPos = Player.Center - Vector2.UnitY * 200;
-                if (NPC.Center.Y > Player.Center.Y)
-                    desiredPos = Player.Center + Vector2.UnitX * dir * 400;
-                NPC.velocity = NPC.DirectionTo(desiredPos) * 13;
             }
-            else if (Timer < prepTime + flightTime)
+            else if (Timer < PrepTime + CirclingTime + EndTime)
             {
-                
-                Vector2 desiredPos = Player.Center - Vector2.UnitY * 320;
-                float rotdif = FargoSoulsUtil.RotationDifference(NPC.velocity, NPC.DirectionTo(desiredPos));
-                NPC.velocity = NPC.velocity.RotatedBy(rotdif * ((Timer - 60) / 100));
-                if (NPC.Distance(desiredPos) < 100)
-                {
-                    Timer = prepTime + flightTime;
-                }
-                /*
-                if (PhaseTwo)
-                {
-                    const int ShotTime = 18;
-
-                    float progress = (Timer % ShotTime) / ShotTime;
-                    Vector2 maskCenter = MaskCenter();
-
-                    Vector2 sparkDir = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi);
-                    float sparkDistance = (120 * progress) * Main.rand.NextFloat(0.6f, 1.3f);
-                    Vector2 sparkCenter = maskCenter + sparkDir * sparkDistance * 2;
-                    float sparkTime = 15;
-                    Vector2 sparkVel = (maskCenter - sparkCenter) / sparkTime;
-                    float sparkScale = 2f - progress * 1.2f;
-                    sparkScale /= 2;
-                    Particle spark = new SparkParticle(sparkCenter, sparkVel, GlowColor, sparkScale, (int)sparkTime);
-                    spark.Spawn();
-
-                    if (Timer % ShotTime == 0)
-                    {
-                        SoundEngine.PlaySound(ShotSFX, NPC.Center);
-                        if (FargoSoulsUtil.HostCheck)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), maskCenter, maskCenter.DirectionTo(Player.Center).RotatedBy(-MathHelper.Pi / 10) * 4, ModContent.ProjectileType<CoffinWaveShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, 1);
-                        }
-                    }
-                }
-                */
+                NPC.velocity *= 0.96f;
             }
             else
             {
                 Frame = 0;
                 State = (float)StateEnum.SlamWShockwave;
                 NPC.velocity.X /= 2;
-                if (NPC.velocity.Y < -6)
-                    NPC.velocity.Y = -6;
-                NPC.velocity.Y += 3;
+                NPC.velocity.Y = -5;
+                if (NPC.velocity.Y == 0)
+                    NPC.velocity.Y = -0.1f;
+                //if (NPC.velocity.Y < -6)
+                //NPC.velocity.Y = -6;
+                //NPC.velocity.Y += 3;
                 LockVector1 = Player.Top - Vector2.UnitY * 250;
                 AI2 = 2; // only bounce once
                 Timer = 0;
             }
-            /* OLD
-            ref float RotDir = ref AI2;
-
-            if (Timer == 1)
-            {
-                RotDir = Main.rand.NextBool() ? 1 : -1;
-            }
-
-            const float RotationSpeed = MathF.Tau * 0.18f;
-            Vector2 offset = Player.DirectionTo(NPC.Center);
-
-            offset = offset.RotatedBy(RotDir * RotationSpeed) * 350;
-
-            Vector2 desiredPos = Player.Center + offset;
-            Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
-
-            const int soulStart = 30;
-            const int soulEnd = 200;
-            if (Timer == soulEnd / 2 && WorldSavingSystem.EternityMode)
-                RotDir *= -1;
-
-            if (Timer > soulStart + 15 && Timer < soulEnd)
-            {
-                const int ShotTime = 32;
-
-                float progress = (Timer % ShotTime) / ShotTime;
-                Vector2 maskCenter = MaskCenter();
-
-                Vector2 sparkDir = Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi);
-                float sparkDistance = (120 * progress) * Main.rand.NextFloat(0.6f, 1.3f);
-                Vector2 sparkCenter = maskCenter + sparkDir * sparkDistance * 2;
-                float sparkTime = 15;
-                Vector2 sparkVel = (maskCenter - sparkCenter) / sparkTime;
-                float sparkScale = 2f - progress * 1.2f;
-                sparkScale /= 2;
-                Particle spark = new SparkParticle(sparkCenter, sparkVel, GlowColor, sparkScale, (int)sparkTime);
-                spark.Spawn();
-
-                if (Timer % ShotTime == 0)
-                {
-                    SoundEngine.PlaySound(ShotSFX, NPC.Center);
-                    if (FargoSoulsUtil.HostCheck)
-                    {
-                        Projectile.NewProjectile(NPC.GetSource_FromThis(), maskCenter, maskCenter.DirectionTo(Player.Center) * 4, ModContent.ProjectileType<CoffinWaveShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, 1);
-                    }
-                }
-            }
-            if (Timer > soulEnd + 20)
-            {
-                if (NPC.Center.Y > Player.Center.Y) // only end if above player
-                {
-                    return;
-                }
-                NPC.velocity.Y -= 3f;
-                Frame = 0;
-                State = (float)StateEnum.SlamWShockwave;
-                LockVector1 = Player.Top - Vector2.UnitY * 250;
-                AI2 = 2; // only bounce once
-                Timer = 0;
-            }
-            */
+            
         }
         public void GrabbyHands()
         {
@@ -730,7 +634,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     Timer = 0;
                     AI2 = 0;
                     AI3 = 0;
-                    if (NPC.Center.Y < Player.Center.Y) // if above, do slam
+                    if (NPC.Center.Y < Player.Center.Y - 100) // if above, do slam
                     {
                         State = (float)StateEnum.SlamWShockwave;
                         NPC.noTileCollide = true;

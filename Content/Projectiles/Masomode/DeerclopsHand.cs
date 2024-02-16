@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -49,7 +50,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                     if (player.active && !player.dead && !player.ghost && Projectile.Colliding(Projectile.Hitbox, player.Hitbox))
                     {
                         player.frozen = true;
-                        player.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 2);
+                        if (WorldSavingSystem.MasochistModeReal)
+                            player.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 2);
                         player.AddBuff(ModContent.BuffType<GrabbedBuff>(), 2);
 
                         if (oldMash < player.FargoSouls().MashCounter)
@@ -120,7 +122,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Frostburn, 90);
-            target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
+            if (WorldSavingSystem.MasochistModeReal)
+                target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
             target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
         }
 

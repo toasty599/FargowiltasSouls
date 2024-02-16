@@ -159,7 +159,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax *= 4; //From 5, compensation for 1.4.4 nerf
+            npc.lifeMax *= 3; //From 5, compensation for 1.4.4 nerf
             npc.damage = (int)(npc.damage * 1.2);
         }
 
@@ -689,7 +689,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         DeathraySweepTargetHeight = 0;
                         DoAttack = true;
-                        IsInTemple = Golem.CheckTempleWalls(Main.player[npc.target].Center);
+                        IsInTemple = Golem.CheckTempleWalls(npc.Center);
 
                         npc.netUpdate = true;
                         NetSync(npc);
@@ -775,10 +775,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     else if (AttackTimer < fireTime + 150 && DoDeathray)
                     {
                         npc.velocity.X += SweepToLeft ? -.15f : .15f;
-                        bool wallCheck = Golem.CheckTempleWalls(Main.player[npc.target].Center);
+                        bool wallCheck = Golem.CheckTempleWalls(npc.Center);
                         Tile tile = Framing.GetTileSafely(npc.Center); //stop if reached a wall, but only 1sec after started firing
-                        if (AttackTimer > fireTime + 60 && tile.HasUnactuatedTile && tile.TileType == TileID.LihzahrdBrick && wallCheck
-                            || IsInTemple && !wallCheck) //i.e. started in temple but has left temple, then stop
+                        if ((AttackTimer > fireTime + 60 && tile.HasUnactuatedTile && tile.TileType == TileID.LihzahrdBrick && wallCheck)
+                            || (IsInTemple && !wallCheck)) //i.e. started in temple but has left temple, then stop
                         {
                             npc.velocity = Vector2.Zero;
                             npc.netUpdate = true;

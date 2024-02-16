@@ -3384,3 +3384,8 @@ TogglerIconItem: {
 	DisplayName: 饰品效果切换图标
 	Tooltip: ""
 }
+
+RazorContainer: {
+	// DisplayName: Razor Container
+	// Tooltip: Spawns 2? razor blades that hover around you. Hit them with a melee attack to send them flying dealing extra damage
+}
