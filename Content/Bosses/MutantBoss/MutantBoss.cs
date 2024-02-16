@@ -285,7 +285,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 case 47: goto case 35;
                 case 48: QueenSlimeRain(); break;
 
-                //case 49: SANSGOLEM(); break;
+                case 49: SANSGOLEM(); break;
 
                 //case 50: //wof
 
@@ -3188,10 +3188,55 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         void SANSGOLEM()
         {
-            Vector2 targetPos = player.Center + NPC.DirectionFrom(player.Center) * 400;
+            Vector2 targetPos = player.Center + NPC.DirectionFrom(player.Center) * 300;
             Movement(targetPos, 0.3f);
 
+            int attackDelay = WorldSavingSystem.MasochistModeReal ? 40 : 60;
 
+            if (NPC.ai[1] > 0 && NPC.ai[1] % attackDelay == 0)
+            {
+                float oldOffset = NPC.ai[2];
+                while (NPC.ai[2] == oldOffset)
+                    NPC.ai[2] = Main.rand.Next(-1, 2); //roll -1, 0, 1
+
+                Vector2 centerPoint = FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null ? player.Center : Main.projectile[ritualProj].Center;
+                float maxVariance = 150; //variance seems a LOT more than this, whatever
+                float maxOffsetWithinStep = maxVariance / 3 * .75f;
+                centerPoint.Y += maxVariance * NPC.ai[2]; //choose one of 3 base heights
+                centerPoint.Y += Main.rand.NextFloat(-maxOffsetWithinStep, maxOffsetWithinStep);
+
+                for (int i = -1; i <= 1; i += 2) //left and right
+                {
+                    float xSpeedWhenAttacking = Main.rand.NextFloat(8f, 20f);
+
+                    for (int j = -1; j <= 1; j += 2) //flappy bird tubes
+                    {
+                        float gapRadiusHeight = WorldSavingSystem.MasochistModeReal ? 90 : 120;
+                        Vector2 sansTargetPos = centerPoint;
+                        const int timeToReachMiddle = 60;
+                        sansTargetPos.X += xSpeedWhenAttacking * timeToReachMiddle * i;
+                        sansTargetPos.Y += gapRadiusHeight * j;
+
+                        int travelTime = 30;
+                        Vector2 vel = (sansTargetPos - NPC.Center) / travelTime;
+
+                        if (FargoSoulsUtil.HostCheck)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel,
+                                ModContent.ProjectileType<MutantSansHead>(), 
+                                FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 
+                                travelTime, xSpeedWhenAttacking * -i, j);
+                        }
+                    }
+                }
+            }
+
+            //doing it this way to make the endtimes discrete
+            int endTime = attackDelay * 6 + attackDelay * (int)Math.Round(4 * endTimeVariance);
+            if (++NPC.ai[1] > endTime)
+            {
+                ChooseNextAttack(13, 19, 20, 21, 24, 31, 33, 35, 41, 44);
+            }
         }
 
         void P2NextAttackPause() //choose next attack but actually, this also gives breathing space for mp to sync up
