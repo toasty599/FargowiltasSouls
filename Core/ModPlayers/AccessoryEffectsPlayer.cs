@@ -340,7 +340,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (cleansed)
             {
-                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 120);
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 60);
 
                 SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 

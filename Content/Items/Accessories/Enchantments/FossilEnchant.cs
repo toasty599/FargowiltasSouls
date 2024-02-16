@@ -96,6 +96,29 @@ Collect the bones to heal for 20 HP each
                 player.hurtCooldowns[0] = 120;
                 player.hurtCooldowns[1] = 120;
 
+                int max = player.buffType.Length;
+                for (int i = 0; i < max; i++)
+                {
+                    int timeLeft = player.buffTime[i];
+                    if (timeLeft <= 0)
+                        continue;
+
+                    int buffType = player.buffType[i];
+                    if (buffType <= 0)
+                        continue;
+
+                    if (timeLeft > 5
+                        && Main.debuff[buffType]
+                        && !Main.buffNoTimeDisplay[buffType]
+                        && !BuffID.Sets.NurseCannotRemoveDebuff[buffType])
+                    {
+                        player.DelBuff(i);
+
+                        i--;
+                        max--; //just in case, to prevent being stuck here forever
+                    }
+                }
+
                 string text = Language.GetTextValue($"Mods.{FargowiltasSouls.Instance.Name}.Message.Revived");
                 CombatText.NewText(player.Hitbox, Color.SandyBrown, text, true);
                 Main.NewText(text, Color.SandyBrown);
