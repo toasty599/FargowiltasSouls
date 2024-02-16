@@ -247,7 +247,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             else
             {
-                modifiers.FinalDamage *= hits / 90;
+                modifiers.FinalDamage *= hits / 90f;
             }
         }
 
