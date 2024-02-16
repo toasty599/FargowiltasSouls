@@ -76,10 +76,10 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                         for (int j = 0; j < 20; j++)
                         {
-                            int d = Dust.NewDust(pos, 0, 0, DustID.Grass, Scale: 5f);
+                            int d = Dust.NewDust(pos, 0, 0, DustID.GrassBlades, Scale: 3f);
                             Main.dust[d].noGravity = true;
                             Main.dust[d].velocity *= 4f;
-                            Main.dust[d].velocity.X += NPC.direction * Main.rand.NextFloat(6f, 24f);
+                            Main.dust[d].velocity.X += NPC.direction * Main.rand.NextFloat(6f, 18f);
                         }
                     }
                     
@@ -130,12 +130,12 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                     {
                         NPC.ai[1]++;
 
-                        int start = 60 + 60;
-                        int end = 240 + 60;
+                        int start = 60 + 30;
+                        int end = 240 + 30;
                         if (WorldSavingSystem.MasochistModeReal)
                         {
-                            start -= 30 - 60;
-                            end -= 90 - 60;
+                            start -= 30 - 30;
+                            end -= 90 - 30;
                         }
 
                         body.velocity.X *= 0.99f;

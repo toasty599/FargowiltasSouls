@@ -28,4 +28,4 @@ nerfed magic dagger -50% attack -50% speed phm
 nerfed jungle mimic, attacks for less time underground
 ks' slime minion rush and big overhead jump with falling slimeballs cannot overlap anymore
 wof telegraphs world evil attacks more in desperation phase
-ml eyes spawn slightly desynced
+increased effectiveness of flight mastery soul and upgrades upward boost
