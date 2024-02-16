@@ -712,7 +712,7 @@ SublimationBuff: {
 
 CoffinTossBuff: {
 	// DisplayName: Coffin Toss Buff
-	// Description: Mods.FargowiltasSouls.Buffs.CoffinTossBuff.Description
+	// Description: ""
 }
 
 HellFireMarkedBuff: {

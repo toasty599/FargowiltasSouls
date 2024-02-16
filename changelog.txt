@@ -1,6 +1,11 @@
 NEW UPDATE - V {ModVersion}
-Eternity Plantera phase 3 tweaks:
--Foolproofed ceiling check, will now stop whenever there's any blocks between you
--Maximum cap for vertical distance to player
--Phase transition avoids the player even more carefully
--Slightly sped up phase transition endlag
+-Eternity Golem body health multiplier 4x -> 3x
+-Decreased Masochist Moon Lord's phase change/attack speed
+-Moved Eternity Deerclops Marked for Death buff to Masochist Mode
+-Deerclops deathray is now red and no longer freezes
+-Eridanus' music now fades in much faster
+-Fixed Brain of Cthulhu lasers being drawn in blue
+-Fixed Golem wall checks not working exactly as before
+-Fixed Destroyer Probe resprite glow
+-Fixed Brain of Cthulhu clones showing head icons despite the Brain itself not doing so
+-Fixed Mutant destroyers using the old gores

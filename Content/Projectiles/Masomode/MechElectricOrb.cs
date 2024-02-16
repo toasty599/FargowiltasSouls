@@ -1,3 +1,4 @@
+using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Globals;
@@ -22,7 +23,11 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public const int Blue = 1;
         public const int Yellow = 2;
         public const int Green = 3;
-        public ref float ColorType => ref Projectile.ai[2];
+        private ref float ColorAI => ref Projectile.ai[2];
+        public float ColorType
+        {
+            get => (WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors) ? ColorAI : Red;
+        }
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Electric Orb");
@@ -105,10 +110,28 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Projectile.rotation += MathF.PI * 0.05f * Projectile.localAI[0];
             //Projectile.rotation = Projectile.rotation + (Math.Abs(Projectile.velocity.X) + Math.Abs(Projectile.velocity.Y)) * 0.01f * Projectile.direction;
 
-            if (Main.rand.NextBool(30))
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Pink, (float)(Projectile.velocity.X * 0.5), (float)(Projectile.velocity.Y * 0.5), 150, default, 1.2f);
+            Color color = ColorType switch
+            {
+                Blue => Color.Teal,
+                Green => Color.Green,
+                Yellow => Color.Yellow,
+                _ => Color.Red
+            };
 
-            Lighting.AddLight(Projectile.Center, 0.9f, 0.8f, 0.1f);
+            if (Main.rand.NextBool(6))
+            {
+                Vector2 dir = Vector2.Normalize(-Projectile.velocity.RotatedByRandom(MathF.PI * 0.2f));
+                float spd = Math.Max(4, Projectile.velocity.Length() / 2);
+                Particle p = new ElectricSpark(Projectile.Center,  dir * spd, color * 0.7f, Main.rand.NextFloat(0.7f, 1f), 20);
+                p.Spawn();
+            }
+
+            //if (Main.rand.NextBool(30))
+            //Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Pink, (float)(Projectile.velocity.X * 0.5), (float)(Projectile.velocity.Y * 0.5), 150, default, 1.2f);
+            float r = color.R / 255f;
+            float g = color.G / 255f;
+            float b = color.B / 255f;
+            Lighting.AddLight(Projectile.Center, r, g, b);
 
             if (lastSecondAccel && Projectile.ai[0] == -1 && --Projectile.ai[1] < 0)
                 Projectile.velocity *= 1.03f;
@@ -160,27 +183,20 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         */
         public override bool PreDraw(ref Color lightColor)
         {
-            int colorType = (int)ColorType;
-            if (!(WorldSavingSystem.EternityMode && SoulConfig.Instance.BossRecolors))
-                colorType = Red;
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             int sizeY = texture.Height / Main.projFrames[Type]; //ypos of lower right corner of sprite to draw
             int sizeX = texture.Width / 4;
             int frameY = Projectile.frame * sizeY;
-            int frameX = colorType * sizeX;
+            int frameX = (int)ColorType * sizeX;
             Rectangle rectangle = new(frameX, frameY, sizeX, sizeY);
             Vector2 origin = rectangle.Size() / 2f;
             SpriteEffects spriteEffects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-
+            /*
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                /*
-                Color oldColor = lightColor * 0.5f;
-                oldColor *= (float)(ProjectileID.Sets.TrailCacheLength[Type] - i) / ProjectileID.Sets.TrailCacheLength[Type];
-                */
                 Color oldColor = colorType switch
                 {
                     Blue => Color.Teal,
@@ -198,8 +214,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), rectangle, lightColor,
+            */
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), rectangle, Color.White,
                     Projectile.rotation, origin, Projectile.scale, spriteEffects, 0);
 
             /* OLD

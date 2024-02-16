@@ -14,13 +14,15 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
     public class CoffinDarkSouls : ModProjectile
     {
+        const int TrailLength = 10;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Banished Baron Scrap");
-            ProjectileID.Sets.TrailCacheLength[Type] = 10;
+            ProjectileID.Sets.TrailCacheLength[Type] = TrailLength;
             ProjectileID.Sets.TrailingMode[Type] = 2;
             Main.projFrames[Type] = 4;
         }
+        public int[] oldFrame = new int[TrailLength];
         public override void SetDefaults()
         {
             Projectile.width = 18;
@@ -44,6 +46,16 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             if (!target.Alive())
                 return;
             */
+            for (int i = 0; i < oldFrame.Length; i++)
+            {
+                int j = oldFrame.Length - i - 1;
+                if (j > 0)
+                    oldFrame[j] = oldFrame[j - 1];
+                else
+                    oldFrame[j] = Projectile.frame;
+            }
+            Projectile.Animate(6);
+
             if (Projectile.ai[1] != 0)
                 Projectile.velocity.Y += Projectile.ai[1]; //ai1 is Y-acceleration
 
@@ -81,22 +93,27 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         {
             //draw projectile
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
-            Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
+            int frameHeight = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
+            int frameY = frameHeight * Projectile.frame; //ypos of upper left corner of sprite to draw
+            Rectangle rectangle = new(0, frameY, texture2D13.Width, frameHeight);
             Vector2 origin2 = rectangle.Size() / 2f;
             Vector2 drawOffset = Projectile.rotation.ToRotationVector2() * (texture2D13.Width - Projectile.width) / 2;
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = GlowColor;
+                Color color27 = GlowColor with { A = 255};
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
-                Main.EntitySpriteDraw(texture2D13, value4 + drawOffset + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
+                int oldFrameY = frameHeight * oldFrame[i]; //ypos of upper left corner of sprite to draw
+                Rectangle oldRectangle = new(0, oldFrameY, texture2D13.Width, frameHeight);
+                Main.EntitySpriteDraw(texture2D13, value4 + drawOffset + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Rectangle?(oldRectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
             Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
             return false;
         }

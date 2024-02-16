@@ -24,9 +24,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             constantAscend = 0.135f;
             if (player.controlUp)
             {
-                ascentWhenFalling *= 3f;
-                ascentWhenRising *= 3f;
-                constantAscend *= 3f;
+                ascentWhenFalling *= 6f;
+                ascentWhenRising *= 6f;
+                constantAscend *= 6f;
             }
         }
 

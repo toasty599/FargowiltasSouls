@@ -202,5 +202,17 @@ namespace FargowiltasSouls //lets everything access it without using
             else
                 return DamageClass.Summon;
         }
+
+        public static void Animate(this Projectile proj, int ticksPerFrame, int startFrame = 0, int? frames = null)
+        {
+            frames ??= Main.projFrames[proj.type];
+
+            if (++proj.frameCounter >= ticksPerFrame)
+            {
+                if (++proj.frame >= startFrame + frames)
+                    proj.frame = startFrame;
+                proj.frameCounter = 0;
+            }
+        }
     }
 }

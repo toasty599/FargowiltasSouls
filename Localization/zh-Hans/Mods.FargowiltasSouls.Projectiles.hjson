@@ -33,7 +33,7 @@ BlenderProj3.DisplayName: 绞肉机
 BlenderSpray.DisplayName: 绞肉机尖刺
 BlenderYoyoProj.DisplayName: 绞肉机
 Bonez.DisplayName: 骸骨
-MechElectricOrbFriendly.DisplayName: 暗星
+MechElectricOrbFriendly.DisplayName: 闪电球
 Dash.DisplayName: 洞察者冲刺
 Dash2.DisplayName: 洞察者冲刺
 DicerMine.DisplayName: 切肉机空雷
@@ -87,7 +87,7 @@ PhantasmalSphere2.DisplayName: 幻影球
 PrimeDeathray.DisplayName: 烈焰死亡射线
 PrimeLaser.DisplayName: 机械激光
 RazorbladeTyphoonFriendly.DisplayName: 利刃台风
-RefractorBlaster2Held.DisplayName: 衍射暗星炮
+RefractorBlaster2Held.DisplayName: 衍射闪电球炮
 RetiDeathray.DisplayName: 烈焰死亡射线
 Retiglaive.DisplayName: 激光飞轮刃
 Retirang.DisplayName: 激光回旋镖
@@ -181,7 +181,7 @@ TerraLightningOrbDeathray.DisplayName: 闪电死亡射线
 TimberAcorn.DisplayName: 橡实
 TimberHook.DisplayName: 松鼠钩
 TimberHook2.DisplayName: 松鼠钩
-TimberJumpMark.DisplayName: 森林爆炸
+TimberJumpMark.DisplayName: 爆炸
 TimberLaser.DisplayName: 激光
 TimberLightningOrb.DisplayName: 闪电珠
 TimberPalmTree.DisplayName: 棕榈树
@@ -275,10 +275,10 @@ CultistFireball.DisplayName: 火球
 CultistRitual.DisplayName: 教徒仪式
 CultistVortex.DisplayName: 星旋旋涡
 CursedFlamethrower.DisplayName: 魔眼烈火
-MechElectricOrb.DisplayName: 暗星
-MechElectricOrbDestroyer.DisplayName: 暗星
-MechElectricOrbHoming.DisplayName: 暗星
-MechElectricOrbTwins.DisplayName: 暗星
+MechElectricOrb.DisplayName: 闪电球
+MechElectricOrbDestroyer.DisplayName: 闪电球
+MechElectricOrbHoming.DisplayName: 闪电球
+MechElectricOrbTwins.DisplayName: 闪电球
 DeathSkull.DisplayName: 死亡标记头骨
 DeerclopsHand.DisplayName: 暗影之手
 DestroyerLaser.DisplayName: 死亡激光
@@ -368,7 +368,7 @@ BigBrainProj.DisplayName: 克苏鲁大脑
 BrainMinion.DisplayName: 克苏鲁之脑
 CreeperMinion.DisplayName: 飞眼怪
 CrystalSkull.DisplayName: 水晶头骨
-MechElectricOrbHomingFriendly.DisplayName: 暗星
+MechElectricOrbHomingFriendly.DisplayName: 闪电球
 DestroyerBody.DisplayName: 毁灭者身体
 DestroyerBody2.DisplayName: 毁灭者身体
 DestroyerHead.DisplayName: 毁灭者头
@@ -657,7 +657,7 @@ NebulaPillarProj.DisplayName: 星云烈焰
 NebulaTelegraph.DisplayName: 星云预警
 PillarArcanum.DisplayName: 星云奥秘
 BaronWhirlpool.DisplayName: 遗爵漩涡
-BaronWhirlpoolBolt.DisplayName: 遗爵漩涡闪电
+BaronWhirlpoolBolt.DisplayName: 遗爵漩涡旋刃
 BaronArenaWhirlpool.DisplayName: 遗爵漩涡
 BaronDeathray.DisplayName: 遗爵死亡射线
 BaronEyeFlash.DisplayName: 遗爵之电眼
@@ -680,7 +680,7 @@ VortexLightningDeathray.DisplayName: 星旋闪电死亡射线
 SpectralEoC.DisplayName: 克苏鲁幽灵眼
 MonkDashSlash.DisplayName: 武僧冲刺斩
 ObsidianExplosion.DisplayName: 黑曜石爆炸
-DeviGuardianHarmless.DisplayName: 戴薇安守护
+DeviGuardianHarmless.DisplayName: 宝宝守卫者
 // MagmawJaw.DisplayName: Magmaw Jaw
 // MagmawHand.DisplayName: Magmaw Hand
 PungentEyeballMinion.DisplayName: 尖刻眼球
@@ -693,11 +693,12 @@ PlanteraSnatcher.DisplayName: 抓人草
 PlanteraTrapper.DisplayName: 愤怒捕手
 PlanteraMushroomThing.DisplayName: 世纪之花孢子
 RainExplosion.DisplayName: 雨云爆炸
-// CoffinSlamShockwave.DisplayName: Coffin Slam Shockwave
-// CoffinWaveShot.DisplayName: Coffin Wave Shot
-// CoffinDarkSouls.DisplayName: Coffin Dark Souls
-// CoffinHand.DisplayName: Coffin Hand
-// CoffinRandomStuff.DisplayName: Coffin Random Stuff
-// FishStickWhirlpool.DisplayName: Fish Stick Whirlpool
-// BetsyHomingFireball.DisplayName: Betsy Homing Fireball
-// HellGuardian.DisplayName: Hell Guardian
+CoffinSlamShockwave.DisplayName: 冲击波
+CoffinWaveShot.DisplayName: 波形弹
+CoffinDarkSouls.DisplayName: 邪恶灵魂
+CoffinHand.DisplayName: 灵棺之手
+CoffinRandomStuff.DisplayName: 杂物
+FishStickWhirlpool.DisplayName: 鱼杖
+BetsyHomingFireball.DisplayName: 火光球
+HellGuardian.DisplayName: 地狱守卫者
+// RazorBlade.DisplayName: Razor Blade

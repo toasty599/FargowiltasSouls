@@ -441,6 +441,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (!Main.dedServ)
                         Gore.NewGore(NPC.GetSource_FromThis(), pos, vel, ModContent.Find<ModGore>(Mod.Name, $"BaronScrapGore{type}").Type, NPC.scale);
                 }
+
+                if (FargoSoulsUtil.HostCheck)
+                {
+                    NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCID.Goldfish);
+                }
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -461,7 +466,6 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             rule.OnSuccess(ItemDropRule.Common(ItemID.GoldenBugNet, 50, 1, 1));
             rule.OnSuccess(ItemDropRule.Common(ItemID.FishHook, 50, 1, 1));
             rule.OnSuccess(ItemDropRule.Common(ItemID.GoldenFishingRod, 150, 1, 1));
-
             npcLoot.Add(rule);
         }
 

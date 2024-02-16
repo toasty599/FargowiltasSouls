@@ -72,9 +72,11 @@ namespace FargowiltasSouls
             public static readonly Dictionary<int, Asset<Texture2D>> Gore = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Golem = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Dest = new();
+            public static readonly Dictionary<int, Asset<Texture2D>> GlowMask = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Extra = new();
             public static readonly Dictionary<int, Asset<Texture2D>> Projectile = new();
             public static Asset<Texture2D> Ninja = null;
+            public static Asset<Texture2D> Probe = null;
             public static Asset<Texture2D> BoneArm = null;
             public static Asset<Texture2D> BoneArm2 = null;
             public static Asset<Texture2D> BoneLaser = null;
@@ -284,11 +286,14 @@ namespace FargowiltasSouls
             RestoreSprites(TextureBuffer.Gore, TextureAssets.Gore);
             RestoreSprites(TextureBuffer.Golem, TextureAssets.Golem);
             RestoreSprites(TextureBuffer.Dest, TextureAssets.Dest);
+            RestoreSprites(TextureBuffer.GlowMask, TextureAssets.GlowMask);
             RestoreSprites(TextureBuffer.Extra, TextureAssets.Extra);
             RestoreSprites(TextureBuffer.Projectile, TextureAssets.Projectile);
 
             if (TextureBuffer.Ninja != null)
                 TextureAssets.Ninja = TextureBuffer.Ninja;
+            if (TextureBuffer.Probe != null)
+                TextureAssets.Probe = TextureBuffer.Probe;
             if (TextureBuffer.BoneArm != null)
                 TextureAssets.BoneArm = TextureBuffer.BoneArm;
             if (TextureBuffer.BoneArm2 != null)

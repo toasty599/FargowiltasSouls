@@ -18,7 +18,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
     {
         public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_370";
 
-        int p = -1;
+        protected int p = -1;
 
         public override void SetStaticDefaults()
         {

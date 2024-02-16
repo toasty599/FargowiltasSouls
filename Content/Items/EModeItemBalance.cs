@@ -1,4 +1,6 @@
-﻿using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoon;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinMoon;
+using FargowiltasSouls.Core.Systems;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -104,10 +106,28 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 7;
                     return EModeChange.Nerf;
 
+                case ItemID.JackOLanternLauncher:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 1.2f;
+                    return EModeChange.Buff;
+                case ItemID.CandyCornRifle:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 1.6f;
+                    return EModeChange.Buff;
+                case ItemID.StakeLauncher:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 1.3f;
+                    return EModeChange.Buff;
+
+                case ItemID.Razorpine:
+                    balanceTextKeys = new string[] { "Damage" };
+                    balanceNumber = 0.8f;
+                    return EModeChange.Nerf;
                 case ItemID.BlizzardStaff:
                     balanceTextKeys = new string[] { "Damage", "Speed" };
                     balanceNumber = 0.7f;
                     return EModeChange.Nerf;
+
                 case ItemID.DD2SquireBetsySword:
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 0.70f;
@@ -117,6 +137,17 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "Damage" };
                     balanceNumber = 0.88f;
                     return EModeChange.Nerf;
+
+                case ItemID.MagicDagger:
+                    {
+                        if (!Main.hardMode)
+                        {
+                            balanceTextKeys = new string[] { "Damage" };
+                            balanceNumber = 0.5f;
+                            return EModeChange.Nerf;
+                        }
+                        return EModeChange.None;
+                    }
 
 
                 case ItemID.DemonScythe:
@@ -168,16 +199,28 @@ namespace FargowiltasSouls.Content.Items
                 */
 
                 case ItemID.PumpkinMoonMedallion:
-                case ItemID.NaughtyPresent:
+                    balanceNumber = PumpkinMoonBosses.WAVELOCK;
                     if (WorldSavingSystem.MasochistModeReal)
                     {
-                        balanceNumber = 15;
                         balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
                         return EModeChange.Nerf;
                     }
                     else
                     {
-                        return EModeChange.None;
+                        balanceTextKeys = new string[] { "MoonsDrops" };
+                        return EModeChange.Nerf;
+                    }
+                case ItemID.NaughtyPresent:
+                    balanceNumber = FrostMoonBosses.WAVELOCK;
+                    if (WorldSavingSystem.MasochistModeReal)
+                    {
+                        balanceTextKeys = new string[] { "MoonsDrops", "MoonsWaves" };
+                        return EModeChange.Nerf;
+                    }
+                    else
+                    {
+                        balanceTextKeys = new string[] { "MoonsDrops" };
+                        return EModeChange.Nerf;
                     }
 
                 case ItemID.CrossNecklace:
@@ -254,6 +297,10 @@ namespace FargowiltasSouls.Content.Items
                 case ItemID.WarmthPotion:
                     balanceTextKeys = new string[] { "WarmthPotionNerf" };
                     return EModeChange.Nerf;
+
+                case ItemID.JungleRose:
+                    balanceTextKeys = new string[] { "JungleRose" };
+                    return EModeChange.Buff;
 
                 default:
                     return EModeChange.None;
