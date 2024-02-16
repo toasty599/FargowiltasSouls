@@ -285,7 +285,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 case 47: goto case 35;
                 case 48: QueenSlimeRain(); break;
 
-                case 49: SANSGOLEM(); break;
+                //case 49: SANSGOLEM(); break;
 
                 //case 50: //wof
 
