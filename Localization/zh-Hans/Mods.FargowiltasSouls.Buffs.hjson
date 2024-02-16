@@ -629,8 +629,8 @@ SuperBleedBuff: {
 }
 
 CorruptingBuff: {
-	DisplayName: 腐化之蚀
-	Description: 你正被逐渐腐蚀
+	DisplayName: 腐化之力
+	Description: ""
 }
 
 TimeFrozenBuff: {
@@ -674,12 +674,12 @@ WretchedHexBuff: {
 }
 
 CorruptedBuff: {
-	DisplayName: 腐化之力
+	DisplayName: 腐化之蚀
 	Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
 }
 
 CorruptedBuffForce: {
-	DisplayName: 腐化之力
+	DisplayName: 腐化之蚀
 	Description: Mods.FargowiltasSouls.Buffs.CorruptedBuffForce.Description
 }
 
