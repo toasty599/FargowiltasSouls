@@ -37,3 +37,4 @@ nerfed how many sentries you get
 	styx crown 3 to 1
 	universe soul 2 to 1
 	conjurist soul 5 to 2
+raised hokey ball drop rate to 1%
