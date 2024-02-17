@@ -31,3 +31,11 @@ wof telegraphs world evil attacks more in desperation phase
 increased effectiveness of flight mastery soul and upgrades upward boost
 
 added SANS GOLEM to mutant (needs polish)
+nerfed how many sentries you get
+	gaia set 4 to 0
+	eri hat 4 to 1
+	styx crown 3 to 1
+	universe soul 2 to 1
+	conjurist soul 5 to 2
+raised hokey ball drop rate to 1%
+hokey ball buffed, nibble uses cursed sapling ai
