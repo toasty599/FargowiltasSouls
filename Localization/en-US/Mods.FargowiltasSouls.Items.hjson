@@ -1855,7 +1855,7 @@ UniverseSoul: {
 		All weapons have double knockback
 		Increases your maximum mana by 300
 		Increases your max number of minions by 2
-		Increases your max number of sentries by 2
+		Increases your max number of sentries by 1
 		Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 		Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 		'The heavens themselves bow to you'
@@ -1921,7 +1921,7 @@ EridanusHat: {
 		5% increased damage
 		5% increased critical strike chance
 		Increases your max number of minions by 4
-		Increases your max number of sentries by 2
+		Increases your max number of sentries by 1
 		'''
 }
 
@@ -2032,7 +2032,7 @@ StyxCrown: {
 		'''
 		10% increased damage
 		10% increased critical strike chance
-		Increases max number of minions by 3 and sentries by 2
+		Increases max number of minions by 3 and sentries by 1
 		'''
 }
 
