@@ -40,7 +40,7 @@ Increases max number of minions and sentries by 3"); */
             player.GetCritChance(DamageClass.Generic) += 10;
 
             player.maxMinions += 3;
-            player.maxTurrets += 3;
+            player.maxTurrets += 2;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

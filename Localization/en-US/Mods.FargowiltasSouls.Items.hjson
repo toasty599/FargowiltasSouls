@@ -1684,7 +1684,7 @@ ConjuristsSoul: {
 		'''
 		30% increased summon damage
 		Increases your max number of minions by 5
-		Increases your max number of sentries by 5
+		Increases your max number of sentries by 2
 		Increased minion knockback
 		'An army at your disposal'
 		'''
@@ -1921,7 +1921,7 @@ EridanusHat: {
 		5% increased damage
 		5% increased critical strike chance
 		Increases your max number of minions by 4
-		Increases your max number of sentries by 4
+		Increases your max number of sentries by 2
 		'''
 }
 
@@ -2032,7 +2032,7 @@ StyxCrown: {
 		'''
 		10% increased damage
 		10% increased critical strike chance
-		Increases max number of minions and sentries by 3
+		Increases max number of minions by 3 and sentries by 2
 		'''
 }
 
