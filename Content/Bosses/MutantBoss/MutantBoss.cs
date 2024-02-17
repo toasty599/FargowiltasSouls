@@ -565,7 +565,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (FargoSoulsUtil.HostCheck)
             {
-                int maxMemory = WorldSavingSystem.MasochistModeReal ? 10 : 16;
+                int maxMemory = WorldSavingSystem.MasochistModeReal ? 12 : 18;
 
                 if (attackCount++ > maxMemory * 1.25) //after doing this many attacks, shorten queue so i can be more random again
                 {
