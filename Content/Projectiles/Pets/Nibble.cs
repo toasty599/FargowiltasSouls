@@ -19,8 +19,8 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
 
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.BlackCat);
-            AIType = ProjectileID.BlackCat;
+            Projectile.CloneDefaults(ProjectileID.CursedSapling);
+            AIType = ProjectileID.CursedSapling;
             Projectile.width = 24;
             Projectile.height = 40;
             Projectile.scale = 0.8f;
@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
 
         public override bool PreAI()
         {
-            Main.player[Projectile.owner].blackCat = false; // Relic from AIType
+            Main.player[Projectile.owner].cSapling = false; // Relic from AIType
             return true;
         }
 
@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
                 if (player.velocity.X == 0 && Math.Abs(player.Bottom.Y - Projectile.Bottom.Y) < 16 * 2
                     && Math.Abs(player.Center.X - Projectile.Center.X) < 16 * (Projectile.velocity.X == 0 ? 1 : 3))
                 {
-                    Projectile.velocity.X += 0.1f * (Projectile.Center.X == player.Center.X ? -player.direction : Math.Sign(Projectile.Center.X - player.Center.X));
+                    Projectile.velocity.X += 0.115f * (Projectile.Center.X == player.Center.X ? -player.direction : Math.Sign(Projectile.Center.X - player.Center.X));
                 }
 
                 //faster
@@ -96,17 +96,23 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
                 //{
                 //    realFrame = 1;
                 //}
+
+                Projectile.ai[2] = 0;
             }
             else //flying
             {
-                Projectile.Center += Projectile.velocity;
                 if (Projectile.velocity != Vector2.Zero)
                 {
+                    const int rampupTime = 480;
+                    float lerp = Math.Min(++Projectile.ai[2] / rampupTime, 1f);
+                    float betterHoming = 0.03f * lerp;
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(player.Center) * Projectile.velocity.Length(), betterHoming);
+
                     Projectile.rotation = Projectile.velocity.ToRotation();
                     if (Projectile.spriteDirection > 0)
                         Projectile.rotation += MathHelper.Pi;
 
-                    for (int i = 0; i < 2; i++)
+                    /*for (int i = 0; i < 2; i++)
                     {
                         Vector2 dustPos = Projectile.Center - Projectile.velocity.SafeNormalize(Vector2.Zero) * (8f + 4f * Main.rand.NextFloat(Projectile.velocity.Length()));
                         int index = Dust.NewDust(dustPos, 0, 0,
@@ -114,7 +120,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
                         Main.dust[index].noGravity = true;
                         //Main.dust[index].velocity = Main.dust[index].velocity * 0.3f;
                         Main.dust[index].velocity = Main.dust[index].velocity - Projectile.velocity * 0.1f;
-                    }
+                    }*/
                 }
 
                 if (++realFrameCounter > 3)

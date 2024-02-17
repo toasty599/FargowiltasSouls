@@ -38,3 +38,4 @@ nerfed how many sentries you get
 	universe soul 2 to 1
 	conjurist soul 5 to 2
 raised hokey ball drop rate to 1%
+hokey ball buffed, nibble uses cursed sapling ai
