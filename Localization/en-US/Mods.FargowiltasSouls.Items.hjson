@@ -207,7 +207,7 @@ FossilEnchant: {
 	DisplayName: Fossil Enchantment
 	Tooltip:
 		'''
-		If you reach zero HP you will revive with 50 HP and spawn several bones
+		If you reach zero HP you will revive with 50 HP, self-cleanse debuffs, and spawn several bones
 		You will also spawn a few bones on every hit
 		Collect the bones to heal for 20 HP each
 		'Beyond a forgotten age'
@@ -896,7 +896,7 @@ SpiritForce: {
 	DisplayName: Force of Spirit
 	Tooltip:
 		'''
-		[i:FargowiltasSouls/FossilEnchant] If you reach zero HP you will revive with 200 HP and spawn several bones
+		[i:FargowiltasSouls/FossilEnchant] If you reach zero HP you will revive with 200 HP, self-cleanse debuffs, and spawn several bones
 		[i:FargowiltasSouls/FossilEnchant] Collect the bones once they stop moving to heal for 20 HP each
 		[i:FargowiltasSouls/ForbiddenEnchant] Double tap down to call an ancient storm to the cursor location
 		[i:FargowiltasSouls/ForbiddenEnchant] Any projectiles shot through your storm gain 60% damage

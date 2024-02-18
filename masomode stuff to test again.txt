@@ -39,3 +39,5 @@ nerfed how many sentries you get
 	conjurist soul 5 to 2
 raised hokey ball drop rate to 1%
 hokey ball buffed, nibble uses cursed sapling ai
+
+fossil revive buffed, now cleanse debuffs on activation

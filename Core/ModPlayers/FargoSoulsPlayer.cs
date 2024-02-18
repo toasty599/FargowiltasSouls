@@ -920,6 +920,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (Player.whoAmI == Main.myPlayer && retVal && MutantSetBonusItem != null && Player.FindBuffIndex(ModContent.BuffType<MutantRebirthBuff>()) == -1)
                 {
+                    TryCleanseDebuffs();
                     Player.statLife = Player.statLifeMax2;
                     Player.HealEffect(Player.statLifeMax2);
                     Player.immune = true;
