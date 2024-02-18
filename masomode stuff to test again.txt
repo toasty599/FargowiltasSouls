@@ -41,3 +41,4 @@ raised hokey ball drop rate to 1%
 hokey ball buffed, nibble uses cursed sapling ai
 
 fossil revive buffed, now cleanse debuffs on activation
+magical bulb buffed, debuff cleanse cd 120 -> 40sec

@@ -345,7 +345,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             
             if (TryCleanseDebuffs())
             {
-                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 120);
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 40);
 
                 SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 
