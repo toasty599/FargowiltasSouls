@@ -14,7 +14,6 @@ namespace FargowiltasSouls.Content.Patreon
                 if (!player.CheckMana(10, true, false))
                     return false;
 
-                player.manaRegenDelay = 300;
                 player.GetModPlayer<PatreonPlayer>().CompOrbDrainCooldown = item.useTime + item.reuseDelay + 30;
             }
 

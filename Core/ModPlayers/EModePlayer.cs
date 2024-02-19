@@ -305,6 +305,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
                             bool foundMetal = false;
+                            if (WorldSavingSystem.MasochistModeReal)
+                                foundMetal = true;
                             
                             /* TODO: make this work
                             for (int x = -5; x < 5; x++)
@@ -326,7 +328,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                             }
                             */
                             
-                            if (Main.rand.NextBool(300) || foundMetal)
+                            if (FargoSoulsUtil.AnyBossAlive() && !WorldSavingSystem.MasochistModeReal)
+                            {
+                                LightningCounter = 0;
+                            }
+                            else if (Main.rand.NextBool(300) || foundMetal)
                             {
                                 //tends to spawn in ceilings if the Player goes indoors/underground
 

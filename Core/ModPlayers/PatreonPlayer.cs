@@ -157,6 +157,11 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.wingAccRunSpeed = 9f;
                 Player.wingRunAccelerationMult = 9f;
             }
+
+            if (CompOrb && Player.itemAnimation > 0)
+            {
+                Player.manaRegenDelay = Player.maxRegenDelay;
+            }
         }
 
 
@@ -187,7 +192,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 CompOrbDrainCooldown = 15;
                 if (Player.CheckMana(10, true, false))
-                    Player.manaRegenDelay = 300;
+                    Player.manaRegenDelay = Player.maxRegenDelay;
             }
         }
 

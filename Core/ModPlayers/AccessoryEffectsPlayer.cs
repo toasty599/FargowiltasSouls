@@ -306,11 +306,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public void MagicalBulbKey()
+        public bool TryCleanseDebuffs()
         {
-            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCDBuff>()))
-                return;
-
             bool cleansed = false;
 
             int max = Player.buffType.Length;
@@ -338,9 +335,18 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (cleansed)
+            return cleansed;
+        }
+
+        public void MagicalBulbKey()
+        {
+            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCDBuff>()))
+                return;
+            
+            if (TryCleanseDebuffs())
             {
-                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 60);
+
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 40);
 
                 SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 

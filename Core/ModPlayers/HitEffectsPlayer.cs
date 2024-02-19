@@ -387,7 +387,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (ModContent.GetInstance<SoulConfig>().BigTossMode)
             {
-                AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
+                AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
 
                 Vector2 attacker = default;
                 if (npc != null)
