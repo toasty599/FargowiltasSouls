@@ -51,3 +51,4 @@ fixed sheeting for all "guardian" attacks:
 post plant dungeon mages tp at you on spawn even outside dungeon (less likely to snipe you from offscreen in jungle temple)
 emode lightning disabled during bosses
 fixed comp orb not actually causing mana regen to pause
+lightning rod debuff on player now uses new emode rain lightning
