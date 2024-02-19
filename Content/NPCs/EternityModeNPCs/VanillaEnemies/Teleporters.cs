@@ -40,8 +40,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
             {
                 if (++TeleportTimer > teleportThreshold)
                 {
-                    TeleportTimer = 0;
-                    DoTeleport = false;
+                    TeleportTimer -= 20;
 
                     if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget)
                     {
@@ -81,6 +80,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
                                     }
                                 }
                             }
+                        }
+
+                        if (flag1) //only stop trying to tp when tp successful
+                        {
+                            DoTeleport = false;
+                            TeleportTimer = 0;
                         }
 
                         npc.netUpdate = true;

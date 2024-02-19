@@ -54,6 +54,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
                 default:
                     break;
             }
+
+            DoTeleport = true;
+            TeleportTimer = TeleportThreshold - 6;
         }
 
         public override void AI(NPC npc)

@@ -44,3 +44,8 @@ fossil revive buffed, now cleanse debuffs on activation
 magical bulb buffed, debuff cleanse cd 120 -> 40sec
 jungle rose has a real tooltip
 pinky, tortoise, big toss mode stun duration 2sec -> 1sec
+fixed sheeting for all "guardian" attacks:
+	shadow champ guardian
+	mutant guardian
+	prime guardian
+post plant dungeon mages tp at you on spawn even outside dungeon (less likely to snipe you from offscreen in jungle temple)
