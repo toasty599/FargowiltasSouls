@@ -49,3 +49,4 @@ fixed sheeting for all "guardian" attacks:
 	mutant guardian
 	prime guardian
 post plant dungeon mages tp at you on spawn even outside dungeon (less likely to snipe you from offscreen in jungle temple)
+emode lightning disabled during bosses
