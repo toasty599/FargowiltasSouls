@@ -3,11 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
-using FargowiltasSouls.Core.Toggler;
 using FargowiltasSouls.Core.Toggler.Content;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments

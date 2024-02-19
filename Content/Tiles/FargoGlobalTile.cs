@@ -1,11 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Tiles
 {
-    public class FargoGlobalTile : GlobalTile
+	public class FargoGlobalTile : GlobalTile
     {
         //internal static Point16 PlayerCenterTile(Player player) => new Point16((int)(player.Center.X / 16), (int)(player.Center.Y / 16));
         //internal static int PlayerCenterTileX(Player player) => (int)(player.Center.X / 16);

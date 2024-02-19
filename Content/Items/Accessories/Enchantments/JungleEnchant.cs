@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
-using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
@@ -10,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class JungleEnchant : BaseEnchant
+	public class JungleEnchant : BaseEnchant
     {
         public override Color nameColor => new(113, 151, 31);
 

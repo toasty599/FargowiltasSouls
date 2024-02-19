@@ -11,16 +11,11 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
-using Terraria.WorldBuilding;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using System.Collections.Generic;
-using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Items;
 using Terraria.Localization;
-using FargowiltasSouls.Content.Projectiles.Souls;
-using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PumpkinMoon;
-using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.FrostMoon;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -305,8 +300,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
 
                             bool foundMetal = false;
-                            if (WorldSavingSystem.MasochistModeReal)
-                                foundMetal = true;
                             
                             /* TODO: make this work
                             for (int x = -5; x < 5; x++)
@@ -328,11 +321,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                             }
                             */
                             
-                            if (FargoSoulsUtil.AnyBossAlive() && !WorldSavingSystem.MasochistModeReal)
-                            {
-                                LightningCounter = 0;
-                            }
-                            else if (Main.rand.NextBool(300) || foundMetal)
+                            if (Main.rand.NextBool(300) || foundMetal)
                             {
                                 //tends to spawn in ceilings if the Player goes indoors/underground
 
@@ -462,7 +451,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (Player.longInvince && !Player.immune)
             {
-                if (CrossNecklaceTimer < 20)
+                if (CrossNecklaceTimer < 30)
                 {
                     Player.longInvince = false;
                     CrossNecklaceTimer++;
@@ -618,7 +607,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             
-            if (((Main.snowMoon && NPC.waveNumber < FrostMoonBosses.WAVELOCK) || (Main.pumpkinMoon && NPC.waveNumber < PumpkinMoonBosses.WAVELOCK)) && WorldSavingSystem.MasochistModeReal)
+            if ((Main.snowMoon && NPC.waveNumber < 20 || Main.pumpkinMoon && NPC.waveNumber < 15) && WorldSavingSystem.MasochistModeReal)
             {
                 if (NPC.waveNumber > 1)
                     NPC.waveNumber--;

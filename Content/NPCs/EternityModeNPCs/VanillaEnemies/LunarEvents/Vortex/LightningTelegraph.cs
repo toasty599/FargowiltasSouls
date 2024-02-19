@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Bosses.Champions.Cosmos;
 using FargowiltasSouls.Content.Bosses.Champions.Will;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.GreatestKraken
 {
-    public class VortexRitualProj : ModProjectile
+	public class VortexRitualProj : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_465";
 

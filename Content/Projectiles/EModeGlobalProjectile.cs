@@ -1,13 +1,11 @@
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -24,11 +22,10 @@ using FargowiltasSouls.Content.Bosses.Champions.Terra;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using FargowiltasSouls.Content.Bosses.Champions.Will;
 using FargowiltasSouls.Content.Bosses.Champions.Spirit;
-using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
-    public class EModeGlobalProjectile : GlobalProjectile
+	public class EModeGlobalProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
 
@@ -1365,8 +1362,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 case ProjectileID.DeerclopsIceSpike:
                 case ProjectileID.DeerclopsRangedProjectile:
                     target.AddBuff(BuffID.Frostburn, 90);
-                    if (WorldSavingSystem.MasochistModeReal)
-                        target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
+                    target.AddBuff(ModContent.BuffType<MarkedforDeathBuff>(), 900);
                     target.AddBuff(ModContent.BuffType<HypothermiaBuff>(), 1200);
                     break;
 

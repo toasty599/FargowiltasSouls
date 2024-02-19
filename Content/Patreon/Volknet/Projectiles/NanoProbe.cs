@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 {
-    class NanoProbe : ModProjectile
+	class NanoProbe : ModProjectile
     {
         public bool OldChannel = false;
         public override void SetStaticDefaults()

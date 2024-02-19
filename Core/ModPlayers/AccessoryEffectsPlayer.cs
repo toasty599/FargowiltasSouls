@@ -1,12 +1,10 @@
 ﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles.Masomode;
-using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameInput;
@@ -18,15 +16,7 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles.Deathrays;
-using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
-using FargowiltasSouls.Common.Graphics.Shaders;
-using FargowiltasSouls.Core.Systems;
-using Fargowiltas.Common.Configs;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
-using FargowiltasSouls.Core.Toggler;
-using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Core.ModPlayers
@@ -306,8 +296,11 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public bool TryCleanseDebuffs()
+        public void MagicalBulbKey()
         {
+            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCDBuff>()))
+                return;
+
             bool cleansed = false;
 
             int max = Player.buffType.Length;
@@ -335,17 +328,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            return cleansed;
-        }
-
-        public void MagicalBulbKey()
-        {
-            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCDBuff>()))
-                return;
-            
-            if (TryCleanseDebuffs())
+            if (cleansed)
             {
-                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 40);
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 120);
 
                 SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 

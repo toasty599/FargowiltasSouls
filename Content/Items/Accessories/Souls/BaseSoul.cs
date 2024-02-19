@@ -1,4 +1,3 @@
-using FargowiltasSouls.Common.Utilities;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Souls
 {
-    public abstract class BaseSoul : SoulsItem
+	public abstract class BaseSoul : SoulsItem
     {
         protected virtual Color? nameColor => null;
 

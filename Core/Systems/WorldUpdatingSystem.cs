@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static FargowiltasSouls.Core.Systems.WorldSavingSystem;
 
 namespace FargowiltasSouls.Core.Systems
 {
-    public class WorldUpdatingSystem : ModSystem
+	public class WorldUpdatingSystem : ModSystem
     {
         public override void PreUpdateNPCs() => SwarmActive = ModLoader.TryGetMod("Fargowiltas", out Mod fargo) && (bool)fargo.Call("SwarmActive");
 

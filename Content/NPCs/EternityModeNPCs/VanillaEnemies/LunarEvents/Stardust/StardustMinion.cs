@@ -7,9 +7,6 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
-using FargowiltasSouls.Common.Utilities;
-using FargowiltasSouls.Content.Buffs.Masomode;
-using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Stardust
 {

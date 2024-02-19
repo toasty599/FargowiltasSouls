@@ -16,10 +16,8 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Patreon.DanielTheRobot;
 using FargowiltasSouls.Common.Graphics.Particles;
 using Terraria.DataStructures;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {

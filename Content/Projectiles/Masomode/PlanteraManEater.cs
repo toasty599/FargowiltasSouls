@@ -3,13 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class PlanteraManEater : PlanteraSnatchers
+	public class PlanteraManEater : PlanteraSnatchers
     {
         public override string Texture => FargoSoulsUtil.VanillaTextureNPC(NPCID.ManEater);
         public override string VineTexture => "Terraria/Images/Chain4";

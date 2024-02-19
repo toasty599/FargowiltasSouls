@@ -16,9 +16,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Common.Graphics.Particles;
-using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
-using FargowiltasSouls.Content.Patreon.DanielTheRobot;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -69,7 +67,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.2);
+            npc.lifeMax = (int)(npc.lifeMax * 1.5);
+            if (!Main.masterMode)
+                npc.lifeMax = (int)(npc.lifeMax * 1.3);
             npc.defense = 0;
             npc.HitSound = SoundID.NPCHit41;
         }
@@ -122,7 +122,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     npc.netUpdate = true;
                     NetSync(npc);
                 }
-                else if (WorldEvilAttackCycleTimer > (InDesperationPhase ? 300 : 600 - 120)) //telegraph for special attacks
+                else if (WorldEvilAttackCycleTimer > 600 - 120) //telegraph for special attacks
                 {
                     for (int i = 0; i < 2; i++)
                     {
@@ -439,7 +439,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 2.2);
+            npc.lifeMax = (int)(npc.lifeMax * 1.5);
         }
 
         public override void OnFirstTick(NPC npc)

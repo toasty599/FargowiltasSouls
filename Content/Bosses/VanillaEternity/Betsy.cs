@@ -16,7 +16,6 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
-using System.Linq;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -293,7 +292,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             LoadGoreRange(recolor, 1079, 1086);
             LoadExtra(recolor, 81);
             LoadExtra(recolor, 82);
-            LoadGlowMask(recolor, 226);
             LoadProjectile(recolor, ProjectileID.DD2BetsyFireball);
             LoadProjectile(recolor, ProjectileID.DD2BetsyFlameBreath);
         }

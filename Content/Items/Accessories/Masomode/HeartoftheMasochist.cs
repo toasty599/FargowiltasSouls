@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Buffs.Minions;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-    [AutoloadEquip(EquipType.Face, EquipType.Front, EquipType.Back)]
+	[AutoloadEquip(EquipType.Face, EquipType.Front, EquipType.Back)]
     public class HeartoftheMasochist : SoulsItem
     {
         public override bool Eternity => true;

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles.Minions;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-    public class Retiglaive : ModProjectile
+	public class Retiglaive : ModProjectile
     {
         bool empowered = false;
         public override void SetStaticDefaults()
@@ -92,7 +91,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                             for (int i = 0; i < max; i++)
                             {
                                 int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, 1.25f * velocity.RotatedBy(MathHelper.TwoPi / max * i + baseRotation),
-                                    ModContent.ProjectileType<MechElectricOrbHomingFriendly>(), Projectile.damage, 1f, Projectile.owner, -1, 0);
+                                    ModContent.ProjectileType<DarkStarHomingFriendly>(), Projectile.damage, 1f, Projectile.owner, -1, 0);
                                 if (p != Main.maxProjectiles)
                                 {
                                     Main.projectile[p].DamageType = DamageClass.Melee;

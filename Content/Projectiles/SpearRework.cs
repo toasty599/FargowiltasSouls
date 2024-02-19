@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
-    public class SpearRework : GlobalProjectile
+	public class SpearRework : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
 

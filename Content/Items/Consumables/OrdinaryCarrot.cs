@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Souls;
-using FargowiltasSouls.Core.AccessoryEffectSystem;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Consumables
 {
-    public class OrdinaryCarrot : SoulsItem
+	public class OrdinaryCarrot : SoulsItem
     {
         public override bool Eternity => true;
 

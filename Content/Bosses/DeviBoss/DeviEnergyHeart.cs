@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Content.Projectiles.Deathrays;
+﻿using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using System;
@@ -10,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-    public class DeviEnergyHeart : ModProjectile
+	public class DeviEnergyHeart : ModProjectile
     {
         public override void SetStaticDefaults()
         {

@@ -3,11 +3,9 @@ using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Content.Projectiles.Minions;
-using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
-using FargowiltasSouls.Common.Utilities;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
@@ -16,13 +14,10 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Bosses.DeviBoss;
 using FargowiltasSouls.Content.Bosses.AbomBoss;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
-using FargowiltasSouls.Content.Buffs;
-using Terraria.WorldBuilding;
 using Terraria.Audio;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
-using Terraria.Localization;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -387,7 +382,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (ModContent.GetInstance<SoulConfig>().BigTossMode)
             {
-                AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
+                AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
 
                 Vector2 attacker = default;
                 if (npc != null)
@@ -521,27 +516,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             DeviGrazeBonus = 0;
             DeviGrazeCounter = 0;
-
-            if (Main.myPlayer == Player.whoAmI)
-            {
-                if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()) && EModeGlobalNPC.mutantBoss.IsWithinBounds(Main.maxNPCs))
-                {
-                    The22Incident++;
-                    Rectangle rect = new Rectangle((int)Player.Center.X - 111, (int)Player.Center.Y, 222, 222);
-                    for (int i = 0; i < The22Incident; i++)
-                        CombatText.NewText(rect, Color.DarkOrange, The22Incident, true);
-                    if (The22Incident >= 22)
-                    {
-                        Player.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.TwentyTwo", Player.name)), 22222222, 0);
-                        Projectile.NewProjectile(Player.GetSource_Death(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TwentyTwo>(), 0, 0f, Main.myPlayer);
-                        Screenshake = 60;
-                    }
-                }
-                else
-                {
-                    The22Incident = 0;
-                }
-            }
         }
     }
 }

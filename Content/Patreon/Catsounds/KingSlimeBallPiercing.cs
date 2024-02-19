@@ -1,10 +1,9 @@
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Patreon.Catsounds
 {
-    public class KingSlimeBallPiercing : SlimeBall
+	public class KingSlimeBallPiercing : SlimeBall
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/SlimeBall";
 

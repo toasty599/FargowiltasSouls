@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using System;
@@ -7,7 +6,7 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantEyeWavy : MutantEye
+	public class MutantEyeWavy : MutantEye
     {
         public override string Texture => "Terraria/Images/Projectile_452";
 

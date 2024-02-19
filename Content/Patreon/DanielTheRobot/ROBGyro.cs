@@ -1,15 +1,12 @@
-﻿using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Core;
+﻿using FargowiltasSouls.Core;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
 {
-    public class ROBGyro : PatreonModItem
+	public class ROBGyro : PatreonModItem
     {
         public override void SetStaticDefaults()
         {

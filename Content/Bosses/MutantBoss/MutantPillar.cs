@@ -1,6 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -14,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantPillar : ModProjectile
+	public class MutantPillar : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/CelestialPillar";
 

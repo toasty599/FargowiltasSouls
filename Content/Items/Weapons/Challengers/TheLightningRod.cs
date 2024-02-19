@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.Challengers
 {
-    public class TheLightningRod : SoulsItem
+	public class TheLightningRod : SoulsItem
     {
         public override void SetStaticDefaults()
         {

@@ -1,24 +1,16 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Common.Graphics.Primitives;
-using FargowiltasSouls.Assets.ExtraTextures;
-using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
-    public class CoffinWaveShot : ModProjectile, IPixelPrimitiveDrawer
+	public class CoffinWaveShot : ModProjectile
     {
-        public PrimDrawer TrailDrawer { get; private set; } = null;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Banished Baron Scrap");
@@ -41,7 +33,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         public override void AI()
         {
-            ProjectileID.Sets.TrailCacheLength[Type] = 8;
+            
             float rotStr = Projectile.ai[0] == 0 ? 0.06f : 0.03f;
             float rot = MathHelper.PiOver2 * rotStr * MathF.Sin(MathF.Tau * (Projectile.ai[1] / 50f));
             Projectile.velocity = Projectile.velocity.RotatedBy(rot);
@@ -68,7 +60,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             Vector2 drawOffset = Projectile.rotation.ToRotationVector2() * (texture2D13.Width - Projectile.width) / 2;
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            /*
+
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
                 Color color27 = GlowColor;
@@ -77,31 +69,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 float num165 = Projectile.oldRot[i];
                 Main.EntitySpriteDraw(texture2D13, value4 + drawOffset + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, effects, 0);
             }
-            */
+
 
             Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(rectangle), Projectile.GetAlpha(lightColor), Projectile.rotation, origin2, Projectile.scale, effects, 0);
 
 
             return false;
-        }
-        public float WidthFunction(float completionRatio)
-        {
-            float baseWidth = Projectile.scale * Projectile.width * 1.25f;
-            return MathHelper.SmoothStep(baseWidth, 0f, completionRatio);
-        }
-
-        public static Color ColorFunction(float completionRatio)
-        {
-            return Color.Lerp(Color.Lerp(Color.Lerp(Color.MediumPurple, Color.DeepPink, 0.5f), GlowColor, 0.5f), GlowColor with { A = 100 } * 0.5f, completionRatio);
-            //return Color.Lerp(GlowColor, Color.Transparent, completionRatio) * 0.7f;
-        }
-
-
-        public void DrawPixelPrimitives(SpriteBatch spriteBatch)
-        {
-            TrailDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, ShaderManager.GetShaderIfExists("BlobTrail"));
-            FargoSoulsUtil.SetTexture1(FargosTextureRegistry.FadedStreak.Value);
-            TrailDrawer.DrawPixelPrims(Projectile.oldPos, Projectile.Size * 0.5f - Main.screenPosition, 44);
         }
     }
 }

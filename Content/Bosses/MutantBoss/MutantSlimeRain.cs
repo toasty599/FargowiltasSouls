@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Buffs.Boss;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantSlimeRain : ModProjectile
+	public class MutantSlimeRain : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Items/Weapons/FinalUpgrades/SlimeRain";
 
@@ -39,7 +38,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public override void AI()
         {
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<MutantBoss>());
-            if (npc != null && (npc.ai[0] == 36 || npc.ai[0] == 48))
+            if (npc != null && npc.ai[0] == 36)//(npc.ai[0] == 35 || npc.ai[0] == 38))
             {
                 Projectile.timeLeft = 2;
                 Projectile.Center = npc.Center;

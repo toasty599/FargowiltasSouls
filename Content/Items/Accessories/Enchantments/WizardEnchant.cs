@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Common.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-    public class WizardEnchant : BaseEnchant
+	public class WizardEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

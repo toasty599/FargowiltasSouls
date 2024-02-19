@@ -1,12 +1,10 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
-using FargowiltasSouls.Core.AccessoryEffectSystem;
-using System.Linq;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler
 {
-    public static class SoulCheck
+	public static class SoulCheck
     {
         public static Toggle GetToggle<T>(this Player player) where T : AccessoryEffect => player.GetToggle(ModContent.GetInstance<T>());
         public static Toggle GetToggle(this Player player, AccessoryEffect effect)

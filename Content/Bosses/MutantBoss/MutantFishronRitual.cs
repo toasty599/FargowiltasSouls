@@ -1,6 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantFishronRitual : ModProjectile
+	public class MutantFishronRitual : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/FishronRitual";
 

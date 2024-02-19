@@ -5,7 +5,6 @@ using Terraria.ModLoader;
 using System;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
-using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Core.Toggler.Content;
 using System.Collections.Generic;
 using Terraria.Graphics.Shaders;

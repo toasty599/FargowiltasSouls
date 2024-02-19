@@ -1,5 +1,4 @@
-﻿using Fargowiltas;
-using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-    public class NymphsPerfume : SoulsItem
+	public class NymphsPerfume : SoulsItem
     {
         public override bool Eternity => true;
 

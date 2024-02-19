@@ -5,15 +5,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using System.Linq;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
 using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
-    public class EaterLauncherJr : SoulsItem
+	public class EaterLauncherJr : SoulsItem
     {
         public override void SetStaticDefaults()
         {

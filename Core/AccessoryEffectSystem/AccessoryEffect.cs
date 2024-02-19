@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
-    //Proof of concept file for an accessory effect rework
+	//Proof of concept file for an accessory effect rework
 
-    /// <summary>
-    /// Contains the behavior for an accessory effect. <para/>
-    /// All Toggles have a corresponding accessory effect. <para/>
-    /// Each accessory effect with a toggle needs a localized toggle description as Mods.YourMod.Toggler.YourAccessoryEffectName.<para/>
-    /// This type is not instanced per player. Put instanced things (such as fields) in an EffectFields.
-    /// </summary>
-    public abstract class AccessoryEffect : ModType
+	/// <summary>
+	/// Contains the behavior for an accessory effect. <para/>
+	/// All Toggles have a corresponding accessory effect. <para/>
+	/// Each accessory effect with a toggle needs a localized toggle description as Mods.YourMod.Toggler.YourAccessoryEffectName.<para/>
+	/// This type is not instanced per player. Put instanced things (such as fields) in an EffectFields.
+	/// </summary>
+	public abstract class AccessoryEffect : ModType
     {
         public int Index;
         

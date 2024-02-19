@@ -6,11 +6,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
-using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
-    public class CirnoBomb : GlowRing
+	public class CirnoBomb : GlowRing
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/GlowRing";
 

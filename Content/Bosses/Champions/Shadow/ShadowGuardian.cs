@@ -1,6 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -13,14 +11,13 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 {
-    public class ShadowGuardian : ModProjectile
+	public class ShadowGuardian : ModProjectile
     {
         public override string Texture => "Terraria/Images/NPC_68";
 
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Dungeon Guardian");
-            Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.DungeonGuardian];
         }
 
         public override void SetDefaults()

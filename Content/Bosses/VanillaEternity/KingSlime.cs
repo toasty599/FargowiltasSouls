@@ -9,7 +9,6 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
-using Terraria.DataStructures;
 using System;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Common.Graphics.Particles;
@@ -26,7 +25,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool LandingAttackReady; // Was masoBool[1]
         public bool CurrentlyJumping; // Was masoBool[3]
         public bool DidSpecialTeleport;
-        public int CertainAttackCooldown;
 
         public bool DroppedSummon;
 
@@ -47,9 +45,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (WorldSavingSystem.SwarmActive)
                 return true;
 
-            if (CertainAttackCooldown > 0)
-                CertainAttackCooldown--;
-
             Player player = Main.player[npc.target];
 
             /*
@@ -64,10 +59,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     JumpTimer = SpecialJumpTime;
                 teleportTimer = 145;
             }
-            if (npc.GetLifePercent() < SummonCounter / SummonWaves && (CertainAttackCooldown <= 0 || WorldSavingSystem.MasochistModeReal))
+            if (npc.GetLifePercent() < SummonCounter / SummonWaves)
             {
                 const int Slimes = 6;
-                CertainAttackCooldown = 180;
                 if (FargoSoulsUtil.HostCheck)
                 {
                     for (int i = 0; i < Slimes; i++)
@@ -112,12 +106,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     LandingAttackReady = false;
 
 
-                    if (JumpTimer >= SpecialJumpTime && !SpecialJumping && (CertainAttackCooldown <= 0 || WorldSavingSystem.MasochistModeReal))
+                    if (JumpTimer >= SpecialJumpTime && !SpecialJumping)
                     {
                         SoundEngine.PlaySound(SoundID.Item21 with { Pitch = -1, Volume = 1.5f }, npc.Center);
                         Particle p = new ExpandingBloomParticle(npc.Center, Vector2.Zero, Color.Blue, Vector2.One, Vector2.One * 60, 40, true, Color.Transparent);
                         SpecialJumping = true;
-                        CertainAttackCooldown = 240;
                         p.Spawn();
                         
                     }

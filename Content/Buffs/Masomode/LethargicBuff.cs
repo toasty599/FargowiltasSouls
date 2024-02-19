@@ -1,10 +1,9 @@
-﻿using FargowiltasSouls.Core.Globals;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
-    public class LethargicBuff : ModBuff
+	public class LethargicBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

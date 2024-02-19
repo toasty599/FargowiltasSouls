@@ -1,14 +1,12 @@
 using System.IO;
 using Terraria.ModLoader.IO;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
-using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Buffs.Masomode;
@@ -25,7 +23,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public int DeathrayState;
         public int AuraRadiusCounter;
-        public int MechElectricOrbTimer;
+        public int DarkStarTimer;
 
         public bool StoredDirectionToPlayer;
 
@@ -43,7 +41,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             binaryWriter.Write7BitEncodedInt(DeathrayState);
             binaryWriter.Write7BitEncodedInt(AuraRadiusCounter);
-            binaryWriter.Write7BitEncodedInt(MechElectricOrbTimer);
+            binaryWriter.Write7BitEncodedInt(DarkStarTimer);
             bitWriter.WriteBit(StoredDirectionToPlayer);
         }
 
@@ -52,7 +50,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             DeathrayState = binaryReader.Read7BitEncodedInt();
             AuraRadiusCounter = binaryReader.Read7BitEncodedInt();
-            MechElectricOrbTimer = binaryReader.Read7BitEncodedInt();
+            DarkStarTimer = binaryReader.Read7BitEncodedInt();
             StoredDirectionToPlayer = bitReader.ReadBit();
         }
 
@@ -172,9 +170,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             else //in phase 3
             {
 
-                if (WorldSavingSystem.MasochistModeReal && spazmatism == null && --MechElectricOrbTimer < 0) //when twin dead, begin shooting Electric Orbs
+                if (WorldSavingSystem.MasochistModeReal && spazmatism == null && --DarkStarTimer < 0) //when twin dead, begin shooting dark stars
                 {
-                    MechElectricOrbTimer = 240;
+                    DarkStarTimer = 240;
                     if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
@@ -182,15 +180,14 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         distance *= 10f;
                         for (int i = 0; i < 12; i++)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance.RotatedBy(2 * Math.PI / 12 * i),
-                                ModContent.ProjectileType<MechElectricOrb>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, ai2: MechElectricOrb.Yellow);
+                                ModContent.ProjectileType<DarkStar>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
                 }
 
                 //dust code
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dustID = DeathrayState != 0 ? DustID.GemRuby : DustID.GemAmber;
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, dustID, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.GemRuby, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -205,7 +202,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     npc.localAI[1] = 0;
                     Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center);
-                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + (npc.width - 24) * vel, vel, ModContent.ProjectileType<MechElectricOrbTwins>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target, ai2: MechElectricOrb.Yellow);
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + (npc.width - 24) * vel, vel, ModContent.ProjectileType<DarkStarTwins>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, npc.target);
                 }
 
                 if (DeathrayState == 0 || DeathrayState == 3) //not doing deathray, grow arena
@@ -384,7 +381,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
         public override Color? GetAlpha(NPC npc, Color drawColor)
         {
-            return npc.ai[0] < 4 ? base.GetAlpha(npc, drawColor) : DeathrayState != 0 ? new Color(255, drawColor.G / 2, drawColor.B / 2) : new Color(255, drawColor.G * 0.66f, 0);
+            return npc.ai[0] < 4 ? base.GetAlpha(npc, drawColor) : new Color(255, drawColor.G / 2, drawColor.B / 2);
         }
 
         public override bool CheckDead(NPC npc)
@@ -430,7 +427,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public int ProjectileTimer;
         public int FlameWheelSpreadTimer;
         public int FlameWheelCount;
-        public int MechElectricOrbTimer;
+        public int DarkStarTimer;
         public int P3DashPhaseDelay;
 
         public bool ForcedPhase2OnSpawn;
@@ -445,7 +442,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             binaryWriter.Write7BitEncodedInt(ProjectileTimer);
             binaryWriter.Write7BitEncodedInt(FlameWheelSpreadTimer);
             binaryWriter.Write7BitEncodedInt(FlameWheelCount);
-            binaryWriter.Write7BitEncodedInt(MechElectricOrbTimer);
+            binaryWriter.Write7BitEncodedInt(DarkStarTimer);
             binaryWriter.Write7BitEncodedInt(P3DashPhaseDelay);
         }
 
@@ -456,7 +453,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             ProjectileTimer = binaryReader.Read7BitEncodedInt();
             FlameWheelSpreadTimer = binaryReader.Read7BitEncodedInt();
             FlameWheelCount = binaryReader.Read7BitEncodedInt();
-            MechElectricOrbTimer = binaryReader.Read7BitEncodedInt();
+            DarkStarTimer = binaryReader.Read7BitEncodedInt();
             P3DashPhaseDelay = binaryReader.Read7BitEncodedInt();
         }
 
@@ -673,7 +670,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     for (int i = 0; i < FlameWheelCount; i++)
                                     {
                                         int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed * (baseRotation + MathHelper.TwoPi / FlameWheelCount * i).ToRotationVector2(),
-                                            ModContent.ProjectileType<MechElectricOrb>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, ai2: MechElectricOrb.Green);
+                                            ModContent.ProjectileType<DarkStar>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                                         if (p != Main.maxProjectiles)
                                             Main.projectile[p].timeLeft = timeLeft;
                                     }
@@ -755,9 +752,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     }
                 }
 
-                if (WorldSavingSystem.MasochistModeReal && retinazer == null && --MechElectricOrbTimer < 0) //when twin dead, begin shooting Electric Orbs
+                if (WorldSavingSystem.MasochistModeReal && retinazer == null && --DarkStarTimer < 0) //when twin dead, begin shooting dark stars
                 {
-                    MechElectricOrbTimer = 150;
+                    DarkStarTimer = 150;
                     if (FargoSoulsUtil.HostCheck && npc.HasPlayerTarget)
                     {
                         Vector2 distance = Main.player[npc.target].Center - npc.Center;
@@ -765,7 +762,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         distance *= 14f;
                         for (int i = 0; i < 8; i++)
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, distance.RotatedBy(2 * Math.PI / 8 * i),
-                                ModContent.ProjectileType<MechElectricOrb>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, ai2: MechElectricOrb.Green);
+                                ModContent.ProjectileType<DarkStar>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer);
                     }
                 }
             }

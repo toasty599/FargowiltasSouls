@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 {
-    public class PlasmaDeathRay : ModProjectile
+	public class PlasmaDeathRay : ModProjectile
     {
         public float LaserWidth = 20;
         public float LaserHeight = 30;

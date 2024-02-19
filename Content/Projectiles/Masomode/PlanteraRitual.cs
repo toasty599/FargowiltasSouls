@@ -1,6 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -9,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class PlanteraRitual : BaseArena
+	public class PlanteraRitual : BaseArena
     {
         private const float realRotation = -MathHelper.Pi / 180f;
         public override string Texture => "Terraria/Images/Projectile_226";

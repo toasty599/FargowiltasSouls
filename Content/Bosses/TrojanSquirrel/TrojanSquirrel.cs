@@ -5,7 +5,6 @@ using FargowiltasSouls.Content.Items.Placables.Relics;
 using FargowiltasSouls.Content.Items.Placables.Trophies;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Weapons.Challengers;
-using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +22,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 {
-    public abstract class TrojanSquirrelPart : ModNPC
+	public abstract class TrojanSquirrelPart : ModNPC
     {
         public override void SetStaticDefaults()
         {

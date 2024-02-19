@@ -1,20 +1,18 @@
 ﻿using FargowiltasSouls.Common.Graphics.Primitives;
 using FargowiltasSouls.Common.Graphics.Shaders;
-using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using System;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Will
 {
-    public class VortexLightningDeathray : BaseDeathray
+	public class VortexLightningDeathray : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Will/WillDeathray";
         public VortexLightningDeathray() : base(15, hitboxModifier: 3 * 1.5f, sheeting: TextureSheeting.Horizontal) { }

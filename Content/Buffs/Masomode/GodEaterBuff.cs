@@ -1,11 +1,10 @@
-﻿using FargowiltasSouls.Core.Globals;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
-    public class GodEaterBuff : ModBuff
+	public class GodEaterBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-    public class DeviBossProjectile : ModProjectile
+	public class DeviBossProjectile : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/DeviBoss/DeviBoss";
         public static int npcType => ModContent.NPCType<DeviBoss>();

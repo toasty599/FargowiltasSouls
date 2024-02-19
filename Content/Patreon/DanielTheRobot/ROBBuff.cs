@@ -1,12 +1,11 @@
-﻿using FargowiltasSouls.Content.Projectiles.Pets;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
 {
-    public class ROBBuff : ModBuff
+	public class ROBBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

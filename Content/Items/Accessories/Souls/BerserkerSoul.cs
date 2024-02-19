@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
-using FargowiltasSouls.Core.AccessoryEffectSystem;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -8,8 +7,8 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Souls
 {
-    //[AutoloadEquip(EquipType.Waist)]
-    public class BerserkerSoul : BaseSoul
+	//[AutoloadEquip(EquipType.Waist)]
+	public class BerserkerSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {

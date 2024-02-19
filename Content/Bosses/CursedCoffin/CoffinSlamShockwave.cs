@@ -1,10 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
@@ -12,7 +7,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
-    public class CoffinSlamShockwave : ModProjectile
+	public class CoffinSlamShockwave : ModProjectile
     {
         public override string Texture => FargoSoulsUtil.EmptyTexture;
         public override void SetStaticDefaults()

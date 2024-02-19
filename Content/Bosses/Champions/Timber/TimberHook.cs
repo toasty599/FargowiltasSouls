@@ -1,5 +1,4 @@
 using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
-    public class TimberHook : TrojanHook
+	public class TimberHook : TrojanHook
     {
         public override string Texture => "Terraria/Images/Projectile_13";
 

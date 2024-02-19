@@ -23,17 +23,15 @@ using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Assets.ExtraTextures;
-using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Content.Patreon.Phupperbat;
 using System.Collections.Generic;
-using Fargowiltas.Projectiles;
 using Fargowiltas.NPCs;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-    [AutoloadBossHead]
+	[AutoloadBossHead]
     public class DeviBoss : ModNPC
     {
         #region Fields

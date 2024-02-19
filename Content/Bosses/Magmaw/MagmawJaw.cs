@@ -1,20 +1,13 @@
 ﻿
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Magmaw
 {
-    public class MagmawJaw : ModProjectile
+	public class MagmawJaw : ModProjectile
     {
         public override void SetStaticDefaults()
         {

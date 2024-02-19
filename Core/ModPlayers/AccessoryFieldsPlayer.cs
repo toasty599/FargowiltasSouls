@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static FargowiltasSouls.Core.Systems.DashManager;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
@@ -11,7 +10,7 @@ using System.Collections.Generic;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
-    public partial class FargoSoulsPlayer
+	public partial class FargoSoulsPlayer
     {
         public Item QueenStingerItem;
         public bool EridanusSet;
@@ -28,7 +27,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int NekomiTimer;
         public int NekomiHitCD;
         public int NekomiAttackReadyTimer;
-        public const int SuperAttackMaxWindow = 30;
+        public const int SuperAttackMaxWindow = 15;
 
         //        //minions
         public bool BrainMinion;
@@ -358,7 +357,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool NanoInjection;
         public bool Stunned;
         public bool HaveCheckedAttackSpeed;
-        public bool HasJungleRose;
+
 
 
         public int ReallyAwfulDebuffCooldown;

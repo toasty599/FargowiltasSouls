@@ -1,6 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,14 +10,14 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantGuardian : ModProjectile
+	public class MutantGuardian : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_127";
 
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Skeletron Prime");
-            Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.SkeletronPrime];
+            Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

@@ -1,10 +1,9 @@
-﻿using FargowiltasSouls.Core.Globals;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-    public class MoltenAmplifyBuff : ModBuff
+	public class MoltenAmplifyBuff : ModBuff
     {
         public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderDebuff";
 

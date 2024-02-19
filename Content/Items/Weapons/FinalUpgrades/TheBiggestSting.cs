@@ -1,7 +1,5 @@
-﻿using Fargowiltas.Items.Summons.SwarmSummons.Energizers;
-using Fargowiltas.Items.Tiles;
+﻿using Fargowiltas.Items.Tiles;
 using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
@@ -12,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
 {
-    public class TheBiggestSting : SoulsItem
+	public class TheBiggestSting : SoulsItem
     {
         public override void SetStaticDefaults()
         {

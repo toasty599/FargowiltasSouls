@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Buffs;
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
@@ -11,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-    public class DarkenedHeart : SoulsItem
+	public class DarkenedHeart : SoulsItem
     {
         public override bool Eternity => true;
 

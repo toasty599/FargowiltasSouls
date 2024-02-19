@@ -1,16 +1,11 @@
-using FargowiltasSouls.Content.Buffs.Boss;
-using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantSlimeSpike : MutantSlimeBall
+	public class MutantSlimeSpike : MutantSlimeBall
     {
         public override string Texture => "Terraria/Images/Projectile_920";
         public override void SetStaticDefaults()

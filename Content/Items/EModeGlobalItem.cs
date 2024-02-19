@@ -6,10 +6,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.Systems;
 using Terraria.DataStructures;
-using Microsoft.CodeAnalysis;
 using FargowiltasSouls.Content.Projectiles.Souls;
-using FargowiltasSouls.Content.Projectiles;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria.Localization;
@@ -69,10 +66,6 @@ namespace FargowiltasSouls.Content.Items
                     player.statDefense -= 1;
                 }
                 player.statLifeMax2 += 5;
-            }
-            if (item.type == ItemID.JungleRose)
-            {
-                player.FargoSouls().HasJungleRose = true;
             }
         }
         public override void HoldItem(Item item, Player player)

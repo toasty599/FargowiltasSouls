@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Toggler.Content;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Consumables
 {
-    public class DeerSinew : SoulsItem
+	public class DeerSinew : SoulsItem
     {
 
         public override bool Eternity => true;

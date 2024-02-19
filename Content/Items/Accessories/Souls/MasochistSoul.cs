@@ -8,11 +8,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static FargowiltasSouls.Content.Items.Accessories.Masomode.CelestialRune;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Souls
 {
-    [AutoloadEquip(/*EquipType.Head, */EquipType.Front, EquipType.Back, EquipType.Shield)]
+	[AutoloadEquip(/*EquipType.Head, */EquipType.Front, EquipType.Back, EquipType.Shield)]
     public class MasochistSoul : BaseSoul
     {
         public override bool Eternity => true;

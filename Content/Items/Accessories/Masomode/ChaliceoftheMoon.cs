@@ -6,11 +6,10 @@ using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static FargowiltasSouls.Content.Items.Accessories.Masomode.CelestialRune;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-    public class ChaliceoftheMoon : SoulsItem
+	public class ChaliceoftheMoon : SoulsItem
     {
         public override bool Eternity => true;
 

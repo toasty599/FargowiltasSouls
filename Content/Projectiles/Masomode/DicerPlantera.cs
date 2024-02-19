@@ -3,7 +3,6 @@ using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Drawing;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -14,7 +13,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class DicerPlantera : ModProjectile
+	public class DicerPlantera : ModProjectile
     {
         public override string Texture => FargoSoulsUtil.VanillaTextureProjectile(ProjectileID.ThornBall);
 

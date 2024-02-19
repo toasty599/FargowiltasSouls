@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria;
@@ -10,23 +8,22 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using FargowiltasSouls.Common.Graphics.Particles;
-using static tModPorter.ProgressUpdate;
-using System.Drawing;
-using Terraria.WorldBuilding;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.Patreon.DanielTheRobot;
-using FargowiltasSouls.Content.Bosses.AbomBoss;
-using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Content.Items.Summons;
+using FargowiltasSouls.Common.StateMachines;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
-    public partial class CursedCoffin : ModNPC
+	public partial class CursedCoffin : ModNPC
     {
-        #region Variables
+		#region Variables
+		public const int WavyShotFlightPrepTime = 60;
+		public const int WavyShotFlightCirclingTime = 280;
+		public const int WavyShotFlightEndTime = 0;
+		public const int RandomStuffOpenTime = 60;
 
-        public static readonly SoundStyle PhaseTransitionSFX = new("FargowiltasSouls/Assets/Sounds/CoffinPhaseTransition");
+
+		public static readonly SoundStyle PhaseTransitionSFX = new("FargowiltasSouls/Assets/Sounds/CoffinPhaseTransition");
         public static readonly SoundStyle SlamSFX = new("FargowiltasSouls/Assets/Sounds/CoffinSlam") { PitchVariance = 0.3f };
         public static readonly SoundStyle SpiritDroneSFX = new("FargowiltasSouls/Assets/Sounds/CoffinSpiritDrone") { MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Volume = 0.2f };
         public static readonly SoundStyle BigShotSFX = new("FargowiltasSouls/Assets/Sounds/CoffinBigShot") { Volume = 0.6f, PitchVariance = 0.3f };
@@ -34,7 +31,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public static readonly SoundStyle SoulShotSFX = new("FargowiltasSouls/Assets/Sounds/CoffinSoulShot") { Volume = 0.3f, PitchVariance = 0.3f};
         public static readonly SoundStyle HandChargeSFX = new("FargowiltasSouls/Assets/Sounds/CoffinHandCharge");
 
-        public enum StateEnum
+        public enum BehaviorStates
         {
             Opening,
             PhaseTransition,
@@ -45,23 +42,27 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             WavyShotFlight,
             GrabbyHands,
             RandomStuff,
+
+            // For the state machine.
+            RefillAttacks,
+            Count
         }
 
-        private readonly List<StateEnum> P1Attacks = new()
+        private readonly List<BehaviorStates> P1Attacks = new()
         {
-            StateEnum.HoveringForSlam,
-            StateEnum.WavyShotCircle,
-            StateEnum.WavyShotFlight,
-            StateEnum.GrabbyHands,
+            BehaviorStates.HoveringForSlam,
+            BehaviorStates.WavyShotCircle,
+            BehaviorStates.WavyShotFlight,
+            BehaviorStates.GrabbyHands,
             
         };
-        private readonly List<StateEnum> P2Attacks = new()
+        private readonly List<BehaviorStates> P2Attacks = new()
         {
-            StateEnum.HoveringForSlam,
-            StateEnum.WavyShotCircle,
-            StateEnum.WavyShotFlight,
-            StateEnum.GrabbyHands,
-            StateEnum.RandomStuff,
+            BehaviorStates.HoveringForSlam,
+            BehaviorStates.WavyShotCircle,
+            BehaviorStates.WavyShotFlight,
+            BehaviorStates.GrabbyHands,
+            BehaviorStates.RandomStuff,
         };
         private List<int> availablestates = new();
 
@@ -93,55 +94,25 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             if (!Targeting())
                 return;
             NPC.timeLeft = 60;
-            if (Player.HasBuff<StunnedBuff>() && State != (float)StateEnum.StunPunish && !Main.projectile.Any(p => p.TypeAlive<CoffinHand>()))
-            {
-                Timer = 0;
-                AI2 = 0;
-                AI3 = 0;
-                State = (float)StateEnum.StunPunish;
-            }
-            //Normal looping attack AI
-            if (Attacking) //Phases and random attack choosing
-            {
-                switch ((StateEnum)State) //Attack Choices
-                {
-                    case StateEnum.Opening:
-                        Opening();
-                        break;
-                    case StateEnum.PhaseTransition:
-                        PhaseTransition();
-                        break;
-                    case StateEnum.StunPunish:
-                        StunPunish();
-                        break;
-                    case StateEnum.HoveringForSlam:
-                        HoveringForSlam();
-                        break;
-                    case StateEnum.SlamWShockwave:
-                        SlamWShockwave();
-                        break;
-                    case StateEnum.WavyShotCircle:
-                        WavyShotCircle();
-                        break;
-                    case StateEnum.WavyShotFlight:
-                        WavyShotFlight();
-                        break;
-                    case StateEnum.GrabbyHands:
-                        GrabbyHands();
-                        break;
-                    case StateEnum.RandomStuff:
-                        RandomStuff();
-                        break;
-                    default:
-                        StateReset();
-                        break;
-                }
-            }
-            Timer++;
+
+            // Refill the attacks if empty.
+			 if ((StateMachine?.StateStack?.Count ?? 1) <= 0)
+				StateMachine.StateStack.Push(StateMachine.StateRegistry[BehaviorStates.RefillAttacks]);
+
+            // Update the state machine.
+            StateMachine.ProcessBehavior();
+            StateMachine.ProcessTransitions();
+
+            // Ensure that there is a valid state timer to get.
+            if (StateMachine.StateStack.Count > 0)
+			    Timer++;
         }
         #endregion
+
         #region States
-        public void Opening()
+        // These might have 0 references, but it is automatically called due to having the attribute, do not remove!
+        [AutoloadAsBehavior<BehaviorStates>(BehaviorStates.Opening)]
+		public void Opening()
         {
             if (Timer >= 0)
             {
@@ -177,36 +148,21 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     NPC.velocity = Vector2.Zero;
                 }
             }
-            if (Timer == -1)
-                StateReset();
         }
-        public void PhaseTransition()
+
+		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.PhaseTransition)]
+		public void PhaseTransition()
         {
             HoverSound();
 
             const int TransTime = 120;
             NPC.velocity = -Vector2.UnitY * 5 * (1-(Timer / TransTime));
             NPC.rotation = Main.rand.NextFloat(MathF.Tau * 0.06f * (Timer / TransTime));
-            SoundEngine.PlaySound(SpiritDroneSFX, NPC.Center);
-            if (Timer >= 60)
-            {
-                SoundEngine.PlaySound(PhaseTransitionSFX, NPC.Center);
-                PhaseTwo = true;
-                NPC.netUpdate = true;
-                if (FargoSoulsUtil.HostCheck)
-                {
-                    Vector2 maskCenter = MaskCenter();
-                    NPC.NewNPC(NPC.GetSource_FromAI(), (int)maskCenter.X, (int)maskCenter.Y, ModContent.NPCType<CursedSpirit>(), ai0: NPC.whoAmI);
-                }
-                NPC.velocity = Vector2.UnitY * 0.1f;
-                State = (float)StateEnum.SlamWShockwave;
-                LockVector1 = Player.Top - Vector2.UnitY * 250;
-                AI2 = 2; // only bounce once
-                Timer = 0;
-            }
-                
+            SoundEngine.PlaySound(SpiritDroneSFX, NPC.Center);                
         }
-        public void StunPunish()
+
+		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.StunPunish)]
+		public void StunPunish()
         {
             NPC.velocity *= 0.95f;
             if (Timer < 20)
@@ -227,17 +183,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             else
             {
                 if (++NPC.frameCounter % 60 == 59)
-                    Frame--;
-                if (Frame <= 0)
-                {
-                    NPC.frameCounter = 0;
-                    Frame = 0;
-                    StateReset();
-                }
-                    
+                    Frame--;  
             }
         }
-        public void HoveringForSlam()
+
+		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.HoveringForSlam)]
+		public void HoveringForSlam()
         {
             const float WaveAmpX = 200;
             const float WaveAmpY = 30;
@@ -265,17 +216,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 Vector2 desiredPos = Player.Center + desiredX * Vector2.UnitX + desiredY * Vector2.UnitY;
                 Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
             }
-            else if (Timer == RandomTimer)
-            {
-                NPC.velocity.Y = -5;
-                NPC.velocity.X /= 2;
-                LockVector1 = Player.Top - Vector2.UnitY * 250;
-                XThetaOffset = 0;
-                State = (float)StateEnum.SlamWShockwave;
-                Timer = 0;
-            }
         }
-        public void SlamWShockwave()
+
+		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.SlamWShockwave)]
+		public void SlamWShockwave()
         {
             ref float Counter = ref AI2;
 
@@ -333,12 +277,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     NPC.velocity = Vector2.Zero;
                 }
             }
-            if (Timer == -1)
-            {
-                StateReset();
-            }
         }
-        public void WavyShotCircle()
+
+		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.WavyShotCircle)]
+		public void WavyShotCircle()
         {
             int TelegraphTime = WorldSavingSystem.MasochistModeReal ? 60 : 70;
             float progress = 1 -(Timer / TelegraphTime);
@@ -370,8 +312,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), maskCenter, vel, ModContent.ProjectileType<CoffinWaveShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer);
                     }
                 }
-                if (WorldSavingSystem.MasochistModeReal || !PhaseTwo)
-                    StateReset();
             }
             else if (Timer > TelegraphTime + (WorldSavingSystem.MasochistModeReal || AI3 < 1 ? 20 : 50)) // + endlag
             {
@@ -381,11 +321,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     Timer = 0;
                     return;
                 }
-                StateReset();
             }
-
         }
-        public void WavyShotFlight()
+
+		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.WavyShotFlight)]
+		public void WavyShotFlight()
         {
             ref float totalRotate = ref AI2;
             ref float circleStart = ref AI3;
@@ -394,13 +334,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             HoverSound();
             const int Distance = 350;
 
-            const int PrepTime = 60;
-            const int CirclingTime = 280;
-            const int EndTime = 0;
-
             static float MomentumProgress(float x) => (x * x * 3) - (x * x * x * 2);
 
-            if (Timer <= PrepTime)
+            if (Timer <= WavyShotFlightPrepTime)
             {
                 Vector2 currentDir = Player.DirectionTo(NPC.Center);
                 circleStart = currentDir.ToRotation();
@@ -412,9 +348,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 
                 totalRotate = (MathF.Tau - Math.Abs(rot)) * -rotDir;
             }
-            else if (Timer <= PrepTime + CirclingTime)
+            else if (Timer <= WavyShotFlightPrepTime + WavyShotFlightCirclingTime)
             {
-                float progress = (Timer - PrepTime) / CirclingTime;
+                float progress = (Timer - WavyShotFlightPrepTime) / WavyShotFlightCirclingTime;
                 float circleProgress = MomentumProgress(progress);
                 Vector2 desiredPos = Player.Center + (circleStart + (totalRotate + MathF.Tau * Math.Sign(totalRotate)) * circleProgress).ToRotationVector2() * Distance;
 
@@ -432,31 +368,13 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), maskCenter, maskCenter.DirectionTo(Player.Center).RotatedBy(-MathHelper.Pi / 10) * 4, ModContent.ProjectileType<CoffinWaveShot>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, 1);
                     }
                 }
-
-                
             }
-            else if (Timer < PrepTime + CirclingTime + EndTime)
-            {
+            else if (Timer < WavyShotFlightPrepTime + WavyShotFlightCirclingTime + WavyShotFlightEndTime)
                 NPC.velocity *= 0.96f;
-            }
-            else
-            {
-                Frame = 0;
-                State = (float)StateEnum.SlamWShockwave;
-                NPC.velocity.X /= 2;
-                NPC.velocity.Y = -5;
-                if (NPC.velocity.Y == 0)
-                    NPC.velocity.Y = -0.1f;
-                //if (NPC.velocity.Y < -6)
-                //NPC.velocity.Y = -6;
-                //NPC.velocity.Y += 3;
-                LockVector1 = Player.Top - Vector2.UnitY * 250;
-                AI2 = 2; // only bounce once
-                Timer = 0;
-            }
-            
         }
-        public void GrabbyHands()
+
+		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.GrabbyHands)]
+		public void GrabbyHands()
         {
             NPC.noTileCollide = true;
             HoverSound();
@@ -467,9 +385,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
             }
             else
-            {
                 NPC.velocity *= 0.97f;
-            }
 
             if (Timer == 2)
             {
@@ -508,33 +424,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             {
                 if (++NPC.frameCounter % 60 == 59 && Frame > 0)
                     Frame--;
-                if (Frame <= 0 && Timer > AI3 + 10)
-                {
-                    NPC.frameCounter = 0;
-                    Frame = 0;
-                    NPC.TargetClosest(false);
-                    Timer = 0;
-                    AI2 = 0;
-                    AI3 = 0;
-                    if (NPC.Center.Y < Player.Center.Y) // if above, do slam
-                    {
-                        State = (float)StateEnum.SlamWShockwave;
-                        NPC.noTileCollide = true;
-                        LockVector1 = Player.Top - Vector2.UnitY * 250;
-                        NPC.velocity.Y -= 5;
-                        NPC.velocity.X /= 2;
-                    }
-                    else // if below, do the "fly above" attack before slamming
-                    {
-                        State = (float)StateEnum.WavyShotFlight;
-                        LastAttackChoice = (int)State;
-                    }
-                    NPC.netUpdate = true;
-                }
-
             }
         }
-        public void RandomStuff()
+
+		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.RandomStuff)]
+		public void RandomStuff()
         {
             ref float RandomProj = ref AI3;
             NPC.noTileCollide = true;
@@ -572,15 +466,14 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             Vector2 desiredPos = Player.Center + offset;
             Movement(desiredPos, 0.1f, 10, 5, 0.08f, 20);
 
-            const int openTime = 60;
-            int frameTime = (int)MathF.Floor(openTime / Main.npcFrameCount[Type]);
-            if (Timer < openTime)
+            int frameTime = (int)MathF.Floor(RandomStuffOpenTime / Main.npcFrameCount[Type]);
+            if (Timer < RandomStuffOpenTime)
             {
                 if (++NPC.frameCounter % frameTime == frameTime - 1)
                     if (Frame < Main.npcFrameCount[Type] - 1)
                         Frame++;
             }
-            else if (Timer < openTime + 310 && Timer >= openTime)
+            else if (Timer < RandomStuffOpenTime + 310 && Timer >= RandomStuffOpenTime)
             {
                 NPC.velocity.X *= 0.7f; // moves slower horizontally 
                 int shotTime = WorldSavingSystem.MasochistModeReal ? 20 : 25;
@@ -619,52 +512,20 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 if (++NPC.frameCounter % 30 == 29 && Frame > 0)
                     Frame--;
                 if (Frame > 0)
-                {
                     NPC.rotation *= 0.9f;
-                }
-                else
-                {
-                    NPC.velocity = Vector2.Zero;
-                    NPC.rotation = 0;
-
-
-                    NPC.frameCounter = 0;
-                    Frame = 0;
-                    NPC.TargetClosest(false);
-                    Timer = 0;
-                    AI2 = 0;
-                    AI3 = 0;
-                    if (NPC.Center.Y < Player.Center.Y - 100) // if above, do slam
-                    {
-                        State = (float)StateEnum.SlamWShockwave;
-                        NPC.noTileCollide = true;
-                        LockVector1 = Player.Top - Vector2.UnitY * 250;
-                        NPC.velocity.Y -= 5;
-                        NPC.velocity.X /= 2;
-                    }
-                    else // if below, do the "fly above" attack before slamming
-                    {
-                        State = (float)StateEnum.WavyShotFlight;
-                        LastAttackChoice = (int)State;
-                    }
-                    NPC.netUpdate = true;
-                }
             }
         }
         #endregion
-        #region Help Methods
-        void HoverSound() => SoundEngine.PlaySound(SoundID.Item24 with { MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Pitch = -0.5f, Volume = 10f}, NPC.Center);
 
-        void Movement(Vector2 pos, float accel = 0.03f, float maxSpeed = 20, float lowspeed = 5, float decel = 0.03f, float slowdown = 30)
+        #region Help Methods
+        public void HoverSound() => SoundEngine.PlaySound(SoundID.Item24 with { MaxInstances = 1, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew, Pitch = -0.5f, Volume = 10f}, NPC.Center);
+
+        public void Movement(Vector2 pos, float accel = 0.03f, float maxSpeed = 20, float lowspeed = 5, float decel = 0.03f, float slowdown = 30)
         {
             if (NPC.Distance(pos) > slowdown)
-            {
                 NPC.velocity = Vector2.Lerp(NPC.velocity, (pos - NPC.Center).SafeNormalize(Vector2.Zero) * maxSpeed, accel);
-            }
             else
-            {
                 NPC.velocity = Vector2.Lerp(NPC.velocity, (pos - NPC.Center).SafeNormalize(Vector2.Zero) * lowspeed, decel);
-            }
         }
         public bool Targeting()
         {
@@ -683,47 +544,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 }
             }
             return true;
-        }
-        public void StateReset()
-        {
-            NPC.TargetClosest(false);
-            RandomizeState();
-            Timer = 0;
-            AI2 = 0;
-            AI3 = 0;
-        }
-        public void RandomizeState() //it's done this way so it cycles between attacks in a random order: for increased variety
-        {
-            NPC.netUpdate = true;
-            int index;
-            if (availablestates.Count < 1)
-            {
-                availablestates.Clear();
-                if (PhaseTwo)
-                {
-                    foreach (StateEnum state in P2Attacks)
-                        availablestates.Add((int)state);
-                }
-                else
-                {
-                    foreach (StateEnum state in P1Attacks)
-                        availablestates.Add((int)state);
-                }
-                availablestates.Remove(LastAttackChoice);
-            }
-            if (FargoSoulsUtil.HostCheck)
-            {
-                if (!PhaseTwo && NPC.GetLifePercent() <= 0.8f)
-                {
-                    State = (float)StateEnum.PhaseTransition;
-                    availablestates.Clear();
-                    return;
-                }
-                index = Main.rand.Next(availablestates.Count);
-                State = LastAttackChoice = availablestates[index];
-                availablestates.RemoveAt(index);
-            }
-            
         }
         #endregion
     }

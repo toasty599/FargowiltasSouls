@@ -1,10 +1,8 @@
-using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -14,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Will
 {
-    public class BetsyHomingFireball : ModProjectile
+	public class BetsyHomingFireball : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_711";
 

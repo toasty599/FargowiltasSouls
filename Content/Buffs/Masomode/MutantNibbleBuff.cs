@@ -1,11 +1,10 @@
-﻿using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
-    public class MutantNibbleBuff : ModBuff
+	public class MutantNibbleBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

@@ -4,7 +4,6 @@ using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Souls;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -247,7 +246,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             else
             {
-                modifiers.FinalDamage *= hits / 90f;
+                modifiers.FinalDamage *= hits / 90;
             }
         }
 

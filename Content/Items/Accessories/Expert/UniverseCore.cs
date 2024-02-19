@@ -1,11 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
-    public class UniverseCore : SoulsItem
+	public class UniverseCore : SoulsItem
     {
         public override int NumFrames => 5;
 

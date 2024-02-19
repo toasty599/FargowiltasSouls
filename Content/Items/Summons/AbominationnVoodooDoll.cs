@@ -4,12 +4,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Materials;
-using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 
 namespace FargowiltasSouls.Content.Items.Summons
 {
-    public class AbominationnVoodooDoll : SoulsItem
+	public class AbominationnVoodooDoll : SoulsItem
     {
         public override void SetStaticDefaults()
         {

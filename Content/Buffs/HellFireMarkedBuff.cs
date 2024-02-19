@@ -1,10 +1,9 @@
-﻿using FargowiltasSouls.Core.Globals;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs
 {
-    public class HellFireMarkedBuff : ModBuff
+	public class HellFireMarkedBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

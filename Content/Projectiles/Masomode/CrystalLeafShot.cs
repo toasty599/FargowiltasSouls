@@ -7,12 +7,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.GameContent.Drawing;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class CrystalLeafShot : ModProjectile
+	public class CrystalLeafShot : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_227";
 

@@ -16,14 +16,13 @@ using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
 using Terraria.GameContent;
 using Terraria.WorldBuilding;
-using System.Drawing;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
-    public abstract class GolemPart : EModeNPCBehaviour
+	public abstract class GolemPart : EModeNPCBehaviour
     {
 
         public int HealPerSecond;
@@ -42,7 +41,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             npc.damage = (int)Math.Round(npc.damage * 1.1);
 
-            npc.lifeMax = (int)Math.Round(npc.lifeMax * 1.75);
+            if (!Main.masterMode)
+                npc.lifeMax = (int)(npc.lifeMax * 1.25);
         }
 
         public override void OnFirstTick(NPC npc)
@@ -193,7 +193,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     p.AddBuff(ModContent.BuffType<LowGroundBuff>(), 2);
             }
 
-            HealPerSecond = WorldSavingSystem.MasochistModeReal ? 360 : 180;
+            HealPerSecond = WorldSavingSystem.MasochistModeReal ? 240 : 180;
             if (!IsInTemple) //temple enrage, more horiz move and fast jumps
             {
                 HealPerSecond *= 2;
@@ -230,7 +230,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (npc.velocity.Y == 0f) //landing attacks
                 {
                     DoStompBehaviour = false;
-                    IsInTemple = CheckTempleWalls(npc.Center);
+                    IsInTemple = Framing.GetTileSafely(npc.Center).WallType == WallID.LihzahrdBrickUnsafe;
 
                     if (IsInTemple) //in temple
                     {
@@ -376,7 +376,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             //spray spiky balls
             if (WorldSavingSystem.MasochistModeReal && ++SpikyBallTimer >= 900)
             {
-                if (CheckTempleWalls(npc.Center))
+                if (Framing.GetTileSafely(npc.Center).WallType == WallID.LihzahrdBrickUnsafe)
                 {
                     if (npc.velocity.Y > 0) //only when falling, implicitly assume at peak of a jump
                     {
@@ -406,7 +406,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             //    if (npc.HasPlayerTarget && Main.player[npc.target].Center.Y < npc.Bottom.Y
             //        && FargoSoulsUtil.HostCheck) //shoutouts to arterius
             //    {
-            //        bool inTemple = CheckTempleWalls(npc.Center);
+            //        bool inTemple = Framing.GetTileSafely(npc.Center).WallType == WallID.LihzahrdBrickUnsafe;
 
             //        float gravity = -0.2f; //normally floats up
             //        if (Main.player[npc.target].Center.Y > npc.Bottom.Y)
@@ -450,20 +450,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 LoadGolem(recolor, i);
             LoadExtra(recolor, 107);
             LoadGolemSpriteBuffered(recolor, 5, TextureAssets.NpcHeadBoss, FargowiltasSouls.TextureBuffer.NPCHeadBoss, "NPC_Head_Boss_");
-        }
-
-        public static bool CheckTempleWalls(Vector2 pos)
-        {
-            int wallType = Framing.GetTileSafely(pos).WallType;
-            if (wallType == WallID.LihzahrdBrickUnsafe)
-                return true;
-            if (ModLoader.TryGetMod("Remnants", out Mod remnants))
-            {
-                if (remnants.TryFind("temple", out ModWall remnantsWall1) && wallType == remnantsWall1.Type)
-                    return true;
-
-            }
-            return false;
         }
     }
 
@@ -519,7 +505,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (WorldSavingSystem.SwarmActive)
                 return result;
 
-            if (npc.HasValidTarget && Golem.CheckTempleWalls(Main.player[npc.target].Center))
+            if (npc.HasValidTarget && Framing.GetTileSafely(Main.player[npc.target].Center).WallType == WallID.LihzahrdBrickUnsafe)
             {
                 if (npc.ai[0] == 1) //on the tick it shoots out, reset counter
                 {
@@ -540,7 +526,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (npc.ai[0] == 0f && DoAttackOnFistImpact)
             {
                 DoAttackOnFistImpact = false;
-                if (!Golem.CheckTempleWalls(Main.player[npc.target].Center) || WorldSavingSystem.MasochistModeReal)
+                if (Framing.GetTileSafely(Main.player[npc.target].Center).WallType != WallID.LihzahrdBrickUnsafe || WorldSavingSystem.MasochistModeReal)
                 {
                     if (FargoSoulsUtil.HostCheck)
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
@@ -689,7 +675,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                         DeathraySweepTargetHeight = 0;
                         DoAttack = true;
-                        IsInTemple = Golem.CheckTempleWalls(npc.Center);
+                        IsInTemple = Framing.GetTileSafely(npc.Center).WallType == WallID.LihzahrdBrickUnsafe;
 
                         npc.netUpdate = true;
                         NetSync(npc);
@@ -775,10 +761,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     else if (AttackTimer < fireTime + 150 && DoDeathray)
                     {
                         npc.velocity.X += SweepToLeft ? -.15f : .15f;
-                        bool wallCheck = Golem.CheckTempleWalls(npc.Center);
+
                         Tile tile = Framing.GetTileSafely(npc.Center); //stop if reached a wall, but only 1sec after started firing
-                        if ((AttackTimer > fireTime + 60 && tile.HasUnactuatedTile && tile.TileType == TileID.LihzahrdBrick && wallCheck)
-                            || (IsInTemple && !wallCheck)) //i.e. started in temple but has left temple, then stop
+                        if (AttackTimer > fireTime + 60 && tile.HasUnactuatedTile && tile.TileType == TileID.LihzahrdBrick && tile.WallType == WallID.LihzahrdBrickUnsafe
+                            || IsInTemple && tile.WallType != WallID.LihzahrdBrickUnsafe) //i.e. started in temple but has left temple, then stop
                         {
                             npc.velocity = Vector2.Zero;
                             npc.netUpdate = true;

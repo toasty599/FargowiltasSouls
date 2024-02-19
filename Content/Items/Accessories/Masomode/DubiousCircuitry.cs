@@ -1,13 +1,12 @@
 ﻿using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
-using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-    public class DubiousCircuitry : SoulsItem
+	public class DubiousCircuitry : SoulsItem
     {
         public override bool Eternity => true;
 

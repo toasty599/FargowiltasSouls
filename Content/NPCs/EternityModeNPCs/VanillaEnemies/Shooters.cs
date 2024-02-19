@@ -1,12 +1,11 @@
 using System.IO;
 using Terraria.ModLoader.IO;
 using Terraria;
-using Terraria.ID;
 using FargowiltasSouls.Core.Globals;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
 {
-    public abstract class Shooters : EModeNPCBehaviour
+	public abstract class Shooters : EModeNPCBehaviour
     {
         protected readonly int AttackThreshold;
         protected readonly int ProjectileType;

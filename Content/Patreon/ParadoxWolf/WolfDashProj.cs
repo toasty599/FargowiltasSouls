@@ -1,5 +1,4 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.ParadoxWolf
 {
-    public class WolfDashProj : ModProjectile
+	public class WolfDashProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {

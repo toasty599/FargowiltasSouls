@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-    public class LifeProjLarge : ModProjectile
+	public class LifeProjLarge : ModProjectile
     {
         private int RotDirect;
 

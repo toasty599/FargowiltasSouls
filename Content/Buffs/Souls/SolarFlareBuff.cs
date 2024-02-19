@@ -1,12 +1,11 @@
 ﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-    public class SolarFlareBuff : ModBuff
+	public class SolarFlareBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

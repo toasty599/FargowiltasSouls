@@ -1,11 +1,10 @@
-﻿using FargowiltasSouls.Core.Globals;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-    public class LeadPoisonBuff : ModBuff
+	public class LeadPoisonBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

@@ -1,9 +1,7 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
-using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Martians;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Drawing;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -11,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-    public class PalmTreeSentry : ModProjectile
+	public class PalmTreeSentry : ModProjectile
     {
         public override void SetStaticDefaults()
         {

@@ -1,4 +1,3 @@
-using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
-    public class TimberHook2 : ModProjectile
+	public class TimberHook2 : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_13";
 

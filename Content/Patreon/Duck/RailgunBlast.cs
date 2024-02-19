@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Content.Projectiles.Deathrays;
+﻿using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Duck
 {
-    public class RailgunBlast : MutantSpecialDeathray
+	public class RailgunBlast : MutantSpecialDeathray
     {
         public RailgunBlast() : base(20, 1.25f) { }
 

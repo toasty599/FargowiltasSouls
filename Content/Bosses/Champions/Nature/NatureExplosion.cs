@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 {
-    public class NatureExplosion : ModProjectile
+	public class NatureExplosion : ModProjectile
     {
         public override string Texture => FargoSoulsUtil.EmptyTexture;
 

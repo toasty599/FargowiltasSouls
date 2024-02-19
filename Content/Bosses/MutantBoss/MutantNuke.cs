@@ -1,6 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
@@ -14,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantNuke : ModProjectile
+	public class MutantNuke : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/FishNuke";
 

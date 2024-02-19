@@ -1,16 +1,15 @@
 ﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Terraria.Localization;
 using Terraria.UI.Chat;
 
 namespace FargowiltasSouls.Core.Toggler
 {
-    /// <summary>
-    /// The toggle's header in the display. <para/>
-    /// If the effect shouldn't have a toggle, set this to null.
-    /// </summary>
-    public class Toggle
+	/// <summary>
+	/// The toggle's header in the display. <para/>
+	/// If the effect shouldn't have a toggle, set this to null.
+	/// </summary>
+	public class Toggle
     {
         public string Mod;
         public AccessoryEffect Effect;

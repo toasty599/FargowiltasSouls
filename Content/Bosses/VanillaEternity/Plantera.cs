@@ -18,12 +18,7 @@ using FargowiltasSouls.Content.NPCs.EternityModeNPCs;
 using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Common.Graphics.Particles;
 using Microsoft.Xna.Framework.Graphics;
-using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern;
-using System.Collections.Generic;
-using Terraria.Map;
-using static tModPorter.ProgressUpdate;
 using FargowiltasSouls.Core;
-using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {

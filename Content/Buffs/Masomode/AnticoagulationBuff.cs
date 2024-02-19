@@ -1,10 +1,9 @@
-﻿using FargowiltasSouls.Core.Globals;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
-    public class AnticoagulationBuff : ModBuff
+	public class AnticoagulationBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

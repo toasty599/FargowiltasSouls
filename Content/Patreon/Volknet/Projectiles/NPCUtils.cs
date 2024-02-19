@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 {
-    public static class NPCUtils
+	public static class NPCUtils
     {
 
         public static bool AnyBosses()

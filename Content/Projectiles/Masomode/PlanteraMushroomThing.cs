@@ -1,10 +1,6 @@
 ﻿using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
@@ -15,7 +11,7 @@ using Terraria.Audio;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-    public class PlanteraMushroomThing : ModProjectile
+	public class PlanteraMushroomThing : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -97,7 +93,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 float rot = Projectile.oldRot[i];
                 FargoSoulsUtil.GenericProjectileDraw(Projectile, color2, texture: texture, drawPos: pos, rotation: rot);
             }
-            FargoSoulsUtil.GenericProjectileDraw(Projectile, Color.White, texture: texture);
+            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor, texture: texture);
             return false;
         }
     }

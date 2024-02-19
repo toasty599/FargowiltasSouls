@@ -1,7 +1,6 @@
 using System.IO;
 using Terraria.ModLoader.IO;
 using System;
-using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

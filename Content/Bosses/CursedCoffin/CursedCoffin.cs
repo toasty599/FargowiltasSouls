@@ -11,13 +11,11 @@ using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Content.Buffs;
-using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Content.Buffs.Souls;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
-    [AutoloadBossHead]
+	[AutoloadBossHead]
     public partial class CursedCoffin : ModNPC
     {
         public const bool Enabled = false;
@@ -36,10 +34,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         private Vector2 LockVector1 = Vector2.Zero;
 
-        private int LastAttackChoice;
+        private int LastAttackChoice { get; set; }
 
         //NPC.ai[] overrides
-        public ref float Timer => ref NPC.ai[0];
+        public ref float Timer => ref StateMachine.CurrentState.Timer;
         public ref float State => ref NPC.ai[1];
         public ref float AI2 => ref NPC.ai[2];
         public ref float AI3 => ref NPC.ai[3];
@@ -99,15 +97,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             NPC.value = Item.buyPrice(0, 2);
 
         }
-        public override bool? CanBeHitByItem(Player player, Item item)
-        {
-            if (PhaseTwo || !WorldSavingSystem.EternityMode)
-                return null;
-            //if (Frame > 1)
-              //  return false;
-            return null;
-            //return item.Hitbox.Intersects(MaskHitbox()) ? null : false;
-        }
+
         public override bool? CanBeHitByProjectile(Projectile projectile)
         {
             if (PhaseTwo || !WorldSavingSystem.EternityMode)
@@ -123,20 +113,33 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             int maskRadius = 24;
             return new((int)(maskCenter.X - maskRadius * NPC.scale), (int)(maskCenter.Y - maskRadius * NPC.scale), maskRadius * 2, maskRadius * 2);
         }
+
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * balance);
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
-
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
             writer.Write(NPC.localAI[3]);
             writer.Write(PhaseTwo);
             writer.Write7BitEncodedInt(LastAttackChoice);
-        }
+
+			// Here, only the timer for the current state is synced. In this case, that is enough, but if states interrupt existing
+			// ones and then the existing state is continuted from, you would want both timers to be synced.
+			writer.Write(Timer);
+
+            // 1. Write the number of states on the stack.
+            writer.Write(StateMachine.StateStack.Count);
+
+            // 2. Write the state IDs as ints to the stack in the order they are on the stack.
+            var stackArray = StateMachine.StateStack.ToArray();
+            for (int i = 0; i < StateMachine.StateStack.Count; i++)
+                writer.Write((int)stackArray[i].ID);
+		}
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
@@ -146,8 +149,18 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             NPC.localAI[3] = reader.ReadSingle();
             PhaseTwo = reader.ReadBoolean();
             LastAttackChoice = reader.Read7BitEncodedInt();
+            Timer = reader.ReadSingle();
+
+            // 1. Read the number of states that should be added to the stack and were written.
+            int stackCount = reader.ReadInt32();
+            // Clear the stack in preperation for pushing the written states to it.
+            StateMachine.StateStack.Clear();
+            // 2. Read the state IDs and push them to the stack.
+            for (int i = 0; i < stackCount; i++)
+                StateMachine.StateStack.Push(StateMachine.StateRegistry[(BehaviorStates)reader.ReadInt32()]);
         }
         #endregion
+
         #region Overrides
         public override void HitEffect(NPC.HitInfo hit)
         {
@@ -164,6 +177,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             }
             */
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             if (NPC.IsABestiaryIconDummy)
@@ -188,7 +202,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             if (!PhaseTwo)
             {
                 float shakeFactor = 1;
-                if (State == (float)StateEnum.PhaseTransition)
+                if (State == (float)BehaviorStates.PhaseTransition)
                     shakeFactor = 3 + 5 * (Timer / 60);
                 Texture2D glowTexture = ModContent.Request<Texture2D>(Texture + "_MaskGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 Color glowColor = GlowColor;
@@ -207,14 +221,17 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             NPC.spriteDirection = NPC.direction;
             NPC.frame.Y = frameHeight * Frame;
         }
+
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref WorldSavingSystem.downedBoss[(int)WorldSavingSystem.Downed.CursedCoffin], -1);
         }
+
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.HealingPotion;
         }
+
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             //TODO: Add loot

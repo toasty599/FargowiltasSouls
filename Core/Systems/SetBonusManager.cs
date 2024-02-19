@@ -1,17 +1,11 @@
-﻿using Fargowiltas.Common.Configs;
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Armor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Systems
 {
-    public class SetBonusManager : ModSystem
+	public class SetBonusManager : ModSystem
     {
         public override void Load()
         {

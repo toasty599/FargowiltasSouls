@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Volknet.Projectiles
 {
-    public class NanoBase : ModProjectile
+	public class NanoBase : ModProjectile
     {
         public int AtkTimer = 0;
         //public float MeleeDamageModifier = 1;                   //may helpful with modifying damage

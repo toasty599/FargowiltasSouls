@@ -13,7 +13,6 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
-using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {

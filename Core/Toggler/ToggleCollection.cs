@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 
 namespace FargowiltasSouls.Core.Toggler
 {
-    /// <summary>
-    /// Deprecated.
-    /// </summary>
-    public abstract class ToggleCollection
+	/// <summary>
+	/// Deprecated.
+	/// </summary>
+	public abstract class ToggleCollection
     {
         public abstract string Mod { get; }
         public abstract string SortCategory { get; }

@@ -1,48 +1,17 @@
-﻿using FargowiltasSouls.Content.Bosses.AbomBoss;
-using FargowiltasSouls.Content.Bosses.DeviBoss;
-using FargowiltasSouls.Content.Bosses.MutantBoss;
-using FargowiltasSouls.Content.Buffs.Masomode;
-using FargowiltasSouls.Content.Buffs.Souls;
-using FargowiltasSouls.Content.Items.Accessories.Enchantments;
-using FargowiltasSouls.Content.Items.Accessories.Expert;
-using FargowiltasSouls.Content.Items.Accessories.Masomode;
-using FargowiltasSouls.Content.Items.Accessories.Souls;
-using FargowiltasSouls.Content.Items.Armor;
-using FargowiltasSouls.Content.Projectiles.Masomode;
-using FargowiltasSouls.Content.Projectiles.Minions;
-using FargowiltasSouls.Content.Projectiles.Souls;
-using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.Globals;
-using FargowiltasSouls.Core.Systems;
-using FargowiltasSouls.Core.Toggler;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.Collision;
-using FargowiltasSouls.Content.Items.Consumables;
-using FargowiltasSouls.Content.Items.Weapons.Challengers;
-using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
-using System.Data;
 using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
-using Terraria.UI;
-using Terraria.WorldBuilding;
-using Microsoft.CodeAnalysis;
 using Terraria.ModLoader.Core;
 using System.Linq.Expressions;
 using System.Reflection;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
-    public class AccessoryEffectPlayer : ModPlayer
+	public class AccessoryEffectPlayer : ModPlayer
     {
         public bool[] ActiveEffects = Array.Empty<bool>();
         public bool[] EquippedEffects = Array.Empty<bool>();

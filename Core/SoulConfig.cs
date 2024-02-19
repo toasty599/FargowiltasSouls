@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 
 namespace FargowiltasSouls.Core
 {
-    class SoulConfig : ModConfig
+	class SoulConfig : ModConfig
     {
         public static SoulConfig Instance;
         public override void OnLoaded()

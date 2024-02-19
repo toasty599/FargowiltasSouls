@@ -1,4 +1,3 @@
-using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
