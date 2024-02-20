@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.BetsysCurse, 20 * 60);
+            target.AddBuff(BuffID.BetsysCurse, (int)FargoSoulsUtil.SecondsToFrames(20));
 
             if (Projectile.owner == Main.myPlayer)
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.SolarWhipSwordExplosion, 0, 0f, Main.myPlayer);
