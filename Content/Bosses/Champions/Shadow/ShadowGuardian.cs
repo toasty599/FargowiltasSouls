@@ -20,6 +20,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Dungeon Guardian");
+            Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.DungeonGuardian];
         }
 
         public override void SetDefaults()
