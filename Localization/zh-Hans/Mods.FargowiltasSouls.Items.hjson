@@ -205,7 +205,7 @@ FossilEnchant: {
 	DisplayName: 化石魔石
 	Tooltip:
 		'''
-		受到致死伤害时会以50生命值重生并爆出几根骨头
+		受到致死伤害时会以50生命值重生，清除自身减益，并爆出几根骨头
 		你受伤时也会生成骨头
 		接触骨头时会回复20点生命值
 		“被遗忘已久的记忆”
@@ -894,7 +894,7 @@ SpiritForce: {
 	DisplayName: 心灵之力
 	Tooltip:
 		'''
-		[i:FargowiltasSouls/FossilEnchant] 受到致死伤害时会以200生命值重生并爆出几根骨头
+		[i:FargowiltasSouls/FossilEnchant] 受到致死伤害时会以200生命值重生，清除自身减益，并爆出几根骨头
 		[i:FargowiltasSouls/FossilEnchant] 接触停止移动的骨头时会回复20点生命值
 		[i:FargowiltasSouls/ForbiddenEnchant] 双击“下”键会在光标位置召唤远古风暴
 		[i:FargowiltasSouls/ForbiddenEnchant] 穿过远古风暴的弹幕会额外获得60%伤害
