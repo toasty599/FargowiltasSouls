@@ -1,5 +1,7 @@
-﻿using Fargowiltas.Items.Tiles;
+﻿using Fargowiltas;
+using Fargowiltas.Items.Tiles;
 using FargowiltasSouls.Content.Buffs.Minions;
+using FargowiltasSouls.Content.Items.Accessories.Souls;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
@@ -13,7 +15,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Armor
 {
-	[AutoloadEquip(EquipType.Head)]
+    [AutoloadEquip(EquipType.Head)]
     public class MutantMask : SoulsItem
     {
         public override void SetStaticDefaults()

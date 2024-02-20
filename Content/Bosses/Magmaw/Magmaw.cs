@@ -9,12 +9,21 @@ using System.Collections.Generic;
 using Terraria.DataStructures;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using Terraria.GameContent.Bestiary;
+using Terraria.Audio;
+using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Content.Items.Weapons.Challengers;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
+using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.Projectiles;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Buffs;
+using System.Linq;
+using Microsoft.CodeAnalysis;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateInvasion;
 
 namespace FargowiltasSouls.Content.Bosses.Magmaw
 {

@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
-	internal class TimberSquirrel : ModProjectile
+    internal class TimberSquirrel : ModProjectile
     {
         public int Counter;
 

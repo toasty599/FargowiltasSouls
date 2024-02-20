@@ -1,11 +1,12 @@
-﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+﻿using FargowiltasSouls.Content.Items.Accessories.Forces;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Armor;
 using FargowiltasSouls.Content.Items.Materials;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler.Content
 {
-	public abstract class MasoHeader : Header
+    public abstract class MasoHeader : Header
     {
         public override float Priority => 1;
         public override string SortCategory => "Maso";
@@ -52,7 +53,7 @@ namespace FargowiltasSouls.Core.Toggler.Content
     }
     public class MutantArmorHeader : MasoHeader
     {
-        public override int Item => ModContent.ItemType<MutantBody>();
+        public override int Item => ModContent.ItemType<MutantMask>();
         public override float Priority => 4f;
     }
     /*

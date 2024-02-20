@@ -5,6 +5,7 @@ using FargowiltasSouls.Content.Items.Pets;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
 using FargowiltasSouls.Core.Systems;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -406,13 +407,8 @@ namespace FargowiltasSouls.Core.Globals
                 case NPCID.Piranha:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.AdhesiveBandage, 50));
                     break;
-                case NPCID.Snatcher:
-                case NPCID.ManEater:
                 case NPCID.AngryTrapper:
-                    if (npc.type == NPCID.AngryTrapper)
-                        FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Vine, 2));
-
-                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "PlanterasFruit").Type, 200));
+                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Vine, 2));
                     break;
                 case NPCID.BrainScrambler:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BrainScrambler, 100));
@@ -469,7 +465,7 @@ namespace FargowiltasSouls.Core.Globals
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<OrdinaryCarrot>(), 50));
                     break;
                 case NPCID.Shark:
-                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<HokeyBall>(), 1000));
+                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<HokeyBall>(), 100));
                     break;
                 case NPCID.SporeBat:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Shroomerang, 10));

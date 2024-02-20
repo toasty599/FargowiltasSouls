@@ -1,10 +1,12 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-	public class TitaniumCDBuff : ModBuff
+    public class TitaniumCDBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

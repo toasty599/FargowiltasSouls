@@ -3,14 +3,16 @@ using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.NPCMatching;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Nebula
 {
-	public class LunarTowerNebula : LunarTowers
+    public class LunarTowerNebula : LunarTowers
     {
         public override int ShieldStrength
         {

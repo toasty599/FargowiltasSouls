@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Common.Utilities;
+using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using FargowiltasSouls.Core.Globals;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
 {
-	public class DD2EterniaCrystal : EModeNPCBehaviour
+    public class DD2EterniaCrystal : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.DD2EterniaCrystal);
 

@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
-	public class TimberTreeAcorn : TimberAcorn
+    public class TimberTreeAcorn : TimberAcorn
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/Champions/Timber/TimberAcorn";
 

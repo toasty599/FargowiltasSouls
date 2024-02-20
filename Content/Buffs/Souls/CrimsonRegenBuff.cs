@@ -1,11 +1,12 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-	public class CrimsonRegenBuff : ModBuff
+    public class CrimsonRegenBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

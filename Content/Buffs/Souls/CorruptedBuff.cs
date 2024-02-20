@@ -1,12 +1,13 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Globals;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-	public class CorruptedBuff : ModBuff
+    public class CorruptedBuff : ModBuff
     {
 
         public override string Texture => "FargowiltasSouls/Content/Buffs/PlaceholderBuff";

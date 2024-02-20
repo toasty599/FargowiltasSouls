@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
@@ -7,11 +11,12 @@ using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core;
 using Terraria.Audio;
+using Microsoft.CodeAnalysis;
 using Terraria.GameContent;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-	public class SpectralEoC : ModProjectile
+    public class SpectralEoC : ModProjectile
     {
         const string EoCName = "NPC_4";
         public override string Texture => $"FargowiltasSouls/Assets/ExtraTextures/Resprites/{EoCName}";

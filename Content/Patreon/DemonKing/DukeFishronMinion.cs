@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.DemonKing
 {
-	public class DukeFishronMinion : ModProjectile
+    public class DukeFishronMinion : ModProjectile
     {
         private const float PI = (float)Math.PI;
         private float rotationOffset;

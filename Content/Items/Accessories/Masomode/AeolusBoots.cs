@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Items.Materials;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-	[AutoloadEquip(EquipType.Shoes)]
+    [AutoloadEquip(EquipType.Shoes)]
     public class AeolusBoots : SoulsItem
     {
         public override void SetStaticDefaults()

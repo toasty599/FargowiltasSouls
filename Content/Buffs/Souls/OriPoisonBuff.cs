@@ -1,9 +1,10 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.Globals;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Souls
 {
-	public class OriPoisonBuff : ModBuff
+    public class OriPoisonBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -6,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-	public class DeviAxe : ModProjectile
+    public class DeviAxe : ModProjectile
     {
         public override string Texture => FargoSoulsUtil.EmptyTexture;
 

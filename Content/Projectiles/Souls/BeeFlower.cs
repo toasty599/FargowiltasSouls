@@ -1,12 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
+using FargowiltasSouls.Core.ModPlayers;
+using Microsoft.CodeAnalysis;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
-	public class BeeFlower : ModProjectile
+    public class BeeFlower : ModProjectile
     {
 
         public override void SetStaticDefaults()

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.DevAesthetic
 {
-	class DevRocket : ModProjectile
+    class DevRocket : ModProjectile
     {
         public override void SetStaticDefaults()
         {

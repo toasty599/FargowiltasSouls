@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.AbomBoss
 {
-	public class AbomSwordHandle : BaseDeathray
+    public class AbomSwordHandle : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/AbomDeathray";
         public AbomSwordHandle() : base(150) { }

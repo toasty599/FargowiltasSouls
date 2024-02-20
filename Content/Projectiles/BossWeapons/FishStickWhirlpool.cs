@@ -1,11 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-	public class FishStickWhirlpool : FishStickProj
+    public class FishStickWhirlpool : FishStickProj
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/FishStickProj";
 

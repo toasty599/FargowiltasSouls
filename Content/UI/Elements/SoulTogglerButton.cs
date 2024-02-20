@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using FargowiltasSouls.Core;
+using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
@@ -6,7 +8,7 @@ using Terraria.UI;
 
 namespace FargowiltasSouls.Content.UI.Elements
 {
-	public class SoulTogglerButton : UIState
+    public class SoulTogglerButton : UIState
     {
         public UIImage Icon;
         public FargoUIHoverTextImageButton IconHighlight;

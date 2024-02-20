@@ -1,3 +1,4 @@
+using FargowiltasSouls.Common.Utilities;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -6,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Essences
 {
-	public abstract class BaseEssence : SoulsItem
+    public abstract class BaseEssence : SoulsItem
     {
         public abstract Color nameColor { get; }
 

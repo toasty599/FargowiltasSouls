@@ -1,11 +1,12 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
-	public class LifeSplittingProjSmall : LifeProjSmall
+    public class LifeSplittingProjSmall : LifeProjSmall
     {
         public override string Texture => "FargowiltasSouls/Content/Bosses/Lifelight/LifeProjSmall";
         public override void AI()

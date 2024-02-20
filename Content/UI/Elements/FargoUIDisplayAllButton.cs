@@ -1,12 +1,16 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria.UI;
 using Terraria;
 using Microsoft.Xna.Framework;
 
 namespace FargowiltasSouls.Content.UI.Elements
 {
-	public class FargoUIDisplayAllButton : UIElement
+    public class FargoUIDisplayAllButton : UIElement
     {
         public Texture2D Texture;
         public bool DisplayAll = false;

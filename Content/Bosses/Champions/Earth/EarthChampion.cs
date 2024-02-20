@@ -13,11 +13,12 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core.ItemDropRules;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Content.Buffs.Souls;
 using System.Collections.Generic;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 {
-	[AutoloadBossHead]
+    [AutoloadBossHead]
     public class EarthChampion : ModNPC
     {
         public override void SetStaticDefaults()

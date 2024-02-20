@@ -2,6 +2,7 @@ using Fargowiltas.Items.Tiles;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.DataStructures;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Souls
 {
-	public class UniverseSoul : BaseSoul
+    public class UniverseSoul : BaseSoul
     {
         public override void SetStaticDefaults()
         {
@@ -53,7 +54,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             player.AddEffect<UniverseSpeedEffect>(Item);
 
             player.maxMinions += 2;
-            player.maxTurrets += 2;
+            player.maxTurrets += 1;
 
             player.AddEffect<MagmaStoneEffect>(Item);
             player.kbGlove = true;

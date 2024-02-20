@@ -1,9 +1,11 @@
 ﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.ItemDropRules.Conditions;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
@@ -17,7 +19,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Globals
 {
-	public partial class EModeGlobalNPC : GlobalNPC
+    public partial class EModeGlobalNPC : GlobalNPC
     {
         public override bool InstancePerEntity => true;
 
@@ -742,7 +744,7 @@ namespace FargowiltasSouls.Core.Globals
 
                         if (!surface)
                         {
-                            pool[NPCID.BigMimicJungle] = .0025f;
+                            pool[NPCID.BigMimicJungle] = .0075f;
 
                             if (NPC.downedGolemBoss && bossCanSpawn)
                                 pool[NPCID.Plantera] = .00005f;
@@ -772,6 +774,11 @@ namespace FargowiltasSouls.Core.Globals
                     {
                         pool[NPCID.AnglerFish] = .1f;
                     }
+                }
+                // irrespective of hardmode
+                if (snow && !surface)
+                {
+                    pool[NPCID.SnowFlinx] = .05f;
                 }
             }
 

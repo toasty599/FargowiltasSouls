@@ -1,8 +1,11 @@
-﻿using Terraria.ID;
+﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Materials;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler.Content
 {
-	public class PetHeader : Header
+    public class PetHeader : Header
     {
         public override int Item => ItemID.ZephyrFish;
         public override float Priority => 3;

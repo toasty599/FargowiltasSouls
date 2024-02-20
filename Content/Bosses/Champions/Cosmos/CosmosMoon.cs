@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 {
-	public class CosmosMoon : ModProjectile
+    public class CosmosMoon : ModProjectile
     {
         public override void SetStaticDefaults()
         {

@@ -6,12 +6,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using FargowiltasSouls.Core.Systems;
 using Terraria.Audio;
 using System.Linq;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEvents.Vortex
 {
-	public class LunarTowerVortex : LunarTowers
+    public class LunarTowerVortex : LunarTowers
     {
         public override int ShieldStrength
         {

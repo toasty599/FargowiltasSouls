@@ -1,9 +1,12 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Minions
 {
-	public class MutantPowerBuff : ModBuff
+    public class MutantPowerBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

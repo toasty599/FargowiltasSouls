@@ -1,6 +1,12 @@
 ﻿//this currently does not work: it still does the vanilla dash, i do not know how, i do not know how to fix it.
 
 
+using FargowiltasSouls.Content.Buffs.Souls;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria.ModLoader;
 using Terraria;
 using System.Reflection;
@@ -10,7 +16,7 @@ using FargowiltasSouls.Content.Items.Consumables;
 
 namespace FargowiltasSouls.Core.Systems
 {
-	public class DashManager : ModSystem
+    public class DashManager : ModSystem
     {
         public enum DashType
         {

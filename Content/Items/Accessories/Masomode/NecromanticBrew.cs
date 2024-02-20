@@ -5,10 +5,11 @@ using FargowiltasSouls.Core.Toggler.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-	public class NecromanticBrew : SoulsItem
+    public class NecromanticBrew : SoulsItem
     {
         public override bool Eternity => true;
 

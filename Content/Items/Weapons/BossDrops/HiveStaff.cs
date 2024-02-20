@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using Terraria.Localization;
+using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria;
@@ -7,7 +8,7 @@ using FargowiltasSouls.Content.Projectiles.BossWeapons;
 
 namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
-	public class HiveStaff : SoulsItem
+    public class HiveStaff : SoulsItem
     {
         public override void SetStaticDefaults()
         {

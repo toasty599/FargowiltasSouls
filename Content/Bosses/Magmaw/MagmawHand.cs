@@ -2,15 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.PirateInvasion;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Content.Bosses.Magmaw
 {
-	public class MagmawHand : ModProjectile
+    public class MagmawHand : ModProjectile
     {
         public override void SetStaticDefaults()
         {

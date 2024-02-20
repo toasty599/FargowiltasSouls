@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-	public class LifeCageExplosion : ModProjectile
+    public class LifeCageExplosion : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/LifelightParts/Rune1";
         public override void SetStaticDefaults()

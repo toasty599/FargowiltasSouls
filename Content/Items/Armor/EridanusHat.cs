@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Armor
 {
-	[AutoloadEquip(EquipType.Head)]
+    [AutoloadEquip(EquipType.Head)]
     public class EridanusHat : SoulsItem
     {
         public override void SetStaticDefaults()
@@ -38,7 +39,7 @@ Increases your max number of sentries by 4"); */
             player.GetCritChance(DamageClass.Generic) += 5;
 
             player.maxMinions += 4;
-            player.maxTurrets += 4;
+            player.maxTurrets += 2;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

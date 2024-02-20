@@ -1,10 +1,11 @@
 ﻿using FargowiltasSouls.Core.Systems;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Common.Utilities
 {
-	public static class EModeUtils
+    public static class EModeUtils
     {
         public static void DropSummon(NPC npc, int itemType, bool downed, ref bool droppedSummonFlag, bool prerequisite = true)
         {

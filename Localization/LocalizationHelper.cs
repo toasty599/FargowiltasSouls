@@ -1,9 +1,12 @@
-﻿namespace FargowiltasSouls
+﻿using Terraria.ID;
+using Terraria.Localization;
+
+namespace FargowiltasSouls
 {
-	// Note: Obsolete: Entirely moved to hjson files
+    // Note: Obsolete: Entirely moved to hjson files
 
 
-	/*
+    /*
     public partial class FargowiltasSouls
     {
     /// <summary>

@@ -4,10 +4,11 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-	public class DeviHammerHeld : ModProjectile
+    public class DeviHammerHeld : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_300";
 

@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Items.Weapons.BossDrops;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 {
-	public class GeminiGlaives : SoulsItem
+    public class GeminiGlaives : SoulsItem
     {
         private int lastThrown = 0;
 

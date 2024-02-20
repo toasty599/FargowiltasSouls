@@ -1,11 +1,13 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
+using System.Linq;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-	public class MysticSkull : SoulsItem
+    public class MysticSkull : SoulsItem
     {
         public override bool Eternity => true;
 

@@ -1,10 +1,11 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Content.Items.Accessories.Expert;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
-	public class FrigidGemstone : SoulsItem
+    public class FrigidGemstone : SoulsItem
     {
         public override bool Eternity => true;
 

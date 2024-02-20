@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-	public class DeviSparklingLoveSmall : ModProjectile
+    public class DeviSparklingLoveSmall : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Content/Items/Weapons/FinalUpgrades/SparklingLove";
 

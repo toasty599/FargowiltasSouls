@@ -1,3 +1,4 @@
+using FargowiltasSouls.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
-	public class DeviButterfly : ModProjectile
+    public class DeviButterfly : ModProjectile
     {
         public override string Texture => "Terraria/Images/NPC_205";
 

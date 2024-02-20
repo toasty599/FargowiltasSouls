@@ -1,4 +1,5 @@
 ﻿using Fargowiltas.NPCs;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using Microsoft.Xna.Framework;
 using System;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 {
-	public class CosmosDeathray : BaseDeathray
+    public class CosmosDeathray : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/ShadowDeathray";
         public CosmosDeathray() : base(20, drawDistance: 3600) { }

@@ -7,16 +7,20 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using Terraria.GameContent.Bestiary;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Buffs;
+using FargowiltasSouls.Common.Graphics.Particles;
 using Terraria.Audio;
 using FargowiltasSouls.Content.Buffs.Boss;
+using Terraria.ModLoader.IO;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
-	//[AutoloadBossHead]
-	public class CursedSpirit : ModNPC
+    //[AutoloadBossHead]
+    public class CursedSpirit : ModNPC
     {
         //TODO: re-enable boss checklist compat, localizationhelper addSpawnInfo
         public override bool IsLoadingEnabled(Mod mod) => CursedCoffin.Enabled;
@@ -174,10 +178,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         #endregion
         readonly List<float> SlowChargeStates = new()
         {
-            (float)CursedCoffin.BehaviorStates.PhaseTransition,
-            (float)CursedCoffin.BehaviorStates.WavyShotCircle,
-            (float)CursedCoffin.BehaviorStates.WavyShotFlight,
-            (float)CursedCoffin.BehaviorStates.RandomStuff
+            (float)CursedCoffin.StateEnum.PhaseTransition,
+            (float)CursedCoffin.StateEnum.WavyShotCircle,
+            (float)CursedCoffin.StateEnum.WavyShotFlight,
+            (float)CursedCoffin.StateEnum.RandomStuff
         };
         public override bool CheckActive() => false;
         #region AI
@@ -236,9 +240,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 return;
             }
 
-            switch ((CursedCoffin.BehaviorStates)coffin.State)
+            switch ((CursedCoffin.StateEnum)coffin.State)
             {
-                case CursedCoffin.BehaviorStates.StunPunish:
+                case CursedCoffin.StateEnum.StunPunish:
                     if (coffin.State != State)
                     {
                         Timer = 0;
@@ -246,7 +250,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     Movement(player.Center + player.Center.DirectionTo(NPC.Center) * 300, 0.1f, 10, 5, 0.08f, 20);
                     break;
-                case CursedCoffin.BehaviorStates.HoveringForSlam:
+                case CursedCoffin.StateEnum.HoveringForSlam:
                     if (coffin.State != State)
                     {
                         Timer = 0;
@@ -254,7 +258,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     Artillery(owner);
                     break;
-                case CursedCoffin.BehaviorStates.SlamWShockwave:
+                case CursedCoffin.StateEnum.SlamWShockwave:
                     if (coffin.State != State)
                     {
                         Timer = 0;
@@ -262,7 +266,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     SlamSupport(owner);
                     break;
-                case CursedCoffin.BehaviorStates.GrabbyHands:
+                case CursedCoffin.StateEnum.GrabbyHands:
                     {
                         Timer = 0;
                         AI3 = 0;
@@ -277,7 +281,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     SlowCharges(owner);
                     break;
-                case CursedCoffin.BehaviorStates.PhaseTransition:
+                case CursedCoffin.StateEnum.PhaseTransition:
                     {
                         NPC.Center = owner.Center;
                         NPC.scale = 0.2f;

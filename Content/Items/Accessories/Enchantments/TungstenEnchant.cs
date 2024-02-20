@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.ModPlayers;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using System.Collections.Generic;
 using FargowiltasSouls.Core.AccessoryEffectSystem;

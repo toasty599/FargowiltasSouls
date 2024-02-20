@@ -4,11 +4,12 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-	public class LifeCrosshair : ModProjectile
+    public class LifeCrosshair : ModProjectile
     {
         public override void SetStaticDefaults()
         {

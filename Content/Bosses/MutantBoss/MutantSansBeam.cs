@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Buffs.Boss;
+﻿using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Systems;
@@ -8,11 +9,12 @@ using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-	public class MutantSansBeam : BaseDeathray
+    public class MutantSansBeam : BaseDeathray
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Deathrays/GolemBeam";
         public MutantSansBeam() : base(420) { }

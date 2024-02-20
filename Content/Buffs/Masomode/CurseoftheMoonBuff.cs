@@ -1,9 +1,10 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.Globals;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
-	public class CurseoftheMoonBuff : ModBuff
+    public class CurseoftheMoonBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

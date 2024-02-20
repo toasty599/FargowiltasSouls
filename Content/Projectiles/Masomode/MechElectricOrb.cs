@@ -3,6 +3,7 @@ using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
+using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,7 +15,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-	public class MechElectricOrb : ModProjectile
+    public class MechElectricOrb : ModProjectile
     {
         public static readonly SoundStyle ShotSound = new("FargowiltasSouls/Assets/Sounds/ElectricOrbShot") { PitchVariance = 0.3f, Volume = 7f };
         public static readonly SoundStyle HumSound = new("FargowiltasSouls/Assets/Sounds/ElectricOrbHum");

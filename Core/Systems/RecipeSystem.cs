@@ -1,10 +1,13 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
+using FargowiltasSouls.Content.Items.BossBags;
 using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using System;
 using System.Linq;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;

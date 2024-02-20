@@ -1,7 +1,10 @@
 ﻿using Fargowiltas.Items.Tiles;
+using FargowiltasSouls.Content.Items.Accessories.Masomode;
+using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Items.Placables;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -9,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Expert
 {
-	public class PrimeSoul : SoulsItem
+    public class PrimeSoul : SoulsItem
     {
         public override bool IsLoadingEnabled(Mod mod) => false;
         public override string Texture => "FargowiltasSouls/Content/Items/Placeholder";

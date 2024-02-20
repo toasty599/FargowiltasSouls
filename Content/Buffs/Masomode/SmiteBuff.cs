@@ -1,9 +1,10 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.Globals;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Masomode
 {
-	public class SmiteBuff : ModBuff
+    public class SmiteBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

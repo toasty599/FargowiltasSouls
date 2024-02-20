@@ -1,13 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
+using static Terraria.GameContent.UI.EmoteID;
 
 namespace FargowiltasSouls.Core.Toggler
 {
-	public abstract class Header : ModType
+    public abstract class Header : ModType
     {
 
         public abstract string SortCategory { get; }

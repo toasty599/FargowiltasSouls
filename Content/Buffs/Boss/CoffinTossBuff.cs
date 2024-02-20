@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.Globals;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Boss
 {
-	public class CoffinTossBuff : ModBuff
+    public class CoffinTossBuff : ModBuff
     {
 
         public override void SetStaticDefaults()

@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {

@@ -1,11 +1,14 @@
-﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+﻿using FargowiltasSouls.Content.UI.Elements;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.Toggler
 {
-	public static class ToggleLoader
+    public static class ToggleLoader
     {
         public static Dictionary<AccessoryEffect, Toggle> LoadedToggles
         {

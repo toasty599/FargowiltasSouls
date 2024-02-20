@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Spirit
 {
-	public class SpiritHeal : SpiritSpirit
+    public class SpiritHeal : SpiritSpirit
     {
         public override bool? CanDamage()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Items.Weapons.SwarmDrops;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -6,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-	[LegacyName("EaterStaff")]
+    [LegacyName("EaterStaff")]
     public class EaterRocketJr : ModProjectile
     {
         public override void SetStaticDefaults()

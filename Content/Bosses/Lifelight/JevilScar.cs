@@ -5,11 +5,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
-	public class JevilScar : ModProjectile
+    public class JevilScar : ModProjectile
     {
         //private bool init = false;
 

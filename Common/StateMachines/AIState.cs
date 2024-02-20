@@ -1,6 +1,4 @@
-﻿// Original implementation by Dominic Karma, used here with permission by Toasty. Do not copy elsewhere without getting permission first, or face action being taken against your mod.
-
-namespace FargowiltasSouls.Common.StateMachines
+﻿namespace FargowiltasSouls.Common.StateMachines
 {
 	/// <summary>
 	/// A <see cref="State{TStateEnum}"/> for use for basic enemy behavior. Includes a timer that resets on each state pop.

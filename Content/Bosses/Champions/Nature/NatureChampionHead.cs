@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Nature
 {
-	[AutoloadBossHead]
+    [AutoloadBossHead]
     public class NatureChampionHead : ModNPC
     {
         public override void SetStaticDefaults()

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 using Terraria;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Purified
 {
-	public class PrimeMinionProj : ModProjectile
+    public class PrimeMinionProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {

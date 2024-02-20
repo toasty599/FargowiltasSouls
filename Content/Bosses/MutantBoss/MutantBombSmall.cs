@@ -1,11 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-	public class MutantBombSmall : MutantBomb
+    public class MutantBombSmall : MutantBomb
     {
         public override string Texture => "Terraria/Images/Projectile_645";
 

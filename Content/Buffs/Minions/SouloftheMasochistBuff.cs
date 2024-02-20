@@ -1,13 +1,14 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Content.Projectiles.Minions;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs.Minions
 {
-	public class SouloftheMasochistBuff : ModBuff
+    public class SouloftheMasochistBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

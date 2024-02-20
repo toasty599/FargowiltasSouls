@@ -1,9 +1,10 @@
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Terraria.ID;
 
 namespace FargowiltasSouls.Content.Patreon.Catsounds
 {
-	public class KingSlimeSpike : SlimeSpikeFriendly
+    public class KingSlimeSpike : SlimeSpikeFriendly
     {
         public override string Texture => "Terraria/Images/Projectile_605";
 

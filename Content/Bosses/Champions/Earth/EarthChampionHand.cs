@@ -4,13 +4,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 {
-	public class EarthChampionHand : ModNPC
+    public class EarthChampionHand : ModNPC
     {
         public override void SetStaticDefaults()
         {

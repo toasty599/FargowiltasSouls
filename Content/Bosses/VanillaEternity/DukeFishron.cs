@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Buffs.Boss;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
@@ -450,8 +451,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         GeneralTimer = 0;
                         if (FargoSoulsUtil.HostCheck)
                         {
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2),
-                                ModContent.ProjectileType<RazorbladeTyphoon2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, .03f);
+                            if (WorldSavingSystem.MasochistModeReal)
+                            {
+                                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2),
+                                    ModContent.ProjectileType<RazorbladeTyphoon2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, .03f);
+                            }
                             Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, 0.014035f * Vector2.Normalize(npc.velocity).RotatedBy(-Math.PI / 2),
                                 ModContent.ProjectileType<RazorbladeTyphoon2>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, .08f);
 

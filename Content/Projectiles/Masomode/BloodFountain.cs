@@ -1,11 +1,12 @@
 ﻿using FargowiltasSouls.Content.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-	public class BloodFountain : ModProjectile
+    public class BloodFountain : ModProjectile
     {
         public override string Texture => FargoSoulsUtil.EmptyTexture;
 

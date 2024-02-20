@@ -1,13 +1,17 @@
 ﻿using FargowiltasSouls.Content.Items;
+using FargowiltasSouls.Content.Items.Accessories.Expert;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Core.AccessoryEffectSystem
 {
-	public static class AccessoryEffectLoader
+    public static class AccessoryEffectLoader
     {
         public static List<AccessoryEffect> AccessoryEffects = new();
         internal static void Register(AccessoryEffect effect)
@@ -26,12 +30,13 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
         {
             AccessoryEffect effect = ModContent.GetInstance<T>();
             AccessoryEffectPlayer effectPlayer = player.AccessoryEffects();
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
             effectPlayer.EquippedEffects[effect.Index] = true;
             effectPlayer.EffectItems[effect.Index] = item;
 
             if (effect.MinionEffect || effect.ExtraAttackEffect)
             {
-                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                
                 if (modPlayer.PrimeSoulActive)
                 {
                     if (!player.HasEffect(effect)) // Don't stack per item
@@ -39,10 +44,9 @@ namespace FargowiltasSouls.Core.AccessoryEffectSystem
                     return false;
                 }
             }
-            
-            if (player.FargoSouls().MutantPresence)
-                if (!effect.IgnoresMutantPresence)
-                    return false;
+
+            if (!effect.IgnoresMutantPresence && effect.HasToggle && modPlayer.MutantPresence)
+                return false;
 
             if (effect.HasToggle)
             {

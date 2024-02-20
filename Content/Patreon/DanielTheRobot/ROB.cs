@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.DanielTheRobot
 {
-	public class ROB : ModProjectile
+    public class ROB : ModProjectile
     {
         public override void SetStaticDefaults()
         {

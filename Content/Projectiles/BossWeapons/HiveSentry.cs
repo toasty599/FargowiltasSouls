@@ -1,11 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-	public class HiveSentry : ModProjectile
+    public class HiveSentry : ModProjectile
     {
         public override void SetStaticDefaults()
         {

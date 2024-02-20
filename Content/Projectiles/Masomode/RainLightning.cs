@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Common.Graphics.Particles;
+using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-	public class RainLightning : LightningArc
+    public class RainLightning : LightningArc
     {
         public override string Texture => "Terraria/Images/Projectile_466";
 

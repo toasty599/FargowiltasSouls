@@ -16,6 +16,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Utilities;
 using FargowiltasSouls.Core.NPCMatching;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -182,7 +183,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         int damage = npc.defDamage / 3;
                         if (FargoSoulsUtil.HostCheck)
                         {
-                            SoundEngine.PlaySound(SoundID.Item105 with { Volume = 2f }, npc.Center);
+                            //SoundEngine.PlaySound(SoundID.Item105 with { Volume = 2f }, npc.Center);
 
                             float modifier = (float)npc.life / npc.lifeMax;
                             if (WorldSavingSystem.MasochistModeReal)
@@ -196,7 +197,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 for (int j = -starMax; j <= starMax; j++)
                                 {
                                     int p = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed.RotatedBy(MathHelper.ToRadians(2f) * j),
-                                        ModContent.ProjectileType<DarkStar>(), damage, 0f, Main.myPlayer, -1, 180);
+                                        ModContent.ProjectileType<MechElectricOrb>(), damage, 0f, Main.myPlayer, -1, 180);
                                     Main.projectile[p].soundDelay = -1; //dont play sounds
                                     if (p != Main.maxProjectiles)
                                         Main.projectile[p].timeLeft = 300;
@@ -427,6 +428,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             LoadBossHeadSprite(recolor, 18);
             LoadGoreRange(recolor, 147, 150);
             LoadSpecial(recolor, ref TextureAssets.BoneArm2, ref FargowiltasSouls.TextureBuffer.BoneArm2, "Arm_Bone_2");
+            LoadSpecial(recolor, ref TextureAssets.BoneLaser, ref FargowiltasSouls.TextureBuffer.BoneLaser, "Bone_Laser");
+            LoadSpecial(recolor, ref TextureAssets.BoneEyes, ref FargowiltasSouls.TextureBuffer.BoneEyes, "Bone_Eyes");
         }
     }
 
@@ -565,7 +568,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 if (npc.dontTakeDamage && npc.localAI[0] > 1)
                     npc.localAI[0] -= 0.5f;
 
-                if (npc.ai[2] != 0f) //dark stars instead of cannonballs during super fast fire
+                if (npc.ai[2] != 0f) //Electric Orbs instead of cannonballs during super fast fire
                 {
                     if (npc.localAI[0] > 30f)
                     {
@@ -573,7 +576,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         if (FargoSoulsUtil.HostCheck)
                         {
                             Vector2 speed = new Vector2(16f, 0f).RotatedBy(npc.rotation + Math.PI / 2);
-                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<DarkStar>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ModContent.ProjectileType<MechElectricOrb>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                         }
                     }
                 }

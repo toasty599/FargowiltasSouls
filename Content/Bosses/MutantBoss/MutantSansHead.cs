@@ -6,11 +6,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-	public class MutantSansHead : ModProjectile
+    public class MutantSansHead : ModProjectile
     {
         public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_246B";
 

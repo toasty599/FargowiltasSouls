@@ -1,6 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,7 +13,7 @@ using Terraria.DataStructures;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
-	public class CoffinRandomStuff : ModProjectile
+    public class CoffinRandomStuff : ModProjectile
     {
         public const int Frames = 7;
         public override void SetStaticDefaults()

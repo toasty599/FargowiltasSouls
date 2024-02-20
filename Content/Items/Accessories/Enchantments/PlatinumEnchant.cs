@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 

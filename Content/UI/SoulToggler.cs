@@ -1,5 +1,7 @@
 ﻿using FargowiltasSouls.Content.UI.Elements;
+using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Core.Toggler;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,10 @@ using Terraria.GameInput;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.UI.Chat;
+using XPT.Core.Audio.MP3Sharp.Decoding;
+using static System.Net.Mime.MediaTypeNames;
+using static Terraria.GameContent.UI.EmoteID;
 using Header = FargowiltasSouls.Core.Toggler.Header;
 
 namespace FargowiltasSouls.Content.UI

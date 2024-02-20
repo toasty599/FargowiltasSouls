@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
 {
-	public class CosmosBolt : ModProjectile
+    public class CosmosBolt : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_462";
 

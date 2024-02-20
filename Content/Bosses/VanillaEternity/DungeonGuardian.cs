@@ -13,6 +13,7 @@ using FargowiltasSouls.Content.Bosses.Champions.Shadow;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Core.Systems;
+using Terraria.GameContent;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {

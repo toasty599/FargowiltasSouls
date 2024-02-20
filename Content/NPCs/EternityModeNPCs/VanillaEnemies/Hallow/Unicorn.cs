@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Core.Globals;
+﻿using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using Microsoft.Xna.Framework;
 using System;
@@ -7,7 +8,7 @@ using Terraria.ID;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Hallow
 {
-	public class Unicorn : EModeNPCBehaviour
+    public class Unicorn : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.Unicorn);
 

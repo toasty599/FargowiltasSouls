@@ -3,6 +3,7 @@ using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using FargowiltasSouls.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 {
-	public class BrainClone : ModNPC
+    public class BrainClone : ModNPC
     {
         public override string Texture => "Terraria/Images/NPC_266";
 

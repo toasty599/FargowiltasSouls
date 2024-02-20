@@ -1,5 +1,7 @@
-﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
+﻿using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
-	public class FishStick : SoulsItem
+    public class FishStick : SoulsItem
     {
         public override void SetStaticDefaults()
         {

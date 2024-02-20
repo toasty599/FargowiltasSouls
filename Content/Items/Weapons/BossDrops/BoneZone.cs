@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Projectiles.BossWeapons;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
-	public class BoneZone : SoulsItem
+    public class BoneZone : SoulsItem
     {
         private int counter = 1;
 

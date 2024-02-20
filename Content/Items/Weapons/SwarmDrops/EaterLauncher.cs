@@ -7,10 +7,11 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Weapons.BossDrops;
 using Terraria.DataStructures;
 using Fargowiltas.Items.Summons.SwarmSummons.Energizers;
+using Fargowiltas.Items.Tiles;
 
 namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
 {
-	public class EaterLauncher : SoulsItem
+    public class EaterLauncher : SoulsItem
     {
         public override void SetStaticDefaults()
         {

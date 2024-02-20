@@ -1,9 +1,10 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.Globals;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Buffs
 {
-	public class SublimationBuff : ModBuff
+    public class SublimationBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {

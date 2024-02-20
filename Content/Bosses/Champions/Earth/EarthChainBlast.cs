@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Earth
 {
-	public class EarthChainBlast : ModProjectile
+    public class EarthChainBlast : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_687";
 

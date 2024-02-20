@@ -1,4 +1,5 @@
 using FargowiltasSouls.Content.Items.BossBags;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;

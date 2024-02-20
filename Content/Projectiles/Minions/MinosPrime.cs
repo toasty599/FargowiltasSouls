@@ -1,7 +1,14 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using FargowiltasSouls.Content.Bosses.VanillaEternity;
+using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Core.Globals;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
@@ -9,10 +16,11 @@ using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Accessories.Expert;
 using Microsoft.Xna.Framework;
 using FargowiltasSouls.Content.Items.Accessories.Souls;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.Projectiles.Minions
 {
-	public class MinosPrime : ModProjectile
+    public class MinosPrime : ModProjectile
     {
         public ref float Timer => ref Projectile.ai[0];
 

@@ -4,11 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 {
-	public class DecrepitAirstrike : TrojanAcorn
+    public class DecrepitAirstrike : TrojanAcorn
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/TargetingReticle";
 

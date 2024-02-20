@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
@@ -16,6 +18,7 @@ using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Content.Buffs;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Items;
 using FargowiltasSouls.Content.Items.Accessories.Forces;
 using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Core.Systems;
@@ -53,6 +56,8 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int RockeaterDistance = EaterLauncher.BaseDistance;
 
         public bool fireNoDamage = false;
+
+        public int The22Incident;
 
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
@@ -391,6 +396,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             CerebralMindbreak = false;
             NanoInjection = false;
             Stunned = false;
+            HasJungleRose = false;
             HaveCheckedAttackSpeed = false;
             BoxofGizmos = false;
             OxygenTank = false;
@@ -502,6 +508,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             MaxLifeReduction = 0;
             CurrentLifeReduction = 0;
+
+            The22Incident = 0;
         }
 
         
@@ -912,6 +920,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (Player.whoAmI == Main.myPlayer && retVal && MutantSetBonusItem != null && Player.FindBuffIndex(ModContent.BuffType<MutantRebirthBuff>()) == -1)
                 {
+                    TryCleanseDebuffs();
                     Player.statLife = Player.statLifeMax2;
                     Player.HealEffect(Player.statLifeMax2);
                     Player.immune = true;

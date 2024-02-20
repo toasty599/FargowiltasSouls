@@ -8,10 +8,11 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ID;
 using FargowiltasSouls.Core.Systems;
+using FargowiltasSouls.Content.Projectiles;
 
 namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 {
-	public class TimberLightningOrb : ModProjectile
+    public class TimberLightningOrb : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_465";
 

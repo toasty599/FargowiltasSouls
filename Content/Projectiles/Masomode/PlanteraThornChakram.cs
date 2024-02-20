@@ -1,6 +1,13 @@
 ﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,7 +16,7 @@ using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Projectiles.Masomode
 {
-	public class PlanteraThornChakram : ModProjectile
+    public class PlanteraThornChakram : ModProjectile
     {
         public override string Texture => FargoSoulsUtil.VanillaTextureProjectile(ProjectileID.ThornChakram);
 

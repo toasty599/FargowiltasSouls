@@ -1,11 +1,12 @@
-﻿using System;
+﻿using FargowiltasSouls.Core.Globals;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
-	public class CactusNeedle : ModProjectile
+    public class CactusNeedle : ModProjectile
     {
         public override void SetStaticDefaults()
         {

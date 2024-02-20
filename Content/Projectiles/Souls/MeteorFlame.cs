@@ -1,10 +1,12 @@
-﻿using Terraria;
+﻿using FargowiltasSouls.Core.Globals;
+using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.Souls
 {
-	public class MeteorFlame : ModProjectile
+    public class MeteorFlame : ModProjectile
     {
         public override string Texture => FargoSoulsUtil.EmptyTexture;
         public override void SetStaticDefaults()

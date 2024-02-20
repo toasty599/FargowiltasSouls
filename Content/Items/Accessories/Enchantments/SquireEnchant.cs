@@ -1,14 +1,16 @@
 ﻿using Fargowiltas.Common.Configs;
+using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 {
-	public class SquireEnchant : BaseEnchant
+    public class SquireEnchant : BaseEnchant
     {
         public override void SetStaticDefaults()
         {

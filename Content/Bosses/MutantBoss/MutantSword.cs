@@ -1,5 +1,6 @@
 ﻿using FargowiltasSouls.Content.Buffs.Boss;
 using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Content.Projectiles;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-	public class MutantSword : ModProjectile
+    public class MutantSword : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_454";
 
@@ -34,6 +35,20 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.penetrate = -1;
             Projectile.FargoSouls().DeletionImmuneRank = 2;
             Projectile.FargoSouls().TimeFreezeImmune = true;
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (projHitbox.Intersects(targetHitbox))
+                return true;
+
+            Rectangle trailHitbox = projHitbox;
+            trailHitbox.X = (int)Projectile.oldPosition.X;
+            trailHitbox.Y = (int)Projectile.oldPosition.Y;
+            if (trailHitbox.Intersects(targetHitbox))
+                return true;
+
+            return false;
         }
 
         public override void AI()

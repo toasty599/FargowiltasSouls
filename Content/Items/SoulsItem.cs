@@ -1,19 +1,25 @@
-﻿using FargowiltasSouls.Content.UI.Elements;
+﻿using FargowiltasSouls.Common.Utilities;
+using FargowiltasSouls.Content.UI.Elements;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items
 {
-	/// <summary>
-	/// Abstract class extended by the items of this mod. <br />
-	/// Contains useful code for boilerplate reduction.
-	/// </summary>
-	public abstract class SoulsItem : ModItem
+    /// <summary>
+    /// Abstract class extended by the items of this mod. <br />
+    /// Contains useful code for boilerplate reduction.
+    /// </summary>
+    public abstract class SoulsItem : ModItem
     {
         /// <summary>
         /// Whether or not this item is excluse to Eternity Mode. <br />
@@ -95,7 +101,7 @@ namespace FargowiltasSouls.Content.Items
                 tooltips.Add(new TooltipLine(Mod, $"{Mod.Name}:Eternity", Language.GetTextValue($"Mods.FargowiltasSouls.Items.Extra.EternityItem")));
             if (HasDisabledEffects)
             {
-                string text = $"[i:{ModContent.ItemType<TogglerIconItem>()}] [c/FF0000:{Language.GetTextValue($"Mods.FargowiltasSouls.Items.Extra.DisabledEffects")}]";
+                string text = $"[i:{ModContent.ItemType<TogglerIconItem>()}] [c/BC5252:{Language.GetTextValue($"Mods.FargowiltasSouls.Items.Extra.DisabledEffects")}]";
                 tooltips.Add(new TooltipLine(Mod, $"{Mod.Name}:DisabledEffects", text));
             }
         }

@@ -1,14 +1,18 @@
 ﻿using FargowiltasSouls.Content.Items.Materials;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Content.Projectiles.Minions;
+using FargowiltasSouls.Core.ModPlayers;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Armor
 {
-	[AutoloadEquip(EquipType.Head)]
+    [AutoloadEquip(EquipType.Head)]
     public class StyxCrown : SoulsItem
     {
         public override void SetStaticDefaults()
@@ -36,7 +40,7 @@ Increases max number of minions and sentries by 3"); */
             player.GetCritChance(DamageClass.Generic) += 10;
 
             player.maxMinions += 3;
-            player.maxTurrets += 3;
+            player.maxTurrets += 2;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
@@ -11,7 +15,7 @@ using FargowiltasSouls.Core.Systems;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
-	public class CoffinHand : ModProjectile
+    public class CoffinHand : ModProjectile
     {
         public override void SetStaticDefaults()
         {

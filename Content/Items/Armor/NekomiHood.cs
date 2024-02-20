@@ -7,10 +7,12 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Materials;
+using System;
+using FargowiltasSouls.Core.ModPlayers;
 
 namespace FargowiltasSouls.Content.Items.Armor
 {
-	[AutoloadEquip(EquipType.Head)]
+    [AutoloadEquip(EquipType.Head)]
     public class NekomiHood : SoulsItem
     {
         public override void SetStaticDefaults()

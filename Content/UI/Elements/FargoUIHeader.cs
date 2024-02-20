@@ -2,11 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.Localization;
 using Terraria.UI;
 
 namespace FargowiltasSouls.Content.UI.Elements
 {
-	public class FargoUIHeader : UIElement
+    public class FargoUIHeader : UIElement
     {
         public const int TextureTextPadding = 8;
         public const int TextureBarPadding = 4;

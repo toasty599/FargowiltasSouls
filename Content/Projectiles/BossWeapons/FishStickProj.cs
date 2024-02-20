@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
 using System;
 using System.Linq;
 using Terraria;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
-	public class FishStickProj : ModProjectile
+    public class FishStickProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {

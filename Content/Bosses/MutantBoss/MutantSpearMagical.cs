@@ -1,4 +1,5 @@
-﻿using FargowiltasSouls.Content.Projectiles.Masomode;
+﻿using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-	public class MutantSpearMagical : MutantSpearThrown
+    public class MutantSpearMagical : MutantSpearThrown
     {
         public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/HentaiSpear";
 
