@@ -52,3 +52,6 @@ post plant dungeon mages tp at you on spawn even outside dungeon (less likely to
 emode lightning disabled during bosses
 fixed comp orb not actually causing mana regen to pause
 lightning rod debuff on player now uses new emode rain lightning
+fixed not working with transparent proj config
+	d breath
+	d demise

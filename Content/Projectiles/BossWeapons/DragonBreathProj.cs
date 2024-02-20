@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.width = 30;
             Projectile.height = 30;
             //Projectile.aiStyle = 136;
-            Projectile.alpha = 255;
+            //Projectile.alpha = 255;
             Projectile.penetrate = -1;
             Projectile.friendly = true;
             //Projectile.usesLocalNPCImmunity = true;
@@ -138,11 +138,6 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             return false;
         }
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return new Color(102, 224, 255);
-        }
-
         public override bool PreDraw(ref Color lightColor)
         {
             Vector2 value10 = Projectile.Center;
@@ -151,9 +146,9 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             float num180 = Projectile.ai[0] / halfRangeReduced;
             Texture2D texture2D5 = TextureAssets.Projectile[Projectile.type].Value;
             Color color33 = Color.Transparent;
-            Color color34 = new(255, 255, 255, 0);
-            Color color35 = new(180, 30, 30, 200);
-            Color color36 = new(30, 0, 00, 30);
+            Color color34 = Projectile.GetAlpha(new Color(255, 255, 255, 0));
+            Color color35 = Projectile.GetAlpha(new Color(180, 30, 30, 200));
+            Color color36 = Projectile.GetAlpha(new Color(30, 0, 00, 30));
             ulong num181 = 1; //(ulong)(Projectile.ai[0] / halfRangeReduced * 2);
             for (float num182 = 0f; num182 < 30f; num182 += 0.66f)
             {
