@@ -178,10 +178,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         #endregion
         readonly List<float> SlowChargeStates = new()
         {
-            (float)CursedCoffin.StateEnum.PhaseTransition,
-            (float)CursedCoffin.StateEnum.WavyShotCircle,
-            (float)CursedCoffin.StateEnum.WavyShotFlight,
-            (float)CursedCoffin.StateEnum.RandomStuff
+            (float)CursedCoffin.BehaviorStates.PhaseTransition,
+            (float)CursedCoffin.BehaviorStates.WavyShotCircle,
+            (float)CursedCoffin.BehaviorStates.WavyShotFlight,
+            (float)CursedCoffin.BehaviorStates.RandomStuff
         };
         public override bool CheckActive() => false;
         #region AI
@@ -240,9 +240,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 return;
             }
 
-            switch ((CursedCoffin.StateEnum)coffin.State)
+            if (coffin.StateMachine.CurrentState == null)
+                return;
+
+            switch (coffin.StateMachine.CurrentState.ID)
             {
-                case CursedCoffin.StateEnum.StunPunish:
+                case CursedCoffin.BehaviorStates.StunPunish:
                     if (coffin.State != State)
                     {
                         Timer = 0;
@@ -250,7 +253,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     Movement(player.Center + player.Center.DirectionTo(NPC.Center) * 300, 0.1f, 10, 5, 0.08f, 20);
                     break;
-                case CursedCoffin.StateEnum.HoveringForSlam:
+                case CursedCoffin.BehaviorStates.HoveringForSlam:
                     if (coffin.State != State)
                     {
                         Timer = 0;
@@ -258,7 +261,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     Artillery(owner);
                     break;
-                case CursedCoffin.StateEnum.SlamWShockwave:
+                case CursedCoffin.BehaviorStates.SlamWShockwave:
                     if (coffin.State != State)
                     {
                         Timer = 0;
@@ -266,7 +269,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     SlamSupport(owner);
                     break;
-                case CursedCoffin.StateEnum.GrabbyHands:
+                case CursedCoffin.BehaviorStates.GrabbyHands:
                     {
                         Timer = 0;
                         AI3 = 0;
@@ -281,7 +284,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     SlowCharges(owner);
                     break;
-                case CursedCoffin.StateEnum.PhaseTransition:
+                case CursedCoffin.BehaviorStates.PhaseTransition:
                     {
                         NPC.Center = owner.Center;
                         NPC.scale = 0.2f;
@@ -290,7 +293,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 default:
                     break;
             }
-            State = coffin.State;
+            State = (float)coffin.StateMachine.CurrentState.ID;
         }
         void SlamSupport(NPC owner)
         {

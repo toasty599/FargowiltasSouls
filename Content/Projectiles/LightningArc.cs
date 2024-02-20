@@ -46,7 +46,8 @@ namespace FargowiltasSouls.Content.Projectiles
         public override void AI()
         {
             Projectile.frameCounter = Projectile.frameCounter + 1;
-            Lighting.AddLight(Projectile.Center, 0.3f, 0.45f, 0.5f);
+            if (!Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
+                Lighting.AddLight(Projectile.Center, 0.3f, 0.45f, 0.5f);
             colorlerp += 0.05f;
 
             if (!playedsound)
