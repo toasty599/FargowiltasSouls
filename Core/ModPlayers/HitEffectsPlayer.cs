@@ -478,7 +478,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.HasBuff(ModContent.BuffType<TitaniumDRBuff>())
                 && !Player.HasBuff(ModContent.BuffType<TitaniumCDBuff>()))
             {
-                Player.AddBuff(ModContent.BuffType<TitaniumCDBuff>(), 60 * 10);
+                Player.AddBuff(ModContent.BuffType<TitaniumCDBuff>(), (int)FargoSoulsUtil.SecondsToFrames(10));
             }
 
             if (NekomiSet && NekomiHitCD <= 0)
@@ -492,7 +492,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 int heartsToConsume = NekomiMeter / meterPerHeart;
                 if (heartsToConsume > heartsLost)
                     heartsToConsume = heartsLost;
-                Player.AddBuff(BuffID.RapidHealing, heartsToConsume * 60 * 5 / heartsLost);
+                Player.AddBuff(BuffID.RapidHealing, (int)FargoSoulsUtil.SecondsToFrames(heartsToConsume) * 5 / heartsLost);
 
                 NekomiMeter -= meterLost;
                 if (NekomiMeter < 0)
