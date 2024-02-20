@@ -296,7 +296,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         LightningCounter++;
 
                         int lighntningMinSeconds = WorldSavingSystem.MasochistModeReal ? 10 : 17;
-                        if (LightningCounter >= 60 * lighntningMinSeconds)
+                        if (LightningCounter >= (int)FargoSoulsUtil.SecondsToFrames(lighntningMinSeconds))
                         {
                             Point tileCoordinates = Player.Top.ToTileCoordinates();
 
