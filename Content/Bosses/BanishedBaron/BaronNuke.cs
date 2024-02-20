@@ -38,7 +38,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
             Projectile.ignoreWater = true;
             Projectile.scale = 1f;
             Projectile.light = 1;
-            Projectile.timeLeft = 60 * 60;
+            Projectile.timeLeft = (int)FargoSoulsUtil.SecondsToFrames(60);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) //circular hitbox

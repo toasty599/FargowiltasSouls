@@ -255,7 +255,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (SpecialDashCD <= 0)
             {
-                SpecialDashCD = 60 * 5;
+                SpecialDashCD = (int)FargoSoulsUtil.SecondsToFrames(5);
 
                 if (Player.whoAmI == Main.myPlayer)
                 {
@@ -345,7 +345,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             
             if (TryCleanseDebuffs())
             {
-                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 40);
+
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), (int)FargoSoulsUtil.SecondsToFrames(40));
 
                 SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 
@@ -435,7 +436,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 				{
 					SoundEngine.PlaySound(SoundID.Item119, Player.Center);
 
-					Player.AddBuff(ModContent.BuffType<BerserkerInstallBuff>(), 7 * 60 + 30); //7.5sec
+					Player.AddBuff(ModContent.BuffType<BerserkerInstallBuff>(), (int)FargoSoulsUtil.SecondsToFrames(7.5f)); //7.5sec
 
 					for (int i = 0; i < 60; i++)
 					{

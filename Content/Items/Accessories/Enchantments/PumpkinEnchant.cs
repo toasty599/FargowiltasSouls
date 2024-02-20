@@ -82,7 +82,7 @@ Enemies that touch them will destroy them and take damage
                         || modPlayer.ForceEffect<PumpkinEnchant>())
                     {
                         Projectile.NewProjectile(player.GetSource_Accessory(player.EffectItem<PumpkinEffect>()), player.Center, Vector2.Zero, ModContent.ProjectileType<GrowingPumpkin>(), 0, 0, player.whoAmI);
-                        modPlayer.PumpkinSpawnCD = 450;
+                        modPlayer.PumpkinSpawnCD = (int)FargoSoulsUtil.SecondsToFrames(7.5f);
                     }
                 }
             }
