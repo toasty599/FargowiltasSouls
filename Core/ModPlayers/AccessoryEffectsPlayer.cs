@@ -276,7 +276,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                     if (BetsysHeartItem != null)
                     {
-                        Vector2 vel = Player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
+                        Vector2 vel = Player.DirectionTo(Main.MouseWorld) * 25;
                         Projectile.NewProjectile(Player.GetSource_Accessory(BetsysHeartItem), Player.Center, vel, ModContent.ProjectileType<Content.Projectiles.BetsyDash>(), (int)(100 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
 
                         Player.immune = true;

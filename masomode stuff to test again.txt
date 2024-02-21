@@ -58,3 +58,4 @@ nerfed devi dash, heart cluster is p2 only
 jack o lantern launcher +0% damage (was 20)
 candy corn rifle +50% damage (was 60)
 stake launcher still +30% damage
+betsy dash buff, always has enhanced speed (25), was 20
