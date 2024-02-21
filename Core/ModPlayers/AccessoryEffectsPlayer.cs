@@ -345,6 +345,13 @@ namespace FargowiltasSouls.Core.ModPlayers
             
             if (TryCleanseDebuffs())
             {
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (Main.npc[i].active && !Main.npc[i].friendly && Main.npc[i].lifeMax > 5)
+                    {
+                        Main.npc[i].AddBuff(ModContent.BuffType<MagicalCurseBuff>(), 60 * 60);
+                    }
+                }    
 
                 Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), (int)FargoSoulsUtil.SecondsToFrames(40));
 
