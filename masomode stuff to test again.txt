@@ -57,3 +57,4 @@ fixed not working with transparent proj config
 	d demise
 The lightning rod lightning no longer makes light inside solid blocks
 fixed fish stick sharks tracking unhomeable/invincible enemies
+nerfed devi dash, heart cluster is p2 only
