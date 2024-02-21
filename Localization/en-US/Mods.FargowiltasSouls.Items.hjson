@@ -349,7 +349,7 @@ MonkEnchant: {
 		'''
 		Allows the ability to dash
 		Double tap a direction
-		You are immune to damage and debuffs for half a second after dashing
+		You are briefly immune to damage and debuffs after dashing
 		Dash through an enemy to deal massive damage
 		Dash cooldown is much longer than normal dashes
 		Lightning Aura can now crit and strikes faster
@@ -531,10 +531,10 @@ ShinobiEnchant: {
 	DisplayName: Shinobi Infiltrator Enchantment
 	Tooltip:
 		'''
-		Allows the ability to dash
+		Allows the ability to teleport dash
 		Double tap a direction
-		You are immune to damage and debuffs for half a second after dashing
-		Dash through an enemy to deal massive damage
+		You are briefly immune to damage and debuffs after dashing
+		Teleport inside an enemy to deal massive damage
 		Dash cooldown is longer than normal dashes
 		Dash is longer and deals more damage
 		Dash into any walls to teleport through them to the next opening

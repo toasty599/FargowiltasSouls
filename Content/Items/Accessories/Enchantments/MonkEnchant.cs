@@ -80,42 +80,42 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     Main.dust[index2].noLight = true;
                 }
             }
-            if (player.dashDelay < 0)
+            if (player.dashDelay < 0 && modPlayer.CanShinobiTeleport && player.HasEffect<ShinobiDashEffect>())
             {
-                if (player.HasEffect<ShinobiThroughWalls>() && modPlayer.CanShinobiTeleport) //go through walls
+                modPlayer.CanShinobiTeleport = false;
+
+                var teleportPos = player.position;
+                float direction = Math.Sign(player.velocity.X);
+
+                const int length = 16 * 20;
+
+                teleportPos.X += length * direction;
+
+                if (Collision.CanHitLine(player.Center, player.width, player.height, teleportPos, player.width, player.height))
                 {
-                    
-                    var teleportPos = player.position;
-                    float direction = Math.Sign(player.velocity.X);
 
-                    const int length = 32;
-
-                    teleportPos.X += length * direction;
-
-                    if (!Collision.CanHitLine(player.Center, player.width, player.height, teleportPos, player.width, player.height))
+                }
+                else if (player.HasEffect<ShinobiThroughWalls>()) //go through walls
+                {
+                    while (Collision.SolidCollision(teleportPos, player.width, player.height))
                     {
-                        modPlayer.CanShinobiTeleport = false;
-                        while (Collision.SolidCollision(teleportPos, player.width, player.height))
+                        if (direction == 1)
                         {
-                            if (direction == 1)
-                            {
-                                teleportPos.X++;
-                            }
-                            else
-                            {
-                                teleportPos.X--;
-                            }
+                            teleportPos.X++;
                         }
-                        if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+                        else
                         {
-                            FargoSoulsUtil.GrossVanillaDodgeDust(player);
-                            player.Teleport(teleportPos, 1);
-                            FargoSoulsUtil.GrossVanillaDodgeDust(player);
-                            NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
-
+                            teleportPos.X--;
                         }
                     }
+                }
 
+                if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+                {
+                    FargoSoulsUtil.GrossVanillaDodgeDust(player);
+                    player.Teleport(teleportPos, 1);
+                    FargoSoulsUtil.GrossVanillaDodgeDust(player);
+                    NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
                 }
             }
         }
@@ -125,11 +125,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             modPlayer.CanShinobiTeleport = true; //allow 1 teleport per dash
 
-            float speed = player.HasEffect<ShinobiDashEffect>() ? 20 : 16;
+            float speed = player.HasEffect<ShinobiDashEffect>() ? 8 : 16;
             player.velocity.X = speed * direction;
 
             player.immune = true;
-            int invul = 20;
+            int invul = player.HasEffect<ShinobiDashEffect>() ? 10 : 20;
             modPlayer.MonkDashing = invul;
             player.immuneTime = Math.Max(player.immuneTime, invul);
             player.hurtCooldowns[0] = Math.Max(player.hurtCooldowns[0], invul);
@@ -143,7 +143,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
             Projectile.NewProjectile(player.GetSource_FromThis(), pos, Vector2.Zero, ModContent.ProjectileType<MonkDashDamage>(), damage, 0);
 
-            float cd = modPlayer.ShinobiEnchantActive ? 90 : 120;
             modPlayer.DashCD = 100;
             player.dashDelay = 100;
             if (player.FargoSouls().IsDashingTimer < 20)

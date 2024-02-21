@@ -60,3 +60,8 @@ candy corn rifle +50% damage (was 60)
 stake launcher still +30% damage
 betsy dash buff, always has enhanced speed (25), was 20
 magical cleanse buffed, additionally causes enemies to take double dot (45sec debuff)
+restored old shinobi dash
+	it teleports through thin air
+	reduced speed of actual dash
+	reduced iframes from 20 to 10
+	you can still access monk dash by disabling shinobi upgrade
