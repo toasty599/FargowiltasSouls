@@ -59,4 +59,4 @@ jack o lantern launcher +0% damage (was 20)
 candy corn rifle +50% damage (was 60)
 stake launcher still +30% damage
 betsy dash buff, always has enhanced speed (25), was 20
-magical cleanse buffed, additionally causes enemies to take double dot (1min debuff)
+magical cleanse buffed, additionally causes enemies to take double dot (45sec debuff)

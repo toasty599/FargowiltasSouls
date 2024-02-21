@@ -345,15 +345,17 @@ namespace FargowiltasSouls.Core.ModPlayers
             
             if (TryCleanseDebuffs())
             {
+                int cdInSec = 40;
+
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     if (Main.npc[i].active && !Main.npc[i].friendly && Main.npc[i].lifeMax > 5)
                     {
-                        Main.npc[i].AddBuff(ModContent.BuffType<MagicalCurseBuff>(), 60 * 60);
+                        Main.npc[i].AddBuff(ModContent.BuffType<MagicalCurseBuff>(), (int)FargoSoulsUtil.SecondsToFrames(cdInSec + 5));
                     }
                 }    
 
-                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), (int)FargoSoulsUtil.SecondsToFrames(40));
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), (int)FargoSoulsUtil.SecondsToFrames(cdInSec));
 
                 SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 
