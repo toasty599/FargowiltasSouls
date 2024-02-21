@@ -15,9 +15,6 @@ fix display issue with frost/pump moon item tooltips
 maso mutant can randomly end most attacks MUCH earlier than usual
 added mutant queen slime attack
 razorpine -20% damage
-jack o lantern launcher +20% damage
-candy corn rifle +60% damage
-stake launcher +30% damage
 raised grace window on set bonus supers to half a second
 
 moved maso mutant pillar confusion to ftw its REALLY fucked up
@@ -58,3 +55,6 @@ fixed not working with transparent proj config
 The lightning rod lightning no longer makes light inside solid blocks
 fixed fish stick sharks tracking unhomeable/invincible enemies
 nerfed devi dash, heart cluster is p2 only
+jack o lantern launcher +0% damage (was 20)
+candy corn rifle +50% damage (was 60)
+stake launcher still +30% damage

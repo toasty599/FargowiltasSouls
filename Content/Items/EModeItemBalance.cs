@@ -106,13 +106,9 @@ namespace FargowiltasSouls.Content.Items
                     balanceNumber = 7;
                     return EModeChange.Nerf;
 
-                case ItemID.JackOLanternLauncher:
-                    balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 1.2f;
-                    return EModeChange.Buff;
                 case ItemID.CandyCornRifle:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 1.6f;
+                    balanceNumber = 1.5f;
                     return EModeChange.Buff;
                 case ItemID.StakeLauncher:
                     balanceTextKeys = new string[] { "Damage" };
