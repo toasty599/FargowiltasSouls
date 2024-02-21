@@ -56,3 +56,4 @@ fixed not working with transparent proj config
 	d breath
 	d demise
 The lightning rod lightning no longer makes light inside solid blocks
+fixed fish stick sharks tracking unhomeable/invincible enemies
