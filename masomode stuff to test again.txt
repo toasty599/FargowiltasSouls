@@ -68,3 +68,4 @@ restored old shinobi dash
 
 white cultist archers moved from post mechs to post golem
 	this IS "post golem"
+white cultist archers drop zealot possession 1% rate

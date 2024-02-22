@@ -413,6 +413,9 @@ namespace FargowiltasSouls.Core.Globals
                 case NPCID.BrainScrambler:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BrainScrambler, 100));
                     break;
+                case NPCID.CultistArcherWhite:
+                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "CultistSummon").Type, 100));
+                    break;
                 case var _ when MushroomEnemies.Contains(npc.type):
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GlowingMushroom, 1, 1, 5));
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.MushroomGrassSeeds, 5));
