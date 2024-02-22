@@ -71,3 +71,5 @@ white cultist archers moved from post mechs to post golem
 white cultist archers drop zealot possession 1% rate
 removed early bird lock on ice golem, sand ele frost core/forb frag
 ice golem early bird drops snow globe
+paladin bursts into dungeon spirits when killed
+fishron has a chance to drop pirate map

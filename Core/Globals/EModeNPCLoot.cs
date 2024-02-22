@@ -177,7 +177,8 @@ namespace FargowiltasSouls.Core.Globals
                             ItemID.FinWings,
                             ItemID.BottomlessBucket,
                             ItemID.SuperAbsorbantSponge,
-                            ItemID.HotlineFishingHook
+                            ItemID.HotlineFishingHook,
+                            ItemID.PirateMap
                         ));
                     }
                     break;
