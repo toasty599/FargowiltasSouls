@@ -521,9 +521,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                 SoundEngine.PlaySound(SoundID.Item27, Player.Center);
                 for (int i = 0; i < 30; i++)
                 {
-                    int d = Dust.NewDust(Player.position, Player.width, Player.height, 66, 0, 0, 0, default, 2f);
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.t_SteampunkMetal, 0, 0, 0, default, 2f);
                     Main.dust[d].noGravity = true;
-                    Main.dust[d].velocity *= 3f;
+                    Main.dust[d].velocity *= 5f;
                 }
             }
 
