@@ -530,14 +530,6 @@ namespace FargowiltasSouls.Core.Globals
                         FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.OasisCrate));
                         break;
 
-                    case NPCID.IceGolem:
-                        npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.FrostCore && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
-                        break;
-
-                    case NPCID.SandElemental:
-                        npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.AncientBattleArmorMaterial && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
-                        break;
-
                     default: break;
                 }
 
