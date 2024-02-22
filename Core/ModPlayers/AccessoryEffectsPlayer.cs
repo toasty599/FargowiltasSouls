@@ -493,7 +493,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         }
 
         int fastFallCD;
-        public void LihzahrdTreasureBoxUpdate()
+        public void TryFastfallUpdate()
         {
             if (fastFallCD > 0)
                 fastFallCD--;
@@ -562,7 +562,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                                         Main.projectile[p].DamageType = DamageClass.Melee;
 
                                     //boulders
-                                    int dam = 50;
+                                    int dam = 1000;
                                     if (MasochistSoul)
                                         dam *= 3;
                                     for (int i = -5; i <= 5; i += 2)

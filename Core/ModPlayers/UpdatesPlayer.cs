@@ -322,7 +322,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             DashManager.ManageDashes(Player);
 
             if (LihzahrdTreasureBoxItem != null || Player.HasEffect<DeerclawpsDive>())
-                LihzahrdTreasureBoxUpdate();
+                TryFastfallUpdate();
             if (Player.HasEffect<DeerclawpsEffect>() && IsInADashState)
                 DeerclawpsEffect.DeerclawpsAttack(Player, Player.Bottom);
 

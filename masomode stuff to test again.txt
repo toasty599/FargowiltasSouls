@@ -75,3 +75,4 @@ paladin bursts into dungeon spirits when killed
 fishron has a chance to drop pirate map
 defenseless nerfed, no longer strips kb immune
 	you make a noise when hit while defenseless though
+increased lihzahrd treasure box base damage to 1000 (was 100)
