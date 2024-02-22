@@ -586,7 +586,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.statDefense -= 30;
                 Player.endurance = 0;
                 Player.longInvince = false;
-                Player.noKnockback = false;
+                //Player.noKnockback = false;
             }
 
             if (Purified)
