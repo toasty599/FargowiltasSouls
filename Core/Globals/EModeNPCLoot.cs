@@ -460,6 +460,7 @@ namespace FargowiltasSouls.Core.Globals
                         FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.ByCondition(new Conditions.IsHardmode(), ModContent.ItemType<FrigidGemstone>(), 5));
 
                         FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<FrigidGemstone>()));
+                        FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.SnowGlobe));
                     }
                     break;
                 case NPCID.MisterStabby:
