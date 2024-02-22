@@ -3195,6 +3195,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (NPC.ai[1] > 0 && NPC.ai[1] % attackDelay == 0)
             {
+                EdgyBossText(GFBQuote(35));
+
                 float oldOffset = NPC.ai[2];
                 while (NPC.ai[2] == oldOffset)
                     NPC.ai[2] = Main.rand.Next(-1, 2); //roll -1, 0, 1
