@@ -2731,8 +2731,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     basePos.X -= 1200;
                     float yOffset = -1300;
 
-                    const float safeRange = 110;
-                    const int spacing = 75;
+                    const int safeRange = 110;
+                    const int spacing = safeRange;
                     for (int i = 0; i < 2400; i += spacing)
                     {
                         float rightOffset = NPC.localAI[0] + safeRange + i;

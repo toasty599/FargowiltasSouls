@@ -77,3 +77,5 @@ defenseless nerfed, no longer strips kb immune
 	you make a noise when hit while defenseless though
 increased lihzahrd treasure box base damage to 1000 (was 100)
 BLUE
+
+fixed proj despawn issue in mutant qs attack
