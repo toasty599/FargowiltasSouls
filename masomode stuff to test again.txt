@@ -84,3 +84,4 @@ updated to actually give correct sentry slots that their tooltips state
 	gaia set bonus 1 -> 0
 	styx crown 2 -> 1
 	eri hat 2 -> 1
+fixed nymphs perfume passive effect not working in vanity slot
