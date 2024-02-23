@@ -86,3 +86,4 @@ updated to actually give correct sentry slots that their tooltips state
 	eri hat 2 -> 1
 fixed nymphs perfume passive effect not working in vanity slot
 security wallet buff, all effects work from inventory
+changed golem bouncing boulder trail for visibility

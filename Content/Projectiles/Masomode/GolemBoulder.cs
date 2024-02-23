@@ -159,7 +159,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
 
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
             {
-                Color color27 = color26;
+                Color color27 = Projectile.GetAlpha(Color.Orange);
+                color27.A = 50;
                 color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
