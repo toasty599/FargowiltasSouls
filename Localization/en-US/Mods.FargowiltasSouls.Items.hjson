@@ -1504,6 +1504,7 @@ SecurityWallet: {
 		'''
 		Grants immunity to Midas
 		Drastically improves reforges
+		Effects work from inventory
 		'Not secure against being looted off of one's corpse'
 		'''
 }
