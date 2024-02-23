@@ -80,3 +80,7 @@ BLUE
 
 fixed proj despawn issue in mutant qs attack
 plantera can actually despawn in phase 1/2
+updated to actually give correct sentry slots that their tooltips state
+	gaia set bonus 1 -> 0
+	styx crown 2 -> 1
+	eri hat 2 -> 1
