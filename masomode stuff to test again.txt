@@ -79,3 +79,4 @@ increased lihzahrd treasure box base damage to 1000 (was 100)
 BLUE
 
 fixed proj despawn issue in mutant qs attack
+plantera can actually despawn in phase 1/2
