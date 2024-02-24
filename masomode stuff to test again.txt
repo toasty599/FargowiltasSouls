@@ -92,3 +92,5 @@ made mech balls easier to see
 nerfed wof ichor attack damage 150 -> 112
 reduced mimic iframes 20t to 15t
 martian saucer can jumpscare you phm post skeletron
+
+saucer phm has -80% life, -50% defense, and reduced move speed
