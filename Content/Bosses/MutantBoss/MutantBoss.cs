@@ -3233,8 +3233,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
 
-            //doing it this way to make the endtimes discrete
-            int endTime = attackDelay * 6 + attackDelay * (int)Math.Round(4 * endTimeVariance);
+            //(attacks + 1) - 5 to stop mutant from doing the last one, give a gap to next attack
+            //doing the math round to make the endtimes discrete
+            const int attacksToDo = 6;
+            int endTime = attackDelay * (attacksToDo + 1) - 5 + attackDelay * (int)Math.Round(4 * endTimeVariance);
             if (++NPC.ai[1] > endTime)
             {
                 ChooseNextAttack(13, 19, 20, 21, 24, 31, 33, 35, 41, 44);
