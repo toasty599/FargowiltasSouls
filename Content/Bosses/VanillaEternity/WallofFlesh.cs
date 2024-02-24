@@ -192,7 +192,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     distance.Y = distance.Y / time - 0.5f * gravity * time;
 
                                     Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center + Vector2.UnitX * Math.Sign(npc.velocity.X) * 32f, distance,
-                                        ModContent.ProjectileType<GoldenShowerWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer, time);
+                                        ModContent.ProjectileType<GoldenShowerWOF>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.75f), 0f, Main.myPlayer, time);
                                 }
                             }
                         }

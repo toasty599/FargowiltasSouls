@@ -89,3 +89,4 @@ security wallet buff, all effects work from inventory
 changed golem bouncing boulder trail for visibility
 spazmatism spazzes out during ray spin
 made mech balls easier to see
+nerfed wof ichor attack damage 150 -> 112
