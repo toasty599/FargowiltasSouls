@@ -3191,7 +3191,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Vector2 targetPos = player.Center + NPC.DirectionFrom(player.Center) * 300;
             Movement(targetPos, 0.3f);
 
-            int attackDelay = WorldSavingSystem.MasochistModeReal ? 40 : 60;
+            int attackDelay = WorldSavingSystem.MasochistModeReal ? 50 : 70;
 
             if (NPC.ai[1] > 0 && NPC.ai[1] % attackDelay == 0)
             {
