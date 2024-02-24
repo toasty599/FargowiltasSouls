@@ -3219,7 +3219,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         sansTargetPos.X += xSpeedWhenAttacking * timeToReachMiddle * i;
                         sansTargetPos.Y += gapRadiusHeight * j;
 
-                        int travelTime = 30;
+                        int travelTime = 50;
                         Vector2 vel = (sansTargetPos - NPC.Center) / travelTime;
 
                         if (FargoSoulsUtil.HostCheck)
