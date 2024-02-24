@@ -555,16 +555,18 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                                 if (Player.whoAmI == Main.myPlayer)
                                 {
+                                    int baseDam = 500;
+                                    if (MasochistSoul)
+                                        baseDam *= 3;
+
                                     //explosion
                                     Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, Player.whoAmI);
-                                    int p = Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(200 * Player.ActualClassDamage(DamageClass.Melee)), 9f, Player.whoAmI);
+                                    int p = Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(baseDam * 2 * Player.ActualClassDamage(DamageClass.Melee)), 9f, Player.whoAmI);
                                     if (p != Main.maxProjectiles)
                                         Main.projectile[p].DamageType = DamageClass.Melee;
 
                                     //boulders
-                                    int dam = 1000;
-                                    if (MasochistSoul)
-                                        dam *= 3;
+                                    int dam = baseDam;
                                     for (int i = -5; i <= 5; i += 2)
                                     {
                                         Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i),
@@ -572,10 +574,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                                     }
 
                                     //geysers
-                                    int baseDamage = (int)(50 * Player.ActualClassDamage(DamageClass.Melee));
+                                    int baseDamage = (int)(baseDam / 2 * Player.ActualClassDamage(DamageClass.Melee));
                                     if (MasochistSoul)
                                         baseDamage *= 3;
-                                    Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), baseDamage * 2, 12f, Player.whoAmI);
                                     y -= 2;
                                     for (int i = -3; i <= 3; i++)
                                     {
