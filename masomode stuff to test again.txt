@@ -87,3 +87,5 @@ updated to actually give correct sentry slots that their tooltips state
 fixed nymphs perfume passive effect not working in vanity slot
 security wallet buff, all effects work from inventory
 changed golem bouncing boulder trail for visibility
+spazmatism spazzes out during ray spin
+made mech balls easier to see
