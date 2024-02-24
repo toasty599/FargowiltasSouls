@@ -3203,7 +3203,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                 Vector2 centerPoint = FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null ? player.Center : Main.projectile[ritualProj].Center;
                 float maxVariance = 150; //variance seems a LOT more than this, whatever
-                float maxOffsetWithinStep = maxVariance / 3 * .75f;
+                float maxOffsetWithinStep = maxVariance / 3 * .75f; //x.75 so player always has to move a noticeable amount
                 centerPoint.Y += maxVariance * NPC.ai[2]; //choose one of 3 base heights
                 centerPoint.Y += Main.rand.NextFloat(-maxOffsetWithinStep, maxOffsetWithinStep);
 
