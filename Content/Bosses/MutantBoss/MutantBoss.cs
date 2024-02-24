@@ -3213,7 +3213,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                     for (int j = -1; j <= 1; j += 2) //flappy bird tubes
                     {
-                        float gapRadiusHeight = WorldSavingSystem.MasochistModeReal ? 90 : 120;
+                        float gapRadiusHeight = WorldSavingSystem.MasochistModeReal ? 120 : 150;
                         Vector2 sansTargetPos = centerPoint;
                         const int timeToReachMiddle = 60;
                         sansTargetPos.X += xSpeedWhenAttacking * timeToReachMiddle * i;
