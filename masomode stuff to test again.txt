@@ -95,3 +95,4 @@ martian saucer can jumpscare you phm post skeletron
 
 saucer phm has -80% life, -50% defense, and reduced move speed
 sorted out lizard box damage more
+betsy heart buff, ramming enemy with dash shortens the cd a lot

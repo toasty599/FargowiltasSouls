@@ -104,7 +104,13 @@ namespace FargowiltasSouls.Content.Projectiles
             target.AddBuff(BuffID.BetsysCurse, (int)FargoSoulsUtil.SecondsToFrames(20));
 
             if (Projectile.owner == Main.myPlayer)
+            {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.SolarWhipSwordExplosion, 0, 0f, Main.myPlayer);
+
+                const int reducedCooldown = 100;
+                if (Main.player[Projectile.owner].FargoSouls().SpecialDashCD > reducedCooldown)
+                    Main.player[Projectile.owner].FargoSouls().SpecialDashCD = reducedCooldown;
+            }
         }
 
         public override void OnKill(int timeLeft)
