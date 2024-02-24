@@ -360,6 +360,9 @@ namespace FargowiltasSouls.Core.Globals
 
                             if (WorldSavingSystem.DownedAnyBoss)
                                 pool[NPCID.WyvernHead] = .005f;
+
+                            if (NPC.downedBoss3)
+                                pool[NPCID.MartianSaucerCore] = 0.001f;
                         }
                     }
 

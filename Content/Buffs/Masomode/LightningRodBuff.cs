@@ -54,7 +54,7 @@ namespace FargowiltasSouls.Content.Buffs.Masomode
         {
             //spawns lightning once per second
             player.FargoSouls().lightningRodTimer++;
-            if (player.FargoSouls().lightningRodTimer >= 120)
+            if (player.FargoSouls().lightningRodTimer >= 60)
             {
                 player.FargoSouls().lightningRodTimer = 0;
                 int damage = (Main.hardMode ? 120 : 60) / 4;

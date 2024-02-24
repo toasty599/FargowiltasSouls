@@ -90,3 +90,5 @@ changed golem bouncing boulder trail for visibility
 spazmatism spazzes out during ray spin
 made mech balls easier to see
 nerfed wof ichor attack damage 150 -> 112
+reduced mimic iframes 20t to 15t
+martian saucer can jumpscare you phm post skeletron
