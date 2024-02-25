@@ -69,12 +69,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 2200;
+            NPC.lifeMax = CursedCoffin.BaseHP;
             NPC.defense = 10;
             NPC.damage = 35;
             NPC.knockBackResist = 0f;
-            NPC.width = 120;
-            NPC.height = 120;
+            NPC.width = 110;
+            NPC.height = 110;
             //NPC.boss = true;
             NPC.lavaImmune = true;
             NPC.noGravity = true;
@@ -85,6 +85,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             NPC.hide = true;
 
             NPC.value = Item.buyPrice(0, 0);
+            NPC.Opacity = 0;
 
         }
         
@@ -129,6 +130,15 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 BiteTimer = 360;
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, NPC.whoAmI);
+
+                NPC owner = FargoSoulsUtil.NPCExists(Owner, ModContent.NPCType<CursedCoffin>());
+                if (owner.TypeAlive<CursedCoffin>())
+                {
+                    owner.As<CursedCoffin>().Reset();
+                    owner.As<CursedCoffin>().State = (float)CursedCoffin.StateEnum.SpiritGrabPunish;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, owner.whoAmI);
+                }
             }
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
@@ -181,9 +191,20 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             (float)CursedCoffin.StateEnum.PhaseTransition,
             (float)CursedCoffin.StateEnum.WavyShotCircle,
             (float)CursedCoffin.StateEnum.WavyShotFlight,
-            (float)CursedCoffin.StateEnum.RandomStuff
+            (float)CursedCoffin.StateEnum.RandomStuff,
+            (float)CursedCoffin.StateEnum.GrabbyHands
         };
         public override bool CheckActive() => false;
+        public override void OnKill()
+        {
+            NPC owner = FargoSoulsUtil.NPCExists(Owner, ModContent.NPCType<CursedCoffin>());
+            if (!owner.TypeAlive<CursedCoffin>())
+            {
+                return;
+            }
+            if (FargoSoulsUtil.HostCheck)
+                owner.StrikeInstantKill();
+        }
         #region AI
         public override void AI()
         {
@@ -194,10 +215,15 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 return;
             }
 
-            if (StartupFadein < 30)
+            if (StartupFadein < 10)
             {
                 StartupFadein++;
-                NPC.scale = MathHelper.Lerp(0, 1, StartupFadein / 30f);
+                NPC.Opacity = 0;
+            }
+            else if (StartupFadein == 10)
+            {
+                NPC.Opacity = 1;
+                StartupFadein++;
             }
                 
             // share healthbar
@@ -266,6 +292,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     SlamSupport(owner);
                     break;
+                    /*
                 case CursedCoffin.StateEnum.GrabbyHands:
                     {
                         Timer = 0;
@@ -273,6 +300,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     }
                     GrabbyHands(owner);
                     break;
+                    */
                 case var _ when SlowChargeStates.Contains(coffin.State):
                     if (!SlowChargeStates.Contains(State))
                     {
@@ -387,7 +415,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 if (NPC.velocity.Length() > 6.5f)
                     NPC.velocity *= 0.97f;
 
-                if (Timer <= 130)
+                if (Timer <= 130 && !WorldSavingSystem.MasochistModeReal)
                     NPC.velocity *= Timer / 130;
                 /*
                 Movement(player.Center, 0.02f, 10, 10, 0.04f, 10);

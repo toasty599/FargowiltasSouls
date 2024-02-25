@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
     [AutoloadBossHead]
     public partial class CursedCoffin : ModNPC
     {
-        public const bool Enabled = false;
+        public const bool Enabled = true;
         public override bool IsLoadingEnabled(Mod mod) => Enabled; 
 
         #region Variables
@@ -77,10 +77,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             });
 
         }
+        public const int BaseHP = 3050;
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 2222;
+            NPC.lifeMax = BaseHP;
             NPC.defense = 10;
             NPC.damage = 35;
             NPC.knockBackResist = 0f;
@@ -99,30 +100,54 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             NPC.value = Item.buyPrice(0, 2);
 
         }
-        public override bool? CanBeHitByItem(Player player, Item item)
+        public override bool ModifyCollisionData(Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
         {
-            if (PhaseTwo || !WorldSavingSystem.EternityMode)
-                return null;
-            //if (Frame > 1)
-              //  return false;
-            return null;
-            //return item.Hitbox.Intersects(MaskHitbox()) ? null : false;
+            if (NPC.rotation != 0)
+            {
+                int center = npcHitbox.Y + npcHitbox.Height / 2;
+                npcHitbox.Height = npcHitbox.Width;
+                npcHitbox.Y = (int)center - npcHitbox.Height / 2;
+            }
+            return base.ModifyCollisionData(victimHitbox, ref immunityCooldownSlot, ref damageMultiplier, ref npcHitbox);
         }
-        public override bool? CanBeHitByProjectile(Projectile projectile)
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (PhaseTwo || !WorldSavingSystem.EternityMode)
-                return null;
-            if (Frame > 1)
-                return false;
-            return projectile.Colliding(projectile.Hitbox, MaskHitbox()) ? null : false;
+            if (!PhaseTwo && projectile.Colliding(projectile.Hitbox, TopHitbox()) && Frame <= 1)
+            {
+                NPC.HitSound = SoundID.NPCHit54;
+                modifiers.FinalDamage *= 1.3f;
+            }
+            else
+            {
+                NPC.HitSound = SoundID.NPCHit4;
+            }
+            base.ModifyHitByProjectile(projectile, ref modifiers);
         }
-        
+        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
+        {
+            if (!PhaseTwo && item.Hitbox.Intersects(TopHitbox()) && Frame <= 1)
+            {
+                NPC.HitSound = SoundID.NPCHit54;
+                modifiers.FinalDamage *= 1.3f;
+            }
+            else
+            {
+                NPC.HitSound = SoundID.NPCHit4;
+            }
+            base.ModifyHitByItem(player, item, ref modifiers);
+        }
+        public Rectangle TopHitbox()
+        {
+            return new((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height / 3);
+        }
+        /*
         public Rectangle MaskHitbox()
         {
             Vector2 maskCenter = MaskCenter();
             int maskRadius = 24;
             return new((int)(maskCenter.X - maskRadius * NPC.scale), (int)(maskCenter.Y - maskRadius * NPC.scale), maskRadius * 2, maskRadius * 2);
         }
+        */
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * balance);

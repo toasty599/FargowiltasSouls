@@ -58,6 +58,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
         public override void AI()
         {
+            if (Projectile.localAI[1] < 12)
+            {
+                Projectile.localAI[1]++;
+                Projectile.scale = MathHelper.Lerp(0, 1, Projectile.localAI[1] / 12);
+            }
+
             if (Projectile.localAI[0] == 0)
                 Projectile.localAI[0] = Main.rand.NextBool() ? 1 : -1;
 
