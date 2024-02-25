@@ -119,8 +119,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (WorldSavingSystem.SwarmActive)
                 return result;
 
-            if (!npc.HasValidTarget && !EnteredPhase3)
+            if (!EnteredPhase3 && (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 3000))
+            {
                 npc.velocity.Y++;
+                npc.TargetClosest(false);
+                if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 3000)
+                {
+                    if (npc.timeLeft > 60)
+                        npc.timeLeft = 60;
+                }
+            }
 
             Player player = Main.player[npc.target];
 
@@ -176,11 +184,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
 
                 //Targeting
-                if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 5000)
+                if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 3000)
                 {
                     npc.TargetClosest(false);
                     player = Main.player[npc.target];
-                    if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 5000)
+                    if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 3000)
                     {
                         if (npc.timeLeft > 60)
                             npc.timeLeft = 60;

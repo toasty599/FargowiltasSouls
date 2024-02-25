@@ -310,6 +310,9 @@ namespace FargowiltasSouls.Core.Globals
 
                         if (Main.slimeRain && NPC.downedBoss2 && bossCanSpawn)
                             pool[NPCID.KingSlime] = 0.004f;
+
+                        if (day && NPC.downedGolemBoss && (noBiome || dungeon))
+                            pool[NPCID.CultistArcherWhite] = .01f;
                     }
                     else if (wideUnderground)
                     {
@@ -357,6 +360,9 @@ namespace FargowiltasSouls.Core.Globals
 
                             if (WorldSavingSystem.DownedAnyBoss)
                                 pool[NPCID.WyvernHead] = .005f;
+
+                            if (NPC.downedBoss3)
+                                pool[NPCID.MartianSaucerCore] = 0.001f;
                         }
                     }
 
@@ -416,7 +422,7 @@ namespace FargowiltasSouls.Core.Globals
                                 if (noBiome && bossCanSpawn)
                                     pool[NPCID.KingSlime] = Main.slimeRain ? .0004f : .0002f;
 
-                                if (NPC.downedMechBossAny && (noBiome || dungeon))
+                                if (NPC.downedGolemBoss && (noBiome || dungeon))
                                     pool[NPCID.CultistArcherWhite] = .01f;
 
                                 if (jungle)

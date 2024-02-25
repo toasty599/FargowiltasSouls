@@ -1042,7 +1042,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Main.rand.NextVector2Unit() * 2f, ModContent.ProjectileType<MothDust>(), projectileDamage, 0f, Main.myPlayer);
                 }
 
-                if (Timer == 0 && WorldSavingSystem.EternityMode && (SubTimer % 2 == 1 || WorldSavingSystem.MasochistModeReal))
+                if (Timer == 0 && WorldSavingSystem.EternityMode && ((SubTimer % 2 == 1 && Phase > 1) || WorldSavingSystem.MasochistModeReal))
                 {
                     int max = WorldSavingSystem.MasochistModeReal ? 8 : 3;
                     float spread = WorldSavingSystem.MasochistModeReal ? 64 : 48;

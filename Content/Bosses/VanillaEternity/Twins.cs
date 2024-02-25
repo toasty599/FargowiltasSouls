@@ -436,6 +436,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public bool ForcedPhase2OnSpawn;
         public bool HasSaidEndure;
         public bool Resist;
+        public float RealRotation;
         public int RespawnTimer;
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
@@ -637,9 +638,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         npc.velocity = (target - npc.Center) / 60;
 
                         float rotationInterval = 2f * (float)Math.PI * 1.2f / 4f / 60f * 0.65f;
+                        rotationInterval *= retinazer.GetGlobalNPC<Retinazer>().StoredDirectionToPlayer ? 1f : -1f;
                         if (WorldSavingSystem.MasochistModeReal)
                             rotationInterval *= -1f;
-                        npc.rotation += rotationInterval * (retinazer.GetGlobalNPC<Retinazer>().StoredDirectionToPlayer ? 1f : -1f);
+                        
+                        npc.rotation += rotationInterval * ProjectileTimer / 20f;
+                        RealRotation += rotationInterval;
 
                         if (FlameWheelSpreadTimer < 0)
                             FlameWheelSpreadTimer = 0;
@@ -653,21 +657,22 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 FlameWheelCount = 4;
                             if (modifier < 0.5f / 4 * 1 || WorldSavingSystem.MasochistModeReal)
                                 FlameWheelCount = 5;
+
+                            ProjectileTimer = 0;
                         }
 
                         if (++FlameWheelSpreadTimer < 30) //snap to reti, don't do contact damage
                         {
                             npc.rotation = npc.DirectionTo(retinazer.Center).ToRotation() - (float)Math.PI / 2;
+                            RealRotation = npc.rotation;
                         }
-                        else if (++ProjectileTimer > 15) //rings of stars
+                        else if (++ProjectileTimer % 15 == 0) //rings of stars
                         {
-                            ProjectileTimer = 0;
-
                             if (FargoSoulsUtil.HostCheck)
                             {
                                 float speed = 12f * Math.Min((FlameWheelSpreadTimer - 30) / 120f, 1f); //fan out gradually
                                 int timeLeft = (int)(speed / 12f * 90f);
-                                float baseRotation = npc.rotation + (float)Math.PI / 2;
+                                float baseRotation = RealRotation + (float)Math.PI / 2;
                                 if (timeLeft > 5)
                                 {
                                     for (int i = 0; i < FlameWheelCount; i++)

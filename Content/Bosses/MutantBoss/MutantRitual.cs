@@ -19,7 +19,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         private const float realRotation = MathHelper.Pi / 140f;
         private bool MutantDead;
 
-        public MutantRitual() : base(realRotation, 1200f, ModContent.NPCType<MutantBoss>()) { }
+        public MutantRitual() : base(realRotation, 1200f, ModContent.NPCType<MutantBoss>(), visualCount: 48) { }
 
         public override void SetStaticDefaults()
         {
@@ -51,6 +51,21 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Projectile.velocity = Vector2.Zero;
 
                 targetRotation = -realRotation / 2; //denote arena isn't moving
+            }
+            else if (npc.ai[0] == 49) //golem
+            {
+                if (npc.HasValidTarget && npc.ai[1] < 30) //snap it to player at start
+                {
+                    Projectile.velocity = (Main.player[npc.target].Center - Projectile.Center) / 10f;
+
+                    targetRotation = realRotation;
+                }
+                else
+                {
+                    Projectile.velocity = Vector2.Zero;
+
+                    targetRotation = -realRotation / 2; //denote arena isn't moving
+                }
             }
             else
             {

@@ -177,7 +177,8 @@ namespace FargowiltasSouls.Core.Globals
                             ItemID.FinWings,
                             ItemID.BottomlessBucket,
                             ItemID.SuperAbsorbantSponge,
-                            ItemID.HotlineFishingHook
+                            ItemID.HotlineFishingHook,
+                            ItemID.PirateMap
                         ));
                     }
                     break;
@@ -413,6 +414,9 @@ namespace FargowiltasSouls.Core.Globals
                 case NPCID.BrainScrambler:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.BrainScrambler, 100));
                     break;
+                case NPCID.CultistArcherWhite:
+                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.Find<ModItem>("Fargowiltas", "CultistSummon").Type, 100));
+                    break;
                 case var _ when MushroomEnemies.Contains(npc.type):
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.GlowingMushroom, 1, 1, 5));
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.MushroomGrassSeeds, 5));
@@ -457,6 +461,7 @@ namespace FargowiltasSouls.Core.Globals
                         FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.ByCondition(new Conditions.IsHardmode(), ModContent.ItemType<FrigidGemstone>(), 5));
 
                         FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<FrigidGemstone>()));
+                        FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.SnowGlobe));
                     }
                     break;
                 case NPCID.MisterStabby:
@@ -465,7 +470,7 @@ namespace FargowiltasSouls.Core.Globals
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<OrdinaryCarrot>(), 50));
                     break;
                 case NPCID.Shark:
-                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<HokeyBall>(), 1000));
+                    FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ModContent.ItemType<HokeyBall>(), 100));
                     break;
                 case NPCID.SporeBat:
                     FargoSoulsUtil.EModeDrop(npcLoot, ItemDropRule.Common(ItemID.Shroomerang, 10));
@@ -525,14 +530,6 @@ namespace FargowiltasSouls.Core.Globals
                     case NPCID.DuneSplicerHead:
                         FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.SandstorminaBottle, 3));
                         FargoSoulsUtil.AddEarlyBirdDrop(npcLoot, ItemDropRule.Common(ItemID.OasisCrate));
-                        break;
-
-                    case NPCID.IceGolem:
-                        npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.FrostCore && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
-                        break;
-
-                    case NPCID.SandElemental:
-                        npcLoot.RemoveWhere(rule => rule is CommonDrop drop && drop.itemId == ItemID.AncientBattleArmorMaterial && FargoSoulsUtil.LockEarlyBirdDrop(npcLoot, rule));
                         break;
 
                     default: break;

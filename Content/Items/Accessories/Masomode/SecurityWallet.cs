@@ -32,11 +32,26 @@ Drastically improves reforges
             Item.value = Item.sellPrice(0, 4);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        private void Effects(Player player)
         {
             player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.MidasBuff>()] = true;
             player.buffImmune[Terraria.ModLoader.ModContent.BuffType<Buffs.Masomode.LoosePocketsBuff>()] = true;
             player.FargoSouls().SecurityWallet = true;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            Effects(player);
+        }
+
+        public override void UpdateVanity(Player player)
+        {
+            Effects(player);
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            Effects(player);
         }
     }
 }

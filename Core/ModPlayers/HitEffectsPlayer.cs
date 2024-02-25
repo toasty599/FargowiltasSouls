@@ -22,6 +22,7 @@ using Terraria.Audio;
 using FargowiltasSouls.Content.Items.Accessories.Masomode;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -386,7 +387,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (ModContent.GetInstance<SoulConfig>().BigTossMode)
             {
-                AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 120);
+                AddBuffNoStack(ModContent.BuffType<StunnedBuff>(), 60);
 
                 Vector2 attacker = default;
                 if (npc != null)
@@ -477,7 +478,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (Player.HasBuff(ModContent.BuffType<TitaniumDRBuff>())
                 && !Player.HasBuff(ModContent.BuffType<TitaniumCDBuff>()))
             {
-                Player.AddBuff(ModContent.BuffType<TitaniumCDBuff>(), 60 * 10);
+                Player.AddBuff(ModContent.BuffType<TitaniumCDBuff>(), (int)FargoSoulsUtil.SecondsToFrames(10));
             }
 
             if (NekomiSet && NekomiHitCD <= 0)
@@ -491,7 +492,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 int heartsToConsume = NekomiMeter / meterPerHeart;
                 if (heartsToConsume > heartsLost)
                     heartsToConsume = heartsLost;
-                Player.AddBuff(BuffID.RapidHealing, heartsToConsume * 60 * 5 / heartsLost);
+                Player.AddBuff(BuffID.RapidHealing, (int)FargoSoulsUtil.SecondsToFrames(heartsToConsume) * 5 / heartsLost);
 
                 NekomiMeter -= meterLost;
                 if (NekomiMeter < 0)
@@ -515,11 +516,43 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
+            if (Defenseless)
+            {
+                SoundEngine.PlaySound(SoundID.Item27, Player.Center);
+                for (int i = 0; i < 30; i++)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.t_SteampunkMetal, 0, 0, 0, default, 2f);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 5f;
+                }
+            }
+
             if (Midas && Main.myPlayer == Player.whoAmI)
                 Player.DropCoins();
 
             DeviGrazeBonus = 0;
             DeviGrazeCounter = 0;
+
+            if (Main.myPlayer == Player.whoAmI)
+            {
+                if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()) && EModeGlobalNPC.mutantBoss.IsWithinBounds(Main.maxNPCs))
+                {
+                    The22Incident++;
+                    Rectangle rect = new Rectangle((int)Player.Center.X - 111, (int)Player.Center.Y, 222, 222);
+                    for (int i = 0; i < The22Incident; i++)
+                        CombatText.NewText(rect, Color.DarkOrange, The22Incident, true);
+                    if (The22Incident >= 22)
+                    {
+                        Player.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.TwentyTwo", Player.name)), 22222222, 0);
+                        Projectile.NewProjectile(Player.GetSource_Death(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TwentyTwo>(), 0, 0f, Main.myPlayer);
+                        Screenshake = 60;
+                    }
+                }
+                else
+                {
+                    The22Incident = 0;
+                }
+            }
         }
     }
 }

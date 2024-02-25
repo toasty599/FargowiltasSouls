@@ -42,6 +42,12 @@ Your attacks occasionally produce hearts
             fargoPlayer.NymphsPerfumeRespawn = true;
         }
 
+        public override void UpdateVanity(Player player)
+        {
+            FargoSoulsPlayer fargoPlayer = player.FargoSouls();
+            fargoPlayer.NymphsPerfumeRespawn = true;
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.buffImmune[BuffID.Lovestruck] = true;

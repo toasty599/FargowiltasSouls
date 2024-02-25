@@ -37,7 +37,6 @@ Increases max number of minions and sentries by 1"); */
             player.GetCritChance(DamageClass.Generic) += 5;
 
             player.maxMinions += 1;
-            player.maxTurrets += 1;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -98,7 +97,7 @@ Increases max number of minions and sentries by 1"); */
             player.GetAttackSpeed(DamageClass.Melee) += 0.1f;
             player.manaCost -= 0.1f;
             player.maxMinions += 4;
-            player.maxTurrets += 4;
+            player.maxTurrets += 1;
 
 
             if (fargoPlayer.GaiaOffense)

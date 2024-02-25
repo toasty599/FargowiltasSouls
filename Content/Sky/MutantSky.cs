@@ -66,6 +66,10 @@ namespace FargowiltasSouls.Content.Sky
                         ChangeColorIfDefault(Color.DeepPink);
                         break;
 
+                    case 48: //queen slime
+                        ChangeColorIfDefault(Color.Purple);
+                        break;
+
                     default:
                         break;
                 }

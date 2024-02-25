@@ -276,7 +276,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             {
                 npc.dontTakeDamage = false;
                 if (npc.justHit && Main.hardMode)
-                    InvulFrameTimer = 20;
+                    InvulFrameTimer = 15;
                 if (InvulFrameTimer > 0)
                 {
                     InvulFrameTimer--;

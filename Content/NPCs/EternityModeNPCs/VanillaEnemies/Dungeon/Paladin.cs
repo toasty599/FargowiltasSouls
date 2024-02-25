@@ -78,5 +78,17 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
 
             target.AddBuff(ModContent.BuffType<LethargicBuff>(), 600);
         }
+
+        public override void OnKill(NPC npc)
+        {
+            if (FargoSoulsUtil.HostCheck)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    FargoSoulsUtil.NewNPCEasy(npc.GetSource_FromThis(), npc.Center, NPCID.DungeonSpirit,
+                        velocity: Main.rand.NextVector2Circular(16f, 16f));
+                }
+            }
+        }
     }
 }

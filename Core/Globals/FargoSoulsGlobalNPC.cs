@@ -86,6 +86,7 @@ namespace FargowiltasSouls.Core.Globals
         public bool MoltenAmplify;
         public bool Anticoagulation;
         public bool BloodDrinker;
+        public bool MagicalCurse;
 
         public int NecroDamage;
 
@@ -134,6 +135,7 @@ namespace FargowiltasSouls.Core.Globals
             Anticoagulation = false;
             BloodDrinker = false;
             FlamesoftheUniverse = false;
+            MagicalCurse = false;
             PungentGazeTime = 0;
         }
         public override void SetStaticDefaults()
@@ -386,6 +388,17 @@ namespace FargowiltasSouls.Core.Globals
                         d.noGravity = false;
                         d.scale *= 0.5f;
                     }
+                }
+            }
+
+            if (MagicalCurse)
+            {
+                if (Main.rand.NextBool(4))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 107 : 157);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 0.2f;
+                    Main.dust[d].scale = 1.5f;
                 }
             }
 
@@ -892,6 +905,12 @@ namespace FargowiltasSouls.Core.Globals
             if (modPlayer.Player.HasEffect<OrichalcumEffect>() && npc.lifeRegen < 0)
             {
                 OrichalcumEffect.OriDotModifier(npc, modPlayer, ref damage);
+            }
+
+            if (MagicalCurse && npc.lifeRegen < 0)
+            {
+                npc.lifeRegen *= 2;
+                damage *= 2;
             }
 
             if (TimeFrozen && npc.life == 1)

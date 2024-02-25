@@ -55,11 +55,6 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             behindProjectiles.Add(index);
         }
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.Black;
-        }
-
         public override void AI()
         {
             if (Projectile.localAI[0] == 0)
@@ -176,19 +171,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             SpriteEffects effects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            /*for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
-            {
-                Color color27 = Color.Fuchsia * Projectile.Opacity;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
-                float scale = Projectile.scale;// * 0.9f;
-                scale *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
-                Vector2 value4 = Projectile.oldPos[i];
-                float num165 = Projectile.oldRot[i] + (Main.GlobalTime * 0.6f);
-                Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
-                    color27, num165, origin2, scale, effects, 0);
-            }*/
-
-            Color color27 = Color.Fuchsia * Projectile.Opacity;
+            Color color27 = Projectile.GetAlpha(Color.Fuchsia);
             float scale = Projectile.scale;
             Vector2 value4 = Projectile.Center;
             if (Projectile.velocity != Vector2.Zero && !Projectile.velocity.HasNaNs())
@@ -200,12 +183,12 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Main.EntitySpriteDraw(texture2D13, previousPosOffset + value4 - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
                 color27, prevPosRotation, origin2, scale, effects, 0);
             Main.EntitySpriteDraw(texture2D13, previousPosOffset + Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
-                Color.Black * Projectile.Opacity, prevPosRotation, origin2, Projectile.scale, effects, 0);
+                Projectile.GetAlpha(Color.Black), prevPosRotation, origin2, Projectile.scale, effects, 0);
 
             Main.EntitySpriteDraw(texture2D13, value4 - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
                 color27, num165, origin2, scale, effects, 0);
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle),
-                Color.Black * Projectile.Opacity, num165, origin2, Projectile.scale, effects, 0);
+                Projectile.GetAlpha(Color.Black), num165, origin2, Projectile.scale, effects, 0);
             return false;
         }
     }
