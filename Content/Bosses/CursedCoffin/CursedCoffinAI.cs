@@ -11,6 +11,7 @@ using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Items.Summons;
 using FargowiltasSouls.Common.StateMachines;
+using static FargowiltasSouls.Content.Bosses.BanishedBaron.BanishedBaron;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
@@ -36,6 +37,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			Opening,
 			PhaseTransition,
 			StunPunish,
+			SpiritGrabPunish,
 			HoveringForSlam,
 			SlamWShockwave,
 			WavyShotCircle,
@@ -186,8 +188,32 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 					Frame--;
 			}
 		}
+        [AutoloadAsBehavior<BehaviorStates>(BehaviorStates.SpiritGrabPunish)]
+        public void SpiritGrabPunish()
+        {
+            ref float initialDir = ref AI2;
+            ref float initialDist = ref AI3;
+            HoverSound();
+            const int PrepTime = 60;
 
-		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.HoveringForSlam)]
+            if (++NPC.frameCounter % 10 == 9 && Frame > 0)
+                Frame--;
+
+            if (Timer <= 1)
+            {
+                initialDir = Player.DirectionTo(NPC.Center).ToRotation();
+                initialDist = NPC.Distance(Player.Center);
+            }
+            if (Timer <= PrepTime)
+            {
+                float progress = Timer / PrepTime;
+                float distance = MathHelper.Lerp(initialDist, 350, progress);
+                Vector2 direction = Vector2.Lerp(initialDir.ToRotationVector2(), -Vector2.UnitY, progress);
+                Vector2 desiredPos = Player.Center + distance * direction;
+                NPC.velocity = (desiredPos - NPC.Center);
+            }
+        }
+        [AutoloadAsBehavior<BehaviorStates>(BehaviorStates.HoveringForSlam)]
 		public void HoveringForSlam()
 		{
 			const float WaveAmpX = 200;

@@ -78,7 +78,15 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				Frame = 0;
 			});
 
-			StateMachine.RegisterTransition(BehaviorStates.HoveringForSlam, BehaviorStates.SlamWShockwave, false, () => Timer == AI3, () =>
+            StateMachine.RegisterTransition(BehaviorStates.SpiritGrabPunish, BehaviorStates.SlamWShockwave, false, () => Timer > 60, () =>
+            {
+                NPC.noTileCollide = true;
+                LockVector1 = Player.Top - Vector2.UnitY * 250;
+                NPC.velocity = Vector2.Zero;
+                NPC.velocity.Y = -2;
+            });
+
+            StateMachine.RegisterTransition(BehaviorStates.HoveringForSlam, BehaviorStates.SlamWShockwave, false, () => Timer == AI3, () =>
 			{
 				NPC.velocity.Y = -5;
 				NPC.velocity.X /= 2;

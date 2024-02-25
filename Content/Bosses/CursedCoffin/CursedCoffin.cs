@@ -75,10 +75,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			});
 
         }
+		public const int BaseHP = 2222;
         public override void SetDefaults()
         {
             NPC.aiStyle = -1;
-            NPC.lifeMax = 2222;
+            NPC.lifeMax = BaseHP;
             NPC.defense = 10;
             NPC.damage = 35;
             NPC.knockBackResist = 0f;

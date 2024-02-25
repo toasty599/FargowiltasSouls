@@ -134,8 +134,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 NPC owner = FargoSoulsUtil.NPCExists(Owner, ModContent.NPCType<CursedCoffin>());
                 if (owner.TypeAlive<CursedCoffin>())
                 {
-                    owner.As<CursedCoffin>().Reset();
-                    owner.As<CursedCoffin>().State = (float)CursedCoffin.StateEnum.SpiritGrabPunish;
+                    // TODO: TRANSITION TO GRAB PUNISH
+                    //owner.As<CursedCoffin>().Reset();
+                    //owner.As<CursedCoffin>().State = (float)CursedCoffin.BehaviorStates.SpiritGrabPunish;
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, owner.whoAmI);
                 }
