@@ -128,14 +128,21 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
-
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
             writer.Write(NPC.localAI[3]);
             writer.Write(PhaseTwo);
             writer.Write7BitEncodedInt(LastAttackChoice);
-        }
+
+			// 1. Write the number of states on the stack.
+			writer.Write(StateMachine.StateStack.Count);
+
+			// 2. Write the state IDs as ints to the stack in the order they are on the stack. Also write the timers.
+			var stackArray = StateMachine.StateStack.ToArray();
+			for (int i = 0; i < StateMachine.StateStack.Count; i++)
+				writer.Write((int)stackArray[i].ID);
+		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
