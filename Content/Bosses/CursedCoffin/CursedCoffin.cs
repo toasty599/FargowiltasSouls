@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Content.Buffs.Souls;
+using tModPorter;
+using Microsoft.CodeAnalysis;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 {
@@ -38,9 +40,15 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
 		//NPC.ai[] overrides
 		public ref float Timer => ref StateMachine.CurrentState.Timer;
-		public ref float State => ref NPC.ai[1];
-		public ref float AI2 => ref NPC.ai[2];
+        /// <summary>
+        /// Setting this to a number except 0 immediately forces the SpiritGrabPunish state.
+		/// This happens when the Spirit grabs a player.
+        /// </summary>
+        public ref float ForceGrabPunish => ref NPC.ai[1];
+        public ref float AI2 => ref NPC.ai[2];
 		public ref float AI3 => ref NPC.ai[3];
+
+		public bool DontBounce = false;
 
 		public Vector2 MaskCenter() => NPC.Center - Vector2.UnitY * NPC.height * NPC.scale / 4;
 
@@ -89,7 +97,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             NPC.lavaImmune = true;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.HitSound = SoundID.NPCHit4;
+            NPC.HitSound = SoundID.NPCHit4; 
             NPC.DeathSound = SoundID.NPCDeath6;
 
 			Music = MusicID.OtherworldlyBoss1;
@@ -98,30 +106,55 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			NPC.value = Item.buyPrice(0, 2);
 
         }
-        public override bool? CanBeHitByItem(Player player, Item item)
+        public override bool ModifyCollisionData(Rectangle victimHitbox, ref int immunityCooldownSlot, ref MultipliableFloat damageMultiplier, ref Rectangle npcHitbox)
         {
-            if (PhaseTwo || !WorldSavingSystem.EternityMode)
-                return null;
-            //if (Frame > 1)
-              //  return false;
-            return null;
-            //return item.Hitbox.Intersects(MaskHitbox()) ? null : false;
+            if (NPC.rotation != 0)
+            {
+                int center = npcHitbox.Y + npcHitbox.Height / 2;
+                npcHitbox.Height = npcHitbox.Width;
+                npcHitbox.Y = (int)center - npcHitbox.Height / 2;
+            }
+            return base.ModifyCollisionData(victimHitbox, ref immunityCooldownSlot, ref damageMultiplier, ref npcHitbox);
         }
-        public override bool? CanBeHitByProjectile(Projectile projectile)
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (PhaseTwo || !WorldSavingSystem.EternityMode)
-                return null;
-            if (Frame > 1)
-                return false;
-            return projectile.Colliding(projectile.Hitbox, MaskHitbox()) ? null : false;
+            if (!PhaseTwo && projectile.Colliding(projectile.Hitbox, TopHitbox()) && Frame <= 1)
+            {
+                NPC.HitSound = SoundID.NPCHit54;
+                modifiers.FinalDamage *= 1.3f;
+            }
+            else
+            {
+                NPC.HitSound = SoundID.NPCHit4;
+            }
+            base.ModifyHitByProjectile(projectile, ref modifiers);
         }
-        
+        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
+        {
+            if (!PhaseTwo && item.Hitbox.Intersects(TopHitbox()) && Frame <= 1)
+            {
+                NPC.HitSound = SoundID.NPCHit54;
+                modifiers.FinalDamage *= 1.3f;
+            }
+            else
+            {
+                NPC.HitSound = SoundID.NPCHit4;
+            }
+            base.ModifyHitByItem(player, item, ref modifiers);
+        }
+        public Rectangle TopHitbox()
+        {
+            return new((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height / 3);
+        }
+
+        /*
         public Rectangle MaskHitbox()
         {
             Vector2 maskCenter = MaskCenter();
             int maskRadius = 24;
             return new((int)(maskCenter.X - maskRadius * NPC.scale), (int)(maskCenter.Y - maskRadius * NPC.scale), maskRadius * 2, maskRadius * 2);
         }
+        */
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             NPC.lifeMax = (int)(NPC.lifeMax * balance);
@@ -205,7 +238,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			if (!PhaseTwo)
 			{
 				float shakeFactor = 1;
-				if (State == (float)BehaviorStates.PhaseTransition)
+				if (StateMachine.CurrentState != null && StateMachine.CurrentState.ID == BehaviorStates.PhaseTransition)
 					shakeFactor = 3 + 5 * (Timer / 60);
 				Texture2D glowTexture = ModContent.Request<Texture2D>(Texture + "_MaskGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				Color glowColor = GlowColor;

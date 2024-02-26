@@ -2092,10 +2092,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             //in p2, shoot volleys in closed area
             if (!PhaseOne && AI_Timer >= RandomWindup && AI_Timer < RandomWindup + 244)
             {
-                if ((AI_Timer - RandomWindup) % 61 == 0) //choose spot
+                if ((AI_Timer - RandomWindup) % 61 == 35) //choose spot
                 {
-                    RandomAngle = MathHelper.ToRadians(Main.rand.NextFloat(-12.5f, 12.5f));
-                    LockVector1 = Vector2.Normalize(LockVector2).RotatedBy(MathHelper.ToRadians(25 * -RandomSide) - RandomAngle);
+                    //RandomAngle = MathHelper.ToRadians(Main.rand.NextFloat(-12.5f, 12.5f));
+                    //LockVector1 = Vector2.Normalize(LockVector2).RotatedBy(MathHelper.ToRadians(25 * -RandomSide) - RandomAngle);
+                    LockVector1 = NPC.DirectionTo(Player.Center);
                     NPC.netUpdate = true;
                     if (FargoSoulsUtil.HostCheck) //telegraph
                     {
@@ -2303,6 +2304,17 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             if (AttackF1)
             {
+                if (PhaseOne && NPC.Distance(Player.Center) > 550 && !WorldSavingSystem.MasochistModeReal) // cancel attack if too far
+                {
+                    //revert size
+                    NPC.position = NPC.Center;
+                    NPC.Size = new Vector2(DefaultWidth, DefaultHeight);
+                    NPC.Center = NPC.position;
+
+                    oldP1state = P1state;
+                    P1stateReset();
+                    return;
+                }
                 AttackF1 = false;
                 NPC.netUpdate = true;
                 SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
@@ -2918,8 +2930,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             List<int> GetDoableStates() // gets the states doable at the current situation and refill availablestates if necessary
             {
-                List<int> doableStates = availablestates;
-
+                List<int> excludedStates = [];
                 // get distance
                 float distance = 4000;
                 if (NPC.target.IsWithinBounds(Main.maxPlayers) && Main.player[NPC.target] is Player player && player.Alive())
@@ -2927,26 +2938,24 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     distance = NPC.Distance(player.Center);
                 }
 
-                // remove conditionals that aren't currently available
-                void ExcludeState(P2States state) => doableStates.Remove((int)state);
-
                 // don't combo charges into other charges
                 if (state == (int)P2States.Pixies || state == (int)P2States.Charge)
                 {
-                    ExcludeState(P2States.Pixies);
-                    ExcludeState(P2States.Charge);
+                    excludedStates.Add((int)P2States.Pixies);
+                    excludedStates.Add((int)P2States.Charge);
                 }
                 // position-based
-                if (distance < 300)
+                if (distance < 550)
                 {
-                    ExcludeState(P2States.Shotgun);
-                    ExcludeState(P2States.RunningMinigun);
+                    excludedStates.Add((int)P2States.Shotgun);
+                    excludedStates.Add((int)P2States.RunningMinigun);
                 }
-                if (distance >= 300)
+                if (distance >= 550)
                 {
-                    ExcludeState(P2States.SlurpBurp);
-                    ExcludeState(P2States.RuneExpand);
+                    excludedStates.Add((int)P2States.SlurpBurp);
+                    excludedStates.Add((int)P2States.RuneExpand);
                 }
+                List<int> doableStates = availablestates.Except(excludedStates).ToList();
                 if (doableStates.Count < 1) // if there's no possible states to do, refill list and re-remove conditionals
                 {
                     availablestates.Clear();
@@ -2954,7 +2963,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     {
                         availablestates.Add(j);
                     }
-                    GetDoableStates(); // recursive to redo conditional checks with new availablestates list
+                    doableStates = GetDoableStates(); // recursive to redo conditional checks with new availablestates list
                 }
                 return doableStates;
             }
@@ -2970,7 +2979,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Variant = Main.rand.NextBool();
         }
 
-        private Vector4 RotateByMatrix(Vector4 obj, float radians, Vector3 axis)
+        private static Vector4 RotateByMatrix(Vector4 obj, float radians, Vector3 axis)
         {
             Vector3 vector = obj.X * Vector3.UnitX + obj.Y * Vector3.UnitY + obj.Z * Vector3.UnitZ;
             Matrix rotationMatrix;

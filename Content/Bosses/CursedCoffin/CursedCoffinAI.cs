@@ -50,23 +50,22 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			Count
 		}
 
-		private readonly List<BehaviorStates> P1Attacks = new()
-		{
-			BehaviorStates.HoveringForSlam,
+		private readonly List<BehaviorStates> P1Attacks =
+        [
+            BehaviorStates.HoveringForSlam,
 			BehaviorStates.WavyShotCircle,
 			BehaviorStates.WavyShotFlight,
 			BehaviorStates.GrabbyHands,
 
-		};
-		private readonly List<BehaviorStates> P2Attacks = new()
-		{
-			BehaviorStates.HoveringForSlam,
+		];
+		private readonly List<BehaviorStates> P2Attacks =
+        [
+            BehaviorStates.HoveringForSlam,
 			BehaviorStates.WavyShotCircle,
 			BehaviorStates.WavyShotFlight,
 			BehaviorStates.GrabbyHands,
 			BehaviorStates.RandomStuff,
-		};
-		private List<int> availablestates = new();
+		];
 
 		public Player Player => Main.player[NPC.target];
 
@@ -99,10 +98,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
 			// Refill the attacks if empty.
 			if ((StateMachine?.StateStack?.Count ?? 1) <= 0)
-				StateMachine.StateStack.Push(StateMachine.StateRegistry[BehaviorStates.RefillAttacks]);
+                StateMachine.StateStack.Push(StateMachine.StateRegistry[BehaviorStates.RefillAttacks]);
 
-			// Update the state machine.
-			StateMachine.ProcessBehavior();
+            // Update the state machine.
+            StateMachine.ProcessBehavior();
 			StateMachine.ProcessTransitions();
 
 			// Ensure that there is a valid state timer to get.
@@ -119,7 +118,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			if (Timer >= 0)
 			{
 				ExtraTrail = true;
-				NPC.velocity.Y *= 1.04f;
+				if (Math.Abs(NPC.velocity.Y) < 22)
+					NPC.velocity.Y *= 1.04f;
 				if (NPC.Center.Y >= LockVector1.Y || Timer > 60 * 2)
 				{
 					NPC.noTileCollide = false;
@@ -136,7 +136,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 							for (int i = -1; i <= 1; i += 2)
 							{
 								Vector2 vel = Vector2.UnitX * i * 3;
-								Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom, vel, ModContent.ProjectileType<CoffinSlamShockwave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.1f), 1f, Main.myPlayer);
+								Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom - Vector2.UnitY * 50, vel, ModContent.ProjectileType<CoffinSlamShockwave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.1f), 1f, Main.myPlayer);
 							}
 						}
 
@@ -157,9 +157,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 		{
 			HoverSound();
 
-			const int TransTime = 120;
-			NPC.velocity = -Vector2.UnitY * 5 * (1 - (Timer / TransTime));
-			NPC.rotation = Main.rand.NextFloat(MathF.Tau * 0.06f * (Timer / TransTime));
+			const int TransTime = 60;
+			if (Timer > TransTime - 5)
+				PhaseTwo = true;
+            NPC.velocity = -Vector2.UnitY * 5 * (1 - (Timer / (TransTime * 1.5f)));
+            NPC.rotation = Main.rand.NextFloat(MathF.Tau * 0.06f * (Timer / TransTime));
 			SoundEngine.PlaySound(SpiritDroneSFX, NPC.Center);
 		}
 
@@ -249,14 +251,16 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 		{
 			ref float Counter = ref AI2;
 
-			if (Timer >= 0)
+            NPC.noTileCollide = (NPC.Bottom.Y + NPC.velocity.Y < Player.Bottom.Y - 16);
+
+            if (Timer >= 0)
 			{
 				//if (Timer < 15) // no funny double hits from weird terrain
 				//  NPC.noTileCollide = true;
 
 				NPC.velocity.X *= 0.97f;
-				float speedUp = Counter > 1 ? 0.35f : 0.2f;
-				if (WorldSavingSystem.EternityMode)
+                float speedUp = Counter == 2 ? 0.35f : 0.2f;
+                if (WorldSavingSystem.EternityMode)
 					NPC.velocity.X += Math.Sign(Player.Center.X - NPC.Center.X) * speedUp;
 				if (NPC.velocity.Y >= 0 && Counter == 0)
 				{
@@ -274,7 +278,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 						for (int i = -1; i <= 1; i += 2)
 						{
 							Vector2 vel = Vector2.UnitX * i * 3;
-							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom, vel, ModContent.ProjectileType<CoffinSlamShockwave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.1f), 1f, Main.myPlayer);
+							Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom - Vector2.UnitY * 50, vel, ModContent.ProjectileType<CoffinSlamShockwave>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 0.1f), 1f, Main.myPlayer);
 						}
 					}
 					if (WorldSavingSystem.EternityMode && Counter < 2)
@@ -294,7 +298,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				NPC.velocity.Y += 0.175f;
 				if (NPC.velocity.Y > 0)
 					NPC.velocity.Y += 0.32f;
-				ExtraTrail = true;
+                if (NPC.velocity.Y > 15)
+                    NPC.velocity.Y = 15;
+                ExtraTrail = true;
 
 				NPC.noTileCollide = false;
 
@@ -303,7 +309,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 					NPC.velocity = Vector2.Zero;
 				}
 			}
-		}
+            else
+            {
+                NPC.noTileCollide = false;
+            }
+        }
 
 		[AutoloadAsBehavior<BehaviorStates>(BehaviorStates.WavyShotCircle)]
 		public void WavyShotCircle()
@@ -380,7 +390,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				float circleProgress = MomentumProgress(progress);
 				Vector2 desiredPos = Player.Center + (circleStart + (totalRotate + MathF.Tau * Math.Sign(totalRotate)) * circleProgress).ToRotationVector2() * Distance;
 
-				float modifier = Utils.Clamp(progress / 0.1f, 0, 1);
+				float modifier = Utils.Clamp(progress / 0.2f, 0, 1);
 				NPC.velocity = Vector2.Lerp(NPC.velocity, desiredPos - NPC.Center, modifier);
 
 				const float TimePadding = 0.2f;
@@ -528,8 +538,11 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 						Vector2 vel = dir;
 						vel *= Main.rand.NextFloat(0.9f, 1.3f);
 
-						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<CoffinRandomStuff>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, RandomProj);
-					}
+                        Vector2 offsetDir = Vector2.Normalize(dir);
+                        Vector2 posOffset = offsetDir.RotatedBy(MathF.PI / 2) * Main.rand.NextFloat(-NPC.height / 3, NPC.height / 3);
+
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + posOffset, vel, ModContent.ProjectileType<CoffinRandomStuff>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 1f, Main.myPlayer, RandomProj);
+                    }
 				}
 			}
 			else

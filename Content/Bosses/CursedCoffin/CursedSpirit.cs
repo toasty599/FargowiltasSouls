@@ -57,14 +57,14 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             {
                 Hide = true
             });
-            NPC.AddDebuffImmunities(new List<int>
-            {
+            NPC.AddDebuffImmunities(
+            [
                 BuffID.Confused,
                 BuffID.Chilled,
                 BuffID.Suffocation,
                 ModContent.BuffType<LethargicBuff>(),
                 ModContent.BuffType<ClippedWingsBuff>()
-            });
+            ]);
         }
         public override void SetDefaults()
         {
@@ -134,9 +134,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 NPC owner = FargoSoulsUtil.NPCExists(Owner, ModContent.NPCType<CursedCoffin>());
                 if (owner.TypeAlive<CursedCoffin>())
                 {
-                    // TODO: TRANSITION TO GRAB PUNISH
-                    //owner.As<CursedCoffin>().Reset();
-                    //owner.As<CursedCoffin>().State = (float)CursedCoffin.BehaviorStates.SpiritGrabPunish;
+                    // Forces Coffin to enter grab punish state
+                    owner.As<CursedCoffin>().ForceGrabPunish = 1;
+                    owner.netUpdate = true;
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, owner.whoAmI);
                 }
@@ -187,14 +187,14 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
 
         #endregion
-        readonly List<float> SlowChargeStates = new()
-        {
+        readonly List<float> SlowChargeStates =
+        [
             (float)CursedCoffin.BehaviorStates.PhaseTransition,
             (float)CursedCoffin.BehaviorStates.WavyShotCircle,
             (float)CursedCoffin.BehaviorStates.WavyShotFlight,
             (float)CursedCoffin.BehaviorStates.RandomStuff,
             (float)CursedCoffin.BehaviorStates.GrabbyHands
-        };
+        ];
         public override bool CheckActive() => false;
         public override void OnKill()
         {
@@ -270,10 +270,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             if (coffin.StateMachine.CurrentState == null)
                 return;
 
+            bool newState = (float)coffin.StateMachine.CurrentState.ID != State;
+
             switch (coffin.StateMachine.CurrentState.ID)
             {
                 case CursedCoffin.BehaviorStates.StunPunish:
-                    if (coffin.State != State)
+                    if (newState)
                     {
                         Timer = 0;
                         AI3 = 0;
@@ -281,7 +283,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     Movement(player.Center + player.Center.DirectionTo(NPC.Center) * 300, 0.1f, 10, 5, 0.08f, 20);
                     break;
                 case CursedCoffin.BehaviorStates.HoveringForSlam:
-                    if (coffin.State != State)
+                    if (newState)
                     {
                         Timer = 0;
                         AI3 = 0;
@@ -289,7 +291,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     Artillery(owner);
                     break;
                 case CursedCoffin.BehaviorStates.SlamWShockwave:
-                    if (coffin.State != State)
+                    if (newState)
                     {
                         Timer = 0;
                         AI3 = 0;
@@ -305,7 +307,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     GrabbyHands(owner);
                     break;
                     */
-                case var _ when SlowChargeStates.Contains(coffin.State):
+                case var _ when SlowChargeStates.Contains((float)coffin.StateMachine.CurrentState.ID):
                     if (!SlowChargeStates.Contains(State))
                     {
                         Timer = 0;

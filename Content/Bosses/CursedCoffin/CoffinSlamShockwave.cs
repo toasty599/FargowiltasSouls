@@ -9,7 +9,6 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using FargowiltasSouls.Content.Buffs.Masomode;
-using Microsoft.CodeAnalysis;
 using Terraria.GameContent;
 
 namespace FargowiltasSouls.Content.Bosses.CursedCoffin
@@ -19,7 +18,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         //public override string Texture => FargoSoulsUtil.EmptyTexture;
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Banished Baron Scrap");
             Main.projFrames[Type] = 3;
             ProjectileID.Sets.TrailCacheLength[Type] = 12;
             ProjectileID.Sets.TrailingMode[Type] = 2;

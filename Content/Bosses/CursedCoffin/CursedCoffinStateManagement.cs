@@ -54,7 +54,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			StateMachine.RegisterTransition(BehaviorStates.PhaseTransition, BehaviorStates.SlamWShockwave, false, () => Timer >= 60, () =>
 			{
 				SoundEngine.PlaySound(PhaseTransitionSFX, NPC.Center);
-				PhaseTwo = true;
 				NPC.netUpdate = true;
 				if (FargoSoulsUtil.HostCheck)
 				{
@@ -63,7 +62,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				}
 				NPC.velocity = Vector2.UnitY * 0.1f;
 				LockVector1 = Player.Top - Vector2.UnitY * 250;
-				AI2 = 2; // only bounce once
+				DontBounce = true;
 			});
 
 			// An example of using this function to apply a transition to a bunch of states at once, in this case for an interrupting attack.
@@ -72,7 +71,13 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				StateMachine.RegisterTransition(state, BehaviorStates.StunPunish, false, () => Player.HasBuff<StunnedBuff>() && !Main.projectile.Any(p => p.TypeAlive<CoffinHand>()));
 			}, BehaviorStates.StunPunish, BehaviorStates.PhaseTransition);
 
-			StateMachine.RegisterTransition(BehaviorStates.StunPunish, null, false, () => Timer > 20 && Frame <= 0, () =>
+            // Same as above, for spirit grab punish
+            StateMachine.ApplyToAllStatesExcept((state) =>
+            {
+                StateMachine.RegisterTransition(state, BehaviorStates.SpiritGrabPunish, false, () => ForceGrabPunish != 0, () => ForceGrabPunish = 0);
+            }, BehaviorStates.SpiritGrabPunish, BehaviorStates.PhaseTransition);
+
+            StateMachine.RegisterTransition(BehaviorStates.StunPunish, null, false, () => Timer > 20 && Frame <= 0, () =>
 			{
 				NPC.frameCounter = 0;
 				Frame = 0;
@@ -84,9 +89,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 LockVector1 = Player.Top - Vector2.UnitY * 250;
                 NPC.velocity = Vector2.Zero;
                 NPC.velocity.Y = -2;
+                DontBounce = true;
             });
 
-            StateMachine.RegisterTransition(BehaviorStates.HoveringForSlam, BehaviorStates.SlamWShockwave, false, () => Timer == AI3, () =>
+            StateMachine.RegisterTransition(BehaviorStates.HoveringForSlam, BehaviorStates.SlamWShockwave, false, () => Timer > 1 && Timer == AI3, () =>
 			{
 				NPC.velocity.Y = -5;
 				NPC.velocity.X /= 2;
@@ -109,35 +115,25 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			{
 				Frame = 0;
 				NPC.velocity.X /= 2;
-				NPC.velocity.Y = -5;
-				if (NPC.velocity.Y == 0)
-					NPC.velocity.Y = -0.1f;
+				NPC.velocity.Y = -4;
 				LockVector1 = Player.Top - Vector2.UnitY * 250;
-				AI2 = 2; // only bounce once
-			});
+                DontBounce = true;
+            });
 
-			StateMachine.RegisterTransition(BehaviorStates.GrabbyHands, BehaviorStates.SlamWShockwave, false, () => Timer > 40 && Frame <= 0 && Timer > AI3 + 10 && NPC.Center.Y < Player.Center.Y, () =>
+			StateMachine.RegisterTransition(BehaviorStates.GrabbyHands, BehaviorStates.SlamWShockwave, false, () => Timer > 40 && Frame <= 0 && Timer > AI3 + 10, () =>
 			{
 				NPC.noTileCollide = true;
 				LockVector1 = Player.Top - Vector2.UnitY * 250;
-				NPC.velocity.Y -= 5;
-				NPC.velocity.X /= 2;
-			});
-
-			StateMachine.RegisterTransition(BehaviorStates.GrabbyHands, BehaviorStates.WavyShotFlight, false, () => Timer > 40 && Frame <= 0 && Timer > AI3 + 10 && NPC.Center.Y >= Player.Center.Y, () =>
-			{
-				NPC.noTileCollide = true;
-				LockVector1 = Player.Top - Vector2.UnitY * 250;
-				NPC.velocity.Y -= 5;
-				NPC.velocity.X /= 2;
+				NPC.velocity.Y = -4;
+                NPC.velocity.X /= 2;
 			});
 
 			StateMachine.RegisterTransition(BehaviorStates.RandomStuff, BehaviorStates.SlamWShockwave, false, () => Timer > RandomStuffOpenTime + 310 && Frame <= 0 && NPC.Center.Y < Player.Center.Y - 100, () =>
 			{
 				NPC.noTileCollide = true;
 				LockVector1 = Player.Top - Vector2.UnitY * 250;
-				NPC.velocity.Y -= 5;
-				NPC.velocity.X /= 2;
+				NPC.velocity.Y = -4;
+                NPC.velocity.X /= 2;
 				NPC.velocity = Vector2.Zero;
 				NPC.rotation = 0;
 				NPC.frameCounter = 0;
@@ -160,9 +156,14 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			NPC.netUpdate = true;
 			NPC.TargetClosest(false);
 			AI2 = 0;
+			if (DontBounce)
+			{
+				AI2 = 3;
+				DontBounce = false;
+			}
 			AI3 = 0;
 
-			if (oldState != null)
+			if (oldState != null && (P1Attacks.Contains(oldState.ID) || P2Attacks.Contains(oldState.ID)))
 				LastAttackChoice = (int)oldState.ID;
 		}
 
@@ -178,8 +179,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				StateMachine.StateStack.Clear();
 
 				// Get the correct attack list, and remove the last attack to avoid repeating it.
-				var attackList = PhaseTwo ? P2Attacks : P1Attacks;
-				attackList.Remove((BehaviorStates)LastAttackChoice);
+				List<BehaviorStates> attackList = (PhaseTwo ? P2Attacks : P1Attacks).Where(attack => attack != (BehaviorStates)LastAttackChoice).ToList();
 
 				// Fill a list of indices.
 				var indices = new List<int>();
