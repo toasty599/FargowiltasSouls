@@ -61,14 +61,14 @@ namespace FargowiltasSouls.Common.StateMachines
 		/// <summary>
 		/// A lookup table of states, accessed by their ID.
 		/// </summary>
-		public Dictionary<TStateID, TState> StateRegistry = new();
+		public Dictionary<TStateID, TState> StateRegistry = [];
 
 		/// <summary>
 		/// A table of states, and their behaviors.
 		/// </summary>
-		public Dictionary<TStateID, Action> StateBehaviors = new();
+		public Dictionary<TStateID, Action> StateBehaviors = [];
 
-		private readonly Dictionary<TStateID, List<StateTransitionInfo>> TransitionTable = new();
+		private readonly Dictionary<TStateID, List<StateTransitionInfo>> TransitionTable = [];
 
 		/// <summary>
 		/// An ordered stack of all of the current states to execute.
@@ -125,7 +125,8 @@ namespace FargowiltasSouls.Common.StateMachines
 		public void RegisterState(TState state) => StateRegistry[state.ID] = state;
 
 		/// <summary>
-		/// Registers a state with its assosiated behavior.
+		/// Registers a state with its assosiated behavior. <br/>
+		/// <b>You should use <see cref="AutoloadAsBehavior{TStateID}"/> instead in most cases.</b>
 		/// </summary>
 		/// <param name="id">The state ID to assosiate the behavior with.</param>
 		/// <param name="behavior">The behavior action for the provided state.</param>

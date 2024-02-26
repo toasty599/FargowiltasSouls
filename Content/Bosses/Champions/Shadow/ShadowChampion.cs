@@ -36,15 +36,15 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.BossBestiaryPriority.Add(NPC.type);
 
-            NPC.AddDebuffImmunities(new List<int>
-            {
-                BuffID.Confused,
+            NPC.AddDebuffImmunities(
+			[
+				BuffID.Confused,
                 BuffID.Chilled,
                 BuffID.OnFire,
                 BuffID.Suffocation,
                 ModContent.BuffType<LethargicBuff>(),
                 ModContent.BuffType<ClippedWingsBuff>()
-            });
+            ]);
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
@@ -56,12 +56,12 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Shadow
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            bestiaryEntry.Info.AddRange([
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
                 new FlavorTextBestiaryInfoElement($"Mods.FargowiltasSouls.Bestiary.{Name}")
-            });
+            ]);
         }
 
         public override void SetDefaults()

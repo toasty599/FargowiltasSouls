@@ -5,7 +5,7 @@
     <AssemblyName>FargowiltasSouls</AssemblyName>
     <TargetFramework>net6.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>preview</LangVersion>
+	  <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Remove="Content\Items\Items\**" />

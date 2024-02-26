@@ -719,3 +719,8 @@ HellFireMarkedBuff: {
 	DisplayName: 地狱烈焰标记
 	Description: Mods.FargowiltasSouls.Buffs.HellFireMarked.Description
 }
+
+MagicalCurseBuff: {
+	// DisplayName: Magical Curse Buff
+	// Description: Mods.FargowiltasSouls.Buffs.MagicalCurseBuff.Description
+}

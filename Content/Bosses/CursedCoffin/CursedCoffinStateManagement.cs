@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			StateMachine.OnStateTransition += OnStateTransition;
 
 			// Autoload the state behaviors.
-			AutoloadAsBehavior<BehaviorStates>.FillStateMachineBehaviors<ModNPC>(StateMachine, GetType(), this);
+			AutoloadAsBehavior<BehaviorStates>.FillStateMachineBehaviors<ModNPC>(StateMachine, this);
 
 			// Load the attack cycle resetter and the phase transition.
 			LoadTransition_ResetCycle();

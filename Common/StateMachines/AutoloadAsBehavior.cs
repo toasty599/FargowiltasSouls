@@ -28,9 +28,9 @@ namespace FargowiltasSouls.Common.StateMachines
 		/// <param name="stateMachine">The state machine to fill.</param>
 		/// <param name="classToCheck">The class to check the methods of.</param>
 		/// <param name="instance">The instance to access the methods with.</param>
-		public static void FillStateMachineBehaviors<TInstanceType>(FiniteStateMachine<AIState<TStateID>, TStateID> stateMachine, Type classToCheck, TInstanceType instance)
+		public static void FillStateMachineBehaviors<TInstanceType>(FiniteStateMachine<AIState<TStateID>, TStateID> stateMachine, TInstanceType instance)
 		{
-			var methods = classToCheck.GetMethods(BindingFlags.Instance | BindingFlags.Public);
+			var methods = instance.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public);
 			if (methods == null || methods.Length == 0)
 				return;
 
