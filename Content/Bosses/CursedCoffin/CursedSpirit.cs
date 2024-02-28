@@ -57,14 +57,14 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             {
                 Hide = true
             });
-            NPC.AddDebuffImmunities(
-            [
+            NPC.AddDebuffImmunities(new List<int>
+            {
                 BuffID.Confused,
                 BuffID.Chilled,
                 BuffID.Suffocation,
                 ModContent.BuffType<LethargicBuff>(),
                 ModContent.BuffType<ClippedWingsBuff>()
-            ]);
+            });
         }
         public override void SetDefaults()
         {
@@ -187,14 +187,14 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         }
 
         #endregion
-        readonly List<float> SlowChargeStates =
-        [
+        readonly List<float> SlowChargeStates = new List<float>
+        {
             (float)CursedCoffin.BehaviorStates.PhaseTransition,
             (float)CursedCoffin.BehaviorStates.WavyShotCircle,
             (float)CursedCoffin.BehaviorStates.WavyShotFlight,
             (float)CursedCoffin.BehaviorStates.RandomStuff,
             (float)CursedCoffin.BehaviorStates.GrabbyHands
-        ];
+        };
         public override bool CheckActive() => false;
         public override void OnKill()
         {

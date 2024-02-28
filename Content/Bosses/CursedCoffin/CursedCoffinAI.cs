@@ -50,22 +50,21 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			Count
 		}
 
-		private readonly List<BehaviorStates> P1Attacks =
-        [
-            BehaviorStates.HoveringForSlam,
+		private readonly List<BehaviorStates> P1Attacks = new List<BehaviorStates>
+		{
+			BehaviorStates.HoveringForSlam,
+			BehaviorStates.WavyShotCircle,
+			BehaviorStates.WavyShotFlight,
+			BehaviorStates.GrabbyHands
+		};
+		private readonly List<BehaviorStates> P2Attacks = new List<BehaviorStates>
+		{
+			BehaviorStates.HoveringForSlam,
 			BehaviorStates.WavyShotCircle,
 			BehaviorStates.WavyShotFlight,
 			BehaviorStates.GrabbyHands,
-
-		];
-		private readonly List<BehaviorStates> P2Attacks =
-        [
-            BehaviorStates.HoveringForSlam,
-			BehaviorStates.WavyShotCircle,
-			BehaviorStates.WavyShotFlight,
-			BehaviorStates.GrabbyHands,
-			BehaviorStates.RandomStuff,
-		];
+			BehaviorStates.RandomStuff
+		};
 
 		public Player Player => Main.player[NPC.target];
 

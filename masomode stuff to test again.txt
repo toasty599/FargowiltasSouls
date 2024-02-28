@@ -104,3 +104,4 @@ removed shorter ooa wave delay
 platnera's crystal leaves are killable and dont absorb projs now
 platinum ench has a force effect, test that it works
 modified how snow ench, ice queens crown works internally to be less quirky hopefully
+added mutant cake (die to him in ftw)
