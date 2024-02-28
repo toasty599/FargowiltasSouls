@@ -100,3 +100,4 @@ mutant heals follow him, most obvious from penetrator lifesteal in maso
 increased mutant's maso spear lifesteal 5% -> 10%
 nerfed possessed weapon enemy hp, x4 -> x2
 maso no longer disables player respawning during boss fight
+removed shorter ooa wave delay
