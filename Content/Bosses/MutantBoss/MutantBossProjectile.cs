@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         Projectile.localAI[0] = 0;
                 }
 
-                if (!npc.HasValidTarget && npc.velocity.Y < 0 && Main.getGoodWorld)
+                if (!npc.HasValidTarget && npc.velocity.Y < 4 && Main.getGoodWorld)
                 {
                     Cake = true;
                 }
