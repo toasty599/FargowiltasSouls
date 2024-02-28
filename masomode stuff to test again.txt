@@ -96,3 +96,13 @@ martian saucer can jumpscare you phm post skeletron
 saucer phm has -80% life, -50% defense, and reduced move speed
 sorted out lizard box damage more
 betsy heart buff, ramming enemy with dash shortens the cd a lot
+mutant heals follow him, most obvious from penetrator lifesteal in maso
+increased mutant's maso spear lifesteal 5% -> 10%
+nerfed possessed weapon enemy hp, x4 -> x2
+maso no longer disables player respawning during boss fight
+removed shorter ooa wave delay
+platnera's crystal leaves are killable and dont absorb projs now
+platinum ench has a force effect, test that it works
+modified how snow ench, ice queens crown works internally to be less quirky hopefully
+added mutant cake (die to him in ftw)
+removed martian saucer early bird, unneeded

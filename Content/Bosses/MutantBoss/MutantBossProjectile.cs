@@ -23,6 +23,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public bool sansEye;
         public float SHADOWMUTANTREAL;
+        public bool Cake;
 
         public override void SetStaticDefaults()
         {
@@ -49,6 +50,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void AI()
         {
+            Cake = false;
+
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[1], npcType);
             if (npc != null)
             {
@@ -115,6 +118,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (++Projectile.localAI[0] >= auraFrames)
                         Projectile.localAI[0] = 0;
                 }
+
+                if (!npc.HasValidTarget && npc.velocity.Y < -4 && Main.getGoodWorld)
+                {
+                    Cake = true;
+                }
             }
             else
             {
@@ -145,8 +153,14 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
             Texture2D texture2D14 = ModContent.Request<Texture2D>(trailTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / Main.projFrames[Projectile.type]; //ypos of lower right corner of sprite to draw
-            int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
+            if (Cake)
+            {
+                texture2D13 = texture2D14 = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/MutantBoss/MutantCake", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+                sansEye = false;
+                auraTrail = true;
+            }
+            int num156 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value.Height / (Cake ? 1 : Main.projFrames[Projectile.type]); //ypos of lower right corner of sprite to draw
+            int y3 = num156 * (Cake ? 0 : Projectile.frame); //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
@@ -167,14 +181,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.9f;
             scale *= Projectile.scale;
 
+            Color color25 = (Cake ? new Color(51, 255, 191, 100) : new Color(255, 255, 255, 200)) * Projectile.Opacity;
+
             if (auraTrail || SHADOWMUTANTREAL > 0)
-                Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * Projectile.Opacity, Projectile.rotation, origin2, scale, effects, 0);
+                Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color25, Projectile.rotation, origin2, scale, effects, 0);
 
             if (auraTrail)
             {
-                Color color25 = Color.White * Projectile.Opacity;
-                color25.A = 200;
-
                 for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.25f)
                 {
                     Color color27 = color25 * 0.5f;

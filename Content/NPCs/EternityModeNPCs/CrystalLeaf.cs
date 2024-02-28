@@ -41,8 +41,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.width = 28;
             NPC.height = 28;
             NPC.damage = 60;
-            NPC.defense = 9999;
-            NPC.lifeMax = 9999;
+            NPC.defense = WorldSavingSystem.MasochistModeReal ? 9999 : 20;
+            NPC.lifeMax = WorldSavingSystem.MasochistModeReal ? 9999 : 4500;
             NPC.HitSound = SoundID.NPCHit1;
             //NPC.DeathSound = SoundID.Grass;
             NPC.noGravity = true;
@@ -56,8 +56,11 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = 9999;
-            NPC.life = 9999;
+            if (WorldSavingSystem.MasochistModeReal)
+            {
+                NPC.lifeMax = 9999;
+                NPC.life = 9999;
+            }
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -217,16 +220,22 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            modifiers.Null();
-            NPC.life++;
+            if (WorldSavingSystem.MasochistModeReal)
+            {
+                modifiers.Null();
+                NPC.life++;
+            }
         }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (FargoSoulsUtil.CanDeleteProjectile(projectile))
-                projectile.penetrate = 0;
-            modifiers.Null();
-            NPC.life++;
+            if (WorldSavingSystem.MasochistModeReal)
+            {
+                if (FargoSoulsUtil.CanDeleteProjectile(projectile))
+                    projectile.penetrate = 0;
+                modifiers.Null();
+                NPC.life++;
+            }
         }
 
         public override void HitEffect(NPC.HitInfo hit)
@@ -254,15 +263,19 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
 
         public override bool CheckDead()
         {
-            NPC.life = 0;
-            NPC.HitEffect();
-            NPC.active = false;
-            return false;
+            if (WorldSavingSystem.MasochistModeReal)
+            {
+                NPC.life = 0;
+                NPC.HitEffect();
+                NPC.active = false;
+                return false;
+            }
+            return true;
         }
 
         public override bool? DrawHealthBar(byte hbPos, ref float scale, ref Vector2 Pos)
         {
-            return false;
+            return !WorldSavingSystem.MasochistModeReal;
         }
 
         public override Color? GetAlpha(Color drawColor)

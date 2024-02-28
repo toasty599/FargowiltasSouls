@@ -61,14 +61,14 @@ namespace FargowiltasSouls.Common.StateMachines
 		/// <summary>
 		/// A lookup table of states, accessed by their ID.
 		/// </summary>
-		public Dictionary<TStateID, TState> StateRegistry = [];
+		public Dictionary<TStateID, TState> StateRegistry = new Dictionary<TStateID, TState>();
 
 		/// <summary>
 		/// A table of states, and their behaviors.
 		/// </summary>
-		public Dictionary<TStateID, Action> StateBehaviors = [];
+		public Dictionary<TStateID, Action> StateBehaviors = new Dictionary<TStateID, Action>();
 
-		private readonly Dictionary<TStateID, List<StateTransitionInfo>> TransitionTable = [];
+		private readonly Dictionary<TStateID, List<StateTransitionInfo>> TransitionTable = new Dictionary<TStateID, List<StateTransitionInfo>>();
 
 		/// <summary>
 		/// An ordered stack of all of the current states to execute.

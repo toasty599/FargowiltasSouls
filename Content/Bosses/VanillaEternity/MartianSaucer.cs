@@ -11,27 +11,6 @@ using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
-    public class MartianSaucerPart : EModeNPCBehaviour
-    {
-        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
-            NPCID.MartianSaucerCore,
-            NPCID.MartianSaucer,
-            NPCID.MartianSaucerCannon,
-            NPCID.MartianSaucerTurret
-        );
-
-        public override void SetDefaults(NPC entity)
-        {
-            base.SetDefaults(entity);
-
-            if (!Main.hardMode)
-            {
-                entity.lifeMax /= 5;
-                entity.defense /= 2;
-            }
-        }
-    }
-
 	public class MartianSaucer : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.MartianSaucerCore);
@@ -130,9 +109,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, speed, ProjectileID.SaucerLaser, FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 4f / 6), 0f, Main.myPlayer);
                 }
             }
-
-            if (!Main.hardMode)
-                npc.position -= npc.velocity / 2;
         }
 
         public override bool PreKill(NPC npc)

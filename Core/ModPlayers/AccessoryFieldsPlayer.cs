@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool AncientShadowEnchantActive = false;
         public int ShadowOrbRespawnTimer;
 
-        public bool PlatinumEffectActive = false;
+        public Item PlatinumEffect;
         public int PalladCounter;
         public int MythrilTimer;
         public int MythrilMaxTime => Player.HasEffect<MythrilEffect>() ? Player.ForceEffect<MythrilEffect>() ? 300 : 180 : 180;

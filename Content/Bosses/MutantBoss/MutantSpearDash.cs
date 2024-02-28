@@ -153,7 +153,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (WorldSavingSystem.MasochistModeReal && npc is NPC)
             {
-                int totalHealPerHit = npc.lifeMax / 100 * 5;
+                int totalHealPerHit = npc.lifeMax / 100 * 10;
 
                 const int max = 20;
                 for (int i = 0; i < max; i++)

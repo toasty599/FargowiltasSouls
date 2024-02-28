@@ -2930,7 +2930,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             List<int> GetDoableStates() // gets the states doable at the current situation and refill availablestates if necessary
             {
-                List<int> excludedStates = [];
+                List<int> excludedStates = new List<int>();
                 // get distance
                 float distance = 4000;
                 if (NPC.target.IsWithinBounds(Main.maxPlayers) && Main.player[NPC.target] is Player player && player.Alive())

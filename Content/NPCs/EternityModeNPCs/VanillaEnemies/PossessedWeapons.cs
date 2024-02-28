@@ -20,7 +20,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies
             base.SetDefaults(npc);
 
             npc.scale = 2f;
-            npc.lifeMax *= 4;
+            npc.lifeMax *= 2;
             npc.defense *= 2;
             npc.knockBackResist = 0f;
         }
