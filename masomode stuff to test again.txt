@@ -97,3 +97,4 @@ saucer phm has -80% life, -50% defense, and reduced move speed
 sorted out lizard box damage more
 betsy heart buff, ramming enemy with dash shortens the cd a lot
 mutant heals follow him, most obvious from penetrator lifesteal in maso
+increased mutant's maso spear lifesteal 5% -> 10%
