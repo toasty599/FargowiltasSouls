@@ -276,7 +276,7 @@ namespace FargowiltasSouls.Core.Globals
                 if (SnowChilledTimer <= 0)
                     SnowChilled = false;
 
-                if (SnowChilledTimer % 3 == 1)
+                if (SnowChilledTimer % 2 == 1)
                 {
                     npc.position = npc.oldPosition;
                     retval = false;
@@ -302,8 +302,6 @@ namespace FargowiltasSouls.Core.Globals
             {
                 int dustId = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Snow, npc.velocity.X, npc.velocity.Y, 100, default, 1f);
                 Main.dust[dustId].noGravity = true;
-
-                npc.position -= npc.velocity * 0.5f;
             }
 
             SuffocationTimer += Suffocation ? 1 : -3;
@@ -1008,12 +1006,19 @@ namespace FargowiltasSouls.Core.Globals
                     npc.NPCLoot();
                 }
 
-                if (player.FargoSouls().PlatinumEffectActive && !npc.boss && Main.rand.NextBool(5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                if (player.FargoSouls().PlatinumEffect != null && !npc.boss)
                 {
-                    npc.extraValue /= 5;
+                    bool isForcePlatinum = player.FargoSouls().ForceEffect(player.FargoSouls().PlatinumEffect.type);
 
-                    for (int i = 0; i < 4; i++)
-                        npc.NPCLoot();
+                    if (Main.rand.NextBool(isForcePlatinum ? 10 : 5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                    {
+                        int repeats = isForcePlatinum ? 15 : 5;
+
+                        npc.extraValue /= repeats;
+
+                        for (int i = 0; i < repeats - 1; i++)
+                            npc.NPCLoot();
+                    }
                 }
             }
 

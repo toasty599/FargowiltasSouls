@@ -34,7 +34,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.FargoSouls().PlatinumEffectActive = true;
+            player.FargoSouls().PlatinumEffect = Item;
         }
 
         public override void AddRecipes()

@@ -246,7 +246,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.ClearBuff(ModContent.BuffType<MonkBuff>());
             MonkEnchantActive = false;
             ShinobiEnchantActive = false;
-            PlatinumEffectActive = false;
+            PlatinumEffect = null;
             AncientShadowEnchantActive = false;
             SquireEnchantActive = false;
             ValhallaEnchantActive = false;
