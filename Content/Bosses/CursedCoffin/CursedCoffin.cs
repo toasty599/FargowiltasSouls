@@ -48,8 +48,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public ref float AI2 => ref NPC.ai[2];
 		public ref float AI3 => ref NPC.ai[3];
 
-		public bool DontBounce = false;
-
 		public Vector2 MaskCenter() => NPC.Center - Vector2.UnitY * NPC.height * NPC.scale / 4;
 
 		public static readonly Color GlowColor = new(224, 196, 252, 0);

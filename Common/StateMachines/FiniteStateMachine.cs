@@ -213,10 +213,10 @@ namespace FargowiltasSouls.Common.StateMachines
 			if (newState is not null)
 				StateStack.Push(StateRegistry[newState.Value]);
 
-			// Access the optional callback.
-			transition.TransitionCallback?.Invoke();
+            OnStateTransition?.Invoke(!transition.ShouldRememberPreviousState, oldState);
 
-			OnStateTransition?.Invoke(!transition.ShouldRememberPreviousState, oldState);
+            // Access the optional callback.
+            transition.TransitionCallback?.Invoke();
 
 			// Recursively call this to allow for all transitions with met conditions to be processed.
 			ProcessTransitions();

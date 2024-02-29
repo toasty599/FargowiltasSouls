@@ -62,8 +62,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				}
 				NPC.velocity = Vector2.UnitY * 0.1f;
 				LockVector1 = Player.Top - Vector2.UnitY * 250;
-				DontBounce = true;
-			});
+                AI2 = 3; // only slam once
+            });
 
 			// An example of using this function to apply a transition to a bunch of states at once, in this case for an interrupting attack.
 			StateMachine.ApplyToAllStatesExcept((state) =>
@@ -89,7 +89,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 LockVector1 = Player.Top - Vector2.UnitY * 250;
                 NPC.velocity = Vector2.Zero;
                 NPC.velocity.Y = -2;
-                DontBounce = true;
+                AI2 = 3; // only slam once
             });
 
             StateMachine.RegisterTransition(BehaviorStates.HoveringForSlam, BehaviorStates.SlamWShockwave, false, () => Timer > 1 && Timer == AI3, () =>
@@ -117,7 +117,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				NPC.velocity.X /= 2;
 				NPC.velocity.Y = -4;
 				LockVector1 = Player.Top - Vector2.UnitY * 250;
-                DontBounce = true;
+                AI2 = 3; // only slam once
             });
 
 			StateMachine.RegisterTransition(BehaviorStates.GrabbyHands, BehaviorStates.SlamWShockwave, false, () => Timer > 40 && Frame <= 0 && Timer > AI3 + 10, () =>
@@ -156,11 +156,6 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			NPC.netUpdate = true;
 			NPC.TargetClosest(false);
 			AI2 = 0;
-			if (DontBounce)
-			{
-				AI2 = 3;
-				DontBounce = false;
-			}
 			AI3 = 0;
 
 			if (oldState != null && (P1Attacks.Contains(oldState.ID) || P2Attacks.Contains(oldState.ID)))
