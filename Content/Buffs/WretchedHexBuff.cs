@@ -14,5 +14,10 @@ namespace FargowiltasSouls.Content.Buffs
             Main.buffNoTimeDisplay[Type] = true;
             Terraria.ID.BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.buffTime[buffIndex] = 2;
+        }
     }
 }

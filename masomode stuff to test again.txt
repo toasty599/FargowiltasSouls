@@ -112,3 +112,4 @@ removed lizard shooting dart, always shoots fireballs instead
 added toggle for meteor spark trail
 buffed crimetroid, uses local iframes
 martian saucer has halved life/defense pre golem
+wretched pouch adjusted: you need debuff install to activate it
