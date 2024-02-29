@@ -1,4 +1,5 @@
 ﻿using FargowiltasSouls.Content.Buffs.Masomode;
+using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -7,10 +8,8 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
 {
-    public class Lihzahrd : Shooters
+    public class Lihzahrd : EModeNPCBehaviour
     {
-        public Lihzahrd() : base(210, ProjectileID.PoisonDartTrap, 12f) { }
-
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
             NPCID.Lihzahrd,
             NPCID.LihzahrdCrawler
@@ -37,16 +36,13 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Jungle
         {
             base.AI(npc);
 
-            if (npc.type == NPCID.LihzahrdCrawler)
+            if (++FireballCounter > 30)
             {
-                if (++FireballCounter > 30)
+                FireballCounter = -90;
+                if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck && Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
                 {
-                    FireballCounter = -90;
-                    if (npc.HasPlayerTarget && FargoSoulsUtil.HostCheck)
-                    {
-                        Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center) * 12f;
-                        Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.Fireball, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
-                    }
+                    Vector2 vel = npc.DirectionTo(Main.player[npc.target].Center) * 12f;
+                    Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ProjectileID.Fireball, FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
                 }
             }
         }
