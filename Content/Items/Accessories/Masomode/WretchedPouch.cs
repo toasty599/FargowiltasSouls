@@ -62,6 +62,7 @@ Attack speed bonuses are half as effective
         {
             Player Player = player;
             FargoSoulsPlayer modPlayer = player.FargoSouls();
+            Main.NewText(modPlayer.WeaponUseTimer);
             if (!Player.controlUseItem && !Player.controlUseTile && modPlayer.WeaponUseTimer <= 6) //remove extra 6 added to the timer, makes it a lot less awkward
                 return;
 
