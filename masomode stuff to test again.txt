@@ -109,3 +109,4 @@ removed martian saucer early bird, unneeded
 
 betsy heart tooltip specifies debuff duration
 removed lizard shooting dart, always shoots fireballs instead
+added toggle for meteor spark trail

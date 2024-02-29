@@ -71,33 +71,40 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
 
                 }
                 player.hasMagiluminescence = true;
-
-                const int SparkDelay = 2;
-                int Timer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
-                if (player.velocity != Vector2.Zero && Timer % SparkDelay == 0)
+                if (player.HasEffect<MeteorTrailEffect>())
                 {
-                    for (int i = -1; i < 2; i += 2)
+                    const int SparkDelay = 2;
+                    int Timer = (int)(Main.GlobalTimeWrappedHourly * 60) % 60;
+                    if (player.velocity != Vector2.Zero && Timer % SparkDelay == 0)
                     {
-                        Vector2 vel = (-player.velocity).RotatedBy(i * MathHelper.Pi / 7).RotatedByRandom(MathHelper.Pi / 12);
-                        int damage = 22;
-                        Vector2 pos = player.Center;
-                        Vector2 offset = Vector2.Normalize(player.velocity).RotatedBy(MathHelper.PiOver2 * -i) * (player.width / 2);
-                        Projectile.NewProjectile(GetSource_EffectItem(player), pos + offset, vel, ModContent.ProjectileType<MeteorFlame>(), FargoSoulsUtil.HighestDamageTypeScaling(player, damage), 0.5f, player.whoAmI);
-                    }
+                        for (int i = -1; i < 2; i += 2)
+                        {
+                            Vector2 vel = (-player.velocity).RotatedBy(i * MathHelper.Pi / 7).RotatedByRandom(MathHelper.Pi / 12);
+                            int damage = 22;
+                            Vector2 pos = player.Center;
+                            Vector2 offset = Vector2.Normalize(player.velocity).RotatedBy(MathHelper.PiOver2 * -i) * (player.width / 2);
+                            Projectile.NewProjectile(GetSource_EffectItem(player), pos + offset, vel, ModContent.ProjectileType<MeteorFlame>(), FargoSoulsUtil.HighestDamageTypeScaling(player, damage), 0.5f, player.whoAmI);
+                        }
 
-                    /*
-                    int p = Projectile.NewProjectile(Player.GetSource_Accessory(item), pos, vel, ProjectileID.Flames, FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0.5f, Player.whoAmI);
-                    if (p != Main.maxProjectiles)
-                    {
-                        Main.projectile[p].DamageType = DamageClass.Generic;
-                        Main.projectile[p].friendly = true;
-                        Main.projectile[p].hostile = false; //just making sure
-                        Main.projectile[p].scale = 0.05f;
+                        /*
+                        int p = Projectile.NewProjectile(Player.GetSource_Accessory(item), pos, vel, ProjectileID.Flames, FargoSoulsUtil.HighestDamageTypeScaling(Player, damage), 0.5f, Player.whoAmI);
+                        if (p != Main.maxProjectiles)
+                        {
+                            Main.projectile[p].DamageType = DamageClass.Generic;
+                            Main.projectile[p].friendly = true;
+                            Main.projectile[p].hostile = false; //just making sure
+                            Main.projectile[p].scale = 0.05f;
+                        }
+                        */
                     }
-                    */
                 }
             }
         }
+    }
+    public class MeteorTrailEffect : AccessoryEffect
+    {
+        public override Header ToggleHeader => Header.GetHeader<CosmoHeader>();
+        public override int ToggleItemType => ModContent.ItemType<MeteorEnchant>();
     }
     public class MeteorEffect : AccessoryEffect
     {
