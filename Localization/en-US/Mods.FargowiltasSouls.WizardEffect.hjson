@@ -34,7 +34,7 @@ Mythril: Max attack speed bonus increased and lasts longer
 Nebula: Buff booster stack cap increased to 3
 Necro: Graves have increased size, float, and slightly home in on you when you're close
 Ninja: Maximum damage bonus increased to 30%, maximum player speed where effect activates increased
-Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
+Obsidian: Grants explosions and fireballs without being lava wet but with reduced damage, cooldown reduced
 Orichalcum: Increases multiplier to 4x
 Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
 PalmWood: Attack speed, damage, and size increased
@@ -64,5 +64,5 @@ Turtle: Occasionally recover a projectile block point, number of needles and dam
 ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
 Vortex: No upgrade
 Wood: Bestiary and banner multiplier increased to 5
-AshWood: Fires balls of fire more often
+AshWood: Fireball cooldown reduced
 NoUpgrade: No upgrade
