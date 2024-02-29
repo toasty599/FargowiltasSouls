@@ -48,6 +48,7 @@ Attack speed bonuses are half as effective
         {
             player.buffImmune[BuffID.ShadowFlame] = true;
             player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
+            
             player.AddEffect<WretchedPouchEffect>(Item);
         }
     }
@@ -56,17 +57,20 @@ Attack speed bonuses are half as effective
         public override Header ToggleHeader => Header.GetHeader<BionomicHeader>();
         public override int ToggleItemType => ModContent.ItemType<WretchedPouch>();
         public override bool ExtraAttackEffect => true;
+        public override bool IgnoresMutantPresence => true;
         public override void PostUpdateEquips(Player player)
         {
             Player Player = player;
             FargoSoulsPlayer modPlayer = player.FargoSouls();
+            Main.NewText(modPlayer.WeaponUseTimer);
             if (!Player.controlUseItem && !Player.controlUseTile && modPlayer.WeaponUseTimer <= 6) //remove extra 6 added to the timer, makes it a lot less awkward
                 return;
 
             if (Player.HeldItem.IsAir || Player.HeldItem.damage <= 0 || Player.HeldItem.pick > 0 || Player.HeldItem.axe > 0 || Player.HeldItem.hammer > 0)
                 return;
 
-            Player.AddBuff(ModContent.BuffType<WretchedHexBuff>(), 2);
+            if (!Player.HasBuff(ModContent.BuffType<WretchedHexBuff>()))
+                return;
 
             int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Shadowflame, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 0, new Color(), 3f);
             Main.dust[d].noGravity = true;

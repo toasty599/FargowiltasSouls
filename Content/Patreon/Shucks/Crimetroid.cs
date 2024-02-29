@@ -23,6 +23,9 @@ namespace FargowiltasSouls.Content.Patreon.Shucks
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override bool MinionContactDamage() => true;

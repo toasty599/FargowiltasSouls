@@ -106,3 +106,11 @@ platinum ench has a force effect, test that it works
 modified how snow ench, ice queens crown works internally to be less quirky hopefully
 added mutant cake (die to him in ftw)
 removed martian saucer early bird, unneeded
+
+betsy heart tooltip specifies debuff duration
+removed lizard shooting dart, always shoots fireballs instead
+added toggle for meteor spark trail
+buffed crimetroid, uses local iframes
+martian saucer has halved life/defense pre golem
+wretched pouch adjusted: you need debuff install to activate it
+fixed how effects like wretched pouch detect when youre attacking didnt account for attack speed bonuses
