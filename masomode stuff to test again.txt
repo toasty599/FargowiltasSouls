@@ -106,3 +106,5 @@ platinum ench has a force effect, test that it works
 modified how snow ench, ice queens crown works internally to be less quirky hopefully
 added mutant cake (die to him in ftw)
 removed martian saucer early bird, unneeded
+
+betsy heart tooltip specifies debuff duration
