@@ -114,3 +114,5 @@ buffed crimetroid, uses local iframes
 martian saucer has halved life/defense pre golem
 wretched pouch adjusted: you need debuff install to activate it
 fixed how effects like wretched pouch detect when youre attacking didnt account for attack speed bonuses
+
+nerfed fish stick armor pen to 20 (so you should use betsy wrath, ichor, etc. with it)

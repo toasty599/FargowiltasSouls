@@ -2606,6 +2606,7 @@ FishStick: {
 		'''
 		Right click to deploy a typhoon
 		The typhoon fires sharks when you attack
+		Sharks ignore 20 enemy defense
 		'The carcass of a defeated foe shoved violently on a stick..'
 		'''
 }

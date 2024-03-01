@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿\using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void OnSpawn(IEntitySource source)
         {
-            Projectile.ArmorPenetration += 60;
+            Projectile.ArmorPenetration += 20;
         }
 
         public override void AI()
