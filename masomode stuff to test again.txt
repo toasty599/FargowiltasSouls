@@ -118,3 +118,4 @@ fixed how effects like wretched pouch detect when youre attacking didnt account 
 nerfed fish stick armor pen to 20 (so you should use betsy wrath, ichor, etc. with it)
 gold ench wizard upgrade is in fact described
 adjusted comp orb tooltip to better reflect its damage boost
+phm mimic nerf, dont use its enhanced ai until 50% life
