@@ -963,9 +963,12 @@ namespace FargowiltasSouls.Core.Globals
                 }
             }
 
-            if (pool.ContainsKey(NPCID.Squirrel))
+            int y = spawnInfo.SpawnTileY;
+            bool day = Main.dayTime;
+            bool surface = y < Main.worldSurface && !spawnInfo.Sky;
+            if (day && surface && spawnInfo.PlayerInTown && FargowiltasSouls.NoBiome(spawnInfo) && FargowiltasSouls.NoZone(spawnInfo))
             {
-                pool[ModContent.NPCType<TophatSquirrelCritter>()] = pool[NPCID.Squirrel] / 4;
+                pool[ModContent.NPCType<TophatSquirrelCritter>()] = 0.03f;
             }
         }
 
