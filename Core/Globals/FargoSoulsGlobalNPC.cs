@@ -24,6 +24,8 @@ using FargowiltasSouls.Content.Items.Summons;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Terraria.GameContent.Events;
+using FargowiltasSouls.Content.NPCs.Critters;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -198,16 +200,6 @@ namespace FargowiltasSouls.Core.Globals
                 //                    case NPCID.DukeFishron:
                 //                        SpecialEnchantImmune = true;
                 //                        break;*/
-
-                //                    case NPCID.Squirrel:
-                //                    case NPCID.SquirrelRed:
-                //                        if (!npc.SpawnedFromStatue)
-                //                        {
-                //                            int p = Player.FindClosest(npc.position, npc.width, npc.height);
-                //                            if ((p == -1 || npc.Distance(Main.player[p].Center) > 800) && Main.rand.NextBool(5))
-                //                                npc.Transform(ModContent.NPCType<TophatSquirrelCritter>());
-                //                        }
-                //                        break;
 
                 //                    default:
                 //                        break;
@@ -969,6 +961,11 @@ namespace FargowiltasSouls.Core.Globals
                         pool[entry.Key] = entry.Value * 5;
                     }
                 }
+            }
+
+            if (pool.ContainsKey(NPCID.Squirrel))
+            {
+                pool[ModContent.NPCType<TophatSquirrelCritter>()] = pool[NPCID.Squirrel] / 4;
             }
         }
 
