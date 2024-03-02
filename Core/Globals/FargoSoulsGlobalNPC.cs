@@ -1103,13 +1103,16 @@ namespace FargowiltasSouls.Core.Globals
                     npcLoot.Add(BossDrop(ModContent.ItemType<FishStick>()));
                     break;
 
-            case NPCID.HallowBoss:
-                npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
-                break;
-                
+                case NPCID.HallowBoss:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
+                    break;
 
                 case NPCID.DD2Betsy:
                     npcLoot.Add(BossDrop(ModContent.ItemType<DragonBreath>()));
+                    break;
+
+                case NPCID.MoonLordCore:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<MoonBow>()));
                     break;
 
                 case NPCID.BigMimicJungle:

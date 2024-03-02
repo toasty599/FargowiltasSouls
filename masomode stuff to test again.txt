@@ -121,3 +121,5 @@ adjusted comp orb tooltip to better reflect its damage boost
 phm mimic nerf, dont use its enhanced ai until 50% life
 top hat squirrels are no longer extinct in the wild
 the lightning rod base damage 28->26, but benefits from melee speed
+
+added moon bow
