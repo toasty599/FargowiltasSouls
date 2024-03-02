@@ -41,6 +41,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             behindProjectiles.Add(index);
         }
 
+        public override bool? CanDamage() => false;
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -51,7 +53,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 return;
             }
 
-            Projectile.position += (player.position - player.oldPosition) * 0.9f;
+            Projectile.position += (player.position - player.oldPosition);
 
             float maxScale = 0.4f;
 
@@ -60,7 +62,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.alpha = 255 - (int)(255 * Projectile.scale / maxScale);
             Projectile.rotation = Projectile.rotation - 0.1570796f;
 
-            if (Main.rand.NextBool())
+            /*if (Main.rand.NextBool())
             {
                 Vector2 spinningpoint = Vector2.UnitY.RotatedByRandom(6.28318548202515) * Projectile.scale;
                 Dust dust = Main.dust[Dust.NewDust(Projectile.Center - spinningpoint * 30f, 0, 0, DustID.Vortex, 0.0f, 0.0f, 0, new Color(), 1f)];
@@ -84,7 +86,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 dust.fadeIn = 0.5f;
                 dust.customData = Projectile.Center;
                 dust.velocity += player.velocity;
-            }
+            }*/
         }
 
         public override void OnKill(int timeLeft)

@@ -179,6 +179,17 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color = lightColor;
+            if (Projectile.localAI[0] < theTime + window)
+            {
+                float ratio = Math.Min(1f, Projectile.localAI[0] / theTime);
+                color.A = (byte)(255 - 200 * ratio);
+            }
+            return color;
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor);
