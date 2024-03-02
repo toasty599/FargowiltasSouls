@@ -51,7 +51,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 return;
             }
 
-            Projectile.position += player.position - player.oldPosition;
+            Projectile.position += (player.position - player.oldPosition) * 0.9f;
 
             float maxScale = 0.4f;
 
