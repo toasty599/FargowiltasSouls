@@ -124,5 +124,6 @@ the lightning rod base damage 28->26, but benefits from melee speed
 
 added moon bow
 
-buffed regurg damage 360 -> 470
-buffed moon bow 80 -> 120
+buffed regurg damage 360 -> 390
+buffed moon bow 80 -> 135
+nerfed hellzone 274 -> 250
