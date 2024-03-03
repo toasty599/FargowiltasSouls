@@ -141,3 +141,4 @@ disabled qs rain and SANS GOLEM for now
 fixed meteor spark trail toggle not actually appearing
 nerfed ts combo, arms start attack later than head
 changed when necro ench checks to spawn graves. confirm it still doesnt work on plantera crystals
+gfb mutant p2 transition cakes you

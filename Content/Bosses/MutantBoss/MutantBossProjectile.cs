@@ -98,6 +98,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     SHADOWMUTANTREAL += 0.03f;
                     if (SHADOWMUTANTREAL > 0.75f)
                         SHADOWMUTANTREAL = 0.75f;
+
+                    if (npc.ai[1] > 150 && WorldSavingSystem.MasochistModeReal && Main.getGoodWorld)
+                    {
+                        Cake = true;
+                        SHADOWMUTANTREAL = 1f;
+                    }
                 }
 
                 Projectile.localAI[1] = sansEye ? MathHelper.Lerp(Projectile.localAI[1], 1f, 0.05f) : 0; //for rotation of sans eye
@@ -118,7 +124,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         Projectile.localAI[0] = 0;
                 }
 
-                if (!npc.HasValidTarget && npc.velocity.Y < -4 && Main.getGoodWorld)
+                if (!npc.HasValidTarget && npc.velocity.Y < 0 && WorldSavingSystem.MasochistModeReal && Main.getGoodWorld)
                 {
                     Cake = true;
                 }
@@ -177,14 +183,18 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.9f;
+            float scale = (Main.mouseTextColor / 200f - 0.35f) * (Cake ? 0.25f : 0.4f) + 0.9f;
             scale *= Projectile.scale;
 
             Color trailColor = FargoSoulsUtil.AprilFools ? new Color(255, 255, 255, 100) : new Color(51, 255, 191, 100);
             Color color25 = (Cake ? trailColor : new Color(255, 255, 255, 200)) * Projectile.Opacity;
 
             if (auraTrail || SHADOWMUTANTREAL > 0)
-                Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color25, Projectile.rotation, origin2, scale, effects, 0);
+            {
+                int max = Cake ? 5 : 1;
+                for (int i = 0; i < max; i++)
+                    Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color25, Projectile.rotation, origin2, scale, effects, 0);
+            }
 
             if (auraTrail)
             {

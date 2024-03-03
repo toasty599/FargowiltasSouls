@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Entity target = feedPlayer ? Main.player[ai0] : Main.npc[ai0];
 
                 if (target is NPC)
-                    Projectile.position += target.velocity / 2;
+                    Projectile.position += (target.position - target.oldPosition) / 4;
 
                 if (Projectile.Distance(target.Center) < 5f)
                 {
