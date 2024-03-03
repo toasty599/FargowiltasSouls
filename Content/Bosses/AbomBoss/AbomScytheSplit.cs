@@ -99,10 +99,13 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Color color26 = lightColor;
             color26 = Projectile.GetAlpha(color26);
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
+            int max = ProjectileID.Sets.TrailCacheLength[Projectile.type];
+            if (Projectile.velocity == Vector2.Zero)
+                max /= 2;
+            for (int i = 0; i < max; i++)
             {
                 Color color27 = color26;
-                color27 *= (float)(ProjectileID.Sets.TrailCacheLength[Projectile.type] - i) / ProjectileID.Sets.TrailCacheLength[Projectile.type];
+                color27 *= (float)(max - i) / max;
                 Vector2 value4 = Projectile.oldPos[i];
                 float num165 = Projectile.oldRot[i];
                 Main.EntitySpriteDraw(texture2D13, value4 + Projectile.Size / 2f - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color27, num165, origin2, Projectile.scale, SpriteEffects.None, 0);

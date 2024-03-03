@@ -13,7 +13,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
     public class MutantTrueEyeSphere : ModProjectile
     {
         public override string Texture => FargoSoulsUtil.AprilFools ?
-            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSphere_April" :
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantTrueEyeSphere_April" :
             "Terraria/Images/Projectile_454";
 
         public override void SetStaticDefaults()

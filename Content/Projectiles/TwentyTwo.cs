@@ -41,7 +41,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 Color color26 = Projectile.GetAlpha(lightColor);
 
-                float scale = Projectile.scale * Main.screenHeight / 254f;
+                float scale = Projectile.scale * Main.screenHeight / 254f / Main.GameZoomTarget;
 
                 Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, Projectile.rotation, origin2, scale, SpriteEffects.None, 0);
             }

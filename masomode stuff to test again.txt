@@ -132,3 +132,10 @@ halved dg hp
 maso ts combos snowballs and squirrel bombing
 wyvern feather buffed, gravity is passive and has new flight-refreshing balls effect
 added yharim (change your computer date to first week of april)
+
+sped up maso mutant final spark 2
+if you get time frozen in the last second or so of maso final spark, mutant is guaranteed to continue the ray
+	(no more scenario where you get timestopped but mutant dies anyway without killing you)
+adjusted visual of stationary scythes during abom ray run
+disabled qs rain and SANS GOLEM for now
+fixed meteor spark trail toggle not actually appearing
