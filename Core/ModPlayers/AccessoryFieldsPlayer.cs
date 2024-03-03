@@ -216,6 +216,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool PureHeart;
         public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
+        public int WyvernBallsCD;
         public bool FusedLens;
         public bool FusedLensCanDebuff;
         public bool Supercharged;

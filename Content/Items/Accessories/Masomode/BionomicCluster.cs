@@ -159,6 +159,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Tim's concoction
             player.AddEffect<TimsConcoctionEffect>(Item);
+
+            // Wyvern feather
+            player.AddEffect<WyvernBalls>(Item);
         }
 
         public override void UseItemFrame(Player player) => SandsofTime.Use(player);

@@ -130,3 +130,4 @@ nerfed hellzone 274 -> 250
 plantera crystal leaves count as bosses so necro ench doesn't meme them
 halved dg hp
 maso ts combos snowballs and squirrel bombing
+wyvern feather buffed, gravity is passive and has new flight-refreshing balls effect
