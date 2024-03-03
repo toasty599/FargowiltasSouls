@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantSlimeSpike : MutantSlimeBall
     {
-        public override string Texture => "Terraria/Images/Projectile_920";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSlimeSpike_April" :
+            "Terraria/Images/Projectile_920";
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;

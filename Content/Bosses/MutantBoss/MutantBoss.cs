@@ -35,6 +35,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
     [AutoloadBossHead]
     public class MutantBoss : ModNPC
     {
+        public override string Texture => $"FargowiltasSouls/Content/Bosses/MutantBoss/MutantBoss{FargoSoulsUtil.TryAprilFoolsTexture}";
+
         Player player => Main.player[NPC.target];
 
         public bool playerInvulTriggered;
@@ -841,7 +843,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             const int max = 6;
             for (int i = 0; i < max; i++)
             {
-                int d = Dust.NewDust(NPC.Center + distance * Vector2.UnitX.RotatedBy(rotation + MathHelper.TwoPi / max * i), 0, 0, DustID.Vortex, NPC.velocity.X * 0.3f, NPC.velocity.Y * 0.3f, newColor: Color.White);
+                int d = Dust.NewDust(NPC.Center + distance * Vector2.UnitX.RotatedBy(rotation + MathHelper.TwoPi / max * i), 0, 0, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, NPC.velocity.X * 0.3f, NPC.velocity.Y * 0.3f, newColor: Color.White);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].scale = 6f - 4f * modifier;
             }
@@ -947,6 +949,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (FargoSoulsUtil.HostCheck) //spawn worm
                     {
                         int appearance = Main.rand.Next(2);
+                        if (FargoSoulsUtil.AprilFools)
+                            appearance = 0;
                         for (int j = 0; j < 8; j++)
                         {
                             Vector2 vel = NPC.DirectionFrom(player.Center).RotatedByRandom(MathHelper.ToRadians(120)) * 10f;
@@ -1432,7 +1436,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         float ai1 = i <= 2 || i == max - 2 ? 48 : 24;
                         if (FargoSoulsUtil.HostCheck)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordMoonBlast>(),
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2), Vector2.Zero, FargoSoulsUtil.AprilFools ? ModContent.ProjectileType<MoonLordSunBlast>() : ModContent.ProjectileType<MoonLordMoonBlast>(),
                                 FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3f), 0f, Main.myPlayer, MathHelper.WrapAngle(angle.ToRotation()), ai1);
                         }
                     }
@@ -1536,7 +1540,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                 for (int i = 0; i < 50; i++)
                 {
-                    int d = Dust.NewDust(Main.LocalPlayer.position, Main.LocalPlayer.width, Main.LocalPlayer.height, DustID.Vortex, 0f, 0f, 0, default, 2.5f);
+                    int d = Dust.NewDust(Main.LocalPlayer.position, Main.LocalPlayer.width, Main.LocalPlayer.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 2.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 9f;
@@ -2122,6 +2126,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         if (WorldSavingSystem.MasochistModeReal)
                             ai1 += 0.4f;
                         float appearance = NPC.localAI[2];
+                        if (FargoSoulsUtil.AprilFools)
+                            appearance = 0;
                         int current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerHead>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, ai1, appearance);
                         //timeleft: remaining duration of this case + duration of next case + extra delay after + successive death
                         Main.projectile[current].timeLeft = 30 * (cap - (int)NPC.ai[2]) + 60 * (int)NPC.localAI[1] + 30 + (int)NPC.ai[2] * 6;
@@ -2509,7 +2515,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;
                     offset.X += (float)(Math.Sin(angle) * 150);
                     offset.Y += (float)(Math.Cos(angle) * 150);
-                    Dust dust = Main.dust[Dust.NewDust(NPC.Center + offset - new Vector2(4, 4), 0, 0, DustID.Vortex, 0, 0, 100, Color.White, 1.5f)];
+                    Dust dust = Main.dust[Dust.NewDust(NPC.Center + offset - new Vector2(4, 4), 0, 0, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0, 0, 100, Color.White, 1.5f)];
                     dust.velocity = NPC.velocity;
                     if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * 5f;
@@ -2863,7 +2869,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3348,7 +3354,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
-                        int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                        int type = ModContent.ProjectileType<MutantBombSmall>();
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
                     }
                 }
@@ -3356,7 +3362,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3401,7 +3407,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3455,7 +3461,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3517,7 +3523,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3565,7 +3571,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
-                    int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                    int type = ModContent.ProjectileType<MutantBombSmall>();
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
                 }
             }
@@ -3734,13 +3740,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
-                    int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                    int type = ModContent.ProjectileType<MutantBomb>();
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
                 }
             }
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3758,7 +3764,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPC.velocity = Vector2.Zero;
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 2.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 2.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 12f;
@@ -3769,7 +3775,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 spawnPos = NPC.Center + Main.rand.NextVector2Circular(240, 240);
-                    int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                    int type = ModContent.ProjectileType<MutantBomb>();
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
                 }
             }
@@ -3816,7 +3822,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             for (int i = 0; i < 3; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 3f;

@@ -14,7 +14,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantBomb : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_645";
+        public override string Texture => $"Terraria/Images/Projectile_{(FargoSoulsUtil.AprilFools ? "687" : "645")}";
 
         public override void SetStaticDefaults()
         {

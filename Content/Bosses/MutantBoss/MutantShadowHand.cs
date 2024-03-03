@@ -16,7 +16,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantShadowHand : MutantFishron
     {
-        public override string Texture => "Terraria/Images/Projectile_965";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantShadowHand_April" :
+            "Terraria/Images/Projectile_965";
 
         public override void SetStaticDefaults()
         {

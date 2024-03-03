@@ -1,5 +1,4 @@
-﻿using FargowiltasSouls.Content.Projectiles;
-using FargowiltasSouls.Core.Systems;
+﻿using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,9 +11,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantBossProjectile : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/MutantBoss/MutantBoss";
+        public override string Texture => $"FargowiltasSouls/Content/Bosses/MutantBoss/MutantBoss{FargoSoulsUtil.TryAprilFoolsTexture}";
 
-        public static string trailTexture => "FargowiltasSouls/Assets/ExtraTextures/Eternals/MutantSoul";
+        public static string trailTexture => $"FargowiltasSouls/Assets/ExtraTextures/Eternals/MutantSoul{FargoSoulsUtil.TryAprilFoolsTexture}";
         public static int npcType => ModContent.NPCType<MutantBoss>();
         public bool auraTrail;
 
@@ -164,7 +163,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
 
-            Texture2D aura = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/MutantBoss/MutantAura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D aura = ModContent.Request<Texture2D>($"FargowiltasSouls/Content/Bosses/MutantBoss/MutantAura{FargoSoulsUtil.TryAprilFoolsTexture}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             int auraFrameHeight = aura.Height / auraFrames;
             int auraY = auraFrameHeight * (int)Projectile.localAI[0];
             Rectangle auraRectangle = new(0, auraY, aura.Width, auraFrameHeight);
@@ -181,10 +180,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.9f;
             scale *= Projectile.scale;
 
-            Color color25 = (Cake ? new Color(51, 255, 191, 100) : new Color(255, 255, 255, 200)) * Projectile.Opacity;
+            Color trailColor = FargoSoulsUtil.AprilFools ? new Color(255, 255, 255, 100) : new Color(51, 255, 191, 100);
+            Color color25 = (Cake ? trailColor : new Color(255, 255, 255, 200)) * Projectile.Opacity;
 
             if (auraTrail || SHADOWMUTANTREAL > 0)
-                Main.EntitySpriteDraw(texture2D14, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color25, Projectile.rotation, origin2, scale, effects, 0);
+                Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color25, Projectile.rotation, origin2, scale, effects, 0);
 
             if (auraTrail)
             {
@@ -234,7 +234,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (sansEye)
             {
-                Color color = new(51, 255, 191);
+                Color color = FargoSoulsUtil.AprilFools ? Color.Red : new(51, 255, 191);
 
                 bool forcedMasoEye = WorldSavingSystem.MasochistModeReal && Projectile.ai[0] == -1;
 

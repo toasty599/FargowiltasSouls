@@ -9,7 +9,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantScythe2 : MutantScythe1
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/AbomBoss/AbomSickle";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantScythe1_April" :
+            "FargowiltasSouls/Content/Bosses/AbomBoss/AbomSickle";
 
         public override void SetStaticDefaults()
         {

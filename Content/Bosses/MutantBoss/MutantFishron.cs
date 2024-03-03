@@ -16,7 +16,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantFishron : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_370";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantFishron_April" :
+            "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_370";
 
         protected int p = -1;
 

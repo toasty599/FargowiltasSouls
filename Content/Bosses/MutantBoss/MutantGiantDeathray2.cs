@@ -288,7 +288,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             //return MathHelper.Lerp(baseWidth, baseWidth * 2, trailInterpolant);
         }
 
-        public static Color ColorFunction(float trailInterpolant) => Color.Lerp(new(31, 187, 192, 100), new(51, 255, 191, 100), trailInterpolant);
+        public static Color ColorFunction(float trailInterpolant) =>
+            Color.Lerp(
+                FargoSoulsUtil.AprilFools ? new Color(255, 0, 0, 100) : new(31, 187, 192, 100), 
+                FargoSoulsUtil.AprilFools ? new Color(255, 191, 51, 100) : new(51, 255, 191, 100), 
+                trailInterpolant);
 
         public override bool PreDraw(ref Color lightColor)
         {
