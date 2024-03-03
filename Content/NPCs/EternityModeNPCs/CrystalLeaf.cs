@@ -52,6 +52,8 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.alpha = 255;
             NPC.lavaImmune = true;
             NPC.aiStyle = -1;
+
+            NPC.boss = true;
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)

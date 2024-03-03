@@ -127,3 +127,4 @@ added moon bow
 buffed regurg damage 360 -> 390
 buffed moon bow 80 -> 135
 nerfed hellzone 274 -> 250
+plantera crystal leaves count as bosses so necro ench doesn't meme them
