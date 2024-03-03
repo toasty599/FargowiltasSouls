@@ -52,8 +52,6 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.alpha = 255;
             NPC.lavaImmune = true;
             NPC.aiStyle = -1;
-
-            NPC.boss = true;
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -263,16 +261,9 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             return false;
         }
 
-        public override bool CheckDead()
+        public override bool PreKill()
         {
-            if (WorldSavingSystem.MasochistModeReal)
-            {
-                NPC.life = 0;
-                NPC.HitEffect();
-                NPC.active = false;
-                return false;
-            }
-            return true;
+            return false;
         }
 
         public override bool? DrawHealthBar(byte hbPos, ref float scale, ref Vector2 Pos)

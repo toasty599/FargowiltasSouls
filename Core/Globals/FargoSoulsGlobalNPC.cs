@@ -972,19 +972,6 @@ namespace FargowiltasSouls.Core.Globals
             }
         }
 
-        public override bool PreKill(NPC npc)
-        {
-            Player player = Main.player[npc.lastInteraction];
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            if (player.HasEffect<NecroEffect>() && !npc.boss)
-            {
-                NecroEffect.NecroSpawnGraveEnemy(npc, player, modPlayer);
-            }
-
-            return true;
-        }
-
         private bool lootMultiplierCheck;
         private static int[] IllegalLootMultiplierNPCs => new int[] {
             NPCID.DD2Betsy,
@@ -996,6 +983,12 @@ namespace FargowiltasSouls.Core.Globals
         public override void OnKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+
+            if (player.HasEffect<NecroEffect>() && !npc.boss)
+            {
+                NecroEffect.NecroSpawnGraveEnemy(npc, player, modPlayer);
+            }
 
             if (!lootMultiplierCheck)
             {

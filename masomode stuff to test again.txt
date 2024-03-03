@@ -140,3 +140,4 @@ adjusted visual of stationary scythes during abom ray run
 disabled qs rain and SANS GOLEM for now
 fixed meteor spark trail toggle not actually appearing
 nerfed ts combo, arms start attack later than head
+changed when necro ench checks to spawn graves. confirm it still doesnt work on plantera crystals
