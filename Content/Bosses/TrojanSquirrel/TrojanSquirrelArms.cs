@@ -126,17 +126,6 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                 case 2: //snowballs
                     {
-                        if (WorldSavingSystem.MasochistModeReal && NPC.ai[1] == 0)
-                        {
-                            NPC head = (body.ModNPC as TrojanSquirrel).head;
-                            if (head != null && head.ai[0] != 2)
-                            {
-                                head.ai[0] = 2;
-                                head.ai[1] = 0;
-                                head.netUpdate = true;
-                            }
-                        }
-
                         NPC.ai[1]++;
 
                         int start = 90;
