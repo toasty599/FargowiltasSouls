@@ -128,6 +128,17 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
                 case 2: //squirrel barrage
                     {
+                        if (WorldSavingSystem.MasochistModeReal && NPC.ai[1] == 0)
+                        {
+                            NPC arms = (body.ModNPC as TrojanSquirrel).arms;
+                            if (arms != null && arms.ai[0] != 2)
+                            {
+                                arms.ai[0] = 2;
+                                arms.ai[1] = 0;
+                                arms.netUpdate = true;
+                            }
+                        }
+
                         NPC.ai[1]++;
 
                         int start = 60 + 30;

@@ -129,3 +129,4 @@ buffed moon bow 80 -> 135
 nerfed hellzone 274 -> 250
 plantera crystal leaves count as bosses so necro ench doesn't meme them
 halved dg hp
+maso ts combos snowballs and squirrel bombing
