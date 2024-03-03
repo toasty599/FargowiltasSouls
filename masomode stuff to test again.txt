@@ -125,7 +125,7 @@ the lightning rod base damage 28->26, but benefits from melee speed
 added moon bow
 
 buffed regurg damage 360 -> 390
-buffed moon bow 80 -> 135
+buffed moon bow 80 -> 125
 nerfed hellzone 274 -> 250
 plantera crystal leaves count as bosses so necro ench doesn't meme them
 halved dg hp
