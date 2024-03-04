@@ -97,7 +97,6 @@ saucer phm has -80% life, -50% defense, and reduced move speed
 sorted out lizard box damage more
 betsy heart buff, ramming enemy with dash shortens the cd a lot
 mutant heals follow him, most obvious from penetrator lifesteal in maso
-increased mutant's maso spear lifesteal 5% -> 10%
 nerfed possessed weapon enemy hp, x4 -> x2
 maso no longer disables player respawning during boss fight
 removed shorter ooa wave delay
@@ -145,3 +144,4 @@ gfb mutant p2 transition cakes you
 disbled lunar pillar ai when the celestial event isnt actually happening
 	aka, it works when killing them spawns ml
 	they dont have their ai when spawned with outsider portal
+increased mutant's maso spear lifesteal 5% -> 7.5%
