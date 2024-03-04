@@ -13,7 +13,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantSpearAim : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/HentaiSpear";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSpear_April" : 
+            "FargowiltasSouls/Content/Projectiles/BossWeapons/HentaiSpear";
 
         public override void SetStaticDefaults()
         {
@@ -120,7 +122,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), 0, 0f, Projectile.owner);
+            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<MutantBombSmall>(), 0, 0f, Projectile.owner);
             if (WorldSavingSystem.EternityMode)
             {
                 target.FargoSouls().MaxLifeReduction += 100;
@@ -160,9 +162,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 Texture2D glow = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/MutantBoss/MutantSpearAimGlow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                 float modifier = Projectile.timeLeft / (60f - Projectile.localAI[1]);
-                Color glowColor = new(51, 255, 191, 210);
+                Color glowColor = FargoSoulsUtil.AprilFools ? new Color(255, 191, 51, 210) : new(51, 255, 191, 210);
                 if (Projectile.ai[1] > 1)
-                    glowColor = new Color(0, 0, 255, 210);
+                    glowColor = FargoSoulsUtil.AprilFools ? new Color(255, 0, 0, 210) : new Color(0, 0, 255, 210);
                 //if (Projectile.ai[1] == 4) glowColor = new Color(255, 0, 0, 210);
                 glowColor *= 1f - modifier;
                 float glowScale = Projectile.scale * 8f * modifier;

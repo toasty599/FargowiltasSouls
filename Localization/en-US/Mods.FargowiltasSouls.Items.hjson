@@ -1017,6 +1017,7 @@ BionomicCluster: {
 		[i:FargowiltasSouls/WyvernFeather] Clipped Wings, Crippled, [i:FargowiltasSouls/TribalCharm] Webbed, Purified, [i:FargowiltasSouls/NymphsPerfume] Lovestruck, Stinky, Hexed, and [i:FargowiltasSouls/SecurityWallet] Midas
 		[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
 		[i:FargowiltasSouls/WyvernFeather] Your attacks can inflict Clipped Wings [i:FargowiltasSouls/NymphsPerfume] and produce hearts
+		[i:FargowiltasSouls/WyvernFeather] You periodically shed light orbs, touch them to refresh your flight time
 		[i:FargowiltasSouls/SqueakyToy] Attacks have a chance to squeak and deal 1 damage to you
 		[i:FargowiltasSouls/WretchedPouch] Press the Debuff Install key to gain Wretched Hex
 		[i:FargowiltasSouls/WretchedPouch] Wretched Hex grants massively increased damage and shadowflame, but less move and defenses and attack speed bonuses while attacking
@@ -1042,6 +1043,7 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/WyvernFeather] Clipped Wings, Crippled, [i:FargowiltasSouls/TribalCharm] Webbed, Purified, [i:FargowiltasSouls/NymphsPerfume] Lovestruck, Stinky, Hexed, and [i:FargowiltasSouls/SecurityWallet] Midas
 		[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
 		[i:FargowiltasSouls/WyvernFeather] Your attacks can inflict Clipped Wings [i:FargowiltasSouls/NymphsPerfume] and produce hearts
+		[i:FargowiltasSouls/WyvernFeather] You periodically shed light orbs, touch them to refresh your flight time
 		[i:FargowiltasSouls/SqueakyToy] Attacks have a chance to squeak and deal 1 damage to you
 		[i:FargowiltasSouls/WretchedPouch] Press the Debuff Install key to gain Wretched Hex
 		[i:FargowiltasSouls/WretchedPouch] Wretched Hex grants massively increased damage and shadowflame, but less move and defenses and attack speed bonuses while attacking
@@ -1622,7 +1624,8 @@ WyvernFeather: {
 		'''
 		Grants immunity to Clipped Wings and Crippled
 		Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
-		Stabilizes gravity in space and in liquids
+		You periodically shed light orbs, touch them to refresh your flight time
+		Stabilizes gravity in space and in liquids, this works from inventory
 		'Warm to the touch'
 		'''
 }
@@ -2654,6 +2657,20 @@ TwinRangs: {
 		'''
 		Fire a different twinrang depending on mouse click
 		'The compressed forms of defeated foes..'
+		'''
+}
+
+MoonBow: {
+	DisplayName: Crescent Moon
+	Tooltip:
+		'''
+		Wooden arrows turn into Luminite bolts
+		Arrows create portals that fire Luminite bolts
+		Hold right click to gather power
+		Release at the right time to temporarily receive a lunar blessing
+		When blessed, drastically increased attack speed and altered arrow gravity
+		66% chance to save ammo
+		'The restrung mouth of a defeated foe..'
 		'''
 }
 

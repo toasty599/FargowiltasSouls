@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 base.AI(npc);
             }
-            if (!WorldSavingSystem.EternityMode)
+            if (!WorldSavingSystem.EternityMode || !NPC.LunarApocalypseIsUp)
             {
                 return;
             }

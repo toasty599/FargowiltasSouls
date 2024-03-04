@@ -37,6 +37,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         public static void AddEffects(Player player, Item item)
         {
             player.AddEffect<MeteorMomentumEffect>(item);
+            player.AddEffect<MeteorTrailEffect>(item);
             if (player.FargoSouls().ForceEffect<MeteorEnchant>())
                 player.AddEffect<MeteorEffect>(item);
         }

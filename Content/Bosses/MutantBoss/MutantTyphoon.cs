@@ -12,7 +12,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantTyphoon : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_409";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantTyphoon_April" :
+            "Terraria/Images/Projectile_409";
         //public Vector2 spawn = Vector2.Zero;
 
         public override void SetStaticDefaults()
@@ -137,7 +139,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(100, 100, 250, 200);
+            return FargoSoulsUtil.AprilFools ? new Color(250, 100, 100, 200) : new Color(100, 100, 250, 200);
         }
     }
 }

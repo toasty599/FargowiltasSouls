@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Entity target = feedPlayer ? Main.player[ai0] : Main.npc[ai0];
 
                 if (target is NPC)
-                    Projectile.position += target.velocity / 2;
+                    Projectile.position += (target.position - target.oldPosition) / 4;
 
                 if (Projectile.Distance(target.Center) < 5f)
                 {
@@ -184,7 +184,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(51, 255, 191, 210) * Projectile.Opacity * 0.8f;
+            return (new Color(51, 255, 191, 210)) * Projectile.Opacity * 0.8f;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -227,7 +227,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             //}
             #endregion
             // Draw the base sprite.
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.Cyan, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, FargoSoulsUtil.AprilFools ? Color.Orange : Color.Cyan, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }
 
@@ -239,7 +239,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public static Color ColorFunction(float completionRatio)
         {
-            return Color.Lerp(Color.Cyan, Color.Transparent, completionRatio) * 0.7f;
+            return Color.Lerp(FargoSoulsUtil.AprilFools ? Color.Orange : Color.Cyan, Color.Transparent, completionRatio) * 0.7f;
         }
 
         public void DrawPixelPrimitives(SpriteBatch spriteBatch)

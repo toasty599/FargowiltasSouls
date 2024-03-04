@@ -9,7 +9,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantRitual3 : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_454";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSphere_April" :
+            "Terraria/Images/Projectile_454";
 
         private const float PI = (float)Math.PI;
         private const float rotationPerTick = PI / 100f;
@@ -96,7 +98,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int rect2 = 0;
             Rectangle glowrectangle = new(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            Color glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.8f);
+            Color glowcolor = Color.Lerp(FargoSoulsUtil.AprilFools ? Color.Red : new Color(196, 247, 255, 0), Color.Transparent, 0.8f);
 
             for (int x = 0; x < 14; x++)
             {

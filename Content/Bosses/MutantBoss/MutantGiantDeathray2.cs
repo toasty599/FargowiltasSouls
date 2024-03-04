@@ -92,6 +92,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
                 else if (npc.ai[0] == -5) //final spark
                 {
+                    if (npc.HasValidTarget && Main.player[npc.target].HasBuff<TimeFrozenBuff>())
+                        stall = true;
+
                     if (npc.localAI[2] > 30) //mutant is forcing a despawn
                     {
                         //so this should disappear too
@@ -100,8 +103,6 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     }
                     else if (stall)
                     {
-                        stall = false;
-
                         Projectile.localAI[0] -= 1;
                         Projectile.netUpdate = true;
 
@@ -131,7 +132,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 return;
             }
 
-            Projectile.scale = (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime) * 7f * num801;
+            float scale = stall ? 1f : (float)Math.Sin(Projectile.localAI[0] * 3.14159274f / maxTime);
+            stall = false;
+            Projectile.scale = scale * 7f * num801;
             if (WorldSavingSystem.MasochistModeReal)
                 Projectile.scale *= 5f;
 
@@ -288,7 +291,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             //return MathHelper.Lerp(baseWidth, baseWidth * 2, trailInterpolant);
         }
 
-        public static Color ColorFunction(float trailInterpolant) => Color.Lerp(new(31, 187, 192, 100), new(51, 255, 191, 100), trailInterpolant);
+        public static Color ColorFunction(float trailInterpolant) =>
+            Color.Lerp(
+                FargoSoulsUtil.AprilFools ? new Color(255, 0, 0, 100) : new(31, 187, 192, 100), 
+                FargoSoulsUtil.AprilFools ? new Color(255, 191, 51, 100) : new(51, 255, 191, 100), 
+                trailInterpolant);
 
         public override bool PreDraw(ref Color lightColor)
         {

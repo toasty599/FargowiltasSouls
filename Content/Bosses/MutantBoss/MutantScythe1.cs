@@ -13,6 +13,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantScythe1 : ModProjectile
     {
+        public override string Texture => $"FargowiltasSouls/Content/Bosses/MutantBoss/MutantScythe1{FargoSoulsUtil.TryAprilFoolsTexture}";
+
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Mutant Sickle");
