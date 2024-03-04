@@ -142,3 +142,6 @@ fixed meteor spark trail toggle not actually appearing
 nerfed ts combo, arms start attack later than head
 changed when necro ench checks to spawn graves. confirm it still doesnt work on plantera crystals
 gfb mutant p2 transition cakes you
+disbled lunar pillar ai when the celestial event isnt actually happening
+	aka, it works when killing them spawns ml
+	they dont have their ai when spawned with outsider portal
