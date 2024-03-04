@@ -1017,6 +1017,7 @@ BionomicCluster: {
 		免疫[i:FargowiltasSouls/NymphsPerfume]热恋、恶臭、[i:FargowiltasSouls/SecurityWallet]迈达斯和着魔减益
 		[i:FargowiltasSouls/SandsofTime]使用以传送到你上一次死亡的地点
 		[i:FargowiltasSouls/WyvernFeather]攻击会造成折翼减益，[i:FargowiltasSouls/NymphsPerfume]并生成红心
+		[i:FargowiltasSouls/WyvernFeather]你会定期释放光球，触碰光球可以恢复你的飞行时间
 		[i:FargowiltasSouls/SqueakyToy]你受到伤害时有几率发出吱吱声，并使这次受到的伤害降至1点
 		[i:FargowiltasSouls/WretchedPouch]按下“减益负载”键可获得诅咒之魔增益
 		[i:FargowiltasSouls/WretchedPouch]诅咒之魔会使攻击时获得120%伤害加成并释放暗影焰触手，但降低20%伤害减免且大幅降低移动速度，受到的攻速加成更少
@@ -1628,7 +1629,8 @@ WyvernFeather: {
 		'''
 		免疫折翼和跛足减益
 		攻击有10%概率对非Boss敌怪造成折翼减益
-		在太空和液体中恢复正常重力作用
+		你会定期释放光球，触碰光球可以恢复你的飞行时间
+		在太空和液体中恢复正常重力作用，在物品栏中同样生效
 		“摸起来很暖和”
 		'''
 }
@@ -2964,8 +2966,8 @@ ComputationOrb: {
 	DisplayName: 演算宝珠
 	Tooltip:
 		'''
-		非魔法或召唤攻击将造成1.25倍伤害，但会被魔力病所影响
-		非魔法或召唤武器需要10魔力攻击
+		非魔法非召唤攻击将造成1.25倍伤害，但会被魔力病所影响
+		非魔法非召唤武器需要10魔力攻击
 		“在核心内，仍然闪烁着希望的火花。”
 		'''
 }
