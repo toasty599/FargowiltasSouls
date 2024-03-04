@@ -145,3 +145,5 @@ disbled lunar pillar ai when the celestial event isnt actually happening
 	aka, it works when killing them spawns ml
 	they dont have their ai when spawned with outsider portal
 increased mutant's maso spear lifesteal 5% -> 7.5%
+disabled moon bow
+disabled cursed coffin

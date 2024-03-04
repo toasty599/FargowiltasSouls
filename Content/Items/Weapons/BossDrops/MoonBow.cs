@@ -11,6 +11,8 @@ namespace FargowiltasSouls.Content.Items.Weapons.BossDrops
 {
     public class MoonBow : SoulsItem
     {
+        public override bool IsLoadingEnabled(Mod mod) => false;
+
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
