@@ -313,7 +313,6 @@ MeteorEnchant: {
 	Tooltip:
 		'''
 		大幅增加移动速度和加速度并降低动量影响
-		提供照明效果
 		移动时会产生火焰尾迹
 		《Drop a draco on 'em》
 		'''
