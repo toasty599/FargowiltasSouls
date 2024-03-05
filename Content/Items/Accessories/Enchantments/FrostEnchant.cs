@@ -137,7 +137,7 @@ There is a 60 second cooldown for this effect
                 if (modPlayer.icicleCD > 0)
                     modPlayer.icicleCD--;
 
-                if (modPlayer.IcicleCount >= 1 && player.controlUseItem && player.HeldItem.damage > 0 && player.HeldItem.createTile == -1 && player.HeldItem.createWall == -1 && player.HeldItem.ammo == AmmoID.None && player.HeldItem.hammer == 0 && player.HeldItem.pick == 0 && player.HeldItem.axe == 0)
+                if (modPlayer.IcicleCount >= 1 && player.controlUseItem && player.HeldItem.IsWeapon() && player.HeldItem.createTile == -1 && player.HeldItem.createWall == -1 && player.HeldItem.ammo == AmmoID.None)
                 {
 
                     int dmg = modPlayer.ForceEffect<FrostEnchant>() ? 100 : 50;
