@@ -44,7 +44,7 @@ namespace FargowiltasSouls.Content.Sky
                 {
                     case -5:
                         if (Main.npc[EModeGlobalNPC.mutantBoss].ai[2] >= 420)
-                            ChangeColorIfDefault(Color.Cyan);
+                            ChangeColorIfDefault(FargoSoulsUtil.AprilFools ? new Color(255, 180, 50) : Color.Cyan);
                         break;
 
                     case 10: //p2 transition, smash to black
@@ -119,7 +119,7 @@ namespace FargowiltasSouls.Content.Sky
 
         private Color ColorToUse(ref float opacity)
         {
-            Color color = new(51, 255, 191);
+            Color color = FargoSoulsUtil.AprilFools ? Color.OrangeRed : new(51, 255, 191);
             opacity = intensity * 0.5f + lifeIntensity * 0.5f;
 
             if (specialColorLerp > 0 && specialColor != null)
@@ -139,7 +139,7 @@ namespace FargowiltasSouls.Content.Sky
                 float opacity = 0f;
                 Color color = ColorToUse(ref opacity);
 
-                spriteBatch.Draw(ModContent.Request<Texture2D>("FargowiltasSouls/Content/Sky/MutantSky", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
+                spriteBatch.Draw(ModContent.Request<Texture2D>($"FargowiltasSouls/Content/Sky/MutantSky{FargoSoulsUtil.TryAprilFoolsTexture}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), color * opacity);
 
                 if (--delay < 0)

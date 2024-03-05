@@ -8,7 +8,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantBombSmall : MutantBomb
     {
-        public override string Texture => "Terraria/Images/Projectile_645";
+        public override string Texture => $"Terraria/Images/Projectile_{(FargoSoulsUtil.AprilFools ? "687" : "645")}";
 
         public override void SetDefaults()
         {

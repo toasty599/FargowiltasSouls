@@ -97,7 +97,6 @@ saucer phm has -80% life, -50% defense, and reduced move speed
 sorted out lizard box damage more
 betsy heart buff, ramming enemy with dash shortens the cd a lot
 mutant heals follow him, most obvious from penetrator lifesteal in maso
-increased mutant's maso spear lifesteal 5% -> 10%
 nerfed possessed weapon enemy hp, x4 -> x2
 maso no longer disables player respawning during boss fight
 removed shorter ooa wave delay
@@ -114,3 +113,37 @@ buffed crimetroid, uses local iframes
 martian saucer has halved life/defense pre golem
 wretched pouch adjusted: you need debuff install to activate it
 fixed how effects like wretched pouch detect when youre attacking didnt account for attack speed bonuses
+
+nerfed fish stick armor pen to 20 (so you should use betsy wrath, ichor, etc. with it)
+gold ench wizard upgrade is in fact described
+adjusted comp orb tooltip to better reflect its damage boost
+phm mimic nerf, dont use its enhanced ai until 50% life
+top hat squirrels are no longer extinct in the wild
+the lightning rod base damage 28->26, but benefits from melee speed
+
+added moon bow
+
+buffed regurg damage 360 -> 390
+buffed moon bow 80 -> 125
+nerfed hellzone 274 -> 250
+plantera crystal leaves count as bosses so necro ench doesn't meme them
+halved dg hp
+maso ts combos snowballs and squirrel bombing
+wyvern feather buffed, gravity is passive and has new flight-refreshing balls effect
+added yharim (change your computer date to first week of april)
+
+sped up maso mutant final spark 2
+if you get time frozen in the last second or so of maso final spark, mutant is guaranteed to continue the ray
+	(no more scenario where you get timestopped but mutant dies anyway without killing you)
+adjusted visual of stationary scythes during abom ray run
+disabled qs rain and SANS GOLEM for now
+fixed meteor spark trail toggle not actually appearing
+nerfed ts combo, arms start attack later than head
+changed when necro ench checks to spawn graves. confirm it still doesnt work on plantera crystals
+gfb mutant p2 transition cakes you
+disbled lunar pillar ai when the celestial event isnt actually happening
+	aka, it works when killing them spawns ml
+	they dont have their ai when spawned with outsider portal
+increased mutant's maso spear lifesteal 5% -> 7.5%
+disabled moon bow
+disabled cursed coffin

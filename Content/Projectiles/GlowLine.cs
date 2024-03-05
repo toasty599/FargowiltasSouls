@@ -417,7 +417,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case 13: //mutant final spark tell
                     {
-                        color = new Color(51, 255, 191);
+                        color = FargoSoulsUtil.AprilFools ? Color.Yellow : new Color(51, 255, 191);
                         maxTime = 90;
                         alphaModifier = counter > maxTime / 2 ? 6 : 3;
                         Projectile.scale = 4f;

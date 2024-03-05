@@ -24,6 +24,8 @@ using FargowiltasSouls.Content.Items.Summons;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Terraria.GameContent.Events;
+using FargowiltasSouls.Content.NPCs.Critters;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -198,16 +200,6 @@ namespace FargowiltasSouls.Core.Globals
                 //                    case NPCID.DukeFishron:
                 //                        SpecialEnchantImmune = true;
                 //                        break;*/
-
-                //                    case NPCID.Squirrel:
-                //                    case NPCID.SquirrelRed:
-                //                        if (!npc.SpawnedFromStatue)
-                //                        {
-                //                            int p = Player.FindClosest(npc.position, npc.width, npc.height);
-                //                            if ((p == -1 || npc.Distance(Main.player[p].Center) > 800) && Main.rand.NextBool(5))
-                //                                npc.Transform(ModContent.NPCType<TophatSquirrelCritter>());
-                //                        }
-                //                        break;
 
                 //                    default:
                 //                        break;
@@ -970,19 +962,14 @@ namespace FargowiltasSouls.Core.Globals
                     }
                 }
             }
-        }
 
-        public override bool PreKill(NPC npc)
-        {
-            Player player = Main.player[npc.lastInteraction];
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            if (player.HasEffect<NecroEffect>() && !npc.boss)
+            int y = spawnInfo.SpawnTileY;
+            bool day = Main.dayTime;
+            bool surface = y < Main.worldSurface && !spawnInfo.Sky;
+            if (day && surface && spawnInfo.PlayerInTown && FargowiltasSouls.NoBiome(spawnInfo) && FargowiltasSouls.NoZone(spawnInfo))
             {
-                NecroEffect.NecroSpawnGraveEnemy(npc, player, modPlayer);
+                pool[ModContent.NPCType<TophatSquirrelCritter>()] = 0.03f;
             }
-
-            return true;
         }
 
         private bool lootMultiplierCheck;
@@ -996,6 +983,12 @@ namespace FargowiltasSouls.Core.Globals
         public override void OnKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+
+            if (player.HasEffect<NecroEffect>() && !npc.boss)
+            {
+                NecroEffect.NecroSpawnGraveEnemy(npc, player, modPlayer);
+            }
 
             if (!lootMultiplierCheck)
             {
@@ -1103,13 +1096,16 @@ namespace FargowiltasSouls.Core.Globals
                     npcLoot.Add(BossDrop(ModContent.ItemType<FishStick>()));
                     break;
 
-            case NPCID.HallowBoss:
-                npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
-                break;
-                
+                case NPCID.HallowBoss:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
+                    break;
 
                 case NPCID.DD2Betsy:
                     npcLoot.Add(BossDrop(ModContent.ItemType<DragonBreath>()));
+                    break;
+
+                case NPCID.MoonLordCore:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<MoonBow>()));
                     break;
 
                 case NPCID.BigMimicJungle:

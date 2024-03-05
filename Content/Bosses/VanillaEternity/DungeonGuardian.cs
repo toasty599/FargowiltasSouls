@@ -47,7 +47,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.SetDefaults(npc);
 
             npc.boss = true;
-            npc.lifeMax /= 4;
+            npc.lifeMax /= 8;
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

@@ -9,7 +9,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantEyeWavy : MutantEye
     {
-        public override string Texture => "Terraria/Images/Projectile_452";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantEye_April" :
+            "Terraria/Images/Projectile_452";
 
         public override int TrailAdditive => 150;
 

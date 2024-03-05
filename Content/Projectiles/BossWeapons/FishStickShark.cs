@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void OnSpawn(IEntitySource source)
         {
-            Projectile.ArmorPenetration += 60;
+            Projectile.ArmorPenetration += 20;
         }
 
         public override void AI()

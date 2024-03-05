@@ -10,7 +10,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantFragment : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/Masomode/CelestialFragment";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantFragment_April" : 
+            "FargowiltasSouls/Content/Projectiles/Masomode/CelestialFragment";
 
         public override void SetStaticDefaults()
         {

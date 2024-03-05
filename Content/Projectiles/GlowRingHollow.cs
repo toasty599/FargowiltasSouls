@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case 5: //mutant subphase transition
                     Projectile.FargoSouls().TimeFreezeImmune = true;
-                    color = new Color(51, 255, 191);
+                    color = FargoSoulsUtil.AprilFools ? Color.Red : new Color(51, 255, 191);
                     maxTime = 120;
                     radius = 1200 * (float)Math.Cos(Math.PI / 2 * Projectile.localAI[0] / maxTime);
                     alphaModifier = -1;

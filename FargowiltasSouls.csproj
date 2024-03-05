@@ -17,6 +17,35 @@
     <None Remove="Folders to Port\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\ExtraTextures\Eternals\MutantSoul_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantAura_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantBoss_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantBoss_April_Head_Boss.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantCrystalLeaf_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantDestroyerBody_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantDestroyerHead_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantDestroyerTail_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantEyeOfCthulhu_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantEye_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantFishron_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantFragment_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantGuardian_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantNuke_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantPillar_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantRetirang_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantScythe1_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantSlimeBall_April_1.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantSlimeBall_April_2.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantSlimeBall_April_3.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantSlimeRain_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantSpazmarang_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantSpear_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantSphere_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantTrueEye_April.png" />
+    <None Remove="Content\Bosses\MutantBoss\MutantTyphoon_April.png" />
+    <None Remove="Content\Sky\MutantSky_April.png" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantTrueEyeS : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_650";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantTrueEye_April" :
+            "Terraria/Images/Projectile_650";
 
         private float localAI0;
         private float localAI1;

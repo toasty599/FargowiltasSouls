@@ -15,7 +15,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantEyeOfCthulhu : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_4";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantEyeOfCthulhu_April" :
+            "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_4";
 
         public override void SetStaticDefaults()
         {
