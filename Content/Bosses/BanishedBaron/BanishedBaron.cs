@@ -528,7 +528,7 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                     if (Wet() && NPC.velocity.Length() > 3)
                     {
                         //stream of water dust and bubbles behind
-                        if (Main.rand.NextBool(2))
+                        if (Main.rand.NextBool(2) && Main.netMode != NetmodeID.Server)
                         {
                             Vector2 backPos = NPC.Center - Vector2.Normalize(NPC.velocity) * 120 / 2f + Main.rand.NextVector2Circular(10, 10);
                             Particle p = new Bubble(backPos, -NPC.velocity.RotatedByRandom(MathF.PI * 0.12f) * Main.rand.NextFloat(0.6f, 1f) / 2f, 1, 30, rotation: Main.rand.NextFloat(MathF.Tau));

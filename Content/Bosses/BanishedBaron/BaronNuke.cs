@@ -95,8 +95,11 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
                 }
                 else
                 {
-                    Particle p = new Bubble(backPos, -Projectile.velocity.RotatedByRandom(MathF.PI * 0.12f) * Main.rand.NextFloat(0.6f, 1f) / 2f, 1, 30, rotation: Main.rand.NextFloat(MathF.Tau));
-                    p.Spawn();
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                        Particle p = new Bubble(backPos, -Projectile.velocity.RotatedByRandom(MathF.PI * 0.12f) * Main.rand.NextFloat(0.6f, 1f) / 2f, 1, 30, rotation: Main.rand.NextFloat(MathF.Tau));
+                        p.Spawn();
+                    }
                     Dust.NewDust(backPos, 2, 2, DustID.Water, -Projectile.velocity.X, -Projectile.velocity.Y, 0, default, 1f);
                 }
             }

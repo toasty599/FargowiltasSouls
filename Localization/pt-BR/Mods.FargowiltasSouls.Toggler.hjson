@@ -73,6 +73,7 @@
 // CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
 // MeteorMomentumEffect: Meteor Speed
 // MeteorEffect: Meteor Shower
+// MeteorTrailEffect: Meteor Spark Trail
 // NebulaEffect: Nebula Boosters
 // SolarEffect: Solar Shield
 // SolarFlareEffect: Inflict Solar Flare

@@ -1187,7 +1187,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
 
-                if (player.HeldItem.damage > 0 && player.HeldItem.pick == 0)
+                if (player.HeldItem.IsWeapon())
                 {
                     modPlayer.WeaponUseTimer = Math.Max(modPlayer.WeaponUseTimer, 2);
 
