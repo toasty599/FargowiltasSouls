@@ -73,6 +73,7 @@ TikiEffect: 提基 鞭打召唤物
 CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
 MeteorMomentumEffect: 流星 速度
 MeteorEffect: 流星 流星雨
+// MeteorTrailEffect: Meteor Spark Trail
 NebulaEffect: 星云 强化焰
 SolarEffect: 耀斑 护盾
 SolarFlareEffect: 耀斑 太阳耀斑减益
