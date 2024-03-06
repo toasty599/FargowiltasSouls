@@ -29,7 +29,6 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             Projectile.width = 70;
             Projectile.height = 70;
-            Projectile.penetrate = -1;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;

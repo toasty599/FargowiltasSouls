@@ -110,6 +110,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Projectile.timeLeft = 0;
             }
 
+            TryTimeStop();
+        }
+
+        void TryTimeStop()
+        {
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost
                 && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()))
             {
@@ -136,6 +141,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 360);
+
+            TryTimeStop();
         }
 
         public override void OnKill(int timeleft)
