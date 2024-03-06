@@ -147,3 +147,5 @@ disbled lunar pillar ai when the celestial event isnt actually happening
 increased mutant's maso spear lifesteal 5% -> 7.5%
 disabled moon bow
 disabled cursed coffin
+
+fixed solar pillar drilling to the center of the earth when killed at a specific time
