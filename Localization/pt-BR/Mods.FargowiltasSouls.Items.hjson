@@ -1023,7 +1023,8 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
 		[i:FargowiltasSouls/WyvernFeather] Your attacks can inflict Clipped Wings [i:FargowiltasSouls/NymphsPerfume] and produce hearts
 		[i:FargowiltasSouls/SqueakyToy] Attacks have a chance to squeak and deal 1 damage to you
-		[i:FargowiltasSouls/WretchedPouch] While attacking, gain massively increased damage and shadowflame, but less move and defenses and attack speed bonuses
+		[i:FargowiltasSouls/WretchedPouch] Press the Debuff Install key to gain Wretched Hex
+		[i:FargowiltasSouls/WretchedPouch] Wretched Hex grants massively increased damage and shadowflame, but less move and defenses and attack speed bonuses while attacking
 		[i:FargowiltasSouls/ConcentratedRainbowMatter] Summons a friendly rainbow slime
 		[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 		[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%

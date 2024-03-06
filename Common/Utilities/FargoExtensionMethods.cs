@@ -150,6 +150,14 @@ namespace FargowiltasSouls //lets everything access it without using
 
         public static float ActualClassDamage(this Player player, DamageClass damageClass)
             => player.GetTotalDamage(damageClass).Additive * player.GetTotalDamage(damageClass).Multiplicative;
+        public static bool IsWeapon(this Item item) 
+        {
+            return (item.damage > 0 && item.pick == 0 && item.axe == 0 && item.hammer == 0) || item.type == ItemID.CoinGun; // I HATE COIN GUN GRAAAAAAAAAAAAAAAAGHHHHHHHHHHHH
+        }
+        public static bool IsWeaponWithDamageClass(this Item item)
+        {
+            return (item.damage > 0 && item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0) || item.type == ItemID.CoinGun;
+        }
         /// <summary>
         /// Lower bound is 0 and inclusive, cap is exclusive
         /// </summary>
