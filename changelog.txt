@@ -20,6 +20,7 @@ Deviantt:
 -Magical Bulb debuff cleanse CD 120 -> 40sec, and debuff causes enemies to take double DoT
 -Increased Lihzahrd Treasure Box damage
 -Hitting an enemy with Betsy Dash halves the cooldown
+-Betsy Dash now uses static iframes
 -Betsy Dash always has Heart speed (25), was 20
 -Wyvern Feather gravity is passive and has new flight-refreshing balls effect
 -All Security Wallet effects now work from inventory
