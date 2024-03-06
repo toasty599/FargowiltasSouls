@@ -8,8 +8,11 @@ Fargo Wiki: https://fargosmods.wiki.gg
 
 NEW UPDATE - v1.6.6.2
 Mutant:
--Increased Maso spear lifesteal 5% -> 10%
--Heals follow him
+-Increased Masochist spear lifesteal 5% -> 7.5%
+-Some other Masochist mode adjustments
+-Yharim
+Abominationn:
+-Adjusted visuals of stationary scythes during deathray run
 Lifelight:
 -Changed attack logic, certain attacks are now conditional to make movement incentives flow better
 -Shots in reaction shotgun area are aimed at player rather than randomly, telegraph appears later
@@ -17,11 +20,25 @@ Deviantt:
 -Nerfed dash, heart cluster is p2 only
 
 -Fossil Enchantment revive now cleanses debuffs on activation
+-Platinum Enchantment now has a force effect
+-Obsidian Enchant explosion damage increased by 30%, but only if actually lava wet
+-Ashwood Enchant fireball damage increased by 30%, but only if actually burning
+-Fixed bug where NPC fire immunity effect wasn't granted when equipped, only from inventory
+-Wretched Pouch slowdown is now activated with Debuff Install hotkey
 -Magical Bulb debuff cleanse CD 120 -> 40sec, and debuff causes enemies to take double DoT
 -Increased Lihzahrd Treasure Box damage
+-Hitting an enemy with Betsy Dash halves the cooldown
 -Betsy Dash always has Heart speed (25), was 20
+-Wyvern Feather gravity is passive and has new flight-refreshing balls effect
 -All Security Wallet effects now work from inventory
--The lightning rod lightning no longer makes light inside solid blocks
+-Added toggle for Meteor Enchant spark trail
+-Crimetroid now uses local iframes
+-Decreased Fish Stick armor pen to 20
+-Regurgitator damage 360 -> 390
+-Hellzone damage 274 -> 250
+-The Lightning Rod damage 28 -> 26, but benefits from melee speed
+-The Lightning Rod lightning no longer makes light inside solid blocks
+-Top Hat Squirrels are no longer extinct in the wild
 -Fixed some armor pieces not giving the correct amount of sentry slots
 -Fixed Nymphs Perfume passive effect not working in vanity slot
 -Fixed Fish Stick sharks tracking unhomeable/invincible enemies
@@ -30,22 +47,29 @@ Deviantt:
 -Fixed sprite sheeting for all "guardian" attacks
 
 Eternity Mode changes:
+-Skeletron head HP x0.8, hand HP x1.4
+-Skeletron head DR now affects life regen and grows stronger the more it's damaged without killing hands
+-Plantera despawns faster in phase 1/2
+-Plantera crystal leaves are now killable instead of absorbing projectiles
+-Masochist Trojan Squirrel now combos Snowballs and Squirrels
+-Duke Fishron has a chance to drop a Pirate Map
+-Changed Golem bouncing boulder trail for visibility
+-Lunar Pillars don't have Eternity AI outside of the event
+
 -Pinky, Tortoise and Big Toss Mode stun duration 2sec -> 1sec
+-Lihzahrds always shoot fireballs rather than darts
 -Paladins burst into dungeon spirits when killed
 -Possessed weapons HP 4x -> 2x
 -Defenseless has new sound effects and visual, and no longer strips KB immune
 -White Cultist Archers are now post golem, and have a 1% chance to drop Zealot's Possession
--Mimic iframes 20t -> 15t
+-Mimic iframes 20t -> 15t and only use their enhanced AI below half health
 -Martian Saucers can spawn post-skeletron at a very low chance with reduced stats
 -Spazmatism spazzes out during ray spin
 -WoF ichor attack damage 150 -> 112
--Duke Fishron has a chance to drop a Pirate Map
--Plantera despawns faster in phase 1/2
--Plantera crystal leaves are now killable instead of absorbing projectiles
--Changed Golem bouncing boulder trail for visibility
 -Removed early bird lock on Frost Core and Forbidden Fragments
 -Lightning Rod debuff now uses the same lightning bolts as the Rain lightning
 -Rain lightning is now disabled during bosses
+-Removed shorter OOA 
 -Changed Jungle Rose eternity tooltip
 Eternity item changes:
 -Candy Corn Rifle +50% damage 
