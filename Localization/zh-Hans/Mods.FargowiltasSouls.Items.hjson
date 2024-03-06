@@ -313,7 +313,6 @@ MeteorEnchant: {
 	Tooltip:
 		'''
 		大幅增加移动速度和加速度并降低动量影响
-		提供照明效果
 		移动时会产生火焰尾迹
 		《Drop a draco on 'em》
 		'''
@@ -346,7 +345,7 @@ MonkEnchant: {
 		'''
 		使你获得冲刺能力
 		双击“左”或“右”键进行冲刺
-		冲刺后的0.5秒内免疫伤害和减益
+		冲刺后的1/3秒内免疫伤害和减益
 		冲刺撞击敌人可对敌人造成巨大伤害
 		冲刺冷却比普通冲刺长得多
 		闪电光环现在可以暴击且攻击速度更快
@@ -529,13 +528,13 @@ ShinobiEnchant: {
 	DisplayName: 渗透忍者魔石
 	Tooltip:
 		'''
-		使你获得冲刺能力
-		大幅强化闪电光环的效果
-		冲刺后半秒内免疫一切伤害和减益
-		冲刺撞击敌人可对敌人造成巨大伤害
+		使你获得传送冲刺能力
+		冲刺后1/3秒内免疫一切伤害和减益
+		冲刺穿过敌人可对敌人造成巨大伤害
 		冲刺冷却比普通冲刺更长
 		冲刺距离更长且造成的伤害更高
 		朝墙壁冲刺时会直接穿过去
+		大幅强化闪电光环的效果
 		“藏匿于墙中的村庄”
 		'''
 }
@@ -1003,7 +1002,7 @@ BetsysHeart: {
 		'''
 		免疫分泌物、枯萎武器和枯萎盔甲减益
 		按下“特殊冲刺”键后会进行短距离的无敌火球冲刺
-		冲刺命中敌人造成双足翼龙诅咒减益
+		冲刺命中敌人造成20秒双足翼龙诅咒减益并缩短冲刺冷却时间
 		“用文火，五分熟”
 		'''
 }
@@ -1017,8 +1016,10 @@ BionomicCluster: {
 		免疫[i:FargowiltasSouls/NymphsPerfume]热恋、恶臭、[i:FargowiltasSouls/SecurityWallet]迈达斯和着魔减益
 		[i:FargowiltasSouls/SandsofTime]使用以传送到你上一次死亡的地点
 		[i:FargowiltasSouls/WyvernFeather]攻击会造成折翼减益，[i:FargowiltasSouls/NymphsPerfume]并生成红心
+		[i:FargowiltasSouls/WyvernFeather]你会定期释放光球，触碰光球可以恢复你的飞行时间
 		[i:FargowiltasSouls/SqueakyToy]你受到伤害时有几率发出吱吱声，并使这次受到的伤害降至1点
-		[i:FargowiltasSouls/WretchedPouch]攻击时获得120%伤害加成并释放暗影焰触手，但降低20%伤害减免且大幅降低移动速度，受到的攻速加成更少
+		[i:FargowiltasSouls/WretchedPouch]按下“减益负载”键可获得诅咒之魔增益
+		[i:FargowiltasSouls/WretchedPouch]诅咒之魔会使攻击时获得120%伤害加成并释放暗影焰触手，但降低20%伤害减免且大幅降低移动速度，受到的攻速加成更少
 		[i:FargowiltasSouls/ConcentratedRainbowMatter]召唤一只友好的彩虹史莱姆
 		[i:FargowiltasSouls/TimsConcoction]某些敌人在死亡时会掉落药水
 		[i:FargowiltasSouls/TribalCharm]手动点击攻击时，增加30%非召唤伤害
@@ -1044,7 +1045,8 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/SandsofTime]使用以传送到你上一次死亡的地点
 		[i:FargowiltasSouls/WyvernFeather]攻击会造成折翼减益，[i:FargowiltasSouls/NymphsPerfume]并生成红心
 		[i:FargowiltasSouls/SqueakyToy]你受到伤害时有几率发出吱吱声，并使这次受到的伤害降至1点
-		[i:FargowiltasSouls/WretchedPouch]攻击时获得120%伤害加成并释放暗影焰触手，但降低20%伤害减免且大幅降低移动速度，受到的攻速加成更少
+		[i:FargowiltasSouls/WretchedPouch]按下“减益负载”键可获得诅咒之魔增益
+		[i:FargowiltasSouls/WretchedPouch]诅咒之魔会使攻击时获得120%伤害加成并释放暗影焰触手，但降低20%伤害减免且大幅降低移动速度，受到的攻速加成更少
 		[i:FargowiltasSouls/ConcentratedRainbowMatter]召唤一只友好的彩虹史莱姆
 		[i:FargowiltasSouls/TimsConcoction]某些敌人在死亡时会掉落药水
 		[i:FargowiltasSouls/TribalCharm]手动点击攻击时，增加30%非召唤伤害
@@ -1313,6 +1315,7 @@ MagicalBulb: {
 		'''
 		免疫毒液、常春藤毒素和蜂群减益
 		按下“魔法净化”键治愈你身上绝大多数的减益，此效果有一定的冷却时间
+		魔法净化还会使附近的敌人因减益受到的伤害随时间推移而增加
 		不攻击时，冷却速度更快
 		根据你受到的光照增加生命恢复速度
 		吸引一株传奇植物的幼株，其会在战斗中茁壮成长
@@ -1508,6 +1511,7 @@ SecurityWallet: {
 		'''
 		免疫迈达斯减益
 		大幅改善重铸结果
+		放置在背包中即可生效
 		“无法完美保护尸体上的财物”
 		'''
 }
@@ -1611,6 +1615,7 @@ WretchedPouch: {
 	Tooltip:
 		'''
 		免疫暗影焰减益
+		按下“减益负载”键获得诅咒之魔增益，触发以下效果
 		攻击时获得120%伤害加成并释放暗影焰触手，但降低20%伤害减免且大幅降低移动速度
 		攻击速度加成只有一半生效
 		“被打败的敌人的诅咒燃烧火药”
@@ -1623,7 +1628,8 @@ WyvernFeather: {
 		'''
 		免疫折翼和跛足减益
 		攻击有10%概率对非Boss敌怪造成折翼减益
-		在太空和液体中恢复正常重力作用
+		你会定期释放光球，触碰光球可以恢复你的飞行时间
+		在太空和液体中恢复正常重力作用，在物品栏中同样生效
 		“摸起来很暖和”
 		'''
 }
@@ -2614,6 +2620,7 @@ FishStick: {
 		'''
 		右键点击召唤台风
 		攻击敌人时台风会发射鲨鱼协同进行攻击
+		鲨鱼会忽略敌人20点防御
 		“一个被击败的敌人的尸体，用棍子粗暴地串起来……”
 		'''
 }
@@ -2972,8 +2979,8 @@ ComputationOrb: {
 	DisplayName: 演算宝珠
 	Tooltip:
 		'''
-		非魔法或召唤攻击将额外造成25%伤害，但会被魔力病所影响
-		非魔法或召唤武器需要10魔力攻击
+		非魔法非召唤攻击将造成1.25倍伤害，但会被魔力病所影响
+		非魔法非召唤武器需要10魔力攻击
 		“在核心内，仍然闪烁着希望的火花。”
 		'''
 }
@@ -3373,7 +3380,7 @@ OncomingMutantItem: {
 }
 
 Extra: {
-	StarlightTungsten: 无法被钨魔石强化
+	StarlightTungsten: 装备钨魔石时只造成40%伤害
 	DefensePrefixMaxLife: +{0} 最大生命值
 	EternityItem: 永恒
 	DisabledEffects: 有效果被饰品效果配置禁用
