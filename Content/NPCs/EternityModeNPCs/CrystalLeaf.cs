@@ -52,6 +52,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
             NPC.alpha = 255;
             NPC.lavaImmune = true;
             NPC.aiStyle = -1;
+
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -146,7 +147,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs
                 Lighting.AddLight(NPC.Center, 0.1f, 0.4f, 0.2f);
 
             NPC.scale = (Main.mouseTextColor / 200f - 0.35f) * 0.2f + 0.95f;
-            NPC.life = NPC.lifeMax;
+            //NPC.life = NPC.lifeMax;
 
             NPC.position = plantera.Center + new Vector2(NPC.ai[1], 0f).RotatedBy(NPC.ai[3]);
             NPC.position.X -= NPC.width / 2;

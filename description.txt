@@ -7,8 +7,14 @@ Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://fargosmods.wiki.gg
 
 NEW UPDATE - v1.6.6.2
--Changed Lifelight's attack logic, certain attacks are now conditional to make movement incentives flow better
--Nerfed Deviantt's dash, heart cluster is p2 only
+Mutant:
+-Increased Maso spear lifesteal 5% -> 10%
+-Heals follow him
+Lifelight:
+-Changed attack logic, certain attacks are now conditional to make movement incentives flow better
+-Shots in reaction shotgun area are aimed at player rather than randomly, telegraph appears later
+Deviantt:
+-Nerfed dash, heart cluster is p2 only
 
 -Fossil Enchantment revive now cleanses debuffs on activation
 -Magical Bulb debuff cleanse CD 120 -> 40sec, and debuff causes enemies to take double DoT
@@ -26,6 +32,7 @@ NEW UPDATE - v1.6.6.2
 Eternity Mode changes:
 -Pinky, Tortoise and Big Toss Mode stun duration 2sec -> 1sec
 -Paladins burst into dungeon spirits when killed
+-Possessed weapons HP 4x -> 2x
 -Defenseless has new sound effects and visual, and no longer strips KB immune
 -White Cultist Archers are now post golem, and have a 1% chance to drop Zealot's Possession
 -Mimic iframes 20t -> 15t
@@ -34,6 +41,7 @@ Eternity Mode changes:
 -WoF ichor attack damage 150 -> 112
 -Duke Fishron has a chance to drop a Pirate Map
 -Plantera despawns faster in phase 1/2
+-Plantera crystal leaves are now killable instead of absorbing projectiles
 -Changed Golem bouncing boulder trail for visibility
 -Removed early bird lock on Frost Core and Forbidden Fragments
 -Lightning Rod debuff now uses the same lightning bolts as the Rain lightning
