@@ -215,7 +215,7 @@ MutantBoss: {
 		Random56: 如同尘土般灰飞烟灭吧！
 		Random57: 有抑郁症那你怎么不去死啊？
 		Random58: 期待听你死亡时凄惨的哭喊声呢……
-		Random59: 我是无上源初之神明！！
+		Random59: 我是无上原初之神明！！
 		Random60: 要不要再添加一个魔鬼模式？
 		Random61: Furgo的力量在我面前如烛火般渺小！
 		Random62: 我觉得你一直用假币在欺骗我，需要狠狠惩罚呢……
@@ -300,7 +300,7 @@ MutantBoss: {
 		Quote32: 我！不！会！被！毁！灭！
 		Quote33: 期待我的重生吧……
 		Quote34: 你真的很出色……
-		// Quote35: BLUE
+		Quote35: 蓝色
 	}
 }
 
