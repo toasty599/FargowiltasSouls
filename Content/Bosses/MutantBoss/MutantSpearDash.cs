@@ -15,7 +15,43 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantSpearDash : ModProjectile
+    public abstract class MutantSpearAttack : ModProjectile
+    {
+        protected NPC npc;
+
+        public override bool? CanDamage()
+        {
+            Projectile.maxPenetrate = 1;
+            return null;
+        }
+
+        protected void TryLifeSteal(Vector2 pos, int playerWhoAmI)
+        {
+            if (WorldSavingSystem.MasochistModeReal && npc is NPC)
+            {
+                int totalHealPerHit = (int)Math.Round(npc.lifeMax / 100 * 7.5);
+
+                const int max = 20;
+                for (int i = 0; i < max; i++)
+                {
+                    Vector2 vel = Main.rand.NextFloat(2f, 9f) * -Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi);
+                    float ai0 = npc.whoAmI;
+                    float ai1 = vel.Length() / Main.rand.Next(30, 90); //window in which they begin homing in
+
+                    int healPerOrb = (int)(totalHealPerHit / max * Main.rand.NextFloat(0.95f, 1.05f));
+
+                    if (playerWhoAmI == Main.myPlayer && Main.player[playerWhoAmI].ownedProjectileCounts[ModContent.ProjectileType<MutantHeal>()] < 10)
+                    {
+                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), pos, vel, ModContent.ProjectileType<MutantHeal>(), healPerOrb, 0f, Main.myPlayer, ai0, ai1);
+
+                        SoundEngine.PlaySound(SoundID.Item27, pos);
+                    }
+                }
+            }
+        }
+    }
+
+    public class MutantSpearDash : MutantSpearAttack
     {
         public override string Texture => FargoSoulsUtil.AprilFools ?
             "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSpear_April" :
@@ -60,7 +96,6 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             return false;
         }
 
-        NPC npc;
         public override void OnSpawn(IEntitySource source)
         {
             if (source is EntitySource_Parent parent && parent.Entity is NPC sourceNPC)
@@ -153,27 +188,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
 
-            if (WorldSavingSystem.MasochistModeReal && npc is NPC)
-            {
-                int totalHealPerHit = (int)Math.Round(npc.lifeMax / 100 * 7.5);
+            TryLifeSteal(target.Center, target.whoAmI);
+        }
 
-                const int max = 20;
-                for (int i = 0; i < max; i++)
-                {
-                    Vector2 vel = Main.rand.NextFloat(2f, 9f) * -Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi);
-                    float ai0 = npc.whoAmI;
-                    float ai1 = vel.Length() / Main.rand.Next(30, 90); //window in which they begin homing in
-
-                    int healPerOrb = (int)(totalHealPerHit / max * Main.rand.NextFloat(0.95f, 1.05f));
-
-                    if (target.whoAmI == Main.myPlayer && target.ownedProjectileCounts[ModContent.ProjectileType<MutantHeal>()] < 10)
-                    {
-                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), target.Center, vel, ModContent.ProjectileType<MutantHeal>(), healPerOrb, 0f, Main.myPlayer, ai0, ai1);
-
-                        SoundEngine.PlaySound(SoundID.Item27, target.Center);
-                    }
-                }
-            }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            TryLifeSteal(target.Center, Main.myPlayer);
         }
 
         public override Color? GetAlpha(Color lightColor)

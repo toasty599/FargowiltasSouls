@@ -51,6 +51,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override bool? CanDamage()
         {
+            Projectile.maxPenetrate = 1;
             return Projectile.scale >= 5f;
         }
 
@@ -235,31 +236,36 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
             base.ModifyHitPlayer(target, ref modifiers);
-            DamageRampup(ref modifiers);
+            modifiers.FinalDamage *= DamageRampup();
             if (hits > 180)
                 target.endurance = 0;
         }
 
-        private void DamageRampup(ref Player.HurtModifiers modifiers)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
+            base.ModifyHitNPC(target, ref modifiers);
+            modifiers.FinalDamage *= DamageRampup();
+        }
+
+        private float DamageRampup()
+        {
+            stall = true;
+
+            hits++;
             int tempHits = hits - 90;
             if (tempHits > 0)
             {
-                var modifier = Math.Min(1.0f + tempHits / 6.0f, 100.0f);
-                modifiers.FinalDamage *= modifier;
+                float modifier = (float)Math.Min(Math.Pow(tempHits, 2), 100000.0f);
+                return modifier;
             }
             else
             {
-                modifiers.FinalDamage *= hits / 90f;
+                return hits / 90f;
             }
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            hits++;
-
-            stall = true;
-
             if (WorldSavingSystem.EternityMode)
             {
                 target.FargoSouls().MaxLifeReduction += 100;
