@@ -6,6 +6,7 @@ using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -78,7 +79,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 player.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = true;
 
                 if (Main.netMode != NetmodeID.Server)
-                    ShaderManager.GetFilterIfExists("Invert").SetFocusPosition(player.Center);
+                {
+                    ScreenFilter filter = ShaderManager.GetFilterIfExists("Invert");
+                    filter.SetFocusPosition(player.Center);
+                    if (modPlayer.freezeLength > 60)
+                        filter.Activate();
+                }
 
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
@@ -90,10 +96,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile p = Main.projectile[i];
-                    FargoSoulsGlobalProjectile globalProj = p.FargoSouls();
-                    if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !globalProj.TimeFreezeImmune && globalProj.TimeFrozen == 0)
+                    if (p.active && !(p.minion && !ProjectileID.Sets.MinionShot[p.type]) && !p.FargoSouls().TimeFreezeImmune && p.FargoSouls().TimeFrozen == 0)
                     {
-                        globalProj.TimeFrozen = modPlayer.freezeLength;
+                        p.FargoSouls().TimeFrozen = modPlayer.freezeLength;
 
                         /*if (p.owner == Player.whoAmI && p.friendly && !p.hostile)
                         {

@@ -151,3 +151,5 @@ disabled cursed coffin
 fixed solar pillar drilling to the center of the earth when killed at a specific time
 maso mutant's spear lifesteal works if he hits a town npc
 mutant final spark's rampup works on npcs too
+attempted to fix timestop glitch? try it in mp too
+fixed timestop shader not working
