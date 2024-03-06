@@ -308,7 +308,6 @@ MeteorEnchant: {
 		'''
 		Moving creates a fire trail
 		Increases your movement speed and acceleration, and decreases your momentum
-		Provides light when worn
 		'Drop a draco on 'em'
 		''' */
 }
@@ -1022,6 +1021,7 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/WyvernFeather] Clipped Wings, Crippled, [i:FargowiltasSouls/TribalCharm] Webbed, Purified, [i:FargowiltasSouls/NymphsPerfume] Lovestruck, Stinky, Hexed, and [i:FargowiltasSouls/SecurityWallet] Midas
 		[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
 		[i:FargowiltasSouls/WyvernFeather] Your attacks can inflict Clipped Wings [i:FargowiltasSouls/NymphsPerfume] and produce hearts
+		[i:FargowiltasSouls/WyvernFeather] You periodically shed light orbs, touch them to refresh your flight time
 		[i:FargowiltasSouls/SqueakyToy] Attacks have a chance to squeak and deal 1 damage to you
 		[i:FargowiltasSouls/WretchedPouch] Press the Debuff Install key to gain Wretched Hex
 		[i:FargowiltasSouls/WretchedPouch] Wretched Hex grants massively increased damage and shadowflame, but less move and defenses and attack speed bonuses while attacking
@@ -2627,6 +2627,20 @@ TwinRangs: {
 		Dispare um gemeorangue diferente dependendo do clique do mouse
 		'As formas comprimidas de inimigos derrotados..'
 		'''
+}
+
+MoonBow: {
+	// DisplayName: Crescent Moon
+	/* Tooltip:
+		'''
+		Wooden arrows turn into Luminite bolts
+		Arrows create portals that fire Luminite bolts
+		Hold right click to gather power
+		Release at the right time to temporarily receive a lunar blessing
+		When blessed, drastically increased attack speed and altered arrow gravity
+		66% chance to save ammo
+		'The restrung mouth of a defeated foe..'
+		''' */
 }
 
 KamikazeSquirrelStaff: {

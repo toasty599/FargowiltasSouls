@@ -6,6 +6,43 @@ If you intend to use this mod with the Calamity Mod, use the official Fargo's So
 Fargo Discord: https://discord.gg/Rgen4Vv
 Fargo Wiki: https://fargosmods.wiki.gg
 
+NEW UPDATE - v1.6.6.2
+-Changed Lifelight's attack logic, certain attacks are now conditional to make movement incentives flow better
+-Nerfed Deviantt's dash, heart cluster is p2 only
+
+-Fossil Enchantment revive now cleanses debuffs on activation
+-Magical Bulb debuff cleanse CD 120 -> 40sec, and debuff causes enemies to take double DoT
+-Increased Lihzahrd Treasure Box damage
+-Betsy Dash always has Heart speed (25), was 20
+-All Security Wallet effects now work from inventory
+-The lightning rod lightning no longer makes light inside solid blocks
+-Fixed some armor pieces not giving the correct amount of sentry slots
+-Fixed Nymphs Perfume passive effect not working in vanity slot
+-Fixed Fish Stick sharks tracking unhomeable/invincible enemies
+-Fixed a few projectiles not working with the Transparent Friendly Projectiles config
+-Fixed Computation Orb not pausing mana regeneration
+-Fixed sprite sheeting for all "guardian" attacks
+
+Eternity Mode changes:
+-Pinky, Tortoise and Big Toss Mode stun duration 2sec -> 1sec
+-Paladins burst into dungeon spirits when killed
+-Defenseless has new sound effects and visual, and no longer strips KB immune
+-White Cultist Archers are now post golem, and have a 1% chance to drop Zealot's Possession
+-Mimic iframes 20t -> 15t
+-Martian Saucers can spawn post-skeletron at a very low chance with reduced stats
+-Spazmatism spazzes out during ray spin
+-WoF ichor attack damage 150 -> 112
+-Duke Fishron has a chance to drop a Pirate Map
+-Plantera despawns faster in phase 1/2
+-Changed Golem bouncing boulder trail for visibility
+-Removed early bird lock on Frost Core and Forbidden Fragments
+-Lightning Rod debuff now uses the same lightning bolts as the Rain lightning
+-Rain lightning is now disabled during bosses
+-Changed Jungle Rose eternity tooltip
+Eternity item changes:
+-Candy Corn Rifle +50% damage 
+-Stake Launcher +30% damage
+
 NEW UPDATE - v1.6.6.1
 -Eternity Golem body health multiplier 4x -> 3x
 -Decreased Masochist Moon Lord's phase change/attack speed

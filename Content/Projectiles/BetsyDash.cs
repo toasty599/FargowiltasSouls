@@ -106,10 +106,11 @@ namespace FargowiltasSouls.Content.Projectiles
             if (Projectile.owner == Main.myPlayer)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.SolarWhipSwordExplosion, 0, 0f, Main.myPlayer);
-
+                /*
                 const int reducedCooldown = 100;
                 if (Main.player[Projectile.owner].FargoSouls().SpecialDashCD > reducedCooldown)
                     Main.player[Projectile.owner].FargoSouls().SpecialDashCD = reducedCooldown;
+                */
             }
         }
 

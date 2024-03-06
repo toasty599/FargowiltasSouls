@@ -2664,6 +2664,20 @@ TwinRangs: {
 		'''
 }
 
+MoonBow: {
+	// DisplayName: Crescent Moon
+	/* Tooltip:
+		'''
+		Wooden arrows turn into Luminite bolts
+		Arrows create portals that fire Luminite bolts
+		Hold right click to gather power
+		Release at the right time to temporarily receive a lunar blessing
+		When blessed, drastically increased attack speed and altered arrow gravity
+		66% chance to save ammo
+		'The restrung mouth of a defeated foe..'
+		''' */
+}
+
 KamikazeSquirrelStaff: {
 	DisplayName: 神风松鼠杖
 	Tooltip:
