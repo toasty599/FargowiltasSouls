@@ -260,7 +260,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (modifier < 0)
                 {
                     hits--;
-                    cap = 100000.0f;
+                    modifier = 100000.0f;
                 }
                 return modifier;
             }
