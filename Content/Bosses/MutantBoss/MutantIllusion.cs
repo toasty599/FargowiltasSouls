@@ -12,7 +12,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 	[AutoloadBossHead]
     public class MutantIllusion : ModNPC
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/MutantBoss/MutantBoss";
+        public override string Texture => $"FargowiltasSouls/Content/Bosses/MutantBoss/MutantBoss{FargoSoulsUtil.TryAprilFoolsTexture}";
 
         public override void SetStaticDefaults()
         {

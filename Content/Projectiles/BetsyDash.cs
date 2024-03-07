@@ -34,6 +34,10 @@ namespace FargowiltasSouls.Content.Projectiles
             Projectile.FargoSouls().CanSplit = false;
             Projectile.FargoSouls().TimeFreezeImmune = true;
             Projectile.FargoSouls().DeletionImmuneRank = 2;
+
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 30;
+            Projectile.FargoSouls().noInteractionWithNPCImmunityFrames = true;
         }
 
         public override void AI()
@@ -101,10 +105,17 @@ namespace FargowiltasSouls.Content.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.BetsysCurse, 20 * 60);
+            target.AddBuff(BuffID.BetsysCurse, (int)FargoSoulsUtil.SecondsToFrames(20));
 
             if (Projectile.owner == Main.myPlayer)
+            {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.SolarWhipSwordExplosion, 0, 0f, Main.myPlayer);
+                
+                int reducedCooldown = (int)FargoSoulsUtil.SecondsToFrames(2.5f);
+                if (Main.player[Projectile.owner].FargoSouls().SpecialDashCD > reducedCooldown)
+                    Main.player[Projectile.owner].FargoSouls().SpecialDashCD = reducedCooldown;
+                
+            }
         }
 
         public override void OnKill(int timeLeft)

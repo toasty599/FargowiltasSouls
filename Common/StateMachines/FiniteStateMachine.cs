@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Original implementation by Dominic Karma, used here with permission by Toasty. Do not copy elsewhere without getting permission first, or face action being taken against your mod.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,17 +45,30 @@ namespace FargowiltasSouls.Common.StateMachines
 			}
 		}
 
+		private sealed class StateTransitionHijack
+		{
+			public StateTransitionHijackDelegate SelectionHijackFunction;
+
+			public Action<TStateID?> HijackAction;
+
+			public StateTransitionHijack(StateTransitionHijackDelegate selectionHijackFunction, Action<TStateID?> hijackAction)
+			{
+				SelectionHijackFunction = selectionHijackFunction;
+				HijackAction = hijackAction;
+			}
+		}
+
 		/// <summary>
 		/// A lookup table of states, accessed by their ID.
 		/// </summary>
-		public Dictionary<TStateID, TState> StateRegistry = new();
+		public Dictionary<TStateID, TState> StateRegistry = new Dictionary<TStateID, TState>();
 
 		/// <summary>
 		/// A table of states, and their behaviors.
 		/// </summary>
-		public Dictionary<TStateID, Action> StateBehaviors = new();
+		public Dictionary<TStateID, Action> StateBehaviors = new Dictionary<TStateID, Action>();
 
-		private readonly Dictionary<TStateID, List<StateTransitionInfo>> TransitionTable = new();
+		private readonly Dictionary<TStateID, List<StateTransitionInfo>> TransitionTable = new Dictionary<TStateID, List<StateTransitionInfo>>();
 
 		/// <summary>
 		/// An ordered stack of all of the current states to execute.
@@ -61,15 +76,32 @@ namespace FargowiltasSouls.Common.StateMachines
 		public Stack<TState> StateStack = new();
 
 		/// <summary>
-		/// The current state on top of the stack.
+		/// The current state on top of the stack. Returns null if not present.
 		/// </summary>
-		public TState CurrentState => StateStack.Peek();
+		public TState CurrentState
+		{
+			get
+			{
+				if (StateStack.TryPeek(out var state))
+					return state;
+				return null;
+			}
+		}
+
+		private readonly List<StateTransitionHijack> HijackActions = new();
 
 		/// <summary>
 		/// Delegate for actions that run when <see cref="OnStateTransition"/> is fired.
 		/// </summary>
 		/// <param name="stateWasPopped"></param>
-		public delegate void OnStateTransitionDelegate(bool stateWasPopped);
+		public delegate void OnStateTransitionDelegate(bool stateWasPopped, TState oldState);
+
+		/// <summary>
+		/// Delegate for hijacking state transitions. Return originalState if the hijack should not occur.
+		/// </summary>
+		/// <param name="originalState">The original state that was going to be selected.</param>
+		/// <returns>The state to select.</returns>
+		public delegate TStateID? StateTransitionHijackDelegate(TStateID? originalState);
 
 		/// <summary>
 		/// Fired when a transition occures.
@@ -93,7 +125,8 @@ namespace FargowiltasSouls.Common.StateMachines
 		public void RegisterState(TState state) => StateRegistry[state.ID] = state;
 
 		/// <summary>
-		/// Registers a state with its assosiated behavior.
+		/// Registers a state with its assosiated behavior. <br/>
+		/// <b>You should use <see cref="AutoloadAsBehavior{TStateID}"/> instead in most cases.</b>
 		/// </summary>
 		/// <param name="id">The state ID to assosiate the behavior with.</param>
 		/// <param name="behavior">The behavior action for the provided state.</param>
@@ -114,6 +147,29 @@ namespace FargowiltasSouls.Common.StateMachines
 				TransitionTable[initialState] = new();
 
 			TransitionTable[initialState].Add(new(newState, shouldRememberPreviousState, transitionCondition, transitionCallback));
+		}
+
+		/// <summary>
+		/// Registers a hijack transition, that allows for hijacking a transitions final state selection. A good use example is for phase transitions that should occur after an attack has been completed.
+		/// </summary>
+		/// <param name="selectionHijackFunction">The function to replace the final state selection.</param>
+		/// <param name="hijackAction">An optional action to perform when this hijack occurs.</param>
+		public void AddTransitionStateHijack(StateTransitionHijackDelegate selectionHijackFunction, Action<TStateID?> hijackAction = null) => HijackActions.Add(new(selectionHijackFunction, hijackAction));
+
+		/// <summary>
+		/// Applies an action to every registered state in this machine, barring any provided exceptions. A good use example is for states that interrupt most other states if a certain condition is met.
+		/// </summary>
+		/// <param name="action">The action to perform.</param>
+		/// <param name="exceptions">The list of exceptions.</param>
+		public void ApplyToAllStatesExcept(Action<TStateID> action, params TStateID[] exceptions)
+		{
+			foreach (var pair in StateRegistry)
+			{
+				if (exceptions.Contains(pair.Key))
+					continue;
+
+				action(pair.Key);
+			}
 		}
 
 		/// <summary>
@@ -142,17 +198,25 @@ namespace FargowiltasSouls.Common.StateMachines
 			var transition = transitionalableStates.First();
 
 			// Pop the previous state if it shouldn't be remembered.
-			if (!transition.ShouldRememberPreviousState && StateStack.TryPop(out var oldState))
+			TState oldState = null;
+			if (!transition.ShouldRememberPreviousState && StateStack.TryPop(out oldState))
 				oldState.OnPop();
 
 			var newState = transition.NewState;
+			// Get the first hijack transition that does *not* return the same state.
+			var usedHijackAction = HijackActions.FirstOrDefault(h => !h.SelectionHijackFunction(newState).Equals(newState));
+			if (usedHijackAction is not null)
+			{
+				newState = usedHijackAction.SelectionHijackFunction(newState);
+				usedHijackAction.HijackAction?.Invoke(newState);
+			}
 			if (newState is not null)
 				StateStack.Push(StateRegistry[newState.Value]);
 
-			// Access the optional callback.
-			transition.TransitionCallback?.Invoke();
+            OnStateTransition?.Invoke(!transition.ShouldRememberPreviousState, oldState);
 
-			OnStateTransition?.Invoke(!transition.ShouldRememberPreviousState);
+            // Access the optional callback.
+            transition.TransitionCallback?.Invoke();
 
 			// Recursively call this to allow for all transitions with met conditions to be processed.
 			ProcessTransitions();

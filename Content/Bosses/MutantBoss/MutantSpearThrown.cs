@@ -15,9 +15,11 @@ using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
-    public class MutantSpearThrown : ModProjectile
+    public class MutantSpearThrown : MutantSpearAttack
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/HentaiSpear";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSpear_April" :
+            "FargowiltasSouls/Content/Projectiles/BossWeapons/HentaiSpear";
 
         public override void SetStaticDefaults()
         {
@@ -59,7 +61,6 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             return false;
         }
 
-        NPC npc;
         public override void OnSpawn(IEntitySource source)
         {
             if (source is EntitySource_Parent parent && parent.Entity is NPC sourceNPC)
@@ -118,7 +119,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), 0, 0f, Projectile.owner);
+            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), target.Center + Main.rand.NextVector2Circular(100, 100), Vector2.Zero, ModContent.ProjectileType<MutantBombSmall>(), 0, 0f, Projectile.owner);
             if (WorldSavingSystem.EternityMode)
             {
                 target.FargoSouls().MaxLifeReduction += 100;
@@ -126,28 +127,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 target.AddBuff(ModContent.BuffType<MutantFangBuff>(), 180);
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
+            
+            TryLifeSteal(target.Center, target.whoAmI);
+        }
 
-            if (WorldSavingSystem.MasochistModeReal && npc is NPC)
-            {
-                int totalHealPerHit = npc.lifeMax / 100 * 5;
-
-                const int max = 20;
-                for (int i = 0; i < max; i++)
-                {
-                    Vector2 vel = Main.rand.NextFloat(2f, 9f) * -Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi);
-                    float ai0 = npc.whoAmI;
-                    float ai1 = vel.Length() / Main.rand.Next(30, 90); //window in which they begin homing in
-
-                    int healPerOrb = (int)(totalHealPerHit / max * Main.rand.NextFloat(0.95f, 1.05f));
-
-                    if (target.whoAmI == Main.myPlayer && target.ownedProjectileCounts[ModContent.ProjectileType<MutantHeal>()] < 10)
-                    {
-                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), target.Center, vel, ModContent.ProjectileType<MutantHeal>(), healPerOrb, 0f, Main.myPlayer, ai0, ai1);
-
-                        SoundEngine.PlaySound(SoundID.Item27, target.Center);
-                    }
-                }
-            }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            TryLifeSteal(target.Center, Main.myPlayer);
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -162,8 +148,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int rect2 = rect1 * Projectile.frame;
             Rectangle glowrectangle = new(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            Color glowcolor = Color.Lerp(new Color(51, 255, 191, 0), Color.Transparent, 0.82f);
-            Color glowcolor2 = Color.Lerp(new Color(194, 255, 242, 0), Color.Transparent, 0.6f);
+            Color glowcolor = Color.Lerp(FargoSoulsUtil.AprilFools ? new Color(255, 191, 51, 0) : new Color(51, 255, 191, 0), Color.Transparent, 0.82f);
+            Color glowcolor2 = Color.Lerp(FargoSoulsUtil.AprilFools ? new Color(255, 242, 194, 0) : new Color(194, 255, 242, 0), Color.Transparent, 0.6f);
             glowcolor = Color.Lerp(glowcolor, glowcolor2, 0.5f + (float)Math.Sin(scaletimer / 7) / 2); //make it shift between the 2 colors
             Vector2 drawCenter = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitX) * 28;
 

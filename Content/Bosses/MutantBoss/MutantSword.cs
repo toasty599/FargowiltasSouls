@@ -13,7 +13,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantSword : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_454";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSphere_April" :
+            "Terraria/Images/Projectile_454";
 
         public override void SetStaticDefaults()
         {
@@ -109,6 +111,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             Projectile.position = Projectile.Center;
             Projectile.width = Projectile.height = 208;
             Projectile.Center = Projectile.position;
+
+            int dust = FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex;
+
             for (int index1 = 0; index1 < 2; ++index1)
             {
                 int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f);
@@ -116,12 +121,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             for (int index1 = 0; index1 < 5; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0.0f, 0.0f, 0, new Color(), 2.5f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dust, 0.0f, 0.0f, 0, new Color(), 2.5f);
                 Main.dust[index2].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                 Main.dust[index2].noGravity = true;
                 Dust dust1 = Main.dust[index2];
                 dust1.velocity *= 1f;
-                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0.0f, 0.0f, 100, new Color(), 1.5f);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dust, 0.0f, 0.0f, 100, new Color(), 1.5f);
                 Main.dust[index3].position = new Vector2(Projectile.width / 2, 0.0f).RotatedBy(6.28318548202515 * Main.rand.NextDouble(), new Vector2()) * (float)Main.rand.NextDouble() + Projectile.Center;
                 Dust dust2 = Main.dust[index3];
                 dust2.velocity *= 1f;
@@ -130,26 +135,26 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             for (int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 100, default, 3f);
-                Main.dust[dust].velocity *= 1.4f;
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dust, 0f, 0f, 100, default, 3f);
+                Main.dust[d].velocity *= 1.4f;
             }
 
             for (int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 7f;
-                dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
-                Main.dust[dust].velocity *= 3f;
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3.5f);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 7f;
+                d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
+                Main.dust[d].velocity *= 3f;
             }
 
             for (int index1 = 0; index1 < 10; ++index1)
             {
-                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 100, new Color(), 2f);
+                int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dust, 0f, 0f, 100, new Color(), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 21f * Projectile.scale;
                 Main.dust[index2].noLight = true;
-                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 100, new Color(), 1f);
+                int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dust, 0f, 0f, 100, new Color(), 1f);
                 Main.dust[index3].velocity *= 12f;
                 Main.dust[index3].noGravity = true;
                 Main.dust[index3].noLight = true;
@@ -157,7 +162,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             for (int i = 0; i < 10; i++)
             {
-                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
+                int d = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dust, 0f, 0f, 100, default, Main.rand.NextFloat(2f, 3.5f));
                 if (Main.rand.NextBool(3))
                     Main.dust[d].noGravity = true;
                 Main.dust[d].velocity *= Main.rand.NextFloat(9f, 12f);
@@ -180,7 +185,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int rect2 = 0;
             Rectangle glowrectangle = new(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            Color glowcolor = Color.Lerp(new Color(255, 255, 255, 0), Color.Transparent, 0.85f);
+            Color glowcolor = Color.Lerp(FargoSoulsUtil.AprilFools ? Color.Red : new Color(255, 255, 255, 0), Color.Transparent, 0.85f);
 
             for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.5f) //reused betsy fireball scaling trail thing
             {

@@ -119,8 +119,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (WorldSavingSystem.SwarmActive)
                 return result;
 
-            if (!npc.HasValidTarget && !EnteredPhase3)
+            if (!EnteredPhase3 && (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 3000))
+            {
                 npc.velocity.Y++;
+                npc.TargetClosest(false);
+                if (!npc.HasValidTarget || npc.Distance(Main.player[npc.target].Center) > 3000)
+                {
+                    if (npc.timeLeft > 60)
+                        npc.timeLeft = 60;
+                }
+            }
 
             Player player = Main.player[npc.target];
 
@@ -142,7 +150,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 npc.ai[3] = 0;
                 
                 FargoSoulsUtil.ClearHostileProjectiles(2, npc.whoAmI);
-                foreach (NPC n in Main.npc.Where(n => n.TypeAlive<CrystalLeaf>() && n.ai[0] == npc.whoAmI && n.ai[1] != innerRingDistance)) // delete non-inner crystal ring
+                foreach (NPC n in Main.npc.Where(n => n.TypeAlive<CrystalLeaf>() && n.ai[0] == npc.whoAmI)) // delete crystal ring
                 {
                     n.life = 0;
                     n.HitEffect();
@@ -151,6 +159,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n.whoAmI);
                 }
+                
                 const int halfAmt = 20;
                 for (int i = -halfAmt; i <= halfAmt; i++)
                 {
@@ -176,11 +185,11 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
 
                 //Targeting
-                if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 5000)
+                if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 3000)
                 {
                     npc.TargetClosest(false);
                     player = Main.player[npc.target];
-                    if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 5000)
+                    if (!player.active || player.dead || player.ghost || npc.Distance(player.Center) > 3000)
                     {
                         if (npc.timeLeft > 60)
                             npc.timeLeft = 60;
@@ -364,7 +373,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 {
                     case 1: // crystal madness
                         {
-
                             if (timer < 60 * 6)
                                 WallHugMovement();
                             else
@@ -571,6 +579,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     {
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionTo(player.Center),
                                             ModContent.ProjectileType<PlanteraMushroomThing>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage), 0f, Main.myPlayer);
+                                    }
+                                }
+                                if (timer == vineSpawnTime * 5 - 60) // kill and instantly respawn ring, 1 second before attack1 starts
+                                {
+                                    for (int i = 0; i < Main.maxNPCs; i++)
+                                    {
+                                        if (Main.npc[i].TypeAlive<CrystalLeaf>() && Main.npc[i].ai[0] == npc.whoAmI)
+                                        {
+                                            Main.npc[i].StrikeInstantKill();
+                                        }
                                     }
                                 }
                                 if (timer > vineSpawnTime * 5)

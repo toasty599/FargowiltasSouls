@@ -73,7 +73,18 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 return false;
             return base.CanHitPlayer(target);
         }
-        
+        public override void OnKill(int timeLeft)
+        {
+            if (CaughtPlayer.IsWithinBounds(Main.maxPlayers))
+            {
+                Player victim = Main.player[CaughtPlayer];
+                if (victim.Alive())
+                {
+                    victim.fullRotation = 0;
+                }
+            }
+        }
+
         public override void AI()
         {
             if (Projectile.localAI[0] == 0)

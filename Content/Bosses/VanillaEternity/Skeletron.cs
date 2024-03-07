@@ -20,6 +20,7 @@ using FargowiltasSouls.Content.Patreon.DanielTheRobot;
 using FargowiltasSouls.Common.Graphics.Particles;
 using Terraria.DataStructures;
 using Terraria.Localization;
+using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -45,6 +46,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
             npc.damage = (int)(npc.damage * 1.15f);
+            npc.lifeMax = (int)(npc.lifeMax * 0.8f);
         }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -443,12 +445,25 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     break;
             }
         }
-        bool ArmDR(NPC npc) => !WorldSavingSystem.SwarmActive && Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[1] == npc.whoAmI);
-        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+
+        static bool ArmDR(NPC npc) => !WorldSavingSystem.SwarmActive && Main.npc.Any(n => n.active && n.type == NPCID.SkeletronHand && n.ai[1] == npc.whoAmI);
+        static float GetDR(NPC npc)
         {
             if (ArmDR(npc))
-                modifiers.FinalDamage /= 2;
-            base.ModifyIncomingHit(npc, ref modifiers);
+            {
+                float percent = npc.GetLifePercent();
+                return !npc.GetGlobalNPC<SkeletronHead>().SpawnedArms ? Math.Max(percent - 0.5f, 0) : percent;
+            }
+            return 1;
+        }
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.FinalDamage *= GetDR(npc);
+        }
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            if (npc.lifeRegen < 0)
+                npc.lifeRegen = (int)(npc.lifeRegen * GetDR(npc));
         }
 
         public override bool CheckDead(NPC npc)
@@ -514,6 +529,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SetDefaults(npc);
             npc.damage = (int)(npc.damage * 1.8f); //deals slightly more damage than head
+            npc.lifeMax = (int)(npc.lifeMax * 1.4f);
         }
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {

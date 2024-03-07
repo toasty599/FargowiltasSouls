@@ -17,7 +17,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Dungeon Guardian Prime");
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.SkeletronPrime];
         }
 
         public override void SetDefaults()

@@ -73,6 +73,7 @@ TikiEffect: 提基 鞭打召唤物
 CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
 MeteorMomentumEffect: 流星 速度
 MeteorEffect: 流星 流星雨
+MeteorTrailEffect: 流星 火焰尾迹
 NebulaEffect: 星云 强化焰
 SolarEffect: 耀斑 护盾
 SolarFlareEffect: 耀斑 太阳耀斑减益
@@ -104,8 +105,9 @@ RainbowSlimeMinion: 彩虹史莱姆召唤物
 RainbowHealEffect: 自动使用治疗药水
 NymphPerfumeEffect: 攻击生成心
 SqueakEffect: 击中发出吱吱声
-WretchedPouchEffect: 更强更慢的暗影焰攻击
+WretchedPouchEffect: 获得诅咒之魔
 ClippedEffect: 造成折翼减益
+WyvernBalls: 飞行光球
 TribalCharmClickBonus: 部落挂坠点击加成
 StabilizedGravity: 重力稳定
 DubiousHeader: "{$Mods.FargowiltasSouls.Items.DubiousCircuitry.DisplayName}"

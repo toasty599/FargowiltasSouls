@@ -66,8 +66,6 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 return;
             }
 
-            Projectile.localAI[0]++;
-
             if (Projectile.localAI[0] % 20 == 0)
                 SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 
@@ -85,6 +83,8 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
 
             if (Projectile.ai[0] == 0f) //while held
             {
+                Projectile.localAI[0] += player.GetAttackSpeed(DamageClass.Melee) + player.FargoSouls().AttackSpeed - 1f;
+
                 Projectile.timeLeft = maxTime + 2;
 
                 damage = Projectile.damage;
@@ -96,11 +96,12 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
                 Projectile.position -= Projectile.velocity;
                 player.itemRotation = MathHelper.WrapAngle(Projectile.rotation);
 
-                if (Projectile.localAI[0] == 40)
+                if (Projectile.localAI[0] > 40)
                 {
                     Projectile.ai[1] = 1f;
                 }
-                else if (Projectile.localAI[0] == 120) //time to throw
+
+                if (Projectile.localAI[0] > 120) //time to throw
                 {
                     if (Projectile.owner == Main.myPlayer)
                     {
@@ -116,6 +117,8 @@ namespace FargowiltasSouls.Content.Projectiles.ChallengerItems
             }
             else //while thrown
             {
+                Projectile.localAI[0] += 1;
+
                 Projectile.damage = (int)(damage * Math.Pow(0.933, Projectile.numHits));
                 if (Projectile.damage < damage / 2)
                     Projectile.damage = damage / 2;

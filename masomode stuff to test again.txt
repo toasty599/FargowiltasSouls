@@ -1,3 +1,3 @@
-﻿golem body health mult x4 -> x3
-made deerclops mfd exclusive to maso
-made deerclops ray red and removed the freeze
+﻿added overflow check to final spark
+buffed 22
+22 doesn't count up when taking 1 damage

@@ -20,7 +20,7 @@
 // Fossil: Revive heal increased to 200 and revive bone count doubled
 // Frost: Icicle damage doubled
 // Gladiator: Increased banner aura size, decreased spear rain cooldown
-// Gold: No upgrade
+// Gold: Increased shell duration
 // Hallow: Potion heal bonus increased from 40 to 70%
 // Huntress: Armor penetration and flat damage increased to 10 and 5 respectively
 // Iron: Increases chance not to consume to 50%
@@ -34,12 +34,12 @@
 // Nebula: Buff booster stack cap increased to 3
 // Necro: Graves have increased size, float, and slightly home in on you when you're close
 // Ninja: Maximum damage bonus increased to 30%, maximum player speed where effect activates increased
-// Obsidian: You no longer need lava to spawn explosions or fireballs, cooldown reduced
+// Obsidian: Grants explosions and fireballs without being lava wet but with reduced damage, cooldown reduced
 // Orichalcum: Increases multiplier to 4x
 // Palladium: Rapid Healing always lasts 5 seconds, increases orb damage
 // PalmWood: Attack speed, damage, and size increased
 // Pearlwood: Star can hit enemies, your attacks have 2 extra chances to crit
-// Platinum: No upgrade
+// Platinum: Bonus replaced with 10% chance for enemies to drop 15x loot
 // Pumpkin: Pumpkins can grow while flying, heal for twice as much, and flame damage is increased to 45
 // Rain: Umbrella can block up to 400 damage and reflected damage is tripled
 // RedRiding: Arrow rain has less cooldown and deals more damage
@@ -64,5 +64,5 @@
 // ValhallaKnight: Mount defense increased from 15 to 20, acceleration from 1.5x to 2x, and heal bonus from 15% to 20%
 // Vortex: No upgrade
 // Wood: Bestiary and banner multiplier increased to 5
-// AshWood: Fires balls of fire more often
+// AshWood: Fireball cooldown reduced
 // NoUpgrade: No upgrade

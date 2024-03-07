@@ -208,6 +208,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             //tim's concoction
             player.AddEffect<TimsConcoctionEffect>(Item);
 
+            //wyvern feather
+            player.AddEffect<WyvernBalls>(Item);
+
             //dubious circuitry
             player.buffImmune[BuffID.CursedInferno] = true;
             player.buffImmune[BuffID.Ichor] = true;
@@ -316,7 +319,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Souls
             player.buffImmune[ModContent.BuffType<RottingBuff>()] = true;
             player.buffImmune[ModContent.BuffType<ShadowflameBuff>()] = true;
             player.buffImmune[ModContent.BuffType<SmiteBuff>()] = true;
-            player.buffImmune[ModContent.BuffType<Buffs.Masomode.SqueakyToyBuff>()] = true;
+            player.buffImmune[ModContent.BuffType<SqueakyToyBuff>()] = true;
             player.buffImmune[ModContent.BuffType<SwarmingBuff>()] = true;
             player.buffImmune[ModContent.BuffType<StunnedBuff>()] = true;
             player.buffImmune[ModContent.BuffType<UnluckyBuff>()] = true;

@@ -11,6 +11,27 @@ using FargowiltasSouls.Content.Items.Accessories.Masomode;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
+    public class MartianSaucerPart : EModeNPCBehaviour
+    {
+        public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchTypeRange(
+            NPCID.MartianSaucer,
+            NPCID.MartianSaucerCannon,
+            NPCID.MartianSaucerCore,
+            NPCID.MartianSaucerTurret
+        );
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+
+            if (!NPC.downedGolemBoss)
+            {
+                npc.lifeMax /= 2;
+                npc.defense /= 2;
+            }
+        }
+    }
+
 	public class MartianSaucer : EModeNPCBehaviour
     {
         public override NPCMatcher CreateMatcher() => new NPCMatcher().MatchType(NPCID.MartianSaucerCore);

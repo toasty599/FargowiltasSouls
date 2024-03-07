@@ -255,7 +255,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         {
             if (SpecialDashCD <= 0)
             {
-                SpecialDashCD = 60 * 5;
+                SpecialDashCD = (int)FargoSoulsUtil.SecondsToFrames(5);
 
                 if (Player.whoAmI == Main.myPlayer)
                 {
@@ -276,7 +276,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                     if (BetsysHeartItem != null)
                     {
-                        Vector2 vel = Player.DirectionTo(Main.MouseWorld) * (MasochistHeart ? 25 : 20);
+                        Vector2 vel = Player.DirectionTo(Main.MouseWorld) * 25;
                         Projectile.NewProjectile(Player.GetSource_Accessory(BetsysHeartItem), Player.Center, vel, ModContent.ProjectileType<Content.Projectiles.BetsyDash>(), (int)(100 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
 
                         Player.immune = true;
@@ -295,7 +295,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     }
                     else if (QueenStingerItem != null)
                     {
-                        SpecialDashCD += 60;
+                        SpecialDashCD += (int)FargoSoulsUtil.SecondsToFrames(1);
 
                         Vector2 vel = Player.DirectionTo(Main.MouseWorld) * 20;
                         Projectile.NewProjectile(Player.GetSource_Accessory(QueenStingerItem), Player.Center, vel, ModContent.ProjectileType<BeeDash>(), (int)(44 * Player.ActualClassDamage(DamageClass.Melee)), 6f, Player.whoAmI);
@@ -306,11 +306,8 @@ namespace FargowiltasSouls.Core.ModPlayers
             }
         }
 
-        public void MagicalBulbKey()
+        public bool TryCleanseDebuffs()
         {
-            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCDBuff>()))
-                return;
-
             bool cleansed = false;
 
             int max = Player.buffType.Length;
@@ -338,9 +335,27 @@ namespace FargowiltasSouls.Core.ModPlayers
                 }
             }
 
-            if (cleansed)
+            return cleansed;
+        }
+
+        public void MagicalBulbKey()
+        {
+            if (Player.HasBuff(ModContent.BuffType<MagicalCleanseCDBuff>()))
+                return;
+            
+            if (TryCleanseDebuffs())
             {
-                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), 60 * 120);
+                int cdInSec = 40;
+
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (Main.npc[i].active && !Main.npc[i].friendly && Main.npc[i].lifeMax > 5)
+                    {
+                        Main.npc[i].AddBuff(ModContent.BuffType<MagicalCurseBuff>(), (int)FargoSoulsUtil.SecondsToFrames(cdInSec + 5));
+                    }
+                }    
+
+                Player.AddBuff(ModContent.BuffType<MagicalCleanseCDBuff>(), (int)FargoSoulsUtil.SecondsToFrames(cdInSec));
 
                 SoundEngine.PlaySound(SoundID.Item4, Player.Center);
 
@@ -430,7 +445,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 				{
 					SoundEngine.PlaySound(SoundID.Item119, Player.Center);
 
-					Player.AddBuff(ModContent.BuffType<BerserkerInstallBuff>(), 7 * 60 + 30); //7.5sec
+					Player.AddBuff(ModContent.BuffType<BerserkerInstallBuff>(), (int)FargoSoulsUtil.SecondsToFrames(7.5f)); //7.5sec
 
 					for (int i = 0; i < 60; i++)
 					{
@@ -439,8 +454,10 @@ namespace FargowiltasSouls.Core.ModPlayers
 						Main.dust[index2].velocity *= 9;
 					}
 				}
+                return;
             }
-			else if (Player.HasEffect<FusedLensInstall>())
+
+			if (Player.HasEffect<FusedLensInstall>())
             {
                 int buffType = ModContent.BuffType<TwinsInstallBuff>();
                 if (Player.HasBuff(buffType))
@@ -451,13 +468,37 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     SoundEngine.PlaySound(SoundID.Item119, Player.Center);
 
-                    Player.AddBuff(ModContent.BuffType<TwinsInstallBuff>(), 60);
+                    Player.AddBuff(buffType, 2);
 
                     int max = 60;
                     for (int i = 0; i < max; i++)
                     {
                         float scale = 3f;
                         int index2 = Dust.NewDust(Player.position, Player.width, Player.height, Main.rand.NextBool() ? 90 : 89, 0f, 0f, 0, new Color(), scale);
+                        Main.dust[index2].noGravity = true;
+                        Main.dust[index2].velocity *= scale * 3;
+                    }
+                }
+            }
+
+            if (Player.HasEffect<WretchedPouchEffect>())
+            {
+                int buffType = ModContent.BuffType<WretchedHexBuff>();
+                if (Player.HasBuff(buffType))
+                {
+                    Player.ClearBuff(buffType);
+                }
+                else
+                {
+                    SoundEngine.PlaySound(SoundID.Item119, Player.Center);
+
+                    Player.AddBuff(buffType, 2);
+
+                    int max = 60;
+                    for (int i = 0; i < max; i++)
+                    {
+                        float scale = 3f;
+                        int index2 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Shadowflame, 0f, 0f, 0, new Color(), scale);
                         Main.dust[index2].noGravity = true;
                         Main.dust[index2].velocity *= scale * 3;
                     }
@@ -478,7 +519,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         }
 
         int fastFallCD;
-        public void LihzahrdTreasureBoxUpdate()
+        public void TryFastfallUpdate()
         {
             if (fastFallCD > 0)
                 fastFallCD--;
@@ -540,16 +581,18 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                                 if (Player.whoAmI == Main.myPlayer)
                                 {
+                                    int baseDam = 500;
+                                    if (MasochistSoul)
+                                        baseDam *= 3;
+
                                     //explosion
                                     Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<MoonLordSunBlast>(), 0, 0f, Player.whoAmI);
-                                    int p = Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(200 * Player.ActualClassDamage(DamageClass.Melee)), 9f, Player.whoAmI);
+                                    int p = Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(), (int)(baseDam * 2 * Player.ActualClassDamage(DamageClass.Melee)), 9f, Player.whoAmI);
                                     if (p != Main.maxProjectiles)
                                         Main.projectile[p].DamageType = DamageClass.Melee;
 
                                     //boulders
-                                    int dam = 50;
-                                    if (MasochistSoul)
-                                        dam *= 3;
+                                    int dam = baseDam;
                                     for (int i = -5; i <= 5; i += 2)
                                     {
                                         Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, -10f * Vector2.UnitY.RotatedBy(MathHelper.PiOver2 / 6 * i),
@@ -557,10 +600,9 @@ namespace FargowiltasSouls.Core.ModPlayers
                                     }
 
                                     //geysers
-                                    int baseDamage = (int)(50 * Player.ActualClassDamage(DamageClass.Melee));
+                                    int baseDamage = (int)(baseDam / 2 * Player.ActualClassDamage(DamageClass.Melee));
                                     if (MasochistSoul)
                                         baseDamage *= 3;
-                                    Projectile.NewProjectile(Player.GetSource_Accessory(LihzahrdTreasureBoxItem), Player.Center, Vector2.Zero, ModContent.ProjectileType<ExplosionSmall>(), baseDamage * 2, 12f, Player.whoAmI);
                                     y -= 2;
                                     for (int i = -3; i <= 3; i++)
                                     {

@@ -57,6 +57,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public bool fireNoDamage = false;
 
+        public int The22Incident;
+
         public Dictionary<int, bool> KnownBuffsToPurify = new();
 
 
@@ -244,7 +246,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 Player.ClearBuff(ModContent.BuffType<MonkBuff>());
             MonkEnchantActive = false;
             ShinobiEnchantActive = false;
-            PlatinumEffectActive = false;
+            PlatinumEffect = null;
             AncientShadowEnchantActive = false;
             SquireEnchantActive = false;
             ValhallaEnchantActive = false;
@@ -446,14 +448,15 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (SandsofTime && !FargoSoulsUtil.AnyBossAlive() && Player.respawnTimer > 10)
                 Player.respawnTimer -= Eternity ? 6 : 1;
 
-            if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.AnyBossAlive())
+            //maso disables respawning during mp boss
+            /*if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.AnyBossAlive())
             {
                 if (Player.respawnTimer < 10)
                     Player.respawnTimer = 10;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient && Main.npc[FargoSoulsGlobalNPC.boss].HasValidTarget && Main.npc[FargoSoulsGlobalNPC.boss].HasPlayerTarget)
                     Player.Center = Main.player[Main.npc[FargoSoulsGlobalNPC.boss].target].Center;
-            }
+            }*/
 
             ReallyAwfulDebuffCooldown = 0;
             ParryDebuffImmuneTime = 0;
@@ -506,6 +509,8 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             MaxLifeReduction = 0;
             CurrentLifeReduction = 0;
+
+            The22Incident = 0;
         }
 
         
@@ -916,6 +921,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                 if (Player.whoAmI == Main.myPlayer && retVal && MutantSetBonusItem != null && Player.FindBuffIndex(ModContent.BuffType<MutantRebirthBuff>()) == -1)
                 {
+                    TryCleanseDebuffs();
                     Player.statLife = Player.statLifeMax2;
                     Player.HealEffect(Player.statLifeMax2);
                     Player.immune = true;
@@ -924,7 +930,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                     Player.hurtCooldowns[1] = 180;
                     string text = Language.GetTextValue($"Mods.{Mod.Name}.Message.Revived");
                     Main.NewText(text, Color.LimeGreen);
-                    Player.AddBuff(ModContent.BuffType<MutantRebirthBuff>(), 120 * 60);
+                    Player.AddBuff(ModContent.BuffType<MutantRebirthBuff>(), (int)FargoSoulsUtil.SecondsToFrames(120f));
                     retVal = false;
 
                     Projectile.NewProjectile(Player.GetSource_Accessory(MutantSetBonusItem), Player.Center, -Vector2.UnitY, ModContent.ProjectileType<GiantDeathray>(), (int)(7000 * Player.ActualClassDamage(DamageClass.Magic)), 10f, Player.whoAmI);

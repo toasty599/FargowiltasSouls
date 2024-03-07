@@ -35,16 +35,20 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
         public override void OnSpawn(IEntitySource source)
         {
-            Projectile.ArmorPenetration += 60;
+            Projectile.ArmorPenetration += 20;
         }
 
         public override void AI()
         {
             Projectile.position += Projectile.velocity * 0.5f;
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[2]);
-            if (npc != null && Projectile.velocity != Vector2.Zero)
+            if (npc != null && Projectile.velocity != Vector2.Zero && npc.CanBeChasedBy())
             {
                 Projectile.velocity = Projectile.DirectionTo(npc.Center) * Projectile.velocity.Length();
+            }
+            else
+            {
+                Projectile.ai[2] = -1; //cancel homing
             }
         }
 

@@ -140,7 +140,7 @@ namespace FargowiltasSouls.Content.Items
             
 
             if (player.HasEffect<TungstenEffect>()
-                && !item.IsAir && item.damage > 0 && (!item.noMelee || TungstenAlwaysAffects.Contains(item.type)) && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+                && !item.IsAir && item.IsWeapon() && (!item.noMelee || TungstenAlwaysAffects.Contains(item.type)))
             {
                 scale *= TungstenEffect.TungstenIncreaseWeaponSize(modPlayer);
             }
@@ -211,9 +211,9 @@ namespace FargowiltasSouls.Content.Items
                 item.useAnimation = 1;
             }
 
-            if (item.damage > 0 && player.HasAmmo(item) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
+            if (item.IsWeapon() && player.HasAmmo(item) && !(item.mana > 0 && player.statMana < item.mana) //non weapons and weapons with no ammo begone
                 && item.type != ItemID.ExplosiveBunny && item.type != ItemID.Cannonball
-                && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None && item.hammer == 0 && item.pick == 0 && item.axe == 0)
+                && item.useTime > 0 && item.createTile == -1 && item.createWall == -1 && item.ammo == AmmoID.None)
             {
                 modPlayer.TryAdditionalAttacks(item.damage, item.DamageType);
                 player.AccessoryEffects().TryAdditionalAttacks(item.damage, item.DamageType);
@@ -284,9 +284,9 @@ namespace FargowiltasSouls.Content.Items
                 return false;
             }
             */
-            if (item.damage > 0 && item.DamageType != DamageClass.Default && item.pick == 0 && item.axe == 0 && item.hammer == 0)
+            if (item.IsWeaponWithDamageClass())
             {
-                player.FargoSouls().WeaponUseTimer = Math.Max(item.useTime, item.useAnimation) + item.reuseDelay + 6;
+                player.FargoSouls().WeaponUseTimer = 2 + (int)Math.Round((Math.Max(item.useTime, item.useAnimation) + item.reuseDelay) / player.FargoSouls().AttackSpeed);
             }
             return true;
         }

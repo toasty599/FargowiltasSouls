@@ -25,8 +25,8 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public int[] oldFrame = new int[TrailLength];
         public override void SetDefaults()
         {
-            Projectile.width = 18;
-            Projectile.height = 18;
+            Projectile.width = 30;
+            Projectile.height = 30;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.penetrate = -1;
@@ -40,6 +40,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+
+            if (Projectile.localAI[0] < 25)
+            {
+                Projectile.localAI[0]++;
+                Projectile.scale = MathHelper.Lerp(0.15f, 1, Projectile.localAI[0] / 25);
+            }
             /*
             NPC owner = Main.npc[(int)Projectile.ai[0]];
             Player target = Main.player[owner.target];

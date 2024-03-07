@@ -13,7 +13,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantEye : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_452";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantEye_April" :
+            "Terraria/Images/Projectile_452";
 
         public virtual int TrailAdditive => 0;
 
@@ -129,7 +131,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public static Color ColorFunction(float completionRatio)
         {
-            return Color.Lerp(Color.Cyan, Color.Transparent, completionRatio) * 0.7f;
+            return Color.Lerp(FargoSoulsUtil.AprilFools ? Color.Yellow : Color.Cyan, Color.Transparent, completionRatio) * 0.7f;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -139,7 +141,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int rect2 = rect1 * Projectile.frame;
             Rectangle glowrectangle = new(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            Color glowcolor = Color.Lerp(new Color(31, 187, 192, TrailAdditive), Color.Transparent, 0.74f);
+            Color glowcolor = Color.Lerp(
+                FargoSoulsUtil.AprilFools ? new Color(255, 0, 0, TrailAdditive) : new Color(31, 187, 192, TrailAdditive),
+                Color.Transparent, 
+                0.74f);
             Vector2 drawCenter = Projectile.Center - Projectile.velocity.SafeNormalize(Vector2.UnitX) * 14;
 
             for (int i = 0; i < 3; i++) //create multiple transparent trail textures ahead of the projectile

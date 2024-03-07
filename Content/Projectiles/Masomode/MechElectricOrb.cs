@@ -32,7 +32,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         {
             // DisplayName.SetDefault("Electric Orb");
 
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             Main.projFrames[Type] = 10;
         }
@@ -85,7 +85,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             {
                 Projectile.localAI[1] = 1f;
 
-                SoundEngine.PlaySound(ShotSound, Projectile.position);
+                SoundEngine.PlaySound(ShotSound with { Volume = 0.5f }, Projectile.position);
 
                 //doing it this way so projs that inherit from Electric Orb dont inherit the accel
                 lastSecondAccel = Projectile.type == ModContent.ProjectileType<MechElectricOrb>();
@@ -192,29 +192,33 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
             Vector2 origin = rectangle.Size() / 2f;
             SpriteEffects spriteEffects = Projectile.spriteDirection > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            /*
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
+
+            //Main.spriteBatch.End();
+            //Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+            for (float i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i += 0.33f)
             {
-                Color oldColor = colorType switch
+                Color oldColor = ColorType switch
                 {
                     Blue => Color.Teal,
                     Green => Color.Green,
                     Yellow => Color.Yellow,
                     _ => Color.Red
-                } * 0.7f;
+                };
+                oldColor.A = 50;
                 float modifier = (float)(ProjectileID.Sets.TrailCacheLength[Type] - i) / ProjectileID.Sets.TrailCacheLength[Type];
                 oldColor *= modifier;
                 float scale = (Projectile.scale / 2) + (Projectile.scale * modifier / 2);
-                Vector2 oldPos = Projectile.oldPos[i] + (origin / 2);
-                float oldRot = Projectile.oldRot[i];
+                int max0 = (int)i - 1;//Math.Max((int)i - 1, 0);
+                if (max0 < 0)
+                    continue;
+                Vector2 oldPos = Vector2.Lerp(Projectile.oldPos[(int)i], Projectile.oldPos[max0], 1 - i % 1) + (origin / 2);
+                float oldRot = Projectile.oldRot[max0];
                 Main.EntitySpriteDraw(texture, oldPos - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), rectangle, oldColor,
                     oldRot, origin, scale, spriteEffects, 0);
             }
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
-            */
+            //Main.spriteBatch.End();
+            //Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), rectangle, Color.White,
                     Projectile.rotation, origin, Projectile.scale, spriteEffects, 0);
 

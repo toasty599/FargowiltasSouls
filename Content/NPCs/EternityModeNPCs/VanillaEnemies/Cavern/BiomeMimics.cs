@@ -274,11 +274,12 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                 DoStompAttack = true;
             }
 
-            if (CanDoAttack && IndividualAttackTimer > 10)
+            if (CanDoAttack && npc.HasValidTarget)
             {
-                IndividualAttackTimer = 0;
-                if (npc.HasValidTarget)
+                if (IndividualAttackTimer > 10)
                 {
+                    IndividualAttackTimer = 0;
+                    
                     SoundEngine.PlaySound(SoundID.Grass, npc.Center);
                     float speed = Main.player[npc.target].ZoneRockLayerHeight ? 9f : 14f;
                     if (FargoSoulsUtil.HostCheck)
@@ -287,6 +288,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
                         Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, vel, ModContent.ProjectileType<JungleTentacle>(), FargoSoulsUtil.ScaledProjectileDamage(npc.damage, 0.8f), 0f, Main.myPlayer, npc.whoAmI);
                     }
                 }
+
+                //when underground, end attack faster
+                if (Main.player[npc.target].ZoneRockLayerHeight)
+                    AttackCycleTimer++;
             }
 
             base.AI(npc);

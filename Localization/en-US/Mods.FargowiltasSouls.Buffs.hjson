@@ -658,6 +658,11 @@ SuperchargedBuff: {
 	Description: 20% increased move speed, 10% increased attack speed, your attacks electrify
 }
 
+MoonBowBuff: {
+	DisplayName: Crescent Smile
+	Description: Your bow is empowered by lunar magic
+}
+
 TribalCharmClickBuff: {
 	DisplayName: Tribal Charm
 	Description: Gain an instant of increased damage when you click to attack
@@ -718,4 +723,9 @@ CoffinTossBuff: {
 HellFireMarkedBuff: {
 	DisplayName: Hell Fire Marked
 	Description: Mods.FargowiltasSouls.Buffs.HellFireMarked.Description
+}
+
+MagicalCurseBuff: {
+	DisplayName: Magical Curse Buff
+	Description: Mods.FargowiltasSouls.Buffs.MagicalCurseBuff.Description
 }

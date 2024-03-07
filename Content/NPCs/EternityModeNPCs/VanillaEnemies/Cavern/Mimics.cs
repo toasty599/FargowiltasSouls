@@ -66,6 +66,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
         {
             Player player = Main.player[npc.target];
             bool returnbool = base.SafePreAI(npc); //used so entire PreAI always runs
+
+            if (!Main.hardMode && npc.life > npc.lifeMax / 2)
+                return returnbool;
+
             const int AttackCD = 180; //time between attacks where mimic does the vanilla ai
 
             if (npc.type == NPCID.Mimic || npc.type == NPCID.PresentMimic || npc.type == NPCID.IceMimic) //delete ice mimic and give it its own attacks later
@@ -276,7 +280,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Cavern
             {
                 npc.dontTakeDamage = false;
                 if (npc.justHit && Main.hardMode)
-                    InvulFrameTimer = 20;
+                    InvulFrameTimer = 15;
                 if (InvulFrameTimer > 0)
                 {
                     InvulFrameTimer--;

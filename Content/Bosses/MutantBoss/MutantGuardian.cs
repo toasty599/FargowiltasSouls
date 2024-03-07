@@ -13,12 +13,14 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantGuardian : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_127";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantGuardian_April" :
+            "FargowiltasSouls/Assets/ExtraTextures/Resprites/NPC_127";
 
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Skeletron Prime");
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Projectile.type] = Main.npcFrameCount[NPCID.SkeletronPrime];
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 6;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -27,7 +29,6 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             Projectile.width = 70;
             Projectile.height = 70;
-            Projectile.penetrate = -1;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;

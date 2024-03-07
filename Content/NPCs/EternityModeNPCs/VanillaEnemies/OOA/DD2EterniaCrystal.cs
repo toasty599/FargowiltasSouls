@@ -18,8 +18,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.OOA
         {
             base.AI(npc);
 
-            if (DD2Event.Ongoing && DD2Event.TimeLeftBetweenWaves > 600)
-                DD2Event.TimeLeftBetweenWaves = 600;
+            //if (DD2Event.Ongoing && DD2Event.TimeLeftBetweenWaves > 600) DD2Event.TimeLeftBetweenWaves = 600;
 
             if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.betsyBoss, NPCID.DD2Betsy) && EModeGlobalNPC.betsyBoss >= 0 && EModeGlobalNPC.betsyBoss != Main.maxNPCs)
             {

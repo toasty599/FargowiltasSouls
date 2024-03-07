@@ -28,12 +28,15 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using Fargowiltas.NPCs;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     [AutoloadBossHead]
     public class MutantBoss : ModNPC
     {
+        public override string Texture => $"FargowiltasSouls/Content/Bosses/MutantBoss/MutantBoss{FargoSoulsUtil.TryAprilFoolsTexture}";
+
         Player player => Main.player[NPC.target];
 
         public bool playerInvulTriggered;
@@ -281,10 +284,17 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 case 45: PrepareMutantSword(); break;
                 case 46: MutantSword(); break;
 
+                case 47: goto case 35;
+                case 48: QueenSlimeRain(); break;
+
+                case 49: SANSGOLEM(); break;
+
+                //case 50: //wof
+
                 //gap in the numbers here so the ai loops right
                 //when adding a new attack, remember to make ChooseNextAttack() point to the right case!
 
-                case 48: P2NextAttackPause(); break;
+                case 52: P2NextAttackPause(); break;
 
                 #endregion
 
@@ -490,7 +500,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         void ChooseNextAttack(params int[] args)
         {
             float buffer = AttackChoice + 1;
-            AttackChoice = 48;
+            AttackChoice = 52;
             NPC.ai[1] = 0;
             NPC.ai[2] = buffer;
             NPC.ai[3] = 0;
@@ -557,7 +567,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (FargoSoulsUtil.HostCheck)
             {
-                int maxMemory = WorldSavingSystem.MasochistModeReal ? 10 : 16;
+                int maxMemory = WorldSavingSystem.MasochistModeReal ? 12 : 18;
 
                 if (attackCount++ > maxMemory * 1.25) //after doing this many attacks, shorten queue so i can be more random again
                 {
@@ -570,7 +580,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     attackHistory.Dequeue();
             }
 
-            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat() : 0;
+            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat(-1f, 1f) : 0;
 
             /*text = "";
             foreach (float f in attackHistory)
@@ -833,7 +843,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             const int max = 6;
             for (int i = 0; i < max; i++)
             {
-                int d = Dust.NewDust(NPC.Center + distance * Vector2.UnitX.RotatedBy(rotation + MathHelper.TwoPi / max * i), 0, 0, DustID.Vortex, NPC.velocity.X * 0.3f, NPC.velocity.Y * 0.3f, newColor: Color.White);
+                int d = Dust.NewDust(NPC.Center + distance * Vector2.UnitX.RotatedBy(rotation + MathHelper.TwoPi / max * i), 0, 0, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, NPC.velocity.X * 0.3f, NPC.velocity.Y * 0.3f, newColor: Color.White);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].scale = 6f - 4f * modifier;
             }
@@ -938,18 +948,21 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     SoundEngine.PlaySound(SoundID.NPCDeath13, NPC.Center);
                     if (FargoSoulsUtil.HostCheck) //spawn worm
                     {
+                        int appearance = Main.rand.Next(2);
+                        if (FargoSoulsUtil.AprilFools)
+                            appearance = 0;
                         for (int j = 0; j < 8; j++)
                         {
                             Vector2 vel = NPC.DirectionFrom(player.Center).RotatedByRandom(MathHelper.ToRadians(120)) * 10f;
                             float ai1 = 0.8f + 0.4f * j / 5f;
-                            int current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerHead>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, ai1);
+                            int current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerHead>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, ai1, appearance);
                             //timeleft: remaining duration of this case + extra delay after + successive death
                             Main.projectile[current].timeLeft = 90 * ((int)NPC.ai[3] + 1) + 30 + j * 6;
                             int max = Main.rand.Next(8, 19);
                             for (int i = 0; i < max; i++)
-                                current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerBody>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, Main.projectile[current].identity);
+                                current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerBody>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, Main.projectile[current].identity, 0f, appearance);
                             int previous = current;
-                            current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerTail>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, Main.projectile[current].identity);
+                            current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerTail>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, Main.projectile[current].identity, 0f, appearance);
                             Main.projectile[previous].localAI[1] = Main.projectile[current].identity;
                             Main.projectile[previous].netUpdate = true;
                         }
@@ -1423,7 +1436,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         float ai1 = i <= 2 || i == max - 2 ? 48 : 24;
                         if (FargoSoulsUtil.HostCheck)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<Projectiles.Masomode.MoonLordMoonBlast>(),
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2), Vector2.Zero, FargoSoulsUtil.AprilFools ? ModContent.ProjectileType<MoonLordSunBlast>() : ModContent.ProjectileType<MoonLordMoonBlast>(),
                                 FargoSoulsUtil.ScaledProjectileDamage(NPC.damage, 4f / 3f), 0f, Main.myPlayer, MathHelper.WrapAngle(angle.ToRotation()), ai1);
                         }
                     }
@@ -1436,7 +1449,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     P1NextAttackOrMasoOptions(AttackChoice);
                 }
-                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 5 * endTimeVariance)
+                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 5 * (endTimeVariance + 1))
                 {
                     AttackChoice--;
                     NPC.ai[1] = 0;
@@ -1447,7 +1460,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
                 else
                 {
-                    ChooseNextAttack(13, 21, 24, 29, 31, 33, 37, 41, 42, 44);
+                    ChooseNextAttack(13, 21, 24, 29, 31, 33, 37, 41, 42, 44/*, 47*//*, 49*/);
                 }
             }
         }
@@ -1527,7 +1540,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                 for (int i = 0; i < 50; i++)
                 {
-                    int d = Dust.NewDust(Main.LocalPlayer.position, Main.LocalPlayer.width, Main.LocalPlayer.height, DustID.Vortex, 0f, 0f, 0, default, 2.5f);
+                    int d = Dust.NewDust(Main.LocalPlayer.position, Main.LocalPlayer.width, Main.LocalPlayer.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 2.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].noLight = true;
                     Main.dust[d].velocity *= 9f;
@@ -1545,7 +1558,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (WorldSavingSystem.EternityMode)
                 {
                     NPC.life = NPC.lifeMax;
-                    AttackChoice = Main.rand.Next(new int[] { 11, 13, 16, 19, 20, 21, 24, 26, 29, 35, 37, 39, 42 }); //force a random choice
+                    AttackChoice = Main.rand.Next(new int[] { 11, 13, 16, 19, 20, 21, 24, 26, 29, 35, 37, 39, 42/*, 47*//*, 49*/ }); //force a random choice
                 }
                 else
                 {
@@ -1598,15 +1611,15 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.netUpdate = true;
                     NPC.ai[2] -= NPC.ai[3] / (WorldSavingSystem.MasochistModeReal ? 3 : 2);
 
-                    if (NPC.localAI[0] == 21 && endTimeVariance > 0.75f //sometimes skip to end
-                    || NPC.localAI[0] == 41 && endTimeVariance < 0.25f)
+                    if (NPC.localAI[0] == 21 && endTimeVariance > 0.33f //sometimes skip to end
+                    || NPC.localAI[0] == 41 && endTimeVariance < -0.33f)
                         NPC.localAI[0] = 60;
 
                     EdgyBossText(GFBQuote(6));
                 }
                 else if (NPC.localAI[0] >= 60)
                 {
-                    ChooseNextAttack(13, 19, 21, 24, 31, 39, 41, 42);
+                    ChooseNextAttack(13, 19, 21, 24, 31, 39, 41, 42/*, 49*/);
                 }
             }
         }
@@ -1754,6 +1767,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.GlowRing>(), 0, 0f, Main.myPlayer, NPC.whoAmI, -2);
 
                 EdgyBossText(GFBQuote(11));
+
+                if (WorldSavingSystem.MasochistModeReal)
+                    NPC.ai[2] = Main.rand.NextFloat(MathHelper.Pi);
             }
             if (NPC.ai[3] > 60 && ++NPC.ai[1] > 2)
             {
@@ -1777,7 +1793,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
 
-            int endTime = 360 + 60 + (int)(240 * 2 * (endTimeVariance - 0.33f));
+            int endTime = 360 + 60 + (int)(300 * endTimeVariance);
             if (++NPC.ai[3] > endTime)
             {
                 ChooseNextAttack(11, 13, 19, 20, 21, 24, WorldSavingSystem.MasochistModeReal ? 31 : 26, 33, 41, 44);
@@ -1791,6 +1807,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             int pillarAttackDelay = 60;
 
+            if (Main.getGoodWorld)
+                player.confused = true;
+
             if (NPC.ai[2] == 0 && NPC.ai[3] == 0) //target one corner of arena
             {
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
@@ -1802,6 +1821,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Clone(1, 1, pillarAttackDelay * 3);
                     if (WorldSavingSystem.MasochistModeReal)
                         Clone(1, 1, pillarAttackDelay * 6);
+                    
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                 }
 
                 EdgyBossText(GFBQuote(12));
@@ -1857,7 +1878,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[1] > endTime)
             {
-                ChooseNextAttack(11, 13, 20, 21, 26, 33, 41, 44);
+                ChooseNextAttack(11, 13, 20, 21, 26, 33, 41, 44/*, 49*/);
             }
             else if (NPC.ai[1] == pillarAttackDelay)
             {
@@ -1927,7 +1948,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[1] > 450)
             {
-                ChooseNextAttack(11, 13, 16, 21, 26, 29, 31, 33, 35, 37, 41, 44, 45);
+                ChooseNextAttack(11, 13, 16, 21, 26, 29, 31, 33, 35, 37, 41, 44, 45/*, 47*//*, 49*/);
             }
 
             /*if (Math.Abs(targetPos.X - player.Center.X) < 150) //avoid crossing up player
@@ -2014,9 +2035,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (++NPC.ai[2] > NPC.localAI[1])
                 {
                     if (WorldSavingSystem.MasochistModeReal)
-                        ChooseNextAttack(11, 13, 16, 19, 20, 31, 33, 35, 39, 42, 44);
+                        ChooseNextAttack(11, 13, 16, 19, 20, 31, 33, 35, 39, 42, 44/*, 47*/);
                     else
-                        ChooseNextAttack(11, 16, 26, 29, 31, 35, 37, 39, 42, 44);
+                        ChooseNextAttack(11, 16, 26, 29, 31, 35, 37, 39, 42, 44/*, 47*/);
                 }
                 else
                 {
@@ -2068,6 +2089,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 else
                     NPC.localAI[1] = 5;
 
+                NPC.localAI[2] = Main.rand.Next(2);
+
                 EdgyBossText(GFBQuote(16));
             }
 
@@ -2102,14 +2125,17 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         float ai1 = 0.8f + 0.4f * NPC.ai[2] / 5f;
                         if (WorldSavingSystem.MasochistModeReal)
                             ai1 += 0.4f;
-                        int current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerHead>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, ai1);
+                        float appearance = NPC.localAI[2];
+                        if (FargoSoulsUtil.AprilFools)
+                            appearance = 0;
+                        int current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerHead>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.target, ai1, appearance);
                         //timeleft: remaining duration of this case + duration of next case + extra delay after + successive death
                         Main.projectile[current].timeLeft = 30 * (cap - (int)NPC.ai[2]) + 60 * (int)NPC.localAI[1] + 30 + (int)NPC.ai[2] * 6;
                         int max = Main.rand.Next(8, 19);
                         for (int i = 0; i < max; i++)
-                            current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerBody>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, Main.projectile[current].identity);
+                            current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerBody>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, Main.projectile[current].identity, 0f, appearance);
                         int previous = current;
-                        current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerTail>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, Main.projectile[current].identity);
+                        current = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel, ModContent.ProjectileType<MutantDestroyerTail>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, Main.projectile[current].identity, 0f, appearance);
                         Main.projectile[previous].localAI[1] = Main.projectile[current].identity;
                         Main.projectile[previous].netUpdate = true;
                     }
@@ -2136,9 +2162,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     shouldAttack = false;
                     if (WorldSavingSystem.MasochistModeReal)
-                        ChooseNextAttack(11, 19, 20, 29, 31, 33, 35, 37, 39, 42, 44, 45);
+                        ChooseNextAttack(11, 19, 20, 29, 31, 33, 35, 37, 39, 42, 44, 45/*, 47*/);
                     else
-                        ChooseNextAttack(11, 19, 20, 26, 26, 26, 29, 31, 33, 35, 37, 39, 42, 44);
+                        ChooseNextAttack(11, 19, 20, 26, 26, 26, 29, 31, 33, 35, 37, 39, 42, 44/*, 47*/);
                 }
 
                 if ((shouldAttack || WorldSavingSystem.MasochistModeReal) && FargoSoulsUtil.HostCheck)
@@ -2301,7 +2327,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
                 if (WorldSavingSystem.EternityMode) //use full moveset
                 {
-                    ChooseNextAttack(11, 13, 16, 19, 21, 24, 29, 31, 33, 35, 37, 39, 41, 42, 45);
+                    ChooseNextAttack(11, 13, 16, 19, 21, 24, 29, 31, 33, 35, 37, 39, 41, 42, 45/*, 47*//*, 49*/);
                 }
                 else
                 {
@@ -2349,6 +2375,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 if (FargoSoulsUtil.HostCheck)
                 {
+                    int projType = NPC.ai[0] == 30 ? ModContent.ProjectileType<MutantFishron>() : ModContent.ProjectileType<MutantShadowHand>();
                     for (int j = -1; j <= 1; j += 2) //to both sides of player
                     {
                         int max = (int)NPC.ai[1] / fishronDelay;
@@ -2358,7 +2385,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                                 continue;
                             float spread = MathHelper.Pi / 3 / (maxFishronSets + 1);
                             Vector2 offset = NPC.ai[2] == 0 ? Vector2.UnitY.RotatedBy(spread * i) * -450f * j : Vector2.UnitX.RotatedBy(spread * i) * 475f * j;
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantFishron>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, offset.X, offset.Y);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, projType, FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, offset.X, offset.Y);
                         }
                     }
                 }
@@ -2373,7 +2400,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[1] > (WorldSavingSystem.MasochistModeReal ? 60 : 120))
             {
-                ChooseNextAttack(13, 19, 20, 21, WorldSavingSystem.MasochistModeReal ? 44 : 26, 31, 31, 31, 33, 35, 39, 41, 42, 44);
+                ChooseNextAttack(13, 19, 20, 21, WorldSavingSystem.MasochistModeReal ? 44 : 26, 31, 31, 31, 33, 35, 39, 41, 42, 44/*, 47*//*, 49*/);
             }
         }
 
@@ -2442,15 +2469,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             if (!AliveCheck(player))
                 return;
 
-            if (WorldSavingSystem.MasochistModeReal)
-            {
-                Vector2 target = NPC.Bottom.Y < player.Top.Y
-                    ? player.Center + 300f * Vector2.UnitX * Math.Sign(NPC.Center.X - player.Center.X)
-                    : NPC.Center + 30 * NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(60) * Math.Sign(player.Center.X - NPC.Center.X));
-                Movement(target, 0.1f);
-                if (NPC.velocity.Length() > 2f)
-                    NPC.velocity = Vector2.Normalize(NPC.velocity) * 2f;
-            }
+            Vector2 target = NPC.Bottom.Y < player.Top.Y
+                ? player.Center + 300f * Vector2.UnitX * Math.Sign(NPC.Center.X - player.Center.X)
+                : NPC.Center + 30 * NPC.DirectionFrom(player.Center).RotatedBy(MathHelper.ToRadians(60) * Math.Sign(player.Center.X - NPC.Center.X));
+            Movement(target, 0.1f);
+            int maxSpeed = WorldSavingSystem.MasochistModeReal ? 3 : 2;
+            if (NPC.velocity.Length() > maxSpeed)
+                NPC.velocity = Vector2.Normalize(NPC.velocity) * maxSpeed;
 
             if (NPC.ai[1] > (WorldSavingSystem.MasochistModeReal ? 120 : 180))
             {
@@ -2476,9 +2501,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
 
-            if (++NPC.ai[1] > 360 + 360 * endTimeVariance)
+            if (++NPC.ai[1] > 360 + 210 * endTimeVariance)
             {
-                ChooseNextAttack(11, 13, 16, 19, 24, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 35, 37, 39, 41, 42);
+                ChooseNextAttack(11, 13, 16, 19, 24, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 35, 37, 39, 41, 42/*, 47*//*, 49*/);
             }
 
             if (NPC.ai[1] > 45)
@@ -2490,7 +2515,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     double angle = Main.rand.NextDouble() * 2d * Math.PI;
                     offset.X += (float)(Math.Sin(angle) * 150);
                     offset.Y += (float)(Math.Cos(angle) * 150);
-                    Dust dust = Main.dust[Dust.NewDust(NPC.Center + offset - new Vector2(4, 4), 0, 0, DustID.Vortex, 0, 0, 100, Color.White, 1.5f)];
+                    Dust dust = Main.dust[Dust.NewDust(NPC.Center + offset - new Vector2(4, 4), 0, 0, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0, 0, 100, Color.White, 1.5f)];
                     dust.velocity = NPC.velocity;
                     if (Main.rand.NextBool(3))
                         dust.velocity += Vector2.Normalize(offset) * 5f;
@@ -2652,8 +2677,115 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             int endTime = 180 * 3;
             if (WorldSavingSystem.MasochistModeReal)
-                endTime += timeToMove + (int)(120 * endTimeVariance) - 30;
+                endTime += timeToMove + (int)(300 * endTimeVariance) - 30;
             if (++NPC.ai[2] > endTime)
+            {
+                ChooseNextAttack(11, 16, 19, 20, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 33, 37, 39, 41, 42, 45);
+            }
+        }
+
+        void QueenSlimeRain()
+        {
+            if (NPC.ai[3] == 0)
+            {
+                NPC.ai[3] = 1;
+                //Main.NewText(NPC.position.Y);
+                SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+                if (FargoSoulsUtil.HostCheck)
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<MutantSlimeRain>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, NPC.whoAmI);
+            }
+
+            if (NPC.ai[1] == 0) //telegraphs for where slime will fall
+            {
+                NPC.localAI[0] = Main.rand.Next(6, 9) * 120;
+                //always start on the same side as the player
+                if (player.Center.X > NPC.Center.X)
+                    NPC.localAI[0] += 600;
+                NPC.localAI[0] += 60;
+
+                Vector2 basePos = NPC.Center;
+                basePos.X -= 1200;
+                for (int i = -360; i <= 2760; i += 120) //spawn telegraphs
+                {
+                    if (FargoSoulsUtil.HostCheck)
+                    {
+                        if (i + 60 == (int)NPC.localAI[0])
+                            continue;
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), basePos.X + i + 60, basePos.Y, 0f, 0f, ModContent.ProjectileType<MutantReticle>(), 0, 0f, Main.myPlayer, ai2: 1);
+                    }
+                }
+            }
+
+            const int masoMovingRainAttackTime = 60;
+
+            if (NPC.ai[1] > masoMovingRainAttackTime && NPC.ai[1] % 3 == 0) //rain down slime balls
+            {
+                SoundEngine.PlaySound(SoundID.Item34, player.Center);
+                if (FargoSoulsUtil.HostCheck)
+                {
+                    int frame = Main.rand.Next(3);
+
+                    void Slime(Vector2 pos, float off, Vector2 vel)
+                    {
+                        const int flip = 1;
+                        Vector2 spawnPos = pos + off * Vector2.UnitY * flip;
+                        float ai0 = FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null ? 0f : NPC.Distance(Main.projectile[ritualProj].Center);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, vel * flip, ModContent.ProjectileType<MutantSlimeSpike>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, ai0, ai2: frame);
+                    }
+
+                    Vector2 basePos = NPC.Center;
+                    basePos.X -= 1200;
+                    float yOffset = -1300;
+
+                    const int safeRange = 110;
+                    const int spacing = safeRange;
+                    for (int i = 0; i < 2400; i += spacing)
+                    {
+                        float rightOffset = NPC.localAI[0] + safeRange + i;
+                        if (basePos.X + rightOffset < NPC.Center.X + 1200)
+                            Slime(basePos + Vector2.UnitX * rightOffset, yOffset, Vector2.UnitY * 20f);
+                        float leftOffset = NPC.localAI[0] - safeRange - i;
+                        if (basePos.X + leftOffset > NPC.Center.X - 1200)
+                            Slime(basePos + Vector2.UnitX * leftOffset, yOffset, Vector2.UnitY * 20f);
+                    }
+                }
+            }
+
+            NPC.velocity = Vector2.Zero;
+
+            const int timeToMove = 360;
+            if (NPC.ai[1] == masoMovingRainAttackTime)
+            {
+                SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
+
+                EdgyBossText(GFBQuote(21));
+            }
+
+            if (NPC.ai[1] > masoMovingRainAttackTime && --NPC.ai[2] < 0)
+            {
+                float safespotMoveSpeed = WorldSavingSystem.MasochistModeReal ? 7f : 6f;
+
+                if (--NPC.localAI[2] < 0) //reset and recalibrate for the other direction
+                {
+                    float safespotX = NPC.Center.X - 1200f + NPC.localAI[0];
+                    NPC.localAI[1] = Math.Sign(NPC.Center.X - safespotX); //direction to move safespot towards
+
+                    float farSideArenaBorder = NPC.Center.X + 1200f * NPC.localAI[1];
+                    float distanceToBorder = Math.Abs(farSideArenaBorder - safespotX);
+                    float minRequiredDistance = Math.Abs(NPC.Center.X - safespotX) + 100;
+
+                    float distanceToTravel = MathHelper.Lerp(minRequiredDistance, distanceToBorder, Main.rand.NextFloat(0.6f));
+
+                    NPC.localAI[2] = distanceToTravel / safespotMoveSpeed;
+                    NPC.ai[2] = WorldSavingSystem.MasochistModeReal ? 15 : 30; //adds a pause when turning around
+                }
+
+                //move the safespot
+                NPC.localAI[0] += safespotMoveSpeed * NPC.localAI[1];
+            }
+
+            int endTime = masoMovingRainAttackTime + timeToMove + (int)(300 * endTimeVariance);
+            if (++NPC.ai[1] > endTime)
             {
                 ChooseNextAttack(11, 16, 19, 20, WorldSavingSystem.MasochistModeReal ? 26 : 29, 31, 33, 37, 39, 41, 42, 45);
             }
@@ -2705,7 +2837,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             NPC.velocity = Vector2.Zero;
 
-            int endTime = 420 + (int)(360 * (endTimeVariance - 0.33f));
+            int endTime = 420 + (int)(300 * endTimeVariance);
 
             if (++NPC.ai[1] > 10 && NPC.ai[3] > 60 && NPC.ai[3] < endTime - 60)
             {
@@ -2732,12 +2864,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[3] > endTime)
             {
-                ChooseNextAttack(13, 19, 20, WorldSavingSystem.MasochistModeReal ? 13 : 26, WorldSavingSystem.MasochistModeReal ? 44 : 33, 41, 44);
+                ChooseNextAttack(13, 19, 20, WorldSavingSystem.MasochistModeReal ? 13 : 26, WorldSavingSystem.MasochistModeReal ? 44 : 33, 41, 44/*, 49*/);
             }
 
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -2760,7 +2892,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.localAI[1] = 5;
 
                 if (WorldSavingSystem.MasochistModeReal)
-                    NPC.localAI[1] += 3;
+                    NPC.localAI[1] += Main.rand.Next(6);
                 NPC.localAI[2] = Main.rand.NextBool() ? -1 : 1; //pick a random rotation direction
                 NPC.netUpdate = true;
             }
@@ -2793,7 +2925,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 bool shouldAttack = true;
                 if (++NPC.ai[2] > NPC.localAI[1])
                 {
-                    ChooseNextAttack(11, 16, 19, 20, WorldSavingSystem.MasochistModeReal ? 44 : 26, 31, 33, 35, 42, 44, 45);
+                    ChooseNextAttack(11, 16, 19, 20, WorldSavingSystem.MasochistModeReal ? 44 : 26, 31, 33, 35, 42, 44, 45/*, 47*/);
                     shouldAttack = false;
                 }
 
@@ -2908,7 +3040,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             if (++NPC.ai[3] > 450)
             {
-                ChooseNextAttack(11, 13, 16, 21, 24, 26, 29, 31, 33, 35, 39, 41, 44, 45);
+                ChooseNextAttack(11, 13, 16, 21, 24, 26, 29, 31, 33, 35, 39, 41, 44, 45/*, 47*//*, 49*/);
             }
         }
 
@@ -2927,7 +3059,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPC.velocity = Vector2.Zero;
 
             int attackThreshold = WorldSavingSystem.MasochistModeReal ? 48 : 60;
-            int timesToAttack = WorldSavingSystem.MasochistModeReal ? 3 + (int)(endTimeVariance * 5) : 4;
+            int timesToAttack = 4 + (int)Math.Round(3 * endTimeVariance);
             int startup = 90;
 
             if (NPC.ai[1] == 0)
@@ -3056,7 +3188,64 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (++NPC.ai[1] > swordSwarmTime + (WorldSavingSystem.MasochistModeReal ? 60 : 30))
             {
-                ChooseNextAttack(11, 13, 16, 21, WorldSavingSystem.MasochistModeReal ? 26 : 24, 29, 31, 35, 37, 39, 41, 45);
+                ChooseNextAttack(11, 13, 16, 21, WorldSavingSystem.MasochistModeReal ? 26 : 24, 29, 31, 35, 37, 39, 41, 45/*, 47*//*, 49*/);
+            }
+        }
+
+        void SANSGOLEM()
+        {
+            Vector2 targetPos = player.Center + NPC.DirectionFrom(player.Center) * 300;
+            Movement(targetPos, 0.3f);
+
+            int attackDelay = WorldSavingSystem.MasochistModeReal ? 50 : 70;
+
+            if (NPC.ai[1] > 0 && NPC.ai[1] % attackDelay == 0)
+            {
+                EdgyBossText(GFBQuote(35));
+
+                float oldOffset = NPC.ai[2];
+                while (NPC.ai[2] == oldOffset)
+                    NPC.ai[2] = Main.rand.Next(-1, 2); //roll -1, 0, 1
+
+                Vector2 centerPoint = FargoSoulsUtil.ProjectileExists(ritualProj, ModContent.ProjectileType<MutantRitual>()) == null ? player.Center : Main.projectile[ritualProj].Center;
+                float maxVariance = 150; //variance seems a LOT more than this, whatever
+                float maxOffsetWithinStep = maxVariance / 3 * .75f; //x.75 so player always has to move a noticeable amount
+                centerPoint.Y += maxVariance * NPC.ai[2]; //choose one of 3 base heights
+                centerPoint.Y += Main.rand.NextFloat(-maxOffsetWithinStep, maxOffsetWithinStep);
+
+                for (int i = -1; i <= 1; i += 2) //left and right
+                {
+                    float xSpeedWhenAttacking = Main.rand.NextFloat(8f, 20f);
+
+                    for (int j = -1; j <= 1; j += 2) //flappy bird tubes
+                    {
+                        float gapRadiusHeight = WorldSavingSystem.MasochistModeReal ? 120 : 150;
+                        Vector2 sansTargetPos = centerPoint;
+                        const int timeToReachMiddle = 60;
+                        sansTargetPos.X += xSpeedWhenAttacking * timeToReachMiddle * i;
+                        sansTargetPos.Y += gapRadiusHeight * j;
+
+                        int travelTime = 50;
+                        Vector2 vel = (sansTargetPos - NPC.Center) / travelTime;
+
+                        if (FargoSoulsUtil.HostCheck)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel,
+                                ModContent.ProjectileType<MutantSansHead>(), 
+                                FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 
+                                travelTime, xSpeedWhenAttacking * -i, j);
+                        }
+                    }
+                }
+            }
+
+            //(attacks + 1) - 5 to stop mutant from doing the last one, give a gap to next attack
+            //doing the math round to make the endtimes discrete
+            const int attacksToDo = 6;
+            int endTime = attackDelay * (attacksToDo + 1) - 5 + attackDelay * (int)Math.Round(4 * endTimeVariance);
+            if (++NPC.ai[1] > endTime)
+            {
+                ChooseNextAttack(13, 19, 20, 21, 24, 31, 33, 35, 41, 44);
             }
         }
 
@@ -3165,7 +3354,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (FargoSoulsUtil.HostCheck)
                     {
                         Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
-                        int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                        int type = ModContent.ProjectileType<MutantBombSmall>();
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
                     }
                 }
@@ -3173,7 +3362,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3218,7 +3407,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3272,7 +3461,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3334,7 +3523,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3354,6 +3543,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 float change = Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
                 if (useMasoSpeed)
                 {
+                    change *= 1.1f;
                     float angleLerp = NPC.ai[3].AngleLerp(newRotation, 0.015f) - NPC.ai[3];
                     if (Math.Abs(MathHelper.WrapAngle(angleLerp)) > Math.Abs(MathHelper.WrapAngle(change)))
                         change = angleLerp;
@@ -3382,7 +3572,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
-                    int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                    int type = ModContent.ProjectileType<MutantBombSmall>();
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
                 }
             }
@@ -3551,13 +3741,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 spawnPos = NPC.position + new Vector2(Main.rand.Next(NPC.width), Main.rand.Next(NPC.height));
-                    int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                    int type = ModContent.ProjectileType<MutantBomb>();
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
                 }
             }
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 4f;
@@ -3575,7 +3765,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPC.velocity = Vector2.Zero;
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 2.5f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 2.5f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 12f;
@@ -3586,7 +3776,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (FargoSoulsUtil.HostCheck)
                 {
                     Vector2 spawnPos = NPC.Center + Main.rand.NextVector2Circular(240, 240);
-                    int type = ModContent.ProjectileType<Projectiles.BossWeapons.PhantasmalBlast>();
+                    int type = ModContent.ProjectileType<MutantBomb>();
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), spawnPos, Vector2.Zero, type, 0, 0f, Main.myPlayer);
                 }
             }
@@ -3633,7 +3823,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             for (int i = 0; i < 3; i++)
             {
-                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Vortex, 0f, 0f, 0, default, 1f);
+                int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, FargoSoulsUtil.AprilFools ? DustID.SolarFlare : DustID.Vortex, 0f, 0f, 0, default, 1f);
                 Main.dust[d].noGravity = true;
                 Main.dust[d].noLight = true;
                 Main.dust[d].velocity *= 3f;
@@ -3752,7 +3942,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public static void DrawAura(SpriteBatch spriteBatch, Vector2 position, float auraScale)
         {
             // Outer ring.
-            Color outerColor = Color.CadetBlue;
+            Color outerColor = FargoSoulsUtil.AprilFools ? Color.Red : Color.CadetBlue;
             outerColor.A = 0;
             spriteBatch.Draw(FargosTextureRegistry.SoftEdgeRing.Value, position, null, outerColor * 0.7f, 0f, FargosTextureRegistry.SoftEdgeRing.Value.Size() * 0.5f, 9.2f * auraScale, SpriteEffects.None, 0f);
         }

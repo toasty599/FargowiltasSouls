@@ -24,6 +24,8 @@ using FargowiltasSouls.Content.Items.Summons;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Content.Items.Misc;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using Terraria.GameContent.Events;
+using FargowiltasSouls.Content.NPCs.Critters;
 
 namespace FargowiltasSouls.Core.Globals
 {
@@ -86,6 +88,7 @@ namespace FargowiltasSouls.Core.Globals
         public bool MoltenAmplify;
         public bool Anticoagulation;
         public bool BloodDrinker;
+        public bool MagicalCurse;
 
         public int NecroDamage;
 
@@ -134,6 +137,7 @@ namespace FargowiltasSouls.Core.Globals
             Anticoagulation = false;
             BloodDrinker = false;
             FlamesoftheUniverse = false;
+            MagicalCurse = false;
             PungentGazeTime = 0;
         }
         public override void SetStaticDefaults()
@@ -196,16 +200,6 @@ namespace FargowiltasSouls.Core.Globals
                 //                    case NPCID.DukeFishron:
                 //                        SpecialEnchantImmune = true;
                 //                        break;*/
-
-                //                    case NPCID.Squirrel:
-                //                    case NPCID.SquirrelRed:
-                //                        if (!npc.SpawnedFromStatue)
-                //                        {
-                //                            int p = Player.FindClosest(npc.position, npc.width, npc.height);
-                //                            if ((p == -1 || npc.Distance(Main.player[p].Center) > 800) && Main.rand.NextBool(5))
-                //                                npc.Transform(ModContent.NPCType<TophatSquirrelCritter>());
-                //                        }
-                //                        break;
 
                 //                    default:
                 //                        break;
@@ -274,7 +268,7 @@ namespace FargowiltasSouls.Core.Globals
                 if (SnowChilledTimer <= 0)
                     SnowChilled = false;
 
-                if (SnowChilledTimer % 3 == 1)
+                if (SnowChilledTimer % 2 == 1)
                 {
                     npc.position = npc.oldPosition;
                     retval = false;
@@ -300,8 +294,6 @@ namespace FargowiltasSouls.Core.Globals
             {
                 int dustId = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Snow, npc.velocity.X, npc.velocity.Y, 100, default, 1f);
                 Main.dust[dustId].noGravity = true;
-
-                npc.position -= npc.velocity * 0.5f;
             }
 
             SuffocationTimer += Suffocation ? 1 : -3;
@@ -386,6 +378,17 @@ namespace FargowiltasSouls.Core.Globals
                         d.noGravity = false;
                         d.scale *= 0.5f;
                     }
+                }
+            }
+
+            if (MagicalCurse)
+            {
+                if (Main.rand.NextBool(4))
+                {
+                    int d = Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.NextBool() ? 107 : 157);
+                    Main.dust[d].noGravity = true;
+                    Main.dust[d].velocity *= 0.2f;
+                    Main.dust[d].scale = 1.5f;
                 }
             }
 
@@ -894,6 +897,12 @@ namespace FargowiltasSouls.Core.Globals
                 OrichalcumEffect.OriDotModifier(npc, modPlayer, ref damage);
             }
 
+            if (MagicalCurse && npc.lifeRegen < 0)
+            {
+                npc.lifeRegen *= 2;
+                damage *= 2;
+            }
+
             if (TimeFrozen && npc.life == 1)
             {
                 if (npc.lifeRegen < 0)
@@ -953,19 +962,14 @@ namespace FargowiltasSouls.Core.Globals
                     }
                 }
             }
-        }
 
-        public override bool PreKill(NPC npc)
-        {
-            Player player = Main.player[npc.lastInteraction];
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-
-            if (player.HasEffect<NecroEffect>() && !npc.boss)
+            int y = spawnInfo.SpawnTileY;
+            bool day = Main.dayTime;
+            bool surface = y < Main.worldSurface && !spawnInfo.Sky;
+            if (day && surface && spawnInfo.PlayerInTown && FargowiltasSouls.NoBiome(spawnInfo) && FargowiltasSouls.NoZone(spawnInfo))
             {
-                NecroEffect.NecroSpawnGraveEnemy(npc, player, modPlayer);
+                pool[ModContent.NPCType<TophatSquirrelCritter>()] = 0.03f;
             }
-
-            return true;
         }
 
         private bool lootMultiplierCheck;
@@ -979,6 +983,12 @@ namespace FargowiltasSouls.Core.Globals
         public override void OnKill(NPC npc)
         {
             Player player = Main.player[npc.lastInteraction];
+            FargoSoulsPlayer modPlayer = player.FargoSouls();
+
+            if (player.HasEffect<NecroEffect>() && !npc.boss)
+            {
+                NecroEffect.NecroSpawnGraveEnemy(npc, player, modPlayer);
+            }
 
             if (!lootMultiplierCheck)
             {
@@ -989,12 +999,19 @@ namespace FargowiltasSouls.Core.Globals
                     npc.NPCLoot();
                 }
 
-                if (player.FargoSouls().PlatinumEffectActive && !npc.boss && Main.rand.NextBool(5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                if (player.FargoSouls().PlatinumEffect != null && !npc.boss)
                 {
-                    npc.extraValue /= 5;
+                    bool isForcePlatinum = player.FargoSouls().ForceEffect(player.FargoSouls().PlatinumEffect.type);
 
-                    for (int i = 0; i < 4; i++)
-                        npc.NPCLoot();
+                    if (Main.rand.NextBool(isForcePlatinum ? 10 : 5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                    {
+                        int repeats = isForcePlatinum ? 15 : 5;
+
+                        npc.extraValue /= repeats;
+
+                        for (int i = 0; i < repeats - 1; i++)
+                            npc.NPCLoot();
+                    }
                 }
             }
 
@@ -1079,13 +1096,16 @@ namespace FargowiltasSouls.Core.Globals
                     npcLoot.Add(BossDrop(ModContent.ItemType<FishStick>()));
                     break;
 
-            case NPCID.HallowBoss:
-                npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
-                break;
-                
+                case NPCID.HallowBoss:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<PrismaRegalia>()));
+                    break;
 
                 case NPCID.DD2Betsy:
                     npcLoot.Add(BossDrop(ModContent.ItemType<DragonBreath>()));
+                    break;
+
+                case NPCID.MoonLordCore:
+                    npcLoot.Add(BossDrop(ModContent.ItemType<MoonBow>()));
                     break;
 
                 case NPCID.BigMimicJungle:

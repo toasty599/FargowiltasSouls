@@ -25,7 +25,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             player.AddEffect<GoldEffect>(Item);
             player.AddEffect<GoldToPiggy>(Item);
-            modPlayer.PlatinumEffectActive = true;
+            modPlayer.PlatinumEffect = Item;
             player.AddEffect<GladiatorBanner>(Item);
             player.AddEffect<GladiatorSpears>(Item);
             player.AddEffect<RedRidingEffect>(Item);

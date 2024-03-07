@@ -73,6 +73,7 @@ TikiEffect: Tiki Minions
 CosmoHeader: "{$Mods.FargowiltasSouls.Items.CosmoForce.DisplayName}"
 MeteorMomentumEffect: Meteor Speed
 MeteorEffect: Meteor Shower
+MeteorTrailEffect: Meteor Spark Trail
 NebulaEffect: Nebula Boosters
 SolarEffect: Solar Shield
 SolarFlareEffect: Inflict Solar Flare
@@ -104,8 +105,9 @@ RainbowSlimeMinion: Rainbow Slime Minion
 RainbowHealEffect: Auto-Use Healing Potions
 NymphPerfumeEffect: Attacks Spawn Hearts
 SqueakEffect: Squeaky Toy On Hit
-WretchedPouchEffect: Wretched Pouch Slowdown Attack
+WretchedPouchEffect: Wretched Hex Install
 ClippedEffect: Inflict Clipped Wings
+WyvernBalls: Flight Light Orbs
 TribalCharmClickBonus: Tribal Charm Click Bonus
 StabilizedGravity: Stabilized Gravity
 DubiousHeader: "{$Mods.FargowiltasSouls.Items.DubiousCircuitry.DisplayName}"

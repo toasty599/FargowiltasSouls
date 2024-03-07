@@ -1187,7 +1187,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
 
-                if (player.HeldItem.damage > 0 && player.HeldItem.pick == 0)
+                if (player.HeldItem.IsWeapon())
                 {
                     modPlayer.WeaponUseTimer = Math.Max(modPlayer.WeaponUseTimer, 2);
 
@@ -1270,7 +1270,6 @@ namespace FargowiltasSouls.Content.Projectiles
         {
             return true;
         }
-
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
             FargoSoulsPlayer modPlayer = Main.player[projectile.owner].FargoSouls();

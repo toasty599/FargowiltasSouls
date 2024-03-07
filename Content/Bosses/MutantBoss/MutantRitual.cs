@@ -14,12 +14,14 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantRitual : BaseArena
     {
-        public override string Texture => "Terraria/Images/Projectile_454";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSphere_April" :
+            "Terraria/Images/Projectile_454";
 
         private const float realRotation = MathHelper.Pi / 140f;
         private bool MutantDead;
 
-        public MutantRitual() : base(realRotation, 1200f, ModContent.NPCType<MutantBoss>()) { }
+        public MutantRitual() : base(realRotation, 1200f, ModContent.NPCType<MutantBoss>(), visualCount: 48) { }
 
         public override void SetStaticDefaults()
         {
@@ -51,6 +53,21 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Projectile.velocity = Vector2.Zero;
 
                 targetRotation = -realRotation / 2; //denote arena isn't moving
+            }
+            else if (npc.ai[0] == 49) //golem
+            {
+                if (npc.HasValidTarget && npc.ai[1] < 30) //snap it to player at start
+                {
+                    Projectile.velocity = (Main.player[npc.target].Center - Projectile.Center) / 10f;
+
+                    targetRotation = realRotation;
+                }
+                else
+                {
+                    Projectile.velocity = Vector2.Zero;
+
+                    targetRotation = -realRotation / 2; //denote arena isn't moving
+                }
             }
             else
             {
@@ -134,7 +151,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int rect2 = 0;
             Rectangle glowrectangle = new(0, rect2, glow.Width, rect1);
             Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            Color glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.8f);
+            Color glowcolor = Color.Lerp(FargoSoulsUtil.AprilFools ? Color.Red : new Color(196, 247, 255, 0), Color.Transparent, 0.8f);
 
             for (int x = 0; x < 32; x++)
             {

@@ -215,7 +215,7 @@ namespace FargowiltasSouls.Content.Projectiles.Pets
             bool bossAlive = FargoSoulsUtil.AnyBossAlive();
             //only do idle talk when awake, not a boss fight, and not in danger
             if (TalkCDs[(int)TalkType.Idle] < 60 && (bossAlive || asleep || player.statLife < player.statLifeMax2 / 2))
-                TalkCDs[(int)TalkType.Idle] = Math.Max(TalkCDs[(int)TalkType.Idle], 12 * 60);
+                TalkCDs[(int)TalkType.Idle] = Math.Max(TalkCDs[(int)TalkType.Idle], (int)FargoSoulsUtil.SecondsToFrames(12));
 
             if (bossAlive)
             {

@@ -24,7 +24,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.SwarmDrops
         private static readonly SoundStyle badtothebone = new SoundStyle("FargowiltasSouls/Assets/Sounds/Boneriff/boneriff") with { Variants = RiffVariants, Volume = 0.2f, MaxInstances = 10, SoundLimitBehavior = SoundLimitBehavior.IgnoreNew };
         public override void SetDefaults()
         {
-            Item.damage = 274; //
+            Item.damage = 250; //
             Item.knockBack = 4f;
             Item.shootSpeed = 12f; //
 

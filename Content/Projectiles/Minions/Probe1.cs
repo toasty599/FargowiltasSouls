@@ -73,7 +73,7 @@ namespace FargowiltasSouls.Content.Projectiles.Minions
 
                     if (--Projectile.localAI[0] < 0f)
                     {
-                        if (player.controlUseItem && player.HeldItem.damage > 0 && player.HeldItem.pick == 0 && player.HeldItem.hammer == 0 && player.HeldItem.axe == 0)
+                        if (player.controlUseItem && player.HeldItem.IsWeapon())
                         {
                             Projectile.localAI[0] = player.FargoSouls().MasochistSoul ? 15f : 30f;
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(8f, 0f).RotatedBy(Projectile.rotation),

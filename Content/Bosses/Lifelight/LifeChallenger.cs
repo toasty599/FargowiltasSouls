@@ -38,67 +38,24 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         const int DefaultHeight = 200;
         const int DefaultWidth = 200;
 
-        //private bool first = true;
-
         private bool flyfast;
-
         private bool Flying = true;
-
         private bool Charging = false;
-
+        private bool HitPlayer = false;
         private bool AttackF1;
-
         private int Attacking = -1;
-
-        public bool PhaseOne = true;
-
-        public bool Variant = false;
-
         private int dustcounter;
-
-        public int state;
-
-        private int oldstate = 999;
-
-        private int statecount = 10;
-
         private bool shoot = false;
 
-        private readonly List<int> availablestates = new(0);
-
         public Vector2 LockVector1 = new(0, 0);
-
         private Vector2 LockVector2 = new(0, 0);
-
         private Vector2 LockVector3 = new(0, 0);
-
         private Vector2 AuraCenter = new(0, 0);
 
-        private int index;
-
         private double rotspeed = 0;
-
         public double rot = 0;
-
-        private bool HitPlayer = false;
-
-        int index2;
-
         int firstblaster = 2;
-
         private bool UseTrueOriginAI;
-
-        float BodyRotation = 0;
-
-        public float RPS = 0.1f;
-
-        private int P1state = -2;
-
-        private int oldP1state;
-
-        private readonly int P1statecount = 6;
-
-        private bool Draw = false;
 
         private bool useDR;
         private bool phaseProtectionDR;
@@ -106,36 +63,68 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
         int flyTimer = 9000;
 
-        private readonly List<int> intervalist = new(0);
+        public bool PhaseOne = true;
 
         int P2Threshold => Main.expertMode ? (int)(NPC.lifeMax * 0.75) : 0;
         //int P3Threshold => WorldSavingSystem.EternityMode ? NPC.lifeMax / (WorldSavingSystem.MasochistModeReal ? 2 : 3) : 0;
         int SansThreshold => WorldSavingSystem.MasochistModeReal && UseTrueOriginAI ? NPC.lifeMax / 10 : 0;
 
+        // Visual
         private List<Vector4> chunklist = new(0);
-        //private float ChunkRotation = 0;
-
-
         public const float DefaultRuneDistance = 100;
-
         public float RuneDistance = DefaultRuneDistance;
-
-
+        private bool DrawRunes = true;
         public const float DefaultChunkDistance = 65;
-
         public float ChunkDistance = 1000;
 
         public int PyramidPhase = 0;
         public int PyramidTimer = 0;
         public const int PyramidAnimationTime = 60;
 
-        private bool DrawRunes = true;
-
+        float BodyRotation = 0;
+        public float RPS = 0.1f;
+        private bool Draw = false;
 
 
         //NPC.AI
         public ref float AI_Timer => ref NPC.ai[1];
 
+        //States
+
+        private readonly List<int> availablestates = new(0);
+        public int state;
+        private int oldstate = 999;
+        private int statecount = 10;
+        public bool Variant = false;
+
+        private int P1state = (int)P1States.Opening;
+        private int oldP1state;
+        private readonly int P1statecount = 6;
+        public enum P1States
+        {
+            Opening = -2,
+            P1Transition = -1,
+            P1ShotSpam = 0,
+            P1Nuke,
+            P1Mines,
+            P1Pixies,
+            P1RuneExpand,
+            P1ReactionShotgun
+        }
+        public enum P2States
+        {
+            SlurpBurp = 0,
+            RuneExpand,
+            Charge,
+            Plunge,
+            Pixies,
+            Roulette,
+            ReactionShotgun,
+            RunningMinigun,
+            Shotgun,
+            TeleportNukes,
+            Final = 101
+        }
         #endregion
         #region Standard
         public override void SetStaticDefaults()
@@ -216,8 +205,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             writer.Write7BitEncodedInt(state);
             writer.Write7BitEncodedInt(oldstate);
-            writer.Write7BitEncodedInt(index);
-            writer.Write7BitEncodedInt(index2);
             writer.Write7BitEncodedInt(P1state);
             writer.Write7BitEncodedInt(oldP1state);
 
@@ -237,8 +224,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             state = reader.Read7BitEncodedInt();
             oldstate = reader.Read7BitEncodedInt();
-            index = reader.Read7BitEncodedInt();
-            index2 = reader.Read7BitEncodedInt();
             P1state = reader.Read7BitEncodedInt();
             oldP1state = reader.Read7BitEncodedInt();
 
@@ -455,39 +440,39 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 else if (state != oldstate)
                 {
-                    switch (state) //Attack Choices
+                    switch ((P2States)state) //Attack Choices
                     {
-                        case 0: //slurp n burp attack
+                        case P2States.SlurpBurp: //slurp n burp attack
                             AttackSlurpBurp();
                             break;
-                        case 1: //rune expand attack
+                        case P2States.RuneExpand: //rune expand attack
                             AttackRuneExpand();
                             break;
-                        case 2: //charge attack
+                        case P2States.Charge: //charge attack
                             AttackCharge();
                             break;
-                        case 3: //above tp and down charge -> antigrav cum attack
+                        case P2States.Plunge: //above tp and down charge -> antigrav cum attack
                             AttackPlunge();
                             break;
-                        case 4: //homing pixie attack
+                        case P2States.Pixies: //homing pixie attack
                             AttackPixies();
                             break;
-                        case 5: // attack where he cuts you off (fires shots at angles from you) then fires a random assortment of projectiles in your direction (including nukes)
+                        case P2States.Roulette: // attack where he cuts you off (fires shots at angles from you) then fires a random assortment of projectiles in your direction (including nukes)
                             AttackRoulette();
                             break;
-                        case 6: //charged reaction crosshair shotgun
+                        case P2States.ReactionShotgun: //charged reaction crosshair shotgun
                             AttackReactionShotgun();
                             break;
-                        case 7: //running minigun
+                        case P2States.RunningMinigun: //running minigun
                             AttackRunningMinigun();
                             break;
-                        case 8: //p3 shotgun run
+                        case P2States.Shotgun: //p3 shotgun run
                             AttackShotgun();
                             break;
-                        case 9: //p3 teleport on you -> shit nukes
+                        case P2States.TeleportNukes: //p3 teleport on you -> shit nukes
                             AttackTeleportNukes();
                             break;
-                        case 101: // Life is a cage, and death is the key.
+                        case P2States.Final: // Life is a cage, and death is the key.
                             {
                                 AttackFinal();
                                 break;
@@ -532,30 +517,30 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 else if (P1state != oldP1state)
                 {
-                    switch (P1state)
+                    switch ((P1States)P1state)
                     {
-                        case -2:
+                        case P1States.Opening:
                             Opening();
                             break;
-                        case -1:
+                        case P1States.P1Transition:
                             P1Transition();
                             break;
-                        case 0:
+                        case P1States.P1ShotSpam:
                             P1ShotSpam();
                             break;
-                        case 1:
+                        case P1States.P1Nuke:
                             P1Nuke();
                             break;
-                        case 2:
+                        case P1States.P1Mines:
                             P1Mines();
                             break;
-                        case 3:
+                        case P1States.P1Pixies:
                             P1Pixies();
                             break;
-                        case 4:
+                        case P1States.P1RuneExpand:
                             AttackRuneExpand();
                             break;
-                        case 5:
+                        case P1States.P1ReactionShotgun:
                             AttackReactionShotgun();
                             break;
                         default:
@@ -1383,8 +1368,10 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             {
                 //only do attack when in range
                 //this had bugs and is currently disabled, may be changed in the future
-                Vector2 targetPos = Player.Center;
-                targetPos.Y -= 16 * 15;
+                //update: this has been replaced with not doing the attack in the first place if too far away (conditional attacks baybeee)
+                
+                //Vector2 targetPos = Player.Center;
+                //targetPos.Y -= 16 * 15;
                 //if (NPC.Distance(targetPos) < 18 * 10 || WorldSavingSystem.MasochistModeReal)
 
                 AttackF1 = false;
@@ -2105,10 +2092,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             //in p2, shoot volleys in closed area
             if (!PhaseOne && AI_Timer >= RandomWindup && AI_Timer < RandomWindup + 244)
             {
-                if ((AI_Timer - RandomWindup) % 61 == 0) //choose spot
+                if ((AI_Timer - RandomWindup) % 61 == 35) //choose spot
                 {
-                    RandomAngle = MathHelper.ToRadians(Main.rand.NextFloat(-12.5f, 12.5f));
-                    LockVector1 = Vector2.Normalize(LockVector2).RotatedBy(MathHelper.ToRadians(25 * -RandomSide) - RandomAngle);
+                    //RandomAngle = MathHelper.ToRadians(Main.rand.NextFloat(-12.5f, 12.5f));
+                    //LockVector1 = Vector2.Normalize(LockVector2).RotatedBy(MathHelper.ToRadians(25 * -RandomSide) - RandomAngle);
+                    LockVector1 = NPC.DirectionTo(Player.Center);
                     NPC.netUpdate = true;
                     if (FargoSoulsUtil.HostCheck) //telegraph
                     {
@@ -2173,7 +2161,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 NPC.netUpdate = true;
                 rot = 0;
 
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -2, NPC.whoAmI);
+                //Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<BloomLine>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, -2, NPC.whoAmI);
             }
             Flying = false;
             float flySpeed3 = 5f;
@@ -2316,6 +2304,17 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
             if (AttackF1)
             {
+                if (PhaseOne && NPC.Distance(Player.Center) > 550 && !WorldSavingSystem.MasochistModeReal) // cancel attack if too far
+                {
+                    //revert size
+                    NPC.position = NPC.Center;
+                    NPC.Size = new Vector2(DefaultWidth, DefaultHeight);
+                    NPC.Center = NPC.position;
+
+                    oldP1state = P1state;
+                    P1stateReset();
+                    return;
+                }
                 AttackF1 = false;
                 NPC.netUpdate = true;
                 SoundEngine.PlaySound(SoundID.Item84, NPC.Center);
@@ -2921,39 +2920,66 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
 
         public void RandomizeState() //it's done this way so it cycles between attacks in a random order: for increased variety
         {
-            if (availablestates.Count < 1)
+            NPC.netUpdate = true;
+            if (!PhaseOne && NPC.life < SansThreshold)
             {
-                availablestates.Clear();
-                for (int j = 0; j < statecount; j++)
-                {
-                    availablestates.Add(j);
-                }
+                state = (int)P2States.Final;
+                oldstate = -665;
+                return;
             }
+
+            List<int> GetDoableStates() // gets the states doable at the current situation and refill availablestates if necessary
+            {
+                List<int> excludedStates = new List<int>();
+                // get distance
+                float distance = 4000;
+                if (NPC.target.IsWithinBounds(Main.maxPlayers) && Main.player[NPC.target] is Player player && player.Alive())
+                {
+                    distance = NPC.Distance(player.Center);
+                }
+
+                // don't combo charges into other charges
+                if (state == (int)P2States.Pixies || state == (int)P2States.Charge)
+                {
+                    excludedStates.Add((int)P2States.Pixies);
+                    excludedStates.Add((int)P2States.Charge);
+                }
+                // position-based
+                if (distance < 550)
+                {
+                    excludedStates.Add((int)P2States.Shotgun);
+                    excludedStates.Add((int)P2States.RunningMinigun);
+                }
+                if (distance >= 550)
+                {
+                    excludedStates.Add((int)P2States.SlurpBurp);
+                    excludedStates.Add((int)P2States.RuneExpand);
+                }
+                List<int> doableStates = availablestates.Except(excludedStates).ToList();
+                if (doableStates.Count < 1) // if there's no possible states to do, refill list and re-remove conditionals
+                {
+                    availablestates.Clear();
+                    for (int j = 0; j < statecount; j++)
+                    {
+                        availablestates.Add(j);
+                    }
+                    doableStates = GetDoableStates(); // recursive to redo conditional checks with new availablestates list
+                }
+                return doableStates;
+            }
+            List<int> doableStates = GetDoableStates();
+            
+
             if (FargoSoulsUtil.HostCheck)
             {
-                index = Main.rand.Next(availablestates.Count);
-                state = availablestates[index];
-
-                if ((state == 2 && oldstate == 4) || (state == 4 && oldstate == 2)) //cannot follow pixie dash into normal dash or vice versa
-                {
-                    state = 5 + Main.rand.Next(4);
-                }
-
+                state = Main.rand.NextFromCollection(doableStates);
                 availablestates.Remove(state);
-
             }
 
             Variant = Main.rand.NextBool();
-            if (!PhaseOne && NPC.life < SansThreshold)
-            {
-                state = 101;
-                oldstate = -665;
-            }
-
-            NPC.netUpdate = true;
         }
 
-        private Vector4 RotateByMatrix(Vector4 obj, float radians, Vector3 axis)
+        private static Vector4 RotateByMatrix(Vector4 obj, float radians, Vector3 axis)
         {
             Vector3 vector = obj.X * Vector3.UnitX + obj.Y * Vector3.UnitY + obj.Z * Vector3.UnitZ;
             Matrix rotationMatrix;

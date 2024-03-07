@@ -629,8 +629,8 @@ SuperBleedBuff: {
 }
 
 CorruptingBuff: {
-	DisplayName: 腐化之蚀
-	Description: 你正被逐渐腐蚀
+	DisplayName: 腐化之力
+	Description: ""
 }
 
 TimeFrozenBuff: {
@@ -658,6 +658,11 @@ SuperchargedBuff: {
 	Description: 增加20%移动速度和10%攻击速度，你的攻击会造成带电和避雷针
 }
 
+MoonBowBuff: {
+	// DisplayName: Crescent Smile
+	// Description: Your bow is empowered by lunar magic
+}
+
 TribalCharmClickBuff: {
 	DisplayName: 部落挂坠
 	Description: 当你单击鼠标攻击时获得一瞬间的伤害加成
@@ -674,12 +679,12 @@ WretchedHexBuff: {
 }
 
 CorruptedBuff: {
-	DisplayName: 腐化之力
+	DisplayName: 腐化之蚀
 	Description: Mods.FargowiltasSouls.Buffs.CorruptedBuff.Description
 }
 
 CorruptedBuffForce: {
-	DisplayName: 腐化之力
+	DisplayName: 腐化之蚀
 	Description: Mods.FargowiltasSouls.Buffs.CorruptedBuffForce.Description
 }
 
@@ -718,4 +723,9 @@ CoffinTossBuff: {
 HellFireMarkedBuff: {
 	DisplayName: 地狱烈焰标记
 	Description: Mods.FargowiltasSouls.Buffs.HellFireMarked.Description
+}
+
+MagicalCurseBuff: {
+	DisplayName: 魔法诅咒
+	// Description: Mods.FargowiltasSouls.Buffs.MagicalCurseBuff.Description
 }

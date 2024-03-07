@@ -50,7 +50,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             if (!player.onHitRegen)
             {
-                player.AddBuff(BuffID.RapidHealing, Math.Min(300, hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
+                player.AddBuff(BuffID.RapidHealing, Math.Min((int)FargoSoulsUtil.SecondsToFrames(5), hitInfo.Damage / 3)); //heal time based on damage dealt, capped at 5sec
             }
         } 
     }

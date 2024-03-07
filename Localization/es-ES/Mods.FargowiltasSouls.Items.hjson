@@ -207,7 +207,7 @@ FossilEnchant: {
 	// DisplayName: Fossil Enchantment
 	/* Tooltip:
 		'''
-		If you reach zero HP you will revive with 50 HP and spawn several bones
+		If you reach zero HP you will revive with 50 HP, self-cleanse debuffs, and spawn several bones
 		You will also spawn a few bones on every hit
 		Collect the bones to heal for 20 HP each
 		'Beyond a forgotten age'
@@ -317,7 +317,6 @@ MeteorEnchant: {
 		'''
 		Moving creates a fire trail
 		Increases your movement speed and acceleration, and decreases your momentum
-		Provides light when worn
 		'Drop a draco on 'em'
 		''' */
 }
@@ -349,7 +348,7 @@ MonkEnchant: {
 		'''
 		Allows the ability to dash
 		Double tap a direction
-		You are immune to damage and debuffs for half a second after dashing
+		You are briefly immune to damage and debuffs after dashing
 		Dash through an enemy to deal massive damage
 		Dash cooldown is much longer than normal dashes
 		Lightning Aura can now crit and strikes faster
@@ -531,10 +530,10 @@ ShinobiEnchant: {
 	// DisplayName: Shinobi Infiltrator Enchantment
 	/* Tooltip:
 		'''
-		Allows the ability to dash
+		Allows the ability to teleport dash
 		Double tap a direction
-		You are immune to damage and debuffs for half a second after dashing
-		Dash through an enemy to deal massive damage
+		You are briefly immune to damage and debuffs after dashing
+		Teleport inside an enemy to deal massive damage
 		Dash cooldown is longer than normal dashes
 		Dash is longer and deals more damage
 		Dash into any walls to teleport through them to the next opening
@@ -896,7 +895,7 @@ SpiritForce: {
 	// DisplayName: Force of Spirit
 	/* Tooltip:
 		'''
-		[i:FargowiltasSouls/FossilEnchant] If you reach zero HP you will revive with 200 HP and spawn several bones
+		[i:FargowiltasSouls/FossilEnchant] If you reach zero HP you will revive with 200 HP, self-cleanse debuffs, and spawn several bones
 		[i:FargowiltasSouls/FossilEnchant] Collect the bones once they stop moving to heal for 20 HP each
 		[i:FargowiltasSouls/ForbiddenEnchant] Double tap down to call an ancient storm to the cursor location
 		[i:FargowiltasSouls/ForbiddenEnchant] Any projectiles shot through your storm gain 60% damage
@@ -1004,7 +1003,7 @@ BetsysHeart: {
 		'''
 		Grants immunity to Oozed, Withered Weapon, and Withered Armor
 		Press the Special Dash key to perform a short invincible fireball dash
-		Hitting enemies with the dash inflicts Betsy's Curse
+		Hitting enemies with the dash inflicts 20 seconds of Betsy's Curse and halves your dash cooldown
 		'Lightly roasted, medium rare'
 		''' */
 }
@@ -1017,8 +1016,10 @@ BionomicCluster: {
 		[i:FargowiltasSouls/WyvernFeather] Clipped Wings, Crippled, [i:FargowiltasSouls/TribalCharm] Webbed, Purified, [i:FargowiltasSouls/NymphsPerfume] Lovestruck, Stinky, Hexed, and [i:FargowiltasSouls/SecurityWallet] Midas
 		[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
 		[i:FargowiltasSouls/WyvernFeather] Your attacks can inflict Clipped Wings [i:FargowiltasSouls/NymphsPerfume] and produce hearts
+		[i:FargowiltasSouls/WyvernFeather] You periodically shed light orbs, touch them to refresh your flight time
 		[i:FargowiltasSouls/SqueakyToy] Attacks have a chance to squeak and deal 1 damage to you
-		[i:FargowiltasSouls/WretchedPouch] While attacking, gain massively increased damage and shadowflame, but less move and defenses and attack speed bonuses
+		[i:FargowiltasSouls/WretchedPouch] Press the Debuff Install key to gain Wretched Hex
+		[i:FargowiltasSouls/WretchedPouch] Wretched Hex grants massively increased damage and shadowflame, but less move and defenses and attack speed bonuses while attacking
 		[i:FargowiltasSouls/ConcentratedRainbowMatter] Summons a friendly rainbow slime
 		[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 		[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
@@ -1041,8 +1042,10 @@ BionomicClusterInactive: {
 		[i:FargowiltasSouls/WyvernFeather] Clipped Wings, Crippled, [i:FargowiltasSouls/TribalCharm] Webbed, Purified, [i:FargowiltasSouls/NymphsPerfume] Lovestruck, Stinky, Hexed, and [i:FargowiltasSouls/SecurityWallet] Midas
 		[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
 		[i:FargowiltasSouls/WyvernFeather] Your attacks can inflict Clipped Wings [i:FargowiltasSouls/NymphsPerfume] and produce hearts
+		[i:FargowiltasSouls/WyvernFeather] You periodically shed light orbs, touch them to refresh your flight time
 		[i:FargowiltasSouls/SqueakyToy] Attacks have a chance to squeak and deal 1 damage to you
-		[i:FargowiltasSouls/WretchedPouch] While attacking, gain massively increased damage and shadowflame, but less move and defenses and attack speed bonuses
+		[i:FargowiltasSouls/WretchedPouch] Press the Debuff Install key to gain Wretched Hex
+		[i:FargowiltasSouls/WretchedPouch] Wretched Hex grants massively increased damage and shadowflame, but less move and defenses and attack speed bonuses while attacking
 		[i:FargowiltasSouls/ConcentratedRainbowMatter] Summons a friendly rainbow slime
 		[i:FargowiltasSouls/TimsConcoction] Certain enemies will drop potions when defeated
 		[i:FargowiltasSouls/TribalCharm] When attacking by manually clicking, increases non-summon damage by 30%
@@ -1308,6 +1311,7 @@ MagicalBulb: {
 		'''
 		Grants immunity to Acid Venom, Ivy Venom, and Swarming
 		Press the Magical Cleanse key to cure yourself of most debuffs on a cooldown
+		Magical Cleanse also causes nearby enemies to take increased damage over time from debuffs
 		Cleanse cooldown is faster when not attacking
 		Increases life regeneration based on how much light you receive
 		Attracts a legendary plant's offspring which flourishes in combat
@@ -1503,6 +1507,7 @@ SecurityWallet: {
 		'''
 		Grants immunity to Midas
 		Drastically improves reforges
+		Effects work from inventory
 		'Not secure against being looted off of one's corpse'
 		''' */
 }
@@ -1604,6 +1609,7 @@ WretchedPouch: {
 	/* Tooltip:
 		'''
 		Grants immunity to Shadowflame
+		Press the Debuff Install key to gain Wretched Hex, triggering the following effects
 		While attacking, increases damage by 120% but reduces damage reduction by 20% and massively decreases movement
 		While attacking, shadowflame tentacles lash out at nearby enemies
 		Attack speed bonuses are half as effective
@@ -1617,7 +1623,8 @@ WyvernFeather: {
 		'''
 		Grants immunity to Clipped Wings and Crippled
 		Your attacks have a 10% chance to inflict Clipped Wings on non-boss enemies
-		Stabilizes gravity in space and in liquids
+		You periodically shed light orbs, touch them to refresh your flight time
+		Stabilizes gravity in space and in liquids, this works from inventory
 		'Warm to the touch'
 		''' */
 }
@@ -1684,7 +1691,7 @@ ConjuristsSoul: {
 		'''
 		30% increased summon damage
 		Increases your max number of minions by 5
-		Increases your max number of sentries by 5
+		Increases your max number of sentries by 2
 		Increased minion knockback
 		'An army at your disposal'
 		''' */
@@ -1766,7 +1773,7 @@ FlightMasterySoul: {
 		Hold UP to boost faster
 		Increases gravity
 		Allows the control of gravity
-		'Ascend'
+		'Pierce the heavens'
 		''' */
 }
 
@@ -1774,22 +1781,19 @@ MasochistSoul: {
 	// DisplayName: Soul of the Master
 	/* Tooltip:
 		'''
-		Increases wing time by 200%, armor penetration by 50, and movement speed by 20%
-		Increases max life by 100%, damage for your current weapon class by 50%, and damage reduction by 10%
-		Increases life regen drastically, your cursor causes nearby enemies to take increased damage
-		Grants gravity control, fastfall, and immunity to knockback, almost all Eternity Mode debuffs, and more
-		You automatically use mana potions when needed
-		Your attacks create additional attacks, hearts, and inflict a cocktail of Eternity Mode debuffs
-		Increased stats when inflicted with Cursed Inferno or Ichor
-		Press the Debuff Install key to debuff and buff yourself
-		Press the Special Dash key to perform a short invincible fireball dash, zoom with right click
-		Certain enemies will drop potions when defeated, drastically improves reforges, you respawn with more life
-		You respawn twice as fast, have improved night vision, and supercharge and erupt into various attacks when injured
-		Prevents boss spawns, increases spawn rate, increases loot, and attacks may squeak and deal 1 damage to you
-		Reduces hurtbox size, hold the Precision Seal key to disable dashes and double jumps
-		Right Click to parry attacks with extremely tight timing
-		Use to teleport to your last death point
-		Summons the aid of all Eternity Mode bosses to your side
+		[i:FargowiltasSouls/GalacticGlobe] Increases wing time by 200%, [i:FargowiltasSouls/QueenStinger] armor penetration by 50, [i:FargowiltasSouls/GalacticGlobe] and movement speed by 20%
+		[i:FargowiltasSouls/GuttedHeart] Increases max life by 100%, [i:FargowiltasSouls/MagicalBulb] life regen, [i:FargowiltasSouls/MutantAntibodies][i:FargowiltasSouls/SkullCharm][i:FargowiltasSouls/PumpkingsCape] damage for your current weapon class by 50%, [i:FargowiltasSouls/ReinforcedPlating] and damage reduction by 10%
+		[i:FargowiltasSouls/PungentEyeball] Increases spawn chance of rare enemies massively, [i:FargowiltasSouls/SinisterIcon] doubles spawnrates, makes non-boss enemies drop doubled loot, and [i:FargowiltasSouls/TimsConcoction] causes certain enemies to drop potions 
+		Grants [i:FargowiltasSouls/SlimyShield] fastfall, [i:FargowiltasSouls/ReinforcedPlating] knockback immunity, [i:FargowiltasSouls/PureHeart] immunity to biome debuffs, [i:FargowiltasSouls/GalacticGlobe] gravity control, immunity to almost all Eternity Mode debuffs, and more
+		Press [i:FargowiltasSouls/BetsysHeart] the Special Dash key to perform an invincible dash, [i:FargowiltasSouls/PrecisionSeal] the Precision Seal key to prevent dashes and double jumps, [i:FargowiltasSouls/AgitatingLens] [i:FargowiltasSouls/FusedLens] the Debuff Install key to debuff and buff yourself,
+		[i:FargowiltasSouls/FrigidGemstone] the Frigid Spell key to cast Ice Rod, [i:FargowiltasSouls/IceQueensCrown] the bomb key to freeze everything with enough graze, and [i:FargowiltasSouls/OrdinaryCarrot] right click to zoom [i:FargowiltasSouls/DreadShell] [i:FargowiltasSouls/PumpkingsCape] and parry
+		On landing, [i:FargowiltasSouls/SlimyShield] spawn slime balls and [i:FargowiltasSouls/GelicWings] slime spikes.  [i:FargowiltasSouls/Deerclawps] [i:FargowiltasSouls/LihzahrdTreasureBox] Double tap DOWN to fastfall and explode and create ice spikes on landing.
+		[i:FargowiltasSouls/PrecisionSeal] Reduces hurtbox size, [i:FargowiltasSouls/NecromanticBrew] increases dash distance, and causes  [i:FargowiltasSouls/PungentEyeball] your cursor to increase damage dealt to nearby enemies
+		Improves your [i:FargowiltasSouls/SecurityWallet] reforges, [i:FargowiltasSouls/OrdinaryCarrot] night vision, [i:FargowiltasSouls/NymphsPerfume] respawn hp, [i:FargowiltasSouls/SandsofTime] and respawn time, as well as using [i:FargowiltasSouls/ConcentratedRainbowMatter] healing and [i:FargowiltasSouls/MysticSkull] mana potions as needed.
+		On hit, [i:FargowiltasSouls/SqueakyToy] have a chance to only take 1 damage, [i:FargowiltasSouls/CelestialRune] erupt into Ancient Visions, [i:FargowiltasSouls/NecromanticBrew] and reflect all damage while dashing
+		Your attacks [i:FargowiltasSouls/NymphsPerfume] produce hearts, [i:FargowiltasSouls/WretchedPouch] summon shadowflame tentacles, [i:FargowiltasSouls/DarkenedHeart] spawn mini eaters, [i:FargowiltasSouls/CelestialRune] fire additional attacks, and inflict a cocktail of Eternity Mode debuffs
+		Summons [i:FargowiltasSouls/NecromanticBrew] Skeletron arms, [i:FargowiltasSouls/GuttedHeart] creepers, [i:FargowiltasSouls/ConcentratedRainbowMatter] a rainbow slime, [i:FargowiltasSouls/GroundStick] two friendly probes, [i:FargowiltasSouls/SkullCharm] an eyeball minion, [i:FargowiltasSouls/SaucerControlConsole] a mini saucer, [i:FargowiltasSouls/MagicalBulb] a plant, [i:FargowiltasSouls/CelestialRune] a cultist, [i:FargowiltasSouls/GalacticGlobe] and True Eyes of Cthulhu by your side
+		[i:FargowiltasSouls/SandsofTime] Use to teleport to your last death point
 		'Embrace mastery, embrace eternity'
 		''' */
 }
@@ -1860,7 +1864,7 @@ TrawlerSoul: {
 		Permanent Sonar and Crate Buffs
 		Effects of Angler Tackle Bag, Volatile Gel, and Spore Sac 
 		Effects of Pink Horseshoe Balloon and Arctic Diving Gear
-		'The fish catch themselves'
+		'Fish fear me'
 		''' */
 }
 
@@ -1876,7 +1880,7 @@ UniverseSoul: {
 		All weapons have double knockback
 		Increases your maximum mana by 300
 		Increases your max number of minions by 2
-		Increases your max number of sentries by 2
+		Increases your max number of sentries by 1
 		Effects of the Fire Gauntlet, Yoyo Bag, and Celestial Shell
 		Effects of Sniper Scope, Celestial Cuffs and Mana Flower
 		'The heavens themselves bow to you'
@@ -1899,7 +1903,7 @@ WorldShaperSoul: {
 		Effect can be disabled in Effect Toggles menu
 		Effects of the Cell Phone, Royal Gel and Treasure Magnet
 		Summons a pet Magic Lantern
-		'Limitless possibilities'
+		'Living in a world of cardboard'
 		''' */
 }
 
@@ -1942,7 +1946,7 @@ EridanusHat: {
 		5% increased damage
 		5% increased critical strike chance
 		Increases your max number of minions by 4
-		Increases your max number of sentries by 4
+		Increases your max number of sentries by 1
 		''' */
 }
 
@@ -2053,7 +2057,7 @@ StyxCrown: {
 		'''
 		10% increased damage
 		10% increased critical strike chance
-		Increases max number of minions and sentries by 3
+		Increases max number of minions by 3 and sentries by 1
 		''' */
 }
 
@@ -2625,6 +2629,7 @@ FishStick: {
 		'''
 		Right click to deploy a typhoon
 		The typhoon fires sharks when you attack
+		Sharks ignore 20 enemy defense
 		'The carcass of a defeated foe shoved violently on a stick..'
 		''' */
 }
@@ -2672,6 +2677,20 @@ TwinRangs: {
 		'''
 		Fire a different twinrang depending on mouse click
 		'The compressed forms of defeated foes..'
+		''' */
+}
+
+MoonBow: {
+	// DisplayName: Crescent Moon
+	/* Tooltip:
+		'''
+		Wooden arrows turn into Luminite bolts
+		Arrows create portals that fire Luminite bolts
+		Hold right click to gather power
+		Release at the right time to temporarily receive a lunar blessing
+		When blessed, drastically increased attack speed and altered arrow gravity
+		66% chance to save ammo
+		'The restrung mouth of a defeated foe..'
 		''' */
 }
 
@@ -2970,7 +2989,7 @@ ComputationOrb: {
 	// DisplayName: Computation Orb
 	/* Tooltip:
 		'''
-		Non-magic/summon attacks deal 25% extra damage but are affected by Mana Sickness
+		Non-magic/summon attacks deal x1.25 damage but are affected by Mana Sickness
 		Non-magic/summon weapons require 10 mana to use
 		'Within the core, a spark of hope remains.'
 		''' */

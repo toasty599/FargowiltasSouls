@@ -8,7 +8,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
     public class MutantSpazmarang : MutantRetirang
     {
-        public override string Texture => "FargowiltasSouls/Content/Projectiles/BossWeapons/Spazmarang";
+        public override string Texture => FargoSoulsUtil.AprilFools ?
+            "FargowiltasSouls/Content/Bosses/MutantBoss/MutantSpazmarang_April" :
+            "FargowiltasSouls/Content/Projectiles/BossWeapons/Spazmarang";
 
         public override void SetStaticDefaults()
         {

@@ -41,6 +41,12 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 
         public override void AI()
         {
+            if (Projectile.localAI[0] < 12)
+            {
+                Projectile.localAI[0]++;
+                Projectile.scale = MathHelper.Lerp(0, 1, Projectile.localAI[0] / 12);
+            }
+
             ProjectileID.Sets.TrailCacheLength[Type] = 8;
             float rotStr = Projectile.ai[0] == 0 ? 0.06f : 0.03f;
             float rot = MathHelper.PiOver2 * rotStr * MathF.Sin(MathF.Tau * (Projectile.ai[1] / 50f));

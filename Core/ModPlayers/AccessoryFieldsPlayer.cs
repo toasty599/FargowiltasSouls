@@ -28,7 +28,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public int NekomiTimer;
         public int NekomiHitCD;
         public int NekomiAttackReadyTimer;
-        public const int SuperAttackMaxWindow = 15;
+        public const int SuperAttackMaxWindow = 30;
 
         //        //minions
         public bool BrainMinion;
@@ -103,7 +103,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool AncientShadowEnchantActive = false;
         public int ShadowOrbRespawnTimer;
 
-        public bool PlatinumEffectActive = false;
+        public Item PlatinumEffect;
         public int PalladCounter;
         public int MythrilTimer;
         public int MythrilMaxTime => Player.HasEffect<MythrilEffect>() ? Player.ForceEffect<MythrilEffect>() ? 300 : 180 : 180;
@@ -216,6 +216,7 @@ namespace FargowiltasSouls.Core.ModPlayers
         public bool PureHeart;
         public bool PungentEyeballMinion;
         public bool CrystalSkullMinion;
+        public int WyvernBallsCD;
         public bool FusedLens;
         public bool FusedLensCanDebuff;
         public bool Supercharged;

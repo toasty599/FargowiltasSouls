@@ -105,7 +105,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
             {
                 base.AI(npc);
             }
-            if (!WorldSavingSystem.EternityMode)
+            if (!WorldSavingSystem.EternityMode || !NPC.LunarApocalypseIsUp)
             {
                 return;
             }
@@ -124,6 +124,10 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.LunarEve
                 npc.netUpdate = true;
                 npc.buffImmune[ModContent.BuffType<ClippedWingsBuff>()] = true;
             }
+
+            //fix the funny where solar pillar rockets down when killed mid-dive attack
+            if (npc.dontTakeDamage && npc.velocity.Y > 1)
+                npc.velocity.Y = 1;
 
             if (SpawnedDuringLunarEvent && ShieldStrength > NPC.LunarShieldPowerMax)
                 ShieldStrength = NPC.LunarShieldPowerMax;

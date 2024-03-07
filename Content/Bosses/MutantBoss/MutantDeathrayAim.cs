@@ -134,7 +134,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public static Color ColorFunction(float trailInterpolant)
         {
-            Color color = Color.Cyan;//Color.Lerp(new(31, 187, 192), new(51, 255, 191), trailInterpolant) * Projectile.Opacity;
+            Color color = FargoSoulsUtil.AprilFools ? Color.Red : Color.Cyan;//Color.Lerp(new(31, 187, 192), new(51, 255, 191), trailInterpolant) * Projectile.Opacity;
             color.A = 100;
             return color;
         }
@@ -165,7 +165,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
             FargoSoulsUtil.SetTexture1(FargosTextureRegistry.MutantStreak.Value);
             // The laser should fade to this in the middle.
-            shader.SetMainColor(new Color(183, 252, 253, 100));
+            shader.SetMainColor(FargoSoulsUtil.AprilFools ? new Color(255, 255, 183, 100) : new Color(183, 252, 253, 100));
             shader.WrappedEffect.Parameters["stretchAmount"].SetValue(3);
             shader.WrappedEffect.Parameters["scrollSpeed"].SetValue(2f);
             shader.WrappedEffect.Parameters["uColorFadeScaler"].SetValue(1f);
