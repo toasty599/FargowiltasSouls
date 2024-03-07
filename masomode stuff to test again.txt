@@ -1,2 +1,3 @@
 ﻿added overflow check to final spark
 buffed 22
+22 doesn't count up when taking 1 damage
