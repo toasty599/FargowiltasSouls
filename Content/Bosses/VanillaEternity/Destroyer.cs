@@ -1084,17 +1084,12 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             //bool isCoiling = Main.npc[EModeGlobalNPC.destroyBoss].GetGlobalNPC<Destroyer>().IsCoiling;
 
-            if (WorldSavingSystem.MasochistModeReal)
+            if (WorldSavingSystem.MasochistModeReal) //use vanilla movement unless shooting laser
             {
-                //if (isCoiling && npc.localAI[0] > 30) //disable vanilla lasers during coil
-                if (npc.localAI[0] > 30)
-                    npc.localAI[0] -= 30;
-
                 if (!ShootLaser)
                     return result;
             }
-
-            if (npc.localAI[0] > 30)
+            else if (!Main.getGoodWorld && npc.localAI[0] > 30) //disable vanilla lasers unless maso ftw
                 npc.localAI[0] = -30;
 
             if (++OrbitChangeTimer > 120) //choose a direction to orbit in
