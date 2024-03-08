@@ -4,3 +4,4 @@ buffed 22
 
 made crm auto heal stricter (only triggers below 40%)
 maso mp bosses heal 10% life when players die (test this)
+golem fist proj deletion moved to maso
