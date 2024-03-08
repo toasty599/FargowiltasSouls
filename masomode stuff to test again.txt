@@ -12,3 +12,4 @@ maso ftw ml
 	body move speed unnerfed
 	true eyes unsynced
 	true eyes unnerfed
+maso ftw ts no longer starts big. eats platforms, trees, and wood to grow bigger

@@ -25,6 +25,9 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 {
     public abstract class TrojanSquirrelPart : ModNPC
     {
+        protected int baseWidth;
+        protected int baseHeight;
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -58,12 +61,6 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             NPC.knockBackResist = 0f;
             NPC.lavaImmune = true;
             NPC.aiStyle = -1;
-
-            if (Main.getGoodWorld)
-            {
-                NPC.scale *= 2;
-                NPC.defense += 10;
-            }
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -75,6 +72,32 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
         public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
         {
             boundingBox = NPC.Hitbox;
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+
+            writer.Write(NPC.scale);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+
+            NPC.scale = reader.ReadSingle();
+        }
+
+        public override void PostAI()
+        {
+            base.PostAI();
+
+            if (this is TrojanSquirrel)
+                NPC.position = NPC.Bottom;
+            NPC.width = (int)(baseWidth * NPC.scale);
+            NPC.height = (int)(baseHeight * NPC.scale);
+            if (this is TrojanSquirrel)
+                NPC.Bottom = NPC.position;
         }
     }
 
@@ -236,8 +259,8 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             NPC.lifeMax = 800;
 
-            NPC.width = 100;
-            NPC.height = 120; //234
+            NPC.width = baseWidth = 100;
+            NPC.height = baseHeight = 120; //234
 
             NPC.value = Item.buyPrice(silver: 75);
             NPC.boss = true;
@@ -263,6 +286,8 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
         public override void SendExtraAI(BinaryWriter writer)
         {
+            base.SendExtraAI(writer);
+
             writer.Write(NPC.localAI[0]);
             writer.Write(NPC.localAI[1]);
             writer.Write(NPC.localAI[2]);
@@ -273,6 +298,8 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            base.ReceiveExtraAI(reader);
+
             NPC.localAI[0] = reader.ReadSingle();
             NPC.localAI[1] = reader.ReadSingle();
             NPC.localAI[2] = reader.ReadSingle();
@@ -391,7 +418,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             }
             else
             {
-                float maxwalkSpeed = BaseWalkSpeed;
+                float maxwalkSpeed = BaseWalkSpeed * NPC.scale;
 
                 if (head == null)
                     maxwalkSpeed *= 1.2f;
@@ -813,6 +840,38 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             {
                 NPC.dontTakeDamage = false;
             }
+
+            if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.HostCheck)
+            {
+                for (float x = NPC.position.X; x < NPC.BottomRight.X; x += 16)
+                {
+                    for (float y = NPC.position.Y; y < NPC.BottomRight.Y; y += 16)
+                    {
+                        Tile tile = Framing.GetTileSafely(new Vector2(x, y));
+                        if (tile != null && ((tile.TileType == TileID.Platforms && tile.TileFrameY == 0) || tile.TileType == TileID.Trees || tile.TileType == TileID.WoodBlock))
+                        {
+                            int xCoord = (int)x / 16;
+                            int yCoord = (int)y / 16;
+                            WorldGen.KillTile(xCoord, yCoord, noItem: true);
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendTileSquare(-1, xCoord, yCoord, 1);
+                            
+                            NPC.scale += 0.01f;
+                            NPC.netUpdate = true;
+                            if (head is NPC)
+                            {
+                                head.scale += 0.01f;
+                                head.netUpdate = true;
+                            }
+                            if (arms is NPC)
+                            {
+                                arms.scale += 0.01f;
+                                arms.netUpdate = true;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void ExplodeAttack()
@@ -873,7 +932,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             {
                 case 0:
                     {
-                        NPC.frameCounter += 1f / BaseWalkSpeed * Math.Abs(NPC.velocity.X);
+                        NPC.frameCounter += 1f / BaseWalkSpeed / NPC.scale * Math.Abs(NPC.velocity.X);
 
                         if (NPC.frameCounter > 2.5f) //walking animation
                         {
