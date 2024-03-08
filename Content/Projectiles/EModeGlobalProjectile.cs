@@ -396,7 +396,8 @@ namespace FargowiltasSouls.Content.Projectiles
                         break;
 
                     case ProjectileID.PhantasmalBolt:
-                        if (NonSwarmFight(projectile, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye))
+                        if (NonSwarmFight(projectile, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye)
+                            && !(WorldSavingSystem.MasochistModeReal && Main.getGoodWorld))
                         {
                             if (FargoSoulsUtil.HostCheck)
                             {
@@ -961,7 +962,8 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.PhantasmalEye:
-                    if (NonSwarmFight(projectile, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye))
+                    if (NonSwarmFight(projectile, NPCID.MoonLordHand, NPCID.MoonLordHead, NPCID.MoonLordFreeEye)
+                        && !(WorldSavingSystem.MasochistModeReal && Main.getGoodWorld))
                     {
                         if (projectile.ai[0] == 2 && counter > 60) //diving down and homing
                             projectile.velocity.Y = 9;
@@ -978,7 +980,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     break;
 
                 case ProjectileID.PhantasmalSphere:
-                    if (!WorldSavingSystem.SwarmActive)
+                    if (!WorldSavingSystem.SwarmActive && !(WorldSavingSystem.MasochistModeReal && Main.getGoodWorld))
                     {
                         EModeCanHurt = projectile.alpha == 0;
 
