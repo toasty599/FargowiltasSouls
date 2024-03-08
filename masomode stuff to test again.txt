@@ -3,3 +3,4 @@ buffed 22
 22 doesn't count up when taking 1 damage
 
 made crm auto heal stricter (only triggers below 40%)
+maso mp bosses heal 10% life when players die (test this)

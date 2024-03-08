@@ -617,7 +617,19 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            
+            if (WorldSavingSystem.MasochistModeReal)
+            {
+                foreach(NPC npc in Main.npc.Where(npc => npc.active && (npc.boss || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsTail)))
+                {
+                    int heal = npc.lifeMax / 10;
+                    npc.life += heal;
+                    if (npc.life > npc.lifeMax)
+                        npc.life = npc.lifeMax;
+                    npc.HealEffect(heal);
+                    npc.netUpdate = true;
+                }
+            }
+
             if (((Main.snowMoon && NPC.waveNumber < FrostMoonBosses.WAVELOCK) || (Main.pumpkinMoon && NPC.waveNumber < PumpkinMoonBosses.WAVELOCK)) && WorldSavingSystem.MasochistModeReal)
             {
                 if (NPC.waveNumber > 1)
