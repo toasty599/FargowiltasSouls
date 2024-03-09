@@ -888,7 +888,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                 {
                     int heal = GetHealMultiplier(potion.healLife);
                     if (Player.statLife < Player.statLifeMax2 - heal && //only heal when full benefit (no wasted overheal)
-                        (Player.statLife < Player.statLifeMax2 * 0.4 || //heal when very low or when danger nearby (not after respawn in safety)
+                        (Player.statLife < Player.statLifeMax2 * 0.4 && //heal when very low AND when danger nearby (not after respawn in safety)
                         Main.npc.Any(n => n.active && n.damage > 0 && !n.friendly
                                      && Player.Distance(n.Center) < 1200 && (n.noTileCollide || Collision.CanHitLine(Player.Center, 0, 0, n.Center, 0, 0)))))
                     {

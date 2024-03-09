@@ -255,7 +255,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int tempHits = hits - 90;
             if (tempHits > 0)
             {
-                float modifier = (float)Math.Min(Math.Pow(tempHits, 2), 100000.0f);
+                const float cap = 100000.0f;
+                float modifier = (float)Math.Min(Math.Pow(tempHits, 2), cap);
+                if (modifier < 0)
+                {
+                    hits--;
+                    modifier = 100000.0f;
+                }
                 return modifier;
             }
             else

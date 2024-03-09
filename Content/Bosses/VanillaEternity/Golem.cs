@@ -564,7 +564,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.SafeOnHitByProjectile(npc, projectile, hit, damageDone);
 
-            if (projectile.maxPenetrate != 1 && FargoSoulsUtil.CanDeleteProjectile(projectile))
+            if (WorldSavingSystem.MasochistModeReal && projectile.maxPenetrate != 1 && FargoSoulsUtil.CanDeleteProjectile(projectile))
                 projectile.timeLeft = 0;
         }
     }
