@@ -61,6 +61,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 int damage = Projectile.damage;
                 int knockBack = 3;
                 float speed = 0.8f;
+                if (Projectile.ai[2] != 0)
+                    speed *= Projectile.ai[2];
                 Vector2 vector = Projectile.velocity.RotatedBy(rad) * speed;
                 if (FargoSoulsUtil.HostCheck)
                 {

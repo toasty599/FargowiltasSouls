@@ -276,10 +276,8 @@ namespace FargowiltasSouls.Content.Bosses.Magmaw
         {
             Texture2D bodytexture = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
             Vector2 drawPos = NPC.Center - screenPos;
-            //float rot = NPC.rotation + (NPC.direction == 1 ? 0 :MathHelper.Pi);
             float rot = NPC.rotation;
             SpriteEffects flip = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
 
             for (int i = 0; i < Math.Min(Trail, NPCID.Sets.TrailCacheLength[NPC.type]); i++) //math.min to safeguard against uncached trail
             {
@@ -293,7 +291,7 @@ namespace FargowiltasSouls.Content.Bosses.Magmaw
                 oldGlow.Draw(spriteBatch);
             }
 
-            spriteBatch.Draw(origin: new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), texture: bodytexture, position: drawPos, sourceRectangle: NPC.frame, color: NPC.GetAlpha(drawColor), rotation: rot, scale: NPC.scale, effects: flip, layerDepth: 0f);
+            spriteBatch.Draw(bodytexture, drawPos, NPC.frame, NPC.GetAlpha(drawColor), rot, new Vector2(bodytexture.Width / 2, bodytexture.Height / 2 / Main.npcFrameCount[NPC.type]), NPC.scale, flip, 0f);
             return false;
         }
 
