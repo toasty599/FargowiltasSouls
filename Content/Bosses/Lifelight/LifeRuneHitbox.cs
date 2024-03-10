@@ -70,7 +70,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         public override void AI()
         {
             NPC lifelight = Main.npc[(int)Projectile.ai[0]];
-            if (lifelight == null || !lifelight.active || lifelight.type != ModContent.NPCType<LifeChallenger>())
+            if (!lifelight.TypeAlive<LifeChallenger>())
             {
                 Projectile.Kill();
             }

@@ -26,12 +26,15 @@ using Microsoft.CodeAnalysis;
 using FargowiltasSouls.Common.Graphics.Particles;
 using FargowiltasSouls.Content.Projectiles.ChallengerItems;
 using static FargowiltasSouls.Content.Bosses.Lifelight.LifeChallenger;
+using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Assets.ExtraTextures;
+using FargowiltasSouls.Common.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Bosses.Lifelight
 {
 
     [AutoloadBossHead]
-    public class LifeChallenger : ModNPC
+    public class LifeChallenger : ModNPC, IPixelPrimitiveDrawer
     {
         #region Variables
 
@@ -112,6 +115,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             public const int Spear = 1;
             public const int Gun = 2;
         }
+        public PrimDrawer TrailDrawer { get; private set; } = null;
 
         public int PyramidPhase = 0;
         public int PyramidTimer = 0;
@@ -167,7 +171,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             // DisplayName.SetDefault("Lifelight");
             Main.npcFrameCount[NPC.type] = 8;
-            NPCID.Sets.TrailCacheLength[NPC.type] = 18;
+            NPCID.Sets.TrailCacheLength[NPC.type] = 40;
             NPCID.Sets.TrailingMode[NPC.type] = 1;
             NPCID.Sets.MPAllowedEnemies[Type] = true;
             NPCID.Sets.NoMultiplayerSmoothingByType[NPC.type] = true;
@@ -617,12 +621,13 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             NPC.alpha = (int)(255 - P1AI_Timer * 17);
             RPS = 0.1f;
 
+            /*
             if (!Main.dedServ && UseTrueOriginAI && ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
                 && musicMod.Version >= Version.Parse("0.1.1.5") && AI_Timer > 60)
             {
                 Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Lieflight");
             }
-
+            */
 
             if (AI_Timer == 180)
             {
@@ -1683,7 +1688,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 RuneFormationTimer = 0;
                 RuneFormation = Formations.Spear;
             }
-
             Flying = false;
             Charging = true;
             HitPlayer = true;
@@ -1712,6 +1716,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 TeleportX = TpPos.X; //exposing these so proj can access them
                 TeleportY = TpPos.Y;
 
+
                 if (AI_Timer == 5f && FargoSoulsUtil.HostCheck) //telegraph
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(TpPos.X + NPC.width / 2, TpPos.Y + NPC.height / 2), Vector2.Zero, ModContent.ProjectileType<LifeTpTelegraph>(), 0, 0f, Main.myPlayer, -70 + 9, NPC.whoAmI);
@@ -1719,6 +1724,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 if (AI_Timer == StartTime - 15f) //tp
                 {
                     NPC.Center = new Vector2(TpX, TpY);
+                    for (int i = 0; i < NPC.oldPos.Length; i++)
+                        NPC.oldPos[i] = NPC.Center;
                     NPC.velocity.X = 0f;
                     NPC.velocity.Y = 0f;
                     NPC.velocity = NPC.DirectionTo(Player.Center) * 0.1f;
@@ -1776,6 +1783,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 else if (RuneFormationTimer >= FormationTime)
                 {
+
                     NPC.velocity.X = 0f;
                     NPC.velocity.Y = 0f;
                     HitPlayer = false;
@@ -1834,6 +1842,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 Flying = false;
                 Charging = true;
                 NPC.Center = TpPos;
+                for (int i = 0; i < NPC.oldPos.Length; i++)
+                    NPC.oldPos[i] = NPC.Center;
                 NPC.velocity.X = 0f;
                 NPC.velocity.Y = 0.1f;
                 SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
@@ -1900,6 +1910,11 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 AI_Timer = 0f;
                 PlungeCount += 1f;
             }
+            if (AI_Timer == StartTime + 180 - FormationTime && PlungeCount >= 1)
+            {
+                RuneFormation = Formations.Circle;
+                RuneFormationTimer = 0;
+            }
             if (AI_Timer == StartTime + 180)
             { //teleport back up
                 NPC.position.X = Player.Center.X - NPC.width / 2;
@@ -1909,14 +1924,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 Flying = true;
                 Charging = false;
                 NPC.netUpdate = true;
-
-                if (PlungeCount >= 1)
-                {
-                    RuneFormation = Formations.Circle;
-                    RuneFormationTimer = 0;
-                }
             }
-            if (AI_Timer >= StartTime + 180 + FormationTime)
+            if (AI_Timer >= StartTime + 180 + 60)
             {
                 HitPlayer = false;
                 oldstate = state;
@@ -1947,7 +1956,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Flying = false;
             Charging = true;
 
-
             if (AI_Timer == StartTime)
             {
                 LockVector1 = Player.Center;
@@ -1962,16 +1970,13 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 {
                     RuneFormation = Formations.Circle;
                     RuneFormationTimer = 0;
-
                 }
                 else if (RuneFormationTimer >= FormationTime)
                 {
-                    foreach (Projectile p in Main.projectile)
+                    foreach (Projectile p in Main.projectile.Where(p => p.Alive()))
                     {
                         if (p.type == ModContent.ProjectileType<LifeHomingProj>())
-                        {
                             p.ai[2] = 1;
-                        }
                     }
                     Flying = true;
                     Charging = false;
@@ -2925,7 +2930,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     Vector2 wingLOrigin = new(wingLtexture.Width / 2, wingLtexture.Height / 2 / Main.npcFrameCount[NPC.type]);
 
                     float distance = ChunkDistance;
-                    if (RuneFormation == Formations.Spear)
+                    if (InternalRuneFormation == Formations.Spear)
                         distance /= MathHelper.Lerp(1, 1.5f, MathHelper.Clamp((float)RuneFormationTimer / FormationTime, 0, 1));
 
                     for (int i = -1; i < 2; i += 2)
@@ -3061,6 +3066,34 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             Vector2 drawPos = drawCenter + chunkOffset;
             Texture2D ChunkTexture = ModContent.Request<Texture2D>(PartsPath + textureString, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             spriteBatch.Draw(origin: new Vector2(ChunkTexture.Width / 2, ChunkTexture.Height / 2), texture: ChunkTexture, position: drawPos, sourceRectangle: null, color: color, rotation: 0, scale: NPC.scale + scale, effects: SpriteEffects.None, layerDepth: 0f);
+        }
+
+        public float WidthFunction(float completionRatio)
+        {
+            float baseWidth = NPC.scale * 20;
+            return MathHelper.SmoothStep(baseWidth, 3.5f, completionRatio);
+        }
+
+        public Color ColorFunction(float completionRatio)
+        {
+            const float LerpTime = 60;
+            float timer = (Main.GameUpdateCount % (LerpTime * 3)) / LerpTime;
+            timer += completionRatio;
+            Color color = timer switch
+            {
+                _ when timer <= 1 => Color.Lerp(Color.Cyan, Color.Goldenrod, timer),
+                _ when timer > 1 && timer <= 2 => Color.Lerp(Color.Goldenrod, Color.DeepPink, timer - 1),
+                _ => Color.Lerp(Color.DeepPink, Color.Cyan, timer - 2)
+            };
+            return Color.Lerp(color, Color.Transparent, completionRatio * FormationLerp) * 0.7f;
+        }
+        public void DrawPixelPrimitives(SpriteBatch spriteBatch)
+        {
+            if (InternalRuneFormation != Formations.Spear)
+                return;
+            TrailDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, ShaderManager.GetShaderIfExists("BlobTrail"));
+            FargoSoulsUtil.SetTexture1(FargosTextureRegistry.FadedStreak.Value);
+            TrailDrawer.DrawPixelPrims(NPC.oldPos, NPC.Size * 0.5f - Main.screenPosition, 44);
         }
 
         public override void FindFrame(int frameHeight)

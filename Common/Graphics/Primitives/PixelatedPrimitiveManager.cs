@@ -9,107 +9,121 @@ namespace FargowiltasSouls.Common.Graphics.Primitives
 {
     public class PixelatedPrimitiveManager : ModSystem
     {
-		#region Fields And Properities
-		public static ManagedRenderTarget PixelRenderTargetAfterProjectiles
-        {
-            get;
-            private set;
-        }
+        #region Fields And Properities
+        private static ManagedRenderTarget pixelRenderTarget;
 
-		public static ManagedRenderTarget PixelRenderTargetBeforeNPCs
-        {
-            get;
-            private set;
-        }
+        private static ManagedRenderTarget pixelRenderTargetBeforeNPCs;
+
+        private static readonly List<IPixelPrimitiveDrawer> pixelPrimDrawersList = new();
+
+        private static readonly List<IPixelPrimitiveDrawer> pixelPrimDrawersListBeforeNPCs = new();
         #endregion
 
         #region Overrides
         public override void Load()
         {
-			PixelRenderTargetAfterProjectiles = new(true, PixelCreationContext, true);
-			PixelRenderTargetBeforeNPCs = new(true, PixelCreationContext, true);
-
-			On_Main.CheckMonoliths += DrawToCustomRenderTargets;
-			On_Main.DoDraw_DrawNPCsOverTiles += DrawPixelRenderTargetNPCs;
-			On_Main.DrawDust += DrawPixelRenderTargetProjectiles;
+            On_Main.CheckMonoliths += DrawToCustomRenderTargets;
+            On_Main.DoDraw_DrawNPCsOverTiles += DrawPixelRenderTarget;
+            pixelRenderTarget = new(true, CreatePixelTarget);
+            pixelRenderTargetBeforeNPCs = new(true, CreatePixelTarget);
         }
 
         public override void Unload()
         {
-			On_Main.CheckMonoliths -= DrawToCustomRenderTargets;
-			On_Main.DoDraw_DrawNPCsOverTiles -= DrawPixelRenderTargetNPCs;
-			On_Main.DrawDust -= DrawPixelRenderTargetProjectiles;
+            On_Main.CheckMonoliths -= DrawToCustomRenderTargets;
+            On_Main.DoDraw_DrawNPCsOverTiles -= DrawPixelRenderTarget;
         }
         #endregion
 
         #region Methods
-        private static RenderTarget2D PixelCreationContext(int width, int height) => new(Main.instance.GraphicsDevice, width / 2, height / 2);
+        public static RenderTarget2D CreatePixelTarget(int width, int height) => new(Main.instance.GraphicsDevice, width / 2, height / 2);
 
-        private void DrawPixelRenderTargetNPCs(On_Main.orig_DoDraw_DrawNPCsOverTiles orig, Main self)
+        private static void DrawScaledTarget(RenderTarget2D target)
         {
-            orig(self);
+            if (!pixelPrimDrawersList.Any() && !pixelPrimDrawersListBeforeNPCs.Any())
+                return;
+
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-            // Draw our RT. The scale is important, it is 2 here as this RT is 0.5x the main screen size.
-            Main.spriteBatch.Draw(PixelRenderTargetBeforeNPCs, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+
+            // Draw the RT. The scale is important, it is 2 here as this RT is 0.5x the main screen size.
+            Main.spriteBatch.Draw(target, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
             Main.spriteBatch.End();
         }
 
-		private void DrawPixelRenderTargetProjectiles(On_Main.orig_DrawDust orig, Main self)
-		{
-			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-			// Draw our RT. The scale is important, it is 2 here as this RT is 0.5x the main screen size.
-			Main.spriteBatch.Draw(PixelRenderTargetAfterProjectiles, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-            Main.spriteBatch.End();
-			orig(self);
-		}
-
-		private void DrawToCustomRenderTargets(On_Main.orig_CheckMonoliths orig)
+        private void DrawPixelRenderTarget(On_Main.orig_DoDraw_DrawNPCsOverTiles orig, Main self)
         {
-            // Clear our render target from the previous frame.
-            List<IPixelPrimitiveDrawer> drawersBeforeNPCs = new();
-			List<IPixelPrimitiveDrawer> drawersAfterProjectiles = new();
+            if (pixelPrimDrawersListBeforeNPCs.Any())
+                DrawScaledTarget(pixelRenderTargetBeforeNPCs.Target);
+            orig(self);
+            if (pixelPrimDrawersList.Any())
+                DrawScaledTarget(pixelRenderTarget.Target);
+        }
 
-			// Check every active projectile.
-			for (int i = 0; i < Main.projectile.Length; i++)
+        private void DrawToCustomRenderTargets(On_Main.orig_CheckMonoliths orig)
+        {
+            // Clear the render targets from the previous frame.
+            pixelPrimDrawersList.Clear();
+            pixelPrimDrawersListBeforeNPCs.Clear();
+
+            // Check every active projectile.
+            for (int i = 0; i < Main.projectile.Length; i++)
             {
                 Projectile projectile = Main.projectile[i];
-                // If the projectile is active, a mod projectile, and uses our interface,
+
+                // If the projectile is active, a mod projectile, and uses the interface, add it to the list of prims to draw this frame.
                 if (projectile.active && projectile.ModProjectile != null && projectile.ModProjectile is IPixelPrimitiveDrawer pixelPrimitiveProjectile)
                 {
-                    if (pixelPrimitiveProjectile.RenderOverProjectiles)
-                        drawersAfterProjectiles.Add(pixelPrimitiveProjectile);// Add it to the list of prims to draw this frame.
+                    if (!pixelPrimitiveProjectile.RenderOverProjectiles)
+                        pixelPrimDrawersListBeforeNPCs.Add(pixelPrimitiveProjectile);
                     else
-						drawersBeforeNPCs.Add(pixelPrimitiveProjectile);
+                        pixelPrimDrawersList.Add(pixelPrimitiveProjectile);
+                }
+            }
+
+            // Check every active NPC.
+            for (int i = 0; i < Main.npc.Length; i++)
+            {
+                NPC npc = Main.npc[i];
+
+                // If the NPC is active, a mod NPC, and uses our interface add it to the list of prims to draw this frame.
+                if (npc.active && npc.ModNPC != null && npc.ModNPC is IPixelPrimitiveDrawer pixelPrimitiveNPC)
+                {
+                    if (!pixelPrimitiveNPC.RenderOverProjectiles)
+                        pixelPrimDrawersListBeforeNPCs.Add(pixelPrimitiveNPC);
+                    else
+                        pixelPrimDrawersList.Add(pixelPrimitiveNPC);
                 }
             }
 
             // Draw the prims. The render target gets set here.
-            DrawPrimsToRenderTarget(PixelRenderTargetBeforeNPCs, drawersBeforeNPCs);
-			DrawPrimsToRenderTarget(PixelRenderTargetAfterProjectiles, drawersAfterProjectiles);
+            if (pixelPrimDrawersList.Any() || pixelPrimDrawersListBeforeNPCs.Any())
+            {
+                DrawPrimsToRenderTarget(pixelRenderTarget.Target, pixelPrimDrawersList);
+                DrawPrimsToRenderTarget(pixelRenderTargetBeforeNPCs.Target, pixelPrimDrawersListBeforeNPCs);
 
-			// Clear the current render target.
-			Main.graphics.GraphicsDevice.SetRenderTarget(null);
+                // Clear the current render target.
+                Main.graphics.GraphicsDevice.SetRenderTarget(null);
+            }
 
-            // Call orig.
+            // Call the original method.
             orig();
         }
 
         private static void DrawPrimsToRenderTarget(RenderTarget2D renderTarget, List<IPixelPrimitiveDrawer> pixelPrimitives)
         {
-			// Swap to our custom render target.
-			renderTarget.SwapTo();
+            // Swap to the custom render target to prepare things to pixelation.
+            renderTarget.SwapTo();
 
-            // If the list has any entries.
-			if (pixelPrimitives.Any())
+            if (pixelPrimitives.Any())
             {
-				// Start a spritebatch, as one does not exist in the method we're detouring.
-				Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null);
+                // Start a spritebatch, as one does not exist before the method we're detouring.
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null);
 
                 // Loop through the list and call each draw function.
                 foreach (IPixelPrimitiveDrawer pixelPrimitiveDrawer in pixelPrimitives)
                     pixelPrimitiveDrawer.DrawPixelPrimitives(Main.spriteBatch);
 
-                // End the spritebatch we started.
+                // Prepare the sprite batch for the next draw cycle.
                 Main.spriteBatch.End();
             }
         }
