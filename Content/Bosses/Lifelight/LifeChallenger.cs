@@ -3078,7 +3078,7 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         {
             const float LerpTime = 60;
             float timer = (Main.GameUpdateCount % (LerpTime * 3)) / LerpTime;
-            timer += completionRatio;
+            timer += completionRatio * 2;
             Color color = timer switch
             {
                 _ when timer <= 1 => Color.Lerp(Color.Cyan, Color.Goldenrod, timer),
