@@ -1740,6 +1740,10 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                 }
                 
             }
+            if (AttackCount == 0 && AI_Timer <= 10)
+            {
+                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(Player.Center) * 0.1f, 0.3f);
+            }
             if (AI_Timer > StartTime - 10 && AI_Timer < StartTime && AttackCount < 6f)
             {
                 NPC.velocity = Vector2.Lerp(NPC.velocity, chargeatPlayer, (AI_Timer - (StartTime - 10)) / 10);
@@ -1919,6 +1923,8 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             { //teleport back up
                 NPC.position.X = Player.Center.X - NPC.width / 2;
                 NPC.position.Y = Player.Center.Y - (NPC.height / 2 + 450f);
+                for (int i = 0; i < NPC.oldPos.Length; i++)
+                    NPC.oldPos[i] = NPC.Center;
                 SoundEngine.PlaySound(SoundID.Item8, NPC.Center);
                 HitPlayer = false;
                 Flying = true;
@@ -1955,7 +1961,10 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             AuraCenter = LockVector3;
             Flying = false;
             Charging = true;
-
+            if (AI_Timer <= 10)
+            {
+                NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(Player.Center) * 0.1f, 0.3f);
+            }
             if (AI_Timer == StartTime)
             {
                 LockVector1 = Player.Center;
@@ -2772,7 +2781,21 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
         public const int RuneCount = 12;
         const int ChunkSpriteCount = 12;
         const string PartsPath = "FargowiltasSouls/Assets/ExtraTextures/LifelightParts/";
-
+        internal struct Rune
+        {
+            public Rune(Vector3 center, int index, float scale, float rotation)
+            {
+                Center = center;
+                Index = index;
+                Scale = scale;
+                Rotation = rotation;
+            }
+            public Vector3 Center;
+            public int Index;
+            public float Scale;
+            public float Rotation;
+        }
+        List<Rune> PostdrawRunes = new();
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) 
         {
             const float ChunkRotationSpeed = MathHelper.TwoPi * (1f / 360);
@@ -2794,15 +2817,16 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             {
                 DrawChunk(chunk, spriteBatch, drawColor);
             }
+            List<Rune> PredrawRunes = new();
+            PostdrawRunes = new();
             if (Draw || NPC.IsABestiaryIconDummy)
             {
                 if (DrawRunes)
                 {
-
+                    
                     for (int i = 0; i < RuneCount; i++)
                     {
 
-                        Texture2D RuneTexture = ModContent.Request<Texture2D>(PartsPath + $"Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
                         float drawRot = (float)(BodyRotation + Math.PI * 2 / RuneCount * i);
 
                         Vector2 circlePos = drawCenter + drawRot.ToRotationVector2() * RuneDistance;
@@ -2810,24 +2834,23 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         if (RuneFormation != Formations.Circle || RuneFormationTimer >= 60)
                             InternalRuneFormation = RuneFormation;
 
+                        float runeRotation = drawRot + MathHelper.PiOver2;
                         Vector2 drawPos;
                         float runeScale = NPC.scale;
                         float runeLerp = (drawRot % MathF.Tau) / MathF.Tau;
+                        float z = 0;
 
                         switch (InternalRuneFormation)
                         {
                             case Formations.Spear:
                                 {
-                                    //float runeLerp = (float)i / (RuneCount - 1);
-                                    
-
                                     float rotationForward = (NPC.rotation - MathF.PI / 2);
                                     Vector2 spearPoint = drawCenter + rotationForward.ToRotationVector2() * DefaultRuneDistance * 1.2f;
                                     float spearRuneLerp = runeLerp - 0.5f;
-
                                     Vector2 spearOffset = Vector2.Zero;
                                     const float SpearAngle = MathF.PI * 0.13f;
                                     float spearLength = NPC.width * 1.2f;
+                                    z = Math.Abs(spearRuneLerp);
                                     spearOffset = -(NPC.rotation - MathHelper.PiOver2 - (SpearAngle * MathHelper.Lerp(1f, 3f, MathF.Pow(Math.Abs(spearRuneLerp), 1.5f)) * Math.Sign(spearRuneLerp))).ToRotationVector2() * spearLength * Math.Abs(spearRuneLerp);
                                     Vector2 spearPos = spearPoint + spearOffset;
                                     drawPos = Vector2.SmoothStep(circlePos, spearPos, FormationLerp);
@@ -2836,7 +2859,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                             case Formations.Gun:
                                 {
                                     float gunRot = drawRot;
-
                                     Vector2 circleCenter = drawCenter + GunCircleCenter(1) - NPC.Center; // remove duplicate NPC.Center
                                     float circleRadius = 90;
                                     if (CloserGun)
@@ -2844,44 +2866,43 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                                     float deformMult = MathF.Pow(Math.Abs(gunRot.ToRotationVector2().X), 1);
                                     circleRadius *= MathHelper.Lerp(1, 0.6f, deformMult); // circle deformation
                                     Vector2 runeCircleOffset = (GunRotation + gunRot).ToRotationVector2() * circleRadius;
-
                                     Vector2 gunPos = circleCenter + runeCircleOffset;
                                     drawPos = Vector2.SmoothStep(circlePos, gunPos, FormationLerp);
 
                                     float rot = (gunRot + MathF.PI / 2) % MathF.Tau;
                                     float scaleMult = (rot.ToRotationVector2().Y + 1) / 2;
-                                    
                                     runeScale *= MathHelper.Lerp(1.3f, 0.7f, scaleMult);
+                                    z = scaleMult;
                                 }
                                 break;
                             default:
                                 {
                                     drawPos = circlePos;
-                                    
                                 }
                                 break;
                         };
-                        float RuneRotation = drawRot + MathHelper.PiOver2;
-
-                        //rune glow
-                        for (int j = 0; j < 12; j++)
+                        if (z <= 0)
                         {
-                            Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f * runeScale;
-                            Color glowColor;
-
-                            if (i % 3 == 0) //cyan
-                                glowColor = new Color(0f, 1f, 1f, 0f) * 0.7f;
-                            else if (i % 3 == 1) //yellow
-                                glowColor = new Color(1f, 1f, 0f, 0f) * 0.7f;
-                            else //pink
-                                glowColor = new Color(1, 192 / 255f, 203 / 255f, 0f) * 0.7f;
-
-                            Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, glowColor, RuneRotation, RuneTexture.Size() * 0.5f, runeScale, SpriteEffects.None, 0f);
+                            PredrawRunes.Add(new(new Vector3(drawPos.X, drawPos.Y, z), i, runeScale, runeRotation));
                         }
-                        spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: RuneRotation, scale: runeScale, effects: SpriteEffects.None, layerDepth: 0f);
+                        else
+                        {
+                            PostdrawRunes.Add(new(new Vector3(drawPos.X, drawPos.Y, z), i, runeScale, runeRotation));
+                        }
                     }
                 }
-                
+                if (PredrawRunes.Any())
+                {
+                    PredrawRunes.Sort(delegate (Rune x, Rune y)
+                    {
+                        return Math.Sign(x.Center.Z - y.Center.Z);
+                    });
+                    foreach (Rune rune in PredrawRunes)
+                    {
+                        DrawRune(rune, spriteBatch, drawColor);
+                    }
+                }
+
                 //draw arena runes
                 if (DoAura)
                 {
@@ -2912,7 +2933,6 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                         spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: RuneRotation, scale: NPC.scale, effects: SpriteEffects.None, layerDepth: 0f);
                     }
                 }
-
 
                 //draw wings
                 //draws 4 things: 2 upper wings, 2 lower wings
@@ -3041,7 +3061,39 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
                     }
                 }
             }
+            if (PostdrawRunes.Any())
+            {
+                PostdrawRunes.Sort(delegate (Rune x, Rune y)
+                {
+                    return Math.Sign(x.Center.Z - y.Center.Z);
+                });
+                foreach (Rune rune in PostdrawRunes)
+                {
+                    DrawRune(rune, spriteBatch, drawColor);
+                }
+            }
+        }
+        private void DrawRune(Rune rune, SpriteBatch spriteBatch, Color drawColor)
+        {
+            int i = rune.Index;
+            Texture2D RuneTexture = ModContent.Request<Texture2D>(PartsPath + $"Rune{i + 1}", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Vector2 drawPos = new(rune.Center.X, rune.Center.Y);
+            //rune glow
+            for (int j = 0; j < 12; j++)
+            {
+                Vector2 afterimageOffset = (MathHelper.TwoPi * j / 12f).ToRotationVector2() * 1f * rune.Scale;
+                Color glowColor;
 
+                if (i % 3 == 0) //cyan
+                    glowColor = new Color(0f, 1f, 1f, 0f) * 0.7f;
+                else if (i % 3 == 1) //yellow
+                    glowColor = new Color(1f, 1f, 0f, 0f) * 0.7f;
+                else //pink
+                    glowColor = new Color(1, 192 / 255f, 203 / 255f, 0f) * 0.7f;
+                
+                Main.spriteBatch.Draw(RuneTexture, drawPos + afterimageOffset, null, glowColor, rune.Rotation, RuneTexture.Size() * 0.5f, rune.Scale, SpriteEffects.None, 0f);
+            }
+            spriteBatch.Draw(origin: new Vector2(RuneTexture.Width / 2, RuneTexture.Height / 2), texture: RuneTexture, position: drawPos, sourceRectangle: null, color: Color.White, rotation: rune.Rotation, scale: rune.Scale, effects: SpriteEffects.None, layerDepth: 0f);
         }
         private void DrawChunk(Vector4 chunk, SpriteBatch spriteBatch, Color drawColor)
         {
