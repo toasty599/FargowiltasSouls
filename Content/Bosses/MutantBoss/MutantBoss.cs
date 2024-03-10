@@ -1451,7 +1451,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     P1NextAttackOrMasoOptions(AttackChoice);
                 }
-                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 5 * (endTimeVariance + 1))
+                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 3 * (endTimeVariance + 0.5))
                 {
                     AttackChoice--;
                     NPC.ai[1] = 0;
