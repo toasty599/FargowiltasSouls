@@ -13,3 +13,5 @@ maso ftw ml
 	true eyes unsynced
 	true eyes unnerfed
 maso ftw ts no longer starts big. eats platforms, trees, and wood to grow bigger
+
+adjusted maso mutant attack duration randomization range

@@ -580,7 +580,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     attackHistory.Dequeue();
             }
 
-            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat(-1f, 1f) : 0;
+            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat(-0.5f, 1f) : 0;
 
             /*text = "";
             foreach (float f in attackHistory)
