@@ -1382,7 +1382,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 NPC.velocity = Vector2.Zero;
 
-                int endtime = NPC.localAI[2] > 0 ? 60 : 90;
+                int endtime = 90;
 
                 FancyFireballs((int)(NPC.ai[1] / endtime * 60f));
 
