@@ -580,7 +580,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     attackHistory.Dequeue();
             }
 
-            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat(-1f, 1f) : 0;
+            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat(-0.5f, 1f) : 0;
 
             /*text = "";
             foreach (float f in attackHistory)
@@ -1382,9 +1382,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 NPC.velocity = Vector2.Zero;
 
-                FancyFireballs((int)(NPC.ai[1] / 90f * 60f));
+                int endtime = 90;
 
-                if (++NPC.ai[1] > 90)
+                FancyFireballs((int)(NPC.ai[1] / endtime * 60f));
+
+                if (++NPC.ai[1] > endtime)
                 {
                     if (AttackChoice != 9)
                         AttackChoice++;
@@ -1449,7 +1451,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     P1NextAttackOrMasoOptions(AttackChoice);
                 }
-                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 5 * (endTimeVariance + 1))
+                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 3 * (endTimeVariance + 0.5))
                 {
                     AttackChoice--;
                     NPC.ai[1] = 0;
