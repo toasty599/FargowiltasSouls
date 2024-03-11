@@ -107,7 +107,8 @@ There is a 60 second cooldown for this effect
                         npc.AddBuff(BuffID.Frostburn, 2);
                         FargoSoulsGlobalNPC soulsNPC = npc.FargoSouls();
                         soulsNPC.SnowChilled = true;
-                        soulsNPC.SnowChilledTimer = 6;
+                        if (soulsNPC.SnowChilledTimer <= 0)
+                            soulsNPC.SnowChilledTimer = 6;
                         npc.netUpdate = true;
                     }
                 }
