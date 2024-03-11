@@ -15,3 +15,4 @@ maso ftw ml
 maso ftw ts no longer starts big. eats platforms, trees, and wood to grow bigger
 
 adjusted maso mutant attack duration randomization range
+fixed ts having ftw wood eating in maso

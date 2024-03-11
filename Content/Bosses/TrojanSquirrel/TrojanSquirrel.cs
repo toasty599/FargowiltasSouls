@@ -841,7 +841,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                 NPC.dontTakeDamage = false;
             }
 
-            if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.HostCheck)
+            if (WorldSavingSystem.MasochistModeReal && Main.getGoodWorld && FargoSoulsUtil.HostCheck)
             {
                 for (float x = NPC.position.X; x < NPC.BottomRight.X; x += 16)
                 {
