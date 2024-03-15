@@ -40,3 +40,4 @@ ftw qb has extended deathray barrage
 ftw fishron no longer has real fish ex's passive -80% max life
 ftw eow and destro head use ml iframes
 triggering ftw mutant 22 despawns him
+agi lens change (sdf hm ichor nerf), scythes are magic damage again
