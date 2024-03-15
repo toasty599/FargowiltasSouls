@@ -174,6 +174,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             npc.damage = (int)(npc.damage * 4.0 / 3.0);
         }
 
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            if (Main.getGoodWorld)
+                cooldownSlot = ImmunityCooldownID.Bosses;
+            return base.CanHitPlayer(npc, target, ref cooldownSlot);
+        }
+
         public override bool SafePreAI(NPC npc)
         {
             EModeGlobalNPC.eaterBoss = npc.whoAmI;

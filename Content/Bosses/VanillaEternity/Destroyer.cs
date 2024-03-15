@@ -41,6 +41,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public const int P2_ATTACK_SPACING = 480;
         public const int P2_COIL_BEGIN_TIME = P2_ATTACK_SPACING * 4;
 
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            if (Main.getGoodWorld)
+                cooldownSlot = ImmunityCooldownID.Bosses;
+            return base.CanHitPlayer(npc, target, ref cooldownSlot);
+        }
+
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
