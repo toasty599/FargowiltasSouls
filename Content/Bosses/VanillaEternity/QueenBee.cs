@@ -168,19 +168,22 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 int dustId3 = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Stone, 0f, 0f, 100, default, 2f);
                 Main.dust[dustId3].noGravity = true;
 
-                //if in dash mode, but not actually dashing right this second
-                if (npc.ai[0] == 0 && npc.ai[1] % 2 == 0)
+                if (!Main.getGoodWorld)
                 {
-                    npc.ai[0] = 3; //dont
-                    npc.ai[1] = 0;
-                    npc.netUpdate = true;
-                }
+                    //if in dash mode, but not actually dashing right this second
+                    if (npc.ai[0] == 0 && npc.ai[1] % 2 == 0)
+                    {
+                        npc.ai[0] = 3; //dont
+                        npc.ai[1] = 0;
+                        npc.netUpdate = true;
+                    }
 
-                //shoot stingers mode
-                if (npc.ai[0] == 3)
-                {
-                    if (npc.ai[1] > 1 && !WorldSavingSystem.MasochistModeReal)
-                        npc.ai[1] -= 0.5f; //slower stingers
+                    //shoot stingers mode
+                    if (npc.ai[0] == 3)
+                    {
+                        if (npc.ai[1] > 1 && !WorldSavingSystem.MasochistModeReal)
+                            npc.ai[1] -= 0.5f; //slower stingers
+                    }
                 }
             }
             else
