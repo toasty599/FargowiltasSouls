@@ -46,3 +46,4 @@ pure heart buff, gives +30% wing time
 fixed destro probes being able to laser in maso
 maso abom desperation disables gold shell and timestop
 mutant presence disables snow ench
+adjusted color of mutant's reti ray fan
