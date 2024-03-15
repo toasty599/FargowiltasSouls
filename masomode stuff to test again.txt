@@ -26,3 +26,4 @@ ftw mutant does everything (and i do mean EVERYTHING) 10% faster
 mutant only lifesteals off npcs in ftw, not maso
 ftw qb has no attack limitations when subjects alive
 ftw wof has unnerfed move speed
+fixed an exploit that allowed getting drops from tim's dark casters pre-skeletron
