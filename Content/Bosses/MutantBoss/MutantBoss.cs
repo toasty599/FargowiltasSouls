@@ -666,11 +666,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         bool AliveCheck(Player p, bool forceDespawn = false)
         {
-            if (WorldSavingSystem.SwarmActive || forceDespawn || (!p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 3000f) && NPC.localAI[3] > 0)
+            if (WorldSavingSystem.SwarmActive || forceDespawn || (!p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 3000f || p.FargoSouls().The22Incident >= 22) && NPC.localAI[3] > 0)
             {
                 NPC.TargetClosest();
                 p = Main.player[NPC.target];
-                if (WorldSavingSystem.SwarmActive || forceDespawn || !p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 3000f)
+                if (WorldSavingSystem.SwarmActive || forceDespawn || !p.active || p.dead || Vector2.Distance(NPC.Center, p.Center) > 3000f || p.FargoSouls().The22Incident >= 22)
                 {
                     if (NPC.timeLeft > 30)
                         NPC.timeLeft = 30;

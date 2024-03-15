@@ -39,3 +39,4 @@ ftw eow head instakills
 ftw qb has extended deathray barrage
 ftw fishron no longer has real fish ex's passive -80% max life
 ftw eow and destro head use ml iframes
+triggering ftw mutant 22 despawns him
