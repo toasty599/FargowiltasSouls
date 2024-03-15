@@ -242,10 +242,16 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 }
             }
 
-            if (Main.player[Main.myPlayer].active && NPC.Distance(Main.player[Main.myPlayer].Center) < 3000f)
+            if (Main.LocalPlayer.active && NPC.Distance(Main.LocalPlayer.Center) < 3000f)
             {
                 if (WorldSavingSystem.EternityMode)
-                    Main.player[Main.myPlayer].AddBuff(ModContent.BuffType<AbomPresenceBuff>(), 2);
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<AbomPresenceBuff>(), 2);
+
+                if (NPC.life == 1 && WorldSavingSystem.MasochistModeReal)
+                {
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeStopCDBuff>(), 2);
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<GoldenStasisCDBuff>(), 2);
+                }
             }
 
             Player player = Main.player[NPC.target];
