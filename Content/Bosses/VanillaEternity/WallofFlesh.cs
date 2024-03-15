@@ -304,22 +304,25 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
-            float maxSpeed = WorldSavingSystem.MasochistModeReal ? 4.5f : 3.5f; //don't let wof move faster than this normally
-            if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
+            if (!Main.getGoodWorld)
             {
-                npc.TargetClosest(true);
-                //if (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000)
-                //{
-                //    npc.position.X += 60 * Math.Sign(npc.velocity.X); //move faster to despawn
-                //}
-                //else if (Math.Abs(npc.velocity.X) > maxSpeed)
-                //{
-                //    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
-                //}
-            }
-            else if (Math.Abs(npc.velocity.X) > maxSpeed)
-            {
-                npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
+                float maxSpeed = WorldSavingSystem.MasochistModeReal ? 4.5f : 3.5f; //don't let wof move faster than this normally
+                if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
+                {
+                    npc.TargetClosest(true);
+                    //if (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000)
+                    //{
+                    //    npc.position.X += 60 * Math.Sign(npc.velocity.X); //move faster to despawn
+                    //}
+                    //else if (Math.Abs(npc.velocity.X) > maxSpeed)
+                    //{
+                    //    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
+                    //}
+                }
+                else if (Math.Abs(npc.velocity.X) > maxSpeed)
+                {
+                    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
+                }
             }
 
             if (Main.LocalPlayer.active & !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.ZoneUnderworldHeight)
