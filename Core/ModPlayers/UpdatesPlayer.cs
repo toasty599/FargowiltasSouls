@@ -240,12 +240,6 @@ namespace FargowiltasSouls.Core.ModPlayers
             if (!EridanusSet)
                 EridanusEmpower = false;
 
-            if (QueenStingerItem != null)
-            {
-                if (Player.honey)
-                    Player.GetArmorPenetration(DamageClass.Generic) += 10;
-            }
-
             if (RabiesVaccine)
                 Player.buffImmune[BuffID.Rabies] = true;
 
