@@ -1,3 +1,4 @@
+AbomBoss_April.DisplayName: Javyz Boss
 AbomBoss: {
 	DisplayName: Abominationn
 
@@ -143,6 +144,7 @@ GelatinSlime.DisplayName: Crystal Slime
 GelatinSubject.DisplayName: Gelatin Subject
 RoyalSubject.DisplayName: Royal Subject
 
+MutantBoss_April.DisplayName: Godkiller Yharim
 MutantBoss: {
 	DisplayName: Mutant
 

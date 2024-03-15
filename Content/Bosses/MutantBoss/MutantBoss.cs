@@ -128,6 +128,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Music = MusicID.OtherworldlyTowers;
             }
             SceneEffectPriority = SceneEffectPriority.BossHigh;
+
+            NPC.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.MutantBoss_April.DisplayName");
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)

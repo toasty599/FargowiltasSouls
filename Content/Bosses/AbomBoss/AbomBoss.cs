@@ -26,6 +26,7 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using System.Collections.Generic;
 using FargowiltasSouls.Content.Buffs.Souls;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.AbomBoss
 {
@@ -108,6 +109,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma");
             }
             SceneEffectPriority = SceneEffectPriority.BossMedium;
+
+            NPC.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.AbomBoss_April.DisplayName");
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
