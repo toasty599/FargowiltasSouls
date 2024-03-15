@@ -38,8 +38,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
         {
             player.AddEffect<MeteorMomentumEffect>(item);
             player.AddEffect<MeteorTrailEffect>(item);
-            if (player.FargoSouls().ForceEffect<MeteorEnchant>())
-                player.AddEffect<MeteorEffect>(item);
+            player.AddEffect<MeteorEffect>(item);
         }
 
         public override void AddRecipes()
@@ -117,15 +116,11 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             if (player.whoAmI == Main.myPlayer)
             {
-                bool forceEffect = true;
+                bool forceEffect = player.FargoSouls().ForceEffect<MeteorEnchant>();
                 int damage = forceEffect ? 50 : 20;
-                if (!forceEffect)
-                {
-                    return;
-                }
                 if (modPlayer.MeteorShower)
                 {
-                    if (modPlayer.MeteorTimer % (forceEffect ? 2 : 4) == 0)
+                    if (modPlayer.MeteorTimer % (forceEffect ? 2 : 10) == 0)
                     {
                         Vector2 pos = new(player.Center.X + Main.rand.NextFloat(-1000, 1000), player.Center.Y - 1000);
                         Vector2 vel = new(Main.rand.NextFloat(-2, 2), Main.rand.NextFloat(8, 12));
@@ -157,12 +152,12 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     if (--modPlayer.MeteorTimer <= 0)
                     {
                         modPlayer.MeteorShower = false;
-                        modPlayer.MeteorCD = forceEffect ? 240 : 480;
+                        modPlayer.MeteorCD = forceEffect ? 240 : 600;
                     }
                 }
                 else
                 {
-                    modPlayer.MeteorTimer = 150 + MeteorEnchant.METEOR_ADDED_DURATION / (forceEffect ? 1 : 2);
+                    modPlayer.MeteorTimer = 150 + MeteorEnchant.METEOR_ADDED_DURATION / (forceEffect ? 1 : 10);
 
                     if (modPlayer.WeaponUseTimer > 0)
                     {

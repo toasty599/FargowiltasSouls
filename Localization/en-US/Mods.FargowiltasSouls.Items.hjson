@@ -317,6 +317,7 @@ MeteorEnchant: {
 		'''
 		Moving creates a fire trail
 		Increases your movement speed and acceleration, and decreases your momentum
+		A meteor fall initiates every few seconds while attacking
 		'Drop a draco on 'em'
 		'''
 }
