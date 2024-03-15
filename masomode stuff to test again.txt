@@ -45,3 +45,4 @@ nerfed sdf honey armor pen to 5, was 10
 pure heart buff, gives +30% wing time
 fixed destro probes being able to laser in maso
 maso abom desperation disables gold shell and timestop
+mutant presence disables snow ench
