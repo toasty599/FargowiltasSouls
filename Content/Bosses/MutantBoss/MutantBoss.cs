@@ -46,6 +46,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public Queue<float> attackHistory = new();
         public int attackCount;
 
+        public int hyper;
+
         public float endTimeVariance;
 
         public bool ShouldDrawAura;
@@ -363,6 +365,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 Item.NewItem(NPC.GetSource_Loot(), player.Hitbox, ModContent.ItemType<MutantsCurse>());
                 droppedSummon = true;
+            }
+
+            if (Main.getGoodWorld && ++hyper > 10 + 1)
+            {
+                hyper = 0;
+                NPC.AI();
             }
         }
 
