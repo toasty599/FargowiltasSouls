@@ -183,7 +183,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             SpriteEffects effects = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            float scale = (Main.mouseTextColor / 200f - 0.35f) * (Cake ? 0.25f : 0.4f) + 0.9f;
+            float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.4f + 0.9f;
             scale *= Projectile.scale;
 
             Color trailColor = FargoSoulsUtil.AprilFools ? new Color(255, 255, 255, 100) : new Color(51, 255, 191, 100);
