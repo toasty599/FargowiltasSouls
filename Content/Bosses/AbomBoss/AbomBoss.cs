@@ -96,8 +96,17 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             NPC.netAlways = true;
             NPC.timeLeft = NPC.activeTime * 30;
 
-            Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                ? MusicLoader.GetMusicSlot(musicMod, (musicMod.Version >= Version.Parse("0.1.5")) ? "Assets/Music/Laevateinn_P1" : "Assets/Music/Stigma") : MusicID.OtherworldlyPlantera;
+            Music = MusicID.OtherworldlyPlantera;
+            bool foundMod = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod);
+            if (foundMod)
+            {
+                if (FargoSoulsUtil.AprilFools && musicMod.Version >= Version.Parse("0.1.5.1"))
+                    Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/TomMorello");
+                else if (musicMod.Version >= Version.Parse("0.1.5"))
+                    Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Laevateinn_P1");
+                else
+                    Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma");
+            }
             SceneEffectPriority = SceneEffectPriority.BossMedium;
         }
 
@@ -320,8 +329,17 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     if (NPC.buffType[0] != 0)
                         NPC.DelBuff(0);
 
-                    Music = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod)
-                            ? MusicLoader.GetMusicSlot(musicMod, (musicMod.Version >= Version.Parse("0.1.5")) ? "Assets/Music/Laevateinn_P2" : "Assets/Music/Stigma") : MusicID.OtherworldlyPlantera;
+                    Music = MusicID.OtherworldlyPlantera;
+                    bool foundMod = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod);
+                    if (foundMod)
+                    {
+                        if (FargoSoulsUtil.AprilFools && musicMod.Version >= Version.Parse("0.1.5.1"))
+                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Gigachad");
+                        else if (musicMod.Version >= Version.Parse("0.1.5"))
+                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Laevateinn_P2");
+                        else
+                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma");
+                    }
 
                     if (++NPC.ai[1] > 120)
                     {
@@ -1643,13 +1661,13 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
+            /*Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
             Rectangle rectangle = NPC.frame;
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(texture2D13, NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);*/
             return false;
         }
     }
