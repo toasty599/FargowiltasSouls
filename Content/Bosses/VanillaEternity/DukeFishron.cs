@@ -154,7 +154,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                     Main.LocalPlayer.AddBuff(ModContent.BuffType<OceanicSealBuff>(), 2);
                     Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresenceBuff>(), 2); //LUL
                 }
-                EModeGlobalNPC.fishBossEX = npc.whoAmI;
+                if (IsEX)
+                    EModeGlobalNPC.fishBossEX = npc.whoAmI;
                 npc.position += npc.velocity * 0.5f;
                 switch ((int)npc.ai[0])
                 {
