@@ -13,6 +13,8 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Corruption;
+using Terraria.DataStructures;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -498,6 +500,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
 
             return true;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
+        {
+            base.OnHitPlayer(npc, target, hurtInfo);
+
+            if (Main.getGoodWorld)
+            {
+                target.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.EOW", target.name)), 999999, 0);
+            }
         }
 
         public override void LoadSprites(NPC npc, bool recolor)
