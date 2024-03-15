@@ -25,6 +25,7 @@ using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using Terraria.GameContent;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Armor;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -1221,6 +1222,8 @@ namespace FargowiltasSouls.Content.Projectiles
                         {
                             GrazeCD = 30 * projectile.MaxUpdates;
 
+                            if (fargoPlayer.NekomiSet)
+                                NekomiHood.OnGraze(fargoPlayer, projectile.damage * 4);
                             if (fargoPlayer.DeviGraze)
                                 SparklingAdoration.OnGraze(fargoPlayer, projectile.damage * 4);
                             if (fargoPlayer.CirnoGraze)

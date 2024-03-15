@@ -29,3 +29,4 @@ ftw wof has unnerfed move speed
 fixed an exploit that allowed getting drops from tim's dark casters pre-skeletron
 removed some of abom's telegraphs in maso
 fishron and pigron no longer inflict anticoagulation
+nekomi set buffed, it has small graze inherently (will only charge meter, no adoration damage bonus) (TEST IT)

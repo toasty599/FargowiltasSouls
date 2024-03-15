@@ -9,6 +9,8 @@ using Terraria.ModLoader;
 using FargowiltasSouls.Content.Items.Materials;
 using System;
 using FargowiltasSouls.Core.ModPlayers;
+using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core.AccessoryEffectSystem;
 
 namespace FargowiltasSouls.Content.Items.Armor
 {
@@ -100,8 +102,12 @@ Increases max number of minions by 2"); */
             player.GetCritChance(DamageClass.Generic) += 7;
 
             FargoSoulsPlayer fargoPlayer = player.FargoSouls();
+            fargoPlayer.Graze = true;
             fargoPlayer.NekomiSet = true;
-            fargoPlayer.GrazeRadius *= 1.5f;
+
+            player.AddEffect<MasoGrazeRing>(item);
+            if (fargoPlayer.Graze && player.whoAmI == Main.myPlayer && player.HasEffect<MasoGrazeRing>() && player.ownedProjectileCounts[ModContent.ProjectileType<GrazeRing>()] < 1)
+                Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<GrazeRing>(), 0, 0f, Main.myPlayer);
 
             const int decayTime = 420;
             if (fargoPlayer.NekomiTimer > 0)
@@ -133,6 +139,19 @@ Increases max number of minions by 2"); */
                 int ritualType = ModContent.ProjectileType<NekomiRitual>();
                 if (player.ownedProjectileCounts[ritualType] < 1)
                     Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ritualType, 0, 0f, player.whoAmI);
+            }
+        }
+
+        public static void OnGraze(FargoSoulsPlayer fargoPlayer, int damage)
+        {
+            if (fargoPlayer.NekomiSet)
+            {
+                fargoPlayer.NekomiTimer = Math.Clamp(fargoPlayer.NekomiTimer + 60, 0, 420);
+            }
+
+            if (!Main.dedServ)
+            {
+                SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Graze") { Volume = 0.5f }, Main.LocalPlayer.Center);
             }
         }
 

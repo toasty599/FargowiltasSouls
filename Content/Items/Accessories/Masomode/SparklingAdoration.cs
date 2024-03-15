@@ -80,11 +80,6 @@ Your attacks periodically summon life-draining hearts
             }
             fargoPlayer.DeviGrazeCounter = -1; //reset counter whenever successful graze
 
-            if (fargoPlayer.NekomiSet)
-            {
-                fargoPlayer.NekomiTimer = Math.Clamp(fargoPlayer.NekomiTimer + 60, 0, 420);
-            }
-
             if (!Main.dedServ)
             {
                 SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/Graze") { Volume = 0.5f }, Main.LocalPlayer.Center);

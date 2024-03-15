@@ -22,6 +22,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.UI;
+using Fargowiltas;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -166,6 +167,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateEquips()
         {
+            if (Graze && NekomiSet)
+            {
+                GrazeRadius *= DeviGraze || CirnoGraze ? 1.5f : 0.75f;
+            }
+
             if (DeerSinew)
                 Player.AddEffect<DeerSinewEffect>(ModContent.GetInstance<DeerSinew>().Item);
 
