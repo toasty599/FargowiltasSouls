@@ -43,3 +43,4 @@ triggering ftw mutant 22 despawns him
 agi lens change (sdf hm ichor nerf), scythes are magic damage again
 nerfed sdf honey armor pen to 5, was 10
 pure heart buff, gives +30% wing time
+fixed destro probes being able to laser in maso
