@@ -304,9 +304,9 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                 }
             }
 
+            float maxSpeed = WorldSavingSystem.MasochistModeReal ? 4.5f : 3.5f; //don't let wof move faster than this normally
             if (!Main.getGoodWorld)
             {
-                float maxSpeed = WorldSavingSystem.MasochistModeReal ? 4.5f : 3.5f; //don't let wof move faster than this normally
                 if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
                 {
                     npc.TargetClosest(true);
