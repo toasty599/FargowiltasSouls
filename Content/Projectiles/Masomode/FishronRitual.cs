@@ -122,7 +122,11 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 while (fishron.buffType[0] != 0)
                     fishron.DelBuff(0);
 
-                fishron.lifeMax = (int)Projectile.ai[0] * 5000; //10;
+                //not spawned by ftw fishron
+                bool actuallyEX = Projectile.ai[2] == 0;
+
+                if (actuallyEX)
+                    fishron.lifeMax = (int)Projectile.ai[0] * 5000; //10;
                 if (fishron.lifeMax <= 0)
                     fishron.lifeMax = int.MaxValue;
                 int heal = /*9*/ /*49*/ /*499999*/ (int)(fishron.lifeMax / 30 /*10*/ * Main.rand.NextFloat(1f, 1.1f));
