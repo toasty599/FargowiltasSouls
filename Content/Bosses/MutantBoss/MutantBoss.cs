@@ -423,6 +423,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (Main.expertMode)
                     {
                         Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresenceBuff>(), 2);
+                        if (Main.getGoodWorld)
+                            Main.LocalPlayer.AddBuff(ModContent.BuffType<GoldenStasisCDBuff>(), 2);
                     }
 
                     if (WorldSavingSystem.EternityMode && AttackChoice < 0 && AttackChoice > -6)
