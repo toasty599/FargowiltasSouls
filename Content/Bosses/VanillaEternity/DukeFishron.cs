@@ -821,7 +821,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
-            target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
+            //target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 600);
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
             target.AddBuff(BuffID.Rabies, 3600);
@@ -983,7 +983,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         {
             base.OnHitPlayer(npc, target, hurtInfo);
 
-            target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
+            //target.AddBuff(ModContent.BuffType<AnticoagulationBuff>(), 600);
             target.AddBuff(ModContent.BuffType<DefenselessBuff>(), 600);
             target.AddBuff(ModContent.BuffType<MutantNibbleBuff>(), 300);
             target.AddBuff(ModContent.BuffType<OceanicMaulBuff>(), 20 * 60);
