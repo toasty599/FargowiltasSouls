@@ -347,6 +347,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                             npc.ai[2] = 0;
 
                         ForgorDeathrayTimer = 95;
+                        if (Main.getGoodWorld)
+                            ForgorDeathrayTimer += 60;
                     }
 
                     npc.velocity *= 0.95f;
