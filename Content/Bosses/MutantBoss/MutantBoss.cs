@@ -129,7 +129,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             }
             SceneEffectPriority = SceneEffectPriority.BossHigh;
 
-            NPC.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.MutantBoss_April.DisplayName");
+            if (FargoSoulsUtil.AprilFools)
+                NPC.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.MutantBoss_April.DisplayName");
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)

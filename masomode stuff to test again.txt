@@ -52,3 +52,4 @@ made timber champ, ts less likely to despawn
 
 star cannon -45% is now -40%
 ts cant eat platforms, instead eats almost all trees and wood blocks
+fixed mutant being named godkiller yharim outside april fools
