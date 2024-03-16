@@ -49,3 +49,5 @@ mutant presence disables snow ench
 adjusted color of mutant's reti ray fan
 fixed some oddities of shinobi tp dash
 made timber champ, ts less likely to despawn
+
+star cannon -45% is now -40%

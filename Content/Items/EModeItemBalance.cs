@@ -99,7 +99,7 @@ namespace FargowiltasSouls.Content.Items
 
                case ItemID.StarCannon:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.55f;
+                    balanceNumber = 0.6f;
                     return EModeChange.Nerf;
                 case ItemID.SuperStarCannon:
                     balanceTextKeys = new string[] { "SuperStarCannon" };
