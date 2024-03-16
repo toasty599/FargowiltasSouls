@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -843,12 +844,33 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             if (WorldSavingSystem.MasochistModeReal && Main.getGoodWorld && FargoSoulsUtil.HostCheck)
             {
+                int[] edibleTiles =
+                {
+                    TileID.WoodBlock,
+                    TileID.AshWood,
+                    TileID.BorealWood,
+                    TileID.DynastyWood,
+                    TileID.LivingWood,
+                    TileID.PalmWood,
+                    TileID.SpookyWood,
+                    TileID.Ebonwood,
+                    TileID.Pearlwood,
+                    TileID.Shadewood,
+                    TileID.Trees,
+                    TileID.TreeAsh,
+                    TileID.ChristmasTree,
+                    TileID.PalmTree,
+                    TileID.PineTree,
+                    TileID.VanityTreeSakura,
+                    TileID.VanityTreeYellowWillow,
+                    TileID.LivingMahoganyLeaves
+                };
                 for (float x = NPC.position.X; x < NPC.BottomRight.X; x += 16)
                 {
                     for (float y = NPC.position.Y; y < NPC.BottomRight.Y; y += 16)
                     {
                         Tile tile = Framing.GetTileSafely(new Vector2(x, y));
-                        if (tile != null && ((tile.TileType == TileID.Platforms && tile.TileFrameY == 0) || tile.TileType == TileID.Trees || tile.TileType == TileID.WoodBlock))
+                        if (tile != null && edibleTiles.Contains(tile.TileType))
                         {
                             int xCoord = (int)x / 16;
                             int yCoord = (int)y / 16;
