@@ -531,7 +531,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                                     Main.projectile[p].timeLeft = 90;
                             }
                         }
-                        else if (!NPC.HasValidTarget || NPC.Distance(player.Center) > (WorldSavingSystem.EternityMode ? 1600 : 2400))
+                        else if (!NPC.HasValidTarget || NPC.Distance(player.Center) > 2400)
                         {
                             target = NPC.Center + new Vector2(256f * Math.Sign(NPC.Center.X - player.Center.X), -128);
 

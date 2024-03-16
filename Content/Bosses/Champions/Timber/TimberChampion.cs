@@ -240,7 +240,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Timber
 
                             NPC.velocity.X *= 0.99f;
 
-                            if (NPC.ai[0] != 0 && (!player.active || player.dead || Vector2.Distance(NPC.Center, player.Center) > 2500f))
+                            if (NPC.ai[0] != 0 && (!player.active || player.dead || Vector2.Distance(NPC.Center, player.Center) > 3000f))
                             {
                                 NPC.TargetClosest();
                                 if (NPC.timeLeft > 30)

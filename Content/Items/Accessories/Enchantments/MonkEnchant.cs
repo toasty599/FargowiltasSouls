@@ -66,7 +66,7 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             modPlayer.FargoDash = DashManager.DashType.Monk;
             modPlayer.HasDash = true;
-            
+
             if (player.dashDelay == 1)
             {
                 //dust
@@ -78,44 +78,6 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                     int index2 = Dust.NewDust(player.Center, 0, 0, DustID.GoldCoin, velocity.X, velocity.Y, 100);
                     Main.dust[index2].noGravity = true;
                     Main.dust[index2].noLight = true;
-                }
-            }
-            if (player.dashDelay < 0 && modPlayer.CanShinobiTeleport && player.HasEffect<ShinobiDashEffect>())
-            {
-                modPlayer.CanShinobiTeleport = false;
-
-                var teleportPos = player.position;
-                float direction = Math.Sign(player.velocity.X);
-
-                const int length = 16 * 20;
-
-                teleportPos.X += length * direction;
-
-                if (Collision.CanHitLine(player.Center, player.width, player.height, teleportPos, player.width, player.height))
-                {
-
-                }
-                else if (player.HasEffect<ShinobiThroughWalls>()) //go through walls
-                {
-                    while (Collision.SolidCollision(teleportPos, player.width, player.height))
-                    {
-                        if (direction == 1)
-                        {
-                            teleportPos.X++;
-                        }
-                        else
-                        {
-                            teleportPos.X--;
-                        }
-                    }
-                }
-
-                if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
-                {
-                    FargoSoulsUtil.GrossVanillaDodgeDust(player);
-                    player.Teleport(teleportPos, 1);
-                    FargoSoulsUtil.GrossVanillaDodgeDust(player);
-                    NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
                 }
             }
         }
@@ -171,6 +133,54 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Main.gore[num19].velocity.X = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[num19].velocity.Y = Main.rand.Next(-50, 51) * 0.01f;
             Main.gore[num19].velocity *= 0.4f;
+
+            if (modPlayer.CanShinobiTeleport && player.HasEffect<ShinobiDashEffect>())
+            {
+                modPlayer.CanShinobiTeleport = false;
+
+                var teleportPos = player.position;
+
+                const int maxLengthInBlocks = 20;
+                bool tryGoThroughWalls = false;
+                for (int i = 0; i <= maxLengthInBlocks * 16; i += 8)
+                {
+                    Vector2 targetPos = player.position;
+                    targetPos.X += i * direction;
+                    if (Collision.CanHitLine(player.position, player.width, player.height, teleportPos, player.width, player.height))
+                    {
+                        teleportPos = targetPos;
+                    }
+                    else
+                    {
+                        teleportPos.X -= 18 * direction;
+                        tryGoThroughWalls = true;
+                        break;
+                    }
+                }
+                
+                if (tryGoThroughWalls && player.HasEffect<ShinobiThroughWalls>()) //go through walls
+                {
+                    while (Collision.SolidCollision(teleportPos, player.width, player.height))
+                    {
+                        if (direction == 1)
+                        {
+                            teleportPos.X++;
+                        }
+                        else
+                        {
+                            teleportPos.X--;
+                        }
+                    }
+                }
+                
+                if (teleportPos.X > 50 && teleportPos.X < (double)(Main.maxTilesX * 16 - 50) && teleportPos.Y > 50 && teleportPos.Y < (double)(Main.maxTilesY * 16 - 50))
+                {
+                    FargoSoulsUtil.GrossVanillaDodgeDust(player);
+                    player.Teleport(teleportPos, 1);
+                    FargoSoulsUtil.GrossVanillaDodgeDust(player);
+                    NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, teleportPos.X, teleportPos.Y, 1);
+                }
+            }
         }
     }
 }
