@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.localAI[0] = 1f;
                 if (EModeGlobalNPC.fishBossEX != fishron.whoAmI)
                 {
-                    fishron.GetGlobalNPC<DukeFishron>().IsEX = true;
+                    //fishron.GetGlobalNPC<DukeFishron>().IsEX = true;
                     fishron.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DukeFishronEX.DisplayName");
                     fishron.defDamage = (int)(fishron.defDamage * 1.5);
                     fishron.defDefense *= 2;
