@@ -82,7 +82,7 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                     SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Player.Center);
                 }
-                else if (Player.HasEffect<SnowEffect>() && !Player.HasBuff(ModContent.BuffType<SnowstormCDBuff>())
+                /*else if (Player.HasEffect<SnowEffect>() && !Player.HasBuff(ModContent.BuffType<SnowstormCDBuff>())
                     && !Player.HasBuff(ModContent.BuffType<MutantPresenceBuff>()))
                 {
                     Player.AddBuff(ModContent.BuffType<SnowstormCDBuff>(), 60 * 60);
@@ -98,7 +98,7 @@ namespace FargowiltasSouls.Core.ModPlayers
                         Main.dust[d].noGravity = true;
                         Main.dust[d].velocity *= 9f;
                     }
-                }
+                }*/
             }
 
             if (PrecisionSeal)
