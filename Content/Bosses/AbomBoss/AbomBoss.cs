@@ -338,20 +338,20 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     if (NPC.buffType[0] != 0)
                         NPC.DelBuff(0);
 
-                    Music = MusicID.OtherworldlyPlantera;
-                    bool foundMod = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod);
-                    if (foundMod)
-                    {
-                        if (FargoSoulsUtil.AprilFools && musicMod.Version >= Version.Parse("0.1.5.1"))
-                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Gigachad");
-                        else if (musicMod.Version >= Version.Parse("0.1.5"))
-                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Laevateinn_P2");
-                        else
-                            Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma");
-                    }
-
                     if (++NPC.ai[1] > 120)
                     {
+                        Music = MusicID.OtherworldlyPlantera;
+                        bool foundMod = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod);
+                        if (foundMod)
+                        {
+                            if (FargoSoulsUtil.AprilFools && musicMod.Version >= Version.Parse("0.1.5.1"))
+                                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Gigachad");
+                            else if (musicMod.Version >= Version.Parse("0.1.5"))
+                                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Laevateinn_P2");
+                            else
+                                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma");
+                        }
+
                         //because this breaks the background???
                         if (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().Enabled)
                             CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().SetPowerInfo(false);

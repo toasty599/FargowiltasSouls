@@ -55,3 +55,4 @@ ts cant eat platforms, instead eats almost all trees and wood blocks
 fixed mutant being named godkiller yharim outside april fools
 actually fixed ftw fishron being ex and passively shredding max life
 abom dash sickles are now phoenixes
+abom p2 music now triggers slightly later
