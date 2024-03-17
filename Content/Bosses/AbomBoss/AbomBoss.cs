@@ -649,11 +649,11 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                         NPC.ai[3] = 0;
                         if (FargoSoulsUtil.HostCheck)
                         {
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(NPC.velocity), ModContent.ProjectileType<AbomSickle>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(NPC.velocity), ModContent.ProjectileType<AbomPhoenix>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
                             if (NPC.localAI[3] > 1)
                             {
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(NPC.velocity).RotatedBy(Math.PI / 2), ModContent.ProjectileType<AbomSickle>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
-                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(NPC.velocity).RotatedBy(-Math.PI / 2), ModContent.ProjectileType<AbomSickle>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(NPC.velocity).RotatedBy(Math.PI / 2), ModContent.ProjectileType<AbomPhoenix>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(NPC.velocity).RotatedBy(-Math.PI / 2), ModContent.ProjectileType<AbomPhoenix>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0, Main.myPlayer);
                             }
                         }
                     }
