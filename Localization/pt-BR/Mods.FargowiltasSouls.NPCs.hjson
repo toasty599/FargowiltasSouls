@@ -1,3 +1,5 @@
+// AbomBoss_April.DisplayName: Javyz Boss
+
 AbomBoss: {
 	// DisplayName: Abominationn
 
@@ -142,6 +144,7 @@ DetonatingBubbleEX.DisplayName: Bolha Explosiva
 GelatinSlime.DisplayName: Geleia de Cristal
 GelatinSubject.DisplayName: Sujeito Gelatinoso
 RoyalSubject.DisplayName: Sujeito Real
+// MutantBoss_April.DisplayName: Godkiller Yharim
 
 MutantBoss: {
 	// DisplayName: Mutant

@@ -1,3 +1,5 @@
+// AbomBoss_April.DisplayName: Javyz Boss
+
 AbomBoss: {
 	DisplayName: 憎恶
 
@@ -142,6 +144,7 @@ DetonatingBubbleEX.DisplayName: 爆炸泡泡
 GelatinSlime.DisplayName: 水晶史莱姆
 GelatinSubject.DisplayName: 圣凝史莱姆
 RoyalSubject.DisplayName: 皇家工蜂
+// MutantBoss_April.DisplayName: Godkiller Yharim
 
 MutantBoss: {
 	DisplayName: 突变体
