@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Common.Graphics.Shaders;
 using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Core;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
@@ -78,12 +79,26 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             {
                 player.buffImmune[ModContent.BuffType<TimeFrozenBuff>()] = true;
 
-                if (Main.netMode != NetmodeID.Server)
+                if (modPlayer.freezeLength > 0 && Main.netMode != NetmodeID.Server)
                 {
                     ScreenFilter filter = ShaderManager.GetFilterIfExists("Invert");
                     filter.SetFocusPosition(player.Center);
                     if (modPlayer.freezeLength > 60)
+                    {
                         filter.Activate();
+                    }
+
+                    if (SoulConfig.Instance.ForcedFilters && Main.WaveQuality == 0)
+                        Main.WaveQuality = 1;
+                }
+
+                for (int i = 0; i < Main.maxPlayers; i++)
+                {
+                    Player p = Main.player[i];
+                    if (p.active && !p.dead && !p.ghost && !p.HasEffect<StardustEffect>())
+                    {
+                        p.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), modPlayer.freezeLength);
+                    }
                 }
 
                 for (int i = 0; i < Main.maxNPCs; i++)

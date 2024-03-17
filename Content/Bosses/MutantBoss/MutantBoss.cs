@@ -29,6 +29,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
@@ -3658,7 +3659,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             else
             {
                 if (!Main.dedServ)
+                {
                     ShaderManager.GetFilterIfExists("FinalSpark").Activate();
+                    if (SoulConfig.Instance.ForcedFilters && Main.WaveQuality == 0)
+                        Main.WaveQuality = 1;
+                }
 
                 if (NPC.ai[1] % 3 == 0 && FargoSoulsUtil.HostCheck)
                 {
