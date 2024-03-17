@@ -218,11 +218,10 @@ FrostEnchant: {
 	DisplayName: Frost Enchantment
 	Tooltip:
 		'''
+		Your attacks briefly inflict Frostburn
 		Icicles will start to appear around you
 		Attacking will launch them towards the cursor
 		When they hit an enemy they are inflicted with Frostbite and frozen solid
-		Press the Freeze Key to chill and Frostburn everything for 20 seconds
-		There is a 60 second cooldown for this effect
 		'Let's coat the world in a deep freeze'
 		'''
 }
@@ -571,8 +570,9 @@ SnowEnchant: {
 	Tooltip:
 		'''
 		Your attacks briefly inflict Frostburn
-		Press the Freeze Key to chill and Frostburn everything for 15 seconds
-		There is a 60 second cooldown for this effect
+		Snowballs will start to appear around you
+		Attacking will launch them towards the cursor
+		When they hit an enemy they are inflicted with Frostbite and frozen solid
 		'It's Burning Cold Outside'
 		'''
 }
@@ -864,7 +864,6 @@ NatureForce: {
 		[i:FargowiltasSouls/MoltenEnchant] Nearby enemies are ignited in a greater radius
 		[i:FargowiltasSouls/RainEnchant] Spawns an umbrella that blocks projectiles from above
 		[i:FargowiltasSouls/FrostEnchant] Icicles will start to appear around you
-		[i:FargowiltasSouls/SnowEnchant] Press the Freeze Key to temporarily chill and Frostburn everything
 		[i:FargowiltasSouls/ChlorophyteEnchant] Summons a ring of leaf crystals to shoot at nearby enemies
 		[i:FargowiltasSouls/JungleEnchant] Grants a double spore jump and a dash
 		[i:FargowiltasSouls/ShroomiteEnchant] Not moving puts you in stealth
