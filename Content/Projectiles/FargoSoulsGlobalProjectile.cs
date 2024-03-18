@@ -86,7 +86,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public int TimeFrozen = 0;
         public bool TimeFreezeImmune;
         public int DeletionImmuneRank;
-        public int CirnoBurst;
+        public float CirnoBurst;
 
         public bool canHurt = true;
 
@@ -1244,9 +1244,10 @@ namespace FargowiltasSouls.Content.Projectiles
                 //sound effect
             }
 
-            if (CirnoBurst > 0 && --CirnoBurst <= 0)
+            if (CirnoBurst > 0)
             {
-                if (Main.myPlayer == projectile.owner)
+                CirnoBurst -= 1f / projectile.MaxUpdates;
+                if (CirnoBurst <= 0 && Main.myPlayer == projectile.owner)
                 {
                     Vector2 vel = Main.rand.NextVector2Unit() * Math.Max(projectile.velocity.Length(), 8f);
                     Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, ModContent.ProjectileType<FrostShardFriendly>(), projectile.damage, 2f, projectile.owner);

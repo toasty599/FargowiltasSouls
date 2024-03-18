@@ -70,3 +70,4 @@ ice queen crown adjustments
 new snow ench nerf, max balls 10 -> 5
 fixed abom always being named Javyz Boss
 fixed? damage snapshotting with "held proj" weapons (especially with wretched pouch)
+abom's ray run and sword use will champ's ray vfx

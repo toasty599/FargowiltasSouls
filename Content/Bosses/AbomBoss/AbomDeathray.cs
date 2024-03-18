@@ -1,7 +1,11 @@
-﻿using FargowiltasSouls.Content.Projectiles.Deathrays;
+﻿using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Common.Graphics.Shaders;
+using FargowiltasSouls.Content.Projectiles.Deathrays;
 using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -150,6 +154,47 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             }
             target.AddBuff(BuffID.WitheredArmor, 600);
             target.AddBuff(BuffID.WitheredWeapon, 600);
+        }
+
+        public PrimDrawer LaserDrawer { get; private set; } = null;
+
+        public float WidthFunction(float _) => Projectile.width * Projectile.scale * 3;
+
+        public static Color ColorFunction(float _) => new(253, 254, 32, 100);
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            // This should never happen, but just in case.
+            if (Projectile.velocity == Vector2.Zero)
+                return false;
+
+            Shader shader = ShaderManager.GetShaderIfExists("WillBigDeathray");
+
+            LaserDrawer ??= new PrimDrawer(WidthFunction, ColorFunction, shader);
+
+            // Get the laser end position.
+            Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance;
+
+            // Create 8 points that span across the draw distance from the projectile center.
+
+            // This allows the drawing to be pushed back, which is needed due to the shader fading in at the start to avoid
+            // sharp lines.
+            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 150f;
+            Vector2[] baseDrawPoints = new Vector2[8];
+            for (int i = 0; i < baseDrawPoints.Length; i++)
+                baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
+
+            // Set shader parameters. This one takes a fademap and a color.
+
+            // The laser should fade to this in the middle.
+            Color brightColor = new(252, 252, 192, 100);
+            shader.SetMainColor(brightColor);
+            // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
+            Texture2D fademap = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Trails/WillStreak").Value;
+            FargoSoulsUtil.SetTexture1(fademap);
+
+            LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);
+            return false;
         }
     }
 }
