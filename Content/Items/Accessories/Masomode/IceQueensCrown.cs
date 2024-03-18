@@ -64,7 +64,7 @@ Press the Bomb key to use your freeze bomb
                 Projectile.NewProjectile(player.GetSource_Accessory(item), player.Center, Vector2.Zero, ModContent.ProjectileType<GrazeRing>(), 0, 0f, Main.myPlayer);
         }
 
-        public const int CIRNO_GRAZE_THRESHOLD = 2900;
+        public const int CIRNO_GRAZE_THRESHOLD = 9999;
         public const int CIRNO_GRAZE_MAX = CIRNO_GRAZE_THRESHOLD + 9 * 60;
 
         public static void OnGraze(FargoSoulsPlayer fargoPlayer, int damage)
