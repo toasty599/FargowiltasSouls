@@ -86,8 +86,9 @@ There is a 60 second cooldown for this effect
             if (player.whoAmI == Main.myPlayer)
             {
                 FargoSoulsPlayer modPlayer = player.FargoSouls();
+                int maxIcicles = player.HasEffect<FrostEffect>() ? 10 : 5;
                 int type = ModContent.ProjectileType<FrostIcicle>();
-                if (modPlayer.icicleCD <= 0 && modPlayer.IcicleCount < 10 && player.ownedProjectileCounts[type] < 10)
+                if (modPlayer.icicleCD <= 0 && modPlayer.IcicleCount < maxIcicles && player.ownedProjectileCounts[type] < maxIcicles)
                 {
                     modPlayer.IcicleCount++;
 
@@ -113,7 +114,7 @@ There is a 60 second cooldown for this effect
 
                     float dustScale = 1.5f;
 
-                    if (modPlayer.IcicleCount % 10 == 0)
+                    if (modPlayer.IcicleCount % maxIcicles == 0)
                     {
                         dustScale = 3f;
                     }
@@ -129,7 +130,7 @@ There is a 60 second cooldown for this effect
                         Main.dust[d].scale = dustScale;
                         Main.dust[d].velocity = vector7;
 
-                        if (modPlayer.IcicleCount % 10 == 0)
+                        if (modPlayer.IcicleCount % maxIcicles == 0)
                         {
                             Main.dust[d].velocity *= 2;
                         }
