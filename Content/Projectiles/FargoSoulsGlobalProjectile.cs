@@ -26,6 +26,7 @@ using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using Terraria.GameContent;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -85,6 +86,7 @@ namespace FargowiltasSouls.Content.Projectiles
         public int TimeFrozen = 0;
         public bool TimeFreezeImmune;
         public int DeletionImmuneRank;
+        public int CirnoBurst;
 
         public bool canHurt = true;
 
@@ -1239,6 +1241,16 @@ namespace FargowiltasSouls.Content.Projectiles
                 //Main.NewText("MISS");
                 HuntressProj = -1;
                 //sound effect
+            }
+
+            if (CirnoBurst > 0 && --CirnoBurst <= 0)
+            {
+                if (Main.myPlayer == projectile.owner)
+                {
+                    Vector2 vel = Main.rand.NextVector2Unit() * Math.Max(projectile.velocity.Length(), 8f);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, ModContent.ProjectileType<FrostShardFriendly>(), projectile.damage, 2f, projectile.owner);
+                }
+                projectile.Kill();
             }
         }
 

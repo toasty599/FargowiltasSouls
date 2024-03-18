@@ -63,3 +63,6 @@ adding config to "fix" timestop and final spark filters not working when you tur
 maso abom sprays a lot more scythes when killed
 fixed abom being able to double hit during his dash
 wizard meteor tooltip is more accurate
+ice queen crown adjustments
+	frozen projectiles explode into shards
+	projectiles and npcs arent slowed after freeze wears off
