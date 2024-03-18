@@ -61,3 +61,4 @@ stardust ench freezes other players unless they also have stardust ench xd
 adding config to "fix" timestop and final spark filters not working when you turn off waves quality(???)
 
 maso abom sprays a lot more scythes when killed
+fixed abom being able to double hit during his dash
