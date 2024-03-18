@@ -104,7 +104,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p) && !p.FargoSouls().TimeFreezeImmune && p.FargoSouls().TimeFrozen == 0))
                 {
                     p.FargoSouls().TimeFrozen = freezeDuration;
-                    p.FargoSouls().CirnoBurst = true;
+                    p.FargoSouls().CirnoBurst = freezeDuration;
                     //p.FargoSouls().ChilledProj = true;
                     //p.FargoSouls().ChilledTimer = slowDuration;
                     //p.netUpdate = true;
