@@ -66,8 +66,11 @@ wizard meteor tooltip is more accurate
 ice queen crown adjustments
 	frozen projectiles explode into shards
 	projectiles and npcs arent slowed after freeze wears off
+	fixed freeze not working on some attacks it should
 	freeze bombs require much more graze to build
 new snow ench nerf, max balls 10 -> 5
 fixed abom always being named Javyz Boss
 fixed? damage snapshotting with "held proj" weapons (especially with wretched pouch)
 abom's ray run and sword use will champ's ray vfx
+maso abom's ufo lasers are ungrazeable
+maso eri's timestop flow invaders are ungrazeable

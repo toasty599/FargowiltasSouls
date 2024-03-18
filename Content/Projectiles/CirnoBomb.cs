@@ -101,7 +101,7 @@ namespace FargowiltasSouls.Content.Projectiles
                     //n.netUpdate = true;
                 }
 
-                foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p) && !p.FargoSouls().TimeFreezeImmune && p.FargoSouls().TimeFrozen == 0))
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && !p.FargoSouls().TimeFreezeImmune && p.FargoSouls().TimeFrozen == 0))
                 {
                     p.FargoSouls().TimeFrozen = freezeDuration;
                     if (p.FargoSouls().DeletionImmuneRank == 0)

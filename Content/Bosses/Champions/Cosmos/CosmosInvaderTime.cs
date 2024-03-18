@@ -1,3 +1,4 @@
+using FargowiltasSouls.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -9,6 +10,14 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
     public class CosmosInvaderTime : CosmosInvader
     {
         public override string Texture => "Terraria/Images/Projectile_539";
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            if (WorldSavingSystem.MasochistModeReal)
+                Projectile.FargoSouls().GrazeCheck = Projectile => false;
+        }
 
         public override bool PreAI()
         {
