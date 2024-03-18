@@ -1188,6 +1188,7 @@ namespace FargowiltasSouls.Content.Projectiles
                 DeletionImmuneRank = 2;
                 TimeFreezeImmune = true;
 
+                projectile.damage = player.GetWeaponDamage(player.HeldItem);
                 projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
 
                 if (player.HeldItem.IsWeapon())
