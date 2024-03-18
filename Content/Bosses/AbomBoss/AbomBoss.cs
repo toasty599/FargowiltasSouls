@@ -274,7 +274,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                         if (FargoSoulsUtil.HostCheck)
                         {
                             int trollSpeedUp = WorldSavingSystem.MasochistModeReal ? 2 : 1;
-                            for (int i = 0; i < 30; i++)
+                            int max = WorldSavingSystem.MasochistModeReal ? 120 : 30;
+                            for (int i = 0; i < max; i++)
                             {
                                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
                                     trollSpeedUp * Vector2.UnitX.RotatedBy(Main.rand.NextDouble() * Math.PI) * Main.rand.NextFloat(30f),
