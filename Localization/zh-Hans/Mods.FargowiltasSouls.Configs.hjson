@@ -31,6 +31,11 @@ SoulConfig: {
 		Tooltip: ""
 	}
 
+	ForcedFilters: {
+		Label: 当某些视觉效果激活时，强制开启水波质量（覆盖原版设置）
+		Tooltip: 开启后某些视觉效果可以正常作用
+	}
+
 	BossRecolors: {
 		Label: Boss贴图替换
 		Tooltip: ""

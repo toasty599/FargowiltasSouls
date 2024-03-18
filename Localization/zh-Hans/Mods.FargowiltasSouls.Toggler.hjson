@@ -75,7 +75,7 @@ MeteorMomentumEffect: 流星 速度
 MeteorEffect: 流星 流星雨
 MeteorTrailEffect: 流星 火焰尾迹
 NebulaEffect: 星云 强化焰
-SolarEffect: 耀斑 护盾
+SolarEffect: 耀斑 护盾冲撞
 SolarFlareEffect: 耀斑 太阳耀斑减益
 StardustMinionEffect: 星尘 星尘守卫
 VortexStealthEffect: 星旋 潜行
