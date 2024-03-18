@@ -88,6 +88,8 @@ namespace FargowiltasSouls.Content.Projectiles
         public int DeletionImmuneRank;
         public float CirnoBurst;
 
+        public bool IsAHeldProj;
+
         public bool canHurt = true;
 
         public bool noInteractionWithNPCImmunityFrames;
@@ -412,6 +414,13 @@ namespace FargowiltasSouls.Content.Projectiles
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             counter++;
+
+            //doing it here in case the proj's AI() sets custom weapon damage, so it can override this
+            if (IsAHeldProj)
+            {
+                projectile.damage = player.GetWeaponDamage(player.HeldItem);
+                projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
+            }
             
             if (spookyCD > 0)
             {
@@ -1187,9 +1196,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 DeletionImmuneRank = 2;
                 TimeFreezeImmune = true;
-
-                projectile.damage = player.GetWeaponDamage(player.HeldItem);
-                projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
+                IsAHeldProj = true;
 
                 if (player.HeldItem.IsWeapon())
                 {
