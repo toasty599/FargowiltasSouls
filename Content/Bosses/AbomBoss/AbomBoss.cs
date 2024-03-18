@@ -110,7 +110,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             }
             SceneEffectPriority = SceneEffectPriority.BossMedium;
 
-            NPC.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.AbomBoss_April.DisplayName");
+            if (FargoSoulsUtil.AprilFools)
+                NPC.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.AbomBoss_April.DisplayName");
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)

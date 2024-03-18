@@ -67,3 +67,4 @@ ice queen crown adjustments
 	frozen projectiles explode into shards
 	projectiles and npcs arent slowed after freeze wears off
 new snow ench nerf, max balls 10 -> 5
+fixed abom always being named Javyz Boss
