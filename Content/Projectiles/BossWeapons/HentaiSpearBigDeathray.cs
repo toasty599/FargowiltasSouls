@@ -1,6 +1,11 @@
-﻿using FargowiltasSouls.Content.Buffs.Masomode;
+﻿using FargowiltasSouls.Assets.ExtraTextures;
+using FargowiltasSouls.Common.Graphics.Primitives;
+using FargowiltasSouls.Common.Graphics.Shaders;
+using FargowiltasSouls.Content.Buffs.Masomode;
 using FargowiltasSouls.Content.Projectiles.Deathrays;
+using FargowiltasSouls.Core;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -234,6 +239,13 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             base.PostAI();
 
             Projectile.hide = true;
+
+            if (!Main.dedServ)
+            {
+                ShaderManager.GetFilterIfExists("FinalSpark").Activate();
+                if (SoulConfig.Instance.ForcedFilters && Main.WaveQuality == 0)
+                    Main.WaveQuality = 1;
+            }
         }
 
         public override void OnKill(int timeLeft)
@@ -245,6 +257,67 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
         {
             target.immune[Projectile.owner] = 1; //balanceing
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
+        }
+
+        public bool BeBrighter => Projectile.ai[0] > 0f;
+
+        public PrimDrawer LaserDrawer { get; private set; } = null;
+
+        public float WidthFunction(float trailInterpolant)
+        {
+            // Grow rapidly from the start to full length. Any more than this notably distorts the texture.
+            float baseWidth = Projectile.scale * Projectile.width;
+            //if (trailInterpolant < 0.05f)
+            return baseWidth;
+
+            // Grow to 2x width by the end. Any more than this distorts the texture too much.
+            //return MathHelper.Lerp(baseWidth, baseWidth * 2, trailInterpolant);
+        }
+
+        public static Color ColorFunction(float trailInterpolant) =>
+            Color.Lerp(
+                FargoSoulsUtil.AprilFools ? new Color(255, 0, 0, 100) : new(31, 187, 192, 100),
+                FargoSoulsUtil.AprilFools ? new Color(255, 191, 51, 100) : new(51, 255, 191, 100),
+                trailInterpolant);
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            // This should never happen, but just in case.
+            if (Projectile.velocity == Vector2.Zero)
+                return false;
+
+            Shader shader = ShaderManager.GetShaderIfExists("MutantDeathray");
+
+            // If it isnt set, set the prim instance.
+            LaserDrawer ??= new(WidthFunction, ColorFunction, shader);
+
+            // Get the laser end position.
+            Vector2 laserEnd = Projectile.Center + Projectile.velocity.SafeNormalize(Vector2.UnitY) * drawDistance;
+
+            // Create 8 points that span across the draw distance from the projectile center.
+
+            // This allows the drawing to be pushed back, which is needed due to the shader fading in at the start to avoid
+            // sharp lines.
+            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 400f;
+            Vector2[] baseDrawPoints = new Vector2[8];
+            for (int i = 0; i < baseDrawPoints.Length; i++)
+                baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
+
+            // Set shader parameters. This one takes a fademap and a color.
+
+            // The laser should fade to white in the middle.
+            Color brightColor = new(194, 255, 242, 100);
+            shader.SetMainColor(brightColor);
+            FargoSoulsUtil.SetTexture1(FargosTextureRegistry.MutantStreak.Value);
+            // Draw a big glow above the start of the laser, to help mask the intial fade in due to the immense width.
+
+            Texture2D glowTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/GlowRing").Value;
+
+            Vector2 glowDrawPosition = Projectile.Center - Projectile.velocity * (BeBrighter ? 90f : 180f);
+
+            Main.EntitySpriteDraw(glowTexture, glowDrawPosition - Main.screenPosition, null, brightColor, Projectile.rotation, glowTexture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
+            LaserDrawer.DrawPrims(baseDrawPoints, -Main.screenPosition, 60);
+            return false;
         }
     }
 }
