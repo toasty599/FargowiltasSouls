@@ -83,3 +83,4 @@ fixed penetrator sword being able to spawn multiple chain blasts if it hits seve
 added penetrator sword explosions at end of swing i forgot earlier
 abom kaizo scythes cant hit town npcs
 cirno bomb cant kill abom flockos
+maso eri nebula blazes cant be grazed
