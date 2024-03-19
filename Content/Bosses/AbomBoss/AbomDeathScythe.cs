@@ -37,6 +37,13 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             return WorldSavingSystem.MasochistModeReal;
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.townNPC)
+                return false;
+            return null;
+        }
+
         public override void AI()
         {
             if (Projectile.localAI[0] == 0)
