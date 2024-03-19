@@ -230,6 +230,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
     public class TrojanSquirrel : TrojanSquirrelPart
     {
         private const float BaseWalkSpeed = 4f;
+        string TownNPCName;
 
         public override void SetStaticDefaults()
         {
@@ -317,6 +318,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
                 if (n != -1 && n != Main.maxNPCs)
                 {
                     NPC.Bottom = Main.npc[n].Bottom;
+                    TownNPCName = Main.npc[n].GivenName;
 
                     Main.npc[n].life = 0;
                     Main.npc[n].active = false;
@@ -1012,7 +1014,17 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
             NPC.SetEventFlagCleared(ref WorldSavingSystem.DownedBoss[(int)WorldSavingSystem.Downed.TrojanSquirrel], -1);
 
             if (ModContent.TryFind("Fargowiltas", "Squirrel", out ModNPC squrrl) && !NPC.AnyNPCs(squrrl.Type))
-                FargoSoulsUtil.NewNPCEasy(NPC.GetSource_FromThis(), NPC.Center, squrrl.Type);
+            {
+                int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);
+                if (n != Main.maxNPCs)
+                {
+                    Main.npc[n].homeless = true;
+                    if (TownNPCName != default)
+                        Main.npc[n].GivenName = TownNPCName;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                }
+            }
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

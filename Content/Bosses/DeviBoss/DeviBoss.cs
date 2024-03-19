@@ -48,6 +48,8 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
         public bool DrawRuneBorders;
 
+        string TownNPCName;
+
         public ref float AttackIndex => ref NPC.localAI[2];
         public ref float Phase => ref NPC.localAI[3];
         public ref float State => ref NPC.ai[0];
@@ -176,6 +178,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             if (n != -1 && n != Main.maxNPCs)
             {
                 NPC.Bottom = Main.npc[n].Bottom;
+                TownNPCName = Main.npc[n].GivenName;
 
                 Main.npc[n].life = 0;
                 Main.npc[n].active = false;
@@ -450,6 +453,8 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                         if (n != Main.maxNPCs)
                         {
                             Main.npc[n].homeless = true;
+                            if (TownNPCName != default)
+                                Main.npc[n].GivenName = TownNPCName;
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         }
@@ -2301,6 +2306,8 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].homeless = true;
+                                if (TownNPCName != default)
+                                    Main.npc[n].GivenName = TownNPCName;
                                 if (Main.netMode == NetmodeID.Server)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }

@@ -37,6 +37,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         private bool droppedSummon = false;
         public int ritualProj, ringProj, spriteProj, ritualProjMaso;
 
+        string TownNPCName;
+
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Abominationn");
@@ -160,6 +162,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 if (n != -1 && n != Main.maxNPCs)
                 {
                     NPC.Bottom = Main.npc[n].Bottom;
+                    TownNPCName = Main.npc[n].GivenName;
 
                     Main.npc[n].life = 0;
                     Main.npc[n].active = false;
@@ -291,6 +294,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                                 if (n != Main.maxNPCs)
                                 {
                                     Main.npc[n].homeless = true;
+                                    if (TownNPCName != default)
+                                        Main.npc[n].GivenName = TownNPCName;
                                     if (Main.netMode == NetmodeID.Server)
                                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                                 }
@@ -1471,6 +1476,8 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].homeless = true;
+                                if (TownNPCName != default)
+                                    Main.npc[n].GivenName = TownNPCName;
                                 if (Main.netMode == NetmodeID.Server)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }

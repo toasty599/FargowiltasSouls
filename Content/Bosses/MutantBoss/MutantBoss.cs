@@ -57,6 +57,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public ref float AttackChoice => ref NPC.ai[0];
         public Vector2 AuraCenter = Vector2.Zero;
 
+        string TownNPCName;
+
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Mutant");
@@ -179,6 +181,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (n != -1 && n != Main.maxNPCs)
                 {
                     NPC.Bottom = Main.npc[n].Bottom;
+                    TownNPCName = Main.npc[n].GivenName;
 
                     Main.npc[n].life = 0;
                     Main.npc[n].active = false;
@@ -688,6 +691,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].homeless = true;
+                                if (TownNPCName != default)
+                                    Main.npc[n].GivenName = TownNPCName;
                                 if (Main.netMode == NetmodeID.Server)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }
@@ -3817,6 +3822,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (n != Main.maxNPCs)
                     {
                         Main.npc[n].homeless = true;
+                        if (TownNPCName != default)
+                            Main.npc[n].GivenName = TownNPCName;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
