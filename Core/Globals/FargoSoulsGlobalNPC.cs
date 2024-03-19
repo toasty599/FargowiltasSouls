@@ -1003,9 +1003,9 @@ namespace FargowiltasSouls.Core.Globals
                 {
                     bool isForcePlatinum = player.FargoSouls().ForceEffect(player.FargoSouls().PlatinumEffect.type);
 
-                    if (Main.rand.NextBool(isForcePlatinum ? 10 : 5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
+                    if (Main.rand.NextBool(isForcePlatinum ? 3 : 5) && !IllegalLootMultiplierNPCs.Contains(npc.type))
                     {
-                        int repeats = isForcePlatinum ? 15 : 5;
+                        int repeats = 5;
 
                         npc.extraValue /= repeats;
 

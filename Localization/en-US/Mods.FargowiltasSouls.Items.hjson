@@ -944,7 +944,7 @@ WillForce: {
 		'''
 		[i:FargowiltasSouls/GoldEnchant] Press the Gold hotkey to be encased in a Golden Shell
 		[i:FargowiltasSouls/GoldEnchant] Automatically sends coins to your piggy bank when picked up
-		[i:FargowiltasSouls/PlatinumEnchant] 20% chance for enemies to drop 5x loot
+		[i:FargowiltasSouls/PlatinumEnchant] 33% chance for enemies to drop 5x loot
 		[i:FargowiltasSouls/GladiatorEnchant] Double tap down to place a banner that buffs you while close
 		[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies
 		[i:FargowiltasSouls/RedRidingEnchant] Successive attacks gain bonus damage 
