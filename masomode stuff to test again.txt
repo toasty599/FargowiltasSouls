@@ -75,3 +75,5 @@ abom's ray run and sword use will champ's ray vfx (including your styx gazers)
 maso abom's ufo lasers are ungrazeable
 maso eri's timestop flow invaders are ungrazeable
 finally updated penetrator's final spark vfx to match mutant
+replaced penetrator's default attack with mutant sword
+down+m2 penetrator ramps up spin faster and doesnt make you move slower

@@ -103,9 +103,14 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                     Item.shoot = ModContent.ProjectileType<HentaiSpearDive>();
                     Item.shootSpeed = 6f;
                 }
-                else
+                else if (player.controlDown && player.controlUp)
                 {
                     Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.HentaiSpear>();
+                    Item.shootSpeed = 6f;
+                }
+                else
+                {
+                    Item.shoot = ModContent.ProjectileType<HentaiSword>();
                     Item.shootSpeed = 6f;
                 }
 
@@ -141,6 +146,14 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                 }
 
                 return true;
+            }
+            else if (!player.controlUp && !player.controlDown)
+            {
+                velocity = new Vector2(velocity.X < 0 ? 1 : -1, -1);
+                velocity.Normalize();
+                velocity *= HentaiSword.MUTANT_SWORD_SPACING;
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, -Math.Sign(velocity.X));
+                return false;
             }
 
             if (player.ownedProjectileCounts[Item.shoot] < 1)

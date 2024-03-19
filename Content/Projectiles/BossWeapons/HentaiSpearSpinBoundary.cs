@@ -48,8 +48,6 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 return;
             }
 
-            player.velocity *= 0.9f; //move slower while holding it
-
             Vector2 ownerMountedCenter = player.RotatedRelativePoint(player.MountedCenter);
             Projectile.direction = player.direction;
             player.heldProj = Projectile.whoAmI;
@@ -71,9 +69,11 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             {
                 SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
                 Projectile.localAI[0] = 0;
-                Projectile.localAI[1] += (float)Math.PI / 4 / 360 * ++Projectile.ai[1] * player.direction;
+                Projectile.localAI[1] += 2f * (float)Math.PI / 4 / 360 * ++Projectile.ai[1] * player.direction;
                 if (Projectile.localAI[1] > (float)Math.PI)
                     Projectile.localAI[1] -= (float)Math.PI * 2;
+                if (Projectile.localAI[1] < (float)Math.PI)
+                    Projectile.localAI[1] += (float)Math.PI * 2;
                 if (Projectile.owner == Main.myPlayer)
                 {
                     for (int i = 0; i < 6; i++)
