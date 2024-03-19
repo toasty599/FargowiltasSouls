@@ -1264,7 +1264,7 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 case ProjectileID.QueenSlimeMinionPinkBall:
                 case ProjectileID.QueenSlimeGelAttack:
-                    if (WorldSavingSystem.MasochistModeReal)
+                    if (WorldSavingSystem.MasochistModeReal && Main.getGoodWorld)
                     {
                         if (FargoSoulsUtil.HostCheck)
                         {
