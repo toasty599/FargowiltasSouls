@@ -90,6 +90,28 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
         }
 
+        public override void OnKill(int timeLeft)
+        {
+            if (Projectile.owner == Main.myPlayer)
+            {
+                for (int i = 0; i < MUTANT_SWORD_MAX; i++)
+                {
+                    Vector2 offset = Vector2.Normalize(Projectile.velocity) * MUTANT_SWORD_SPACING * Projectile.scale * i;
+                    Vector2 spawnPos = Projectile.Center + offset;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos,
+                        Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
+                }
+
+                for (int i = -1; i <= 1; i += 2)
+                {
+                    Vector2 offset = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.ToRadians(45 * i)) * MUTANT_SWORD_SPACING * 1.5f * Projectile.scale;
+                    Vector2 spawnPos = Projectile.Center + offset;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos,
+                        Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
+                }
+            }
+        }
+
         public override bool? CanDamage()
         {
             Projectile.maxPenetrate = 1;
@@ -109,12 +131,11 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             if (Projectile.owner == Main.myPlayer)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
-                    Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
-                    Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
-                    Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
+                for (int i = 0; i < 3; i++)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position + new Vector2(Main.rand.Next(target.width), Main.rand.Next(target.height)),
+                        Vector2.Zero, ModContent.ProjectileType<PhantasmalBlast>(), Projectile.damage, Projectile.knockBack * 3f, Projectile.owner);
+                }
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
 

@@ -80,3 +80,4 @@ down+m2 penetrator ramps up spin faster and doesnt make you move slower
 
 town npc bosses retain their name after returning to town npc form
 fixed penetrator sword being able to spawn multiple chain blasts if it hits several enemies on same tick
+added penetrator sword explosions at end of swing i forgot earlier
