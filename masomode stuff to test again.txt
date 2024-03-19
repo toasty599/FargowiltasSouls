@@ -81,6 +81,7 @@ down+m2 penetrator ramps up spin faster and doesnt make you move slower
 town npc bosses retain their name after returning to town npc form
 fixed penetrator sword being able to spawn multiple chain blasts if it hits several enemies on same tick
 added penetrator sword explosions at end of swing i forgot earlier
+pen sword wont misinput other spear modes for as long as you swing it continuously
 abom kaizo scythes cant hit town npcs
 cirno bomb cant kill abom flockos
 maso eri nebula blazes cant be grazed

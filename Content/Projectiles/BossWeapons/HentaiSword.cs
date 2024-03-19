@@ -2,6 +2,7 @@
 using FargowiltasSouls.Content.Projectiles.Masomode;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -80,7 +81,10 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             Projectile.Center = ownerMountedCenter - Projectile.velocity / 2;
             Projectile.direction = projOwner.direction;
             projOwner.heldProj = Projectile.whoAmI;
-            projOwner.itemTime = projOwner.itemAnimation = 2;
+            if (projOwner.itemTime < 2)
+                projOwner.itemTime = 2;
+            if (projOwner.itemAnimation < 2)
+                projOwner.itemAnimation = 2;
 
             if (++Projectile.frameCounter >= 6)
             {
