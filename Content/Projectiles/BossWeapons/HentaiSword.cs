@@ -122,6 +122,8 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             {
                 if (Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<HentaiSwordBlast>()] < 8)
                 {
+                    Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<HentaiSwordBlast>()] += 8;
+
                     Vector2 spawnPos = target.Center;
 
                     if (!Main.dedServ && Main.LocalPlayer.active)
