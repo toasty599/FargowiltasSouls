@@ -1015,7 +1015,7 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             if (ModContent.TryFind("Fargowiltas", "Squirrel", out ModNPC squrrl) && !NPC.AnyNPCs(squrrl.Type))
             {
-                int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);
+                int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, squrrl.Type);
                 if (n != Main.maxNPCs)
                 {
                     Main.npc[n].homeless = true;
