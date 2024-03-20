@@ -81,10 +81,16 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                 }
                 else if (player.controlUp && !player.controlDown)
                 {
-                    Item.shoot = ModContent.ProjectileType<HentaiSpearSpinThrown>();
+                    /*Item.shoot = ModContent.ProjectileType<HentaiSpearSpinThrown>();
                     Item.shootSpeed = 6f;
                     Item.useAnimation = 16;
+                    Item.useTime = 16;*/
+
+                    Item.shoot = ModContent.ProjectileType<HentaiSpearSpinBoundary>();
+                    Item.shootSpeed = 1f;
+                    Item.useAnimation = 16;
                     Item.useTime = 16;
+                    Item.useTurn = true;
                 }
                 else if (player.controlDown && !player.controlUp)
                 {
@@ -164,7 +170,7 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                     if (player.controlDown) // Giga-beam
                         return player.ownedProjectileCounts[Item.shoot] < 1;
 
-                    if (player.ownedProjectileCounts[Item.shoot] < 1) // Remember to transfer any changes here to hentaispearspinthrown!
+                    /*if (player.ownedProjectileCounts[Item.shoot] < 1) // Remember to transfer any changes here to hentaispearspinthrown!
                     {
                         Vector2 speed = Main.MouseWorld - player.MountedCenter;
 
@@ -172,7 +178,9 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                             speed = Vector2.Normalize(speed) * 360;
 
                         Projectile.NewProjectile(source, position, Vector2.Normalize(speed), Item.shoot, damage, knockback, player.whoAmI, speed.X, speed.Y);
-                    }
+                    }*/
+
+                    Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: 1);
 
                     return false;
                 }
