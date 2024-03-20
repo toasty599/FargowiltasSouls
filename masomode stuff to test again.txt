@@ -82,6 +82,7 @@ town npc bosses retain their name after returning to town npc form
 fixed penetrator sword being able to spawn multiple chain blasts if it hits several enemies on same tick
 added penetrator sword explosions at end of swing i forgot earlier
 pen sword wont misinput other spear modes for as long as you swing it continuously
+pen sword chain blast doesnt trigger on critters or destructible projs e.g. imp fireball
 replaced penetrator up+m2 with okuu
 abom kaizo scythes cant hit town npcs
 cirno bomb cant kill abom flockos

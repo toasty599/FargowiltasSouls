@@ -143,7 +143,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             }
             target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 600);
 
-            if (Projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer && target.lifeMax > 5)
             {
                 if (Main.player[Projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<HentaiSwordBlast>()] < 8)
                 {
