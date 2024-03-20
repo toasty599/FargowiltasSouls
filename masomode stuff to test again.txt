@@ -88,3 +88,4 @@ maso eri nebula blazes cant be grazed
 fixed maso qs spreading hallow (should be ftw)
 plat ench force changed, 10% for x15 -> 33% for x5
 fishron no longer inflict defenseless
+adjusted jungle mimic spawn rates
