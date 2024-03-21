@@ -110,6 +110,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         npc.ai[2] -= 1;
                         npc.netUpdate = true;
                     }
+                    else if (Main.getGoodWorld && Projectile.localAI[0] > maxTime - 10 && npc.life > 1)
+                    {
+                        Projectile.localAI[0] -= 1;
+                    }
                 }
             }
             else

@@ -361,8 +361,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (AttackChoice < 0 && NPC.life > 1 && drainLifeInP3) //in desperation
             {
-                int time = WorldSavingSystem.MasochistModeReal ? 4350 : 480 + 240 + 420 + 480 + 1020 - 60;
-                NPC.life -= NPC.lifeMax / time;
+                int time = 480 + 240 + 420 + 480 + 1020 - 60;
+                if (WorldSavingSystem.MasochistModeReal)
+                    time = Main.getGoodWorld ? 5000 : 4350;
+                int drain = NPC.lifeMax / time;
+                NPC.life -= drain;
                 if (NPC.life < 1)
                     NPC.life = 1;
             }
@@ -376,7 +379,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 droppedSummon = true;
             }
 
-            if (Main.getGoodWorld && ++hyper > HyperMax + 1)
+            if (WorldSavingSystem.MasochistModeReal && Main.getGoodWorld && ++hyper > HyperMax + 1)
             {
                 hyper = 0;
                 NPC.AI();
@@ -3682,7 +3685,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int endTime = 1020;
             if (WorldSavingSystem.MasochistModeReal)
                 endTime += 180;
-            if (++NPC.ai[2] > endTime)
+            if (++NPC.ai[2] > endTime && NPC.life <= 1)
             {
                 NPC.netUpdate = true;
                 AttackChoice--;

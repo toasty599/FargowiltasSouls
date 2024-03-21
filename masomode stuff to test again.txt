@@ -96,3 +96,4 @@ ftw mutant
 	synced sword properly
 	troll confused is gfb
 	22 doesnt despawn him because probably didnt work mp
+	resynced his music end for p3
