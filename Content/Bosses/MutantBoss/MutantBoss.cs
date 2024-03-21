@@ -1846,8 +1846,15 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Clone(1, -1, pillarAttackDelay * 2);
                     Clone(1, 1, pillarAttackDelay * 3);
                     if (WorldSavingSystem.MasochistModeReal)
+                    {
                         Clone(1, 1, pillarAttackDelay * 6);
-                    
+                        if (Main.getGoodWorld)
+                        {
+                            Clone(-1, 1, pillarAttackDelay * 7);
+                            Clone(1, -1, pillarAttackDelay * 8);
+                        }
+                    }
+
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                 }
 
@@ -2918,7 +2925,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.localAI[1] = 5;
 
                 if (WorldSavingSystem.MasochistModeReal)
+                {
                     NPC.localAI[1] += Main.rand.Next(6);
+                    if (Main.getGoodWorld)
+                        NPC.localAI[1] += 5;
+                }
                 NPC.localAI[2] = Main.rand.NextBool() ? -1 : 1; //pick a random rotation direction
                 NPC.netUpdate = true;
             }

@@ -134,6 +134,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (FargoSoulsUtil.HostCheck)
                     Projectile.NewProjectile(mutant.GetSource_FromThis(), NPC.Center, Vector2.UnitY * -5, ModContent.ProjectileType<MutantPillar>(), FargoSoulsUtil.ScaledProjectileDamage(mutant.damage, 4f / 3), 0, Main.myPlayer, ai0, NPC.whoAmI);
             }
+
+            if (Main.getGoodWorld && ++NPC.localAI[0] > MutantBoss.HyperMax + 1)
+            {
+                NPC.localAI[0] = 0;
+                NPC.AI();
+            }
         }
 
         public override bool CheckActive() => false;

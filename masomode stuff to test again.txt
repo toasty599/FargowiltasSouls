@@ -97,3 +97,8 @@ ftw mutant
 	troll confused is gfb
 	22 doesnt despawn him because probably didnt work mp
 	resynced his music end for p3
+	illusions are synced properly
+	fixed sword not working in p1
+	added 2 more pillars
+	unnerfed homing eyes
+	always does a lot more direct spear tosses
