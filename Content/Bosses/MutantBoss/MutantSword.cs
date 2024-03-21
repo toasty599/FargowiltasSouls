@@ -59,6 +59,13 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPC npc = FargoSoulsUtil.NPCExists(Projectile.ai[0], ModContent.NPCType<MutantBoss>());
             if (npc != null)
             {
+                bool inValidSwordState = (npc.ai[0] == 45 && npc.ai[2] != 0) || (npc.ai[0] == 46 && npc.ai[1] <= 20);
+                if (!inValidSwordState && FargoSoulsUtil.HostCheck)
+                {
+                    Projectile.Kill();
+                    return;
+                }
+
                 if (Projectile.localAI[0] == 0)
                 {
                     Projectile.localAI[0] = 1;

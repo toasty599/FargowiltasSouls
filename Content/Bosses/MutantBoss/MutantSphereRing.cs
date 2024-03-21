@@ -124,7 +124,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     if (!Main.LocalPlayer.HasBuff(ModContent.BuffType<TimeFrozenBuff>()))
                         SoundEngine.PlaySound(new SoundStyle("FargowiltasSouls/Assets/Sounds/ZaWarudo"), Main.LocalPlayer.Center);
-                    Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), 300);
+                    //Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), 300);
                 }
             }
         }

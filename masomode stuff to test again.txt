@@ -39,7 +39,6 @@ ftw eow head instakills
 ftw qb has extended deathray barrage
 ftw fishron no longer has real fish ex's passive -80% max life
 ftw eow and destro head use ml iframes
-triggering ftw mutant 22 despawns him
 agi lens change (sdf hm ichor nerf), scythes are magic damage again
 nerfed sdf honey armor pen to 5, was 10
 pure heart buff, gives +30% wing time
@@ -92,3 +91,8 @@ plat ench force changed, 10% for x15 -> 33% for x5
 fishron no longer inflict defenseless
 adjusted jungle mimic spawn rates
 fossil ench buff, the bones have a small magnetize range
+ftw mutant
+	increased speed from +10% to +20%
+	synced sword properly
+	troll confused is gfb
+	22 doesnt despawn him because probably didnt work mp
