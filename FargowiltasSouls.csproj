@@ -51,6 +51,7 @@
   <ItemGroup>
     <Folder Include="Assets\ExtraTextures\Noise\" />
     <Folder Include="Common\Graphics\Shaders\Compiler\" />
+    <Folder Include="Content\WorldGen\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fargowiltas">

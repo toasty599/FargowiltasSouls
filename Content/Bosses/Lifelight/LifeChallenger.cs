@@ -1565,9 +1565,16 @@ namespace FargowiltasSouls.Content.Bosses.Lifelight
             float dist = NPC.Distance(Player.Center);
             if (dist < 800)
                 flySpeed2 *= dist / 800;
-            float inertia2 = flySpeed2;
-            Vector2 flyonPlayer = NPC.DirectionTo(Player.Center) * flySpeed2;
-            NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
+            if (flySpeed2 > 3)
+            {
+                float inertia2 = flySpeed2;
+                Vector2 flyonPlayer = NPC.DirectionTo(Player.Center) * flySpeed2;
+                NPC.velocity = (NPC.velocity * (inertia2 - 1f) + flyonPlayer) / inertia2;
+            }
+            else
+            {
+                NPC.velocity *= 0.95f;
+            }
 
             //rotation
             if (NPC.velocity.ToRotation() > MathHelper.Pi)

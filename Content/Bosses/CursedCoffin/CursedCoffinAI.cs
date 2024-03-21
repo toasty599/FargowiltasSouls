@@ -265,7 +265,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 				{
 					Counter = 1;
 				}
-				if (NPC.velocity.Y == 0 && Counter > 0) //when you hit tile
+				if (NPC.velocity.Y == 0 && Counter > 0 && !NPC.noTileCollide) //when you hit tile
 				{
 					SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 					SoundEngine.PlaySound(SlamSFX, NPC.Center);
@@ -301,7 +301,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     NPC.velocity.Y = 15;
                 ExtraTrail = true;
 
-				NPC.noTileCollide = false;
+				//NPC.noTileCollide = false;
 
 				if (NPC.Center.Y >= LockVector1.Y + 1000) //only go so far
 				{
@@ -310,7 +310,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
 			}
             else
             {
-                NPC.noTileCollide = false;
+                //NPC.noTileCollide = false;
             }
         }
 

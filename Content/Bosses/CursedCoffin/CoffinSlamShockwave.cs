@@ -84,6 +84,10 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             }
             */
         }
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+        {
+            modifiers.Null();
+        }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<StunnedBuff>(), 60 * 2);

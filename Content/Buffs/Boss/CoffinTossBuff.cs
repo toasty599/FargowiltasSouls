@@ -1,5 +1,7 @@
-﻿using FargowiltasSouls.Core.Globals;
+﻿using Fargowiltas.Common.Configs;
+using FargowiltasSouls.Core.Globals;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -28,6 +30,7 @@ namespace FargowiltasSouls.Content.Buffs.Boss
             player.controlUseTile = false;
             player.controlHook = false;
             player.releaseHook = true;
+            player.RemoveAllGrapplingHooks();
             if (player.mount.Active)
                 player.mount.Dismount(player);
             player.FargoSouls().Stunned = true;
@@ -46,7 +49,8 @@ namespace FargowiltasSouls.Content.Buffs.Boss
 
             if (Collision.SolidCollision(player.position + player.velocity, player.width, player.height))
             {
-                player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.CoffinToss", player.name)), 35, 0, false, false, 0, false);
+                int damage = 35;
+                player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.CoffinToss", player.name)), damage, 0, false, false, 0, false);
                 player.DelBuff(buffIndex);
                 SoundEngine.PlaySound(SoundID.NPCHit18, player.Center);
                 player.velocity *= -1;
