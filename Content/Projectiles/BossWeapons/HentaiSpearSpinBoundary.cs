@@ -92,10 +92,10 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             {
                 //Projectile.localAI[1] += Projectile.direction;
 
-                if (--Projectile.localAI[0] < 0)
+                if (++Projectile.localAI[0] > 5)
                 {
                     SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
-                    Projectile.localAI[0] = 10;
+                    Projectile.localAI[0] = -5;
                     for (int j = -1; j <= 1; j += 2)
                     {
                         const int max = 8;
