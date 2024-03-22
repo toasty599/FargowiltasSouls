@@ -156,7 +156,6 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
                 //necessary because calameme
                 int damage = Math.Max(75, FargoSoulsUtil.ScaledProjectileDamage(npc.damage));
-                damage /= 4;
 
                 switch ((int)npc.ai[0])
                 {
@@ -260,7 +259,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                     if (EnteredPhase2) //vortex lightning
                                     {
                                         Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, Main.rand.NextVector2Square(-15, 15), ModContent.ProjectileType<CultistVortex>(),
-                                          damage / 15 * 6, 0, Main.myPlayer, 0f, cultistCount);
+                                          damage * 6 / 15, 0, Main.myPlayer, 0f, cultistCount);
                                         cultistCount++;
                                     }
                                     else //aimed lightning
@@ -271,13 +270,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                             float ai1New = Main.rand.Next(100);
                                             Vector2 vel = Vector2.Normalize(dir.RotatedByRandom(Math.PI / 4)) * 24f;
                                             Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, vel, ModContent.ProjectileType<HostileLightning>(),
-                                                damage / 15 * 6, 0, Main.myPlayer, dir.ToRotation(), ai1New);
+                                                damage * 6 / 15, 0, Main.myPlayer, dir.ToRotation(), ai1New);
                                         }
                                         else
                                         {
                                             Vector2 vel = Main.npc[i].DirectionTo(Main.player[npc.target].Center).RotatedByRandom(MathHelper.ToRadians(5));
                                             vel *= Main.rand.NextFloat(4f, 6f);
-                                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage / 15 * 6, 0, Main.myPlayer);
+                                            Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, vel, ModContent.ProjectileType<LightningVortexHostile>(), damage * 6 / 15, 0, Main.myPlayer);
                                         }
                                     }
                                 }
@@ -308,7 +307,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
                                 for (int i = 0; i < Main.maxNPCs; i++)
                                 {
                                     if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone)
-                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, Vector2.Zero, ProjectileID.NebulaSphere, damage / 15 * 6, 0f, Main.myPlayer);
+                                        Projectile.NewProjectile(npc.GetSource_FromThis(), Main.npc[i].Center, Vector2.Zero, ProjectileID.NebulaSphere, damage * 6 / 15, 0f, Main.myPlayer);
                                 }
                             }
                         }

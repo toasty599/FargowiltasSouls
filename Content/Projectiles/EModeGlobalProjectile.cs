@@ -1352,6 +1352,12 @@ namespace FargowiltasSouls.Content.Projectiles
                 target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 180);
             }
 
+            if (FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.cultBoss, NPCID.CultistBoss)
+                && target.Distance(Main.npc[EModeGlobalNPC.cultBoss].Center) < 2400)
+            {
+                target.AddBuff(ModContent.BuffType<CurseoftheMoonBuff>(), 180);
+            }
+
             //if (sourceNPC is NPC && sourceNPC.ModNPC is MutantBoss)
             //    target.AddBuff(ModContent.BuffType<MutantFang>(), 180);
 

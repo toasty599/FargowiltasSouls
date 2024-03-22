@@ -102,3 +102,10 @@ ftw mutant
 	added 2 more pillars
 	unnerfed homing eyes
 	always does a lot more direct spear tosses
+
+fixed mutant sword chain blast ignoring trans proj
+maso cultist pillars spawn phantasm dragons
+fixed cultist doing COMICALLY low damage (almost all his new attacks did x0.25 their intended damage????)
+cultist all attacks inflict 3sec curse of the moon
+fixed trojan squirrel dropping an extra squirrel hook when killed for first time
+replaced wof eye visual when invincible

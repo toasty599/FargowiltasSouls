@@ -189,6 +189,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             for (int i = 0; i < MUTANT_SWORD_MAX; i++)
             {
                 Color glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.9f);
+                glowcolor *= Projectile.Opacity;
                 float increment = MathHelper.Lerp(1f, 0.05f, (float)i / MUTANT_SWORD_MAX);
                 for (float j = 0; j < ProjectileID.Sets.TrailCacheLength[Projectile.type]; j += increment) //reused betsy fireball scaling trail thing
                 {
@@ -213,6 +214,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             for (int i = -1; i <= 1; i += 2)
             {
                 Color glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.9f);
+                glowcolor *= Projectile.Opacity;
                 float increment = MathHelper.Lerp(1f, 0.05f, (float)i / MUTANT_SWORD_MAX);
                 for (float j = 0; j < ProjectileID.Sets.TrailCacheLength[Projectile.type]; j += increment) //reused betsy fireball scaling trail thing
                 {
