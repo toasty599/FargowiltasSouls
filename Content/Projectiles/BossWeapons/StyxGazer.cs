@@ -215,7 +215,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 
             // This allows the drawing to be pushed back, which is needed due to the shader fading in at the start to avoid
             // sharp lines.
-            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 150f;
+            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 150f / 2f;
             Vector2[] baseDrawPoints = new Vector2[8];
             for (int i = 0; i < baseDrawPoints.Length; i++)
                 baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
@@ -223,7 +223,7 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             // Set shader parameters. This one takes a fademap and a color.
 
             // The laser should fade to this in the middle.
-            Color brightColor = new(252, 252, 192, 100);
+            Color brightColor = Color.Black;
             shader.SetMainColor(brightColor);
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
             Texture2D fademap = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Trails/WillStreak").Value;

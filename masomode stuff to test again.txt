@@ -109,3 +109,4 @@ fixed cultist doing COMICALLY low damage (almost all his new attacks did x0.25 t
 cultist all attacks inflict 3sec curse of the moon
 fixed trojan squirrel dropping an extra squirrel hook when killed for first time
 replaced wof eye visual when invincible
+styx gazer visual updated again

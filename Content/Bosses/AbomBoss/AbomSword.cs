@@ -140,9 +140,9 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     }
                 }
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 15; i++)
                 {
-                    int d = Dust.NewDust(Projectile.position + Projectile.velocity * Main.rand.NextFloat(3000), Projectile.width, Projectile.height, DustID.GemTopaz, 0f, 0f, 0, Color.White, 6f);
+                    int d = Dust.NewDust(Projectile.position + Projectile.velocity * Main.rand.NextFloat(2000), Projectile.width, Projectile.height, DustID.GemTopaz, 0f, 0f, 0, default, 1.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 4f;
                 }
@@ -158,79 +158,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 }
             }
         }
-        //attempted visual rework. does some fire shit. idk
-        /*
-        const int FireTextures = 1000;
-        Vector2[] FirePositions = new Vector2[FireTextures];
-        int[] FireFrames = new int[FireTextures];
-        float[] FireRotations = new float[FireTextures];
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Texture2D fireTexture = ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/AbomBoss/AbomSwordFire", AssetRequestMode.ImmediateLoad).Value;
-            const int FrameCount = 5;
-
-            float rayLength = Projectile.localAI[1];
-            float rayWidth = 22f * Projectile.scale * hitboxModifier / 2;
-            int travelFrames = 80;
-
-            Vector2 endPos = Projectile.Center + Projectile.velocity * rayLength;
-            int allowedNewFires = FireTextures / travelFrames;
-            int newFires = 0;
-            for (int i = 0; i < FireTextures; i++)
-            {
-                bool newFire = FirePositions[i].X > rayLength || FirePositions[i].X == 0 || FireFrames[i] == 0;
-                
-                if (newFire)
-                {
-                    if (newFires >= allowedNewFires)
-                        continue;
-
-                    FireFrames[i] = Main.rand.Next(FrameCount) + 1;
-                    float fireSpawnWidth = (rayWidth / 2) - fireTexture.Width / 3;
-                    FirePositions[i].X = Main.rand.NextFloat(0, rayLength / travelFrames) / 2;
-                    FirePositions[i].Y = Main.rand.NextFloat(-fireSpawnWidth, fireSpawnWidth) / 2;
-                    FireRotations[i] = Main.rand.NextFloat(MathHelper.TwoPi);
-                    newFires++;
-                }
-
-                FirePositions[i].X += rayLength * (1f / travelFrames);
-                int rotationDirection = (rayWidth / 2) > FirePositions[i].Y ? 1 : -1;
-                FireRotations[i] += rotationDirection * MathHelper.TwoPi / 20f;
-
-                Color color;
-                float lengthProgress = FirePositions[i].X / rayLength;
-                float widthProgress = Math.Abs(FirePositions[i].Y - (rayWidth / 2)) / rayWidth;
-
-                const float lerp1 = 0.2f;
-                const float lerp2 = 0.5f;
-                if (lengthProgress < lerp1)
-                {
-                    float Ylerp = lengthProgress / lerp1;
-                    color = Color.Lerp(Color.White, Color.Orange, Ylerp);
-                }
-                else if (lengthProgress < lerp2)
-                {
-                    float Ylerp = (lengthProgress - lerp1) / lerp2;
-                    color = Color.Lerp(Color.Orange, Color.Red, Ylerp);
-                }
-                else
-                {
-                    float Ylerp = (lengthProgress - lerp1 - lerp2) / 1f;
-                    color = Color.Lerp(Color.Red, Color.DarkRed, Ylerp);
-                }
-                float Xlerp = widthProgress / 3f;
-                color = Color.Lerp(color, Color.DarkRed, Xlerp);
-
-                Vector2 dir = Vector2.Normalize(Projectile.velocity);
-                Vector2 drawPos = Projectile.Center - Main.screenPosition + FirePositions[i].RotatedBy(dir.ToRotation());
-                int frameHeight = fireTexture.Height / FrameCount;
-                Rectangle rectangle = new(0, (FireFrames[i] - 1) * frameHeight, fireTexture.Width, frameHeight);
-                Main.EntitySpriteDraw(fireTexture, drawPos, rectangle, color, FireRotations[i], fireTexture.Size() / 2, Projectile.scale, SpriteEffects.None);
-
-            }
-            return false;
-        }
-        */
+        
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.velocity.X = target.Center.X < Main.npc[(int)Projectile.ai[1]].Center.X ? -15f : 15f;
@@ -270,7 +198,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
             // This allows the drawing to be pushed back, which is needed due to the shader fading in at the start to avoid
             // sharp lines.
-            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 150f;
+            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 150f / 2f;
             Vector2[] baseDrawPoints = new Vector2[8];
             for (int i = 0; i < baseDrawPoints.Length; i++)
                 baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
@@ -278,7 +206,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             // Set shader parameters. This one takes a fademap and a color.
 
             // The laser should fade to this in the middle.
-            Color brightColor = new(252, 252, 192, 100);
+            Color brightColor = Color.Black;
             shader.SetMainColor(brightColor);
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
             Texture2D fademap = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Trails/WillStreak").Value;
