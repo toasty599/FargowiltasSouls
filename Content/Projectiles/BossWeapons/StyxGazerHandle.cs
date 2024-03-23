@@ -172,8 +172,19 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
             Texture2D fademap = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Trails/WillStreak").Value;
             FargoSoulsUtil.SetTexture1(fademap);
+            for (int j = 0; j < 2; j++)
+            {
+                LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);
 
-            LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);
+                for (int i = 0; i < baseDrawPoints.Length / 2; i++)
+                {
+                    Vector2 temp = baseDrawPoints[i];
+                    int swap = baseDrawPoints.Length - 1 - i;
+                    baseDrawPoints[i] = baseDrawPoints[swap];
+                    baseDrawPoints[swap] = temp;
+                }
+                LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);
+            }
             return false;
         }
     }

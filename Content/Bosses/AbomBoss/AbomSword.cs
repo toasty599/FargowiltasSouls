@@ -198,7 +198,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
             // This allows the drawing to be pushed back, which is needed due to the shader fading in at the start to avoid
             // sharp lines.
-            Vector2 initialDrawPoint = Projectile.Center - Projectile.velocity * 150f / 2f;
+            Vector2 initialDrawPoint = Projectile.Center;
             Vector2[] baseDrawPoints = new Vector2[8];
             for (int i = 0; i < baseDrawPoints.Length; i++)
                 baseDrawPoints[i] = Vector2.Lerp(initialDrawPoint, laserEnd, i / (float)(baseDrawPoints.Length - 1f));
@@ -211,8 +211,19 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             // GameShaders.Misc["FargoswiltasSouls:MutantDeathray"].UseImage1(); cannot be used due to only accepting vanilla paths.
             Texture2D fademap = ModContent.Request<Texture2D>("FargowiltasSouls/Assets/ExtraTextures/Trails/WillStreak").Value;
             FargoSoulsUtil.SetTexture1(fademap);
+            for (int j = 0; j < 2; j++)
+            {
+                LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);
 
-            LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);
+                for (int i = 0; i < baseDrawPoints.Length / 2; i++)
+                {
+                    Vector2 temp = baseDrawPoints[i];
+                    int swap = baseDrawPoints.Length - 1 - i;
+                    baseDrawPoints[i] = baseDrawPoints[swap];
+                    baseDrawPoints[swap] = temp;
+                }
+                LaserDrawer.DrawPrims(baseDrawPoints.ToList(), -Main.screenPosition, 30);
+            }
             return false;
         }
     }
