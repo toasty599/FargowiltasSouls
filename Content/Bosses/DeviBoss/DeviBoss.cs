@@ -115,8 +115,8 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             NPC.height = 120;
             if (Main.getGoodWorld)
             {
-                NPC.width = 22;
-                NPC.height = 44;
+                NPC.width = Player.defaultWidth;
+                NPC.height = Player.defaultHeight;
             }
             NPC.damage = 64;
             NPC.defense = 10;

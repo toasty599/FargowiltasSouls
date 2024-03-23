@@ -80,6 +80,11 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         {
             NPC.width = 120;
             NPC.height = 120;
+            if (Main.getGoodWorld)
+            {
+                NPC.width = Player.defaultWidth;
+                NPC.height = Player.defaultHeight;
+            }
             NPC.damage = 240;
             NPC.defense = 80;
             NPC.lifeMax = 750000;
