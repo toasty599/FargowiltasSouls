@@ -100,10 +100,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                         SHADOWMUTANTREAL = 0.75f;
 
                     if (npc.ai[1] > 150 && WorldSavingSystem.MasochistModeReal && Main.getGoodWorld)
-                    {
                         Cake = true;
-                        SHADOWMUTANTREAL = 1f;
-                    }
                 }
 
                 Projectile.localAI[1] = sansEye ? MathHelper.Lerp(Projectile.localAI[1], 1f, 0.05f) : 0; //for rotation of sans eye
