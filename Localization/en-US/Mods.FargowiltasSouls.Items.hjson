@@ -3396,5 +3396,9 @@ TogglerIconItem: {
 
 RazorContainer: {
 	DisplayName: Razor Container
-	Tooltip: Spawns 2? razor blades that hover around you. Hit them with a melee attack to send them flying dealing extra damage
+	Tooltip:
+		'''
+		Spawns 2? razor blades that hover around you. Hit them with a melee attack to send them flying dealing extra damage
+		'Some yellow fur is still stuck at the bottom' 
+		'''
 }

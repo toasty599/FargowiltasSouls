@@ -12,10 +12,10 @@ namespace FargowiltasSouls.Content.Patreon.Potato
 {
     public class RazorContainer : PatreonModItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
+        //public override bool IsLoadingEnabled(Mod mod)
+        //{
+        //    return false;
+        //}
 
         public override void SetStaticDefaults()
         {
@@ -38,10 +38,10 @@ namespace FargowiltasSouls.Content.Patreon.Potato
 
 
             //spawn 2 blades if none exist
-            //if (player.ownedProjectileCounts[ModContent.ProjectileType<RazorBlade>()] < 2)
-            //{
-            //    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, new Vector2(Main.rand.Next(-2, 2), -2), ModContent.ProjectileType<RazorBlade>(), 20, 2f, player.whoAmI);
-            //}
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<RazorBlade>()] < 1)
+            {
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, new Vector2(Main.rand.Next(-2, 2), -2), ModContent.ProjectileType<RazorBlade>(), 20, 2f, player.whoAmI);
+            }
         }
 
         public override void AddRecipes()

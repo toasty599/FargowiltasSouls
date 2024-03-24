@@ -39,7 +39,7 @@ namespace FargowiltasSouls.Core.Systems
         }
         public override void PreUpdateWorld()
         {
-            Main.NewText("pyramid pos: " + PyramidLocation.X + " " + PyramidLocation.Y + " your pos: " + Main.LocalPlayer.Bottom.ToTileCoordinates().X + " " + Main.LocalPlayer.Bottom.ToTileCoordinates().Y);
+            //Main.NewText("pyramid pos: " + PyramidLocation.X + " " + PyramidLocation.Y + " your pos: " + Main.LocalPlayer.Bottom.ToTileCoordinates().X + " " + Main.LocalPlayer.Bottom.ToTileCoordinates().Y);
         }
         // Makes a Dunes biome and designates a Pyramid spot in it
         public static void GenerateDunesWithPyramid()
