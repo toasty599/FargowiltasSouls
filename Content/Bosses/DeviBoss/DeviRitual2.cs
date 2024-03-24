@@ -92,7 +92,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
 
             for (int x = 0; x < 9; x++)
             {
-                Vector2 drawOffset = new Vector2(threshold * Projectile.scale / 2f, 0f).RotatedBy(Projectile.ai[0]);
+                Vector2 drawOffset = new Vector2(threshold / (Main.getGoodWorld ? 2 : 1) * Projectile.scale / 2f, 0f).RotatedBy(Projectile.ai[0]);
                 float rotation = 2f * PI / 9f * x;
                 drawOffset = drawOffset.RotatedBy(rotation);
                 Main.EntitySpriteDraw(texture2D13, Projectile.Center + drawOffset - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color26, rotation + Projectile.ai[0] + (float)Math.PI / 2, origin2, Projectile.scale, SpriteEffects.None, 0);

@@ -35,7 +35,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
     {
         public bool playerInvulTriggered;
         private bool droppedSummon = false;
-        public int ritualProj, ringProj, spriteProj, ritualProjMaso;
+        public int ritualProj, ringProj, spriteProj, ritualProjMaso, ritualProjFTW;
 
         string TownNPCName;
 
@@ -80,6 +80,11 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
         {
             NPC.width = 120;
             NPC.height = 120;
+            if (Main.getGoodWorld)
+            {
+                NPC.width = Player.defaultWidth;
+                NPC.height = Player.defaultHeight;
+            }
             NPC.damage = 240;
             NPC.defense = 80;
             NPC.lifeMax = 750000;
@@ -201,6 +206,9 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
                 if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.ProjectileExists(ritualProjMaso, ModContent.ProjectileType<AbomRitualMaso>()) == null)
                     ritualProjMaso = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitualMaso>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
+
+                if (Main.getGoodWorld && NPC.localAI[3] == 2 && FargoSoulsUtil.ProjectileExists(ritualProjFTW, ModContent.ProjectileType<AbomRitualFTW>()) == null)
+                    ritualProjFTW = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitualFTW>(), FargoSoulsUtil.ScaledProjectileDamage(NPC.damage), 0f, Main.myPlayer, 0f, NPC.whoAmI);
 
                 if (FargoSoulsUtil.ProjectileExists(ringProj, ModContent.ProjectileType<AbomRitual2>()) == null)
                     ringProj = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<AbomRitual2>(), 0, 0f, Main.myPlayer, 0f, NPC.whoAmI);

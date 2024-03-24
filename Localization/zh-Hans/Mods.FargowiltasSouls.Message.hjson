@@ -4,8 +4,10 @@ WorldUpdatingSystem: {
 	EternityOn: 永恒模式已开启!
 	EternityOff: 永恒模式已关闭。
 	EternityWrongDifficulty: 难度过低，永恒模式已关闭……
+	// EternityMasterWarning: Warning! Eternity not designed for use with Master; Expert recommended!
 	MasochistOn: 大师模式与永恒模式结合：受虐模式已开启！！
 	MasochistOnZenith: 大师模式与天顶种子结合：受虐模式已开启！！
+	// MasochistFTWWarning: Masochist and FTW combined!! [c/FF0000:This mode is extremely difficult!!] Proceed at own risk!
 	MasochistOff: 受虐模式已关闭。
 	BloodMoonCancel: 血月改变了主意，溜了溜了……
 }

@@ -158,7 +158,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
         public PrimDrawer LaserDrawer { get; private set; } = null;
 
-        public float WidthFunction(float _) => Projectile.width * Projectile.scale * 3;
+        public float WidthFunction(float _) => Projectile.width * Projectile.scale * 2;
 
         public static Color ColorFunction(float _) => new(253, 254, 32, 100);
 

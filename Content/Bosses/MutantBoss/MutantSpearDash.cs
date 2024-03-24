@@ -29,7 +29,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             if (WorldSavingSystem.MasochistModeReal && npc is NPC)
             {
-                int totalHealPerHit = (int)Math.Round(npc.lifeMax / 100 * 7.5);
+                int totalHealPerHit = npc.lifeMax / 100 * 5;
 
                 const int max = 20;
                 for (int i = 0; i < max; i++)
@@ -193,7 +193,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.getGoodWorld)
+            if (Main.zenithWorld)
                 TryLifeSteal(target.Center, Main.myPlayer);
         }
 

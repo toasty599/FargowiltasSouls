@@ -133,7 +133,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.getGoodWorld)
+            if (Main.zenithWorld)
                 TryLifeSteal(target.Center, Main.myPlayer);
         }
 

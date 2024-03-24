@@ -103,6 +103,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             NPC.width = 120;//34;
             NPC.height = 120;//50;
+            if (Main.getGoodWorld)
+            {
+                NPC.width = Player.defaultWidth;
+                NPC.height = Player.defaultHeight;
+            }
             NPC.damage = 444;
             NPC.defense = 255;
             NPC.value = Item.buyPrice(7);
