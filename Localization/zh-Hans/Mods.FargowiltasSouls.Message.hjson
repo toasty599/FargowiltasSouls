@@ -7,7 +7,7 @@ WorldUpdatingSystem: {
 	// EternityMasterWarning: Warning! Eternity not designed for use with Master; Expert recommended!
 	MasochistOn: 大师模式与永恒模式结合：受虐模式已开启！！
 	MasochistOnZenith: 大师模式与天顶种子结合：受虐模式已开启！！
-	// MasochistFTWWarning: Masochist and FTW combined!! [c/FF0000:This mode is extremely difficult!!] Proceed at own risk!
+	// MasochistFTWWarning: Masochist and FTW combined! This mode is [c/FF0000:extremely] difficult!! Proceed at your own risk!
 	MasochistOff: 受虐模式已关闭。
 	BloodMoonCancel: 血月改变了主意，溜了溜了……
 }

@@ -29,9 +29,6 @@ namespace FargowiltasSouls.Content.Patreon.Potato
 
         public override void AI()
         {
-            //Main.NewText(Projectile.ai[0] +  " " + Projectile.ai[1]);
-            Main.NewText(1 + " " + Projectile.Center + " " + Main.MouseWorld);
-
             Player player = Main.player[Projectile.owner];
 
             if (player.dead || !player.GetModPlayer<PatreonPlayer>().RazorContainer)
@@ -47,28 +44,10 @@ namespace FargowiltasSouls.Content.Patreon.Potato
                 //default, follow mouse, but limited radius around player
                 case 0:
 
-
-                    //int mouseDistance = (int)Vector2.Distance(Projectile.Center, Main.MouseWorld);
-
-                    //if (mouseDistance > 1)
-                    //{
-                    //    Projectile.velocity = Vector2.Normalize(Main.MouseWorld - Projectile.Center) * 20;
-                    //}
-                    //else
-                    //{
-                    //    Projectile.velocity = Vector2.Zero;
-                    //}
-
-
                     Projectile.Center = Main.MouseWorld;
-
-                    
-                    
-
+                    Projectile.velocity = Vector2.Zero;
 
                     int distance = (int)Vector2.Distance(Projectile.Center, player.Center);
-
-                    Main.NewText(2 + " " + Projectile.Center + " " + Main.MouseWorld + " " + distance);
 
                     if (distance > MaxDistance)
                     {
@@ -97,9 +76,6 @@ namespace FargowiltasSouls.Content.Patreon.Potato
 
                     break;
             }
-
-            Main.NewText(3 + " " + Projectile.Center + " " + Main.MouseWorld);
-
         }
 
         public virtual Asset<Texture2D> ChainTexture => ModContent.Request<Texture2D>("FargowiltasSouls/Content/Patreon/Potato/RazorChain");
@@ -148,6 +124,16 @@ namespace FargowiltasSouls.Content.Patreon.Potato
             }
 
             return true;
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            //bonus dmg when being launched
+            if (Projectile.ai[0] == 1)
+            {
+                modifiers.SetCrit();
+                modifiers.ArmorPenetration += 10;
+            }
         }
     }
 }

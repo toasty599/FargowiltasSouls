@@ -323,8 +323,6 @@ namespace FargowiltasSouls.Core.ModPlayers
                         projectile.velocity = velocity;
                         projectile.ai[0] = 1;
                         projectile.ai[1] = 0;
-
-                        Main.NewText("REAL");
                     }
                 }
 
