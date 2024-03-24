@@ -120,3 +120,5 @@ reverted how much mutant lifesteals from 7.5 to 5 since he heals a lot more than
 mutant lifesteal from npcs is gfb not ftw
 added a trail to skeletron's baby guardian and bone attacks for visual clarity
 restored mutant's true eye pupils
+added warning message for eternity master (when it doesnt trigger maso)
+added warning message for maso ftw

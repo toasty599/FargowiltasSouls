@@ -4,8 +4,10 @@ WorldUpdatingSystem: {
 	EternityOn: Eternity Mode activated!
 	EternityOff: Eternity Mode deactivated.
 	EternityWrongDifficulty: Difficulty too low, Eternity Mode deactivated...
+	EternityMasterWarning: Warning! Eternity not designed for use with Master; Expert recommended!
 	MasochistOn: Master and Eternity combined: Masochist Mode activated!!
 	MasochistOnZenith: Master and Zenith seed combined: Masochist Mode activated!!
+	MasochistFTWWarning: Masochist and FTW combined!! [c/FF0000:This mode is extremely difficult!!] Proceed at own risk!
 	MasochistOff: Masochist Mode deactivated.
 	BloodMoonCancel: The Blood Moon changed its mind and left...
 }
