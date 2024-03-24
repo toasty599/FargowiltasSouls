@@ -118,3 +118,5 @@ all siblings have reduced hitboxes in ftw
 
 reverted how much mutant lifesteals from 7.5 to 5 since he heals a lot more than stated
 mutant lifesteal from npcs is gfb not ftw
+added a trail to skeletron's baby guardian and bone attacks for visual clarity
+restored mutant's true eye pupils
