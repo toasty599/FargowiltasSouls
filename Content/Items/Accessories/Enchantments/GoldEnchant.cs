@@ -25,6 +25,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
             Item.value = 150000;
         }
 
+        public override void UpdateInventory(Player player)
+        {
+            player.AddEffect<GoldToPiggy>(Item);
+        }
+        public override void UpdateVanity(Player player)
+        {
+            player.AddEffect<GoldToPiggy>(Item);
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.AddEffect<GoldEffect>(Item);

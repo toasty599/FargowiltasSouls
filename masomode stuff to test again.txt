@@ -116,9 +116,10 @@ ftw devi boss is chibi
 ftw abom has a 3rd arena in p2
 all siblings have reduced hitboxes in ftw
 
-reverted how much mutant lifesteals from 7.5 to 5 since he heals a lot more than stated
+reverted mutant base lifesteal from 7.5 to 5 since he heals a lot more than stated
 mutant lifesteal from npcs is gfb not ftw
 added a trail to skeletron's baby guardian and bone attacks for visual clarity
 restored mutant's true eye pupils
 added warning message for eternity master (when it doesnt trigger maso)
 added warning message for maso ftw
+gold ench piggy effect is passive from inv
