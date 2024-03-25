@@ -123,3 +123,4 @@ restored mutant's true eye pupils
 added warning message for eternity master (when it doesnt trigger maso)
 added warning message for maso ftw
 gold ench piggy effect is passive from inv
+fixed freezes turning off abom presence

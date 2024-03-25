@@ -177,7 +177,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             }
         }
 
-        public override void AI()
+        public override bool PreAI()
         {
             EModeGlobalNPC.abomBoss = NPC.whoAmI;
 
@@ -266,6 +266,11 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 }
             }
 
+            return base.PreAI();
+        }
+
+        public override void AI()
+        {
             Player player = Main.player[NPC.target];
             NPC.direction = NPC.spriteDirection = NPC.Center.X < player.Center.X ? 1 : -1;
             Vector2 targetPos;
