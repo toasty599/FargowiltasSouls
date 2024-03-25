@@ -537,7 +537,7 @@ namespace FargowiltasSouls.Core.ModPlayers
             {
                 if (WorldSavingSystem.MasochistModeReal && FargoSoulsUtil.BossIsAlive(ref EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>()) && EModeGlobalNPC.mutantBoss.IsWithinBounds(Main.maxNPCs))
                 {
-                    if (info.Damage > 1)
+                    if (!Player.HasBuff(ModContent.BuffType<TimeFrozenBuff>()))
                     {
                         The22Incident++;
                         Rectangle rect = new Rectangle((int)Player.Center.X - 111, (int)Player.Center.Y, 222, 222);
