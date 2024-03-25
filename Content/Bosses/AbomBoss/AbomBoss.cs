@@ -266,6 +266,40 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                 }
             }
 
+            if (NPC.localAI[3] == 2) //in phase 2
+            {
+                Music = MusicID.OtherworldlyPlantera;
+                bool foundMod = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod);
+                if (foundMod)
+                {
+                    if (FargoSoulsUtil.AprilFools && musicMod.Version >= Version.Parse("0.1.5.1"))
+                        Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Gigachad");
+                    else if (musicMod.Version >= Version.Parse("0.1.5"))
+                        Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Laevateinn_P2");
+                    else
+                        Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma");
+                }
+
+                if (WorldSavingSystem.EternityMode)
+                {
+                    //because this breaks the background???
+                    if (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().Enabled)
+                        CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().SetPowerInfo(false);
+
+                    if (!SkyManager.Instance["FargowiltasSouls:AbomBoss"].IsActive())
+                        SkyManager.Instance.Activate("FargowiltasSouls:AbomBoss");
+
+                    Main.dayTime = true;
+                    Main.time = 27000; //noon
+
+                    Main.raining = false; //disable rain
+                    Main.rainTime = 0;
+                    Main.maxRaining = 0;
+
+                    Main.eclipse = true;
+                }
+            }
+
             return base.PreAI();
         }
 
@@ -313,6 +347,9 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                                         NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                                 }
                             }
+
+                            Main.eclipse = false;
+                            NetMessage.SendData(MessageID.WorldData);
                         }
                         NPC.life = 0;
                         NPC.dontTakeDamage = false;
@@ -360,25 +397,6 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 
                     if (++NPC.ai[1] > 120)
                     {
-                        Music = MusicID.OtherworldlyPlantera;
-                        bool foundMod = ModLoader.TryGetMod("FargowiltasMusic", out Mod musicMod);
-                        if (foundMod)
-                        {
-                            if (FargoSoulsUtil.AprilFools && musicMod.Version >= Version.Parse("0.1.5.1"))
-                                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Gigachad");
-                            else if (musicMod.Version >= Version.Parse("0.1.5"))
-                                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Laevateinn_P2");
-                            else
-                                Music = MusicLoader.GetMusicSlot(musicMod, "Assets/Music/Stigma");
-                        }
-
-                        //because this breaks the background???
-                        if (Main.GameModeInfo.IsJourneyMode && CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().Enabled)
-                            CreativePowerManager.Instance.GetPower<CreativePowers.FreezeTime>().SetPowerInfo(false);
-
-                        if (WorldSavingSystem.EternityMode && !SkyManager.Instance["FargowiltasSouls:AbomBoss"].IsActive())
-                            SkyManager.Instance.Activate("FargowiltasSouls:AbomBoss");
-
                         for (int i = 0; i < 5; i++)
                         {
                             int d = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemTopaz, 0f, 0f, 0, default, 1.5f);
@@ -1482,18 +1500,25 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
                     {
                         if (NPC.position.Y < 0)
                             NPC.position.Y = 0;
-                        if (FargoSoulsUtil.HostCheck && ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
+                        if (FargoSoulsUtil.HostCheck)
                         {
                             FargoSoulsUtil.ClearHostileProjectiles(2, NPC.whoAmI);
-                            int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);
-                            if (n != Main.maxNPCs)
+
+                            if (ModContent.TryFind("Fargowiltas", "Abominationn", out ModNPC modNPC) && !NPC.AnyNPCs(modNPC.Type))
                             {
-                                Main.npc[n].homeless = true;
-                                if (TownNPCName != default)
-                                    Main.npc[n].GivenName = TownNPCName;
-                                if (Main.netMode == NetmodeID.Server)
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, modNPC.Type);
+                                if (n != Main.maxNPCs)
+                                {
+                                    Main.npc[n].homeless = true;
+                                    if (TownNPCName != default)
+                                        Main.npc[n].GivenName = TownNPCName;
+                                    if (Main.netMode == NetmodeID.Server)
+                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
+                                }
                             }
+
+                            Main.eclipse = false;
+                            NetMessage.SendData(MessageID.WorldData);
                         }
                     }
                     return false;
