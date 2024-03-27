@@ -199,6 +199,16 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             AuraCenter = NPC.Center;
         }
 
+        public override bool PreAI()
+        {
+            if (WorldSavingSystem.MasochistModeReal && !Main.dedServ)
+            {
+                if (!Main.LocalPlayer.ItemTimeIsZero && (Main.LocalPlayer.HeldItem.type == ItemID.RodofDiscord || Main.LocalPlayer.HeldItem.type == ItemID.RodOfHarmony))
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), 600);
+            }
+            return base.PreAI();
+        }
+
         public override void AI()
         {
             EModeGlobalNPC.mutantBoss = NPC.whoAmI;
