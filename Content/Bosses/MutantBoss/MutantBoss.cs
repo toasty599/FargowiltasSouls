@@ -59,7 +59,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         string TownNPCName;
 
-        public const int HyperMax = 5;
+        public const int HyperMax = 6;
 
         public override void SetStaticDefaults()
         {
@@ -378,7 +378,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 int time = 480 + 240 + 420 + 480 + 1020 - 60;
                 if (WorldSavingSystem.MasochistModeReal)
-                    time = Main.getGoodWorld ? 5000 : 4350;
+                    time = Main.getGoodWorld ? 4920 : 4350;
                 int drain = NPC.lifeMax / time;
                 NPC.life -= drain;
                 if (NPC.life < 1)
