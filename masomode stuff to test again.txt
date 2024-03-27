@@ -125,3 +125,5 @@ added warning message for maso ftw
 gold ench piggy effect is passive from inv
 fixed freezes turning off abom presence
 abom p2 forces eclipse (turns it off when killed/despawn)
+
+disabled timestop freezing other players in mp since it doesnt work

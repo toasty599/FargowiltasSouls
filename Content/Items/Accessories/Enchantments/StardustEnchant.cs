@@ -92,14 +92,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Enchantments
                         Main.WaveQuality = 1;
                 }
 
-                for (int i = 0; i < Main.maxPlayers; i++)
+                /*for (int i = 0; i < Main.maxPlayers; i++)
                 {
                     Player p = Main.player[i];
                     if (p.active && !p.dead && !p.ghost && !p.HasEffect<StardustEffect>())
                     {
                         p.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), modPlayer.freezeLength);
                     }
-                }
+                }*/
 
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
