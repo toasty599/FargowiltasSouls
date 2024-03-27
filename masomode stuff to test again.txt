@@ -128,3 +128,4 @@ abom p2 forces eclipse (turns it off when killed/despawn)
 
 disabled timestop freezing other players in mp since it doesnt work
 maso mutant timestops you if you rod
+fixed adam ench working on snow/frost ench

@@ -108,8 +108,7 @@ There is a 60 second cooldown for this effect
                     for (int i = 0; i < modPlayer.IcicleCount; i++)
                     {
                         float radians = 360f / modPlayer.IcicleCount * i * (float)(Math.PI / 180);
-                        Projectile frost = FargoSoulsUtil.NewProjectileDirectSafe(GetSource_EffectItem(player), player.Center, Vector2.Zero, type, 0, 0f, player.whoAmI, 5, radians);
-                        frost.netUpdate = true;
+                        FargoSoulsUtil.NewProjectileDirectSafe(GetSource_EffectItem(player), player.Center, Vector2.Zero, type, 0, 0f, player.whoAmI, 5, radians);
                     }
 
                     float dustScale = 1.5f;
