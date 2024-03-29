@@ -3591,11 +3591,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 float newRotation = NPC.DirectionTo(Main.player[NPC.target].Center).ToRotation();
                 float difference = MathHelper.WrapAngle(newRotation - NPC.ai[3]);
                 float rotationDirection = 2f * (float)Math.PI * 1f / 6f / 60f;
-                rotationDirection *= useMasoSpeed ? 1.1f : 1f;
+                rotationDirection *= useMasoSpeed && !Main.getGoodWorld ? 1.1f : 1f;
                 float change = Math.Min(rotationDirection, Math.Abs(difference)) * Math.Sign(difference);
                 if (useMasoSpeed)
                 {
-                    change *= 1.1f;
+                    if (!Main.getGoodWorld)
+                        change *= 1.1f;
                     float angleLerp = NPC.ai[3].AngleLerp(newRotation, 0.015f) - NPC.ai[3];
                     if (Math.Abs(MathHelper.WrapAngle(angleLerp)) > Math.Abs(MathHelper.WrapAngle(change)))
                         change = angleLerp;
