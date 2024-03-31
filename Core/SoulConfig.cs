@@ -32,6 +32,9 @@ namespace FargowiltasSouls.Core
         [DefaultValue(false)]
         public bool BigTossMode;
 
+        [DefaultValue(true)]
+        public bool ForcedFilters;
+
         #region maso
 
         [Header("Maso")]

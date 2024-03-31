@@ -150,7 +150,8 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             if (Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && VulnerabilityState >= 0 && VulnerabilityState <= 3)
                 Main.LocalPlayer.AddBuff(ModContent.BuffType<NullificationCurseBuff>(), 2);
 
-            npc.position -= npc.velocity * 2f / 3f; //SLOW DOWN
+            if (!(WorldSavingSystem.MasochistModeReal && Main.getGoodWorld))
+                npc.position -= npc.velocity * 2f / 3f; //SLOW DOWN
 
             if (npc.dontTakeDamage)
             {
@@ -642,6 +643,10 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             NPC core = FargoSoulsUtil.NPCExists(npc.ai[3], NPCID.MoonLordCore);
 
             if (core == null)
+                return true;
+
+            //EVIL EVIL EVIL change
+            if (WorldSavingSystem.MasochistModeReal && Main.getGoodWorld)
                 return true;
 
             if (!SpawnSynchronized && ++OnSpawnCounter > 2) //sync to other eyes of same core when spawned

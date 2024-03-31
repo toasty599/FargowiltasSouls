@@ -747,7 +747,7 @@ namespace FargowiltasSouls.Core.Globals
 
                         if (!surface)
                         {
-                            pool[NPCID.BigMimicJungle] = .0075f;
+                            pool[NPCID.BigMimicJungle] = .0015f;
 
                             if (NPC.downedGolemBoss && bossCanSpawn)
                                 pool[NPCID.Plantera] = .00005f;
@@ -761,15 +761,15 @@ namespace FargowiltasSouls.Core.Globals
 
                         if (NPC.downedPlantBoss)// && !spawnInfo.player.FargoSouls().SkullCharm)
                         {
-                            const float rate = .05f;
+                            const float rate = .01f;
                             pool[NPCID.BigMimicJungle] = rate;
 
-                            pool[NPCID.DiabolistRed] = rate / 6;
-                            pool[NPCID.DiabolistWhite] = rate / 6;
-                            pool[NPCID.Necromancer] = rate / 6;
-                            pool[NPCID.NecromancerArmored] = rate / 6;
-                            pool[NPCID.RaggedCaster] = rate / 6;
-                            pool[NPCID.RaggedCasterOpenCoat] = rate / 6;
+                            pool[NPCID.DiabolistRed] = rate / 2;
+                            pool[NPCID.DiabolistWhite] = rate / 2;
+                            pool[NPCID.Necromancer] = rate / 2;
+                            pool[NPCID.NecromancerArmored] = rate / 2;
+                            pool[NPCID.RaggedCaster] = rate / 2;
+                            pool[NPCID.RaggedCasterOpenCoat] = rate / 2;
                         }
                     }
 

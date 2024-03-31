@@ -45,7 +45,7 @@
 // CrimsonEffect: Crimson Healing
 // RainUmbrellaEffect: Rain Umbrella
 // RainInnerTubeEffect: Inner Tube
-// FrostEffect: Frost Icicles
+// SnowEffect: Freezing Snowballs
 // JungleJump: Jungle Jump and Spores
 // JungleDashEffect: Jungle Dash
 // MoltenEffect: Molten Inferno Buff
@@ -75,7 +75,7 @@
 // MeteorEffect: Meteor Shower
 // MeteorTrailEffect: Meteor Spark Trail
 // NebulaEffect: Nebula Boosters
-// SolarEffect: Solar Shield
+// SolarEffect: Solar Shield & Dash
 // SolarFlareEffect: Inflict Solar Flare
 // StardustMinionEffect: Stardust Guardian
 // VortexStealthEffect: Vortex Stealth

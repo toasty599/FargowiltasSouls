@@ -49,7 +49,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 Projectile.localAI[0] = 1f;
                 if (EModeGlobalNPC.fishBossEX != fishron.whoAmI)
                 {
-                    fishron.GetGlobalNPC<DukeFishron>().IsEX = true;
+                    //fishron.GetGlobalNPC<DukeFishron>().IsEX = true;
                     fishron.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.DukeFishronEX.DisplayName");
                     fishron.defDamage = (int)(fishron.defDamage * 1.5);
                     fishron.defDefense *= 2;
@@ -122,7 +122,11 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 while (fishron.buffType[0] != 0)
                     fishron.DelBuff(0);
 
-                fishron.lifeMax = (int)Projectile.ai[0] * 5000; //10;
+                //not spawned by ftw fishron
+                bool actuallyEX = Projectile.ai[2] == 0;
+
+                if (actuallyEX)
+                    fishron.lifeMax = (int)Projectile.ai[0] * 5000; //10;
                 if (fishron.lifeMax <= 0)
                     fishron.lifeMax = int.MaxValue;
                 int heal = /*9*/ /*49*/ /*499999*/ (int)(fishron.lifeMax / 30 /*10*/ * Main.rand.NextFloat(1f, 1.1f));

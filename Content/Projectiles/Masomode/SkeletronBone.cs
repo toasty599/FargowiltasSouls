@@ -18,6 +18,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Bone");
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -56,6 +58,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
 
             Texture2D texture = recolor ? ModContent.Request<Texture2D>("FargowiltasSouls/Content/Projectiles/Masomode/SkeletronBone_Recolor").Value : TextureAssets.Projectile[Type].Value;
+            FargoSoulsUtil.ProjectileWithTrailDraw(Projectile, Color.White * Projectile.Opacity, texture, additiveTrail: true);
             FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor, texture);
             return false;
         }

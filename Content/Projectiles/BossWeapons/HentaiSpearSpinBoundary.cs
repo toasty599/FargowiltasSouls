@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FargowiltasSouls.Content.Bosses.MutantBoss;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Humanizer.On;
 
 namespace FargowiltasSouls.Content.Projectiles.BossWeapons
 {
@@ -48,8 +50,6 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
                 return;
             }
 
-            player.velocity *= 0.9f; //move slower while holding it
-
             Vector2 ownerMountedCenter = player.RotatedRelativePoint(player.MountedCenter);
             Projectile.direction = player.direction;
             player.heldProj = Projectile.whoAmI;
@@ -67,19 +67,49 @@ namespace FargowiltasSouls.Content.Projectiles.BossWeapons
             player.itemRotation = Projectile.rotation;
             player.itemRotation = MathHelper.WrapAngle(player.itemRotation);
 
-            if (++Projectile.localAI[0] > 2)
+            if (Projectile.ai[2] == 0)
             {
-                SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
-                Projectile.localAI[0] = 0;
-                Projectile.localAI[1] += (float)Math.PI / 4 / 360 * ++Projectile.ai[1] * player.direction;
-                if (Projectile.localAI[1] > (float)Math.PI)
-                    Projectile.localAI[1] -= (float)Math.PI * 2;
-                if (Projectile.owner == Main.myPlayer)
+                if (++Projectile.localAI[0] > 2)
                 {
-                    for (int i = 0; i < 6; i++)
+                    SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
+                    Projectile.localAI[0] = 0;
+                    Projectile.localAI[1] += 2f * (float)Math.PI / 4 / 360 * ++Projectile.ai[1] * player.direction;
+                    if (Projectile.localAI[1] > (float)Math.PI)
+                        Projectile.localAI[1] -= (float)Math.PI * 2;
+                    if (Projectile.localAI[1] < (float)Math.PI)
+                        Projectile.localAI[1] += (float)Math.PI * 2;
+                    if (Projectile.owner == Main.myPlayer)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(0, -9f).RotatedBy(Projectile.localAI[1] + Math.PI / 3 * i),
-                            ModContent.ProjectileType<PhantasmalEyeBoundary>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(0, -9f).RotatedBy(Projectile.localAI[1] + Math.PI / 3 * i),
+                                ModContent.ProjectileType<PhantasmalEyeBoundary>(), Projectile.damage, Projectile.knockBack / 2, Projectile.owner);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Projectile.localAI[1] += Projectile.direction;
+
+                if (++Projectile.localAI[0] > 5)
+                {
+                    SoundEngine.PlaySound(SoundID.Item84, Projectile.Center);
+                    Projectile.localAI[0] = -5;
+                    for (int j = -1; j <= 1; j += 2)
+                    {
+                        const int max = 8;
+                        float rotation = 2f * (float)Math.PI / max;
+                        int type = ModContent.ProjectileType<HentaiSphereOkuu>();
+                        const float speed = 10;
+                        int damage = Projectile.damage;
+                        float offset = MathHelper.ToRadians(60) * Projectile.localAI[1] / 240;
+                        for (int i = 0; i < max; i++)
+                        {
+                            Vector2 vel = speed * Vector2.UnitY.RotatedBy(rotation * i + offset);
+                            if (Projectile.owner == Main.myPlayer)
+                                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, type, damage, Projectile.knockBack / 2, Projectile.owner, j, speed);
+                        }
                     }
                 }
             }

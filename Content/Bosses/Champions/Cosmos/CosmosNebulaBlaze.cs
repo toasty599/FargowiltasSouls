@@ -34,6 +34,9 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Cosmos
             Projectile.extraUpdates = 2;
             Projectile.scale = 1.5f;
             CooldownSlot = 1;
+
+            if (WorldSavingSystem.MasochistModeReal)
+                Projectile.FargoSouls().GrazeCheck = Projectile => false;
         }
 
         public override void AI() //vanilla code echprimebegone

@@ -1,3 +1,5 @@
+AbomBoss_April.DisplayName: Javyz Boss
+
 AbomBoss: {
 	DisplayName: Abominationn
 
@@ -142,6 +144,7 @@ DetonatingBubbleEX.DisplayName: Detonating Bubble
 GelatinSlime.DisplayName: Crystal Slime
 GelatinSubject.DisplayName: Gelatin Subject
 RoyalSubject.DisplayName: Royal Subject
+MutantBoss_April.DisplayName: Godkiller Yharim
 
 MutantBoss: {
 	DisplayName: Mutant
@@ -332,7 +335,6 @@ StardustMinion.DisplayName: Stardust Minion
 StardustDragon.DisplayName: Stardust Dragon
 SlimeSwarm.DisplayName: Slime Swarm
 Magmaw.DisplayName: Magmaw
-// currently not exist in game
 DukeFishronEX.DisplayName: Duke Fishron EX
 
 EMode: {

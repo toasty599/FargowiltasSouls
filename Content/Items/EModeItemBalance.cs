@@ -29,7 +29,6 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "RodofDiscord" };
                     return EModeChange.Nerf;
 
-
                 case ItemID.WaterBolt:
                     if (!NPC.downedBoss3)
                     {
@@ -99,7 +98,7 @@ namespace FargowiltasSouls.Content.Items
 
                case ItemID.StarCannon:
                     balanceTextKeys = new string[] { "Damage" };
-                    balanceNumber = 0.55f;
+                    balanceNumber = 0.6f;
                     return EModeChange.Nerf;
                 case ItemID.SuperStarCannon:
                     balanceTextKeys = new string[] { "SuperStarCannon" };
@@ -220,8 +219,19 @@ namespace FargowiltasSouls.Content.Items
                     }
 
                 case ItemID.CrossNecklace:
+                    balanceTextKeys = new string[] { "CrossNecklaceNerf" };
+                    return EModeChange.Nerf;
+                case ItemID.StarCloak:
+                    if (!Main.hardMode)
+                    {
+                        balanceTextKeys = new string[] { "StarCloak" };
+                        return EModeChange.Nerf;
+                    }
+                    return EModeChange.None;
                 case ItemID.StarVeil:
                     balanceTextKeys = new string[] { "CrossNecklaceNerf" };
+                    if (!Main.hardMode)
+                        balanceTextKeys = new string[] { "StarCloak" };
                     return EModeChange.Nerf;
 
                 #region Sword and Spear Reworks

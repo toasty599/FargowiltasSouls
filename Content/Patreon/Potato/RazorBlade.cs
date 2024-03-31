@@ -2,18 +2,19 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Patreon.Potato
 {
     public class RazorBlade : ModProjectile
     {
-
         public override void SetDefaults()
         {
-            Projectile.width = Player.defaultHeight / 2;
-            Projectile.height = Player.defaultHeight / 2;
+            Projectile.width = 28;
+            Projectile.height = 28;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
@@ -21,9 +22,10 @@ namespace FargowiltasSouls.Content.Patreon.Potato
             Projectile.timeLeft = 20; //
             Projectile.penetrate = -1;
             Projectile.FargoSouls().CanSplit = false;
+            Projectile.tileCollide = false;
         }
 
-        int MaxDistance = 200;
+        int MaxDistance = 100;
 
         public override void AI()
         {
@@ -35,25 +37,46 @@ namespace FargowiltasSouls.Content.Patreon.Potato
             }
 
             Projectile.timeLeft++;
+            Projectile.rotation += 0.3f;
 
-            //MaxDistance = 200;
-
-            int distance = (int)Vector2.Distance(Projectile.Center, player.Center);
-
-            //Main.NewText(distance + " "  + MaxDistance);
-
-            if (distance > MaxDistance)
+            switch (Projectile.ai[0])
             {
-                Vector2 velocity = Vector2.Normalize(player.Center - Projectile.Center) * 5;// * (2 + player.velocity.Length());
+                //default, follow mouse, but limited radius around player
+                case 0:
 
-                Projectile.velocity = velocity;
+                    Projectile.Center = Main.MouseWorld;
+                    Projectile.velocity = Vector2.Zero;
+
+                    int distance = (int)Vector2.Distance(Projectile.Center, player.Center);
+
+                    if (distance > MaxDistance)
+                    {
+                        Vector2 angle = Vector2.Normalize(Projectile.Center - player.Center);
+                        Projectile.Center = player.Center + (angle * MaxDistance);
+                    }
+                    break;
+                //after hit by sword, just fly straight 
+                case 1:
+                    if (Projectile.ai[1]++ > 10)
+                    {
+                        Projectile.ai[0] = 2;
+                    }
+
+                    break;
+                //returning to player
+                case 2:
+                    Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 25;
+                    distance = (int)Vector2.Distance(Projectile.Center, player.Center);
+
+                    if (distance <= MaxDistance)
+                    {
+                        Projectile.ai[0] = 0;
+                        Projectile.Center = Main.MouseWorld;
+                    }
+
+                    break;
             }
-
-
-
         }
-
-        
 
         public virtual Asset<Texture2D> ChainTexture => ModContent.Request<Texture2D>("FargowiltasSouls/Content/Patreon/Potato/RazorChain");
 
@@ -67,8 +90,6 @@ namespace FargowiltasSouls.Content.Patreon.Potato
                 return true;
             }
 
-
-
             Vector2 position = Projectile.Center;
             Vector2 mountedCenter = Main.player[Projectile.owner].MountedCenter;
             Vector2 origin = new Vector2(ChainTexture.Width() * 0.5f, ChainTexture.Height() * 0.5f);
@@ -78,8 +99,15 @@ namespace FargowiltasSouls.Content.Patreon.Potato
             bool invalidPosition = !(float.IsNaN(position.X) && float.IsNaN(position.Y) ||
                                      float.IsNaN(mountedPosition.X) && float.IsNaN(mountedPosition.Y));
 
+            int numLoops = 0;
+
             while (invalidPosition)
             {
+                if (numLoops++ > 100)
+                {
+                    break;
+                }
+
                 if (mountedPosition.Length() < textureHeight + 1.0)
                     invalidPosition = false;
                 else
@@ -98,5 +126,14 @@ namespace FargowiltasSouls.Content.Patreon.Potato
             return true;
         }
 
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            //bonus dmg when being launched
+            if (Projectile.ai[0] == 1)
+            {
+                modifiers.SetCrit();
+                modifiers.ArmorPenetration += 10;
+            }
+        }
     }
 }

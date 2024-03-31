@@ -308,7 +308,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                     break;
                     */
                 case var _ when SlowChargeStates.Contains((float)coffin.StateMachine.CurrentState.ID):
-                    if (!SlowChargeStates.Contains(State))
+                    if (newState)
                     {
                         Timer = 0;
                         AI3 = 0;
@@ -400,7 +400,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             {
                 NPC.velocity *= 0.94f;
             }
-            else if (Timer < 240)
+            else //if (Timer < 240) edit: no longer loops, just continues charging
             {
                 SoundEngine.PlaySound(CursedCoffin.SpiritDroneSFX, NPC.Center);
                 Vector2 vectorToIdlePosition = player.Center - NPC.Center;
@@ -428,6 +428,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                 */
                 // do animation
             }
+            /*
             else if (Timer < 250)
             {
                 NPC.velocity *= 0.97f;
@@ -436,6 +437,7 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
             {
                 Timer = 0;
             }
+            */
             Timer++;
         }
         void Artillery(NPC owner)

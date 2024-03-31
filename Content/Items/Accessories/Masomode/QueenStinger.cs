@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 {
@@ -54,6 +55,9 @@ namespace FargowiltasSouls.Content.Items.Accessories.Masomode
 
             // Stringer immune
             player.FargoSouls().QueenStingerItem = Item;
+
+            if (player.honey)
+                player.GetArmorPenetration(DamageClass.Generic) += 10;
         }
     }
 }

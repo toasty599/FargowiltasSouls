@@ -140,6 +140,19 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             }
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            Color color;
+            if (Projectile.ai[1] > 3)
+                color = Color.Lerp(new Color(255, 255, 255, 0), new Color(255, 95, 46, 50), (7 - Projectile.ai[1]) / 4);
+            else
+                color = Color.Lerp(new Color(255, 95, 46, 50), new Color(150, 35, 0, 100), (3 - Projectile.ai[1]) / 3);
+
+            color *= Projectile.Opacity;
+
+            return color;
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
@@ -147,13 +160,7 @@ namespace FargowiltasSouls.Content.Bosses.Champions.Earth
             int y3 = num156 * Projectile.frame; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = new(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-            Color color;
-            if (Projectile.ai[1] > 3)
-                color = Color.Lerp(new Color(255, 255, 255, 0), new Color(255, 95, 46, 50), (7 - Projectile.ai[1]) / 4);
-
-            else
-                color = Color.Lerp(new Color(255, 95, 46, 50), new Color(150, 35, 0, 100), (3 - Projectile.ai[1]) / 3);
-
+            Color color = Projectile.GetAlpha(lightColor);
             Main.EntitySpriteDraw(texture2D13, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), color,
                 Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
             return false;

@@ -139,7 +139,7 @@ CopperEnchant: {
 	DisplayName: 铜魔石
 	Tooltip:
 		'''
-		暴击有几率释放闪电攻击敌人
+		暴击释放闪电攻击敌人，此效果有5秒冷却
 		命中有潮湿减益的敌人时不暴击也可能会释放闪电
 		“它们的音乐充满电击感”
 		'''
@@ -216,11 +216,10 @@ FrostEnchant: {
 	DisplayName: 冰霜魔石
 	Tooltip:
 		'''
+		你的攻击造成短暂的霜冻减益
 		你的周围会出现冰锥
 		攻击时会将冰锥发射至光标位置
 		冰锥击中敌人时会使其短暂冻结，并造成冻伤减益
-		按下“冻结”键后将一切冻结20秒，并造成霜冻减益
-		效果有60秒的冷却时间
 		“让我们给这个世界披上一层厚厚的冰衣”
 		'''
 }
@@ -567,8 +566,9 @@ SnowEnchant: {
 	Tooltip:
 		'''
 		你的攻击造成短暂的霜冻减益
-		按下“冻结”键后将一切冻结15秒，并造成霜冻减益
-		效果有60秒的冷却时间
+		你的周围会出现雪球
+		攻击时会将雪球发射至光标位置
+		雪球击中敌人时会使其短暂冻结，并造成冻伤减益
 		“冷的要死”
 		'''
 }
@@ -1455,6 +1455,7 @@ PureHeart: {
 		[i:FargowiltasSouls/GuttedHeart]召唤阻挡伤害的飞眼怪，不移动时飞眼怪生成速度加快
 		[i:FargowiltasSouls/GuttedHeart]每10-15秒生成一个新的飞眼怪，最多同时存在5个
 		[i:FargowiltasSouls/GelicWings] 可以进行二段跳，跳跃后落地时史莱姆尖刺会向两侧射出
+		[i:FargowiltasSouls/GelicWings] 增加30%飞行时间
 		“它充满活力地跳动着”
 		'''
 }
@@ -1582,7 +1583,7 @@ SupremeDeathbringerFairy: {
 		[i:FargowiltasSouls/SlimyShield]落地时召唤从天而降的凝胶球，掉落至光标位置
 		[i:FargowiltasSouls/AgitatingLens]冲刺或奔跑时会在身后留下一串鲜血镰刀
 		[i:FargowiltasSouls/AgitatingLens]按住“上”“下”的同时按下“减益负载”键进入狂暴状态
-		[i:FargowiltasSouls/QueenStinger]蜂蜜增益会增加10点护甲穿透，蜜蜂和较弱的黄蜂变得友好
+		[i:FargowiltasSouls/QueenStinger]蜂蜜增益会增加5点护甲穿透，蜜蜂和较弱的黄蜂变得友好
 		[i:FargowiltasSouls/QueenStinger]按下“特殊冲刺”键后会进行短距离的快速蜜蜂冲刺
 		[i:FargowiltasSouls/NecromanticBrew]增加50%冲刺速度
 		[i:FargowiltasSouls/NecromanticBrew]冲刺时只会受到25%接触伤害，并且会对攻击者反弹全部接触伤害
@@ -2942,7 +2943,7 @@ Masochist: {
 	DisplayName: 突变体的礼物
 	Tooltip:
 		'''
-		世界必须是专家模式
+		世界必须为专家模式及以上
 		[c/ff0000:不]推荐在大师模式下开启！！！
 		开关永恒模式
 		在永恒模式下可以获得大师模式的掉落物
@@ -3407,5 +3408,9 @@ TogglerIconItem: {
 
 RazorContainer: {
 	// DisplayName: Razor Container
-	// Tooltip: Spawns 2? razor blades that hover around you. Hit them with a melee attack to send them flying dealing extra damage
+	/* Tooltip:
+		'''
+		Spawns a razor blade that hovers around your cursor. Hit it with a melee attack to send it flying dealing extra damage and armor pen
+		'Some yellow fur is still stuck at the bottom' 
+		''' */
 }

@@ -549,7 +549,6 @@ namespace FargowiltasSouls.Core.Globals
             if (npc.type == ModContent.NPCType<TrojanSquirrel>())
             {
                 rule = FirstKillDrop(2, ItemID.LifeCrystal);
-                npcLoot.Add(FirstKillDrop(1, ItemID.SquirrelHook));
             }
 
             switch (npc.type)

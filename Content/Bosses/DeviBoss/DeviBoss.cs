@@ -30,6 +30,7 @@ using FargowiltasSouls.Content.Patreon.Phupperbat;
 using System.Collections.Generic;
 using Fargowiltas.Projectiles;
 using Fargowiltas.NPCs;
+using ReLogic.Content;
 
 namespace FargowiltasSouls.Content.Bosses.DeviBoss
 {
@@ -47,6 +48,8 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
         public int ringProj, spriteProj;
 
         public bool DrawRuneBorders;
+
+        string TownNPCName;
 
         public ref float AttackIndex => ref NPC.localAI[2];
         public ref float Phase => ref NPC.localAI[3];
@@ -110,6 +113,11 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
         {
             NPC.width = 120;
             NPC.height = 120;
+            if (Main.getGoodWorld)
+            {
+                NPC.width = Player.defaultWidth;
+                NPC.height = Player.defaultHeight;
+            }
             NPC.damage = 64;
             NPC.defense = 10;
             NPC.lifeMax = 6000;
@@ -176,6 +184,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             if (n != -1 && n != Main.maxNPCs)
             {
                 NPC.Bottom = Main.npc[n].Bottom;
+                TownNPCName = Main.npc[n].GivenName;
 
                 Main.npc[n].life = 0;
                 Main.npc[n].active = false;
@@ -450,6 +459,8 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                         if (n != Main.maxNPCs)
                         {
                             Main.npc[n].homeless = true;
+                            if (TownNPCName != default)
+                                Main.npc[n].GivenName = TownNPCName;
                             if (Main.netMode == NetmodeID.Server)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                         }
@@ -2186,7 +2197,7 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             {
                 NPC.frameCounter = 0;
                 NPC.frame.Y += frameHeight;
-                if (NPC.frame.Y >= 4 * frameHeight)
+                if (NPC.frame.Y >= Main.npcFrameCount[NPC.type] * frameHeight)
                     NPC.frame.Y = 0;
             }
         }
@@ -2201,11 +2212,22 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
             Texture2D texture2D13 = Terraria.GameContent.TextureAssets.Npc[NPC.type].Value;
             Vector2 position = NPC.Center - screenPos + new Vector2(0f, NPC.gfxOffY);
             Rectangle rectangle = NPC.frame;
+
+            Texture2D textureToDraw = texture2D13;
+            if (Main.getGoodWorld && !NPC.IsABestiaryIconDummy)
+            {
+                textureToDraw = ModContent.Request<Texture2D>($"{Texture}_FTW", AssetRequestMode.ImmediateLoad).Value;
+                int oldFrameHeight = texture2D13.Height / Main.npcFrameCount[NPC.type];
+                int currentFrame = rectangle.Y / oldFrameHeight;
+                int newFrameHeight = textureToDraw.Height / Main.npcFrameCount[NPC.type];
+                rectangle = new Rectangle(0, currentFrame * newFrameHeight, textureToDraw.Width, newFrameHeight);
+            }
+
             Vector2 origin2 = rectangle.Size() / 2f;
 
             SpriteEffects effects = NPC.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            Main.EntitySpriteDraw(texture2D13, position, new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
+            Main.EntitySpriteDraw(textureToDraw, position, new Microsoft.Xna.Framework.Rectangle?(rectangle), NPC.GetAlpha(drawColor), NPC.rotation, origin2, NPC.scale, effects, 0);
 
             // Draw borders if needed.
             if (DrawRuneBorders)
@@ -2301,6 +2323,8 @@ namespace FargowiltasSouls.Content.Bosses.DeviBoss
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].homeless = true;
+                                if (TownNPCName != default)
+                                    Main.npc[n].GivenName = TownNPCName;
                                 if (Main.netMode == NetmodeID.Server)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }

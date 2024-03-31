@@ -10,7 +10,7 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
 {
     public class AbomBossProjectile : ModProjectile
     {
-        public override string Texture => "FargowiltasSouls/Content/Bosses/AbomBoss/AbomBoss";
+        public override string Texture => $"FargowiltasSouls/Content/Bosses/AbomBoss/AbomBoss{(FargoSoulsUtil.AprilFools ? "_Javyz" : "")}";
         public static int npcType => ModContent.NPCType<AbomBoss>();
 
         public override void SetStaticDefaults()

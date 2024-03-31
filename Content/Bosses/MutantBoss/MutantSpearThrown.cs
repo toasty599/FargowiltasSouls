@@ -133,7 +133,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            TryLifeSteal(target.Center, Main.myPlayer);
+            if (Main.zenithWorld)
+                TryLifeSteal(target.Center, Main.myPlayer);
         }
 
         public override Color? GetAlpha(Color lightColor)

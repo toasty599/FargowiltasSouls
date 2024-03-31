@@ -19,6 +19,8 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Baby Guardian");
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -120,7 +122,7 @@ namespace FargowiltasSouls.Content.Projectiles.Masomode
                 SoulConfig.Instance.BossRecolors && WorldSavingSystem.EternityMode;
 
             Texture2D texture2D13 = recolor ? ModContent.Request<Texture2D>("FargowiltasSouls/Content/Bosses/DeviBoss/DeviGuardian_Recolor").Value : TextureAssets.Projectile[Type].Value;
-
+            FargoSoulsUtil.ProjectileWithTrailDraw(Projectile, new Color(255, 200, 255, 0) * Projectile.Opacity, texture2D13);
             FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor, texture2D13);
             return false;
         }

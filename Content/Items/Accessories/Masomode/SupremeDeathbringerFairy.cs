@@ -85,6 +85,8 @@ Summons 2 Skeletron arms to whack enemies
             player.npcTypeNoAggro[234] = true;
             player.npcTypeNoAggro[235] = true;
             fargoPlayer.QueenStingerItem = Item;
+            if (player.honey)
+                player.GetArmorPenetration(DamageClass.Generic) += 5;
 
             //necromantic brew
             player.buffImmune[ModContent.BuffType<LethargicBuff>()] = true;

@@ -29,6 +29,7 @@ using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Common.Graphics.Shaders;
 using Fargowiltas.NPCs;
 using FargowiltasSouls.Content.Projectiles.Masomode;
+using FargowiltasSouls.Core;
 
 namespace FargowiltasSouls.Content.Bosses.MutantBoss
 {
@@ -46,6 +47,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         public Queue<float> attackHistory = new();
         public int attackCount;
 
+        public int hyper;
+
         public float endTimeVariance;
 
         public bool ShouldDrawAura;
@@ -53,6 +56,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
         public ref float AttackChoice => ref NPC.ai[0];
         public Vector2 AuraCenter = Vector2.Zero;
+
+        string TownNPCName;
+
+        public const int HyperMax = 5;
 
         public override void SetStaticDefaults()
         {
@@ -96,6 +103,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             NPC.width = 120;//34;
             NPC.height = 120;//50;
+            if (Main.getGoodWorld)
+            {
+                NPC.width = Player.defaultWidth;
+                NPC.height = Player.defaultHeight;
+            }
             NPC.damage = 444;
             NPC.defense = 255;
             NPC.value = Item.buyPrice(7);
@@ -126,6 +138,9 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 Music = MusicID.OtherworldlyTowers;
             }
             SceneEffectPriority = SceneEffectPriority.BossHigh;
+
+            if (FargoSoulsUtil.AprilFools)
+                NPC.GivenName = Language.GetTextValue("Mods.FargowiltasSouls.NPCs.MutantBoss_April.DisplayName");
         }
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
@@ -173,6 +188,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 if (n != -1 && n != Main.maxNPCs)
                 {
                     NPC.Bottom = Main.npc[n].Bottom;
+                    TownNPCName = Main.npc[n].GivenName;
 
                     Main.npc[n].life = 0;
                     Main.npc[n].active = false;
@@ -181,6 +197,16 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
             AuraCenter = NPC.Center;
+        }
+
+        public override bool PreAI()
+        {
+            if (WorldSavingSystem.MasochistModeReal && !Main.dedServ)
+            {
+                if (!Main.LocalPlayer.ItemTimeIsZero && (Main.LocalPlayer.HeldItem.type == ItemID.RodofDiscord || Main.LocalPlayer.HeldItem.type == ItemID.RodOfHarmony))
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), 600);
+            }
+            return base.PreAI();
         }
 
         public override void AI()
@@ -284,10 +310,10 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 case 45: PrepareMutantSword(); break;
                 case 46: MutantSword(); break;
 
-                case 47: goto case 35;
-                case 48: QueenSlimeRain(); break;
+                //case 47: goto case 35;
+                //case 48: QueenSlimeRain(); break;
 
-                case 49: SANSGOLEM(); break;
+                //case 49: SANSGOLEM(); break;
 
                 //case 50: //wof
 
@@ -350,8 +376,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             if (AttackChoice < 0 && NPC.life > 1 && drainLifeInP3) //in desperation
             {
-                int time = WorldSavingSystem.MasochistModeReal ? 4350 : 480 + 240 + 420 + 480 + 1020 - 60;
-                NPC.life -= NPC.lifeMax / time;
+                int time = 480 + 240 + 420 + 480 + 1020 - 60;
+                if (WorldSavingSystem.MasochistModeReal)
+                    time = Main.getGoodWorld ? 5000 : 4350;
+                int drain = NPC.lifeMax / time;
+                NPC.life -= drain;
                 if (NPC.life < 1)
                     NPC.life = 1;
             }
@@ -363,6 +392,12 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 Item.NewItem(NPC.GetSource_Loot(), player.Hitbox, ModContent.ItemType<MutantsCurse>());
                 droppedSummon = true;
+            }
+
+            if (WorldSavingSystem.MasochistModeReal && Main.getGoodWorld && ++hyper > HyperMax + 1)
+            {
+                hyper = 0;
+                NPC.AI();
             }
         }
 
@@ -423,6 +458,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (Main.expertMode)
                     {
                         Main.LocalPlayer.AddBuff(ModContent.BuffType<MutantPresenceBuff>(), 2);
+                        if (Main.getGoodWorld)
+                            Main.LocalPlayer.AddBuff(ModContent.BuffType<GoldenStasisCDBuff>(), 2);
                     }
 
                     if (WorldSavingSystem.EternityMode && AttackChoice < 0 && AttackChoice > -6)
@@ -580,7 +617,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     attackHistory.Dequeue();
             }
 
-            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat(-1f, 1f) : 0;
+            endTimeVariance = WorldSavingSystem.MasochistModeReal ? Main.rand.NextFloat(-0.5f, 1f) : 0;
 
             /*text = "";
             foreach (float f in attackHistory)
@@ -674,6 +711,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                             if (n != Main.maxNPCs)
                             {
                                 Main.npc[n].homeless = true;
+                                if (TownNPCName != default)
+                                    Main.npc[n].GivenName = TownNPCName;
                                 if (Main.netMode == NetmodeID.Server)
                                     NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                             }
@@ -1382,9 +1421,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             {
                 NPC.velocity = Vector2.Zero;
 
-                FancyFireballs((int)(NPC.ai[1] / 90f * 60f));
+                int endtime = 90;
 
-                if (++NPC.ai[1] > 90)
+                FancyFireballs((int)(NPC.ai[1] / endtime * 60f));
+
+                if (++NPC.ai[1] > endtime)
                 {
                     if (AttackChoice != 9)
                         AttackChoice++;
@@ -1449,7 +1490,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 {
                     P1NextAttackOrMasoOptions(AttackChoice);
                 }
-                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 5 * (endTimeVariance + 1))
+                else if (WorldSavingSystem.MasochistModeReal && NPC.localAI[2] < 3 * (endTimeVariance + 0.5))
                 {
                     AttackChoice--;
                     NPC.ai[1] = 0;
@@ -1807,7 +1848,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             int pillarAttackDelay = 60;
 
-            if (Main.getGoodWorld)
+            if (Main.zenithWorld && NPC.ai[1] > 180)
                 player.confused = true;
 
             if (NPC.ai[2] == 0 && NPC.ai[3] == 0) //target one corner of arena
@@ -1820,8 +1861,15 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     Clone(1, -1, pillarAttackDelay * 2);
                     Clone(1, 1, pillarAttackDelay * 3);
                     if (WorldSavingSystem.MasochistModeReal)
+                    {
                         Clone(1, 1, pillarAttackDelay * 6);
-                    
+                        if (Main.getGoodWorld)
+                        {
+                            Clone(-1, 1, pillarAttackDelay * 7);
+                            Clone(1, -1, pillarAttackDelay * 8);
+                        }
+                    }
+
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), player.Center, new Vector2(0, -4), ModContent.ProjectileType<BrainofConfusion>(), 0, 0, Main.myPlayer);
                 }
 
@@ -2892,7 +2940,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     NPC.localAI[1] = 5;
 
                 if (WorldSavingSystem.MasochistModeReal)
+                {
                     NPC.localAI[1] += Main.rand.Next(6);
+                    if (Main.getGoodWorld)
+                        NPC.localAI[1] += 5;
+                }
                 NPC.localAI[2] = Main.rand.NextBool() ? -1 : 1; //pick a random rotation direction
                 NPC.netUpdate = true;
             }
@@ -3643,7 +3695,11 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             else
             {
                 if (!Main.dedServ)
+                {
                     ShaderManager.GetFilterIfExists("FinalSpark").Activate();
+                    if (SoulConfig.Instance.ForcedFilters && Main.WaveQuality == 0)
+                        Main.WaveQuality = 1;
+                }
 
                 if (NPC.ai[1] % 3 == 0 && FargoSoulsUtil.HostCheck)
                 {
@@ -3655,7 +3711,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             int endTime = 1020;
             if (WorldSavingSystem.MasochistModeReal)
                 endTime += 180;
-            if (++NPC.ai[2] > endTime)
+            if (++NPC.ai[2] > endTime && NPC.life <= 1)
             {
                 NPC.netUpdate = true;
                 AttackChoice--;
@@ -3797,6 +3853,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                     if (n != Main.maxNPCs)
                     {
                         Main.npc[n].homeless = true;
+                        if (TownNPCName != default)
+                            Main.npc[n].GivenName = TownNPCName;
                         if (Main.netMode == NetmodeID.Server)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, n);
                     }
@@ -3864,7 +3922,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
         {
             base.OnKill();
 
-            if (!playerInvulTriggered && WorldSavingSystem.EternityMode)
+            if (WorldSavingSystem.MasochistModeReal || (!playerInvulTriggered && WorldSavingSystem.EternityMode))
             {
                 Item.NewItem(NPC.GetSource_Loot(), NPC.Hitbox, ModContent.ItemType<PhantasmalEnergy>());
             }

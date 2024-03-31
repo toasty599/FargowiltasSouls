@@ -19,6 +19,14 @@ namespace FargowiltasSouls.Content.Items.Accessories.Forces
                 ModContent.ItemType<ValhallaKnightEnchant>()
             };
         }
+        public override void UpdateInventory(Player player)
+        {
+            player.AddEffect<GoldToPiggy>(Item);
+        }
+        public override void UpdateVanity(Player player)
+        {
+            player.AddEffect<GoldToPiggy>(Item);
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             SetActive(player);

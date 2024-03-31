@@ -22,6 +22,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using FargowiltasSouls.Content.Items.Consumables;
 using FargowiltasSouls.Content.UI;
+using Fargowiltas;
 
 namespace FargowiltasSouls.Core.ModPlayers
 {
@@ -166,6 +167,11 @@ namespace FargowiltasSouls.Core.ModPlayers
 
         public override void PostUpdateEquips()
         {
+            if (Graze && NekomiSet)
+            {
+                GrazeRadius *= DeviGraze || CirnoGraze ? 1.5f : 0.75f;
+            }
+
             if (DeerSinew)
                 Player.AddEffect<DeerSinewEffect>(ModContent.GetInstance<DeerSinew>().Item);
 
@@ -233,12 +239,6 @@ namespace FargowiltasSouls.Core.ModPlayers
 
             if (!EridanusSet)
                 EridanusEmpower = false;
-
-            if (QueenStingerItem != null)
-            {
-                if (Player.honey)
-                    Player.GetArmorPenetration(DamageClass.Generic) += 10;
-            }
 
             if (RabiesVaccine)
                 Player.buffImmune[BuffID.Rabies] = true;

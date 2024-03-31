@@ -25,6 +25,8 @@ using FargowiltasSouls.Content.Bosses.TrojanSquirrel;
 using FargowiltasSouls.Content.Bosses.Champions.Timber;
 using Terraria.GameContent;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
+using FargowiltasSouls.Content.Items.Armor;
+using FargowiltasSouls.Content.Projectiles.Masomode;
 
 namespace FargowiltasSouls.Content.Projectiles
 {
@@ -84,6 +86,9 @@ namespace FargowiltasSouls.Content.Projectiles
         public int TimeFrozen = 0;
         public bool TimeFreezeImmune;
         public int DeletionImmuneRank;
+        public float CirnoBurst;
+
+        public bool IsAHeldProj;
 
         public bool canHurt = true;
 
@@ -409,6 +414,13 @@ namespace FargowiltasSouls.Content.Projectiles
             Player player = Main.player[projectile.owner];
             FargoSoulsPlayer modPlayer = player.FargoSouls();
             counter++;
+
+            //doing it here in case the proj's AI() sets custom weapon damage, so it can override this
+            if (IsAHeldProj)
+            {
+                projectile.damage = player.GetWeaponDamage(player.HeldItem);
+                projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
+            }
             
             if (spookyCD > 0)
             {
@@ -1184,8 +1196,7 @@ namespace FargowiltasSouls.Content.Projectiles
             {
                 DeletionImmuneRank = 2;
                 TimeFreezeImmune = true;
-
-                projectile.CritChance = player.GetWeaponCrit(player.HeldItem);
+                IsAHeldProj = true;
 
                 if (player.HeldItem.IsWeapon())
                 {
@@ -1221,6 +1232,8 @@ namespace FargowiltasSouls.Content.Projectiles
                         {
                             GrazeCD = 30 * projectile.MaxUpdates;
 
+                            if (fargoPlayer.NekomiSet)
+                                NekomiHood.OnGraze(fargoPlayer, projectile.damage * 4);
                             if (fargoPlayer.DeviGraze)
                                 SparklingAdoration.OnGraze(fargoPlayer, projectile.damage * 4);
                             if (fargoPlayer.CirnoGraze)
@@ -1236,6 +1249,17 @@ namespace FargowiltasSouls.Content.Projectiles
                 //Main.NewText("MISS");
                 HuntressProj = -1;
                 //sound effect
+            }
+
+            if (CirnoBurst > 0)
+            {
+                CirnoBurst -= 1f / projectile.MaxUpdates;
+                if (CirnoBurst <= 0 && Main.myPlayer == projectile.owner)
+                {
+                    Vector2 vel = Main.rand.NextVector2Unit() * Math.Max(projectile.velocity.Length(), 8f);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, vel, ModContent.ProjectileType<FrostShardFriendly>(), projectile.damage, 2f, projectile.owner);
+                }
+                projectile.Kill();
             }
         }
 

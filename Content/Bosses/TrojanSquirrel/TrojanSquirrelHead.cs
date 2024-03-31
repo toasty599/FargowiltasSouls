@@ -16,8 +16,8 @@ namespace FargowiltasSouls.Content.Bosses.TrojanSquirrel
 
             NPC.lifeMax = 600;
 
-            NPC.width = 80;
-            NPC.height = 76;
+            NPC.width = baseWidth = 80;
+            NPC.height = baseHeight = 76;
         }
 
         public override void AI()

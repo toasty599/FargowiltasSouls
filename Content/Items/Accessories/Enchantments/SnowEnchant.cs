@@ -1,8 +1,11 @@
 ﻿using FargowiltasSouls.Content.Buffs.Souls;
 using FargowiltasSouls.Content.Projectiles;
+using FargowiltasSouls.Content.Projectiles.Souls;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using FargowiltasSouls.Core.Globals;
+using FargowiltasSouls.Core.Toggler.Content;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -72,7 +75,7 @@ There is a 60 second cooldown for this effect
     }
     public class SnowEffect : AccessoryEffect
     {
-        public override Header ToggleHeader => null;
+        public override Header ToggleHeader => Header.GetHeader<NatureHeader>();
         public override int ToggleItemType => ModContent.ItemType<SnowEnchant>();
         public override void OnHitNPCEither(Player player, NPC target, NPC.HitInfo hitInfo, DamageClass damageClass, int baseDamage, Projectile projectile, Item item)
         {
@@ -80,54 +83,92 @@ There is a 60 second cooldown for this effect
         }
         public override void PostUpdateEquips(Player player)
         {
-            FargoSoulsPlayer modPlayer = player.FargoSouls();
-            if (modPlayer.ChillSnowstorm)
+            if (player.whoAmI == Main.myPlayer)
             {
-                modPlayer.SnowVisual = true;
-
-                for (int i = 0; i < Main.maxProjectiles; i++)
+                FargoSoulsPlayer modPlayer = player.FargoSouls();
+                int maxIcicles = player.HasEffect<FrostEffect>() ? 10 : 5;
+                int type = ModContent.ProjectileType<FrostIcicle>();
+                if (modPlayer.icicleCD <= 0 && modPlayer.IcicleCount < maxIcicles && player.ownedProjectileCounts[type] < maxIcicles)
                 {
-                    Projectile proj = Main.projectile[i];
+                    modPlayer.IcicleCount++;
 
-                    if (proj.active && proj.hostile && proj.damage > 0 && FargoSoulsUtil.CanDeleteProjectile(proj) && !proj.FargoSouls().TimeFreezeImmune)
+                    //kill all current ones
+                    for (int i = 0; i < Main.maxProjectiles; i++)
                     {
-                        FargoSoulsGlobalProjectile globalProj = proj.FargoSouls();
-                        globalProj.ChilledProj = true;
-                        globalProj.ChilledTimer = 6;
-                        proj.netUpdate = true;
+                        Projectile proj = Main.projectile[i];
+
+                        if (proj.active && proj.type == type && proj.owner == player.whoAmI)
+                        {
+                            proj.active = false;
+                            proj.netUpdate = true;
+                        }
                     }
-                }
 
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    NPC npc = Main.npc[i];
-
-                    if (npc.active && !npc.friendly && npc.damage > 0 && !npc.dontTakeDamage && !npc.buffImmune[ModContent.BuffType<TimeFrozenBuff>()])
+                    //respawn in formation
+                    for (int i = 0; i < modPlayer.IcicleCount; i++)
                     {
-                        npc.AddBuff(BuffID.Frostburn, 2);
-                        FargoSoulsGlobalNPC soulsNPC = npc.FargoSouls();
-                        soulsNPC.SnowChilled = true;
-                        soulsNPC.SnowChilledTimer = 6;
-                        npc.netUpdate = true;
+                        float radians = 360f / modPlayer.IcicleCount * i * (float)(Math.PI / 180);
+                        FargoSoulsUtil.NewProjectileDirectSafe(GetSource_EffectItem(player), player.Center, Vector2.Zero, type, 0, 0f, player.whoAmI, 5, radians);
                     }
-                }
 
-                if (--modPlayer.chillLength <= 0)
-                    modPlayer.ChillSnowstorm = false;
+                    float dustScale = 1.5f;
 
-                const int warning = 180;
-                if (modPlayer.chillLength <= warning && modPlayer.chillLength % 60 == 0)
-                {
-                    float rampup = MathHelper.Lerp(1.5f, 0.5f, (float)modPlayer.chillLength / warning);
-
-                    SoundEngine.PlaySound(SoundID.Item27 with { Volume = rampup }, player.Center);
-
-                    for (int i = 0; i < 20; i++)
+                    if (modPlayer.IcicleCount % maxIcicles == 0)
                     {
-                        int d = Dust.NewDust(player.position, player.width, player.height, DustID.GemSapphire, 0, 0, 0, default, 2f * rampup);
+                        dustScale = 3f;
+                    }
+
+                    //dust
+                    for (int j = 0; j < 20; j++)
+                    {
+                        Vector2 vector6 = Vector2.UnitY * 5f;
+                        vector6 = vector6.RotatedBy((j - (20 / 2 - 1)) * 6.28318548f / 20) + player.Center;
+                        Vector2 vector7 = vector6 - player.Center;
+                        int d = Dust.NewDust(vector6 + vector7, 0, 0, DustID.MagicMirror);
                         Main.dust[d].noGravity = true;
-                        Main.dust[d].velocity *= 6f * rampup;
+                        Main.dust[d].scale = dustScale;
+                        Main.dust[d].velocity = vector7;
+
+                        if (modPlayer.IcicleCount % maxIcicles == 0)
+                        {
+                            Main.dust[d].velocity *= 2;
+                        }
                     }
+
+                    modPlayer.icicleCD = 30;
+                }
+
+                if (modPlayer.icicleCD > 0)
+                    modPlayer.icicleCD--;
+
+                if (modPlayer.IcicleCount >= 1 && player.controlUseItem && player.HeldItem.IsWeapon() && player.HeldItem.createTile == -1 && player.HeldItem.createWall == -1 && player.HeldItem.ammo == AmmoID.None)
+                {
+
+                    int dmg = modPlayer.ForceEffect<FrostEnchant>() ? 100 : (player.HasEffect<FrostEffect>() ? 50 : 20);
+
+                    for (int i = 0; i < Main.maxProjectiles; i++)
+                    {
+                        Projectile proj = Main.projectile[i];
+
+                        if (proj.active && proj.type == type && proj.owner == player.whoAmI)
+                        {
+                            bool stayFrosty = player.HasEffect<FrostEffect>();
+                            Vector2 vel = (Main.MouseWorld - proj.Center).SafeNormalize(-Vector2.UnitY);
+                            vel *= stayFrosty ? 20f : 10f;
+                            int attackType = stayFrosty ? ProjectileID.Blizzard : ProjectileID.SnowBallFriendly;
+                            int p = Projectile.NewProjectile(GetSource_EffectItem(player), proj.Center, vel, attackType, FargoSoulsUtil.HighestDamageTypeScaling(player, dmg), 1f, player.whoAmI);
+                            if (p != Main.maxProjectiles)
+                            {
+                                Main.projectile[p].FargoSouls().CanSplit = false;
+                                Main.projectile[p].FargoSouls().FrostFreeze = true;
+                            }
+
+                            proj.Kill();
+                        }
+                    }
+
+                    modPlayer.IcicleCount = 0;
+                    modPlayer.icicleCD = 120;
                 }
             }
         }

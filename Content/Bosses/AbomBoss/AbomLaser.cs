@@ -32,6 +32,9 @@ namespace FargowiltasSouls.Content.Bosses.AbomBoss
             Projectile.ignoreWater = true;
             Projectile.scale = 0.3f;
             CooldownSlot = 1;
+
+            if (WorldSavingSystem.MasochistModeReal)
+                Projectile.FargoSouls().GrazeCheck = Projectile => false;
         }
 
         public override void OnKill(int timeLeft)

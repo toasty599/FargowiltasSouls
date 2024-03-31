@@ -13,6 +13,8 @@ using FargowiltasSouls.Core.Systems;
 using FargowiltasSouls.Core.Globals;
 using FargowiltasSouls.Core.NPCMatching;
 using FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Corruption;
+using Terraria.DataStructures;
+using Terraria.Localization;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -170,6 +172,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.SetDefaults(npc);
 
             npc.damage = (int)(npc.damage * 4.0 / 3.0);
+        }
+
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            if (Main.getGoodWorld)
+                cooldownSlot = ImmunityCooldownID.Bosses;
+            return base.CanHitPlayer(npc, target, ref cooldownSlot);
         }
 
         public override bool SafePreAI(NPC npc)
@@ -498,6 +507,16 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
 
             return true;
+        }
+
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
+        {
+            base.OnHitPlayer(npc, target, hurtInfo);
+
+            if (Main.getGoodWorld)
+            {
+                target.KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.FargowiltasSouls.DeathMessage.EOW", target.name)), 999999, 0);
+            }
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

@@ -316,13 +316,13 @@ namespace FargowiltasSouls.Core.ModPlayers
 
                     if (projectile.type == ModContent.ProjectileType<RazorBlade>() && hitbox.Distance(projectile.Center) < 100)
                     {
-                        //Player player = Main.player[projectile.owner];
+                        Player player = Main.player[projectile.owner];
 
-                        Vector2 velocity = Vector2.Normalize((Main.MouseWorld - projectile.Center)) * 10;
+                        Vector2 velocity = Vector2.Normalize((Main.MouseWorld - player.Center)) * 50;
 
                         projectile.velocity = velocity;
-
-                        Main.NewText("REAL");
+                        projectile.ai[0] = 1;
+                        projectile.ai[1] = 0;
                     }
                 }
 

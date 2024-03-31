@@ -28,18 +28,30 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
 
             Projectile.rotation += 0.2f;
 
-            Projectile.velocity *= .95f;
-
-            if (Projectile.velocity.Length() < 0.1)
+            bool slowdown = true;
+            if (++Projectile.localAI[2] > 90f)
             {
-                Projectile.velocity = Vector2.Zero;
+                int p = player.whoAmI;
+                if (p != -1 && p != Main.maxPlayers && Main.player[p].active && !Main.player[p].dead && !Main.player[p].ghost)
+                {
+                    if (Main.player[p].Distance(Projectile.Center) < 16 * 5)
+                    {
+                        slowdown = false;
+                        Projectile.velocity = Projectile.DirectionTo(Main.player[p].Center) * 9f;
+                        Projectile.timeLeft++;
+
+                        if (Projectile.Colliding(Projectile.Hitbox, Main.player[p].Hitbox))
+                        {
+                            player.FargoSouls().HealPlayer(20);
+                            Projectile.Kill();
+                            return;
+                        }
+                    }
+                }
             }
 
-            if (Projectile.velocity == Vector2.Zero && player.Hitbox.Intersects(Projectile.Hitbox))
-            {
-                player.FargoSouls().HealPlayer(20);
-                Projectile.Kill();
-            }
+            if (slowdown)
+                Projectile.velocity *= 0.95f;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

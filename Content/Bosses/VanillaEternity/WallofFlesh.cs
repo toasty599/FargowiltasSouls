@@ -19,6 +19,8 @@ using FargowiltasSouls.Common.Graphics.Particles;
 using System.Drawing;
 using Color = Microsoft.Xna.Framework.Color;
 using FargowiltasSouls.Content.Patreon.DanielTheRobot;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.Graphics.Shaders;
 
 namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 {
@@ -305,21 +307,24 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
 
             float maxSpeed = WorldSavingSystem.MasochistModeReal ? 4.5f : 3.5f; //don't let wof move faster than this normally
-            if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
+            if (!Main.getGoodWorld)
             {
-                npc.TargetClosest(true);
-                //if (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000)
-                //{
-                //    npc.position.X += 60 * Math.Sign(npc.velocity.X); //move faster to despawn
-                //}
-                //else if (Math.Abs(npc.velocity.X) > maxSpeed)
-                //{
-                //    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
-                //}
-            }
-            else if (Math.Abs(npc.velocity.X) > maxSpeed)
-            {
-                npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
+                if (npc.HasPlayerTarget && (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000))
+                {
+                    npc.TargetClosest(true);
+                    //if (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > 3000)
+                    //{
+                    //    npc.position.X += 60 * Math.Sign(npc.velocity.X); //move faster to despawn
+                    //}
+                    //else if (Math.Abs(npc.velocity.X) > maxSpeed)
+                    //{
+                    //    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
+                    //}
+                }
+                else if (Math.Abs(npc.velocity.X) > maxSpeed)
+                {
+                    npc.position.X -= (Math.Abs(npc.velocity.X) - maxSpeed) * Math.Sign(npc.velocity.X);
+                }
             }
 
             if (Main.LocalPlayer.active & !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost && Main.LocalPlayer.ZoneUnderworldHeight)
@@ -548,7 +553,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             if (ai_State >= 0f)
             {
-                npc.alpha = (int)MathHelper.Lerp(npc.alpha, 175, 0.1f);
+                //npc.alpha = (int)MathHelper.Lerp(npc.alpha, 175, 0.1f);
                 npc.dontTakeDamage = true;
 
                 if (ai_Timer <= 90) //still firing laser rn
@@ -570,7 +575,7 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             }
             else
             {
-                npc.alpha = (int)MathHelper.Lerp(npc.alpha, 0, 0.1f);
+                //npc.alpha = (int)MathHelper.Lerp(npc.alpha, 0, 0.1f);
                 npc.dontTakeDamage = false;
 
                 if (ai_Timer == maxTime - 3 * 5 && FargoSoulsUtil.HostCheck)
@@ -669,6 +674,28 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
             base.OnHitPlayer(npc, target, hurtInfo);
 
             target.AddBuff(BuffID.Burning, 300);
+        }
+
+        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (npc.dontTakeDamage && !npc.IsABestiaryIconDummy)
+            {
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+
+                ArmorShaderData shader = GameShaders.Armor.GetShaderFromItemId(ItemID.PhaseDye);
+                shader.Apply(npc, new Terraria.DataStructures.DrawData?());
+            }
+            return true;
+        }
+
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (npc.dontTakeDamage && !npc.IsABestiaryIconDummy)
+            {
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.ZoomMatrix);
+            }
         }
 
         public override void LoadSprites(NPC npc, bool recolor)

@@ -1,3 +1,136 @@
 ﻿added overflow check to final spark
 buffed 22
 22 doesn't count up when taking 1 damage
+
+made crm auto heal stricter (only triggers below 40%)
+maso mp bosses heal 10% life when players die (test this)
+golem fist proj deletion moved to maso
+maso ftw destroyer probes shoot lasers
+maso ftw ml
+	phantasmal bolts unnerfed
+	phantasmal spheres unnerfed
+	body move speed unnerfed
+	true eyes unsynced
+	true eyes unnerfed
+maso ftw ts no longer starts big. eats platforms, trees, and wood to grow bigger
+
+adjusted maso mutant attack duration randomization range
+fixed ts having ftw wood eating in maso
+
+fixed snow ench actually being timestop
+
+april fools abom boss was revealed to me in a dream
+restored emode nerf to ftw ml homing eyes
+ftw mutant disables gold shell
+ftw mutant does everything (and i do mean EVERYTHING) 10% faster
+mutant only lifesteals off npcs in ftw, not maso
+ftw qb has no attack limitations when subjects alive
+ftw wof has unnerfed move speed
+fixed an exploit that allowed getting drops from tim's dark casters pre-skeletron
+removed some of abom's telegraphs in maso
+fishron and pigron no longer inflict anticoagulation
+nekomi set buffed, it has small graze inherently (will only charge meter, no adoration damage bonus) (TEST IT)
+added a VERY VERY VERY weak meteor shower to meteor ench
+ftw fishron has ex ai
+ftw baron has a desperation...
+added localization april fools names for mutant and abom
+ftw eow head instakills
+
+ftw qb has extended deathray barrage
+ftw fishron no longer has real fish ex's passive -80% max life
+ftw eow and destro head use ml iframes
+agi lens change (sdf hm ichor nerf), scythes are magic damage again
+nerfed sdf honey armor pen to 5, was 10
+pure heart buff, gives +30% wing time
+fixed destro probes being able to laser in maso
+maso abom desperation disables gold shell and timestop
+mutant presence disables snow ench
+adjusted color of mutant's reti ray fan
+fixed some oddities of shinobi tp dash
+made timber champ, ts less likely to despawn
+
+star cannon -45% is now -40%
+ts cant eat platforms, instead eats almost all trees and wood blocks
+fixed mutant being named godkiller yharim outside april fools
+actually fixed ftw fishron being ex and passively shredding max life
+abom dash sickles are now phoenixes
+abom p2 music now triggers slightly later
+snow ench rework: we have frost ench at home
+stardust ench freezes other players unless they also have stardust ench xd
+adding config to "fix" timestop and final spark filters not working when you turn off waves quality(???)
+
+maso abom sprays a lot more scythes when killed
+fixed abom being able to double hit during his dash
+wizard meteor tooltip is more accurate
+ice queen crown adjustments
+	frozen projectiles explode into shards
+	projectiles and npcs arent slowed after freeze wears off
+	fixed freeze not working on some attacks it should
+	freeze bombs require much more graze to build
+new snow ench nerf, max balls 10 -> 5
+fixed abom always being named Javyz Boss
+fixed? damage snapshotting with "held proj" weapons (especially with wretched pouch)
+abom's ray run and sword use will champ's ray vfx (including your styx gazers)
+maso abom's ufo lasers are ungrazeable
+maso eri's timestop flow invaders are ungrazeable
+finally updated penetrator's final spark vfx to match mutant
+replaced penetrator's default attack with mutant sword
+down+m2 penetrator ramps up spin faster and doesnt make you move slower
+
+town npc bosses retain their name after returning to town npc form
+fixed penetrator sword being able to spawn multiple chain blasts if it hits several enemies on same tick
+added penetrator sword explosions at end of swing i forgot earlier
+pen sword wont misinput other spear modes for as long as you swing it continuously
+pen sword chain blast doesnt trigger on critters or destructible projs e.g. imp fireball
+replaced penetrator up+m2 with okuu
+abom kaizo scythes cant hit town npcs
+cirno bomb cant kill abom flockos
+maso eri nebula blazes cant be grazed
+fixed maso qs spreading hallow (should be ftw)
+plat ench force changed, 10% for x15 -> 33% for x5
+fishron no longer inflict defenseless
+adjusted jungle mimic spawn rates
+fossil ench buff, the bones have a small magnetize range
+ftw mutant
+	increased speed from +10% to +20%
+	synced sword properly
+	troll confused is gfb
+	22 doesnt despawn him because probably didnt work mp
+	resynced his music end for p3
+	illusions are synced properly
+	fixed sword not working in p1
+	added 2 more pillars
+	unnerfed homing eyes
+	always does a lot more direct spear tosses
+
+fixed mutant sword chain blast ignoring trans proj
+maso cultist pillars spawn phantasm dragons
+fixed cultist doing COMICALLY low damage (almost all his new attacks did x0.25 their intended damage????)
+cultist all attacks inflict 3sec curse of the moon
+fixed trojan squirrel dropping an extra squirrel hook when killed for first time
+replaced wof eye visual when invincible
+styx gazer visual updated again
+
+made styx gazer a bit brighter so abom's is visible in fight
+ftw devi boss is chibi
+ftw abom has a 3rd arena in p2
+all siblings have reduced hitboxes in ftw
+
+reverted mutant base lifesteal from 7.5 to 5 since he heals a lot more than stated
+mutant lifesteal from npcs is gfb not ftw
+added a trail to skeletron's baby guardian and bone attacks for visual clarity
+restored mutant's true eye pupils
+added warning message for eternity master (when it doesnt trigger maso)
+added warning message for maso ftw
+gold ench piggy effect is passive from inv
+fixed freezes turning off abom presence
+abom p2 forces eclipse (turns it off when killed/despawn)
+
+disabled timestop freezing other players in mp since it doesnt work
+maso mutant timestops you if you rod
+fixed adam ench working on snow/frost ench
+
+added a delay to gfb mutant pillar confuse
+unnerfed mutant from x1.1666 speed to x1.2 speed
+mutant always drops phantasmal energy in maso and up
+star cloak/veil stars do 50% damage phm

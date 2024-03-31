@@ -1,3 +1,5 @@
+AbomBoss_April.DisplayName: Javyz Boss
+
 AbomBoss: {
 	DisplayName: 憎恶
 
@@ -142,6 +144,7 @@ DetonatingBubbleEX.DisplayName: 爆炸泡泡
 GelatinSlime.DisplayName: 水晶史莱姆
 GelatinSubject.DisplayName: 圣凝史莱姆
 RoyalSubject.DisplayName: 皇家工蜂
+MutantBoss_April.DisplayName: 弑神者，亚利姆
 
 MutantBoss: {
 	DisplayName: 突变体
@@ -371,7 +374,6 @@ StardustMinion.DisplayName: 星尘仆从
 StardustDragon.DisplayName: 星尘之龙
 SlimeSwarm.DisplayName: 集群史莱姆
 // Magmaw.DisplayName: Magmaw
-// currently not exist in game
 DukeFishronEX.DisplayName: 猪鲨EX
 
 EMode: {

@@ -1,6 +1,7 @@
 ﻿using FargowiltasSouls.Content.Items.Accessories.Enchantments;
 using FargowiltasSouls.Core.AccessoryEffectSystem;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -19,13 +20,16 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
-            Projectile.width = 14;
-            Projectile.height = 34;
+            Projectile.width = 24;
+            Projectile.height = 24;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
+            Projectile.aiStyle = -1;
             Projectile.timeLeft = 2;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
+
+            Projectile.FargoSouls().CanSplit = false;
         }
 
         public override void AI()
@@ -36,11 +40,13 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
             Projectile.timeLeft++;
             Projectile.netUpdate = true;
 
-            if (player.whoAmI == Main.myPlayer && !player.HasEffect<FrostEffect>())
+            if (player.whoAmI == Main.myPlayer && !player.HasEffect<SnowEffect>())
             {
                 Projectile.Kill();
                 return;
             }
+
+            Projectile.localAI[2] = player.HasEffect<FrostEffect>() ? 0 : 1;
 
             if (Projectile.owner == Main.myPlayer)
             {
@@ -69,6 +75,13 @@ namespace FargowiltasSouls.Content.Projectiles.Souls
         public override void OnKill(int timeLeft)
         {
             Main.player[Projectile.owner].FargoSouls().IcicleCount--;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D texture = Terraria.GameContent.TextureAssets.Projectile[Projectile.localAI[2] == 0 ? Projectile.type : ProjectileID.SnowBallFriendly].Value;
+            FargoSoulsUtil.GenericProjectileDraw(Projectile, lightColor, texture);
+            return false;
         }
     }
 }

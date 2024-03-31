@@ -31,7 +31,8 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
             NPC npc = FargoSoulsUtil.NPCExists(EModeGlobalNPC.mutantBoss, ModContent.NPCType<MutantBoss>());
             int[] spearSpinAIs = new int[] { 4, 5, 6, 13, 14, 15, 21, 22, 23 };
             if ((npc == null || !spearSpinAIs.Contains((int)npc.ai[0]))
-                && !(WorldSavingSystem.MasochistModeReal && npc.ai[0] > 10))
+                && !(WorldSavingSystem.MasochistModeReal && npc.ai[0] > 10)
+                && !Main.getGoodWorld)
             {
                 Projectile.ai[1] = endHomingTime; //for deceleration
                 stopAttacking = true;
@@ -87,7 +88,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
                 }
             }
 
-            if (Projectile.ai[1] < endHomingTime)
+            if (Projectile.ai[1] < endHomingTime && !Main.getGoodWorld)
             {
                 if (Projectile.velocity.Length() > maxSpeed)
                     Projectile.velocity *= 0.96f;

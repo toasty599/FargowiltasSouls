@@ -66,6 +66,8 @@ Creeper respawn speed increases when not moving
 
             player.AddEffect<GelicWingJump>(Item);
             player.AddEffect<GelicWingSpikes>(Item);
+
+            player.FargoSouls().WingTimeModifier += .3f;
         }
 
         public override void AddRecipes()

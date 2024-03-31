@@ -45,7 +45,7 @@ ChloroMinion: 叶绿 水晶
 CrimsonEffect: 猩红 治愈
 RainUmbrellaEffect: 雨云 雨伞
 RainInnerTubeEffect: 游泳圈效果
-FrostEffect: 寒霜 冰锥
+// SnowEffect: Freezing Snowballs
 JungleJump: 丛林 跳跃孢子
 JungleDashEffect: 丛林 冲刺
 MoltenEffect: 熔岩 狱火增益
@@ -75,7 +75,7 @@ MeteorMomentumEffect: 流星 速度
 MeteorEffect: 流星 流星雨
 MeteorTrailEffect: 流星 火焰尾迹
 NebulaEffect: 星云 强化焰
-SolarEffect: 耀斑 护盾
+SolarEffect: 耀斑 护盾冲撞
 SolarFlareEffect: 耀斑 太阳耀斑减益
 StardustMinionEffect: 星尘 星尘守卫
 VortexStealthEffect: 星旋 潜行

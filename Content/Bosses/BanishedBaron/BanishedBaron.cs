@@ -484,6 +484,40 @@ namespace FargowiltasSouls.Content.Bosses.BanishedBaron
         }
         public override void AI()
         {
+            if (State == (int)StateEnum.DeathAnimation)
+            {
+                //un-duke your fishron
+                NPC.aiStyle = -1;
+            }
+            else if (Main.getGoodWorld)
+            {
+                if (NPC.aiStyle == -1)
+                {
+                    //ftw desperation: literally become fishron
+                    if (NPC.life < NPC.lifeMax * .15)
+                    {
+                        int heal = NPC.lifeMax / 2 - NPC.life;
+                        NPC.HealEffect(heal);
+                        NPC.life += heal;
+                        NPC.aiStyle = NPCAIStyleID.DukeFishron;
+                        NPC.velocity = Vector2.Zero;
+                        NPC.ai[0] = 0;
+                        NPC.ai[1] = 0;
+                        NPC.ai[2] = 0;
+                        NPC.ai[3] = 0;
+                        NPC.localAI[0] = 0;
+                        NPC.localAI[1] = 0;
+                        NPC.localAI[2] = 0;
+                        NPC.localAI[3] = 0;
+                        NPC.netUpdate = true;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             //Defaults
             NPC.noTileCollide = 
                 Phase == 2 || 

@@ -52,11 +52,25 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
 
         public override bool AltFunctionUse(Player player) => true;
 
+        int forceSwordTimer;
+
         public override bool CanUseItem(Player player)
         {
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTurn = false;
 
-            if (player.altFunctionUse == 2)
+            if (forceSwordTimer > 0)
+            {
+                Item.shoot = ModContent.ProjectileType<HentaiSword>();
+                Item.shootSpeed = 6f;
+
+                Item.useAnimation = 16;
+                Item.useTime = 16;
+
+                Item.useStyle = ItemUseStyleID.Swing;
+                Item.DamageType = DamageClass.Melee;
+            }
+            else if (player.altFunctionUse == 2)
             {
                 if (player.controlUp && player.controlDown)
                 {
@@ -67,10 +81,16 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                 }
                 else if (player.controlUp && !player.controlDown)
                 {
-                    Item.shoot = ModContent.ProjectileType<HentaiSpearSpinThrown>();
+                    /*Item.shoot = ModContent.ProjectileType<HentaiSpearSpinThrown>();
                     Item.shootSpeed = 6f;
                     Item.useAnimation = 16;
+                    Item.useTime = 16;*/
+
+                    Item.shoot = ModContent.ProjectileType<HentaiSpearSpinBoundary>();
+                    Item.shootSpeed = 1f;
+                    Item.useAnimation = 16;
                     Item.useTime = 16;
+                    Item.useTurn = true;
                 }
                 else if (player.controlDown && !player.controlUp)
                 {
@@ -103,10 +123,16 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                     Item.shoot = ModContent.ProjectileType<HentaiSpearDive>();
                     Item.shootSpeed = 6f;
                 }
-                else
+                else if (player.controlDown && player.controlUp)
                 {
                     Item.shoot = ModContent.ProjectileType<Projectiles.BossWeapons.HentaiSpear>();
                     Item.shootSpeed = 6f;
+                }
+                else
+                {
+                    Item.shoot = ModContent.ProjectileType<HentaiSword>();
+                    Item.shootSpeed = 6f;
+                    Item.useStyle = ItemUseStyleID.Swing;
                 }
 
                 Item.useAnimation = 16;
@@ -118,16 +144,33 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
             return true;
         }
 
+        public override void UpdateInventory(Player player)
+        {
+            if (forceSwordTimer > 0)
+                forceSwordTimer -= 1;
+
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<HentaiSword>()] > 0)
+                forceSwordTimer = 3;
+        }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.altFunctionUse == 2) // Right-click
+            if (forceSwordTimer > 0 || (player.altFunctionUse != 2 && !player.controlUp && !player.controlDown))
+            {
+                velocity = new Vector2(velocity.X < 0 ? 1 : -1, -1);
+                velocity.Normalize();
+                velocity *= HentaiSword.MUTANT_SWORD_SPACING;
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, -Math.Sign(velocity.X));
+                return false;
+            }
+            else if (player.altFunctionUse == 2) // Right-click
             {
                 if (player.controlUp)
                 {
                     if (player.controlDown) // Giga-beam
                         return player.ownedProjectileCounts[Item.shoot] < 1;
 
-                    if (player.ownedProjectileCounts[Item.shoot] < 1) // Remember to transfer any changes here to hentaispearspinthrown!
+                    /*if (player.ownedProjectileCounts[Item.shoot] < 1) // Remember to transfer any changes here to hentaispearspinthrown!
                     {
                         Vector2 speed = Main.MouseWorld - player.MountedCenter;
 
@@ -135,7 +178,9 @@ namespace FargowiltasSouls.Content.Items.Weapons.FinalUpgrades
                             speed = Vector2.Normalize(speed) * 360;
 
                         Projectile.NewProjectile(source, position, Vector2.Normalize(speed), Item.shoot, damage, knockback, player.whoAmI, speed.X, speed.Y);
-                    }
+                    }*/
+
+                    Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: 1);
 
                     return false;
                 }

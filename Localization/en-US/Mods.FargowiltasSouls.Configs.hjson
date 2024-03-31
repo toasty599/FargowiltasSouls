@@ -31,6 +31,11 @@ SoulConfig: {
 		Tooltip: ""
 	}
 
+	ForcedFilters: {
+		Label: Turns on Waves Quality (overrides vanilla setting)
+		Tooltip: Needed for certain visual effects to function
+	}
+
 	BossRecolors: {
 		Label: Bosses use alternative sprites
 		Tooltip: ""

@@ -64,7 +64,7 @@ namespace FargowiltasSouls.Content.NPCs.EternityModeNPCs.VanillaEnemies.Dungeon
 
         public override bool CheckDead(NPC npc)
         {
-            if (SpawnedByTim)
+            if (SpawnedByTim || !NPC.downedBoss3)
             {
                 npc.life = 0;
                 npc.HitEffect();

@@ -91,21 +91,23 @@ namespace FargowiltasSouls.Content.Projectiles
 
                 int freezeRange = 16 * 150;
                 int freezeDuration = 180;
-                int slowDuration = freezeDuration + 180;
+                //int slowDuration = freezeDuration + 180;
 
                 foreach (NPC n in Main.npc.Where(n => n.active && !n.friendly && n.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(n, player.Center)) < freezeRange && !n.dontTakeDamage && !n.buffImmune[ModContent.BuffType<TimeFrozenBuff>()]))
                 {
                     n.AddBuff(ModContent.BuffType<TimeFrozenBuff>(), freezeDuration);
-                    n.FargoSouls().SnowChilled = true;
-                    n.FargoSouls().SnowChilledTimer = slowDuration;
+                    //n.FargoSouls().SnowChilled = true;
+                    //n.FargoSouls().SnowChilledTimer = slowDuration;
                     //n.netUpdate = true;
                 }
 
-                foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && FargoSoulsUtil.CanDeleteProjectile(p) && !p.FargoSouls().TimeFreezeImmune && p.FargoSouls().TimeFrozen == 0))
+                foreach (Projectile p in Main.projectile.Where(p => p.active && p.hostile && p.damage > 0 && player.Distance(FargoSoulsUtil.ClosestPointInHitbox(p, player.Center)) < freezeRange && !p.FargoSouls().TimeFreezeImmune && p.FargoSouls().TimeFrozen == 0))
                 {
                     p.FargoSouls().TimeFrozen = freezeDuration;
-                    p.FargoSouls().ChilledProj = true;
-                    p.FargoSouls().ChilledTimer = slowDuration;
+                    if (FargoSoulsUtil.CanDeleteProjectile(p))
+                        p.FargoSouls().CirnoBurst = freezeDuration;
+                    //p.FargoSouls().ChilledProj = true;
+                    //p.FargoSouls().ChilledTimer = slowDuration;
                     //p.netUpdate = true;
                 }
 

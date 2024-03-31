@@ -182,7 +182,9 @@ namespace FargowiltasSouls.Content.Bosses.CursedCoffin
                         }
                         else
                         {
-                            int mashCap = 20;
+                            int mashCap = coffin.MashTimer;
+                            if (WorldSavingSystem.MasochistModeReal) // practically inescapable on maso
+                                mashCap += 666;
                             if (victim.Alive() && (Projectile.Distance(victim.Center) < 160 || victim.whoAmI != Main.myPlayer) && victim.FargoSouls().MashCounter < mashCap)
                             {
                                 victim.AddBuff(ModContent.BuffType<GrabbedBuff>(), 2);

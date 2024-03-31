@@ -218,11 +218,10 @@ FrostEnchant: {
 	// DisplayName: Frost Enchantment
 	/* Tooltip:
 		'''
+		Your attacks briefly inflict Frostburn
 		Icicles will start to appear around you
 		Attacking will launch them towards the cursor
 		When they hit an enemy they are inflicted with Frostbite and frozen solid
-		Press the Freeze Key to chill and Frostburn everything for 20 seconds
-		There is a 60 second cooldown for this effect
 		'Let's coat the world in a deep freeze'
 		''' */
 }
@@ -245,7 +244,7 @@ GoldEnchant: {
 	/* Tooltip:
 		'''
 		Your attacks inflict Midas
-		Automatically sends coins to your piggy bank when picked up
+		Automatically sends coins to your piggy bank when picked up, this works passively
 		Press the Gold hotkey to be encased in a Golden Shell
 		You will not be able to move or attack, but will be immune to all damage
 		Press again to exit early
@@ -317,6 +316,7 @@ MeteorEnchant: {
 		'''
 		Moving creates a fire trail
 		Increases your movement speed and acceleration, and decreases your momentum
+		A meteor fall initiates every few seconds while attacking
 		'Drop a draco on 'em'
 		''' */
 }
@@ -570,8 +570,9 @@ SnowEnchant: {
 	/* Tooltip:
 		'''
 		Your attacks briefly inflict Frostburn
-		Press the Freeze Key to chill and Frostburn everything for 15 seconds
-		There is a 60 second cooldown for this effect
+		Snowballs will start to appear around you
+		Attacking will launch them towards the cursor
+		When they hit an enemy they are inflicted with Frostbite and frozen solid
 		'It's Burning Cold Outside'
 		''' */
 }
@@ -863,7 +864,6 @@ NatureForce: {
 		[i:FargowiltasSouls/MoltenEnchant] Nearby enemies are ignited in a greater radius
 		[i:FargowiltasSouls/RainEnchant] Spawns an umbrella that blocks projectiles from above
 		[i:FargowiltasSouls/FrostEnchant] Icicles will start to appear around you
-		[i:FargowiltasSouls/SnowEnchant] Press the Freeze Key to temporarily chill and Frostburn everything
 		[i:FargowiltasSouls/ChlorophyteEnchant] Summons a ring of leaf crystals to shoot at nearby enemies
 		[i:FargowiltasSouls/JungleEnchant] Grants a double spore jump and a dash
 		[i:FargowiltasSouls/ShroomiteEnchant] Not moving puts you in stealth
@@ -944,7 +944,7 @@ WillForce: {
 		'''
 		[i:FargowiltasSouls/GoldEnchant] Press the Gold hotkey to be encased in a Golden Shell
 		[i:FargowiltasSouls/GoldEnchant] Automatically sends coins to your piggy bank when picked up
-		[i:FargowiltasSouls/PlatinumEnchant] 20% chance for enemies to drop 5x loot
+		[i:FargowiltasSouls/PlatinumEnchant] 33% chance for enemies to drop 5x loot
 		[i:FargowiltasSouls/GladiatorEnchant] Double tap down to place a banner that buffs you while close
 		[i:FargowiltasSouls/GladiatorEnchant] Spears will rain down on struck enemies
 		[i:FargowiltasSouls/RedRidingEnchant] Successive attacks gain bonus damage 
@@ -1451,6 +1451,7 @@ PureHeart: {
 		[i:FargowiltasSouls/GuttedHeart] Gives 10% increased max life
 		[i:FargowiltasSouls/GelicWings] Allows the wearer to double jump
 		[i:FargowiltasSouls/GelicWings] When you land after a jump, slime spikes shoot out to the sides
+		[i:FargowiltasSouls/GelicWings] Increases wing time by 30%
 		'It pulses with vitality'
 		''' */
 }
@@ -1577,7 +1578,7 @@ SupremeDeathbringerFairy: {
 		[i:FargowiltasSouls/SlimyShield] Increases fall speed and landing spawns slime over your cursor
 		[i:FargowiltasSouls/AgitatingLens] While dashing or running quickly you will create a trail of blood scythes
 		[i:FargowiltasSouls/AgitatingLens] Press the Debuff Install key while holding UP and DOWN to go berserk
-		[i:FargowiltasSouls/QueenStinger] Honey buff increases your armor penetration by 10, and bees and weak hornets become friendlier
+		[i:FargowiltasSouls/QueenStinger] Honey buff increases your armor penetration by 5, and bees and weak hornets become friendlier
 		[i:FargowiltasSouls/QueenStinger] Press the Special Dash key to perform a short quick bee dash
 		[i:FargowiltasSouls/NecromanticBrew] Massively increases dash speed, take less contact damage while dashing, and reflect all damage back to attacker while dashing
 		[i:FargowiltasSouls/NecromanticBrew] Summons 2 Skeletron arms to whack enemies
@@ -3416,5 +3417,9 @@ TogglerIconItem: {
 
 RazorContainer: {
 	// DisplayName: Razor Container
-	// Tooltip: Spawns 2? razor blades that hover around you. Hit them with a melee attack to send them flying dealing extra damage
+	/* Tooltip:
+		'''
+		Spawns a razor blade that hovers around your cursor. Hit it with a melee attack to send it flying dealing extra damage and armor pen
+		'Some yellow fur is still stuck at the bottom' 
+		''' */
 }

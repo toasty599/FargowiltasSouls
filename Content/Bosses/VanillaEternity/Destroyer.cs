@@ -41,6 +41,13 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
         public const int P2_ATTACK_SPACING = 480;
         public const int P2_COIL_BEGIN_TIME = P2_ATTACK_SPACING * 4;
 
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            if (Main.getGoodWorld)
+                cooldownSlot = ImmunityCooldownID.Bosses;
+            return base.CanHitPlayer(npc, target, ref cooldownSlot);
+        }
+
 
         public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
@@ -1084,18 +1091,17 @@ namespace FargowiltasSouls.Content.Bosses.VanillaEternity
 
             //bool isCoiling = Main.npc[EModeGlobalNPC.destroyBoss].GetGlobalNPC<Destroyer>().IsCoiling;
 
-            if (WorldSavingSystem.MasochistModeReal)
+            if (!(WorldSavingSystem.MasochistModeReal && Main.getGoodWorld))
             {
-                //if (isCoiling && npc.localAI[0] > 30) //disable vanilla lasers during coil
-                if (npc.localAI[0] > 30)
-                    npc.localAI[0] -= 30;
+                if (npc.localAI[0] > 30) //disable vanilla lasers unless maso ftw
+                    npc.localAI[0] = -30;
+            }
 
+            if (WorldSavingSystem.MasochistModeReal) //use vanilla movement unless shooting laser
+            {
                 if (!ShootLaser)
                     return result;
             }
-
-            if (npc.localAI[0] > 30)
-                npc.localAI[0] = -30;
 
             if (++OrbitChangeTimer > 120) //choose a direction to orbit in
             {
