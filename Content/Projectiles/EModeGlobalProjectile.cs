@@ -466,11 +466,17 @@ namespace FargowiltasSouls.Content.Projectiles
                             }
                         }
                         break;
+
                     case var _ when SpearRework.ReworkedSpears.Contains(projectile.type):
                         {
                             projectile.damage = (int)(projectile.damage * 1.5f);
                             break;
                         }
+
+                    case ProjectileID.StarCloakStar:
+                        if (!Main.hardMode)
+                            projectile.damage /= 2;
+                        break;
 
                     default:
                         break;

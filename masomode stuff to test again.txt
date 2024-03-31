@@ -133,3 +133,4 @@ fixed adam ench working on snow/frost ench
 added a delay to gfb mutant pillar confuse
 unnerfed mutant from x1.1666 speed to x1.2 speed
 mutant always drops phantasmal energy in maso and up
+star cloak/veil stars do 50% damage phm

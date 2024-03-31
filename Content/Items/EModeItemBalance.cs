@@ -29,6 +29,14 @@ namespace FargowiltasSouls.Content.Items
                     balanceTextKeys = new string[] { "RodofDiscord" };
                     return EModeChange.Nerf;
 
+                case ItemID.StarCloak:
+                case ItemID.StarVeil:
+                    if (!Main.hardMode)
+                    {
+                        balanceTextKeys = new string[] { "StarCloak" };
+                        return EModeChange.Nerf;
+                    }
+                    return EModeChange.None;
 
                 case ItemID.WaterBolt:
                     if (!NPC.downedBoss3)
