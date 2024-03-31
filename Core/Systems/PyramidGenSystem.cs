@@ -10,6 +10,8 @@ using Terraria.WorldBuilding;
 
 namespace FargowiltasSouls.Core.Systems
 {
+    // TODO: 1.7 pyramid gen 
+    /*
     public class PyramidGenSystem : ModSystem
     {
         public override void Load()
@@ -207,4 +209,5 @@ namespace FargowiltasSouls.Core.Systems
             }));
         }
     }
+    */
 }
