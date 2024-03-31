@@ -130,6 +130,6 @@ disabled timestop freezing other players in mp since it doesnt work
 maso mutant timestops you if you rod
 fixed adam ench working on snow/frost ench
 nerfed mutant from x1.2 speed to x1.1666 speed
-nerfed mutant ftw final spark rotation speed
+
 
 added a delay to gfb mutant pillar confuse
