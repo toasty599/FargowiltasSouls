@@ -1848,7 +1848,7 @@ namespace FargowiltasSouls.Content.Bosses.MutantBoss
 
             int pillarAttackDelay = 60;
 
-            if (Main.zenithWorld)
+            if (Main.zenithWorld && NPC.ai[1] > 180)
                 player.confused = true;
 
             if (NPC.ai[2] == 0 && NPC.ai[3] == 0) //target one corner of arena
